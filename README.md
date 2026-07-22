@@ -5,7 +5,7 @@
 1. **Detects & normalizes medical concepts** — mapping natural-language mentions to standard codes (ICD-10 for diseases, RxNorm for medications).
 2. **Performs ontological reasoning** — inferring the contextual relationship between concepts within a passage (negation, family history, past history).
 
-Built for **Viettel AI Race 2026 — Vòng 1**. See [`docs/PRD.htm`](docs/PRD.htm) for the full problem statement.
+Built for **Viettel AI Race 2026 — Vòng 1**. See [`docs/PRD.html`](docs/PRD.html) for the full problem statement.
 
 ## Problem summary
 
@@ -28,7 +28,7 @@ Built for **Viettel AI Race 2026 — Vòng 1**. See [`docs/PRD.htm`](docs/PRD.ht
 ```
 smart-medic/
 ├── docs/
-│   ├── PRD.htm              # Full problem statement / requirements doc
+│   ├── PRD.html             # Full problem statement / requirements doc
 │   ├── reports/             # Write-ups, experiment reports
 │   └── references/          # Background papers (neurosymbolic AI, ontology engineering)
 ├── src/

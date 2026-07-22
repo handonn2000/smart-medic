@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viettel AI Race 2026 — Ontological Reasoning in Medical Knowledge Retrieval</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f302e;
+    --ink-soft:#42605c;
+    --ink-faint:#7c948f;
+    --paper:#eef1ef;
+    --paper-2:#e6ebe8;
+    --surface:#ffffff;
+    --line:#d5ddd9;
+    --line-strong:#bcc9c4;
+    --primary:#0a6b66;
+    --primary-deep:#074946;
+    --primary-tint:#e2efed;
+    --accent:#d97a2b;
+    --accent-tint:#f8ead9;
+
+    /* Entity type colors — functional, color-coded */
+    --tc:#c98a12;   --tc-bg:#fbe9c4;   --tc-line:#e9c477;   /* Triệu chứng */
+    --xn:#1f7f9c;   --xn-bg:#d3ecf3;   --xn-line:#8ecfe0;   /* Tên xét nghiệm */
+    --kq:#6c53b0;   --kq-bg:#e6ddf6;   --kq-line:#c3b1ea;   /* Kết quả xét nghiệm */
+    --cd:#b8443f;   --cd-bg:#f7dcd9;   --cd-line:#eaa9a4;   /* Chẩn đoán */
+    --th:#3f8a4a;   --th-bg:#d7edd6;   --th-line:#a4d4a0;   /* Thuốc */
+
+    --radius:14px;
+    --radius-sm:9px;
+    --shadow:0 1px 2px rgba(15,48,46,.05), 0 8px 26px -12px rgba(15,48,46,.18);
+    --shadow-lg:0 24px 60px -28px rgba(15,48,46,.4);
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --body:'Be Vietnam Pro',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    --display:'Sora','Be Vietnam Pro',system-ui,sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:var(--body);
+    color:var(--ink);
+    background:
+      radial-gradient(120% 90% at 100% -10%, #f4f7f5 0%, transparent 55%),
+      var(--paper);
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    letter-spacing:.1px;
+  }
+  ::selection{background:var(--accent-tint);color:var(--primary-deep)}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(238,241,239,.86);
+    backdrop-filter:saturate(140%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .head-inner{
+    max-width:1120px;margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:12px;margin-right:auto}
+  .brand-mark{
+    width:38px;height:38px;border-radius:10px;
+    background:linear-gradient(135deg,var(--primary) 0%,var(--primary-deep) 100%);
+    display:grid;place-items:center;color:#fff;flex-shrink:0;
+    box-shadow:0 6px 16px -6px rgba(10,107,102,.6);
+  }
+  .brand-mark svg{width:22px;height:22px}
+  .brand-txt b{font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.3px;display:block;line-height:1.1}
+  .brand-txt span{font-size:11.5px;color:var(--ink-faint);letter-spacing:.4px;text-transform:uppercase;font-weight:600}
+
+  .tabs{display:flex;gap:4px;background:var(--paper-2);padding:5px;border-radius:12px;border:1px solid var(--line)}
+  .tab{
+    font-family:var(--display);font-weight:600;font-size:13.5px;
+    border:none;background:transparent;color:var(--ink-soft);
+    padding:9px 16px;border-radius:9px;cursor:pointer;white-space:nowrap;
+    transition:background .18s,color .18s,box-shadow .18s;
+    display:flex;align-items:center;gap:7px;
+  }
+  .tab .n{font-family:var(--mono);font-size:11px;opacity:.6}
+  .tab:hover{color:var(--ink)}
+  .tab.active{background:var(--surface);color:var(--primary-deep);box-shadow:var(--shadow)}
+  .tab.active .n{opacity:1;color:var(--primary)}
+
+  /* ---------- Layout ---------- */
+  main{max-width:1120px;margin:0 auto;padding:0 24px 90px}
+  .panel{display:none;animation:fade .4s ease both}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:46px 0 30px;border-bottom:1px solid var(--line);margin-bottom:34px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);
+    font-size:11.5px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--primary);background:var(--primary-tint);
+    padding:6px 12px;border-radius:100px;margin-bottom:20px;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  h1.title{
+    font-family:var(--display);font-weight:800;letter-spacing:-.5px;
+    font-size:clamp(29px,5.2vw,50px);line-height:1.05;margin:0 0 8px;color:var(--ink);
+  }
+  h1.title .en{color:var(--primary-deep)}
+  .subtitle{font-size:16.5px;color:var(--ink-soft);max-width:760px;margin:14px 0 0}
+  .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;
+    background:var(--surface);border:1px solid var(--line);border-radius:100px;
+    padding:8px 14px;color:var(--ink-soft);
+  }
+  .chip b{color:var(--ink);font-weight:700}
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--primary)}
+
+  /* ---------- Section blocks ---------- */
+  section.block{margin:0 0 40px;scroll-margin-top:100px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
+  .sec-num{
+    font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;
+    background:var(--primary);width:30px;height:30px;border-radius:8px;
+    display:grid;place-items:center;flex-shrink:0;transform:translateY(2px);
+  }
+  h2{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.3px;margin:0;color:var(--ink)}
+  h3{font-family:var(--display);font-weight:700;font-size:16.5px;margin:26px 0 12px;color:var(--primary-deep)}
+  h3 .lead{font-family:var(--mono);color:var(--accent);margin-right:6px;font-size:14px}
+  p{margin:0 0 14px}
+  a{color:var(--primary);text-decoration:none;border-bottom:1px solid var(--line-strong)}
+
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 26px;box-shadow:var(--shadow);margin-bottom:18px;
+  }
+  .card.tight{padding:18px 20px}
+
+  .callout{
+    border-left:3px solid var(--accent);background:var(--accent-tint);
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 18px;margin:16px 0;
+    font-size:14.5px;color:#6e451c;
+  }
+  .callout b{color:#5a3714}
+  .callout.note{border-color:var(--primary);background:var(--primary-tint);color:var(--primary-deep)}
+  .callout.note b{color:var(--primary-deep)}
+
+  ul.clean{list-style:none;padding:0;margin:0 0 16px}
+  ul.clean>li{position:relative;padding:5px 0 5px 24px;color:var(--ink-soft)}
+  ul.clean>li::before{content:"";position:absolute;left:2px;top:14px;width:7px;height:7px;border-radius:2px;background:var(--primary);transform:rotate(45deg)}
+  ul.clean>li b{color:var(--ink)}
+
+  /* ---------- Entity type legend + tags ---------- */
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
+  .etag{
+    font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.3px;
+    padding:5px 10px;border-radius:7px;border:1px solid;white-space:nowrap;
+  }
+  .etag.tc{color:var(--tc);background:var(--tc-bg);border-color:var(--tc-line)}
+  .etag.xn{color:var(--xn);background:var(--xn-bg);border-color:var(--xn-line)}
+  .etag.kq{color:var(--kq);background:var(--kq-bg);border-color:var(--kq-line)}
+  .etag.cd{color:var(--cd);background:var(--cd-bg);border-color:var(--cd-line)}
+  .etag.th{color:var(--th);background:var(--th-bg);border-color:var(--th-line)}
+
+  table.def{width:100%;border-collapse:collapse;font-size:14px;margin:4px 0 8px}
+  table.def th,table.def td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.def th{font-family:var(--display);font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-faint);font-weight:700;background:var(--paper-2)}
+  table.def tr:last-child td{border-bottom:none}
+  table.def code{white-space:nowrap}
+
+  code{font-family:var(--mono);font-size:.86em;background:var(--paper-2);padding:2px 6px;border-radius:5px;color:var(--primary-deep);border:1px solid var(--line)}
+
+  /* ---------- Code / JSON block ---------- */
+  .codebox{
+    background:#0d2b29;border-radius:var(--radius);overflow:hidden;
+    margin:16px 0;border:1px solid #123b38;box-shadow:var(--shadow);
+  }
+  .codebox-bar{
+    display:flex;align-items:center;gap:8px;padding:11px 16px;
+    background:#0a2321;border-bottom:1px solid #163f3c;
+  }
+  .codebox-bar .d{width:11px;height:11px;border-radius:50%;background:#2b524e}
+  .codebox-bar .t{font-family:var(--mono);font-size:11.5px;color:#7fb3ad;margin-left:6px;letter-spacing:.5px}
+  .codebox pre{margin:0;padding:18px 20px;overflow-x:auto;font-family:var(--mono);font-size:12.8px;line-height:1.75;color:#d3e7e4}
+  .codebox .cm{color:#5f857f}
+  .codebox .k{color:#7fd0c8}
+  .codebox .s{color:#e6b06a}
+  .codebox .n{color:#c4a6e8}
+  .codebox .p{color:#8fb0ac}
+
+  /* ---------- Annotated clinical text (signature) ---------- */
+  .anno-wrap{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin:18px 0}
+  .anno-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;background:var(--paper-2);border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .anno-bar .lbl{font-family:var(--display);font-weight:700;font-size:13px;color:var(--primary-deep);display:flex;align-items:center;gap:8px}
+  .anno-bar .lbl svg{width:16px;height:16px}
+  .anno-body{padding:24px 22px;font-size:16px;line-height:2.35}
+  mark.ent{
+    padding:3px 6px;border-radius:6px;cursor:pointer;font-weight:600;
+    border-bottom:2px solid;position:relative;transition:transform .12s,box-shadow .12s;
+    color:var(--ink);
+  }
+  mark.ent:hover,mark.ent.on{transform:translateY(-1px);box-shadow:0 4px 12px -4px rgba(15,48,46,.35)}
+  mark.tc{background:var(--tc-bg);border-color:var(--tc-line)}
+  mark.xn{background:var(--xn-bg);border-color:var(--xn-line)}
+  mark.kq{background:var(--kq-bg);border-color:var(--kq-line)}
+  mark.cd{background:var(--cd-bg);border-color:var(--cd-line)}
+  mark.th{background:var(--th-bg);border-color:var(--th-line)}
+  mark.ent sup{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.3px;opacity:.75;margin-left:1px}
+
+  .anno-detail{border-top:1px dashed var(--line);padding:18px 22px;min-height:96px;background:linear-gradient(180deg,#f9fbfa,#fff)}
+  .anno-detail .empty{color:var(--ink-faint);font-size:14px;display:flex;align-items:center;gap:10px}
+  .anno-detail .empty svg{width:18px;height:18px;opacity:.6}
+  .dcard{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:14px;align-items:baseline}
+  .dcard dt{font-family:var(--display);font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--ink-faint);font-weight:700}
+  .dcard dd{margin:0;color:var(--ink)}
+  .dcard .val-text{font-weight:600}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;margin:2px 4px 2px 0;border:1px solid var(--line-strong);background:var(--paper-2);color:var(--ink-soft)}
+  .pill.code{background:var(--primary-tint);border-color:#bcdedb;color:var(--primary-deep)}
+  .pill.asrt{background:var(--accent-tint);border-color:#e8cfa9;color:#8a531e}
+
+  /* ---------- Pipeline diagram ---------- */
+  .pipe{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:20px 0 8px;counter-reset:step}
+  .pstep{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 15px 15px;box-shadow:var(--shadow)}
+  .pstep::before{counter-increment:step;content:counter(step);position:absolute;top:-11px;left:14px;width:24px;height:24px;border-radius:7px;background:var(--primary);color:#fff;font-family:var(--mono);font-size:12px;font-weight:700;display:grid;place-items:center}
+  .pstep h4{font-family:var(--display);font-size:13.5px;margin:8px 0 5px;color:var(--ink)}
+  .pstep p{font-size:12.5px;color:var(--ink-soft);margin:0}
+  .pstep .ico{width:26px;height:26px;color:var(--primary);margin-bottom:2px}
+
+  /* ---------- Metric formula ---------- */
+  .formula{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 24px;margin:14px 0;font-family:var(--mono);font-size:15px;
+    color:var(--ink);overflow-x:auto;box-shadow:var(--shadow);
+    display:flex;align-items:center;flex-wrap:wrap;gap:4px;
+  }
+  .formula .eq{color:var(--ink-faint)}
+  .frac{display:inline-flex;flex-direction:column;text-align:center;vertical-align:middle;margin:0 4px}
+  .frac .top{border-bottom:1.5px solid var(--ink-soft);padding:0 8px 3px}
+  .frac .bot{padding:4px 8px 0}
+  .sum{font-size:26px;line-height:.7;display:inline-flex;flex-direction:column;align-items:center;margin:0 3px;color:var(--primary)}
+  .sum small{font-size:9px;font-family:var(--mono)}
+  .w{color:var(--accent);font-weight:700}
+
+  .weight-bar{display:flex;height:44px;border-radius:10px;overflow:hidden;margin:16px 0 6px;border:1px solid var(--line);box-shadow:var(--shadow)}
+  .weight-bar div{display:flex;flex-direction:column;justify-content:center;align-items:center;color:#fff;font-family:var(--display);font-weight:700;font-size:12.5px;gap:0}
+  .weight-bar div small{font-family:var(--mono);font-weight:500;font-size:11px;opacity:.85}
+  .wb-1{flex:3;background:var(--primary)}
+  .wb-2{flex:3;background:#3a8f89}
+  .wb-3{flex:4;background:var(--accent)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}}
+
+  /* ---------- Coming soon (tab 3) ---------- */
+  .soon{text-align:center;padding:80px 24px;max-width:620px;margin:40px auto}
+  .soon .badge{width:78px;height:78px;border-radius:20px;background:linear-gradient(135deg,var(--primary),var(--primary-deep));display:grid;place-items:center;margin:0 auto 26px;box-shadow:var(--shadow-lg)}
+  .soon .badge svg{width:38px;height:38px;color:#fff}
+  .soon h2{font-size:27px;margin-bottom:12px}
+  .soon p{color:var(--ink-soft);font-size:15.5px}
+  .roadmap{text-align:left;margin:34px auto 0;max-width:480px;display:grid;gap:10px}
+  .rm-item{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;box-shadow:var(--shadow)}
+  .rm-item .rn{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--primary);background:var(--primary-tint);width:26px;height:26px;border-radius:7px;display:grid;place-items:center;flex-shrink:0}
+  .rm-item b{font-family:var(--display);font-size:14px}
+  .rm-item p{font-size:12.8px;color:var(--ink-soft);margin:2px 0 0}
+
+  footer{border-top:1px solid var(--line);margin-top:20px;padding:22px 24px;text-align:center;color:var(--ink-faint);font-size:12.5px}
+  footer b{color:var(--ink-soft)}
+
+  @media(max-width:640px){
+    .head-inner{padding:12px 16px}
+    main{padding:0 16px 70px}
+    .brand-txt span{display:none}
+    .anno-body{font-size:15px;line-height:2.2}
+    .card{padding:18px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h6l2 3 2-6 2 9h4"/></svg>
+      </div>
+      <div class="brand-txt">
+        <b>Viettel AI Race 2026</b>
+        <span>Ontological Reasoning · Medical NLP</span>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Nội dung">
+      <button class="tab active" data-tab="req"  role="tab"><span class="n">01</span> Yêu cầu đề thi</button>
+      <button class="tab" data-tab="biz"  role="tab"><span class="n">02</span> Giải thích nghiệp vụ</button>
+      <button class="tab" data-tab="app"  role="tab"><span class="n">03</span> Hướng tiếp cận</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ TAB 1 : YÊU CẦU ĐỀ THI ============ -->
+<section class="panel active" id="req" role="tabpanel">
+
+  <div class="hero">
+    <span class="eyebrow">Đề tài · Vòng 1</span>
+    <h1 class="title">Ontological Reasoning<br><span class="en">in Medical Knowledge Retrieval</span></h1>
+    <p class="subtitle">Xây dựng hệ thống AI xử lý văn bản y khoa tự do (ghi chú bác sĩ, giấy xuất viện, kết quả xét nghiệm, hồ sơ EHR) để <b>phát hiện &amp; chuẩn hóa</b> các khái niệm y tế và <b>suy luận ontology</b> về mối liên hệ ngữ cảnh giữa chúng. Đây là bài toán nền tảng cho chuyển đổi số y tế — giúp dữ liệu lâm sàng phi cấu trúc liên thông và khai thác được ở quy mô lớn.</p>
+    <div class="hero-meta">
+      <span class="chip"><span class="dot"></span>100 bản ghi <b>test</b></span>
+      <span class="chip"><span class="dot"></span>Chuẩn <b>ICD-10</b> · bệnh</span>
+      <span class="chip"><span class="dot"></span>Chuẩn <b>RxNorm</b> · thuốc</span>
+      <span class="chip"><span class="dot"></span>Output <b>JSON</b></span>
+      <span class="chip"><span class="dot"></span>Top ~15 nộp <b>source code</b></span>
+    </div>
+  </div>
+
+  <!-- 1. Tổng quan -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Tổng quan</h2></div>
+    <div class="card">
+      <p>Bài toán tập trung vào việc dùng các giải pháp <b>NLP, LLM hoặc kết hợp agents</b> để xây dựng hệ thống AI thực hiện <b>đồng thời</b> hai việc:</p>
+      <ul class="clean">
+        <li><b>Xác định &amp; chuẩn hóa khái niệm y tế chuyên môn</b> (concept normalization) trên dữ liệu văn bản tự do (free-form clinical text).</li>
+        <li><b>Suy luận ontology</b> (Ontological Reasoning) để xác định quan hệ giữa các khái niệm trong một ngữ cảnh nhất định.</li>
+      </ul>
+      <p>Hệ thống được cung cấp cơ sở tri thức y khoa (<b>ICD</b> cho bệnh, <b>RxNorm</b> cho thuốc). Nhiệm vụ gồm: phát hiện khái niệm y tế trong văn bản → xác định loại khái niệm (triệu chứng, xét nghiệm, kết quả, chẩn đoán, thuốc) → ánh xạ sang mã định danh chuẩn → xác định mối liên hệ giữa các khái niệm trong đoạn văn.</p>
+    </div>
+  </section>
+
+  <!-- 2. Bối cảnh -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Bối cảnh</h2></div>
+    <div class="card">
+      <p>Trong y tế, dữ liệu lâm sàng và hồ sơ bệnh án được ghi nhận dưới rất nhiều định dạng và cách diễn đạt khác nhau, tùy cơ sở khám chữa bệnh và thói quen nhập liệu của nhân viên y tế. Để đảm bảo liên thông và khai thác dữ liệu ở quy mô lớn, nhiều bộ chuẩn y khoa đã ra đời như <code>ICD</code>, <code>SNOMED CT</code>, <code>RxNorm</code>, <code>LOINC</code>, <code>UMLS</code>… đóng vai trò như một <b>"ngôn ngữ chung"</b> giữa các bệnh viện, hệ thống bảo hiểm và nền tảng nghiên cứu.</p>
+      <p>Tuy nhiên trên thực tế, phần lớn dữ liệu y khoa vẫn tồn tại dưới dạng <b>văn bản tự do</b>: ghi chú bác sĩ, mô tả triệu chứng, kết luận chẩn đoán, báo cáo cận lâm sàng… với nhiều cách diễn đạt, từ viết tắt, thuật ngữ địa phương, thiếu cấu trúc.</p>
+      <p>Chuẩn hóa các khái niệm y tế từ văn bản tự do vẫn là một thách thức lớn: ánh xạ chính xác giữa ngôn ngữ tự nhiên và khái niệm chuẩn đòi hỏi mô hình phải hiểu ngữ cảnh chuyên môn sâu, xử lý <b>đa nghĩa, đồng nghĩa</b> và các biến thể diễn đạt phức tạp trong tiếng nói lâm sàng. Đây là hướng nghiên cứu và ứng dụng quan trọng, đóng vai trò nền tảng cho chuyển đổi số và phát triển AI trong chăm sóc sức khỏe.</p>
+    </div>
+  </section>
+
+  <!-- 3. Mô tả bài toán -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Mô tả bài toán</h2></div>
+
+    <h3><span class="lead">3.1</span>Input</h3>
+    <div class="card">
+      <ul class="clean">
+        <li>Một đoạn <b>văn bản y khoa dạng tự do</b> (free-form text): kết quả khám lâm sàng, giấy xuất viện, ghi chú bác sĩ, kết quả chẩn đoán hình ảnh, kết quả xét nghiệm, hồ sơ EHR…</li>
+        <li>Dữ liệu chứa: thuật ngữ y khoa, viết tắt, thông tin bệnh nhân và <b>nhiều loại khái niệm y tế</b> xuất hiện đồng thời trong cùng một văn bản.</li>
+      </ul>
+      <div class="callout"><b>Ví dụ input:</b> "Bệnh nhân bị bệnh 1 tuần nay, ho đờm xanh, tức ngực, đau thượng vị, ợ hơi, được chẩn đoán mắc bệnh trào ngược dạ dày – thực quản."</div>
+    </div>
+
+    <h3><span class="lead">3.2</span>Output</h3>
+    <div class="card">
+      <p>Output là danh sách các khái niệm y tế được phát hiện. Mỗi khái niệm là một <b>dictionary</b> gồm các trường:</p>
+      <table class="def">
+        <thead><tr><th>Trường</th><th>Ý nghĩa</th></tr></thead>
+        <tbody>
+          <tr><td><code>text</code></td><td>Cụm từ trong input mà hệ thống xác định là một khái niệm y tế.</td></tr>
+          <tr><td><code>position</code></td><td>List 2 phần tử số <code>[start, end]</code> — vị trí bắt đầu &amp; kết thúc của cụm từ trong input (vị trí tính từ <code>0</code> đến <code>n-1</code>, <code>n</code> là độ dài văn bản theo ký tự).</td></tr>
+          <tr><td><code>type</code></td><td>Loại khái niệm — 1 trong 5 nhãn (xem bên dưới).</td></tr>
+          <tr><td><code>assertions</code></td><td>Mối liên hệ ngữ cảnh của khái niệm (chỉ áp dụng cho <code>CHẨN_ĐOÁN</code>, <code>THUỐC</code>, <code>TRIỆU_CHỨNG</code>). List tối đa 3 phần tử.</td></tr>
+          <tr><td><code>candidates</code></td><td>Danh sách mã định danh chuẩn dự đoán (chỉ với <code>CHẨN_ĐOÁN</code> và <code>THUỐC</code>): mã ICD cho bệnh, mã RxNorm cho thuốc.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:22px"><span class="lead">›</span>5 loại khái niệm (<code>type</code>)</h3>
+      <div class="legend">
+        <span class="etag tc">TRIỆU_CHỨNG</span>
+        <span class="etag xn">TÊN_XÉT_NGHIỆM</span>
+        <span class="etag kq">KẾT_QUẢ_XÉT_NGHIỆM</span>
+        <span class="etag cd">CHẨN_ĐOÁN</span>
+        <span class="etag th">THUỐC</span>
+      </div>
+      <table class="def" style="margin-top:14px">
+        <tbody>
+          <tr><td><span class="etag tc">TRIỆU_CHỨNG</span></td><td>Tên triệu chứng bệnh nhân mắc phải.</td></tr>
+          <tr><td><span class="etag xn">TÊN_XÉT_NGHIỆM</span></td><td>Tên xét nghiệm bệnh nhân thực hiện.</td></tr>
+          <tr><td><span class="etag kq">KẾT_QUẢ_XÉT_NGHIỆM</span></td><td>Kết quả xét nghiệm — bao gồm giá trị và đơn vị.</td></tr>
+          <tr><td><span class="etag cd">CHẨN_ĐOÁN</span></td><td>Tên chẩn đoán của bác sĩ về bệnh mà bệnh nhân mắc phải.</td></tr>
+          <tr><td><span class="etag th">THUỐC</span></td><td>Tên thuốc mà bệnh nhân điều trị.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:22px"><span class="lead">›</span>3 loại assertion (ngữ cảnh)</h3>
+      <table class="def">
+        <tbody>
+          <tr><td><span class="pill asrt">isNegated</span></td><td>Khái niệm <b>bị phủ định</b> trong văn bản. VD: "không ho".</td></tr>
+          <tr><td><span class="pill asrt">isFamily</span></td><td>Khái niệm liên quan đến <b>người nhà, họ hàng</b> của bệnh nhân. VD: "bố bệnh nhân xuất hiện trường hợp đau bụng tương tự".</td></tr>
+          <tr><td><span class="pill asrt">isHistorical</span></td><td>Khái niệm liên quan đến <b>tiền sử</b> bệnh nhân. VD: "có tiền sử hen suyễn".</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Signature: annotated example -->
+    <h3><span class="lead">›</span>Ví dụ minh họa — bấm vào từng khái niệm được tô màu</h3>
+    <div class="anno-wrap">
+      <div class="anno-bar">
+        <div class="lbl">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H5.2L4 18V4z"/><path d="M8 9h8M8 12h5"/></svg>
+          Văn bản đầu vào đã chú thích
+        </div>
+        <div class="legend" style="margin:0">
+          <span class="etag tc">Triệu chứng</span><span class="etag xn">Tên XN</span><span class="etag kq">Kết quả</span><span class="etag cd">Chẩn đoán</span><span class="etag th">Thuốc</span>
+        </div>
+      </div>
+      <div class="anno-body" id="annoBody">
+        Bệnh nhân nam 70 tuổi bị bệnh 1 tuần nay,
+        <mark class="ent tc" data-type="TRIỆU_CHỨNG" data-tt="tc" data-text="ho đờm xanh" data-pos="—" data-cand="" data-asrt="">ho đờm xanh<sup>TC</sup></mark>,
+        <mark class="ent tc" data-type="TRIỆU_CHỨNG" data-tt="tc" data-text="tức ngực" data-pos="—" data-cand="" data-asrt="">tức ngực<sup>TC</sup></mark>,
+        <mark class="ent tc" data-type="TRIỆU_CHỨNG" data-tt="tc" data-text="đau thượng vị" data-pos="—" data-cand="" data-asrt="">đau thượng vị<sup>TC</sup></mark>,
+        <mark class="ent tc" data-type="TRIỆU_CHỨNG" data-tt="tc" data-text="ợ hơi" data-pos="—" data-cand="" data-asrt="">ợ hơi<sup>TC</sup></mark>,
+        được chẩn đoán mắc
+        <mark class="ent cd" data-type="CHẨN_ĐOÁN" data-tt="cd" data-text="bệnh trào ngược dạ dày - thực quản" data-pos="—" data-cand="K21.0|K21.9" data-asrt="">bệnh trào ngược dạ dày – thực quản<sup>CĐ</sup></mark>.
+        Bệnh nhân có tiền sử sử dụng
+        <mark class="ent th" data-type="THUỐC" data-tt="th" data-text="Chlorpheniramine 0.4 MG/ML" data-pos="—" data-cand="RxNorm 360047" data-asrt="isHistorical">Chlorpheniramine 0.4 MG/ML<sup>T</sup></mark>,
+        <mark class="ent th" data-type="THUỐC" data-tt="th" data-text="Capsaicin 0.38 MG/ML" data-pos="—" data-cand="RxNorm 1660761" data-asrt="isHistorical">Capsaicin 0.38 MG/ML<sup>T</sup></mark>,
+        đã tiến hành tổng phân tích tế bào máu bằng máy lazer (tbm):
+        <mark class="ent xn" data-type="TÊN_XÉT_NGHIỆM" data-tt="xn" data-text="WBC" data-pos="—" data-cand="" data-asrt="">WBC<sup>XN</sup></mark>:<mark class="ent kq" data-type="KẾT_QUẢ_XÉT_NGHIỆM" data-tt="kq" data-text="14,43" data-pos="—" data-cand="" data-asrt="">14,43<sup>KQ</sup></mark>;
+        <mark class="ent xn" data-type="TÊN_XÉT_NGHIỆM" data-tt="xn" data-text="NEUT% (Tỷ lệ % bạch cầu trung tính)" data-pos="—" data-cand="" data-asrt="">NEUT% (Tỷ lệ % bạch cầu trung tính)<sup>XN</sup></mark>:<mark class="ent kq" data-type="KẾT_QUẢ_XÉT_NGHIỆM" data-tt="kq" data-text="76,4" data-pos="—" data-cand="" data-asrt="">76,4<sup>KQ</sup></mark>;
+        <mark class="ent xn" data-type="TÊN_XÉT_NGHIỆM" data-tt="xn" data-text="LYPH% (Tỷ lệ bạch cầu lympho)" data-pos="—" data-cand="" data-asrt="">LYPH% (Tỷ lệ bạch cầu lympho)<sup>XN</sup></mark>:<mark class="ent kq" data-type="KẾT_QUẢ_XÉT_NGHIỆM" data-tt="kq" data-text="12,8" data-pos="—" data-cand="" data-asrt="">12,8<sup>KQ</sup></mark>;
+      </div>
+      <div class="anno-detail" id="annoDetail">
+        <div class="empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v.5M11 12h1v4h1"/></svg>
+          Bấm/di chuột vào một cụm được tô màu để xem <b>type</b>, <b>candidates</b> và <b>assertions</b> của khái niệm đó.
+        </div>
+      </div>
+    </div>
+    <div class="callout note"><b>Lưu ý:</b> Các giá trị liên quan đến thông tin cá nhân (tên, tuổi, địa chỉ, số điện thoại) trong đề đều là dữ liệu <b>synthetic</b> — không phải thông tin người thật.</div>
+  </section>
+
+  <!-- 4. Dữ liệu -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Dữ liệu bài toán</h2></div>
+    <div class="card">
+      <ul class="clean">
+        <li>Về CSDL chuẩn y tế cho candidate mapping: dùng <b>ICD-10</b> cho các loại bệnh và <b>RxNorm</b> cho các loại thuốc.</li>
+        <li><b>Tập test:</b> 100 bản ghi, cung cấp dưới dạng file <code>test.zip</code>. Trong file zip là 1 folder <code>input/</code> chỉ chứa các file <code>.txt</code>.</li>
+        <li>Mỗi file <code>.txt</code> là văn bản free-form làm input, và <b>luôn chứa nhiều hơn 1 khái niệm</b>.</li>
+        <li>Với mỗi file <code>.txt</code>, thí sinh trả về 1 file <code>.json</code> tương ứng — mỗi file là 1 list các dictionary khái niệm.</li>
+        <li>Thí sinh <b>được phép</b> dùng các giải pháp / nguồn dữ liệu bên ngoài để tạo thêm dữ liệu huấn luyện mô hình.</li>
+      </ul>
+      <div class="codebox">
+        <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">test.zip — cấu trúc</span></div>
+<pre><span class="k">test/</span>
+└── <span class="k">input/</span>
+    ├── 1.txt      <span class="cm"># Văn bản đầu vào của bản ghi 1</span>
+    ├── 2.txt      <span class="cm"># Văn bản đầu vào của bản ghi 2</span>
+    ├── …
+    └── 100.txt</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Thể thức & Quy định -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">5</span><h2>Thể thức &amp; Quy định</h2></div>
+    <div class="card">
+      <h3 style="margin-top:4px"><span class="lead">›</span>Nộp bài vòng 1</h3>
+      <p>Thí sinh nộp kết quả dự đoán dưới dạng file JSON đúng format do BTC quy định. File nộp là <code>output.zip</code> có cấu trúc:</p>
+      <div class="codebox">
+        <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">output.zip — cấu trúc nộp bài</span></div>
+<pre><span class="k">output/</span>
+├── 1.json        <span class="cm"># Nhãn của bản ghi 1</span>
+├── 2.json        <span class="cm"># Nhãn của bản ghi 2</span>
+├── …
+└── 100.json</pre>
+      </div>
+
+      <h3><span class="lead">›</span>Yêu cầu source code</h3>
+      <ul class="clean">
+        <li>Trước khi vòng 1 kết thúc, BTC yêu cầu <b>top ~15 đội</b> gửi source code riêng để chạy lại và đánh giá trên tập <b>private test</b> — nhằm tránh tình trạng "hard-code" output theo input được cung cấp.</li>
+        <li>Source code phải bao gồm: tất cả file code (data processing, training, inference…), dữ liệu nhóm sử dụng, model weights, và <b>1 file readme</b> hướng dẫn cài đặt.</li>
+        <li>Nếu BTC <b>không cài đặt lại được</b> source code của nhóm → nhóm thi sẽ <b>bị loại</b>.</li>
+      </ul>
+    </div>
+
+    <!-- VD input/output vòng 1 -->
+    <h3><span class="lead">›</span>Ví dụ input – output vòng 1</h3>
+    <div class="callout"><b>Input:</b> "Danh sách thuốc trước nhập viện chính xác và đầy đủ. 1. amlodipine 10 mg po daily 2. aspirin 81 mg po daily 3. metoprolol succinate xl 50 mg po daily 4. guaifenesin ml po q6h:prn điều trị ho 5. nystatin oral suspension 5 ml po qid:prn điều trị nấm 6. acetaminophen 325-650 mg po q6h:prn điều trị sốt đau 7. pravastatin 40 mg po daily 8. docusate sodium 100 mg po bid điều trị táo bón 9. senna 8.6 mg po bid:prn điều trị táo bón 10. clonazepam 0.5 mg po qam:prn điều trị lo âu 11. clonazepam 1.5 mg po qhs điều trị âu mất ngủ"</div>
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">output — 1.json (trích)</span></div>
+<pre>[
+  {
+    <span class="k">"text"</span>: <span class="s">"amlodipine 10 mg po daily"</span>,
+    <span class="k">"type"</span>: <span class="s">"THUỐC"</span>,
+    <span class="k">"candidates"</span>: [<span class="s">"308135"</span>],
+    <span class="k">"assertions"</span>: [<span class="s">"isHistorical"</span>],
+    <span class="k">"position"</span>: [<span class="n">58</span>, <span class="n">83</span>]
+  },
+  {
+    <span class="k">"text"</span>: <span class="s">"aspirin 81 mg po daily"</span>,
+    <span class="k">"type"</span>: <span class="s">"THUỐC"</span>,
+    <span class="k">"candidates"</span>: [<span class="s">"243670"</span>],
+    <span class="k">"assertions"</span>: [<span class="s">"isHistorical"</span>],
+    <span class="k">"position"</span>: [<span class="n">89</span>, <span class="n">111</span>]
+  },
+  {
+    <span class="k">"text"</span>: <span class="s">"metoprolol succinate xl 50 mg po daily"</span>,
+    <span class="k">"type"</span>: <span class="s">"THUỐC"</span>,
+    <span class="k">"candidates"</span>: [<span class="s">"866436"</span>],
+    <span class="k">"assertions"</span>: [<span class="s">"isHistorical"</span>],
+    <span class="k">"position"</span>: [<span class="n">117</span>, <span class="n">155</span>]
+  },
+  {
+    <span class="k">"text"</span>: <span class="s">"ho"</span>,
+    <span class="k">"type"</span>: <span class="s">"TRIỆU_CHỨNG"</span>,
+    <span class="k">"candidates"</span>: [],
+    <span class="k">"assertions"</span>: [],
+    <span class="k">"position"</span>: [<span class="n">196</span>, <span class="n">198</span>]
+  },
+  <span class="cm">/* … 14 khái niệm còn lại (thuốc &amp; triệu chứng) … */</span>
+  {
+    <span class="k">"text"</span>: <span class="s">"clonazepam 1.5 mg po qhs"</span>,
+    <span class="k">"type"</span>: <span class="s">"THUỐC"</span>,
+    <span class="k">"candidates"</span>: [<span class="s">"197528"</span>],
+    <span class="k">"assertions"</span>: [<span class="s">"isHistorical"</span>],
+    <span class="k">"position"</span>: [<span class="n">507</span>, <span class="n">531</span>]
+  },
+  {
+    <span class="k">"text"</span>: <span class="s">"mất ngủ"</span>,
+    <span class="k">"type"</span>: <span class="s">"TRIỆU_CHỨNG"</span>,
+    <span class="k">"candidates"</span>: [],
+    <span class="k">"assertions"</span>: [],
+    <span class="k">"position"</span>: [<span class="n">547</span>, <span class="n">554</span>]
+  }
+]</pre>
+    </div>
+    <div class="callout note"><b>Nhận xét:</b> mỗi mục thuốc kê từ tiền sử được gắn <span class="pill asrt">isHistorical</span>; triệu chứng (ho, mất ngủ, táo bón, lo âu…) có <code>candidates</code> và <code>assertions</code> rỗng vì chúng không được ánh xạ mã chuẩn.</div>
+  </section>
+
+  <!-- 6. Metric -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">6</span><h2>Metric đánh giá</h2></div>
+    <div class="card">
+      <p>Kết quả của thí sinh được tính trên tập test theo 3 thành phần điểm:</p>
+      <ul class="clean">
+        <li><b>text_score</b> — xác định tên khái niệm: dùng <b>Word Error Rate (WER)</b> trên trường <code>text</code>.</li>
+        <li><b>assertions_score</b> — xác định các assertions: dùng <b>độ tương đồng Jaccard</b> (Jaccard similarity) cho bệnh, thuốc &amp; triệu chứng, lấy trung bình.</li>
+        <li><b>candidates_score</b> — xác định các candidates: dùng metric tương tự (độ tương đồng Jaccard) trên tập mã dự đoán.</li>
+      </ul>
+
+      <div class="weight-bar" aria-hidden="true">
+        <div class="wb-1">text<small>0.3</small></div>
+        <div class="wb-2">assertions<small>0.3</small></div>
+        <div class="wb-3">candidates<small>0.4</small></div>
+      </div>
+
+      <div class="formula">
+        <span>final_score</span><span class="eq">=</span>
+        <span class="w">0.3</span>·text_score<span class="eq">+</span>
+        <span class="w">0.3</span>·assertions_score<span class="eq">+</span>
+        <span class="w">0.4</span>·candidates_score
+      </div>
+
+      <div class="grid2">
+        <div class="formula" style="margin:0">
+          <span>text_score</span><span class="eq">=</span>
+          <span class="frac"><span class="top"><span class="sum">Σ<small>i∈test</small></span> (1 − WER(i))</span><span class="bot">len(test)</span></span>
+        </div>
+        <div class="formula" style="margin:0">
+          <span>assertions_score</span><span class="eq">=</span>
+          <span class="frac"><span class="top"><span class="sum">Σ<small>i∈test</small></span> J<sub>assertions</sub>(i)</span><span class="bot">len(test)</span></span>
+        </div>
+      </div>
+
+      <div class="formula" style="margin-top:16px;font-size:14px">
+        <span>candidates_score</span><span class="eq">=</span>
+        <span class="sum">Σ<small>i∈test</small></span>
+        <span class="frac">
+          <span class="top"><span class="sum" style="font-size:20px">Σ<small>k∈c<sub>i</sub></small></span> J<sub>X</sub>(i) · |gt(k) ∩ pred(k)|</span>
+          <span class="bot"><span class="sum" style="font-size:20px">Σ<small>k∈c<sub>i</sub></small></span> ( len(gt(k)) + 1 )</span>
+        </span>
+      </div>
+
+      <table class="def" style="margin-top:6px">
+        <tbody>
+          <tr><td><code>WER(i)</code></td><td>Word Error Rate của trường <code>text</code> ở sample <code>i</code>.</td></tr>
+          <tr><td><code>gt(k)</code>, <code>pred(k)</code></td><td>Tập ground-truth và tập prediction của candidate <code>k</code> trong sample <code>i</code>.</td></tr>
+          <tr><td><code>J<sub>X</sub>(i)</code></td><td>Độ tương đồng Jaccard của trường output <code>X</code> ở sample <code>i</code>.</td></tr>
+          <tr><td><code>J<sub>X</sub>(i) = 1</code></td><td>Quy ước khi <code>len(gt<sub>X</sub>(i)) = 0</code> và <code>len(pred<sub>X</sub>(i)) = 0</code> (cả hai đều rỗng).</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><b>Lưu ý transcription:</b> công thức <code>candidates_score</code> được trích lại từ ảnh đề bài; phần tổng hợp/chuẩn hóa chi tiết nên đối chiếu lại với công bố chính thức của BTC trước khi tối ưu theo metric.</div>
+    </div>
+  </section>
+</section>
+
+<!-- ============ TAB 2 : GIẢI THÍCH NGHIỆP VỤ ============ -->
+<section class="panel" id="biz" role="tabpanel">
+
+  <div class="hero">
+    <span class="eyebrow">Diễn giải cho người mới</span>
+    <h1 class="title">Đề bài đang muốn gì,<br><span class="en">nói bằng ngôn ngữ đời thường</span></h1>
+    <p class="subtitle">Về bản chất, đây là bài toán biến <b>một đoạn ghi chú y khoa lộn xộn</b> thành <b>dữ liệu có cấu trúc, gắn mã chuẩn quốc tế</b> để máy tính đọc hiểu và liên thông được. Phần này giải thích các thuật ngữ và nghiệp vụ đằng sau đề bài.</p>
+  </div>
+
+  <!-- Câu chuyện nghiệp vụ -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">A</span><h2>Nghiệp vụ ở đây là gì?</h2></div>
+    <div class="card">
+      <p>Hãy tưởng tượng một bệnh viện có hàng triệu ghi chú như: <i>"BN ho đờm xanh, tức ngực, chẩn đoán GERD, tiền sử dùng Chlorpheniramine…"</i>. Mỗi bác sĩ viết một kiểu, đầy từ viết tắt và tiếng địa phương. Máy tính <b>không thể</b> thống kê, tra cứu bảo hiểm, hay nghiên cứu dịch tễ trên mớ chữ tự do này.</p>
+      <p>Bài toán yêu cầu xây một "cỗ máy đọc hiểu" làm 4 việc, với mỗi đoạn văn bản:</p>
+      <div class="pipe">
+        <div class="pstep">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h10M4 12h7M4 17h12"/><circle cx="18" cy="8" r="2.5"/></svg>
+          <h4>Phát hiện (NER)</h4>
+          <p>Tìm ra các cụm từ nào là khái niệm y tế trong văn bản (và vị trí <code>[start,end]</code>).</p>
+        </div>
+        <div class="pstep">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="8.5" y="14" width="7" height="7" rx="1.5"/></svg>
+          <h4>Phân loại</h4>
+          <p>Gán mỗi cụm vào 1 trong 5 loại: triệu chứng, tên XN, kết quả XN, chẩn đoán, thuốc.</p>
+        </div>
+        <div class="pstep">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v6M12 15v6M5 12h14"/><circle cx="12" cy="12" r="2.4"/></svg>
+          <h4>Suy luận ngữ cảnh</h4>
+          <p>Xác định assertion: khái niệm bị <b>phủ định</b>? của <b>người nhà</b>? thuộc <b>tiền sử</b>?</p>
+        </div>
+        <div class="pstep">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 6h9M8 12h9M8 18h9"/><path d="M3.5 6l1 1 1.5-2M3.5 12l1 1 1.5-2M3.5 18l1 1 1.5-2"/></svg>
+          <h4>Chuẩn hóa (mapping)</h4>
+          <p>Ánh xạ bệnh → mã <b>ICD-10</b>, thuốc → mã <b>RxNorm</b> làm định danh chuẩn.</p>
+        </div>
+      </div>
+      <p style="margin-top:18px">Kết quả: mỗi ghi chú thành một bảng JSON gọn gàng, gắn mã chuẩn → có thể tổng hợp, tra cứu, nghiên cứu ở quy mô hàng triệu bản ghi. Đó chính là "chuyển đổi số" y tế.</p>
+    </div>
+  </section>
+
+  <!-- Từ điển thuật ngữ -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">B</span><h2>Giải thích thuật ngữ</h2></div>
+
+    <div class="grid2">
+      <div class="card tight">
+        <h3 style="margin-top:2px"><span class="lead">›</span>ICD-10</h3>
+        <p style="font-size:14px"><b>International Classification of Diseases, bản thứ 10</b> — bộ mã phân loại bệnh tật do <b>Tổ chức Y tế Thế giới (WHO)</b> ban hành. Mỗi bệnh có một mã chữ–số.</p>
+        <p style="font-size:13px;margin:0;color:var(--ink-faint)">VD: <code>K21.0</code> = trào ngược dạ dày–thực quản <b>có</b> viêm thực quản; <code>K21.9</code> = <b>không kèm</b> viêm thực quản.</p>
+      </div>
+      <div class="card tight">
+        <h3 style="margin-top:2px"><span class="lead">›</span>RxNorm</h3>
+        <p style="font-size:14px">Hệ thống <b>chuẩn hóa tên thuốc</b> do Thư viện Y khoa Quốc gia Hoa Kỳ (NLM/NIH) duy trì. Gộp mọi cách gọi (biệt dược, hoạt chất, hàm lượng) về một mã số chung.</p>
+        <p style="font-size:13px;margin:0;color:var(--ink-faint)">VD: <code>360047</code> ↔ Chlorpheniramine 0.4 MG/ML; <code>1660761</code> ↔ Capsaicin 0.38 MG/ML.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:2px"><span class="lead">›</span>Các bộ chuẩn khác được nhắc tới</h3>
+      <table class="def">
+        <tbody>
+          <tr><td><b>SNOMED CT</b></td><td>Bộ thuật ngữ lâm sàng lớn &amp; chi tiết nhất, mô tả bệnh, triệu chứng, thủ thuật, cấu trúc cơ thể… theo dạng ontology có quan hệ.</td></tr>
+          <tr><td><b>LOINC</b></td><td>Chuẩn định danh cho <b>xét nghiệm</b> và quan sát lâm sàng (loại xét nghiệm, chỉ số, đơn vị).</td></tr>
+          <tr><td><b>UMLS</b></td><td>"Siêu từ điển" của NLM hợp nhất nhiều bộ chuẩn (ICD, SNOMED, RxNorm, LOINC…) qua khái niệm chung (CUI).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:2px"><span class="lead">›</span>Khái niệm kỹ thuật cốt lõi</h3>
+      <table class="def">
+        <tbody>
+          <tr><td><b>NER</b><br><span style="font-size:12px;color:var(--ink-faint)">Named Entity Recognition</span></td><td>Nhận diện thực thể có tên — tìm và khoanh vùng các cụm từ là "khái niệm" (bệnh, thuốc, triệu chứng…) trong văn bản.</td></tr>
+          <tr><td><b>Concept<br>Normalization</b></td><td>Ánh xạ cụm từ ngôn ngữ tự nhiên về một khái niệm chuẩn có mã định danh. "Đây là dạ dày trào ngược" → mã ICD <code>K21.x</code>.</td></tr>
+          <tr><td><b>Ontological<br>Reasoning</b></td><td>Suy luận dựa trên ontology (mạng khái niệm có quan hệ) — hiểu ngữ cảnh: khái niệm này bị phủ định, thuộc tiền sử, hay của người nhà; và quan hệ giữa các khái niệm với nhau.</td></tr>
+          <tr><td><b>Assertion</b></td><td>"Tình trạng khẳng định" của một thực thể trong ngữ cảnh. Cùng chữ "ho" nhưng "không ho" (phủ định) khác hoàn toàn "đang ho".</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Tại sao assertion lại quan trọng -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">C</span><h2>Vì sao assertion &amp; ngữ cảnh lại khó?</h2></div>
+    <div class="card">
+      <p>Cùng một khái niệm, ý nghĩa lâm sàng đảo ngược tùy ngữ cảnh. Mô hình phải "đọc hiểu" chứ không chỉ dò từ khóa:</p>
+      <table class="def">
+        <thead><tr><th>Câu</th><th>Khái niệm</th><th>Assertion đúng</th></tr></thead>
+        <tbody>
+          <tr><td>"Bệnh nhân <b>không</b> ho, <b>không</b> sốt"</td><td>ho, sốt</td><td><span class="pill asrt">isNegated</span> — không được tính là triệu chứng hiện có.</td></tr>
+          <tr><td>"<b>Bố</b> bệnh nhân có tiền sử đau bụng tương tự"</td><td>đau bụng</td><td><span class="pill asrt">isFamily</span> — là của người nhà, không phải BN.</td></tr>
+          <tr><td>"<b>Tiền sử</b> hen suyễn, đang dùng…"</td><td>hen suyễn</td><td><span class="pill asrt">isHistorical</span> — bệnh cũ, không phải đợt cấp hiện tại.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">Nếu bỏ qua ngữ cảnh, hệ thống sẽ báo bệnh nhân "đang ho, đang sốt, đang đau bụng" — sai hoàn toàn về mặt lâm sàng. Đây là lý do đề bài gọi tên <b>"Ontological Reasoning"</b>.</div>
+    </div>
+  </section>
+
+  <!-- Cách chấm điểm hiểu đơn giản -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">D</span><h2>Hai thước đo chấm điểm, hiểu đơn giản</h2></div>
+    <div class="grid2">
+      <div class="card">
+        <h3 style="margin-top:2px"><span class="lead">›</span>WER — Word Error Rate</h3>
+        <p style="font-size:14px">Đo mức độ <b>sai lệch chuỗi từ</b> giữa <code>text</code> dự đoán và đáp án, tính theo số từ phải <b>thêm / bớt / thay</b> để khớp, chia cho tổng số từ đáp án. WER càng thấp càng tốt → điểm dùng <code>1 − WER</code>.</p>
+        <div class="callout note" style="font-size:13.5px">Dự đoán "ho đờm" trong khi đáp án là "ho đờm xanh" → thiếu 1 từ → WER = 1/3 ≈ 0.33 → điểm text ≈ 0.67.</div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:2px"><span class="lead">›</span>Jaccard Similarity</h3>
+        <p style="font-size:14px">So sánh hai <b>tập hợp</b> (tập assertions, hoặc tập mã candidates): lấy <b>phần giao chia phần hợp</b>. Bằng 1 nếu trùng khớp hoàn toàn, 0 nếu không có phần tử chung.</p>
+        <div class="formula" style="margin:10px 0 0;font-size:14px">J(A,B)<span class="eq">=</span><span class="frac"><span class="top">|A ∩ B|</span><span class="bot">|A ∪ B|</span></span></div>
+        <p style="font-size:13px;margin:10px 0 0;color:var(--ink-faint)">Dự đoán mã <code>{K21.0}</code>, đáp án <code>{K21.0, K21.9}</code> → J = 1/2 = 0.5.</p>
+      </div>
+    </div>
+    <div class="callout"><b>Trọng số cuối cùng:</b> điểm ưu tiên cao nhất cho <b>candidates</b> (0.4) — tức việc <b>ánh xạ đúng mã chuẩn ICD/RxNorm</b> mới là phần "khó và giá trị" nhất của bài toán; <code>text</code> và <code>assertions</code> mỗi phần 0.3.</div>
+  </section>
+</section>
+
+<!-- ============ TAB 3 : HƯỚNG TIẾP CẬN ============ -->
+<section class="panel" id="app" role="tabpanel">
+  <div class="soon">
+    <div class="badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.9H21l-5.3 4.1 2 6.9L12 16l-5.7 3.9 2-6.9L3 8.9h6.6z"/></svg>
+    </div>
+    <h2>Hướng tiếp cận — đang cập nhật</h2>
+    <p>Phần này sẽ được bổ sung trong tương lai: phân tích chiến lược mô hình hóa, pipeline đề xuất, cách sinh dữ liệu huấn luyện và tối ưu theo metric.</p>
+    <div class="roadmap">
+      <div class="rm-item"><span class="rn">1</span><div><b>Kiến trúc pipeline</b><p>NER → phân loại type → assertion detection → entity linking (ICD/RxNorm).</p></div></div>
+      <div class="rm-item"><span class="rn">2</span><div><b>Chiến lược dữ liệu</b><p>Sinh &amp; gán nhãn dữ liệu tổng hợp; khai thác UMLS/RxNorm/ICD làm nguồn tri thức.</p></div></div>
+      <div class="rm-item"><span class="rn">3</span><div><b>Tối ưu theo metric</b><p>Cân bằng WER (text) &amp; Jaccard (assertions/candidates) theo trọng số 0.3/0.3/0.4.</p></div></div>
+      <div class="rm-item"><span class="rn">4</span><div><b>Đóng gói &amp; reproducibility</b><p>Chuẩn bị source code, model weights, readme để BTC chạy lại trên private test.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Bảng tổng hợp yêu cầu đề thi · <b>Viettel AI Race 2026</b> — "Ontological Reasoning in Medical Knowledge Retrieval".<br>
+  Nội dung trích xuất từ đề bài chính thức của BTC (Viettel · AI RACE). Tài liệu tham khảo, không thay thế công bố chính thức.
+</footer>
+
+<script>
+(function(){
+  // ---- Tabs ----
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.panel');
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){x.classList.remove('active');x.setAttribute('aria-selected','false');});
+      panels.forEach(function(p){p.classList.remove('active');});
+      t.classList.add('active');t.setAttribute('aria-selected','true');
+      document.getElementById(t.dataset.tab).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  // ---- Annotated entity detail ----
+  var typeMap = {
+    'TRIỆU_CHỨNG':'tc','TÊN_XÉT_NGHIỆM':'xn','KẾT_QUẢ_XÉT_NGHIỆM':'kq','CHẨN_ĐOÁN':'cd','THUỐC':'th'
+  };
+  var typeLabel = {
+    'TRIỆU_CHỨNG':'Triệu chứng','TÊN_XÉT_NGHIỆM':'Tên xét nghiệm','KẾT_QUẢ_XÉT_NGHIỆM':'Kết quả xét nghiệm','CHẨN_ĐOÁN':'Chẩn đoán','THUỐC':'Thuốc'
+  };
+  var detail = document.getElementById('annoDetail');
+  var marks = document.querySelectorAll('#annoBody .ent');
+  var emptyHTML = detail.innerHTML;
+
+  function render(m){
+    marks.forEach(function(x){x.classList.remove('on');});
+    m.classList.add('on');
+    var type = m.dataset.type;
+    var tt = m.dataset.tt;
+    var cand = (m.dataset.cand||'').split('|').filter(Boolean);
+    var asrt = (m.dataset.asrt||'').split('|').filter(Boolean);
+
+    var candHTML = cand.length
+      ? cand.map(function(c){return '<span class="pill code">'+c+'</span>';}).join('')
+      : '<span style="color:var(--ink-faint);font-size:13px">— (không ánh xạ mã cho loại này)</span>';
+    var asrtHTML = asrt.length
+      ? asrt.map(function(a){return '<span class="pill asrt">'+a+'</span>';}).join('')
+      : '<span style="color:var(--ink-faint);font-size:13px">— (không có)</span>';
+
+    detail.innerHTML =
+      '<dl class="dcard">'+
+        '<dt>text</dt><dd class="val-text">"'+m.dataset.text+'"</dd>'+
+        '<dt>type</dt><dd><span class="etag '+tt+'">'+type+'</span> <span style="color:var(--ink-faint);font-size:13px">— '+typeLabel[type]+'</span></dd>'+
+        '<dt>candidates</dt><dd>'+candHTML+'</dd>'+
+        '<dt>assertions</dt><dd>'+asrtHTML+'</dd>'+
+      '</dl>';
+  }
+  marks.forEach(function(m){
+    m.addEventListener('click', function(){render(m);});
+    m.addEventListener('mouseenter', function(){render(m);});
+  });
+})();
+</script>
+</body>
+</html>

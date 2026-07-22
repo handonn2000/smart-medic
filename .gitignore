@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model artifacts (large binaries — track via git-lfs or release assets if needed)
+models/*.bin
+models/*.pt
+models/*.safetensors
+models/*.onnx
+!models/.gitkeep
+
+# Generated predictions
+data/output/*.json
+!data/output/.gitkeep
+
+# Environment / secrets
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

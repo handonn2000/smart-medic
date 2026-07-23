@@ -276,6 +276,53 @@
     .anno-body{font-size:15px;line-height:2.2}
     .card{padding:18px}
   }
+  /* ---------- Approach tab (tab 3) ---------- */
+  .prio{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0}
+  @media(max-width:720px){.prio{grid-template-columns:1fr}}
+  .prio .pcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px 18px;box-shadow:var(--shadow);border-top:3px solid var(--primary)}
+  .prio .pcard.hot{border-top-color:var(--accent)}
+  .prio .pcard .pv{font-family:var(--display);font-weight:800;font-size:30px;color:var(--primary);line-height:1}
+  .prio .pcard.hot .pv{color:var(--accent)}
+  .prio .pcard .pk{font-family:var(--mono);font-size:11px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.5px;margin-top:8px}
+  .prio .pcard .pl{font-size:12.8px;color:var(--ink-soft);margin-top:4px}
+
+  /* accordion */
+  .acc{display:grid;gap:10px;margin:16px 0}
+  .acc-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow);overflow:hidden}
+  .acc-head{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:15px 18px;font-family:var(--display);font-weight:700;font-size:14.5px;color:var(--ink)}
+  .acc-head .rn{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--primary);background:var(--primary-tint);width:26px;height:26px;border-radius:7px;display:grid;place-items:center;flex-shrink:0}
+  .acc-head .chev{margin-left:auto;transition:transform .2s;color:var(--ink-faint);width:18px;height:18px;flex-shrink:0}
+  .acc-item.open .chev{transform:rotate(90deg)}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .acc-item.open .acc-body{max-height:400px}
+  .acc-body-inner{padding:0 18px 16px 54px;font-size:13.8px;color:var(--ink-soft)}
+  .acc-body-inner b{color:var(--ink)}
+
+  /* trap checklist */
+  .traps{display:grid;gap:8px;margin:14px 0}
+  .trap{display:flex;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 15px;cursor:pointer;box-shadow:var(--shadow);transition:opacity .18s;text-align:left;width:100%;font:inherit;color:inherit}
+  .trap .box{width:20px;height:20px;border-radius:6px;border:2px solid var(--line-strong);flex-shrink:0;display:grid;place-items:center;margin-top:1px;transition:background .18s,border-color .18s}
+  .trap .box svg{width:13px;height:13px;color:#fff;opacity:0;transition:opacity .18s}
+  .trap.done .box{background:var(--primary);border-color:var(--primary)}
+  .trap.done .box svg{opacity:1}
+  .trap.done{opacity:.5}
+  .trap.done .tx{text-decoration:line-through}
+  .trap .tx{font-size:13.6px;color:var(--ink-soft)}
+  .trap .tx b{color:var(--ink)}
+
+  /* metric demo */
+  .mdemo{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);margin:14px 0}
+  .mdemo .mh{font-family:var(--display);font-weight:700;font-size:13.5px;color:var(--primary-deep);margin-bottom:4px}
+  .mdemo .mgt{font-family:var(--mono);font-size:12px;color:var(--ink-soft);margin-bottom:12px}
+  .mdemo .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0}
+  .mbtn{font-family:var(--mono);font-weight:600;font-size:12px;border:1px solid var(--line-strong);background:var(--paper-2);color:var(--ink-soft);padding:7px 12px;border-radius:8px;cursor:pointer;transition:all .15s}
+  .mbtn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+  .mbtn.wrong.active{background:var(--cd);border-color:var(--cd)}
+  .mscore{font-family:var(--mono);font-weight:700;font-size:14px;padding:6px 13px;border-radius:8px;background:var(--primary-tint);color:var(--primary-deep);white-space:nowrap}
+  .mbar{height:12px;border-radius:6px;background:var(--paper-2);overflow:hidden;flex:1;min-width:120px;border:1px solid var(--line)}
+  .mbar span{display:block;height:100%;width:0;background:var(--primary);transition:width .3s,background .3s}
+  .mnote{font-size:12.8px;color:var(--ink-soft);margin-top:8px;min-height:20px}
+
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
 </style>
 </head>
@@ -712,19 +759,187 @@
 
 <!-- ============ TAB 3 : HƯỚNG TIẾP CẬN ============ -->
 <section class="panel" id="app" role="tabpanel">
-  <div class="soon">
-    <div class="badge">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.9H21l-5.3 4.1 2 6.9L12 16l-5.7 3.9 2-6.9L3 8.9h6.6z"/></svg>
-    </div>
-    <h2>Hướng tiếp cận — đang cập nhật</h2>
-    <p>Phần này sẽ được bổ sung trong tương lai: phân tích chiến lược mô hình hóa, pipeline đề xuất, cách sinh dữ liệu huấn luyện và tối ưu theo metric.</p>
-    <div class="roadmap">
-      <div class="rm-item"><span class="rn">1</span><div><b>Kiến trúc pipeline</b><p>NER → phân loại type → assertion detection → entity linking (ICD/RxNorm).</p></div></div>
-      <div class="rm-item"><span class="rn">2</span><div><b>Chiến lược dữ liệu</b><p>Sinh &amp; gán nhãn dữ liệu tổng hợp; khai thác UMLS/RxNorm/ICD làm nguồn tri thức.</p></div></div>
-      <div class="rm-item"><span class="rn">3</span><div><b>Tối ưu theo metric</b><p>Cân bằng WER (text) &amp; Jaccard (assertions/candidates) theo trọng số 0.3/0.3/0.4.</p></div></div>
-      <div class="rm-item"><span class="rn">4</span><div><b>Đóng gói &amp; reproducibility</b><p>Chuẩn bị source code, model weights, readme để BTC chạy lại trên private test.</p></div></div>
+
+  <div class="hero">
+    <span class="eyebrow">Chiến lược · Vòng 1</span>
+    <h1 class="title">Hướng tiếp cận<br><span class="en">từ đề bài đến bài nộp</span></h1>
+    <p class="subtitle">Phân tích metric, đề xuất pipeline, chiến lược dữ liệu và lộ trình thực thi cho đội lần đầu tham gia. Trọng tâm: <b>ánh xạ mã chuẩn</b> (0.4 điểm) là phần khó và giá trị nhất, <b>assertion mặc định rỗng</b> để tận dụng quy ước chấm điểm.</p>
+    <div class="hero-meta">
+      <span class="chip"><span class="dot"></span>Không có <b>tập train có nhãn</b></span>
+      <span class="chip"><span class="dot"></span>Baseline <b>LLM few-shot</b></span>
+      <span class="chip"><span class="dot"></span>Ưu tiên <b>candidates 0.4</b></span>
+      <span class="chip"><span class="dot"></span>Bắt buộc <b>reproducible</b></span>
     </div>
   </div>
+
+  <div class="callout note"><b>Lưu ý:</b> Nội dung tab này là <b>phân tích chiến lược của đội</b>, không phải công bố chính thức của BTC. Công thức metric nên đối chiếu lại công bố chính thức trước khi tối ưu sâu.</div>
+
+  <!-- 1. Ràng buộc định hình chiến lược -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Ràng buộc lớn nhất</h2></div>
+    <div class="card">
+      <p>Đề chỉ cung cấp <b>100 file input không kèm đáp án</b>, cùng hai bảng mã <code>ICD10.csv</code> và <code>RXNORM.csv</code>. Không có tập huấn luyện có nhãn — điều này định hình toàn bộ cách tiếp cận:</p>
+      <ul class="clean">
+        <li>Không thể train model NER truyền thống ngay vì <b>chưa có nhãn</b>.</li>
+        <li>Đề <b>cho phép dùng nguồn/dữ liệu bên ngoài</b> để tự sinh dữ liệu huấn luyện.</li>
+        <li>Hướng nhanh &amp; mạnh cho tiếng Việt: <b>LLM few-shot</b> làm baseline, sau đó dùng LLM sinh nhãn silver để <b>fine-tune model nhỏ</b> (PhoBERT/XLM-R) cho reproducible &amp; chạy offline.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2. Kiến trúc pipeline -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Kiến trúc pipeline</h2></div>
+    <p>Bốn khối xử lý nối tiếp, biến mỗi file <code>.txt</code> thành danh sách concept có cấu trúc:</p>
+    <div class="pipe">
+      <div class="pstep">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v4H4z"/><path d="M4 12h10v4H4z"/></svg>
+        <h4>NER + phân loại</h4>
+        <p>Tìm cụm concept, vị trí <code>[start,end]</code>, gán 1 trong 5 type.</p>
+      </div>
+      <div class="pstep">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+        <h4>Assertion</h4>
+        <p>Phủ định / tiền sử / người nhà. Mặc định rỗng, chỉ bật khi có bằng chứng.</p>
+      </div>
+      <div class="pstep">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg>
+        <h4>Mapping</h4>
+        <p>Chẩn đoán→ICD-10, thuốc→RxNorm bằng embedding + fuzzy match.</p>
+      </div>
+      <div class="pstep">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h8"/></svg>
+        <h4>Xuất JSON</h4>
+        <p>Tính <code>position</code> bằng code, validate schema, đóng gói <code>output.zip</code>.</p>
+      </div>
+    </div>
+    <div class="callout"><b>Ghi nhớ:</b> <code>candidates</code> chỉ áp dụng cho <span class="etag cd">CHẨN_ĐOÁN</span> &amp; <span class="etag th">THUỐC</span>. <code>assertions</code> chỉ cho <span class="etag cd">CHẨN_ĐOÁN</span>, <span class="etag th">THUỐC</span>, <span class="etag tc">TRIỆU_CHỨNG</span>.</div>
+  </section>
+
+  <!-- 3. Phân tích metric -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Phân tích metric &amp; nơi ăn điểm</h2></div>
+    <p>Điểm cuối là tổ hợp có trọng số của ba thành phần — <b>candidates nặng nhất</b>:</p>
+    <div class="weight-bar">
+      <div class="wb-1">text · 0.3<small>1 − WER</small></div>
+      <div class="wb-2">assertions · 0.3<small>Jaccard</small></div>
+      <div class="wb-3">candidates · 0.4<small>Jaccard</small></div>
+    </div>
+
+    <div class="prio">
+      <div class="pcard"><div class="pv">0.3</div><div class="pk">text_score</div><div class="pl">Span sát đáp án. Với thuốc, giữ nguyên cả liều/đường dùng — <code>"amlodipine 10 mg po daily"</code>, không cắt cụt.</div></div>
+      <div class="pcard"><div class="pv">0.3</div><div class="pk">assertions_score</div><div class="pl">Đa số concept rỗng. Quy ước <b>J = 1 khi cả hai rỗng</b> → mặc định rỗng là an toàn.</div></div>
+      <div class="pcard hot"><div class="pv">0.4</div><div class="pk">candidates_score</div><div class="pl">Ánh xạ mã ICD/RxNorm. <b>Đầu tư nhiều nhất ở đây.</b></div></div>
+    </div>
+
+    <h3><span class="lead">3.1</span>Demo: vì sao mã thừa lại mất điểm</h3>
+    <p>Jaccard phạt cả mã thiếu lẫn mã thừa. Thử chọn tập mã dự đoán — đáp án cố định là <code>{K21.0, K21.9}</code>:</p>
+    <div class="mdemo" id="demoCand">
+      <div class="mh">candidates · Jaccard</div>
+      <div class="mgt">Ground-truth: { K21.0, K21.9 }</div>
+      <div class="row btnset">
+        <button class="mbtn" data-code="K21.0">K21.0 ✓</button>
+        <button class="mbtn" data-code="K21.9">K21.9 ✓</button>
+        <button class="mbtn wrong" data-code="K29.7">K29.7 ✗</button>
+        <button class="mbtn wrong" data-code="J45.9">J45.9 ✗</button>
+      </div>
+      <div class="row">
+        <div class="mbar"><span></span></div>
+        <div class="mscore">J = 0.00</div>
+      </div>
+      <div class="mnote"></div>
+    </div>
+
+    <h3><span class="lead">3.2</span>Demo: assertion — mặc định rỗng thắng</h3>
+    <p>Với concept mà đáp án là <code>[]</code> (bệnh nhân đang mắc), gán thừa assertion sẽ kéo Jaccard từ 1 về 0:</p>
+    <div class="mdemo" id="demoAsrt">
+      <div class="mh">assertions · Jaccard</div>
+      <div class="mgt">Ground-truth: [ ] (rỗng)</div>
+      <div class="row btnset">
+        <button class="mbtn wrong" data-code="isNegated">isNegated</button>
+        <button class="mbtn wrong" data-code="isHistorical">isHistorical</button>
+        <button class="mbtn wrong" data-code="isFamily">isFamily</button>
+      </div>
+      <div class="row">
+        <div class="mbar"><span></span></div>
+        <div class="mscore">J = 1.00</div>
+      </div>
+      <div class="mnote">Không chọn gì → cả hai rỗng → J = 1 (điểm tối đa).</div>
+    </div>
+  </section>
+
+  <!-- 4. Module mapping -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Module ánh xạ mã — đầu tư nhiều nhất</h2></div>
+    <div class="grid2">
+      <div class="card tight">
+        <h3 style="margin-top:4px"><span class="etag cd">CHẨN_ĐOÁN</span> → ICD-10</h3>
+        <p style="font-size:13.6px">Bảng <code>ICD10.csv</code> (~36k dòng, header ở dòng 5), cột <code>Mã</code> + <code>Tên bệnh</code> tiếng Việt.</p>
+        <ul class="clean">
+          <li>Chuẩn hóa dấu/chữ thường tên chẩn đoán.</li>
+          <li>Embedding tiếng Việt + fuzzy match theo tên bệnh.</li>
+          <li>Trả <b>1–2 mã tốt nhất</b>, tránh trả tràn lan.</li>
+        </ul>
+      </div>
+      <div class="card tight">
+        <h3 style="margin-top:4px"><span class="etag th">THUỐC</span> → RxNorm</h3>
+        <p style="font-size:13.6px">Bảng <code>RXNORM.csv</code> (~638k dòng), cột <code>str</code> tên thuốc tiếng Anh, <code>rxcui</code>/<code>code</code> là mã.</p>
+        <ul class="clean">
+          <li>Chuẩn hóa hoạt chất + hàm lượng.</li>
+          <li>Lọc theo <code>tty</code> (SCD/SBD/IN…) để giảm nhiễu.</li>
+          <li>Build index embedding một lần (FAISS), query theo cụm.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Lộ trình -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">5</span><h2>Lộ trình thực thi</h2></div>
+    <p>Sáu bước theo thứ tự ưu tiên. Bấm để mở chi tiết:</p>
+    <div class="acc" id="roadmapAcc">
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">1</span>Baseline hợp lệ trước<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">Dựng pipeline LLM few-shot cho ra <code>output.zip</code> đúng format, kể cả điểm thấp. Mục tiêu: có submission trên bảng + xác nhận format được chấp nhận trước khi tối ưu.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">2</span>Tự gán nhãn tập dev + chấm offline<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">Gán tay 10–20 file làm tập dev, viết script chấm điểm (WER + Jaccard theo đúng công thức) để đo tiến bộ, không "bay mù".</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">3</span>Tối ưu mapping (candidates 0.4)<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">Phần đáng đầu tư nhất: embedding + fuzzy match ICD/RxNorm, chọn top-k nhỏ để tối đa Jaccard.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">4</span>Tinh chỉnh assertion<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">Nguyên tắc thận trọng — mặc định rỗng, chỉ bật cờ khi có tín hiệu rõ ("tiền sử", "không", "bố/mẹ/gia đình"…).</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">5</span>Chuẩn hóa span / position<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">Căn ranh giới cụm sát đáp án để nâng text_score; tính offset ký tự bằng code từ chính chuỗi <code>text</code>.</div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">6</span>Đóng gói &amp; reproducibility<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">Code + data + weights + README, test chạy lại từ đầu trên máy sạch. BTC không chạy được → <b>bị loại</b>.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Bẫy mất điểm -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">6</span><h2>Checklist bẫy dễ mất điểm</h2></div>
+    <p>Bấm để đánh dấu đã kiểm tra:</p>
+    <div class="traps" id="trapList">
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>position</b> lệch do dấu tiếng Việt / khoảng trắng / Unicode → luôn tính offset bằng code.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Cắt cụt <b>text thuốc</b> (mất "10 mg po daily") → WER tăng.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>Over-predict assertion</b> → tụt Jaccard từ 1 về 0 ở các ca lẽ ra rỗng.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Trả <b>quá nhiều mã candidates</b> → Jaccard bị phạt.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Điền candidates cho <b>triệu chứng / xét nghiệm</b> (phải để rỗng).</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>Hard-code output</b> theo input → private test lộ &amp; không reproducible → loại.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Encoding: đọc/ghi <b>UTF-8</b>, JSON <code>ensure_ascii=False</code>.</span></button>
+    </div>
+  </section>
+
 </section>
 
 <footer>
@@ -784,6 +999,60 @@
   marks.forEach(function(m){
     m.addEventListener('click', function(){render(m);});
     m.addEventListener('mouseenter', function(){render(m);});
+  });
+
+  // ---- Approach tab: accordion ----
+  document.querySelectorAll('#roadmapAcc .acc-head').forEach(function(h){
+    h.addEventListener('click', function(){ h.parentElement.classList.toggle('open'); });
+  });
+
+  // ---- Approach tab: trap checklist ----
+  document.querySelectorAll('#trapList .trap').forEach(function(t){
+    t.addEventListener('click', function(){ t.classList.toggle('done'); });
+  });
+
+  // ---- Approach tab: Jaccard demos ----
+  function jaccard(pred, gt){
+    if(pred.length===0 && gt.length===0) return 1;
+    var ps={}, inter=0, uni={};
+    pred.forEach(function(x){ps[x]=1;uni[x]=1;});
+    gt.forEach(function(x){ if(ps[x]) inter++; uni[x]=1;});
+    var u=Object.keys(uni).length;
+    return u===0?1:inter/u;
+  }
+  function setupDemo(id, gt, noteFn){
+    var box=document.getElementById(id);
+    if(!box) return;
+    var btns=box.querySelectorAll('.mbtn');
+    var bar=box.querySelector('.mbar span');
+    var sc=box.querySelector('.mscore');
+    var note=box.querySelector('.mnote');
+    function update(){
+      var pred=[];
+      btns.forEach(function(b){ if(b.classList.contains('active')) pred.push(b.dataset.code); });
+      var j=jaccard(pred,gt);
+      bar.style.width=(j*100).toFixed(0)+'%';
+      var good=j>=0.999;
+      bar.style.background=good?'var(--primary)':(j>0?'var(--accent)':'var(--cd)');
+      sc.textContent='J = '+j.toFixed(2);
+      sc.classList.toggle('bad', j<0.5);
+      if(note) note.textContent=noteFn(pred,j);
+    }
+    btns.forEach(function(b){
+      b.addEventListener('click', function(){ b.classList.toggle('active'); update(); });
+    });
+    update();
+  }
+  setupDemo('demoCand', ['K21.0','K21.9'], function(pred,j){
+    if(pred.length===0) return 'Chưa chọn mã nào → J = 0. Chẩn đoán/thuốc gần như luôn có mã đáp án.';
+    if(j>=0.999) return 'Trùng khớp hoàn toàn → điểm tối đa.';
+    var hasWrong=pred.indexOf('K29.7')>=0||pred.indexOf('J45.9')>=0;
+    if(hasWrong) return 'Có mã sai → tăng phần hợp, kéo Jaccard xuống. Trả 1–2 mã đúng tốt hơn.';
+    return 'Còn thiếu mã đúng → J < 1.';
+  });
+  setupDemo('demoAsrt', [], function(pred,j){
+    if(pred.length===0) return 'Không chọn gì → cả hai rỗng → J = 1 (điểm tối đa).';
+    return 'Đáp án rỗng nhưng bạn gán '+pred.length+' assertion thừa → J = 0. Đây là lỗi over-predict.';
   });
 })();
 </script>

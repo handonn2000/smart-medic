@@ -323,6 +323,71 @@
   .mbar span{display:block;height:100%;width:0;background:var(--primary);transition:width .3s,background .3s}
   .mnote{font-size:12.8px;color:var(--ink-soft);margin-top:8px;min-height:20px}
 
+  /* tier badges */
+  .tier{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;margin-right:5px;vertical-align:middle;white-space:nowrap}
+  .t-basic{background:#d7edd6;color:#2f6b38;border:1px solid #a4d4a0}
+  .t-mid{background:#d3ecf3;color:#186079;border:1px solid #8ecfe0}
+  .t-adv{background:#e6ddf6;color:#4a3785;border:1px solid #c3b1ea}
+
+  /* hoverable terms + paper tooltip */
+  .term{border-bottom:1.5px dotted var(--primary);cursor:help;color:var(--primary-deep);font-weight:600}
+  .term sup{font-family:var(--mono);font-size:9px;color:var(--accent);font-weight:700;margin-left:1px}
+  #termTip{position:fixed;z-index:200;max-width:330px;background:#0d2b29;color:#e6f2f0;border:1px solid #1d4f4a;border-radius:11px;padding:13px 15px;font-size:12.6px;line-height:1.56;box-shadow:0 20px 46px -18px rgba(0,0,0,.65);opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s;pointer-events:none}
+  #termTip.on{opacity:1;transform:none;pointer-events:auto}
+  #termTip .tt{font-weight:800;color:#7fd0c8;font-family:var(--display);display:block;margin-bottom:4px;font-size:12px}
+  #termTip a{color:#e6b06a;border:none;text-decoration:underline;font-family:var(--mono);font-size:11.5px}
+  #termTip .rk{font-family:var(--mono);font-size:10px;color:#5f857f}
+
+  /* module tabs */
+  .mgroup{margin:14px 0}
+  .mtabs{display:flex;gap:6px;flex-wrap:wrap}
+  .mtab{font-family:var(--display);font-weight:600;font-size:13px;border:1px solid var(--line);border-bottom:none;background:var(--paper-2);color:var(--ink-soft);padding:10px 16px;border-radius:10px 10px 0 0;cursor:pointer;transition:all .15s}
+  .mtab.active{background:var(--surface);color:var(--primary-deep);box-shadow:0 -2px 0 var(--primary) inset}
+  .mgroup>.card{margin-top:0;border-radius:0 12px 12px 12px}
+  .mpane{display:none;animation:fade .3s ease both}
+  .mpane.active{display:block}
+  .mpane h4{font-family:var(--display);font-size:14px;margin:14px 0 6px;color:var(--ink)}
+  .mpane p:first-child{margin-top:0}
+
+  /* flow chips */
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0;font-size:12.6px}
+  .flow .box{background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;padding:8px 12px;font-weight:600;color:var(--ink-soft)}
+  .flow .arw{color:var(--primary);font-weight:700}
+
+  /* funnel figure */
+  .figwrap{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin:14px 0}
+  .figwrap svg{width:100%;height:auto;display:block}
+  .figcap{font-size:12.5px;color:var(--ink-faint);text-align:center;margin-top:8px}
+
+  /* references */
+  .reflist{display:grid;gap:0}
+  .refc{font-size:13px;color:var(--ink-soft);padding:9px 2px;border-bottom:1px dashed var(--line)}
+  .refc:last-child{border-bottom:none}
+  .refc b{color:var(--ink)}
+  .refc a{font-family:var(--mono);font-size:11.5px}
+
+  /* validation appendix: verdict, quote, tags, severity */
+  .callout.warn{border-color:var(--cd);background:var(--cd-bg);color:#7a2e2a}
+  .callout.warn b{color:#5f221f}
+  .callout.ok{border-color:#2f8f4e;background:#dcefe0;color:#1f6b3a}
+  .callout.ok b{color:#155029}
+  .verdict{display:flex;gap:16px;align-items:flex-start;background:var(--accent-tint);border:1px solid #e6c99e;border-radius:var(--radius);padding:20px 24px;margin:8px 0;box-shadow:var(--shadow)}
+  .verdict .em{font-size:30px;line-height:1;flex-shrink:0}
+  .verdict .big{font-family:var(--display);font-weight:800;font-size:18px;color:#7a4a16;line-height:1.3;margin:0 0 6px}
+  .verdict p{color:#6e451c;margin:0;font-size:14.5px}
+  .quote{font-family:var(--mono);font-size:12.3px;background:#0f302e;color:#d7e6e2;padding:11px 14px;border-radius:8px;margin:10px 0;white-space:pre-wrap;line-height:1.55;overflow-x:auto}
+  .quote .rd{color:#f0a868;font-weight:700}
+  .quote .hi{color:#6fd39a;font-weight:700}
+  .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;margin-right:5px;vertical-align:middle}
+  .tag.fail{background:var(--cd-bg);color:#8a2f2a;border:1px solid #e0a29e}
+  .tag.partial{background:var(--accent-tint);color:#7a4a16;border:1px solid #e6c99e}
+  .tag.pass{background:#dcefe0;color:#1f6b3a;border:1px solid #a6d6b4}
+  .sev{font-family:var(--mono);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:6px;white-space:nowrap}
+  .sev.hi{background:var(--cd-bg);color:#8a2f2a}
+  .sev.md{background:var(--accent-tint);color:#7a4a16}
+  .wk-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 8px}
+  .wk-head h4{font-family:var(--display);font-size:14.5px;margin:0;color:var(--ink);flex:1;min-width:200px}
+
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
 </style>
 </head>
@@ -761,79 +826,69 @@
 <section class="panel" id="app" role="tabpanel">
 
   <div class="hero">
-    <span class="eyebrow">Chiến lược · Vòng 1</span>
-    <h1 class="title">Hướng tiếp cận<br><span class="en">từ đề bài đến bài nộp</span></h1>
-    <p class="subtitle">Phân tích metric, đề xuất pipeline, chiến lược dữ liệu và lộ trình thực thi cho đội lần đầu tham gia. Trọng tâm: <b>ánh xạ mã chuẩn</b> (0.4 điểm) là phần khó và giá trị nhất, <b>assertion mặc định rỗng</b> để tận dụng quy ước chấm điểm.</p>
+    <span class="eyebrow">Phân tích chiến lược · Vòng 1</span>
+    <h1 class="title">Hướng tiếp cận<br><span class="en">từ cơ bản đến nâng cao</span></h1>
+    <p class="subtitle">Mổ xẻ metric, đánh giá baseline và đề xuất phương pháp nâng cao dựa trên công trình khoa học 2020–2026: entity linking hai giai đoạn, embedding y sinh chuyên biệt, LLM re-ranking, sinh dữ liệu bạc. <b>Di chuột lên các thuật ngữ có gạch chân</b> để xem bài báo nguồn.</p>
     <div class="hero-meta">
-      <span class="chip"><span class="dot"></span>Không có <b>tập train có nhãn</b></span>
-      <span class="chip"><span class="dot"></span>Baseline <b>LLM few-shot</b></span>
-      <span class="chip"><span class="dot"></span>Ưu tiên <b>candidates 0.4</b></span>
-      <span class="chip"><span class="dot"></span>Bắt buộc <b>reproducible</b></span>
+      <span class="chip"><span class="dot"></span>Bài toán <b>low-resource</b></span>
+      <span class="chip"><span class="dot"></span>EL <b>2 giai đoạn</b></span>
+      <span class="chip"><span class="dot"></span><b>SapBERT · BioLORD</b></span>
+      <span class="chip"><span class="dot"></span>17 <b>tài liệu tham khảo</b></span>
     </div>
   </div>
 
-  <div class="callout note"><b>Lưu ý:</b> Nội dung tab này là <b>phân tích chiến lược của đội</b>, không phải công bố chính thức của BTC. Công thức metric nên đối chiếu lại công bố chính thức trước khi tối ưu sâu.</div>
+  <div class="callout note"><b>Lưu ý:</b> Tab này là phân tích chiến lược của đội (tổng hợp văn liệu 2020–2026), <b>không thay thế</b> công bố chính thức của BTC.</div>
 
-  <!-- 1. Ràng buộc định hình chiến lược -->
+  <!-- 1. Ý nghĩa & phạm vi -->
   <section class="block">
-    <div class="sec-head"><span class="sec-num">1</span><h2>Ràng buộc lớn nhất</h2></div>
+    <div class="sec-head"><span class="sec-num">1</span><h2>Ý nghĩa &amp; phạm vi</h2></div>
     <div class="card">
-      <p>Đề chỉ cung cấp <b>100 file input không kèm đáp án</b>, cùng hai bảng mã <code>ICD10.csv</code> và <code>RXNORM.csv</code>. Không có tập huấn luyện có nhãn — điều này định hình toàn bộ cách tiếp cận:</p>
+      <p>Về bản chất khoa học, đây <b>không</b> phải một bài toán đơn lẻ mà là <b>chuỗi 4 bài toán NLP y sinh kinh điển</b> ghép nối trên văn bản lâm sàng tiếng Việt tự do:</p>
+      <div class="flow">
+        <span class="box">1 · NER (span + vị trí)</span><span class="arw">→</span>
+        <span class="box">2 · Phân loại 5 nhãn</span><span class="arw">→</span>
+        <span class="box">3 · Assertion reasoning</span><span class="arw">→</span>
+        <span class="box">4 · Concept Normalization</span>
+      </div>
+      <table class="def">
+        <thead><tr><th>Module</th><th>Tên học thuật</th><th>Vào → Ra</th></tr></thead>
+        <tbody>
+          <tr><td><b>Phát hiện</b></td><td>Clinical NER / Span Detection</td><td>Văn bản → <code>text</code> + <code>[start,end]</code></td></tr>
+          <tr><td><b>Phân loại</b></td><td>Entity Typing</td><td>Cụm → 1 trong 5 nhãn</td></tr>
+          <tr><td><b>Ngữ cảnh</b></td><td>Assertion / Negation &amp; Context</td><td>Cụm → {isNegated, isFamily, isHistorical}</td></tr>
+          <tr><td><b>Chuẩn hóa</b></td><td>Medical Concept Normalization / Entity Linking</td><td>Bệnh/thuốc → ICD-10 / RxNorm</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px"><b>Ba ràng buộc định hình mọi quyết định:</b></p>
       <ul class="clean">
-        <li>Không thể train model NER truyền thống ngay vì <b>chưa có nhãn</b>.</li>
-        <li>Đề <b>cho phép dùng nguồn/dữ liệu bên ngoài</b> để tự sinh dữ liệu huấn luyện.</li>
-        <li>Hướng nhanh &amp; mạnh cho tiếng Việt: <b>LLM few-shot</b> làm baseline, sau đó dùng LLM sinh nhãn silver để <b>fine-tune model nhỏ</b> (PhoBERT/XLM-R) cho reproducible &amp; chạy offline.</li>
+        <li><b>Không có tập train có nhãn</b> — chỉ 100 input + 2 bảng tri thức. Đây là bài toán <b>low-resource / zero-shot</b>.</li>
+        <li><b>Bất đối xứng ngôn ngữ giữa hai kho mã</b> — điểm mấu chốt ít người để ý (xem callout).</li>
+        <li><b>Bắt buộc reproducible</b> — khuyến khích mạnh giải pháp có model offline/nhẹ, hơn là phụ thuộc hoàn toàn API LLM đóng.</li>
       </ul>
+      <div class="callout note"><b>Bất đối xứng ngôn ngữ:</b> tên bệnh trong <code>ICD10.csv</code> là <b>tiếng Việt</b> → ánh xạ Việt–Việt; còn cột <code>str</code> trong RxNorm là <b>tiếng Anh</b> và tên thuốc trong hồ sơ thường đã ở dạng hoạt chất tiếng Anh (<code>amlodipine 10 mg</code>) → ánh xạ Anh–Anh. ⇒ Nên dùng <b>model khác nhau cho hai nhánh</b>.</div>
     </div>
   </section>
 
-  <!-- 2. Kiến trúc pipeline -->
+  <!-- 2. Metric -->
   <section class="block">
-    <div class="sec-head"><span class="sec-num">2</span><h2>Kiến trúc pipeline</h2></div>
-    <p>Bốn khối xử lý nối tiếp, biến mỗi file <code>.txt</code> thành danh sách concept có cấu trúc:</p>
-    <div class="pipe">
-      <div class="pstep">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v4H4z"/><path d="M4 12h10v4H4z"/></svg>
-        <h4>NER + phân loại</h4>
-        <p>Tìm cụm concept, vị trí <code>[start,end]</code>, gán 1 trong 5 type.</p>
-      </div>
-      <div class="pstep">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
-        <h4>Assertion</h4>
-        <p>Phủ định / tiền sử / người nhà. Mặc định rỗng, chỉ bật khi có bằng chứng.</p>
-      </div>
-      <div class="pstep">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg>
-        <h4>Mapping</h4>
-        <p>Chẩn đoán→ICD-10, thuốc→RxNorm bằng embedding + fuzzy match.</p>
-      </div>
-      <div class="pstep">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h8"/></svg>
-        <h4>Xuất JSON</h4>
-        <p>Tính <code>position</code> bằng code, validate schema, đóng gói <code>output.zip</code>.</p>
-      </div>
-    </div>
-    <div class="callout"><b>Ghi nhớ:</b> <code>candidates</code> chỉ áp dụng cho <span class="etag cd">CHẨN_ĐOÁN</span> &amp; <span class="etag th">THUỐC</span>. <code>assertions</code> chỉ cho <span class="etag cd">CHẨN_ĐOÁN</span>, <span class="etag th">THUỐC</span>, <span class="etag tc">TRIỆU_CHỨNG</span>.</div>
-  </section>
-
-  <!-- 3. Phân tích metric -->
-  <section class="block">
-    <div class="sec-head"><span class="sec-num">3</span><h2>Phân tích metric &amp; nơi ăn điểm</h2></div>
-    <p>Điểm cuối là tổ hợp có trọng số của ba thành phần — <b>candidates nặng nhất</b>:</p>
+    <div class="sec-head"><span class="sec-num">2</span><h2>Metric quyết định chiến lược</h2></div>
+    <p><code>final = 0.3·text_score + 0.3·assertions_score + 0.4·candidates_score</code> — candidates nặng nhất:</p>
     <div class="weight-bar">
       <div class="wb-1">text · 0.3<small>1 − WER</small></div>
       <div class="wb-2">assertions · 0.3<small>Jaccard</small></div>
       <div class="wb-3">candidates · 0.4<small>Jaccard</small></div>
     </div>
+    <table class="def" style="margin-top:14px">
+      <thead><tr><th>Thành phần</th><th>Đo bằng</th><th>Hàm ý tối ưu</th></tr></thead>
+      <tbody>
+        <tr><td><b>text_score</b> · 0.3</td><td>1 − WER trên <code>text</code></td><td>Span phải <b>khớp chuỗi từ</b>. Với thuốc giữ nguyên cả liều/đường dùng — cắt cụt = WER tăng.</td></tr>
+        <tr><td><b>assertions_score</b> · 0.3</td><td>Jaccard tập assertion</td><td>Quy ước <b>J=1 khi cả hai rỗng</b> ⇒ mặc định rỗng là baseline an toàn; over-predict kéo J về 0.</td></tr>
+        <tr><td><b>candidates_score</b> · 0.4</td><td>Jaccard tập mã</td><td>Jaccard <b>phạt cả thiếu lẫn thừa</b> ⇒ ưu tiên <b>precision cao, trả 1–2 mã</b>.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn"><b>Cảnh báo transcription:</b> công thức <code>candidates_score</code> trong PRD là bản trích từ ảnh đề. <b>Phải đối chiếu công bố chính thức của BTC trước khi tối ưu sát metric.</b> Nguyên tắc bất biến: đúng type → mã chính xác, ít mã, precision cao.</div>
 
-    <div class="prio">
-      <div class="pcard"><div class="pv">0.3</div><div class="pk">text_score</div><div class="pl">Span sát đáp án. Với thuốc, giữ nguyên cả liều/đường dùng — <code>"amlodipine 10 mg po daily"</code>, không cắt cụt.</div></div>
-      <div class="pcard"><div class="pv">0.3</div><div class="pk">assertions_score</div><div class="pl">Đa số concept rỗng. Quy ước <b>J = 1 khi cả hai rỗng</b> → mặc định rỗng là an toàn.</div></div>
-      <div class="pcard hot"><div class="pv">0.4</div><div class="pk">candidates_score</div><div class="pl">Ánh xạ mã ICD/RxNorm. <b>Đầu tư nhiều nhất ở đây.</b></div></div>
-    </div>
-
-    <h3><span class="lead">3.1</span>Demo: vì sao mã thừa lại mất điểm</h3>
-    <p>Jaccard phạt cả mã thiếu lẫn mã thừa. Thử chọn tập mã dự đoán — đáp án cố định là <code>{K21.0, K21.9}</code>:</p>
+    <h3><span class="lead">2.1</span>Demo: mã thừa cũng mất điểm (đáp án <code>{K21.0, K21.9}</code>)</h3>
     <div class="mdemo" id="demoCand">
       <div class="mh">candidates · Jaccard</div>
       <div class="mgt">Ground-truth: { K21.0, K21.9 }</div>
@@ -843,15 +898,11 @@
         <button class="mbtn wrong" data-code="K29.7">K29.7 ✗</button>
         <button class="mbtn wrong" data-code="J45.9">J45.9 ✗</button>
       </div>
-      <div class="row">
-        <div class="mbar"><span></span></div>
-        <div class="mscore">J = 0.00</div>
-      </div>
+      <div class="row"><div class="mbar"><span></span></div><div class="mscore">J = 0.00</div></div>
       <div class="mnote"></div>
     </div>
 
-    <h3><span class="lead">3.2</span>Demo: assertion — mặc định rỗng thắng</h3>
-    <p>Với concept mà đáp án là <code>[]</code> (bệnh nhân đang mắc), gán thừa assertion sẽ kéo Jaccard từ 1 về 0:</p>
+    <h3><span class="lead">2.2</span>Demo: assertion — mặc định rỗng thắng (đáp án <code>[]</code>)</h3>
     <div class="mdemo" id="demoAsrt">
       <div class="mh">assertions · Jaccard</div>
       <div class="mgt">Ground-truth: [ ] (rỗng)</div>
@@ -860,83 +911,318 @@
         <button class="mbtn wrong" data-code="isHistorical">isHistorical</button>
         <button class="mbtn wrong" data-code="isFamily">isFamily</button>
       </div>
-      <div class="row">
-        <div class="mbar"><span></span></div>
-        <div class="mscore">J = 1.00</div>
-      </div>
+      <div class="row"><div class="mbar"><span></span></div><div class="mscore">J = 1.00</div></div>
       <div class="mnote">Không chọn gì → cả hai rỗng → J = 1 (điểm tối đa).</div>
     </div>
   </section>
 
-  <!-- 4. Module mapping -->
+  <!-- 3. Đánh giá baseline -->
   <section class="block">
-    <div class="sec-head"><span class="sec-num">4</span><h2>Module ánh xạ mã — đầu tư nhiều nhất</h2></div>
+    <div class="sec-head"><span class="sec-num">3</span><h2>Đánh giá cách tiếp cận baseline</h2></div>
     <div class="grid2">
       <div class="card tight">
-        <h3 style="margin-top:4px"><span class="etag cd">CHẨN_ĐOÁN</span> → ICD-10</h3>
-        <p style="font-size:13.6px">Bảng <code>ICD10.csv</code> (~36k dòng, header ở dòng 5), cột <code>Mã</code> + <code>Tên bệnh</code> tiếng Việt.</p>
+        <h3 style="margin-top:4px;color:var(--th)">Điểm mạnh</h3>
         <ul class="clean">
-          <li>Chuẩn hóa dấu/chữ thường tên chẩn đoán.</li>
-          <li>Embedding tiếng Việt + fuzzy match theo tên bệnh.</li>
-          <li>Trả <b>1–2 mã tốt nhất</b>, tránh trả tràn lan.</li>
+          <li>Bám sát ràng buộc "không có nhãn" &amp; "reproducible" — distill LLM → model nhỏ là chuẩn mực trong low-resource EL.</li>
+          <li>Nhận diện đúng trọng tâm: candidates (0.4) là nơi ăn điểm; assertion mặc định rỗng là nước đi tối ưu.</li>
         </ul>
       </div>
       <div class="card tight">
-        <h3 style="margin-top:4px"><span class="etag th">THUỐC</span> → RxNorm</h3>
-        <p style="font-size:13.6px">Bảng <code>RXNORM.csv</code> (~638k dòng), cột <code>str</code> tên thuốc tiếng Anh, <code>rxcui</code>/<code>code</code> là mã.</p>
+        <h3 style="margin-top:4px;color:var(--cd)">Khoảng trống cần nâng cấp</h3>
         <ul class="clean">
-          <li>Chuẩn hóa hoạt chất + hàm lượng.</li>
-          <li>Lọc theo <code>tty</code> (SCD/SBD/IN…) để giảm nhiễu.</li>
-          <li>Build index embedding một lần (FAISS), query theo cụm.</li>
+          <li>"Embedding + fuzzy match" còn chung chung — chưa chỉ định embedding y sinh chuyên biệt hay pipeline retrieve → re-rank.</li>
+          <li>Chưa khai thác bất đối xứng ngôn ngữ Việt (ICD) vs Anh (RxNorm).</li>
+          <li>Chưa có bước <b>disambiguation</b> chọn 1–2 mã cuối (quyết định precision Jaccard).</li>
+          <li>Assertion mới ở mức từ khóa; phủ định phạm vi rộng/kép cần mô hình ngữ cảnh.</li>
+          <li>Chưa coi trọng đúng mức <b>tập dev + script chấm nội bộ</b>.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- 5. Lộ trình -->
+  <!-- 4. Nâng cao theo module -->
   <section class="block">
-    <div class="sec-head"><span class="sec-num">5</span><h2>Lộ trình thực thi</h2></div>
-    <p>Sáu bước theo thứ tự ưu tiên. Bấm để mở chi tiết:</p>
-    <div class="acc" id="roadmapAcc">
-      <div class="acc-item">
-        <button class="acc-head"><span class="rn">1</span>Baseline hợp lệ trước<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        <div class="acc-body"><div class="acc-body-inner">Dựng pipeline LLM few-shot cho ra <code>output.zip</code> đúng format, kể cả điểm thấp. Mục tiêu: có submission trên bảng + xác nhận format được chấp nhận trước khi tối ưu.</div></div>
+    <div class="sec-head"><span class="sec-num">4</span><h2>Cách tiếp cận nâng cao theo module</h2></div>
+    <p style="color:var(--ink-soft)">Mỗi module xếp theo 3 mức: <span class="tier t-basic">Cơ bản</span> <span class="tier t-mid">Trung cấp</span> <span class="tier t-adv">Nâng cao</span>. Bấm tab để xem từng module.</p>
+    <div class="mgroup">
+      <div class="mtabs">
+        <button class="mtab active" data-tab="ner">NER + phân loại</button>
+        <button class="mtab" data-tab="asrt">Assertion</button>
+        <button class="mtab" data-tab="norm">Normalization · 0.4</button>
       </div>
-      <div class="acc-item">
-        <button class="acc-head"><span class="rn">2</span>Tự gán nhãn tập dev + chấm offline<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        <div class="acc-body"><div class="acc-body-inner">Gán tay 10–20 file làm tập dev, viết script chấm điểm (WER + Jaccard theo đúng công thức) để đo tiến bộ, không "bay mù".</div></div>
-      </div>
-      <div class="acc-item">
-        <button class="acc-head"><span class="rn">3</span>Tối ưu mapping (candidates 0.4)<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        <div class="acc-body"><div class="acc-body-inner">Phần đáng đầu tư nhất: embedding + fuzzy match ICD/RxNorm, chọn top-k nhỏ để tối đa Jaccard.</div></div>
-      </div>
-      <div class="acc-item">
-        <button class="acc-head"><span class="rn">4</span>Tinh chỉnh assertion<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        <div class="acc-body"><div class="acc-body-inner">Nguyên tắc thận trọng — mặc định rỗng, chỉ bật cờ khi có tín hiệu rõ ("tiền sử", "không", "bố/mẹ/gia đình"…).</div></div>
-      </div>
-      <div class="acc-item">
-        <button class="acc-head"><span class="rn">5</span>Chuẩn hóa span / position<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        <div class="acc-body"><div class="acc-body-inner">Căn ranh giới cụm sát đáp án để nâng text_score; tính offset ký tự bằng code từ chính chuỗi <code>text</code>.</div></div>
-      </div>
-      <div class="acc-item">
-        <button class="acc-head"><span class="rn">6</span>Đóng gói &amp; reproducibility<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        <div class="acc-body"><div class="acc-body-inner">Code + data + weights + README, test chạy lại từ đầu trên máy sạch. BTC không chạy được → <b>bị loại</b>.</div></div>
+      <div class="card">
+        <!-- NER pane -->
+        <div class="mpane active" data-pane="ner">
+          <p><span class="tier t-basic">Cơ bản</span> LLM few-shot (định nghĩa 5 nhãn + 3–5 ví dụ) sinh trực tiếp span. Nhanh có baseline nhưng khó bám vị trí ký tự, dễ "trôi" span.</p>
+          <p><span class="tier t-mid">Trung cấp</span> <b>Distillation LLM → encoder token-classification.</b> Dùng LLM gán nhãn bạc rồi fine-tune <span class="term" data-ref="R14">XLM-R<sup>R14</sup></span> / <span class="term" data-ref="R15">PhoBERT<sup>R15</sup></span> / <span class="term" data-ref="R14">ViHealthBERT<sup>R14</sup></span> theo BIO + CRF. Trên <span class="term" data-ref="R14">ViMedNER<sup>R14</sup></span>, XLM-R nhìn chung vượt các PLM tiếng Việt — nên đặt làm xương sống mặc định.</p>
+          <p><span class="tier t-adv">Nâng cao</span></p>
+          <ul class="clean">
+            <li><b>Span-based / nested NER</b> cho tên XN lồng nhau (xu hướng ở <span class="term" data-ref="R7">BioNNE-L 2025<sup>R7</sup></span>).</li>
+            <li><span class="term" data-ref="R16">PhoBERT + Graph Attention<sup>R16</sup></span> ở tầng token để tận dụng quan hệ cú pháp.</li>
+            <li><b>Ensemble + self-consistency</b> nhiều lần chạy để ổn định ranh giới, giảm nhiễu WER.</li>
+            <li><b>Tách KẾT_QUẢ_XN + giá trị bằng regex</b> (số, đơn vị) — rule ăn chắc hơn model.</li>
+          </ul>
+          <div class="callout note"><b>Word-segmentation:</b> PhoBERT cần tách từ (VnCoreNLP) trước; XLM-R chạy syllable-level không cần. Sai bước này là nguyên nhân phổ biến làm PhoBERT kém kỳ vọng.</div>
+        </div>
+        <!-- Assertion pane -->
+        <div class="mpane" data-pane="asrt">
+          <p><span class="tier t-basic">Cơ bản</span> Từ điển tín hiệu + cửa sổ ngữ cảnh: "không/chưa/loại trừ" → isNegated; "tiền sử/đã từng" → isHistorical; "bố/mẹ/gia đình" → isFamily. Mặc định rỗng.</p>
+          <p><span class="tier t-mid">Trung cấp</span> Thuật toán kiểu <span class="term" data-ref="R17">ConText / NegEx<sup>R17</sup></span>: xác định phạm vi phủ định &amp; điểm cắt, xử lý phủ định trải dài nhiều concept ("không sốt, không ho, không khó thở"). Chuẩn mực, dễ giải thích, chạy offline.</p>
+          <p><span class="tier t-adv">Nâng cao</span> <b>Classifier ngữ cảnh per-entity</b>: đóng khung concept bằng entity markers rồi phân loại đa nhãn bằng encoder — hướng dùng ở <span class="term" data-ref="R17">n2c2 2022<sup>R17</sup></span>. Hoặc LLM phán assertion với ràng buộc <b>trích bằng chứng span trước khi bật cờ</b> để giảm over-predict.</p>
+        </div>
+        <!-- Normalization pane -->
+        <div class="mpane" data-pane="norm">
+          <p>Văn liệu 2024–2026 hội tụ vào công thức thắng cuộc: <b>pipeline hai giai đoạn "candidate retrieval → re-ranking"</b> <span class="term" data-ref="R9">GRF<sup>R9</sup></span> <span class="term" data-ref="R2">hybrid re-rank<sup>R2</sup></span>.</p>
+          <div class="figwrap">
+            <svg viewBox="0 0 720 232" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sơ đồ funnel entity linking hai giai đoạn">
+              <defs>
+                <linearGradient id="fg" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#0a6b66"/><stop offset="1" stop-color="#d97a2b"/>
+                </linearGradient>
+              </defs>
+              <!-- stage 1 -->
+              <rect x="8" y="26" width="150" height="180" rx="10" fill="#e2efed" stroke="#bcdedb"/>
+              <text x="83" y="108" text-anchor="middle" font-family="monospace" font-size="12" font-weight="700" fill="#074946">Kho mã</text>
+              <text x="83" y="128" text-anchor="middle" font-family="monospace" font-size="11" fill="#42605c">ICD 36k</text>
+              <text x="83" y="144" text-anchor="middle" font-family="monospace" font-size="11" fill="#42605c">RxNorm 638k</text>
+              <path d="M162 116 l24 0" stroke="#0a6b66" stroke-width="2" marker-end="url(#ah)"/>
+              <!-- stage 2 -->
+              <rect x="192" y="52" width="150" height="128" rx="10" fill="#d3ecf3" stroke="#8ecfe0"/>
+              <text x="267" y="104" text-anchor="middle" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#186079">Retrieve top-k</text>
+              <text x="267" y="124" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#42605c">BM25 + SapBERT</text>
+              <text x="267" y="139" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#42605c">/ BioLORD · RRF</text>
+              <path d="M346 116 l24 0" stroke="#0a6b66" stroke-width="2" marker-end="url(#ah)"/>
+              <!-- stage 3 -->
+              <rect x="376" y="74" width="150" height="84" rx="10" fill="#e6ddf6" stroke="#c3b1ea"/>
+              <text x="451" y="110" text-anchor="middle" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#4a3785">Re-rank</text>
+              <text x="451" y="128" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#42605c">lai từ vựng · LLM</text>
+              <path d="M530 116 l24 0" stroke="#0a6b66" stroke-width="2" marker-end="url(#ah)"/>
+              <!-- stage 4 -->
+              <rect x="560" y="92" width="150" height="48" rx="10" fill="url(#fg)"/>
+              <text x="635" y="112" text-anchor="middle" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#fff">Lọc precision</text>
+              <text x="635" y="129" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#f0e6da">→ 1–2 mã</text>
+              <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0a6b66"/></marker>
+            </svg>
+            <div class="figcap">Funnel entity-linking hai giai đoạn: thu hẹp từ hàng chục–trăm nghìn mã xuống 1–2 mã precision cao.</div>
+          </div>
+          <h4><span class="tier t-basic">Cơ bản</span> Khớp chuỗi từ vựng</h4>
+          <p>Chuẩn hóa (bỏ dấu, lowercase, chuẩn đơn vị/hàm lượng) rồi <b>BM25 / fuzzy (Levenshtein)</b>. Baseline retrieval mạnh &amp; rẻ (<span class="term" data-ref="R12">BioSyn / BELB<sup>R12</sup></span>), nhưng thua khi diễn đạt lệch.</p>
+          <h4><span class="tier t-mid">Trung cấp</span> Embedding y sinh chuyên biệt</h4>
+          <ul class="clean">
+            <li><span class="term" data-ref="R1">SapBERT<sup>R1</sup></span> — chuẩn de-facto, học từ cặp đồng nghĩa UMLS, "one-model-fits-all". Rất hợp nhánh <b>THUỐC→RxNorm (Anh)</b>.</li>
+            <li><span class="term" data-ref="R1">Cross-lingual SapBERT (XL-BEL)<sup>R1</sup></span> — cầu nối cho nhánh Việt→ICD.</li>
+            <li><span class="term" data-ref="R4">BioLORD<sup>R4</sup></span> học từ <i>định nghĩa</i>, tôn trọng phân cấp ontology; <span class="term" data-ref="R5">CODER/CODER++<sup>R5</sup></span> nhúng tri thức đồ thị, phân biệt khái niệm gần giống.</li>
+            <li>Index một lần bằng <b>FAISS</b>, truy vấn top-k.</li>
+          </ul>
+          <h4><span class="tier t-adv">Nâng cao</span> Re-ranking lai + LLM disambiguation</h4>
+          <ul class="clean">
+            <li><span class="term" data-ref="R2">Hybrid re-ranking<sup>R2</sup></span> (hệ thắng BioNNE-L 2025): SapBERT top-k → re-rank bằng đo từ vựng. Yếu tố then chốt nâng Acc@1.</li>
+            <li><b>Fusion nhiều retriever</b> bằng <span class="term" data-ref="R11">Reciprocal Rank Fusion<sup>R11</sup></span> (BM25 + embedding).</li>
+            <li><span class="term" data-ref="R8">LLM disambiguator<sup>R8</sup></span>: đưa top-5 cho LLM chọn/loại — khớp nhu cầu <i>1–2 mã precision cao</i>.</li>
+            <li><b>Làm giàu truy vấn bằng LLM</b> (<span class="term" data-ref="R9">Generative Relevance Feedback<sup>R9</sup></span>, <span class="term" data-ref="R10">đơn giản hóa mention<sup>R10</sup></span>) trước retrieve.</li>
+            <li><b>Autoregressive EL</b> (<span class="term" data-ref="R13">GENRE / GenBioEL<sup>R13</sup></span>) sinh trực tiếp mã có ràng buộc trie.</li>
+          </ul>
+          <div class="callout"><b>Khuyến nghị theo metric:</b> bước cuối là <b>bộ lọc precision</b> — chỉ giữ mã khi điểm re-rank vượt ngưỡng; trả 1 mã cho ca rõ, 2 mã khi thực sự lưỡng lự (K21.0/K21.9). Đừng đổ cả top-k.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 6. Bẫy mất điểm -->
+  <!-- 5. Kiến trúc tổng hợp -->
   <section class="block">
-    <div class="sec-head"><span class="sec-num">6</span><h2>Checklist bẫy dễ mất điểm</h2></div>
+    <div class="sec-head"><span class="sec-num">5</span><h2>Kiến trúc tổng hợp đề xuất</h2></div>
+    <p>Ghép "trung cấp làm nền, nâng cao khi có thời gian" thành hệ chạy được, offline, reproducible:</p>
+    <div class="flow">
+      <span class="box">Input .txt (UTF-8)</span><span class="arw">→</span>
+      <span class="box">NER+type: XLM-R/PhoBERT + rule KQ_XN</span><span class="arw">→</span>
+      <span class="box">Assertion: ConText/NegEx, mặc định rỗng</span><span class="arw">→</span>
+      <span class="box">Mapping 2 nhánh</span><span class="arw">→</span>
+      <span class="box">Lọc precision → JSON</span>
+    </div>
+    <div class="grid2">
+      <div class="card tight">
+        <h4><span class="etag cd">CHẨN_ĐOÁN</span> → ICD-10 (Việt–Việt)</h4>
+        <ul class="clean">
+          <li>Retriever: BM25 (Việt) + embedding đa ngữ (BioLORD-M / XL-BEL).</li>
+          <li>Fusion RRF → top-k.</li>
+          <li>Re-rank lai từ vựng, tùy chọn LLM-judge.</li>
+          <li>Trả 1–2 mã precision cao.</li>
+        </ul>
+      </div>
+      <div class="card tight">
+        <h4><span class="etag th">THUỐC</span> → RxNorm (Anh–Anh)</h4>
+        <ul class="clean">
+          <li>Chuẩn hóa hoạt chất + hàm lượng + dạng bào chế.</li>
+          <li>Retriever: SapBERT (Anh) + lọc theo <code>tty</code> (SCD/SBD/IN).</li>
+          <li>Re-rank lai; ưu tiên khớp hoạt chất + hàm lượng.</li>
+          <li>Trả mã SCD/SBD khớp nhất.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout note"><b>Trục kiểm soát chất lượng:</b> gán tay 10–20 file làm <b>dev set</b> + viết <b>script chấm nội bộ</b> (WER + Jaccard). Mọi thay đổi phải đo trên dev trước khi nộp — hạ tầng quan trọng ngang với model.</div>
+  </section>
+
+  <!-- 6. Xu hướng nghiên cứu -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">6</span><h2>Xu hướng nghiên cứu &amp; hướng phát triển</h2></div>
+    <div class="card">
+      <table class="def">
+        <thead><tr><th>Xu hướng 2024–2026</th><th>Ý tưởng cốt lõi</th><th>Áp dụng</th></tr></thead>
+        <tbody>
+          <tr><td><b>EL hai giai đoạn thống trị</b></td><td>Retrieve nhiều ứng viên rồi re-rank</td><td>Xương sống module 0.4 điểm</td></tr>
+          <tr><td><b>LLM không fine-tune (low-resource)</b> <span class="term" data-ref="R3">R3<sup>R3</sup></span></td><td>Recall@5 ~70%; ~80% khi mã đúng trong top-5</td><td>Đúng bối cảnh "không có nhãn"</td></tr>
+          <tr><td><b>Retrieval-Augmented linking</b> <span class="term" data-ref="R6">R6<sup>R6</sup></span></td><td>LLM + kho chuẩn qua RAG, nhiều tầng lọc</td><td>Ghép RxNorm/ICD làm ngữ cảnh cho LLM</td></tr>
+          <tr><td><b>Nested / đa ngữ EL</b> <span class="term" data-ref="R7">R7<sup>R7</sup></span></td><td>Chuẩn hóa thực thể lồng, đa ngôn ngữ</td><td>Tên XN lồng, cầu nối Việt–Anh</td></tr>
+          <tr><td><b>PLM tiếng Việt chuyên y sinh</b> <span class="term" data-ref="R16">R16<sup>R16</sup></span></td><td>ViHealthBERT, ViPubMedDeBERTa, PhoBERT+GAT</td><td>Xương sống NER/assertion tiếng Việt</td></tr>
+        </tbody>
+      </table>
+      <h3>Ba hướng đáng theo đuổi nếu còn thời gian</h3>
+      <ul class="clean">
+        <li><b>Agentic / self-consistency linking</b> — LLM tự đề xuất mã, tự truy vấn kho kiểm chứng, bỏ phiếu nhiều lần → tăng precision.</li>
+        <li><b>Fine-tune embedding trên chính ICD10/RXNORM</b> theo kiểu SapBERT (sinh cặp đồng nghĩa từ bảng mã) để "may đo" đúng kho của đề.</li>
+        <li><b>UMLS làm trục trung gian</b> — dùng CUI làm cầu nối ICD↔RxNorm↔SNOMED nếu được phép.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7. Kiểm chứng trên input thật -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">7</span><h2>Kiểm chứng trên input thật <span style="font-family:var(--mono);font-size:14px;color:var(--ink-faint);font-weight:600">(1.txt · 100.txt)</span></h2></div>
+    <p>Đánh giá phương pháp trên hai file mẫu thật để xem baseline có đủ không. Kết luận ngắn: <b>khung 4 module vẫn đúng, nhưng "embedding + fuzzy match" thuần sẽ hụt ở nhiều chỗ.</b></p>
+
+    <div class="verdict">
+      <div class="em">⚖️</div>
+      <div>
+        <p class="big">Đủ về khung, KHÔNG đủ nếu để nguyên baseline.</p>
+        <p>Thách thức không nằm ở "tiếng Việt nói chung" (model đa ngữ xử lý được), mà ở <b>đa dạng thể loại</b>, <b>tên thuốc bị che</b> (<code>*****</code>), <b>concept diễn đạt dân dã</b> và <b>ngữ cảnh giả định</b> — những thứ fuzzy match không giải quyết được, buộc phải thêm suy luận ngữ nghĩa &amp; co-reference.</p>
+      </div>
+    </div>
+
+    <h3><span class="lead">7.1</span>Hai file mẫu thực sự là gì?</h3>
+    <div class="card">
+      <p>Đây <b>không</b> phải bệnh án/đơn thuốc có cấu trúc như ví dụ PRD — thể loại rất khác nhau:</p>
+      <table class="def">
+        <thead><tr><th>File</th><th>Thể loại</th><th>Đặc điểm phơi bày</th></tr></thead>
+        <tbody>
+          <tr><td><b>1.txt</b></td><td>Bài <b>phổ biến kiến thức</b> ("Thiếu men G6PD là gì?")</td><td>Văn xuôi giáo dục, mô tả bệnh <b>chung chung</b> — không phải triệu chứng của một bệnh nhân cụ thể. <b>7 tên thuốc đều bị che</b> bằng <code>*****</code>.</td></tr>
+          <tr><td><b>100.txt</b></td><td><b>Hỏi–đáp</b> bệnh nhân ↔ bác sĩ trên forum</td><td>Có bệnh nhân thật (mang thai 22 tuần). <b>4 lần thuốc bị che</b>, nhưng <b>"aspirin" lộ 1 lần ở dạng chữ rõ</b> — cùng một thuốc.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><b>Hệ quả thiết kế:</b> mô hình phải <b>bền vững với đa dạng thể loại</b> (blog y khoa, hỏi–đáp, bệnh án, tư vấn), không chỉ note lâm sàng.</div>
+    </div>
+
+    <h3><span class="lead">7.2</span>Năm điểm yếu baseline sẽ vấp — kèm bằng chứng</h3>
+
+    <div class="card">
+      <div class="wk-head"><span class="tag fail">Điểm yếu 1</span><h4>Tên thuốc bị che <code>*****</code> — fuzzy/embedding vô hiệu</h4><span class="sev hi">nghiêm trọng</span></div>
+      <p>Tên hoạt chất — thứ để map sang RxNorm — <b>bị che</b>, không có chuỗi để nhúng hay so khớp:</p>
+      <div class="quote">1.txt:  • Thuốc giảm đau, hạ sốt chứa <span class="rd">*******</span> hoặc <span class="rd">**********</span>
+        • Kháng sinh nhóm <span class="rd">***********</span>, <span class="rd">********</span></div>
+      <p><b>Nhưng</b> 100.txt cho một lối thoát bằng <b>suy luận co-reference</b>: cùng thuốc bị che nhiều lần rồi lộ tên ở một câu:</p>
+      <div class="quote">Bác sĩ kê đơn thuốc <span class="rd">************</span> sử dụng mỗi tối…
+<span class="rd">*******</span> là thuốc có tác dụng chống đông máu…
+…việc tiếp tục sử dụng <span class="hi">aspirin</span> và cho bạn chỉ định…</div>
+      <p>Fuzzy match trả rỗng cho <code>************</code>. Một hệ <b>đọc toàn văn bản và suy luận</b> ("thuốc bị che = aspirin") mới khôi phục được mã RxNorm. <b>Đây chính là "ontological reasoning" đề nhắm tới</b>, và là lý do cần LLM chứ không chỉ string match.</p>
+      <div class="callout warn"><b>Việc phải làm:</b> (a) phát hiện token bị che là entity <span class="etag th">THUỐC</span> riêng; (b) thử co-reference để suy tên; (c) không suy được thì <b>để candidate rỗng</b> thay vì đoán bừa (Jaccard phạt đoán sai).</div>
+    </div>
+
+    <div class="card">
+      <div class="wk-head"><span class="tag fail">Điểm yếu 2</span><h4>Chuẩn hóa ICD cần <b>ngữ nghĩa</b>, không phải khớp chữ</h4><span class="sev hi">nghiêm trọng</span></div>
+      <p>Tên bệnh trong văn bản là cách nói <b>rút gọn/dân dã</b>, khác xa tên chuẩn dài trong <code>ICD10.csv</code>:</p>
+      <table class="def">
+        <thead><tr><th>Mention trong file</th><th>Tên ICD-10 chuẩn (tiếng Việt)</th><th>Fuzzy?</th></tr></thead>
+        <tbody>
+          <tr><td>"Thiếu men G6PD"</td><td>Thiếu máu do thiếu men glucose-6-phosphate dehydrogenase [G6PD] — <b>D55.0</b></td><td><span class="tag fail">trượt</span></td></tr>
+          <tr><td>"thiếu máu tan huyết"</td><td>Thiếu máu tan máu… (D55–D59)</td><td><span class="tag partial">một phần</span></td></tr>
+          <tr><td>"tiền sản giật" (100.txt)</td><td>Tiền sản giật — <b>O14</b></td><td><span class="tag pass">khớp</span></td></tr>
+          <tr><td>"suy thận cấp", "bại não", "vàng da sơ sinh"</td><td>N17 / G80 / P59…</td><td><span class="tag partial">cần ngữ nghĩa</span></td></tr>
+        </tbody>
+      </table>
+      <p>"Thiếu men G6PD" và tên chuẩn gần như <b>không trùng token</b> → Levenshtein/BM25 thất bại. Chỉ <b>embedding y sinh</b> (<span class="term" data-ref="R1">SapBERT<sup>R1</sup></span> đa ngữ / <span class="term" data-ref="R4">BioLORD-M<sup>R4</sup></span>) hoặc <b>LLM biết G6PD ↔ D55.0</b> mới nối được — bằng chứng trực tiếp cho khuyến nghị "retrieve ngữ nghĩa + re-rank".</p>
+    </div>
+
+    <div class="card">
+      <div class="wk-head"><span class="tag partial">Điểm yếu 3</span><h4>Mention chung chung vs bệnh nhân cụ thể — assertion bị "kéo căng"</h4><span class="sev md">trung bình</span></div>
+      <p>Trong 1.txt, triệu chứng liệt kê ở <b>ngữ cảnh giáo dục</b>, không phải "bệnh nhân này đang có":</p>
+      <div class="quote">…bệnh có thể khởi phát đột ngột với các biểu hiện như:
+ • Sốt cao   • Tim đập nhanh, khó thở   • Vàng da, vàng mắt</div>
+      <ul class="clean">
+        <li><b>Ngữ cảnh giả định/điều kiện</b> ("có thể", "khi trẻ bị…", "nếu…") tràn ngập nhưng <b>không thuộc 3 nhãn assertion</b> — cần quyết định có trích hay không.</li>
+        <li><b>"family" dễ nhầm:</b> "nhận gen lặn từ bố và/hoặc mẹ" nói về <b>cơ chế di truyền</b>, không phải người nhà mắc bệnh → gán isFamily ở đây là <b>sai</b>.</li>
+        <li>Nguyên tắc <b>mặc định rỗng, chỉ bật khi có bằng chứng lâm sàng trực tiếp</b> giúp tránh over-predict trong văn bản giáo dục.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="wk-head"><span class="tag partial">Điểm yếu 4</span><h4>Đặc thù tiếng Việt về token &amp; thuật ngữ</h4><span class="sev md">trung bình</span></div>
+      <ul class="clean">
+        <li><b>Tách từ:</b> "vàng da vàng mắt", "thiếu máu tan huyết" là cụm nhiều âm tiết — PhoBERT cần VnCoreNLP; <span class="term" data-ref="R14">XLM-R<sup>R14</sup></span> (syllable-level) an toàn hơn. Sai bước này làm span lệch → tăng WER.</li>
+        <li><b>Dân dã ↔ chuẩn y khoa:</b> "đi tiêu ra máu" cần map về khái niệm chuẩn (xuất huyết tiêu hóa dưới). Embedding thường chưa học tốt slang y khoa Việt → cần LLM hoặc từ điển đồng nghĩa.</li>
+        <li><b>Dấu &amp; Unicode:</b> tính <code>position</code> bằng code trên chuỗi gốc; dấu tổ hợp/khoảng trắng lạ dễ làm lệch offset.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="wk-head"><span class="tag pass">Điểm mạnh giữ nguyên</span><h4>Khung tổng thể &amp; nhánh Việt–Việt cho ICD</h4><span class="sev md" style="background:#dcefe0;color:#1f6b3a">tích cực</span></div>
+      <p>Vì <code>ICD10.csv</code> là <b>tiếng Việt</b>, nhánh CHẨN_ĐOÁN→ICD là ánh xạ <b>Việt–Việt</b> — model đa ngữ làm được mà không cần dịch. Chiến lược "distill LLM → encoder nhỏ" và "mặc định assertion rỗng" vẫn là nền đúng cho chính các file này.</p>
+    </div>
+
+    <h3><span class="lead">7.3</span>Điều chỉnh đề xuất cho input tiếng Việt thực tế</h3>
+    <div class="card">
+      <table class="def">
+        <thead><tr><th>Vấn đề từ file mẫu</th><th>Nâng cấp cần thêm vào pipeline</th></tr></thead>
+        <tbody>
+          <tr><td>Thuốc bị che <code>*****</code></td><td>Nhận diện token che là entity THUỐC; thử <b>co-reference toàn văn bản bằng LLM</b> để khôi phục tên (vd → aspirin); không suy được thì để candidate rỗng.</td></tr>
+          <tr><td>Đa dạng thể loại (blog / hỏi–đáp / bệnh án)</td><td>Nhãn bạc &amp; prompt few-shot phải <b>phủ nhiều thể loại</b>; thêm phân loại nhẹ về loại văn bản để chỉnh ngưỡng trích xuất.</td></tr>
+          <tr><td>Tên bệnh rút gọn ≠ tên ICD dài</td><td><b>Retrieve ngữ nghĩa</b> (SapBERT-XL / BioLORD-M) + <b>LLM disambiguator</b>; ưu tiên precision, trả 1–2 mã.</td></tr>
+          <tr><td>Ngữ cảnh giả định &amp; "family" gây nhiễu</td><td>Luật assertion thận trọng: chỉ bật cờ khi bằng chứng trực tiếp; loại câu điều kiện/giáo dục &amp; câu cơ chế di truyền khỏi isFamily.</td></tr>
+          <tr><td>Slang y khoa tiếng Việt</td><td>Từ điển đồng nghĩa Việt (dân dã→chuẩn) + LLM chuẩn hóa mention trước khi retrieve.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout ok"><b>Kết luận:</b> phương pháp ở các phần trên <b>đủ về khung</b>, và chính các thành phần nâng cao (retrieve ngữ nghĩa + re-rank + LLM disambiguation) là thứ cần để vượt các điểm yếu này. Phải <b>bổ sung</b> so với baseline gốc: xử lý token bị che bằng co-reference/LLM, chuẩn hóa slang tiếng Việt, và luật assertion đủ chặt cho văn bản giáo dục. Chỉ "embedding + fuzzy" thuần thì <b>không đủ</b>.</div>
+    </div>
+  </section>
+
+  <!-- 8. Rủi ro & checklist -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">8</span><h2>Rủi ro &amp; checklist</h2></div>
     <p>Bấm để đánh dấu đã kiểm tra:</p>
     <div class="traps" id="trapList">
-      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>position</b> lệch do dấu tiếng Việt / khoảng trắng / Unicode → luôn tính offset bằng code.</span></button>
-      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Cắt cụt <b>text thuốc</b> (mất "10 mg po daily") → WER tăng.</span></button>
-      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>Over-predict assertion</b> → tụt Jaccard từ 1 về 0 ở các ca lẽ ra rỗng.</span></button>
-      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Trả <b>quá nhiều mã candidates</b> → Jaccard bị phạt.</span></button>
-      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Điền candidates cho <b>triệu chứng / xét nghiệm</b> (phải để rỗng).</span></button>
-      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>Hard-code output</b> theo input → private test lộ &amp; không reproducible → loại.</span></button>
-      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Encoding: đọc/ghi <b>UTF-8</b>, JSON <code>ensure_ascii=False</code>.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>Đối chiếu metric chính thức</b> trước khi tối ưu sát — công thức candidates là bản trích.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>position lệch</b> do dấu/Unicode/khoảng trắng → tính offset bằng code từ chuỗi <code>text</code>.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Không <b>cắt cụt text thuốc</b> (giữ liều/đường dùng) — WER phạt theo từ.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Không <b>over-predict assertion</b> &amp; không <b>rải mã candidates</b> — cả hai kéo Jaccard về 0.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Không điền candidates cho <b>TRIỆU_CHỨNG / TÊN_XN / KẾT_QUẢ_XN</b> (phải rỗng).</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Không <b>hard-code output</b> theo input → private test lộ &amp; không reproducible → loại.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>Reproducibility:</b> ghim phiên bản model/seed, README từ máy sạch, đóng gói weights; LLM API khó tái lập → kèm fallback offline.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>Encoding:</b> đọc/ghi UTF-8, JSON <code>ensure_ascii=False</code>.</span></button>
+    </div>
+  </section>
+
+  <!-- References -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">§</span><h2>Tài liệu tham khảo</h2></div>
+    <div class="card">
+      <div class="reflist" id="refList">
+        <div class="refc" id="ref-R1"><b>[R1]</b> Liu et al. <i>SapBERT</i> (NAACL 2021) &amp; <i>XL-BEL: cross-lingual biomedical entity linking</i> (ACL 2021). <a href="https://github.com/cambridgeltl/sapbert" target="_blank" rel="noopener">github.com/cambridgeltl/sapbert</a></div>
+        <div class="refc" id="ref-R2"><b>[R2]</b> <i>Hybrid Re-ranking for Biomedical Entity Linking using SapBERT Embeddings</i> — BioNNE-L 2025 (CEUR Vol-4038).</div>
+        <div class="refc" id="ref-R3"><b>[R3]</b> <i>Medical Entity Linking in Low-Resource Settings with Fine-Tuning-Free LLMs</i> (2026). Candidate-gen recall@5 ~70%, disambiguation ~80%.</div>
+        <div class="refc" id="ref-R4"><b>[R4]</b> Remy et al. <i>BioLORD: Learning Ontological Representations from Definitions</i>. <a href="https://arxiv.org/abs/2210.11892" target="_blank" rel="noopener">arXiv:2210.11892</a></div>
+        <div class="refc" id="ref-R5"><b>[R5]</b> Yuan et al. <i>CODER / CODER++</i>. <a href="https://arxiv.org/abs/2204.00391" target="_blank" rel="noopener">arXiv:2204.00391</a></div>
+        <div class="refc" id="ref-R6"><b>[R6]</b> <i>CDE-Mapper: Retrieval-Augmented LMs for Linking Clinical Data Elements</i>. <a href="https://arxiv.org/abs/2505.04365" target="_blank" rel="noopener">arXiv:2505.04365</a></div>
+        <div class="refc" id="ref-R7"><b>[R7]</b> <i>Overview of BioASQ 2025 — BioNNE-L</i>. <a href="https://arxiv.org/abs/2508.20554" target="_blank" rel="noopener">arXiv:2508.20554</a></div>
+        <div class="refc" id="ref-R8"><b>[R8]</b> <i>LLM as Entity Disambiguator for Biomedical Entity-Linking</i> (ACL 2025 short).</div>
+        <div class="refc" id="ref-R9"><b>[R9]</b> <i>Improving Biomedical Entity Linking with Generative Relevance Feedback</i> (Bioinformatics 2026).</div>
+        <div class="refc" id="ref-R10"><b>[R10]</b> Borchert et al. <i>Improving BEL for complex mentions with LLM-based text simplification</i> (Database 2024).</div>
+        <div class="refc" id="ref-R11"><b>[R11]</b> <i>Multistage biomedical concept normalization leveraging LLMs</i> (2025); BM25 + Reciprocal Rank Fusion. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12527512/" target="_blank" rel="noopener">PMC12527512</a></div>
+        <div class="refc" id="ref-R12"><b>[R12]</b> Sung et al. <i>BioSyn</i> (2020); BELB benchmark. <a href="https://arxiv.org/abs/2308.11537" target="_blank" rel="noopener">arXiv:2308.11537</a></div>
+        <div class="refc" id="ref-R13"><b>[R13]</b> De Cao et al. <i>GENRE: Autoregressive Entity Retrieval</i> (ICLR 2021); Yuan et al. <i>GenBioEL</i> (2022).</div>
+        <div class="refc" id="ref-R14"><b>[R14]</b> <i>ViMedNER: A Medical NER Dataset for Vietnamese</i> (EAI Trans., 2024): XLM-R nhìn chung tốt nhất so PhoBERT/ViDeBERTa/ViHealthBERT.</div>
+        <div class="refc" id="ref-R15"><b>[R15]</b> Nguyen &amp; Nguyen. <i>PhoBERT</i> (EMNLP Findings 2020); ViHealthBERT; VLSP NER.</div>
+        <div class="refc" id="ref-R16"><b>[R16]</b> <i>An Encoder-Integrated PhoBERT with Graph Attention for Vietnamese Token-Level Classification</i>. <a href="https://arxiv.org/abs/2510.11537" target="_blank" rel="noopener">arXiv:2510.11537</a></div>
+        <div class="refc" id="ref-R17"><b>[R17]</b> Mahajan et al. <i>2022 n2c2 Contextualized Medication Event Extraction</i> (JBI 2023); ConText/NegEx (Harkema, Chapman).</div>
+        <div class="refc"><b>[Survey]</b> Chen et al. <i>A comprehensive survey on medical concept normalization</i> (J. Biomedical Informatics 178:105005, 2026).</div>
+      </div>
     </div>
   </section>
 
@@ -1001,11 +1287,6 @@
     m.addEventListener('mouseenter', function(){render(m);});
   });
 
-  // ---- Approach tab: accordion ----
-  document.querySelectorAll('#roadmapAcc .acc-head').forEach(function(h){
-    h.addEventListener('click', function(){ h.parentElement.classList.toggle('open'); });
-  });
-
   // ---- Approach tab: trap checklist ----
   document.querySelectorAll('#trapList .trap').forEach(function(t){
     t.addEventListener('click', function(){ t.classList.toggle('done'); });
@@ -1053,6 +1334,67 @@
   setupDemo('demoAsrt', [], function(pred,j){
     if(pred.length===0) return 'Không chọn gì → cả hai rỗng → J = 1 (điểm tối đa).';
     return 'Đáp án rỗng nhưng bạn gán '+pred.length+' assertion thừa → J = 0. Đây là lỗi over-predict.';
+  });
+
+  // ---- Approach tab: module tabs ----
+  document.querySelectorAll('.mgroup .mtabs').forEach(function(bar){
+    var group=bar.parentElement;
+    var tabs=bar.querySelectorAll('.mtab');
+    tabs.forEach(function(tb){
+      tb.addEventListener('click', function(){
+        tabs.forEach(function(x){x.classList.remove('active');});
+        tb.classList.add('active');
+        group.querySelectorAll('.mpane').forEach(function(p){p.classList.remove('active');});
+        var pane=group.querySelector('.mpane[data-pane="'+tb.dataset.tab+'"]');
+        if(pane) pane.classList.add('active');
+      });
+    });
+  });
+
+  // ---- Approach tab: paper tooltips on advanced terms ----
+  var REF={
+    R1:{t:'SapBERT / XL-BEL — Liu et al. (NAACL & ACL 2021)', d:'Self-alignment pretraining cho biểu diễn thực thể y sinh; bản cross-lingual (XL-BEL) khởi tạo trên XLM-R.', u:'https://github.com/cambridgeltl/sapbert'},
+    R2:{t:'Hybrid Re-ranking (BioNNE-L 2025)', d:'SapBERT sinh top-k rồi re-rank bằng đo từ vựng (Jaccard/Levenshtein) — hệ thắng BioNNE-L. CEUR Vol-4038.', u:''},
+    R3:{t:'Fine-Tuning-Free LLMs cho EL low-resource (2026)', d:'Candidate-gen recall@5 ~70%, disambiguation ~80% khi mã đúng nằm trong top-5.', u:''},
+    R4:{t:'BioLORD — Remy et al.', d:'Học biểu diễn từ định nghĩa khái niệm, tôn trọng phân cấp ontology; bản 2023-M đa ngữ.', u:'https://arxiv.org/abs/2210.11892'},
+    R5:{t:'CODER / CODER++ — Yuan et al.', d:'Nhúng tri thức đồ thị, phân biệt khái niệm gần giống ("type 1" vs "type 2") tốt hơn.', u:'https://arxiv.org/abs/2204.00391'},
+    R6:{t:'CDE-Mapper (RAG entity linking)', d:'LLM + kho chuẩn hóa qua RAG, nhiều tầng lọc để neo phần tử dữ liệu lâm sàng vào từ vựng chuẩn.', u:'https://arxiv.org/abs/2505.04365'},
+    R7:{t:'BioASQ 2025 — BioNNE-L', d:'Chuẩn hóa thực thể lồng (nested) về UMLS, đa ngôn ngữ (EN/RU).', u:'https://arxiv.org/abs/2508.20554'},
+    R8:{t:'LLM as Entity Disambiguator (ACL 2025 short)', d:'LLM re-rank top-k của SapBERT/ArboEL — nâng độ chính xác chọn mã cuối.', u:''},
+    R9:{t:'Generative Relevance Feedback (Bioinformatics 2026)', d:'Làm giàu mention bằng LLM trước retrieval; khung retrieve → re-rank.', u:''},
+    R10:{t:'LLM-based text simplification — Borchert et al. (Database 2024)', d:'Đơn giản hóa mention phức tạp trước khi retrieve — hữu ích cho mention lộn xộn.', u:''},
+    R11:{t:'Multistage MCN leveraging LLMs (2025)', d:'BM25 + Reciprocal Rank Fusion (Cormack, SIGIR 2009), nhiều tầng lọc.', u:'https://pmc.ncbi.nlm.nih.gov/articles/PMC12527512/'},
+    R12:{t:'BioSyn (2020) / BELB benchmark', d:'Synonym marginalization; BELB — benchmark thống nhất cho biomedical entity linking.', u:'https://arxiv.org/abs/2308.11537'},
+    R13:{t:'GENRE / GenBioEL', d:'Autoregressive entity retrieval — sinh trực tiếp tên/mã có ràng buộc trie theo từ điển.', u:''},
+    R14:{t:'ViMedNER (EAI Trans. 2024)', d:'Benchmark NER y khoa tiếng Việt: XLM-R nhìn chung tốt nhất so PhoBERT/ViDeBERTa/ViHealthBERT.', u:''},
+    R15:{t:'PhoBERT — Nguyen & Nguyen (EMNLP Findings 2020)', d:'PLM tiếng Việt; cần tách từ (VnCoreNLP) trước. Kèm ViHealthBERT, VLSP NER.', u:''},
+    R16:{t:'PhoBERT + Graph Attention (2025)', d:'Tích hợp Graph Attention ở tầng token cho phân loại token tiếng Việt.', u:'https://arxiv.org/abs/2510.11537'},
+    R17:{t:'n2c2 2022 Medication Event / ConText·NegEx', d:'Contextualized medication event extraction; ConText/NegEx (Harkema, Chapman) cho assertion & negation.', u:''}
+  };
+  var tip=document.createElement('div'); tip.id='termTip'; document.body.appendChild(tip);
+  var hideT=null;
+  function showTip(el){
+    if(hideT){clearTimeout(hideT);hideT=null;}
+    var r=REF[el.dataset.ref]; if(!r) return;
+    tip.innerHTML='<span class="tt">'+r.t+'</span>'+r.d+
+      (r.u?'<br><a href="'+r.u+'" target="_blank" rel="noopener">→ mở nguồn</a>':'')+
+      ' <span class="rk">['+el.dataset.ref+']</span>';
+    tip.classList.add('on');
+    var b=el.getBoundingClientRect();
+    var tw=tip.offsetWidth, th=tip.offsetHeight;
+    var left=Math.min(Math.max(8,b.left), window.innerWidth-tw-8);
+    var top=b.top-th-10; if(top<8) top=b.bottom+10;
+    tip.style.left=left+'px'; tip.style.top=top+'px';
+  }
+  function scheduleHide(){ hideT=setTimeout(function(){tip.classList.remove('on');},160); }
+  tip.addEventListener('mouseenter', function(){ if(hideT){clearTimeout(hideT);hideT=null;} });
+  tip.addEventListener('mouseleave', scheduleHide);
+  document.querySelectorAll('.term').forEach(function(el){
+    el.setAttribute('tabindex','0');
+    el.addEventListener('mouseenter', function(){showTip(el);});
+    el.addEventListener('mouseleave', scheduleHide);
+    el.addEventListener('focus', function(){showTip(el);});
+    el.addEventListener('blur', function(){tip.classList.remove('on');});
   });
 })();
 </script>

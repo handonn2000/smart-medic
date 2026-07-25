@@ -32,7 +32,12 @@ smart-medic/
 │   ├── reports/             # Write-ups, experiment reports
 │   └── references/          # Background papers (neurosymbolic AI, ontology engineering)
 ├── src/
-│   └── smart_medic/         # Source code (data processing, training, inference)
+│   ├── model.py             # PhoBERT + CRF model definition
+│   ├── dataset.py           # BIO dataset loader with subword label alignment
+│   ├── train.py             # Training entry point → models/pho_bert_crf_medical.pth
+│   ├── inference.py         # MedicalExtractor (extraction + normalization)
+│   ├── test.py              # CLI to run the model on text/file (-t / -f)
+│   └── normalizer.py        # RxNorm / ICD-10 candidate mapping
 ├── models/                  # Trained model weights / checkpoints
 └── data/
     ├── knowledge_base/      # Reference vocabularies (ICD-10 codes, etc.)
@@ -48,13 +53,66 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Run inference over `data/input/` and write predictions to `data/output/`:
+## Training
 
-```bash
-python -m smart_medic.infer --input data/input --output data/output
+Train the PhoBERT + CRF sequence labeler on the annotated data in `data/train.txt`.
+
+**Data format (`data/train.txt`):** CoNLL / BIO style — one token per line as `token<space>label`, with a **blank line between samples**. Tokens must not contain spaces. Labels use the BIO scheme (`B-XXX`, `I-XXX`, `O`) over these types: `THUOC`, `TRIEU_CHUNG`, `BENH`, `XET_NGHIEM`, `BENH_NHAN`. Example:
+
+```text
+đau B-TRIEU_CHUNG
+khớp I-TRIEU_CHUNG
+gối I-TRIEU_CHUNG
+. O
+Celecoxib B-THUOC
+400mg I-THUOC
 ```
 
-(Adjust the command above once the pipeline entry point is implemented in `src/smart_medic/`.)
+Run training (works from the project root or from `src/` — paths are resolved automatically):
+
+```bash
+python src/train.py
+```
+
+On completion it prints the checkpoint location and writes weights to:
+
+```
+models/pho_bert_crf_medical.pth
+```
+
+Key hyperparameters (edit at the top of `src/train.py`): `MODEL_NAME`, `MAX_LEN`, `BATCH_SIZE`, `EPOCHS`, `LR`. The first run downloads the pretrained PhoBERT weights from the Hugging Face Hub (internet required).
+
+## Testing / Inference
+
+`src/test.py` runs the trained model on a single input and prints the predicted concepts as JSON.
+
+```bash
+# Inline text
+python src/test.py -t "Bệnh nhân nam 55 tuổi, bị đau khớp gối phải" --model models/pho_bert_crf_medical.pth
+
+# From a file
+python src/test.py -f data/training/input1.txt --model models/pho_bert_crf_medical.pth
+```
+
+Arguments:
+
+- `-t <input_text>` — pass the input text directly (mutually exclusive with `-f`).
+- `-f <input_file>` — read the input text from a file.
+- `--model <path>` — path to the trained weights (default: `pho_bert_crf_medical.pth` in the current directory, so pass `models/pho_bert_crf_medical.pth` after training).
+
+Example output:
+
+```json
+[
+  {
+    "text": "đau khớp gối phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [26, 42]
+  }
+]
+```
 
 ## Data
 

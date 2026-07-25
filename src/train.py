@@ -19,10 +19,10 @@ MODEL_DIR = os.path.join(ROOT_DIR, "models")
 MODEL_PATH = os.path.join(MODEL_DIR, "pho_bert_crf_medical.pth")
 
 # Config
-MODEL_NAME = "vinai/phobert-base"
+MODEL_NAME = "vinai/phobert-base-v2"
 MAX_LEN = 256
 BATCH_SIZE = 16
-EPOCHS = 8
+EPOCHS = 4
 LR = 2e-5
 
 # Labels (must match src/inference.py get_labels())

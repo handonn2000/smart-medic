@@ -1,4 +1,25 @@
-# Add project dependencies here, e.g.:
-# torch
-# transformers
-# pandas
+# v0 KHÔNG CÓ dependency ngoài — chỉ thư viện chuẩn của Python >= 3.10.
+#
+# Đây là quyết định có chủ đích, không phải chưa kịp thêm. Yêu cầu reproducible
+# của BTC là ràng buộc cứng nhất (không cài lại được = bị loại, tức mất trắng
+# chứ không phải mất điểm), và mỗi dependency là thêm một cách để việc cài đặt
+# thất bại trên máy khác. Xem docs/reports/system-design.md §9 (đánh đổi #2).
+#
+#   python3 src/smart_medic/kb/build.py
+#   PYTHONPATH=src python3 -m smart_medic.infer
+#   python3 -m unittest discover -s tests
+#
+# Các vòng sau sẽ cần — thêm vào đúng lúc dùng, không thêm trước:
+#
+# v1 - LLM extraction
+#   (SDK của nhà cung cấp LLM, ghim đúng phiên bản)
+#
+# v2 - retrieval ngữ nghĩa + rerank
+#   numpy>=1.26          # brute-force cosine; KB chỉ 13k-18k vector nên
+#                        # KHÔNG dùng FAISS: bớt một dependency đáng giá hơn
+#                        # vài mili-giây ở quy mô này
+#   transformers>=4.40   # SapBERT / BioLORD - đóng gói weights sẵn,
+#   torch>=2.2           # KHÔNG tải lúc runtime (đã có tiền lệ tải rất dễ vỡ)
+#
+# v3 - distill sang encoder offline
+#   (như v2, thêm sentencepiece + protobuf cho tokenizer XLM-R)

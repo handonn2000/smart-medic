@@ -31,3 +31,9 @@ data/output/*.json
 .DS_Store
 .idea/
 .vscode/
+
+# KB đã build — sinh lại bằng: python3 src/smart_medic/kb/build.py
+# (bỏ comment 3 dòng dưới nếu muốn commit artifact cho BTC chạy ngay)
+data/kb/*.csv.gz
+!data/kb/MANIFEST.json
+data/output.zip

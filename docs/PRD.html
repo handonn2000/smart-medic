@@ -295,6 +295,7 @@
   .acc-item.open .chev{transform:rotate(90deg)}
   .acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
   .acc-item.open .acc-body{max-height:400px}
+  #data .acc-item.open .acc-body{max-height:900px}
   .acc-body-inner{padding:0 18px 16px 54px;font-size:13.8px;color:var(--ink-soft)}
   .acc-body-inner b{color:var(--ink)}
 
@@ -408,6 +409,9 @@
       <button class="tab active" data-tab="req"  role="tab"><span class="n">01</span> Yêu cầu đề thi</button>
       <button class="tab" data-tab="biz"  role="tab"><span class="n">02</span> Giải thích nghiệp vụ</button>
       <button class="tab" data-tab="app"  role="tab"><span class="n">03</span> Hướng tiếp cận</button>
+      <button class="tab" data-tab="data" role="tab"><span class="n">04</span> Đặc trưng dữ liệu</button>
+      <button class="tab" data-tab="sysd" role="tab"><span class="n">05</span> Thiết kế hệ thống</button>
+      <button class="tab" data-tab="plan" role="tab"><span class="n">06</span> Kế hoạch v0→v3</button>
     </nav>
   </div>
 </header>
@@ -1228,6 +1232,978 @@
 
 </section>
 
+<!-- ============ TAB 4 : ĐẶC TRƯNG DỮ LIỆU ============ -->
+<section class="panel" id="data" role="tabpanel">
+
+  <div class="hero">
+    <span class="eyebrow">Báo cáo đo lường · 100 bản ghi test</span>
+    <h1 class="title">Đặc trưng dữ liệu<br><span class="en">100 file test — đo thực tế, không ước lượng</span></h1>
+    <p class="subtitle">Tổng hợp <b>BÁO CÁO TỔNG HỢP</b> (pipeline end-to-end trên 10 file) và <b>bản đo lại toàn bộ 100 file</b> trong <code>data/test/</code> cùng hai bảng mã <code>ICD10.csv</code> · <code>RXNORM.csv</code>. Mọi con số dưới đây đều đo trực tiếp trên dữ liệu; các mục <span class="tag fail">CHƯA XÁC MINH</span> là giả định phải kiểm tra trước khi dựa vào.</p>
+    <div class="hero-meta">
+      <span class="chip"><span class="dot"></span><b>100</b> bản ghi · <b>203.817</b> ký tự</span>
+      <span class="chip"><span class="dot"></span><b>94/100</b> trích nguyên văn tên ICD</span>
+      <span class="chip"><span class="dot"></span><b>13,6</b> concept / 1000 ký tự</span>
+      <span class="chip"><span class="dot"></span><b>Recall@5 = 94,9%</b></span>
+    </div>
+  </div>
+
+  <div class="callout warn"><b>Phạm vi đo — đọc trước mọi con số.</b> Bảng sản lượng, assertion và Recall@k ở mục <b>3</b> và <b>4</b> đo trên <b>10–12 file</b> (pipeline đã chạy end-to-end). Các số ở mục <b>1</b>, <b>2</b> và <b>5</b> đo trên <b>toàn bộ 100 file</b>. Hai phạm vi được ghi rõ ở từng bảng — <b>đừng gộp lại</b>.</div>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Toàn cảnh 100 bản ghi</h2></div>
+
+    <div class="prio">
+      <div class="pcard"><div class="pv">100</div><div class="pk">bản ghi · 203.817 ký tự</div><div class="pl">Trung bình <b>2.038</b> ký tự/file (min 1.293 · max 4.481) — <b>dài hơn nhiều</b> so với ví dụ một câu trong PRD. Bài toán là trích xuất đa khái niệm trên <b>tài liệu</b>, không phải trên câu.</div></div>
+      <div class="pcard hot"><div class="pv">~2.771</div><div class="pk">concept dự phóng</div><div class="pl">Ngoại suy theo mật độ đo được <b>13,6 concept / 1000 ký tự</b>. Đây là khối lượng phải sinh ra và <b>không có nhãn vàng</b> để kiểm tra.</div></div>
+      <div class="pcard"><div class="pv">0</div><div class="pk">file có nhãn train</div><div class="pl">Bài toán <b>zero-shot / low-resource</b>: không fine-tune supervised được. Buộc dựa vào LLM prompting + embedding pretrained + gazetteer từ bảng mã.</div></div>
+    </div>
+
+    <h3><span class="lead">1.1</span>Thể loại và profile rủi ro</h3>
+    <div class="figwrap">
+      <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Phân bố thể loại và profile rủi ro của 100 bản ghi test">
+              <text x="8" y="16" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#074946">a · Thể loại văn bản (n=100)</text>
+              <text x="144" y="51" text-anchor="end" font-family="sans-serif" font-size="11" fill="#42605c">Hỏi–đáp / forum</text>
+              <rect x="152" y="40" width="200" height="15" rx="3" fill="#e2efed"/>
+              <rect x="152" y="40" width="88.0" height="15" rx="3" fill="#0a6b66"/>
+              <text x="247.0" y="51.5" font-family="monospace" font-size="10.5" font-weight="700" fill="#074946">44</text>
+              <text x="144" y="75" text-anchor="end" font-family="sans-serif" font-size="11" fill="#42605c">Bệnh án (template)</text>
+              <rect x="152" y="64" width="200" height="15" rx="3" fill="#e2efed"/>
+              <rect x="152" y="64" width="76.0" height="15" rx="3" fill="#0a6b66"/>
+              <text x="235.0" y="75.5" font-family="monospace" font-size="10.5" font-weight="700" fill="#074946">38</text>
+              <text x="144" y="99" text-anchor="end" font-family="sans-serif" font-size="11" fill="#42605c">Khác · lẫn thể loại</text>
+              <rect x="152" y="88" width="200" height="15" rx="3" fill="#e2efed"/>
+              <rect x="152" y="88" width="32.0" height="15" rx="3" fill="#0a6b66"/>
+              <text x="191.0" y="99.5" font-family="monospace" font-size="10.5" font-weight="700" fill="#074946">16</text>
+              <text x="144" y="123" text-anchor="end" font-family="sans-serif" font-size="11" fill="#42605c">Bài giáo dục</text>
+              <rect x="152" y="112" width="200" height="15" rx="3" fill="#e2efed"/>
+              <rect x="152" y="112" width="4.0" height="15" rx="3" fill="#0a6b66"/>
+              <text x="163.0" y="123.5" font-family="monospace" font-size="10.5" font-weight="700" fill="#074946">2</text>
+              <line x1="8" y1="146" x2="712" y2="146" stroke="#d5ddd9" stroke-width="1"/>
+              <text x="8" y="170" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#074946">b · Profile rủi ro — số bản ghi có đặc điểm (n=100)</text>
+              <text x="412" y="201" text-anchor="end" font-family="sans-serif" font-size="11" fill="#42605c">Trích nguyên văn tên ICD</text>
+              <rect x="420" y="190" width="200" height="15" rx="3" fill="#eef1ef"/>
+              <rect x="420" y="190" width="188.0" height="15" rx="3" fill="#0a6b66"/>
+              <text x="615.0" y="201.5" font-family="monospace" font-size="10.5" font-weight="700" fill="#0a6b66">94</text>
+              <text x="412" y="225" text-anchor="end" font-family="sans-serif" font-size="11" fill="#42605c">Near-duplicate</text>
+              <rect x="420" y="214" width="200" height="15" rx="3" fill="#eef1ef"/>
+              <rect x="420" y="214" width="84.0" height="15" rx="3" fill="#d97a2b"/>
+              <text x="511.0" y="225.5" font-family="monospace" font-size="10.5" font-weight="700" fill="#d97a2b">42</text>
+              <text x="412" y="249" text-anchor="end" font-family="sans-serif" font-size="11" fill="#42605c">Token thuốc bị che ***</text>
+              <rect x="420" y="238" width="200" height="15" rx="3" fill="#eef1ef"/>
+              <rect x="420" y="238" width="60.0" height="15" rx="3" fill="#d97a2b"/>
+              <text x="487.0" y="249.5" font-family="monospace" font-size="10.5" font-weight="700" fill="#d97a2b">30</text>
+              <text x="412" y="273" text-anchor="end" font-family="sans-serif" font-size="11" fill="#42605c">Lệch NFC (offset lỗi)</text>
+              <rect x="420" y="262" width="200" height="15" rx="3" fill="#eef1ef"/>
+              <rect x="420" y="262" width="40.0" height="15" rx="3" fill="#b8443f"/>
+              <text x="467.0" y="273.5" font-family="monospace" font-size="10.5" font-weight="700" fill="#b8443f">20</text>
+              </svg>
+      <div class="figcap">Đo trên toàn bộ 100 file. <b>(a)</b> Thể loại phân loại bằng chữ ký cấu trúc (câu mở đầu + mẫu tiêu đề). <b>(b)</b> Mỗi thanh là số bản ghi chứa đặc điểm đó — bốn đặc điểm này quyết định thiết kế pipeline.</div>
+    </div>
+
+    <div class="callout note"><b>Khác biệt so với báo cáo 10 file.</b> Trong tập 10 file, <b>bệnh án</b> chiếm 6/10 và <b>giáo dục</b> 2/10. Trên toàn 100 file, tỉ lệ đảo lại: <b>hỏi–đáp là thể loại đông nhất (44)</b>, bệnh án 38, còn <b>bài giáo dục chỉ 2 file</b>. Hệ quả: rủi ro over-prediction kiểu <code>1.txt</code> (27 <code>CHẨN_ĐOÁN</code> trong một bài giáo dục) <b>hiếm hơn</b> dự đoán, nhưng nhánh <b>THUỐC + co-reference</b> lại <b>quan trọng hơn</b> vì gắn với thể loại đông nhất.</div>
+
+    <h3><span class="lead">1.2</span>Hai bảng mã trong repo</h3>
+    <div class="callout ok"><b>Blocker số 1 của báo cáo cũ đã được tháo.</b> Mục 6.1 của <b>BÁO CÁO TỔNG HỢP</b> ghi "BTC chưa cung cấp <code>ICD10.csv</code> / <code>RXNORM.csv</code>" và vì thế Recall@k phải đo trên <b>pool giả lập 211 mục</b>. Dữ liệu thật <b>đã nằm trong</b> <code>data/knowledge_base/</code>. Việc <b>#1</b> ở lộ trình (index toàn bộ bảng thật, đo lại Recall@k) <b>làm được ngay</b> — với điều kiện dựng bảng RxNorm trước (xem đính chính dưới đây).</div>
+
+    <div class="callout warn"><b>CẢNH BÁO 25/07/2026 — <code>RXNORM.csv</code> đang bị xóa khỏi thư mục làm việc.</b> File <b>vẫn còn trong git HEAD</b> (commit <code>a039dfe</code>, đúng <b>637.977</b> dòng như bảng dưới) nhưng <b>không còn trên đĩa</b> — <code>git status</code> báo <code>D data/knowledge_base/RXNORM.csv</code>. Thay vào đó là bản phân phối RRF thô <code>RxNorm_full_07062026/</code> (untracked). <b>Phải quyết định giữ cái nào</b>: khôi phục bằng <code>git checkout -- data/knowledge_base/RXNORM.csv</code>, hoặc chốt dùng RRF và commit việc thay thế. Để lẫn lộn thế này thì pipeline sẽ gãy trên máy khác — đúng kịch bản bị loại vì BTC không cài lại được.<br><br>
+    <b>Hai nguồn khác nhau về phạm vi:</b> <code>RXNORM.csv</code> là export <b>đa nguồn</b> — <code>sab</code>: RXNORM 323.426 · MTHSPL 217.714 · VANDF 70.254 · MSH 25.714 · CVX 858 (nên mới có <code>DP</code> 193k). Còn <code>RXNCONSO.RRF</code> có <b>1.202.603</b> dòng, lọc <code>SAB=RXNORM</code> + <code>SUPPRESS=N</code> còn <b>202.495</b> dòng → <b>172.672</b> chuỗi duy nhất → <b>27.242</b> tên hoạt chất/biệt dược. RRF là nguồn <b>đầy đủ và chính thống hơn</b>, kèm các bảng phụ (<code>RXNCUI.RRF</code> để remap, <code>RXNSTY.RRF</code>, <code>RXNREL.RRF</code>) mà bản CSV không có.</div>
+
+    <div class="callout warn"><b>RỦI RO MỚI — mã RxNorm trong đề bài đã hết hiệu lực từ 2019.</b> Ví dụ ở mục 5 ghi <code>360047 ↔ Chlorpheniramine 0.4 MG/ML</code>. Mã này <b>không tồn tại</b> trong bản RxNorm 07/06/2026 của repo. Tra <code>RXNCUI.RRF</code>: <code>360047</code> hết hiệu lực ở bản <code>19AA (07/2019)</code> và được <b>remap sang <code>2178097</code></b>. Toàn bộ file có <b>22.330 mã đã bị remap</b> và <b>7.939 mã bị xóa hẳn</b>. Đã kiểm tra <b>cả hai</b> nguồn trong repo: <code>360047</code> <b>không có trong <code>RXNORM.csv</code> lẫn <code>RXNCONSO.RRF</code></b>. Tệ hơn nữa, mã kế nhiệm <code>2178097</code> tuy có mặt nhưng mang cờ <b><code>SUPPRESS=O</code></b> (obsolete) trong bản 07/2026 — tức <b>cả chuỗi kế thừa đã chết</b>: mã gốc retire 2019, mã thay thế nay cũng obsolete. Lọc <code>SUPPRESS=N</code> (bắt buộc để index sạch) sẽ loại luôn cả hai. Nghĩa là <b>không có đường nào từ bản RxNorm trong repo dẫn tới đáp án mẫu của đề</b>, kể cả đi qua bảng remap. Nếu gold label của BTC sinh từ một bản RxNorm cũ, hệ thống retrieve từ bản trong repo sẽ trả mã "đúng theo bản mới" nhưng <b>Jaccard = 0</b> — mất điểm hệ thống ở đúng phần trọng số 0.4, không phải do model kém. <b>Hai việc rẻ:</b> (a) hỏi BTC gold dùng bản RxNorm nào (câu hỏi <b>#7</b> ở mục 8); (b) dựng sẵn bảng remap hai chiều từ <code>RXNCUI.RRF</code> để đổi hướng mà không phải build lại index.</div>
+
+    <div class="callout ok"><b>Đã chốt được TTY đích cho nhánh THUỐC.</b> Tra ngược 6 mã trong các ví dụ của đề: <b>5/6 là <code>TTY=SCD</code></b> — <code>308135</code> = <i>amlodipine 10 MG Oral Tablet</i>, <code>243670</code> = <i>aspirin 81 MG Oral Tablet</i>, <code>866436</code> = <i>24 HR metoprolol succinate 50 MG ER Oral Tablet</i>, <code>197528</code> = <i>clonazepam 1 MG Oral Tablet</i>, <code>1660761</code> = <i>capsaicin 0.38 MG/ML…</i> (mã thứ 6 là <code>360047</code> đã retire). ⇒ <b>Target <code>SCD</code>, phụ <code>SBD</code></b>, không phải <code>IN</code>. Ràng buộc này còn làm luôn việc của bộ lọc chất phân tích xét nghiệm: SCD bắt buộc có hàm lượng + dạng bào chế nên một mention <code>glucose</code> trơ trọi trong bảng XN không khớp được gì.</div>
+
+    <table class="def">
+      <tr><th>Bảng</th><th>Dòng</th><th>Mã duy nhất</th><th>Ngôn ngữ</th><th>Ghi chú cài đặt</th></tr>
+      <tr><td><code>ICD10.csv</code></td><td>36.689</td><td>13.189</td><td>Tiếng <b>Việt</b></td><td>Có <b>4 dòng tiêu đề rác</b> trước header thật → phải <code>skiprows=4</code>, encoding <code>utf-8-sig</code>. Cột dùng được: <code>Mã</code>, <code>Tên bệnh</code>, <code>Nhóm bệnh</code>, <code>Hiệu lực</code>. <b>Cần làm sạch:</b> 2.120 dòng (5,8%) mã có hậu tố <code>*</code>/<code>†</code> của hệ dagger-asterisk · 955 dòng <code>Hiệu lực=Không</code> · dòng rác (<code>test</code> → <code>D15.098</code>) · 42 tên ≤6 ký tự là mìn false positive.</td></tr>
+      <tr><td><code>RXNCONSO.RRF</code><br><span style="color:var(--ink-faint);font-size:13px">(không phải <code>RXNORM.csv</code>)</span></td><td>1.202.603<br><span style="color:var(--ink-faint);font-size:13px">→ 202.495 sau lọc</span></td><td>172.672 chuỗi<br><span style="color:var(--ink-faint);font-size:13px">27.242 tên hoạt chất</span></td><td>Tiếng <b>Anh</b></td><td>Phân tách bằng <code>|</code>, không có header. Cột: <code>RXCUI</code>(0) · <code>SAB</code>(11) · <code>TTY</code>(12) · <code>STR</code>(14) · <code>SUPPRESS</code>(16). Lọc <code>SAB=RXNORM</code> + <code>SUPPRESS=N</code>. Sau lọc: <code>SY</code> 36.286 · <code>PSN</code> 27.387 · <code>SCD</code> 17.552 · <code>IN</code> 14.648 · <code>SBD</code> 9.696.</td></tr>
+    </table>
+    <p style="color:var(--ink-soft)">Bất đối xứng ngôn ngữ vẫn đúng và nay <b>đo được</b>: nhánh bệnh là <b>Việt→Việt</b>, nhánh thuốc là <b>Anh→Anh</b>. Hai nhánh phải tách riêng.</p>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Năm đặc điểm phá vỡ string-match thuần</h2></div>
+    <p style="color:var(--ink-soft)">Bốn đặc điểm đầu lấy từ <b>BÁO CÁO TỔNG HỢP</b> mục 2.2, kèm số đo lại trên 100 file. Đặc điểm thứ năm là phát hiện mới khi quét toàn corpus.</p>
+
+    <div class="acc">
+      <div class="acc-item open">
+        <button class="acc-head"><span class="rn">1</span>Lệch Unicode NFC/NFD — <b>20/100 file</b>, làm mất <code>position</code> âm thầm<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">
+          <b>Bẫy đặc thù tiếng Việt, đã gây lỗi thật.</b> 20 file lưu ở dạng <b>tổ hợp (NFD)</b>: dấu thanh là ký tự combining riêng. LLM trả về <b>dựng sẵn (NFC)</b> → <code>str.find()</code> thất bại dù mắt thường thấy chuỗi có trong văn bản. Trong báo cáo cũ, <code>"đi tiêu ra máu"</code> ở <code>100.txt</code> fail exact-match theo đúng cơ chế này.
+          <div class="quote">Bản NFC và bản thô <span class="rd">khác nhau về độ dài</span> → offset lệch.
+NFC-hóa để so khớp, nhưng <span class="hi">position phải tính trên chuỗi thô</span>.</div>
+          <b>Luật bắt buộc:</b> NFC-hóa <b>chỉ trong bộ nhớ</b> để so khớp; khi xuất <code>position</code> phải map ngược về chuỗi gốc. Test bắt buộc: <code>raw[start:end] == entity["text"]</code> phải đúng trên cả 20 file lệch.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">2</span>Tên thuốc bị che <code>*****</code> — <b>30 file · 99 token</b><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">
+          Thứ bị che chính là <b>tên hoạt chất</b> — thông tin duy nhất để map RxNorm. Fuzzy và embedding <b>không có gì để khớp</b>. Nhiều nhất là 9 token/file (đúng như <code>7.txt</code>, <code>9.txt</code> trong báo cáo cũ).
+          <b>Lối thoát co-reference đo được trên 100 file:</b> trong <b>17/30</b> file bị che, có <b>ít nhất một tên thuốc plaintext khớp RxNorm ở chỗ khác</b> trong cùng văn bản → suy ra được token bị che. Ví dụ: <code>[19] tylenol</code> · <code>[53] carvedilol, crestor, rosuvastatin, isosorbide, insulin</code> · <code>[72] clonidine, suboxone</code>. <b>13 file còn lại không có neo</b> → <code>candidates: []</code>.
+          <b>Cảnh báo:</b> khi lọc phải loại <b>chất phân tích xét nghiệm</b> (glucose, albumin, protein, lipase, creatinine…) — chúng cũng có trong RxNorm nhưng là <code>TÊN_XÉT_NGHIỆM</code>, không phải <code>THUỐC</code>. Không lọc thì 30/30 file "có neo" — <b>con số sai</b>.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">3</span>Cách nói dân gian — fuzzy sụp về mức nhiễu<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">
+          <code>"đi tiêu ra máu"</code>, <code>"cục máu đông"</code> không trùng token nào với tiêu đề ICD-10 chính thức. Đây là lý do cần <b>embedding ngữ nghĩa</b> (SapBERT/BioLORD) chứ không chỉ lexical — nhưng chỉ áp cho phần mention <b>không</b> trùng gazetteer (xem mục 5).
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">4</span>Span lặp lại — <code>str.find()</code> gây chồng lấn<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">
+          Nhiều token <code>*****</code> giống nhau trong cùng file. Nếu tìm vị trí mà chỉ đẩy con trỏ <code>+1</code> ký tự, các span <b>chồng lấn nhau</b>. Phải đẩy con trỏ qua <b>hết độ dài match</b>. Lỗi này đã gặp và đã sửa.
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">5</span><b>Mới:</b> cue phủ định nổ sai — <code>"không"</code> phần lớn <b>không</b> phủ định<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">
+          <code>"không"</code> xuất hiện <b>561 lần / 100 file</b>, có mặt ở <b>cả 100 file</b>. Đo lại 25/07: <b>119 lần (21%)</b> chứng minh được là <b>không phủ định gì</b> — <code>không được</code> 24 · <code>không đặc hiệu</code> 21 · <code>không rõ</code> 18 · <code>không thể</code> 16 · <code>không phải</code> 11 · <code>không xác định</code> 10 · <code>không nên</code> 7 · <code>không khí</code> 7. Nguy hiểm nhất là <code>không đặc hiệu</code> — nó là <b>một phần tên bệnh trong chính bảng ICD-10</b>: <b>2.487 dòng</b> trong bảng chứa cụm này, gồm cặp kinh điển <code>I50 Suy tim</code> / <code>I50.9 Suy tim, không đặc hiệu</code>. Matcher ngây thơ vừa gắn <code>isNegated</code> sai, vừa cắt span mất mã <code>I50.9</code>. 442 lần còn lại mới chỉ là <b>ứng viên</b> — nhiều trường hợp phủ định một <b>hành động</b> chứ không phải một concept y tế ("không tự ý mua thuốc"). Cue khác: <code>chưa</code> 54 · <code>âm tính</code> 20 · <code>phủ nhận</code> 16 · <code>loại trừ</code> 1.
+          <div class="callout warn" style="margin:14px 0"><b>BẪY MỚI 25/07 — cue gia đình <code>"ông"</code> nổ bên trong chữ <code>"không"</code>.</b> Đếm ngây thơ chuỗi <code>"ông "</code>: <b>644 lần</b>. Đếm có ranh giới từ: <b>14 lần</b>. <b>630/644 = 98% là mảnh của "kh-<u>ông</u>"</b> — matcher substring sẽ gắn <code>isFamily</code> cho gần như mọi câu phủ định trong corpus, tức hai loại assertion đá nhau bằng đúng một chuỗi ký tự. Phải dùng <code>(?&lt;![\wăâđêôơư])ông\b</code>, không phải <code>"ông " in text</code>.<br><br>
+          Sau khi sửa, cue gia đình thật chỉ còn <b>80 lần / 36 file</b> (không phải 381): <code>mẹ</code> 30 · <code>gia đình</code> 17 · <code>ông</code> 14 · <code>người nhà</code> 9 · <code>cha</code> 3 · <code>bà</code> 3 · <code>bố</code> 1. Lọc tiếp còn <b>35 câu</b> vừa có cue vừa có từ chỉ bệnh — soi tay 4 câu đầu thì <b>3 là bẫy</b>: <i>"nhận gen lặn… từ bố và/hoặc mẹ"</i> (cơ chế di truyền) · <i>"cha mẹ cần đưa trẻ đến bệnh viện"</i> (lời khuyên) · <i>"bà ấy cho biết có chút đau khi sờ nắn"</i> (<b>"bà ấy" = chính bệnh nhân</b>) · <i>"người nhà nhận thấy bệnh nhân có biểu hiện bất thường"</i> (người nhà là <b>người quan sát</b>). ⇒ <code>isFamily</code> thật trong corpus này <b>gần như bằng 0</b>.</div>
+          <b>Kết luận:</b> quy ước <b>mặc định <code>assertions: []</code></b> không còn là phỏng đoán mà là <b>luật có bằng chứng</b> — nó mô tả đúng dữ liệu. Nên lấy assertion từ <b>phạm vi mục</b> thay vì cue cục bộ: <b>58 file</b> có mục "tiền sử", <b>55</b> có "tiền sử bệnh", <b>23</b> có "bệnh sử", <b>22</b> có "thuốc trước khi nhập viện" — tín hiệu này chính xác hơn và rẻ hơn cue cục bộ.
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Sản lượng pipeline <span style="font-family:var(--mono);font-size:13px;color:var(--accent)">(10 file)</span></h2></div>
+    <div class="callout note"><b>Đây là <i>sản lượng</i>, không phải <i>độ chính xác</i>.</b> Không có nhãn vàng cho NER/assertion nên chỉ đếm được số concept sinh ra và <b>tính đúng đắn của <code>position</code></b>. Không suy ra precision/recall từ bảng này.</div>
+
+    <table class="def">
+      <tr><th>File</th><th>Thể loại</th><th>Ký tự</th><th>Concept</th><th>TRIỆU_CHỨNG</th><th>TÊN_XÉT_NGHIỆM</th><th>KẾT_QUẢ_XÉT_NGHIỆM</th><th>CHẨN_ĐOÁN</th><th>THUỐC</th><th>Assert</th></tr>
+      <tr><td><code>1.txt</code></td><td>Giáo dục</td><td>4.481</td><td>57</td><td>12</td><td>7</td><td>1</td><td><b>27</b></td><td>10</td><td>0</td></tr>
+      <tr><td><code>2.txt</code></td><td>Giáo dục</td><td>3.740</td><td>46</td><td>23</td><td>10</td><td>0</td><td>8</td><td>5</td><td>2</td></tr>
+      <tr><td><code>3.txt</code></td><td>Bệnh án</td><td>3.724</td><td>34</td><td>21</td><td>2</td><td>1</td><td>6</td><td>4</td><td>8</td></tr>
+      <tr><td><code>4.txt</code></td><td>Bệnh án</td><td>3.676</td><td>64</td><td>29</td><td>8</td><td>13</td><td>7</td><td>7</td><td>9</td></tr>
+      <tr><td><code>5.txt</code></td><td>Bệnh án</td><td>3.420</td><td>41</td><td>19</td><td>12</td><td>6</td><td>3</td><td>1</td><td>25</td></tr>
+      <tr><td><code>6.txt</code></td><td>Bệnh án</td><td>3.218</td><td>56</td><td>22</td><td>11</td><td>12</td><td>10</td><td>1</td><td>27</td></tr>
+      <tr><td><code>7.txt</code></td><td>Hỏi–đáp</td><td>3.208</td><td>32</td><td>9</td><td>3</td><td>2</td><td>3</td><td><b>15</b></td><td>4</td></tr>
+      <tr><td><code>8.txt</code></td><td>Bệnh án</td><td>3.110</td><td>49</td><td>23</td><td>7</td><td>4</td><td>14</td><td>1</td><td>4</td></tr>
+      <tr><td><code>9.txt</code></td><td>Hỏi–đáp</td><td>3.013</td><td>41</td><td>9</td><td>4</td><td>5</td><td>5</td><td><b>18</b></td><td>11</td></tr>
+      <tr><td><code>10.txt</code></td><td>Bệnh án</td><td>2.957</td><td>51</td><td>21</td><td>9</td><td>13</td><td>2</td><td>6</td><td>4</td></tr>
+      <tr><td><b>TỔNG</b></td><td>—</td><td><b>34.547</b></td><td><b>471</b></td><td><b>188</b></td><td><b>73</b></td><td><b>57</b></td><td><b>85</b></td><td><b>68</b></td><td><b>94</b></td></tr>
+    </table>
+
+    <div class="grid2">
+      <div class="card">
+        <h3 style="margin-top:0"><span class="lead">3.1</span>Position — điểm sáng</h3>
+        <ul class="clean">
+          <li><b>471/472 = 99,8%</b> span khớp nguyên văn, verify bằng cách slice lại file gốc.</li>
+          <li><b>1 span bị loại:</b> <code>"có dịch giống mủ có màu vàng chảy ra từ tổn thương"</code> (<code>7.txt</code>) — LLM <b>diễn giải</b> thay vì trích. Tỉ lệ thấp nhưng <b>phải giữ lớp lọc này</b>.</li>
+          <li>Luật rút ra: <b>LLM không được trả <code>position</code></b>. LLM trả span văn bản; code tính offset trên chuỗi thô; span không định vị được thì <b>loại bỏ</b>.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0"><span class="lead">3.2</span>Assertion theo thể loại</h3>
+        <table class="def">
+          <tr><th>Loại</th><th>Số lần</th><th>Nguồn chính</th></tr>
+          <tr><td><code>isHistorical</code></td><td><b>60</b></td><td>mục "Tiền sử bệnh"</td></tr>
+          <tr><td><code>isNegated</code></td><td><b>32</b></td><td>"không", "phủ nhận"</td></tr>
+          <tr><td><code>isFamily</code></td><td><b>2</b></td><td>rất hiếm</td></tr>
+        </table>
+        <p style="color:var(--ink-soft);font-size:13.5px">Theo thể loại: bệnh án <b>77</b> · hỏi–đáp <b>15</b> · giáo dục <b>2</b>. Assertion là hiện tượng của <b>bệnh án thật</b>. Áp luật nghiêm cho bài giáo dục là đúng — gán bừa ở đó chỉ làm tụt Jaccard.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Retrieval mã ICD — luận cứ cho retrieve-then-rerank</h2></div>
+
+    <table class="def">
+      <tr><th>Phương pháp</th><th>Recall@1</th><th>Recall@3</th><th>Recall@5</th></tr>
+      <tr><td>SapBERT (ngữ nghĩa)</td><td><b>50,8%</b></td><td>79,7%</td><td>86,4%</td></tr>
+      <tr><td>Fuzzy string (<code>token_set_ratio</code>)</td><td>37,3%</td><td>59,3%</td><td>71,2%</td></tr>
+      <tr><td>Hybrid re-rank (α=0,7)</td><td>47,5%</td><td><b>84,7%</b></td><td><b>94,9%</b></td></tr>
+    </table>
+
+    <div class="verdict">
+      <div class="em">◆</div>
+      <div>
+        <p class="big">Không phương pháp retrieval nào đủ một mình — nhưng mã đúng gần như luôn nằm trong top-5.</p>
+        <p>Top-1 cao nhất chỉ <b>~51%</b>: lấy thẳng top-1 làm <code>candidates</code> thì Jaccard rất thấp. Nhưng <b>Recall@5 = 94,9%</b> → <b>retrieval lo recall, tầng rerank lo precision</b>. Đây là luận cứ định lượng cho kiến trúc hai tầng, không phải sở thích thiết kế.</p>
+      </div>
+    </div>
+
+    <ul class="clean">
+      <li><b>Fuzzy không vô dụng.</b> Thắng SapBERT ở ca trùng chuỗi ký tự (<code>"loạn thần"</code>→<code>F29</code>, <code>"hẹp tắc mạch vành"</code>→<code>I25.1</code>). Vì vậy <b>hybrid</b> cho Recall@5 cao nhất, không phải SapBERT thuần.</li>
+      <li>Hai tín hiệu <b>bổ sung nhau thật</b>: SapBERT và fuzzy chọn <b>khác mã ở 53%</b> mention (32/60) — không dư thừa.</li>
+    </ul>
+
+    <div class="callout warn"><b>ĐÍNH CHÍNH đã ghi nhận.</b> Báo cáo demo 2 file trước đó kết luận SapBERT "vượt trội" fuzzy — nhưng dựa trên <b>2–3 mention</b> và pool ~10 mục. Đo lại nghiêm túc (59 mention, pool 211 có distractor) cho kết quả <b>ôn hòa hơn nhiều</b>. Kết luận cũ đã phóng đại; bảng trên là số liệu đúng.</div>
+
+    <div class="callout warn"><b>Ba giới hạn của bảng này.</b> <span class="tag fail">CHƯA XÁC MINH</span> <b>(a)</b> Pool đo là <b>211 mục giả lập</b>, không phải bảng thật <b>13.189 mã</b> — bảng thật lớn hơn ~60 lần và <b>sẽ khó hơn đáng kể</b>. <b>(b)</b> Gold dùng để tính Recall@k là <b>LLM adjudication</b>, không phải chuyên gia mã hóa y tế → chỉ dùng để <b>so sánh tương đối</b> giữa 3 phương pháp. <b>(c)</b> <code>α=0,7</code> và <code>THRESH=0,5</code> là <b>giá trị đặt tay, chưa tuning</b>.</div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">5</span><h2>Đòn bẩy lớn nhất: corpus trích nguyên văn tên ICD</h2></div>
+
+    <div class="prio">
+      <div class="pcard hot"><div class="pv">94<span style="font-size:16px;color:var(--ink-faint)">/100</span></div><div class="pk">file chứa tên ICD nguyên văn</div><div class="pl">Quét toàn bộ <b>36.689</b> tên bệnh tiếng Việt như substring: <b>274 mention</b> trùng <b>khớp chính xác từng ký tự</b>.</div></div>
+      <div class="pcard"><div class="pv">251</div><div class="pk">dòng gazetteer seed</div><div class="pl">Sau khi dedup theo <b>longest-match</b> trong từng file. Đã xuất ra <code>icd_verbatim_matches.csv</code> — dùng được ngay.</div></div>
+      <div class="pcard"><div class="pv">0</div><div class="pk">mention nhập nhằng mã</div><div class="pl">Trong 274 mention nguyên văn, <b>không có</b> mention nào ứng với &gt;1 mã ICD. (Toàn bảng chỉ <b>1,2%</b> tên nhập nhằng.)</div></div>
+    </div>
+
+    <div class="verdict">
+      <div class="em">◆</div>
+      <div>
+        <p class="big">Phần trọng số cao nhất (0.4) có một đường tất định — không cần retrieval ngữ nghĩa.</p>
+        <p>Với 94/100 file, mã ICD đúng lấy được bằng <b>tra bảng nguyên văn</b>, độ chính xác tuyệt đối, không có Recall@1 ~51%. Retrieval ngữ nghĩa chỉ cần cho phần <b>còn lại</b> — mention dân gian không trùng bảng. Kết luận thực hành: <b>gazetteer trước, embedding sau</b>; đảo thứ tự là bỏ điểm chắc để đi đoán.</p>
+      </div>
+    </div>
+
+    <div class="callout warn"><b>ĐÍNH CHÍNH 25/07/2026 — "độ chính xác tuyệt đối" là sai.</b> Coverage 94/100 tái lập được, nhưng <b>độ chính xác thì không</b>. Đo lại 494 mention khớp nguyên văn theo chương ICD: <b>134 mention (27%) rơi vào chương R</b> — "triệu chứng &amp; dấu hiệu bất thường", <b>không phải chẩn đoán</b>: <code>khó thở</code>→<code>R06.0</code> (65 lần) · <code>đau đầu</code>→<code>R51</code> (32) · <code>đánh trống ngực</code>→<code>R00.2</code> (13) · <code>chán ăn</code>→<code>R63.0</code> · <code>hắt hơi</code>→<code>R06.7</code>. Đây gần như chắc chắn là <code>TRIỆU_CHỨNG</code>, mà schema bắt <code>candidates</code> của <code>TRIỆU_CHỨNG</code> <b>phải rỗng</b> — điền mã vào đó là tự phạm chính checklist mục 7.<br><br>
+    <b>Cộng thêm rác trong bảng sinh false positive trực tiếp:</b> <code>thận</code>→<code>D30.0</code> (tên bị <b>cắt cụt</b>, mất chữ "U lành" — khớp 27 lần, sai 100%: <i>"sỏi thận không ứ nước"</i>, <i>"bệnh thận mạn"</i>, <i>"hội chứng thận hư"</i>) · <code>test</code>→<code>D15.098</code> (dòng rác, mã không tồn tại trong ICD-10) · <code>ngứa</code>→<code>L29</code> · <code>tim to</code>→<code>I51.7</code>.<br><br>
+    <b>⇒ Sửa thứ tự pipeline.</b> "Gazetteer trước, embedding sau" đúng ở <b>tầng retrieval</b>, nhưng thứ tự thật là: <b>NER + entity typing trước → chỉ span <code>type=CHẨN_ĐOÁN</code> mới đi vào gazetteer</b>. Type quyết định gazetteer, không phải ngược lại. Kèm theo: stoplist tên ≤6 ký tự, lọc <code>Hiệu lực=Có</code>, chuẩn hóa hậu tố <code>*</code>/<code>†</code>. <b>6 file gazetteer không phủ:</b> 37, 48, 56, 88, 94, 95.</div>
+
+    <div class="callout warn"><b>Kỷ luật longest-match là bắt buộc.</b> Một số tên bệnh <b>lồng trong tên dài hơn</b> mang <b>mã khác</b>: <code>"suy tim"</code> (<code>I50</code>) nằm trong <code>"suy tim, không đặc hiệu"</code> (<code>I50.9</code>). Khớp ngắn nhất → <b>trả sai mã</b>. Phải luôn ưu tiên match dài nhất.</div>
+
+    <h3><span class="lead">5.1</span>Near-duplicate — kinh tế của việc gán nhãn tay</h3>
+    <div class="card">
+      <ul class="clean">
+        <li><b>56/100 file</b> nằm trong <b>22 cluster</b> near-duplicate (Jaccard 8-gram &gt; 0,25, gom transitive bằng union-find). Cặp mạnh nhất: <code>[86,94]</code> J=<b>0,90</b> · <code>[76,83]</code> 0,88 · <code>[75,84]</code> 0,85 · <code>[67,94]</code> 0,80 · <code>[67,86]</code> 0,79 · <code>[7,9]</code> 0,76. <span class="tag partial">ĐÍNH CHÍNH</span> con số cũ ghi 42 file / 20 cluster — <b>đếm thiếu</b>: bỏ sót file <b>94</b> vốn gần 86 hơn cả (0,90), mà clustering là transitive nên sót một cặp làm vỡ cả cluster. Rủi ro leak vì thế <b>lớn hơn</b> ước lượng cũ.</li>
+        <li><b>Dùng để gán nhãn:</b> gán tay 1 đại diện mỗi cluster + các file lẻ là đã phủ hết diversity của corpus — không cần gán 100 file.</li>
+        <li><b>Dùng để kiểm tra:</b> hai file trong cùng cluster mà model trả kết quả lệch nhau nhiều → <b>tín hiệu bất nhất</b>, soi trước khi nộp.</li>
+        <li><b>Rủi ro:</b> tập validation tự tạo <b>không được</b> để hai file cùng cluster nằm ở hai phía train/dev — sẽ leak và làm điểm dev ảo cao.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">6</span><h2>Vấn đề vận hành đã gặp thật</h2></div>
+    <table class="def">
+      <tr><th>Vấn đề</th><th>Tần suất</th><th>Cách xử lý</th></tr>
+      <tr><td><b>LLM cắt cụt JSON ở <code>max_tokens</code></b></td><td>2/10 file</td><td><code>5.txt</code> trả rỗng (<code>stop_reason=max_tokens</code>), <code>8.txt</code> JSON lỗi. Nâng lên <b>32k token</b> + hàm sửa JSON (cắt tới object hoàn chỉnh cuối). Cả hai thành công. <b>Model reasoning tiêu token cho suy luận nội bộ — phải để budget dư.</b></td></tr>
+      <tr><td><b>Nhãn viết tắt sai</b></td><td><b>toàn bộ 471 record</b></td><td>Dùng <code>TÊN_XN</code>/<code>KẾT_QUẢ_XN</code> — hai dạng này <b>không xuất hiện lần nào</b> trong PRD. Phải sửa thành <code>TÊN_XÉT_NGHIỆM</code>/<code>KẾT_QUẢ_XÉT_NGHIỆM</code>. <b>Đừng viết tắt tên nhãn.</b></td></tr>
+      <tr><td><b>LLM diễn giải thay vì trích</b></td><td>1/472 span</td><td>Loại span (<code>position=None</code>).</td></tr>
+      <tr><td><b>Unicode NFD/NFC</b></td><td>20/100 file</td><td>NFC hai phía khi so khớp; offset map về chuỗi thô.</td></tr>
+      <tr><td><b>Tải SapBERT rất dễ vỡ</b></td><td>—</td><td>Cần <code>socksio</code> (SOCKS proxy); mở lần lượt <code>huggingface.co</code> → <code>cas-server.xethub.hf.co</code> → <code>us.aws.cdn.hf.co</code>; <code>sentence-transformers</code> <b>không load được</b> SapBERT (raw BERT, thiếu config) → load qua <code>transformers</code> + <b>CLS pooling</b>; tokenizer XLM-R cần <code>sentencepiece</code> <b>và</b> <code>protobuf</code>. <b>→ Đóng gói weights, đừng tải lúc runtime.</b></td></tr>
+    </table>
+
+    <h3><span class="lead">6.1</span>Over-prediction — đe dọa điểm số lớn nhất</h3>
+    <div class="callout warn">
+      Pipeline hiện gán mã cho <b>83/85 = 97,6%</b> chẩn đoán. Với Recall@1 chỉ ~51%, gán mã cho gần như mọi chẩn đoán nghĩa là <b>khoảng một nửa mã đang sai</b> → Jaccard bị phạt nặng.<br>
+      <b>Cần:</b> nâng <code>THRESH</code> (hiện 0,5) · gộp mention trùng · ưu tiên đoạn mô tả bệnh nhân trực tiếp · ngưỡng confidence động theo thể loại.<br>
+      <b>Điều chỉnh theo dữ liệu 100 file:</b> vì bài giáo dục chỉ có <b>2 file</b> (không phải 2/10), rủi ro này <b>nhỏ hơn</b> ước lượng ban đầu — nhưng luật "gazetteer nguyên văn thì gán mã, còn lại phải qua ngưỡng" giải quyết nó <b>trực tiếp hơn</b> việc chỉnh <code>THRESH</code>.
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">7</span><h2>Checklist: bốn bẫy phải chặn trước khi nộp</h2></div>
+    <p style="color:var(--ink-soft)">Bấm để đánh dấu đã xử lý.</p>
+    <div class="traps" id="trapList2">
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><b>Tên nhãn viết đầy đủ có dấu.</b> <code>TÊN_XÉT_NGHIỆM</code> · <code>KẾT_QUẢ_XÉT_NGHIỆM</code> — không viết tắt. Đã làm hỏng toàn bộ 471 record một lần.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><b>Test NFC trên 20 file lệch.</b> <code>assert raw[start:end] == entity["text"]</code> cho <b>mọi</b> entity. Lỗi này <b>không báo lỗi</b> — chỉ âm thầm mất điểm.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><b>Không tin mã do LLM nhớ ra.</b> LLM <b>bịa mã</b> — hiện tượng đã biết. Mọi mã phải retrieve từ <code>ICD10.csv</code>/<code>RXNORM.csv</code> trong repo.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><b>Longest-match khi tra gazetteer.</b> <code>"suy tim"</code> (I50) lồng trong <code>"suy tim, không đặc hiệu"</code> (I50.9) — khớp ngắn thì trả sai mã.</span></button>
+    </div>
+
+    <h3><span class="lead">7.1</span>Điều KHÔNG nên làm</h3>
+    <ul class="clean">
+      <li><b>Đừng tối ưu sát theo <code>score.py</code></b> trước khi BTC xác nhận công thức <code>candidates_score</code> — chênh giữa hai cách hiểu tới <b>0,27 điểm</b>, đủ để đảo thứ hạng. Cách hiểu sát-chữ <b>tự mâu thuẫn</b>: chấm bộ dự đoán hoàn hảo cho <b>0,336</b> thay vì 1,0.</li>
+      <li><b>Đừng coi Recall@k mục 4 là độ chính xác thật</b> — pool giả lập, gold do LLM phán định.</li>
+      <li><b>Đừng gán mã cho mọi chẩn đoán</b> để "phủ hết" — Jaccard phạt mã sai ngang với mã thiếu.</li>
+      <li><b>Đừng để pipeline phụ thuộc tải model lúc runtime</b> — top ~15 phải nộp code chạy lại được, <b>không cài được thì bị loại</b>.</li>
+      <li><b>Đừng hard-code theo input công khai</b> — chấm trên private test.</li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">8</span><h2>Lộ trình ưu tiên — cập nhật theo dữ liệu 100 file</h2></div>
+    <table class="def">
+      <tr><th>#</th><th>Việc</th><th>Trạng thái</th><th>Lý do / kỳ vọng</th></tr>
+      <tr><td><b>1</b></td><td><b>Gazetteer nguyên văn từ <code>ICD10.csv</code></b> + kỷ luật longest-match</td><td><span class="tag pass">LÀM ĐƯỢC NGAY</span></td><td>Phủ <b>94/100</b> file, <b>0</b> mention nhập nhằng. Ăn trực tiếp vào trọng số <b>0.4</b> mà không cần model. <b>Rẻ nhất, chắc nhất.</b></td></tr>
+      <tr><td><b>2</b></td><td><b>Tầng rerank</b> (LLM chọn trong top-5) cho phần không trùng gazetteer</td><td><span class="tag pass">LÀM ĐƯỢC NGAY</span></td><td>Recall@5 = 94,9% → biến recall thành precision. <b>Lời nhất</b> trong phần model.</td></tr>
+      <tr><td><b>3</b></td><td><b>Nhánh RxNorm cho THUỐC</b> + co-reference token bị che</td><td><span class="tag pass">LÀM ĐƯỢC NGAY</span></td><td>68 concept đang bỏ trống hoàn toàn. <b>17/30</b> file bị che có neo plaintext. Thể loại hỏi–đáp là <b>đông nhất (44 file)</b> nên nhánh này quan trọng hơn ước lượng cũ.</td></tr>
+      <tr><td><b>4</b></td><td><b>Xác nhận công thức metric với BTC</b></td><td><span class="tag partial">CHỜ BTC</span></td><td>Chênh <b>0,27 điểm</b> giữa hai cách hiểu. Không tối ưu theo metric trước khi chốt.</td></tr>
+      <tr><td><b>5</b></td><td><b>Index toàn bảng thật</b> (13.189 mã ICD) bằng SapBERT + FAISS, <b>đo lại Recall@k</b></td><td><span class="tag pass">LÀM ĐƯỢC NGAY</span></td><td>Thay pool giả lập 211 mục bằng bảng thật. Số hiện tại <b>sẽ tụt</b> — cần biết tụt bao nhiêu.</td></tr>
+      <tr><td><b>6</b></td><td><b>Dev set 20 file gán tay</b> — 1 đại diện mỗi cluster</td><td><span class="tag pass">ĐÃ CHỐT 25/07</span></td><td><b>Danh sách:</b> <code>1, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 17, 21, 25, 26, 27, 31, 42, 54, 94</code>. Phủ hết <b>14/14 tổ hợp</b> (thể loại × lệch NFD × có token che), <b>0 leak</b> cùng cluster, 55.588 ký tự = 27% corpus, ~750 concept phải gán tay. 6/20 file lệch NFD · 7/20 file có token che.</td></tr>
+      <tr><td><b>7</b></td><td><b>Tuning α, THRESH</b></td><td><span class="tag partial">SAU #6</span></td><td>Rẻ, cải thiện chắc chắn — nhưng vô nghĩa khi chưa có dev set.</td></tr>
+    </table>
+
+    <div class="callout note"><b>Bảy câu hỏi còn chặn tiến độ, phải hỏi BTC.</b> <b>(7) Gold label dùng bản RxNorm nào?</b> — ưu tiên ngang câu (1). Mã <code>360047</code> trong chính ví dụ của đề đã hết hiệu lực từ <b>07/2019</b> và remap sang <code>2178097</code>; toàn file <code>RXNCUI.RRF</code> có <b>22.330 mã đã remap</b>. Nếu gold sinh từ bản cũ thì retrieve từ bản 2026 sẽ sai hệ thống ở đúng phần trọng số 0.4. (1) Công thức <code>candidates_score</code> chính xác là gì? — <b>ưu tiên số 1</b>. (2) Mention được ghép thế nào khi chấm: theo <code>position</code> overlap, theo thứ tự, hay exact text? (3) <code>candidates</code> được trả tối đa bao nhiêu mã? (4) WER tính trên toàn trường <code>text</code> gộp hay per-mention rồi trung bình? (5) Mention bỏ sót/thừa tính thế nào? (6) Với mention nói chung chung (<code>"suy tim"</code>) thì kỳ vọng mã <b>3 ký tự</b> (<code>I50</code>) hay <b>5 ký tự</b> (<code>I50.9</code>)? — Jaccard phạt cả hai chiều nên đây là quyết định đáng đo.</div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">9</span><h2>Tài sản hiện có</h2></div>
+    <table class="def">
+      <tr><th>File</th><th>Loại</th><th>Nội dung</th></tr>
+      <tr><td><code>pipeline_demo.py</code></td><td>Code</td><td>Pipeline 4 bước: <code>EXTRACT_SYS</code> (prompt trích xuất), <code>assign_positions</code>, <code>build_output</code>, <code>Normalizer</code>, <code>TYPE_MAP</code></td></tr>
+      <tr><td><code>score.py</code></td><td>Code</td><td>Chấm điểm nội bộ: WER + Jaccard; có <code>validate()</code> kiểm schema và <code>verify_positions()</code>; giữ cả biến thể công thức-ảnh để so sánh</td></tr>
+      <tr><td><code>icd_verbatim_matches.csv</code></td><td>Dữ liệu</td><td><b>251 dòng</b> <code>doc, matched_name, icd_codes</code> — gazetteer seed, dùng ngay cho việc <b>#1</b></td></tr>
+      <tr><td><code>corpus_cues.csv</code></td><td>Dữ liệu</td><td>Đếm cue từng record trên toàn 100 file</td></tr>
+      <tr><td><code>thong_ke_10file.csv</code> · <code>retrieval_eval.csv</code></td><td>Dữ liệu</td><td>Bảng sản lượng 10 file (mục 3) · bảng Recall@k (mục 4)</td></tr>
+      <tr><td><code>output.zip</code></td><td>Nộp bài</td><td>10 file JSON đã sửa nhãn đúng schema (<code>output/1.json</code>…<code>output/10.json</code>)</td></tr>
+    </table>
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">score.py — cách dùng</span></div>
+<pre><span class="cm"># Chấm điểm (cần thư mục gold/)</span>
+python score.py --pred output/ --gold gold/ --verbose
+
+<span class="cm"># Kèm verify position vs file gốc</span>
+python score.py --pred output/ --gold gold/ --src data_txt/
+
+<span class="cm"># Chỉ validate schema trước khi nộp (dùng chính pred làm gold)</span>
+python score.py --pred output/ --gold output/
+<span class="cm">#   → phải ra FINAL_SCORE = 1.0000 và "Schema OK"</span></pre>
+    </div>
+  </section>
+
+</section>
+
+<!-- ══════════════════════════ TAB 05 · THIẾT KẾ HỆ THỐNG ══════════════════════════ -->
+<section class="panel" id="sysd" role="tabpanel">
+
+  <div class="hero">
+    <span class="eyebrow">Kiến trúc · đề xuất 25/07/2026</span>
+    <h1 class="title">Thiết kế hệ thống<br><span class="en">Từ yêu cầu đến contract từng module</span></h1>
+    <p class="subtitle">Thiết kế đầy đủ cho pipeline Smart Medic: yêu cầu chức năng &amp; phi chức năng, kiến trúc phân tầng, data contract, mô hình dữ liệu KB, chế độ hỏng, và phân tích đánh đổi. Mọi quyết định đều neo vào số liệu đo được ở tab <b>04</b>.</p>
+    <div class="hero-meta">
+      <span class="chip"><span class="dot"></span>Reproducibility <b>&gt;</b> accuracy</span>
+      <span class="chip"><span class="dot"></span><b>7</b> stage · pure function</span>
+      <span class="chip"><span class="dot"></span>Provider pattern</span>
+      <span class="chip"><span class="dot"></span><b>9</b> trade-off đã cân</span>
+    </div>
+  </div>
+
+  <div class="callout note"><b>Quan hệ với các tab khác.</b> Tab <b>03</b> trả lời <i>"dùng phương pháp nào"</i>, tab <b>04</b> trả lời <i>"dữ liệu thực tế ra sao"</i>. Tab này trả lời <i>"ghép chúng thành hệ chạy được như thế nào"</i> — và tab <b>06</b> trả lời <i>"làm theo thứ tự nào"</i>.</div>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Yêu cầu</h2></div>
+
+    <h3><span class="lead">1.1</span>Chức năng</h3>
+    <table class="def">
+      <thead><tr><th>#</th><th>Yêu cầu</th></tr></thead>
+      <tbody>
+        <tr><td><b>FR1</b></td><td>Đọc <code>.txt</code> UTF-8 free-form tiếng Việt → xuất <code>.json</code> là list concept</td></tr>
+        <tr><td><b>FR2</b></td><td>Phát hiện span kèm <code>[start, end]</code> <b>chính xác trên chuỗi thô</b></td></tr>
+        <tr><td><b>FR3</b></td><td>Phân loại vào 5 type</td></tr>
+        <tr><td><b>FR4</b></td><td>Suy luận 3 assertion (<code>isNegated</code>, <code>isFamily</code>, <code>isHistorical</code>)</td></tr>
+        <tr><td><b>FR5</b></td><td>Ánh xạ <code>CHẨN_ĐOÁN</code>→ICD-10, <code>THUỐC</code>→RxNorm</td></tr>
+        <tr><td><b>FR6</b></td><td>Đóng gói <code>output.zip</code> đúng cấu trúc BTC quy định</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="lead">1.2</span>Phi chức năng — xếp theo mức chi phối kiến trúc</h3>
+    <table class="def">
+      <thead><tr><th>#</th><th>Yêu cầu</th><th>Vì sao ở vị trí này</th></tr></thead>
+      <tbody>
+        <tr><td><b>NFR1</b></td><td><b>Reproducible</b> — BTC chạy lại được từ máy sạch trên private test</td><td><b>Ràng buộc cứng nhất.</b> Không cài lại được = <b>bị loại</b>. Đây là <b>mất trắng</b>, không phải mất điểm. Nó chi phối kiến trúc mạnh hơn cả độ chính xác</td></tr>
+        <tr><td><b>NFR2</b></td><td>Chạy <b>offline hoàn toàn</b> ở chế độ nộp bài</td><td>Hệ quả trực tiếp của NFR1. API đóng không tái lập được ở máy BTC</td></tr>
+        <tr><td><b>NFR3</b></td><td><b>Determinism</b> — cùng input cho cùng output</td><td>Không có determinism thì không đo được cải tiến, và BTC chạy ra số khác ta</td></tr>
+        <tr><td><b>NFR4</b></td><td><b>Suy giảm, không sập</b></td><td>Một file lỗi không được làm hỏng 99 file còn lại</td></tr>
+        <tr><td><b>NFR5</b></td><td><b>Provenance</b> — mọi mã truy được về một dòng cụ thể trong KB</td><td>Chống LLM bịa mã; là công cụ debug chính khi không có nhãn vàng</td></tr>
+        <tr><td><b>NFR6</b></td><td>Throughput</td><td><b>Không phải bài toán scale</b>: 100 file × ~2k ký tự. Nhưng private test có thể lớn hơn → thiết kế tuyến tính, có resume</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="lead">1.3</span>Ràng buộc</h3>
+    <ul class="clean">
+      <li><b>0 nhãn train</b> → zero-shot. Không có supervised learning ở v0–v2.</li>
+      <li>Đội nhỏ, thời gian giới hạn → ưu tiên thứ <b>chắc chắn</b> hơn thứ <b>tối ưu</b>.</li>
+      <li><b>Công thức <code>candidates_score</code> chưa chốt</b> → mọi lựa chọn phụ thuộc metric phải là <b>config</b>, không phải code.</li>
+      <li><b>KB có nguy cơ lệch phiên bản</b> (mã <code>360047</code> retire 2019) → tầng ánh xạ mã phải <b>đảo chiều được</b> mà không build lại index.</li>
+    </ul>
+
+    <div class="verdict">
+      <div class="em">◆</div>
+      <div>
+        <p class="big">Nguyên tắc chi phối toàn bộ thiết kế: <i>reproducibility &gt; accuracy</i>.</p>
+        <p>Bất cứ khi nào hai thứ này xung đột, chọn reproducibility. Lý do đơn giản: sai kiến trúc thì <b>mất trắng</b> (bị loại), còn kém độ chính xác thì chỉ <b>mất điểm</b>. Hai loại rủi ro này không cùng hạng.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Kiến trúc tổng thể</h2></div>
+
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">kiến trúc phân tầng</span></div>
+<pre>┌─ <span class="k">Entrypoints</span> ──────────────────────────────────────────────────┐
+│  build_kb.py   infer.py   score.py   package.py   annotate.py   │
+├─ <span class="k">Orchestration</span> ────────────────────────────────────────────────┤
+│  Pipeline — DAG cố định, mỗi stage là pure function             │
+├─ <span class="k">Stages</span> ───────────────────────────────────────────────────────┤
+│  Extract → Locate → TypeGate → Assert → Link → Filter → Emit    │
+├─ <span class="k">Providers</span> — interface + nhiều implementation ─────────────────┤
+│  Extractor · Retriever · Reranker · Resolver                    │
+├─ <span class="k">Knowledge Base</span> — artifact build-time, bất biến lúc chạy ──────┤
+│  icd10_concepts · icd10_aliases · rxnorm_concepts ·             │
+│  rxnorm_aliases · rxnorm_remap                                  │
+├─ <span class="k">Foundation</span> ───────────────────────────────────────────────────┤
+│  textref (NFC + offset map) · schema · sectionmap · provenance  │
+└────────────────────────────────────────────────────────────────┘</pre>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h4>Quyết định #1 — <code>textref</code> là tầng nền, không phải utility</h4>
+        <p>Toàn bộ hệ thống phụ thuộc vào nó. Lỗi offset là lỗi <b>im lặng</b> — không ném exception, chỉ âm thầm mất điểm, và <b>20/100 file có mìn NFD</b> sẵn. Đặt nó ở tầng nền với test suite riêng là quyết định có chủ đích, không phải tổ chức thư mục cho đẹp.</p>
+      </div>
+      <div class="card">
+        <h4>Quyết định #2 — Provider pattern cho mọi thứ có thể thay</h4>
+        <p><code>Extractor</code> có <b>3 implementation</b> qua các vòng (gazetteer → LLM → encoder offline). Nếu lời gọi LLM nằm rải trong pipeline thì v3 phải <b>viết lại pipeline</b>. Nằm sau interface thì v3 chỉ đổi <b>một dòng config</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Data contract</h2></div>
+
+    <h3><span class="lead">3.1</span>Kiểu cốt lõi</h3>
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">schema.py</span></div>
+<pre>@dataclass(frozen=True)
+class <span class="k">TextRef</span>:
+    raw:     str        <span class="cm"># nguyên bản — MỌI position tính trên đây</span>
+    norm:    str        <span class="cm"># NFC + casefold — MỌI so khớp làm trên đây</span>
+    n2r:     list[int]  <span class="cm"># offset norm → offset raw (bắt đầu)</span>
+    n2r_end: list[int]  <span class="cm"># offset norm → offset raw (kết thúc)</span>
+
+@dataclass(frozen=True)
+class <span class="k">Span</span>:
+    start: int
+    end:   int
+    text:  str          <span class="cm"># BẤT BIẾN: text == textref.raw[start:end]</span>
+
+@dataclass
+class <span class="k">Mention</span>:
+    span:       Span
+    type:       ConceptType
+    assertions: frozenset[Assertion]   <span class="cm"># mặc định: frozenset()</span>
+    candidates: tuple[str, ...]        <span class="cm"># mặc định: ()</span>
+    provenance: Provenance             <span class="cm"># KHÔNG xuất ra JSON</span></pre>
+    </div>
+
+    <h3><span class="lead">3.2</span>Bất biến trung tâm</h3>
+    <div class="formula"><code>raw[span.start : span.end] == span.text</code></div>
+    <p>Kiểm ở <b>ranh giới mỗi stage</b>, không chỉ ở cuối pipeline. Lý do: bug offset không ném exception, nó chỉ làm điểm thấp. Nếu chỉ kiểm ở cuối thì biết là sai nhưng <b>không biết stage nào</b> làm sai.</p>
+
+    <h3><span class="lead">3.3</span>Contract từng stage</h3>
+    <table class="def">
+      <thead><tr><th>Stage</th><th>Vào</th><th>Ra</th><th>Khi lỗi</th></tr></thead>
+      <tbody>
+        <tr><td><code>Extract</code></td><td><code>TextRef</code></td><td><code>list[RawSpan]</code></td><td>retry → fallback gazetteer</td></tr>
+        <tr><td><code>Locate</code></td><td><code>TextRef</code>, <code>RawSpan</code></td><td><code>Span | None</code></td><td><code>None</code> → <b>loại mention</b></td></tr>
+        <tr><td><code>TypeGate</code></td><td><code>Span</code>, ngữ cảnh</td><td><code>ConceptType</code></td><td>không lỗi được</td></tr>
+        <tr><td><code>Assert</code></td><td><code>TextRef</code>, <code>Span</code>, <code>SectionMap</code></td><td><code>frozenset[Assertion]</code></td><td>trả <code>frozenset()</code></td></tr>
+        <tr><td><code>Link</code></td><td><code>DiagnosisMention | DrugMention</code></td><td><code>list[Candidate]</code></td><td>trả <code>[]</code></td></tr>
+        <tr><td><code>Filter</code></td><td><code>list[Candidate]</code></td><td><code>tuple[str, ...]</code></td><td>trả <code>()</code></td></tr>
+        <tr><td><code>Emit</code></td><td><code>list[Mention]</code></td><td>JSON</td><td><b>không được lỗi</b></td></tr>
+      </tbody>
+    </table>
+
+    <div class="verdict">
+      <div class="em">◆</div>
+      <div>
+        <p class="big">Điểm may mắn cần khai thác: "giá trị mặc định an toàn" trùng với "giá trị điểm cao".</p>
+        <p>Metric quy ước <b>J = 1</b> khi cả gold và pred đều rỗng, và <code>candidates</code> rỗng an toàn hơn đoán bừa. Nghĩa là <b>thiết kế phòng thủ và tối ưu điểm số đồng thuận</b> — hiếm khi được như vậy, nên tận dụng triệt để. Mọi stage có giá trị mặc định an toàn, và đó cũng là nước đi ăn điểm.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Thiết kế chi tiết từng module</h2></div>
+
+    <h3><span class="lead">4.1</span><code>textref</code> — tầng nền</h3>
+    <p>Vấn đề: <b>20/100 file</b> lưu ở NFD (dấu thanh là ký tự tổ hợp riêng). LLM trả về NFC. <code>str.find()</code> thất bại dù mắt thường thấy chuỗi có trong văn bản. File 14: raw <b>2.672</b> ký tự vs NFC <b>2.538</b> — lệch 134.</p>
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">thuật toán xây offset map</span></div>
+<pre>def build(raw: str) -&gt; TextRef:
+    groups, i = [], 0
+    while i &lt; len(raw):                       <span class="cm"># gom ký tự cơ sở + dấu tổ hợp theo sau</span>
+        j = i + 1
+        while j &lt; len(raw) and unicodedata.combining(raw[j]):
+            j += 1
+        groups.append((i, j)); i = j
+
+    parts, n2r, n2r_end = [], [], []
+    for a, b in groups:
+        piece = unicodedata.normalize(<span class="s">'NFC'</span>, raw[a:b]).casefold()
+        parts.append(piece)
+        for _ in piece:                       <span class="cm"># 1 group → ≥1 ký tự norm</span>
+            n2r.append(a); n2r_end.append(b)
+    return TextRef(raw, <span class="s">''</span>.join(parts), n2r, n2r_end)
+
+<span class="cm"># tra ngược: start_raw = n2r[start_norm] · end_raw = n2r_end[end_norm - 1]</span></pre>
+    </div>
+    <div class="callout warn"><b>Đây là mẩu code quan trọng nhất của v0.</b> Nó phải có test suite riêng, chạy trên đủ cả 20 file NFD: <code>13, 14, 16, 17, 19, 20, 28, 34, 35, 42, 52, 54, 56, 67, 72, 81, 86, 94, 97, 100</code>.</div>
+
+    <h3><span class="lead">4.2</span><code>Extract</code> — provider</h3>
+    <table class="def">
+      <thead><tr><th>Implementation</th><th>Vòng</th><th>Offline</th><th>Ghi chú</th></tr></thead>
+      <tbody>
+        <tr><td><code>GazetteerExtractor</code></td><td>v0</td><td><span class="tag pass">CÓ</span></td><td>Quét tên ICD nguyên văn. <b>Baseline hồi quy vĩnh viễn</b></td></tr>
+        <tr><td><code>LLMExtractor</code></td><td>v1</td><td><span class="tag fail">KHÔNG</span></td><td>Prompt few-shot phủ đủ 4 thể loại</td></tr>
+        <tr><td><code>EncoderExtractor</code></td><td>v3</td><td><span class="tag pass">CÓ</span></td><td>XLM-R token-classification, distill từ nhãn bạc</td></tr>
+        <tr><td><code>EnsembleExtractor</code></td><td>v2+</td><td>tùy</td><td>Hợp span từ nhiều nguồn, khử trùng lặp</td></tr>
+      </tbody>
+    </table>
+    <p><b>Ba luật cứng cho <code>LLMExtractor</code>:</b></p>
+    <ol class="clean">
+      <li><b>LLM không được trả <code>position</code>.</b> LLM trả chuỗi span; <code>Locate</code> tự định vị. Span không định vị được thì <b>loại bỏ</b> (đã đo: 1/472 do LLM diễn giải thay vì trích).</li>
+      <li><b>Budget ≥ 32k token</b> + hàm sửa JSON cắt tới object hoàn chỉnh cuối. Có tiền lệ 2/10 file hỏng vì <code>stop_reason=max_tokens</code>. Model reasoning tiêu token cho suy luận nội bộ — phải để dư.</li>
+      <li><b>Cache theo khóa <code>(sha256(raw), prompt_version, model_id, params)</code>.</b> Đây là hạ tầng đa dụng nhất trong hệ: cho <b>determinism</b> (NFR3), cho <b>resume</b> khi chạy dở, cho <b>chi phí</b>, và cho <b>audit</b>.</li>
+    </ol>
+    <div class="callout note"><b>Chunking:</b> file dài nhất <b>4.481</b> ký tự — vừa một lời gọi, v0–v2 không cần chunk. Nhưng private test có thể khác → thiết kế sẵn chunk-có-chồng-lấn + khử trùng lặp span ở biên, <b>để tắt mặc định</b>.</div>
+
+    <h3><span class="lead">4.3</span><code>Locate</code></h3>
+    <ul class="clean">
+      <li>Longest-match, không chồng lấn, có kiểm tra <b>ranh giới ký tự alphanumeric</b> hai đầu.</li>
+      <li><b>Con trỏ đẩy qua hết độ dài match</b>, không phải <code>+1</code> — nếu không, nhiều token <code>*****</code> giống nhau sẽ sinh span chồng lấn (lỗi đã gặp).</li>
+      <li>Span lặp lại: mention thứ <i>n</i> khớp lần xuất hiện thứ <i>n</i>.</li>
+      <li>So khớp trên <code>norm</code>, trả offset trên <code>raw</code>.</li>
+    </ul>
+
+    <h3><span class="lead">4.4</span><code>TypeGate</code> — nơi giải quyết vấn đề chương R</h3>
+    <p>Đây là <b>điều chỉnh kiến trúc quan trọng nhất</b> so với hướng tiếp cận ban đầu ở tab 03.</p>
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">type gate</span></div>
+<pre>              ┌──────────────┐
+    Span ────▶│  <span class="k">TypeGate</span>    │
+              └──────┬───────┘
+                     │
+      ┌──────────────┼──────────────┬──────────────────────┐
+      ▼              ▼              ▼                      ▼
+ CHẨN_ĐOÁN        THUỐC      TRIỆU_CHỨNG        TÊN_XN · KẾT_QUẢ_XN
+      │              │              │                      │
+      ▼              ▼              └───────────┬──────────┘
+   ICD-10        RxNorm                         ▼
+                                        candidates = ()
+                                     <span class="cm">← cưỡng chế bằng hệ thống kiểu</span></pre>
+    </div>
+    <div class="callout warn"><b>Cưỡng chế bằng hệ thống kiểu, không bằng quy ước.</b> Hàm <code>link()</code> chỉ nhận <code>DiagnosisMention</code> hoặc <code>DrugMention</code>. Ba type còn lại <b>không có đường nào chạm tới KB</b> — không phải vì lập trình viên nhớ, mà vì <b>kiểu không cho</b>.<br><br>Lý do: <b>27% mention</b> khớp gazetteer nguyên văn rơi vào chương R (<code>khó thở</code>→<code>R06.0</code>, <code>đau đầu</code>→<code>R51</code>). Nếu gazetteer chạy trước typing, những mention này sẽ được gán mã — và schema bắt <code>candidates</code> của <code>TRIỆU_CHỨNG</code> phải rỗng.</div>
+
+    <h3><span class="lead">4.5</span><code>Assert</code></h3>
+    <p><b><code>SectionMap</code> dựng trước.</b> Parse tiêu đề mục → cây khoảng. Đo được: <b>58</b> file có mục "tiền sử", <b>55</b> "tiền sử bệnh", <b>23</b> "bệnh sử", <b>22</b> "thuốc trước khi nhập viện".</p>
+    <table class="def">
+      <thead><tr><th>Assertion</th><th>Luật</th><th>Mặc định</th></tr></thead>
+      <tbody>
+        <tr><td><code>isHistorical</code></td><td>Concept nằm trong <b>phạm vi mục</b> tiền sử → bật. Cue cục bộ chỉ là tín hiệu phụ</td><td>tắt</td></tr>
+        <tr><td><code>isNegated</code></td><td>Cue <b>có ranh giới từ</b> + không thuộc 8 cụm cố định (<code>không được</code>, <code>không đặc hiệu</code>, <code>không rõ</code>…) + phạm vi phủ định kết thúc ở dấu câu/liên từ (kiểu ConText)</td><td>tắt</td></tr>
+        <tr><td><code>isFamily</code></td><td><b>Tắt mặc định ở v1</b>, sau feature flag</td><td>tắt</td></tr>
+      </tbody>
+    </table>
+    <div class="callout note"><b>Vì sao <code>isFamily</code> tắt.</b> Cue <code>"ông "</code> xuất hiện <b>644 lần</b> nhưng <b>630 (98%)</b> là mảnh của chữ <code>"kh-ông"</code>. Sau khi sửa ranh giới từ chỉ còn <b>80 cue/36 file</b>, và soi tay thì phần lớn vẫn là bẫy (cơ chế di truyền, lời khuyên, <code>"bà ấy"</code> = chính bệnh nhân, người nhà là <b>người quan sát</b>). Bằng chứng cho thấy <code>isFamily</code> thật <b>gần như bằng 0</b> — bật nó lên là rủi ro thuần túy.</div>
+
+    <h3><span class="lead">4.6</span><code>Link</code> — hai nhánh tách biệt</h3>
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">nhánh CHẨN_ĐOÁN → ICD-10 (Việt→Việt)</span></div>
+<pre>mention
+   │
+   ├─▶ [1] <span class="k">Gazetteer exact</span> (longest-match trên norm)
+   │        └─ trúng → mã · confidence=1.0 · <span class="k">BỎ QUA ngưỡng</span>   <span class="cm">← 94/100 file</span>
+   │
+   └─▶ [2] không trúng → BM25(vi) ─┐
+                                   ├─▶ RRF ─▶ top-k ─▶ rerank ─▶ ngưỡng ─▶ 1–2 mã
+           embedding đa ngữ ───────┘</pre>
+    </div>
+    <p>Căn cứ định lượng: Recall@1 chỉ <b>~51%</b> nhưng Recall@5 = <b>94,9%</b> → <b>retrieval lo recall, rerank lo precision</b>. Đây là kiến trúc <b>bắt buộc</b>, không phải sở thích.</p>
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">nhánh THUỐC → RxNorm (Anh→Anh)</span></div>
+<pre>mention ─▶ parse (hoạt chất, hàm lượng, đơn vị, dạng bào chế, đường dùng)
+              │
+              ├─ token bị che <span class="k">*****</span> ─▶ Resolver co-reference toàn văn bản
+              │                        ├─ có neo    → tên thuốc      <span class="cm">← 17/30 file</span>
+              │                        └─ không neo → candidates = ()  <span class="cm">← 13/30 file</span>
+              ▼
+        ràng buộc <span class="k">TTY ∈ {SCD, SBD}</span>
+              │
+              ├─▶ khớp chuẩn hóa (hoạt chất + hàm lượng) → SCD
+              └─▶ không khớp → embedding tiếng Anh (SapBERT) → rerank → ngưỡng
+                          │
+                          ▼
+                    tầng <span class="k">remap</span> (§4.8)</pre>
+    </div>
+    <div class="callout ok"><b>Ràng buộc TTY làm luôn việc của bộ lọc chất phân tích XN.</b> SCD bắt buộc có <b>hàm lượng + dạng bào chế</b>, nên <code>glucose</code> trơ trọi trong bảng xét nghiệm không khớp được gì. Đây là lý do <b>không cần</b> dựa vào semantic type — đã thử, <code>glucose</code> và <code>prothrombin</code> mang nhãn <i>Pharmacologic Substance</i> y hệt <code>aspirin</code>, không tách được.</div>
+
+    <h3><span class="lead">4.7</span><code>Filter</code> — bộ lọc precision</h3>
+    <p>Jaccard phạt <b>cả thừa lẫn thiếu</b>, nên đây là stage quyết định điểm <code>candidates</code> (0.4):</p>
+    <ol class="clean">
+      <li>Mã từ <b>gazetteer exact</b> → giữ thẳng, không qua ngưỡng.</li>
+      <li>Mã từ retrieval → chỉ giữ khi điểm rerank vượt <code>THRESH</code>.</li>
+      <li>Gộp mention trùng (cùng chuỗi, cùng type) → một bộ mã.</li>
+      <li>Trần <b>2 mã</b>; trả 2 chỉ khi thực sự lưỡng lự (<code>K21.0</code>/<code>K21.9</code>).</li>
+    </ol>
+    <p style="color:var(--ink-soft)">Bằng chứng cần bộ lọc này: pipeline cũ gán mã cho <b>97,6%</b> chẩn đoán trong khi Recall@1 chỉ ~51% → khoảng <b>một nửa</b> số mã đang sai.</p>
+
+    <h3><span class="lead">4.8</span>Tầng remap — thiết kế cho điều chưa biết</h3>
+    <p>Rủi ro: <code>360047</code> trong ví dụ của đề đã hết hiệu lực 07/2019 → <code>2178097</code>. Cả <code>RXNORM.csv</code> lẫn <code>RXNCONSO.RRF</code> trong repo đều <b>không có</b> <code>360047</code>. Không nguồn nào tái tạo được đáp án mẫu.</p>
+    <table class="def">
+      <thead><tr><th>Mode</th><th>Trả về</th><th>Dùng khi</th></tr></thead>
+      <tbody>
+        <tr><td><code>current</code></td><td>mã của bản trong repo</td><td>BTC xác nhận dùng bản mới</td></tr>
+        <tr><td><code>legacy</code></td><td>tra ngược <code>RXNCUI.RRF</code>, trả mã cũ</td><td>BTC xác nhận dùng bản cũ</td></tr>
+        <tr><td><code>both</code></td><td>cả hai</td><td>BTC không trả lời, và công thức metric cho thấy trả 2 mã có lợi</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn"><b>Đây là config, không phải code.</b> Vì câu trả lời nằm ở <b>BTC</b> chứ không ở ta. Thiết kế cho phép đảo chiều trong <b>một dòng YAML</b>, không phải build lại index. Đây là ví dụ mẫu của nguyên tắc "mọi lựa chọn phụ thuộc metric/BTC phải là config".</div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">5</span><h2>Data model — Knowledge Base</h2></div>
+    <p>KB là <b>artifact build-time, bất biến lúc chạy</b>. Sinh bởi <code>build_kb.py</code>, không sửa trong pipeline.</p>
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">data/kb/ — cấu trúc</span></div>
+<pre><span class="k">data/kb/</span>
+├── icd10_concepts.parquet
+│     code · canonical_name · chapter · is_symptom_chapter · valid · has_dagger
+├── icd10_aliases.parquet
+│     alias_norm · alias_nodiac · code · alias_type · risk_short · n_tokens
+├── rxnorm_concepts.parquet
+│     rxcui · tty · str · is_current
+├── rxnorm_aliases.parquet
+│     alias_norm · rxcui · tty · weight · ingredient · strength · unit · dose_form
+├── rxnorm_remap.parquet
+│     old_rxcui · new_rxcui · retired_release
+└── <span class="k">MANIFEST.json</span>
+      nguồn · sha256 · số dòng · version · thời điểm build · git sha</pre>
+    </div>
+
+    <h3><span class="lead">5.1</span>Làm sạch lúc build</h3>
+    <table class="def">
+      <thead><tr><th>Nguồn</th><th>Phép xử lý</th></tr></thead>
+      <tbody>
+        <tr><td><code>ICD10.csv</code></td><td><code>skiprows=4</code>, <code>utf-8-sig</code> · lọc <code>Hiệu lực=Có</code> (bỏ <b>955</b>) · xử lý <b>2.120</b> mã hậu tố <code>*</code>/<code>†</code> · bỏ dòng rác (<code>test</code>→<code>D15.098</code>) · cờ <code>risk_short</code> cho <b>42</b> tên ≤6 ký tự · cờ <code>is_symptom_chapter</code> cho chương R · sinh alias bằng cách cắt đuôi <code>", không đặc hiệu"</code> / <code>", khác"</code></td></tr>
+        <tr><td><code>RXNCONSO.RRF</code></td><td><code>SAB=RXNORM</code> + <code>SUPPRESS=N</code> → <b>202.495</b> dòng · ưu tiên <code>SCD</code>/<code>SBD</code> · gom <code>SY</code>/<code>TMSY</code>/<code>PSN</code> về cùng RXCUI làm alias · <code>IN</code>/<code>PIN</code>/<code>BN</code> chỉ dùng làm <b>neo co-reference</b></td></tr>
+        <tr><td><code>RXNCUI.RRF</code></td><td><b>30.269</b> dòng → bảng remap: <b>22.330</b> mã đã đổi, <b>7.939</b> mã xóa hẳn</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="lead">5.2</span>Luật normalize — điểm dễ hỏng nhất</h3>
+    <div class="callout warn"><b>Hàm normalize phải là MỘT mẩu code duy nhất, dùng chung lúc build KB và lúc query.</b> Tách đôi là sinh skew: alias trong index chuẩn hóa kiểu A, mention lúc chạy chuẩn hóa kiểu B, không bao giờ khớp và <b>rất khó phát hiện</b> vì không có exception nào được ném.<br><br><b>Cưỡng chế bằng thiết kế:</b> <code>build_kb.py</code> import đúng hàm mà pipeline dùng, và <code>MANIFEST.json</code> ghi <code>normalizer_version</code>. Pipeline <b>từ chối chạy</b> nếu <code>normalizer_version</code> của KB khác của code.</div>
+    <p>Nhưng <b>hai nhánh cần hai implementation</b> (cùng interface):</p>
+    <table class="def">
+      <thead><tr><th></th><th>ICD (Việt)</th><th>RxNorm (Anh)</th></tr></thead>
+      <tbody>
+        <tr><td><b>Bước</b></td><td>NFC → casefold → gộp <code>–</code>/<code>-</code> → co khoảng trắng</td><td>casefold → chuẩn đơn vị (<code>MG</code>↔<code>mg</code>, <code>MG/ML</code>) → chuẩn dạng bào chế (<code>tab</code>→<code>tablet</code>) → tách hoạt chất/hàm lượng</td></tr>
+        <tr><td><b>Trường phụ</b></td><td><code>alias_nodiac</code> (bỏ dấu) cho fuzzy fallback</td><td><code>ingredient</code> + <code>strength</code> tách riêng để khớp bộ phận</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">6</span><h2>Chế độ hỏng &amp; cách xử lý</h2></div>
+    <table class="def">
+      <thead><tr><th>Hỏng gì</th><th>Phát hiện bằng</th><th>Xử lý</th><th>Kết quả xấu nhất</th></tr></thead>
+      <tbody>
+        <tr><td>LLM cắt cụt JSON</td><td><code>stop_reason</code> + parse fail</td><td>sửa JSON → retry budget cao hơn → fallback gazetteer cho file đó</td><td>file vẫn có output</td></tr>
+        <tr><td>LLM diễn giải thay vì trích</td><td><code>Locate</code> trả <code>None</code></td><td>loại mention, ghi log</td><td>mất 1 mention</td></tr>
+        <tr><td><b>LLM bịa mã</b></td><td>Provenance rỗng</td><td><b>chặn cứng</b>: mã không truy được về dòng KB thì bị loại</td><td><b>không bao giờ xuất mã bịa</b></td></tr>
+        <tr><td>Offset lệch NFC</td><td>assert bất biến ở ranh giới stage</td><td>loại mention + báo lỗi</td><td>phát hiện được, <b>không âm thầm</b></td></tr>
+        <tr><td>KB thiếu / sai version</td><td>check <code>MANIFEST.json</code> lúc khởi động</td><td><b>fail loud ngay lúc start</b>, không phải lúc chạy</td><td>dừng sớm, rõ nguyên nhân</td></tr>
+        <tr><td>Mất mạng</td><td>timeout</td><td>chuyển <code>GazetteerExtractor</code></td><td>vẫn ra <code>output.zip</code> hợp lệ</td></tr>
+        <tr><td>Lỗi decode</td><td><code>utf-8</code> strict</td><td>fail loud</td><td>không đoán encoding</td></tr>
+      </tbody>
+    </table>
+    <div class="callout ok"><b>Luật bất di bất dịch: không bao giờ xuất file không hợp lệ.</b> Trường hợp xấu nhất cho một file là <code>[]</code> — vẫn đúng schema, vẫn nộp được.</div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">7</span><h2>Hiệu năng &amp; mở rộng</h2></div>
+    <p><b>Đây không phải bài toán scale</b> — 100 file × ~2k ký tự. Nhưng ba thứ đáng thiết kế trước:</p>
+    <table class="def">
+      <thead><tr><th>Khía cạnh</th><th>Quyết định</th><th>Lý do</th></tr></thead>
+      <tbody>
+        <tr><td>Wall-clock</td><td>Lời gọi LLM chiếm ~toàn bộ. Chạy song song có giới hạn (~5) + cache</td><td>Cache làm lần chạy thứ hai gần như tức thì</td></tr>
+        <tr><td>Vector index</td><td><b>numpy brute-force, không FAISS</b></td><td>ICD <b>13.189</b> mã · RxNorm SCD <b>17.552</b> — quá nhỏ để cần FAISS. <b>Bớt một dependency quan trọng hơn vài ms</b> (NFR1). Chỉ thêm FAISS khi đo được là chậm thật</td></tr>
+        <tr><td>Resume</td><td>Ghi output từng file + cache theo hash</td><td>Chạy dở giữa chừng thì chạy tiếp, không làm lại</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--ink-soft)"><b>Nếu private test lớn hơn nhiều:</b> batch LLM API, ghi output theo luồng, và lúc đó mới cần queue. Thiết kế hiện tại <b>tuyến tính theo số file</b> nên mở rộng được mà không đổi kiến trúc.</p>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">8</span><h2>Observability</h2></div>
+    <p>Không có nhãn vàng → <b>provenance là công cụ debug chính</b>.</p>
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">provenance.py + run manifest</span></div>
+<pre>@dataclass
+class <span class="k">Provenance</span>:
+    extractor:     str        <span class="cm"># "llm:model@v3" | "gazetteer"</span>
+    locate_method: str        <span class="cm"># "exact" | "nfc" | "nth_occurrence"</span>
+    link_path:     str        <span class="cm"># "gazetteer_exact" | "bm25+emb→rerank"</span>
+    kb_rows:       list[str]  <span class="cm"># id dòng KB đã dùng</span>
+    scores:        dict[str, float]
+    assertion_evidence: dict[str, str]   <span class="cm"># cue nào, ở vị trí nào</span>
+
+<span class="cm"># run manifest ghi cạnh output.zip — ĐÂY CHÍNH LÀ artifact reproducibility</span>
+{
+  <span class="s">"git_sha"</span>: …, <span class="s">"kb_manifest_sha"</span>: …, <span class="s">"normalizer_version"</span>: 3,
+  <span class="s">"extractor"</span>: …, <span class="s">"prompt_version"</span>: 7, <span class="s">"seed"</span>: 42,
+  <span class="s">"rxnorm_output_mode"</span>: <span class="s">"current"</span>,
+  <span class="s">"thresholds"</span>: {<span class="s">"THRESH"</span>: 0.5, <span class="s">"alpha"</span>: 0.7},
+  <span class="s">"timestamp"</span>: …, <span class="s">"n_files"</span>: 100, <span class="s">"n_mentions"</span>: 2771
+}</pre>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">9</span><h2>Phân tích đánh đổi</h2></div>
+    <table class="def">
+      <thead><tr><th>#</th><th>Quyết định</th><th>Phương án khác</th><th>Vì sao chọn</th><th>Đánh đổi</th></tr></thead>
+      <tbody>
+        <tr><td><b>1</b></td><td>LLM cho extraction ở v1</td><td>Rule/gazetteer thuần</td><td>Recall cao hơn hẳn ở văn bản dân dã, đa thể loại</td><td><b>Hại NFR1</b> → bù bằng interface + cache + fallback offline + lộ trình distill v3</td></tr>
+        <tr><td><b>2</b></td><td>numpy brute-force</td><td>FAISS</td><td>Bớt dependency &gt; vài ms ở quy mô 13k–18k vector</td><td>Sẽ phải đổi nếu KB lớn gấp 50 lần</td></tr>
+        <tr><td><b>3</b></td><td>Parquet cho KB</td><td>CSV</td><td>Load nhanh, kiểu dữ liệu chặt</td><td>Không diff được trong git → bù bằng <code>--dump-csv</code> để review</td></tr>
+        <tr><td><b>4</b></td><td>Package phân tầng</td><td>Một script</td><td>Sẽ lặp qua <b>4 vòng</b>; script đơn sẽ mục ở v2</td><td>Chi phí khởi tạo cao hơn ở v0</td></tr>
+        <tr><td><b>5</b></td><td>Cache theo hash</td><td>Không cache</td><td>Cho determinism + resume + chi phí + audit — <b>một mũi tên 4 đích</b></td><td>Phải quản lý invalidation qua <code>prompt_version</code></td></tr>
+        <tr><td><b>6</b></td><td>Remap là <b>config</b></td><td>Chọn cứng một chiều</td><td>Câu trả lời nằm ở BTC, không ở ta</td><td>Thêm một nhánh code phải test</td></tr>
+        <tr><td><b>7</b></td><td><code>isFamily</code> tắt mặc định</td><td>Bật với luật cue</td><td>Bằng chứng đo được: gần như bằng 0 trong corpus, cue nhiễu 98%</td><td>Mất điểm nếu private test khác hẳn — chấp nhận, vì Jaccard phạt over-predict</td></tr>
+        <tr><td><b>8</b></td><td>KB build bằng script + <b>commit artifact</b></td><td>Chỉ commit script</td><td>BTC phải chạy được ngay, không phụ thuộc tải dữ liệu</td><td>Repo nặng hơn</td></tr>
+        <tr><td><b>9</b></td><td>Cưỡng chế type-gate bằng <b>hệ thống kiểu</b></td><td>Kiểm tra runtime</td><td>Lỗi này im lặng và tốn <b>0.4</b> trọng số</td><td>Code dài dòng hơn</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">10</span><h2>Sẽ xem lại khi nào</h2></div>
+    <table class="def">
+      <thead><tr><th>Điều kiện</th><th>Phải xem lại</th></tr></thead>
+      <tbody>
+        <tr><td>Private test lớn hơn 10×</td><td>Batch API, ghi luồng, queue. Kiến trúc tuyến tính hiện tại vẫn đúng nhưng orchestration phải đổi</td></tr>
+        <tr><td>BTC chốt công thức <code>candidates_score</code></td><td><code>Filter</code> và số mã trả về — hiện đang thiết kế thủ, có thể tối ưu sát hơn</td></tr>
+        <tr><td>BTC trả lời về bản RxNorm</td><td>Chốt <code>rxnorm_output_mode</code>, gỡ bớt nhánh</td></tr>
+        <tr><td><b>Xuất hiện nhãn vàng</b></td><td>Chuyển từ zero-shot sang supervised; dev set 20 file thành train set; toàn bộ <code>Extractor</code> đổi implementation</td></tr>
+        <tr><td>Thêm loại concept</td><td><code>ConceptType</code> thành registry thay vì enum cứng; <code>TypeGate</code> thành bảng luật</td></tr>
+        <tr><td>Cần thêm bộ chuẩn (SNOMED, LOINC)</td><td>Lúc đó mới cần trục trung gian kiểu UMLS CUI. <b>Hiện tại không cần</b> — chẩn đoán và thuốc không bao giờ gặp nhau</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</section>
+
+<!-- ══════════════════════════ TAB 06 · KẾ HOẠCH v0→v3 ══════════════════════════ -->
+<section class="panel" id="plan" role="tabpanel">
+
+  <div class="hero">
+    <span class="eyebrow">Lộ trình thực thi · chiến lược vertical slice</span>
+    <h1 class="title">Kế hoạch v0 → v3<br><span class="en">Lát cắt dọc mỏng trước, đào sâu từng module sau</span></h1>
+    <p class="subtitle">Bốn vòng, mỗi vòng có <b>Definition of Done</b> dạng checklist và <b>tiêu chí chuyển vòng</b> rõ ràng. Nguyên tắc xuyên suốt: từ cuối v0 trở đi, <b>bất kỳ lúc nào cũng phải có <code>output.zip</code> hợp lệ</b>.</p>
+    <div class="hero-meta">
+      <span class="chip"><span class="dot"></span><b>v0</b> không LLM · offline 100%</span>
+      <span class="chip"><span class="dot"></span><b>v1</b> MVP nộp được</span>
+      <span class="chip"><span class="dot"></span><b>v2</b> precision</span>
+      <span class="chip"><span class="dot"></span><b>v3</b> reproducible</span>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Bốn nguyên tắc chi phối</h2></div>
+
+    <div class="acc">
+      <div class="acc-item open">
+        <button class="acc-head"><span class="rn">1</span>Không có model để train<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">
+          <b>0 file có nhãn</b> → zero-shot. Cái xây ở v0–v2 là <b>pipeline</b>, không phải model. Model chỉ xuất hiện ở <b>v3</b> (distill sang encoder offline) và mục đích là <b>đáp ứng yêu cầu reproducible của top-15</b>, không phải tăng điểm — học trò luôn kém thầy.
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">2</span>Luôn có artifact nộp được<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">
+          Từ cuối v0 trở đi, bất kỳ lúc nào cũng phải có <code>output.zip</code> hợp lệ. Deadline ập tới thì <b>nộp cái đang có</b>, không phải nộp con số 0.
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">3</span>Hạ tầng không được "để tối ưu sau"<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">
+          Bốn lỗi đã ghi nhận — nhãn viết tắt hỏng 471 record, JSON cắt cụt, offset lệch NFC, span chồng lấn — <b>không có lỗi nào là lỗi model</b>. Bỏ qua ở v0 thì mỗi vòng sau debug lại đúng bốn lỗi đó.
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head"><span class="rn">4</span>Phân bổ công sức theo trọng số, không theo độ thú vị<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="acc-body"><div class="acc-body-inner">
+          <code>candidates</code> 0.4 → đầu tư <b>cao nhất</b> · <code>text</code> 0.3 → trung bình · <code>assertions</code> 0.3 → <b>thấp nhất</b>. Xem bảng ngay dưới.
+        </div></div>
+      </div>
+    </div>
+
+    <table class="def">
+      <thead><tr><th>Thành phần</th><th>Trọng số</th><th>Đầu tư</th><th>Vì sao</th></tr></thead>
+      <tbody>
+        <tr><td><code>candidates</code></td><td><b>0.4</b></td><td><span class="tag fail">CAO NHẤT</span></td><td>Khó nhất, và là nơi ăn điểm. Cần KB + retrieve + rerank</td></tr>
+        <tr><td><code>text</code></td><td><b>0.3</b></td><td><span class="tag partial">TRUNG BÌNH</span></td><td>Phụ thuộc NER; LLM few-shot đã khá tốt (<b>99,8%</b> span định vị được)</td></tr>
+        <tr><td><code>assertions</code></td><td><b>0.3</b></td><td><span class="tag pass">THẤP NHẤT</span></td><td><b>~80%</b> concept có assertion rỗng → mặc định rỗng cho <b>J=1</b>. Thêm luật phạm vi mục là <b>gần chạm trần</b>. Không đầu tư model ở đây</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">2</span><h2>v0 — Hạ tầng + baseline tất định</h2></div>
+    <p><b>Mục tiêu:</b> có <code>output.zip</code> hợp lệ, có thước đo, có baseline hồi quy. <b>Không dùng LLM.</b></p>
+
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">phạm vi v0</span></div>
+<pre><span class="k">src/smart_medic/</span>
+├── io.py           <span class="cm">đọc UTF-8, NFC-map, tính offset trên chuỗi thô</span>
+├── schema.py       <span class="cm">dataclass Concept + validate() theo 5 nhãn CÓ DẤU</span>
+├── kb/
+│   └── icd.py      <span class="cm">load ICD10.csv, làm sạch, gazetteer longest-match</span>
+├── pipeline.py     <span class="cm">orchestrator: txt → List[Concept]</span>
+├── emit.py         <span class="cm">ghi JSON (ensure_ascii=False) + đóng gói output.zip</span>
+└── score.py        <span class="cm">WER + Jaccard + validate schema + verify position</span></pre>
+    </div>
+
+    <p><b>Baseline v0:</b> quét tên bệnh ICD nguyên văn (longest-match, có ranh giới từ) → span <code>CHẨN_ĐOÁN</code> + mã. Mọi thứ khác để rỗng. Chạy vài giây, offline 100%, không phụ thuộc mạng.</p>
+
+    <h3><span class="lead">2.1</span>Xử lý bắt buộc trong v0</h3>
+    <ul class="clean">
+      <li><b>NFC</b>: chuẩn hóa <b>chỉ trong bộ nhớ</b> để so khớp; <code>position</code> luôn tính trên chuỗi thô. File 14: raw <b>2.672</b> vs NFC <b>2.538</b> ký tự — lệch 134.</li>
+      <li><b>Con trỏ tìm kiếm</b> đẩy qua hết độ dài match, không phải <code>+1</code> (chống span chồng lấn khi có nhiều token <code>*****</code> giống nhau).</li>
+      <li><b>Làm sạch ICD</b>: lọc <code>Hiệu lực=Có</code> (bỏ 955) · xử lý 2.120 mã hậu tố <code>*</code>/<code>†</code> · bỏ dòng rác (<code>test</code>→<code>D15.098</code>) · stoplist 42 tên ≤6 ký tự · cờ <code>is_symptom_chapter</code> cho mã chương R.</li>
+      <li><b>Nhãn viết đầy đủ có dấu</b>: <code>TÊN_XÉT_NGHIỆM</code>, <code>KẾT_QUẢ_XÉT_NGHIỆM</code>.</li>
+    </ul>
+
+    <h3><span class="lead">2.2</span>Definition of Done — bấm để đánh dấu</h3>
+    <div class="traps">
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><code>python -m smart_medic.infer --input data/test --output data/output</code> chạy sạch trên <b>100/100</b> file</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><code>score.py --pred output/ --gold output/</code> → <b><code>FINAL_SCORE = 1.0000</code></b> + <code>Schema OK</code></span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><code>assert raw[start:end] == entity["text"]</code> đúng cho <b>mọi</b> entity, đặc biệt 20 file NFD</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><code>assert candidates == []</code> cho mọi span type ∉ {<code>CHẨN_ĐOÁN</code>, <code>THUỐC</code>}</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><code>output.zip</code> đúng cấu trúc <code>output/1.json … output/100.json</code></span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx">Không có tên nhãn <b>viết tắt</b> trong toàn bộ output</span></button>
+    </div>
+    <div class="callout warn"><b>Ra khỏi v0 khi cả 6 mục trên xanh.</b> Điểm số ở v0 gần như chắc chắn <b>thấp</b> — đó <b>không phải</b> tiêu chí. Tiêu chí là hạ tầng đúng.</div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">3</span><h2>v1 — MVP: LLM trích xuất + hai nhánh mapping</h2></div>
+    <p><b>Mục tiêu:</b> bài nộp thật đầu tiên, có điểm ở cả ba thành phần.</p>
+
+    <div class="codebox">
+      <div class="codebox-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">kiến trúc v1</span></div>
+<pre>txt → [<span class="k">Extractor</span>] → span + type + assertion thô
+                         ↓
+                   [assign_positions]  <span class="cm">← code tính offset, KHÔNG phải LLM</span>
+                         ↓
+        ┌────────────────┴────────────────┐
+   type=CHẨN_ĐOÁN                    type=THUỐC
+        ↓                                 ↓
+   gazetteer ICD                    RxNorm SCD/SBD
+   (longest-match)                  (chuẩn hóa hàm lượng + dạng bào chế)
+        ↓                                 ↓
+        └────────────┬────────────────────┘
+                [lọc precision]  → 1–2 mã
+                     ↓
+                  JSON + zip</pre>
+    </div>
+
+    <h3><span class="lead">3.1</span>Quyết định thiết kế đã chốt</h3>
+    <div class="grid2">
+      <div class="card">
+        <h4>Interface <code>Extractor</code></h4>
+        <p>Lời gọi LLM nằm sau một interface trừu tượng <b>ngay từ v1</b>. Đường lui sang model offline ở v3 khi đó là đổi implementation, <b>không đổi pipeline</b>. Đây là bảo hiểm cho yêu cầu reproducible.</p>
+      </div>
+      <div class="card">
+        <h4>LLM không được trả <code>position</code></h4>
+        <p>LLM trả chuỗi span; code tự định vị trên chuỗi thô. Span không định vị được thì <b>loại bỏ</b> (đã đo: 1/472). Lý do: LLM diễn giải thay vì trích nguyên văn.</p>
+      </div>
+      <div class="card">
+        <h4>Type gate cho gazetteer</h4>
+        <p>Chỉ span <code>type=CHẨN_ĐOÁN</code> mới được tra ICD. Đây là lá chắn cho vấn đề <b>27% mention</b> rơi vào chương R.</p>
+      </div>
+      <div class="card">
+        <h4>Nhánh THUỐC target <code>TTY=SCD</code></h4>
+        <p>Phụ <code>SBD</code>. Căn cứ: <b>5/6</b> mã trong ví dụ của đề là SCD. Ràng buộc này làm luôn việc của bộ lọc chất phân tích XN.</p>
+      </div>
+      <div class="card">
+        <h4>Assertion: mặc định rỗng + luật phạm vi mục</h4>
+        <p>Chỉ bật <code>isHistorical</code> cho concept trong mục "Tiền sử bệnh" / "Thuốc trước khi nhập viện" (58 và 22 file). <code>isNegated</code> chỉ khi cue có ranh giới từ và không thuộc 8 cụm cố định. <b><code>isFamily</code> không bật ở v1.</b></p>
+      </div>
+      <div class="card">
+        <h4>Budget token ≥ 32k</h4>
+        <p>Kèm hàm sửa JSON cắt tới object hoàn chỉnh cuối. Đã có tiền lệ <b>2/10</b> file hỏng vì <code>stop_reason=max_tokens</code>.</p>
+      </div>
+    </div>
+
+    <h3><span class="lead">3.2</span>Song song: <code>build_kb.py</code></h3>
+    <div class="callout warn"><b>Việc #0 phải làm trước.</b> <code>git status</code> đang báo <code>D data/knowledge_base/RXNORM.csv</code> — file còn trong git HEAD (637.977 dòng, commit <code>a039dfe</code>) nhưng đã <b>bị xóa khỏi đĩa</b>, thay bằng <code>RxNorm_full_07062026/</code> untracked. <b>Chốt một nguồn rồi commit.</b> Để lẫn lộn thì pipeline gãy trên máy khác — đúng kịch bản bị loại vì BTC không cài lại được.<br><br><b>Khuyến nghị: dùng RRF.</b> Nó là bản phân phối chính thống và kèm các bảng phụ mà CSV không có — <code>RXNCUI.RRF</code> (remap, cần cho rủi ro version), <code>RXNSTY.RRF</code>, <code>RXNREL.RRF</code>.</div>
+    <p>Chi tiết schema KB và luật normalize: xem tab <b>05 · §5</b>.</p>
+
+    <h3><span class="lead">3.3</span>Definition of Done</h3>
+    <div class="traps">
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx">Tất cả DoD của <b>v0 vẫn xanh</b> (chạy như test hồi quy)</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><b>100/100</b> file có output, không file nào rỗng vì lỗi kỹ thuật</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx"><code>build_kb.py</code> chạy từ <b>máy sạch</b>, in version stamp, sinh đủ 5 bảng</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx">Điểm trên dev set 20 file <b>cao hơn v0</b> ở cả 3 thành phần</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx">Không mã nào do LLM "nhớ ra" — <b>mọi mã truy được về một dòng trong KB</b></span></button>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">4</span><h2>v2 — Nâng precision</h2></div>
+    <p><b>Mục tiêu:</b> biến recall thành precision. Đây là vòng <b>ăn điểm thật</b>.</p>
+    <table class="def">
+      <thead><tr><th>Việc</th><th>Căn cứ</th><th>Kỳ vọng</th></tr></thead>
+      <tbody>
+        <tr><td><b>Rerank top-5</b> cho mention không trùng gazetteer</td><td>Recall@1 ~51% nhưng <b>Recall@5 = 94,9%</b></td><td>Lời nhất trong phần model</td></tr>
+        <tr><td><b>Ngưỡng precision</b> — gazetteer nguyên văn gán thẳng, còn lại phải qua ngưỡng</td><td>Pipeline cũ gán mã cho <b>97,6%</b> chẩn đoán trong khi Recall@1 chỉ ~51% → khoảng <b>nửa số mã đang sai</b></td><td>Chặn over-prediction</td></tr>
+        <tr><td><b>Co-reference token bị che</b></td><td><b>17/30</b> file có neo plaintext; <b>13</b> file không neo → <code>candidates: []</code></td><td>68 concept THUỐC đang bỏ trống</td></tr>
+        <tr><td><b>Retrieval ngữ nghĩa</b> cho 6 file gazetteer không phủ (<code>37, 48, 56, 88, 94, 95</code>) + mention dân dã</td><td>"Thiếu men G6PD" vs tên ICD chuẩn gần như <b>không trùng token</b></td><td>Phần fuzzy không với tới</td></tr>
+        <tr><td><b>Tuning α, THRESH</b> trên dev set</td><td>Rẻ, cải thiện chắc chắn — nhưng vô nghĩa khi chưa có dev set</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="callout note"><b>Điều kiện tiên quyết:</b> dev set 20 file đã gán tay xong. Danh sách đã chốt: <code>1, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 17, 21, 25, 26, 27, 31, 42, 54, 94</code> (~750 concept).<br><br><b>Kỷ luật:</b> mọi thay đổi ở v2 phải <b>đo trên dev set</b> trước khi vào bài nộp. Hai file cùng cluster near-duplicate không được nằm hai phía train/dev — dev set hiện tại đã đảm bảo <b>0 leak</b>.</div>
+
+    <h3><span class="lead">4.1</span>Definition of Done</h3>
+    <div class="traps">
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx">Điểm dev <b>tăng</b> so với v1, <b>tách bạch được</b> đóng góp của từng thay đổi</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx">Tỉ lệ chẩn đoán được gán mã <b>giảm</b> so với v1 nhưng điểm candidates <b>tăng</b> — dấu hiệu precision đã lên</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx">Hai file trong cùng cluster cho kết quả <b>nhất quán</b> (dùng làm test bất biến)</span></button>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">5</span><h2>v3 — Reproducibility</h2></div>
+    <div class="callout warn"><b>Chỉ làm khi đã lọt top-15.</b> Trước đó là đầu tư sai chỗ.</div>
+    <ul class="clean">
+      <li><b>Distill:</b> LLM sinh nhãn bạc trên 100 file (+ dữ liệu ngoài nếu có) → fine-tune XLM-R token-classification (BIO + CRF). <b>Dùng XLM-R, không PhoBERT</b> trừ khi chạy VnCoreNLP tách từ — sai bước này là nguyên nhân phổ biến làm PhoBERT kém kỳ vọng, và span lệch thì WER tăng.</li>
+      <li><b>Đóng gói weights, không tải model lúc runtime.</b> SapBERT đã có tiền lệ tải rất dễ vỡ (cần <code>socksio</code>, <code>sentence-transformers</code> không load được vì thiếu config, tokenizer XLM-R cần <code>sentencepiece</code> + <code>protobuf</code>).</li>
+      <li><b>Ghim phiên bản + seed.</b> README cài đặt viết và thử từ <b>máy sạch</b>.</li>
+      <li><b>Fallback offline</b> cho mọi thứ phụ thuộc API.</li>
+    </ul>
+    <div class="verdict">
+      <div class="em">◆</div>
+      <div>
+        <p class="big">Không cài lại được → bị loại. Đây là rủi ro mất trắng, không phải mất điểm.</p>
+        <p>Nó xứng đáng được ưu tiên hơn vài phần trăm điểm số. Đây cũng là lý do <code>Extractor</code> nằm sau interface ngay từ v1 — để v3 không phải viết lại pipeline dưới áp lực deadline.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">6</span><h2>Hai blocker ngoài tầm kiểm soát</h2></div>
+    <table class="def">
+      <thead><tr><th>#</th><th>Câu hỏi phải hỏi BTC</th><th>Ảnh hưởng</th></tr></thead>
+      <tbody>
+        <tr><td><b>1</b></td><td><b>Công thức <code>candidates_score</code> chính xác?</b></td><td>Chênh tới <b>0,27 điểm</b> giữa hai cách hiểu — đủ để đảo thứ hạng. Cách hiểu sát-chữ tự mâu thuẫn (bộ dự đoán hoàn hảo chỉ được 0,336)</td></tr>
+        <tr><td><b>7</b></td><td><b>Gold label dùng bản RxNorm nào?</b></td><td><code>360047</code> trong chính ví dụ của đề đã hết hiệu lực 07/2019 → remap <code>2178097</code>. Toàn file <code>RXNCUI.RRF</code> có <b>22.330</b> mã đã remap. Nếu gold sinh từ bản cũ, retrieve từ bản trong repo <b>sai hệ thống</b> ở đúng phần trọng số 0.4</td></tr>
+      </tbody>
+    </table>
+    <div class="callout note"><b>Không tối ưu sát metric trước khi câu 1 được chốt.</b> Nhưng nguyên tắc bất biến vẫn đúng bất kể công thức: <b>đúng type → mã chính xác, ít mã, precision cao</b>.<br><br><b>Đường lui cho câu 7</b> nếu BTC không trả lời: dựng sẵn bảng remap hai chiều, và đo trên dev set xem trả <code>{mã mới, mã cũ}</code> có hơn trả <code>{mã mới}</code> không. Quyết định này phụ thuộc công thức ở câu 1 nên <b>hai blocker gắn với nhau</b>.</div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">7</span><h2>Bảng tóm tắt</h2></div>
+    <table class="def">
+      <thead><tr><th>Vòng</th><th>Ra được gì</th><th>Phụ thuộc LLM</th><th>Chuyển vòng khi</th></tr></thead>
+      <tbody>
+        <tr><td><b>v0</b></td><td><code>output.zip</code> hợp lệ + <code>score.py</code> + baseline hồi quy</td><td><span class="tag pass">KHÔNG</span></td><td>6 DoD xanh</td></tr>
+        <tr><td><b>v1</b></td><td>Bài nộp thật, có điểm cả 3 thành phần</td><td><span class="tag partial">CÓ — sau interface</span></td><td>Điểm dev &gt; v0 ở cả 3 thành phần</td></tr>
+        <tr><td><b>v2</b></td><td>Precision lên, over-prediction xuống</td><td><span class="tag partial">CÓ</span></td><td>Điểm dev tăng, tách bạch được từng thay đổi</td></tr>
+        <tr><td><b>v3</b></td><td>Chạy lại được từ máy sạch</td><td><span class="tag pass">KHÔNG — offline</span></td><td>README cài được từ máy sạch</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</section>
+
+</main>
+
 <footer>
   Bảng tổng hợp yêu cầu đề thi · <b>Viettel AI Race 2026</b> — "Ontological Reasoning in Medical Knowledge Retrieval".<br>
   Nội dung trích xuất từ đề bài chính thức của BTC (Viettel · AI RACE). Tài liệu tham khảo, không thay thế công bố chính thức.
@@ -1287,9 +2263,16 @@
     m.addEventListener('mouseenter', function(){render(m);});
   });
 
-  // ---- Approach tab: trap checklist ----
-  document.querySelectorAll('#trapList .trap').forEach(function(t){
+  // ---- Trap checklists (all tabs) ----
+  document.querySelectorAll('.trap').forEach(function(t){
     t.addEventListener('click', function(){ t.classList.toggle('done'); });
+  });
+
+  // ---- Accordion (mọi tab: data, plan) ----
+  document.querySelectorAll('.acc-item').forEach(function(it){
+    var head = it.querySelector('.acc-head');
+    if(!head) return;
+    head.addEventListener('click', function(){ it.classList.toggle('open'); });
   });
 
   // ---- Approach tab: Jaccard demos ----

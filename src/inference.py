@@ -12,14 +12,25 @@ except ImportError:
 
 from normalizer import MedicalNormalizer
 
+
+def get_device():
+    """Pick the best available device: CUDA (NVIDIA) > MPS (Apple Silicon) > CPU."""
+    if torch.cuda.is_available():
+        return "cuda"
+    mps = getattr(torch.backends, "mps", None)
+    if mps is not None and mps.is_available():
+        return "mps"
+    return "cpu"
+
+
 class MedicalExtractor:
-    def __init__(self, model_path="pho_bert_crf_medical.pth", device="cpu"):
+    def __init__(self, model_path="pho_bert_crf_medical.pth", device=None):
+        self.device = device or get_device()
         self.tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
         self.model = PhoBERT_CRF(num_labels=len(self.get_labels()))
-        self.model.load_state_dict(torch.load(model_path, map_location=device))
-        self.model.to(device)
+        self.model.load_state_dict(torch.load(model_path, map_location=self.device))
+        self.model.to(self.device)
         self.model.eval()
-        self.device = device
         self.id2label = {v: k for k, v in self.get_label2id().items()}
         self.normalizer = MedicalNormalizer()
 

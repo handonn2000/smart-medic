@@ -18,8 +18,7 @@ for path in (_ROOT_DIR, _SRC_DIR):
     if path_str not in sys.path:
         sys.path.insert(0, path_str)
 
-import torch
-from inference import MedicalExtractor
+from inference import MedicalExtractor, get_device
 
 
 def parse_args():
@@ -60,8 +59,7 @@ def main():
     args = parse_args()
     text = load_input(args)
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    extractor = MedicalExtractor(model_path=args.model, device=device)
+    extractor = MedicalExtractor(model_path=args.model, device=get_device())
     result = extractor.extract(text)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

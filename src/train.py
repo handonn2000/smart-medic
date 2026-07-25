@@ -44,7 +44,18 @@ train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
 scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=len(train_loader)*EPOCHS)
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+def get_device():
+    """Pick the best available device: CUDA (NVIDIA) > MPS (Apple Silicon) > CPU."""
+    if torch.cuda.is_available():
+        return "cuda"
+    mps = getattr(torch.backends, "mps", None)
+    if mps is not None and mps.is_available():
+        return "mps"
+    return "cpu"
+
+
+device = torch.device(get_device())
+print(f"Using device: {device}")
 model.to(device)
 
 for epoch in range(EPOCHS):

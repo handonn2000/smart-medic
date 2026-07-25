@@ -47,11 +47,68 @@ smart-medic/
 
 ## Getting started
 
+Requires **Python 3.8+**. Create and activate a virtual environment, then install the dependencies from `requirements.txt`.
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+**Linux / macOS:**
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
+
+> Using `python -m pip` (instead of a bare `pip`) guarantees the packages install into the interpreter you're actually running.
+
+Notes on specific dependencies:
+
+- **`pytorch-crf`** — installed via `pip install pytorch-crf` but **imported as `torchcrf`** in code. Do **not** install the similarly named `TorchCRF`/`torchcrf` package; it has a different, incompatible API (missing `batch_first`) and will clash on case-insensitive filesystems like Windows.
+- **`torch`** — `requirements.txt` installs the default build, which is CPU-only on Linux/Windows. If you have an NVIDIA GPU, install the CUDA build instead (see the per-OS notes below).
+
+### Per-environment setup (team)
+
+The steps above are enough to run everything on CPU. For GPU acceleration, adjust the PyTorch install per machine. Always check the [official PyTorch selector](https://pytorch.org/get-started/locally/) for the command matching your exact CUDA version.
+
+**macOS (Apple Silicon or Intel):**
+
+- The default `pip install torch` is correct — there is no CUDA on macOS.
+- On Apple Silicon, the scripts automatically use the GPU via the **MPS** backend when available (device priority is CUDA → MPS → CPU). No configuration needed; Intel Macs fall back to CPU.
+
+**Linux / Ubuntu:**
+
+- No GPU → the default install is fine.
+- NVIDIA GPU → install the CUDA build (example for CUDA 12.1), then continue with `requirements.txt`:
+
+```bash
+python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+python -m pip install -r requirements.txt
+```
+
+**Windows + NVIDIA GPU:**
+
+- Install the CUDA build first, then the rest of the requirements:
+
+```powershell
+python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+python -m pip install -r requirements.txt
+```
+
+- Verify the GPU is visible to PyTorch (should print `True`):
+
+```powershell
+python -c "import torch; print(torch.cuda.is_available())"
+```
+
+`train.py` and `inference.py` automatically use the GPU when `torch.cuda.is_available()` is `True`, so no code change is needed once the CUDA build is installed.
 
 ## Training
 

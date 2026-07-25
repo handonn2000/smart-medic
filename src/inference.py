@@ -1,8 +1,15 @@
+import json
+import re
+
 import torch
 from underthesea import word_tokenize
 from transformers import AutoTokenizer
-from src.model import PhoBERT_CRF
-import re
+
+try:
+    from src.model import PhoBERT_CRF
+except ImportError:
+    from model import PhoBERT_CRF
+
 from normalizer import MedicalNormalizer
 
 class MedicalExtractor:
@@ -46,61 +53,64 @@ class MedicalExtractor:
         tokens = self.tokenizer.convert_ids_to_tokens(encoding["input_ids"][0])
         
         entities = []
-        current_entity = None
-        start = None
+        current_tokens = None
+        current_label = None
 
         for i, (token, pred_id) in enumerate(zip(tokens, predictions)):
             if token in ["<s>", "</s>", "<pad>"]:
                 continue
-                
+
             label = self.id2label[pred_id]
-            
+
             if label.startswith("B-"):
-                # Save previous entity
-                if current_entity:
-                    entities.append(self._create_entity(current_entity, start, i, text))
-                
-                current_entity = [token.replace("▁", " ").strip()]
-                start = i
-                
-            elif label.startswith("I-") and current_entity:
-                current_entity.append(token.replace("▁", " ").strip())
-                
-            elif current_entity:
-                entities.append(self._create_entity(current_entity, start, i, text))
-                current_entity = None
+                if current_tokens:
+                    entities.append(
+                        self._create_entity(current_tokens, current_label, text)
+                    )
+                current_tokens = [token.replace("▁", " ").strip()]
+                current_label = label
 
-        # Last entity
-        if current_entity:
-            entities.append(self._create_entity(current_entity, start, len(tokens), text))
+            elif label.startswith("I-") and current_tokens:
+                current_tokens.append(token.replace("▁", " ").strip())
 
-        # Post-processing: Normalization + Assertions
+            elif current_tokens:
+                entities.append(
+                    self._create_entity(current_tokens, current_label, text)
+                )
+                current_tokens = None
+                current_label = None
+
+        if current_tokens:
+            entities.append(
+                self._create_entity(current_tokens, current_label, text)
+            )
+
         return self._post_process(entities, text)
 
-    def _create_entity(self, tokens, start_idx, end_idx, original_text):
+    def _create_entity(self, tokens, label, original_text):
         text = " ".join(tokens).strip()
-        # Tìm vị trí thực trong text gốc (approximate)
-        match = re.search(re.escape(text[:30]), original_text)  # rough match
+        # Approximate span in the original text
+        match = re.search(re.escape(text[:30]), original_text)
         pos_start = match.start() if match else 0
         pos_end = pos_start + len(text)
-        
+
         return {
             "text": text,
-            "type": self._get_type(tokens[0]),  # lấy từ B- tag
-            "candidates": [],                   # sẽ fill ở post-process
+            "type": self._get_type(label),
+            "candidates": [],
             "assertions": [],
-            "position": [pos_start, pos_end]
+            "position": [pos_start, pos_end],
         }
 
-    def _get_type(self, first_token_label):
+    def _get_type(self, label):
         type_map = {
             "B-THUOC": "THUỐC",
             "B-TRIEU_CHUNG": "TRIỆU_CHỨNG",
             "B-BENH": "BENH",
             "B-XET_NGHIEM": "XET_NGHIEM",
-            "B-BENH_NHAN": "BENH_NHAN"
+            "B-BENH_NHAN": "BENH_NHAN",
         }
-        return type_map.get(first_token_label.split("-")[0] + "-" + first_token_label.split("-")[1], "UNKNOWN")
+        return type_map.get(label, "UNKNOWN")
 
     def _post_process(self, entities, text):
         """Thêm normalization và assertions"""

@@ -4,7 +4,7 @@ from transformers import AutoModel
 from torchcrf import CRF
 
 class PhoBERT_CRF(nn.Module):
-    def __init__(self, num_labels, model_name="vinai/phobert-base"):
+    def __init__(self, num_labels, model_name="vinai/phobert-base-v2"):
         super().__init__()
         self.phobert = AutoModel.from_pretrained(model_name)
         self.dropout = nn.Dropout(0.1)

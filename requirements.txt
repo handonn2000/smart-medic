@@ -2,6 +2,15 @@
 # torch
 # transformers
 # pandas
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-pip install transformers datasets seqeval underthesea torchcrf accelerate
-pip install rapidfuzz pandas requests
+torch
+torchvision
+torchaudio
+transformers
+datasets
+seqeval
+underthesea
+pytorch-crf
+accelerate
+rapidfuzz
+pandas
+requests

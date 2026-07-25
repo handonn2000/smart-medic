@@ -1,0 +1,54 @@
+{
+  "normalizer_version": 1,
+  "built_at": "2026-07-25T15:57:13+00:00",
+  "git_sha": "3d8a12f",
+  "sources": {
+    "ICD10.csv": "a28fa62edc11cada8f043c984de3271eff3c99c6c7a9d9c33edd3da610ea6d85",
+    "RXNCONSO.RRF": "093e26be3a173770aa6d44ab10fe7b3e8c02fce88a0dc94ca7816fab1e3ffece",
+    "RXNCUI.RRF": "0062288b882797d18d8846259f8570be7957f0f94cfec6d835c60d2361b54962"
+  },
+  "icd": {
+    "rows_raw": 36689,
+    "dropped_invalid": 955,
+    "dropped_malformed": 0,
+    "has_dagger": 2116,
+    "chapter_R": 1011,
+    "concepts": 12150,
+    "aliases": 16113,
+    "alias_unique": 15488,
+    "alias_ambiguous": 517,
+    "risk_short": 64,
+    "header": [
+      "STT",
+      "Mã",
+      "Tên bệnh ",
+      "Nhóm bệnh"
+    ]
+  },
+  "rxnorm": {
+    "rows_raw": 1202603,
+    "rows_kept": 155171,
+    "tty": {
+      "BN": 5110,
+      "IN": 14648,
+      "SY": 36286,
+      "PIN": 3643,
+      "TMSY": 14111,
+      "MIN": 3841,
+      "SCD": 17552,
+      "PSN": 27387,
+      "SBD": 9696,
+      "SCDC": 14352,
+      "SBDC": 8545
+    },
+    "concepts": 84100,
+    "aliases": 155163,
+    "target_aliases": 27248,
+    "anchor_aliases": 27242
+  },
+  "remap": {
+    "remapped": 22330,
+    "deleted": 7939,
+    "rows_raw": 30269
+  }
+}

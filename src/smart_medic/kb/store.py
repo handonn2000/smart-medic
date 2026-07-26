@@ -127,7 +127,9 @@ class KnowledgeBase:
     icd_concepts: dict[str, dict]
     icd_gaz: IcdGazetteer
     manifest: dict
+    icd_aliases: tuple[dict, ...] = ()
     rx_concepts: dict[str, dict] = field(default_factory=dict)
+    rx_aliases: tuple[dict, ...] = ()
     rx_remap: dict[str, str] = field(default_factory=dict)
 
     @property
@@ -156,17 +158,28 @@ def load_kb(kbdir: Path, *, with_rxnorm: bool = True, drop_risk_short: bool = Tr
         )
 
     concepts = {c["code"]: c for c in _read(kbdir / "icd10_concepts.csv.gz")}
+    icd_aliases = _read(kbdir / "icd10_aliases.csv.gz")
     gaz = IcdGazetteer(
-        _read(kbdir / "icd10_aliases.csv.gz"), concepts, drop_risk_short=drop_risk_short
+        icd_aliases, concepts, drop_risk_short=drop_risk_short
     )
 
     rx_concepts: dict[str, dict] = {}
+    rx_aliases: list[dict] = []
     remap: dict[str, str] = {}
     if with_rxnorm and (kbdir / "rxnorm_concepts.csv.gz").exists():
         rx_concepts = {c["rxcui"]: c for c in _read(kbdir / "rxnorm_concepts.csv.gz")}
+        rx_aliases = _read(kbdir / "rxnorm_aliases.csv.gz")
         remap = {
             r["old_rxcui"]: r["new_rxcui"]
             for r in _read(kbdir / "rxnorm_remap.csv.gz")
         }
 
-    return KnowledgeBase(concepts, gaz, manifest, rx_concepts, remap)
+    return KnowledgeBase(
+        icd_concepts=concepts,
+        icd_gaz=gaz,
+        manifest=manifest,
+        icd_aliases=tuple(icd_aliases),
+        rx_concepts=rx_concepts,
+        rx_aliases=tuple(rx_aliases),
+        rx_remap=remap,
+    )

@@ -20,7 +20,12 @@ from pathlib import Path
 from .kb.store import KBError, load_kb
 from .pipeline import Pipeline, PipelineConfig, RunStats
 from .schema import dumps, validate_file
-from .stages.extract import GazetteerExtractor
+from .stages.extract import (
+    CompositeExtractor,
+    GazetteerExtractor,
+    IcdCueExtractor,
+    RxNormExtractor,
+)
 from .textref import read_textref
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -49,7 +54,7 @@ def package_zip(outdir: Path, zpath: Path) -> int:
         outdir.glob("*.json"),
         key=lambda p: (int(p.stem), "") if p.stem.isdigit() else (10**9, p.stem),
     )
-    files = [f for f in files if f.name != "run_manifest.json"]
+    files = [f for f in files if f.name not in {"run_manifest.json", "explain.json"}]
     zpath.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
         for f in files:
@@ -63,8 +68,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--output", type=Path, default=ROOT / "data/output")
     ap.add_argument("--kb", type=Path, default=ROOT / "data/kb")
     ap.add_argument("--zip", type=Path, default=None, help="đóng gói ra output.zip")
-    ap.add_argument("--extractor", default="gazetteer", choices=["gazetteer"])
+    ap.add_argument("--extractor", default="v2", choices=["gazetteer", "v2"])
     ap.add_argument("--max-candidates", type=int, default=2)
+    ap.add_argument("--candidate-threshold", type=float, default=0.80)
+    ap.add_argument("--retrieval-threshold", type=float, default=0.80)
+    ap.add_argument("--drug-threshold", type=float, default=0.84)
+    ap.add_argument("--ambiguity-margin", type=float, default=0.04)
     ap.add_argument("--rxnorm-output-mode", default="current",
                     choices=["current", "legacy", "both"])
     ap.add_argument("--keep-risk-short", action="store_true",
@@ -81,12 +90,26 @@ def main(argv: list[str] | None = None) -> int:
 
     cfg = PipelineConfig(
         max_candidates=args.max_candidates,
+        candidate_threshold=args.candidate_threshold,
+        ambiguity_margin=args.ambiguity_margin,
         enable_negated=not args.no_assertions,
         enable_historical=not args.no_assertions,
         enable_family=False,
         rxnorm_output_mode=args.rxnorm_output_mode,
     )
-    pipe = Pipeline(kb, GazetteerExtractor(kb, max_candidates=args.max_candidates), cfg)
+    gazetteer = GazetteerExtractor(kb, max_candidates=args.max_candidates)
+    extractor = gazetteer
+    if args.extractor == "v2":
+        extractor = CompositeExtractor(
+            gazetteer,
+            IcdCueExtractor(kb, threshold=args.retrieval_threshold),
+            RxNormExtractor(
+                kb,
+                threshold=args.drug_threshold,
+                max_candidates=args.max_candidates,
+            ),
+        )
+    pipe = Pipeline(kb, extractor, cfg)
 
     files = _sorted_txt(args.input)
     if not files:
@@ -124,6 +147,10 @@ def main(argv: list[str] | None = None) -> int:
         "extractor": pipe.extractor.name,
         "config": {
             "max_candidates": cfg.max_candidates,
+            "candidate_threshold": cfg.candidate_threshold,
+            "retrieval_threshold": args.retrieval_threshold,
+            "drug_threshold": args.drug_threshold,
+            "ambiguity_margin": cfg.ambiguity_margin,
             "enable_negated": cfg.enable_negated,
             "enable_historical": cfg.enable_historical,
             "enable_family": cfg.enable_family,
@@ -138,6 +165,8 @@ def main(argv: list[str] | None = None) -> int:
         "with_candidates": stats.with_candidates,
         "dropped_invariant": stats.dropped_invariant,
         "dropped_overlap": stats.dropped_overlap,
+        "dropped_threshold": stats.dropped_threshold,
+        "by_link_path": stats.by_link_path,
         "schema_errors": len(schema_errors),
         "errors": stats.errors,
     }
@@ -154,7 +183,8 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  theo type      : {stats.by_type}")
     print(f"  theo assertion : {stats.by_assertion or '{}'}")
     print(f"  loại (bất biến): {stats.dropped_invariant} · "
-          f"(chồng lấn): {stats.dropped_overlap}")
+          f"(chồng lấn): {stats.dropped_overlap} · "
+          f"(ngưỡng): {stats.dropped_threshold}")
 
     if schema_errors:
         print(f"\n✗ {len(schema_errors)} LỖI SCHEMA:", file=sys.stderr)

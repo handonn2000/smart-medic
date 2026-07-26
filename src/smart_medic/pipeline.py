@@ -27,8 +27,10 @@ class RunStats:
     mentions: int = 0
     dropped_invariant: int = 0
     dropped_overlap: int = 0
+    dropped_threshold: int = 0
     by_type: dict[str, int] = field(default_factory=dict)
     by_assertion: dict[str, int] = field(default_factory=dict)
+    by_link_path: dict[str, int] = field(default_factory=dict)
     with_candidates: int = 0
     errors: list[str] = field(default_factory=list)
 
@@ -36,6 +38,8 @@ class RunStats:
 @dataclass
 class PipelineConfig:
     max_candidates: int = 2
+    candidate_threshold: float = 0.80
+    ambiguity_margin: float = 0.04
     enable_negated: bool = True
     enable_historical: bool = True
     enable_family: bool = False
@@ -80,7 +84,7 @@ class Pipeline:
 
             # ── TypeGate: chỉ CHẨN_ĐOÁN và THUỐC được giữ candidates ──
             codes = tuple(c.codes) if c.type in MAPPABLE else ()
-            codes = codes[: self.cfg.max_candidates]
+            codes = self._filter_codes(codes, c.provenance, st)
             codes = self._apply_remap(codes, c.type)
 
             flags, evidence = (frozenset(), {})
@@ -107,9 +111,43 @@ class Pipeline:
             st.by_type[m.type.value] = st.by_type.get(m.type.value, 0) + 1
             if m.candidates:
                 st.with_candidates += 1
+            path = m.provenance.link_path or "unknown"
+            st.by_link_path[path] = st.by_link_path.get(path, 0) + 1
             for a in m.assertions:
                 st.by_assertion[a.value] = st.by_assertion.get(a.value, 0) + 1
         return mentions
+
+    def _filter_codes(self, codes, provenance, stats: RunStats) -> tuple[str, ...]:
+        """Apply the v2 precision threshold to non-exact link paths.
+
+        Exact gazetteer hits are the regression anchor and bypass the threshold.
+        Retrieved codes carry per-code rerank scores in provenance.  A second
+        code is retained only when it is genuinely close to the first.
+        """
+        if not codes:
+            return ()
+        if "gazetteer_exact" in provenance.link_path:
+            return tuple(codes[: self.cfg.max_candidates])
+
+        scored = [
+            (code, provenance.scores.get(f"code:{code}", provenance.scores.get("confidence", 0.0)))
+            for code in codes
+        ]
+        kept = [(code, score) for code, score in scored if score >= self.cfg.candidate_threshold]
+        if not kept:
+            stats.dropped_threshold += len(codes)
+            provenance.link_path += "|dropped_threshold"
+            return ()
+
+        out = [kept[0][0]]
+        if (
+            self.cfg.max_candidates > 1
+            and len(kept) > 1
+            and kept[0][1] - kept[1][1] <= self.cfg.ambiguity_margin
+        ):
+            out.append(kept[1][0])
+        stats.dropped_threshold += len(codes) - len(out)
+        return tuple(out)
 
     def _apply_remap(self, codes: tuple[str, ...], ctype: ConceptType) -> tuple[str, ...]:
         if ctype is not ConceptType.THUOC or self.cfg.rxnorm_output_mode == "current":

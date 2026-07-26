@@ -11,7 +11,7 @@ Làm cho **Viettel AI Race 2026 — Vòng 1**. Đề bài đầy đủ, phân t�
 
 ## Cài đặt
 
-**Yêu cầu: Python ≥ 3.10. Không có dependency ngoài** — v0 chỉ dùng thư viện chuẩn.
+**Yêu cầu: Python ≥ 3.10. Không có dependency ngoài** — v2 vẫn chỉ dùng thư viện chuẩn.
 
 ```bash
 git clone <repo> && cd smart-medic
@@ -23,21 +23,31 @@ Không cần `pip install`, không cần virtualenv, không cần mạng. Đây 
 ## Chạy
 
 ```bash
-# 1. Dựng Knowledge Base từ nguồn thô (~12 giây, chạy một lần)
-python3 src/smart_medic/kb/build.py
-
-# 2. Chạy inference trên 100 file test (~0,7 giây)
+# 1. Chạy v2 trên 100 file test (KB build artifact đã có trong repo)
 PYTHONPATH=src python3 -m smart_medic.infer \
-    --input data/test --output data/output --zip data/output.zip
+    --extractor v2 --input data/test --output data/output \
+    --zip data/output.zip --explain
 
-# 3. Kiểm tra schema + verify position (dùng chính pred làm gold)
+# 2. Kiểm tra schema + verify position (dùng chính pred làm gold)
 PYTHONPATH=src python3 -m smart_medic.score \
     --pred data/output --gold data/output --src data/test
 #   → phải ra FINAL_SCORE = 1.0000 và Schema OK
 
-# 4. Test
+# 3. Mô phỏng ngưỡng khi chưa có gold (kết quả được ghi rõ là EXPECTED)
+PYTHONPATH=src python3 -m smart_medic.metric_simulator \
+    --explain data/output/explain.json
+
+# Khi có gold dev set, cùng lệnh sẽ chấm metric thật
+PYTHONPATH=src python3 -m smart_medic.metric_simulator \
+    --explain data/output/explain.json --gold data/dev_gold
+
+# 4. Test (v0 + v2)
 python3 -m unittest discover -s tests -v
 ```
+
+Baseline hồi quy v0 vẫn chạy bằng `--extractor gazetteer`. Dựng lại KB từ
+nguồn thô bằng `python3 src/smart_medic/kb/build.py`; nếu không có bản phát hành
+RxNorm RRF cục bộ, builder chỉ dựng nhánh ICD.
 
 Chấm điểm thật khi đã có thư mục `gold/`:
 
@@ -46,16 +56,19 @@ PYTHONPATH=src python3 -m smart_medic.score \
     --pred data/output --gold data/gold --src data/test --verbose
 ```
 
-## Trạng thái: **v0** hoàn thành
+## Trạng thái: **v2 deterministic**
 
 | Vòng | Nội dung | Trạng thái |
 |---|---|---|
-| **v0** | Hạ tầng + gazetteer ICD tất định, không LLM | ✅ xong |
-| v1 | LLM trích xuất + hai nhánh mapping (ICD + RxNorm) | chưa |
-| v2 | Rerank, ngưỡng precision, co-reference token bị che | chưa |
+| **v0** | Hạ tầng + gazetteer ICD tất định | ✅ baseline hồi quy |
+| **v1** | Provider stack + hai nhánh ICD/RxNorm | ✅ bản offline, không LLM |
+| **v2** | Top-5 lexical rerank, ngưỡng precision, thuốc bị che | ✅ xong |
 | v3 | Distill sang encoder offline (chỉ khi vào top-15) | chưa |
 
-Kết quả v0 trên 100 file test: **717 mention** (524 `CHẨN_ĐOÁN` có mã ICD, 193 `TRIỆU_CHỨNG`), 0 lỗi schema, 0 span vi phạm bất biến vị trí, chạy 0,7 giây, hoàn toàn tất định và offline.
+V2 giữ nguyên baseline exact, bổ sung chẩn đoán dân dã qua retrieve-then-rerank,
+phát hiện thuốc plaintext và token bị che, chỉ trả RxNorm SCD/SBD khi ngữ cảnh
+có đủ hoạt chất, hàm lượng và dạng dùng. Không có gold trong repo nên simulator
+chỉ báo điểm kỳ vọng; không xem self-score 1.0 là độ chính xác thật.
 
 ## Cấu trúc
 
@@ -68,6 +81,8 @@ smart-medic/
 │   ├── pipeline.py        DAG các stage, chính sách suy giảm an toàn
 │   ├── infer.py           entrypoint + đóng gói output.zip
 │   ├── score.py           WER + Jaccard + validate schema
+│   ├── retrieval.py       top-5 ICD lexical retrieval + deterministic rerank
+│   ├── metric_simulator.py sweep ngưỡng; gold thật hoặc proxy có gắn nhãn
 │   ├── kb/
 │   │   ├── build.py       dựng KB từ ICD10.csv + RXNCONSO.RRF + RXNCUI.RRF
 │   │   └── store.py       nạp KB + gazetteer longest-match
@@ -75,7 +90,7 @@ smart-medic/
 │       ├── extract.py     Extractor protocol + GazetteerExtractor (v0)
 │       ├── locate.py      định vị span trên chuỗi thô
 │       └── assertion.py   SectionMap + luật negation/historical
-├── tests/test_v0.py       35 test, chỉ dùng unittest
+├── tests/                 test hồi quy v0 + provider/simulator v2
 ├── data/
 │   ├── knowledge_base/    nguồn thô: ICD10.csv, RxNorm_full_07062026/
 │   ├── kb/                KB đã build (CSV.gz + MANIFEST.json)

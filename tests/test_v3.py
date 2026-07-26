@@ -11,15 +11,23 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from smart_medic.batch import CrossDocumentMaskResolver  # noqa: E402
 from smart_medic.kb.store import load_kb  # noqa: E402
 from smart_medic.normalize import norm_text  # noqa: E402
-from smart_medic.pipeline import Pipeline  # noqa: E402
+from smart_medic.pipeline import Pipeline, PipelineConfig  # noqa: E402
 from smart_medic.retrieval import IcdRetriever  # noqa: E402
-from smart_medic.schema import Assertion, ConceptType, Span  # noqa: E402
+from smart_medic.schema import (  # noqa: E402
+    Assertion,
+    ConceptType,
+    Mention,
+    Provenance,
+    Span,
+)
 from smart_medic.score import score_file  # noqa: E402
 from smart_medic.stages.assertion import AssertionTagger  # noqa: E402
 from smart_medic.stages.clinical import ClinicalSymptomExtractor  # noqa: E402
 from smart_medic.stages.extract import (  # noqa: E402
+    Candidate,
     CompositeExtractor,
     GazetteerExtractor,
     IcdCueExtractor,
@@ -29,6 +37,26 @@ from smart_medic.stages.lab import LabObservationExtractor  # noqa: E402
 from smart_medic.textref import build_textref, read_textref  # noqa: E402
 
 KB_DIR = ROOT / "data/kb"
+
+OFFICIAL_CLINICAL_EXAMPLE = (
+    "Bệnh nhân bị bệnh 1 tuần nay, ho đờm xanh, tức ngực, đau thượng vị, "
+    "ợ hơi, được chẩn đoán mắc bệnh trào ngược dạ dày – thực quản."
+)
+
+OFFICIAL_MEDICATION_EXAMPLE = (
+    "Danh sách thuốc trước nhập viện chính xác và đầy đủ. "
+    "1. amlodipine 10 mg po daily "
+    "2. aspirin 81 mg po daily "
+    "3. metoprolol succinate xl 50 mg po daily "
+    "4. guaifenesin ml po q6h:prn điều trị ho "
+    "5. nystatin oral suspension 5 ml po qid:prn điều trị nấm "
+    "6. acetaminophen 325-650 mg po q6h:prn điều trị sốt đau "
+    "7. pravastatin 40 mg po daily "
+    "8. docusate sodium 100 mg po bid điều trị táo bón "
+    "9. senna 8.6 mg po bid:prn điều trị táo bón "
+    "10. clonazepam 0.5 mg po qam:prn điều trị lo âu "
+    "11. clonazepam 1.5 mg po qhs điều trị âu mất ngủ"
+)
 
 
 class TestLabObservationExtractor(unittest.TestCase):
@@ -76,6 +104,21 @@ class TestLabObservationExtractor(unittest.TestCase):
         candidates = self.extractor.extract(build_textref(raw))
         outer = next(item for item in candidates if item.span.start == 0)
         self.assertEqual("HGB (Hemoglobin)", outer.span.text)
+
+    def test_official_lyph_alias_and_parenthetical_span(self):
+        raw = "LYPH% (Tỷ lệ bạch cầu lympho):12,8"
+        self.assertEqual(
+            [
+                (
+                    ConceptType.TEN_XET_NGHIEM,
+                    "LYPH% (Tỷ lệ bạch cầu lympho)",
+                    0,
+                    29,
+                ),
+                (ConceptType.KET_QUA_XET_NGHIEM, "12,8", 30, 34),
+            ],
+            self.records(raw),
+        )
 
     def test_drug_glucose_is_not_lab(self):
         raw = "Glucose 5% x 1000ml truyền tĩnh mạch."
@@ -199,6 +242,91 @@ class TestV3Pipeline(unittest.TestCase):
                 self.assertTrue(ranked)
                 self.assertEqual(code, ranked[0].code)
 
+    def test_official_clinical_example_contract(self):
+        mentions = self.pipeline.run(build_textref(OFFICIAL_CLINICAL_EXAMPLE))
+        symptoms = [
+            mention.span.text
+            for mention in mentions
+            if mention.type is ConceptType.TRIEU_CHUNG
+        ]
+        self.assertEqual(
+            ["ho đờm xanh", "tức ngực", "đau thượng vị", "ợ hơi"],
+            symptoms,
+        )
+        diagnosis = next(
+            mention for mention in mentions
+            if mention.span.text == "bệnh trào ngược dạ dày – thực quản"
+        )
+        self.assertEqual(ConceptType.CHAN_DOAN, diagnosis.type)
+        self.assertEqual(("K21.0", "K21.9"), diagnosis.candidates)
+
+    def test_official_medication_regimen_contract(self):
+        mentions = self.pipeline.run(build_textref(OFFICIAL_MEDICATION_EXAMPLE))
+        by_text = {mention.span.text: mention for mention in mentions}
+        expected_drugs = {
+            "amlodipine 10 mg po daily": "308135",
+            "aspirin 81 mg po daily": "243670",
+            "metoprolol succinate xl 50 mg po daily": "866436",
+            "clonazepam 1.5 mg po qhs": "197528",
+        }
+        for text, code in expected_drugs.items():
+            with self.subTest(text=text):
+                mention = by_text[text]
+                self.assertEqual(ConceptType.THUOC, mention.type)
+                self.assertEqual((code,), mention.candidates)
+                self.assertIn(Assertion.HISTORICAL, mention.assertions)
+                self.assertTrue(mention.span.verify(OFFICIAL_MEDICATION_EXAMPLE))
+
+        for symptom in ("táo bón", "lo âu", "mất ngủ"):
+            with self.subTest(symptom=symptom):
+                matching = [
+                    mention for mention in mentions if mention.span.text == symptom
+                ]
+                self.assertTrue(matching)
+                self.assertTrue(all(
+                    mention.type is ConceptType.TRIEU_CHUNG
+                    and not mention.candidates
+                    and not mention.assertions
+                    for mention in matching
+                ))
+
+    def test_generic_anatomy_and_procedure_are_not_diagnoses(self):
+        raw = (
+            "Siêu âm bàng quang. Tác dụng phụ của thuốc. "
+            "Tiến hành chọc dò dịch não tủy."
+        )
+        mentions = self.pipeline.run(build_textref(raw))
+        self.assertFalse(any(
+            mention.type is ConceptType.CHAN_DOAN for mention in mentions
+        ))
+        self.assertTrue(any(
+            mention.type is ConceptType.TEN_XET_NGHIEM
+            and mention.span.text == "chọc dò dịch não tủy"
+            for mention in mentions
+        ))
+
+    def test_context_gate_prefers_specific_diagnosis_spans(self):
+        raw = (
+            "Chẩn đoán viêm tủy xương và nhiễm khuẩn đường tiết niệu. "
+            "Khám thấy phù gai thị. Siêu âm tuyến tiền liệt. "
+            "Tiếp tục thuốc chống đông máu."
+        )
+        mentions = self.pipeline.run(build_textref(raw))
+        diagnoses = {
+            mention.span.text: mention.candidates
+            for mention in mentions
+            if mention.type is ConceptType.CHAN_DOAN
+        }
+        self.assertEqual(("M86",), diagnoses["viêm tủy xương"])
+        self.assertEqual(
+            ("N39.0",), diagnoses["nhiễm khuẩn đường tiết niệu"]
+        )
+        self.assertEqual(("H47.1",), diagnoses["phù gai thị"])
+        self.assertNotIn("viêm tủy", diagnoses)
+        self.assertNotIn("nhiễm khuẩn", diagnoses)
+        self.assertNotIn("tuyến tiền liệt", diagnoses)
+        self.assertNotIn("chống đông máu", diagnoses)
+
     def test_corpus_derived_diagnoses_return_one_specific_code(self):
         expected = {
             "Bị cao huyết áp.": "I10",
@@ -228,6 +356,126 @@ class TestV3Pipeline(unittest.TestCase):
         self.assertEqual(1, len(candidates))
         self.assertEqual("***", candidates[0].span.text)
         self.assertEqual("masked_unresolved", candidates[0].provenance.link_path)
+
+    def test_preposed_dose_is_local_and_part_of_drug_span(self):
+        raw = (
+            "Bệnh nhân dùng 80mg po lasix ở nhà\n"
+            "Nhận 80mg lasix iv\n"
+            "Được cho po metoprolol"
+        )
+        candidates = RxNormExtractor(self.kb).extract(build_textref(raw))
+        by_text = {candidate.span.text: candidate for candidate in candidates}
+        self.assertEqual(("205732",), by_text["80mg po lasix"].codes)
+        self.assertEqual((), by_text["80mg lasix iv"].codes)
+        self.assertEqual((), by_text["po metoprolol"].codes)
+
+    def test_structured_brand_regimen_links_exact_product(self):
+        raw = (
+            "Medrol 16mg x 3 viên, uống 8h sáng\n"
+            "Zestril 10mg x 1 viên, uống sáng\n"
+            "coumadin 3.0 mg /ngày"
+        )
+        candidates = RxNormExtractor(self.kb).extract(build_textref(raw))
+        by_text = {candidate.span.text: candidate.codes for candidate in candidates}
+        self.assertEqual(
+            ("207138",), by_text["Medrol 16mg x 3 viên, uống 8h sáng"]
+        )
+        self.assertEqual(
+            ("104377",), by_text["Zestril 10mg x 1 viên, uống sáng"]
+        )
+        self.assertEqual(("855320",), by_text["coumadin 3.0 mg /ngày"])
+
+    def test_masked_regimen_never_crosses_a_line_boundary(self):
+        raw = "Dùng **************\nTiêm thuốc khác"
+        candidate = RxNormExtractor(self.kb).extract(build_textref(raw))[0]
+        self.assertEqual("**************", candidate.span.text)
+        self.assertTrue(candidate.span.verify(raw))
+
+    def test_cross_document_mask_resolution_requires_unique_template(self):
+        visible_text = "Thuốc: aspirin 81 mg po daily"
+        masked_text = "Thuốc: ******** 81 mg po daily"
+        visible_tref = build_textref(visible_text)
+        masked_tref = build_textref(masked_text)
+        visible = self.pipeline.run(visible_tref)
+        masked = self.pipeline.run(masked_tref)
+        target = next(mention for mention in masked if "*" in mention.span.text)
+        self.assertFalse(target.candidates)
+
+        stats = CrossDocumentMaskResolver().resolve({
+            "visible.txt": (visible_tref, visible),
+            "masked.txt": (masked_tref, masked),
+        })
+        self.assertEqual(1, stats.resolved)
+        self.assertEqual(("243670",), target.candidates)
+        self.assertEqual(
+            "masked_cross_document_template", target.provenance.link_path
+        )
+
+        conflicting = Mention(
+            span=Span(7, len(visible_text), visible_text[7:]),
+            type=ConceptType.THUOC,
+            candidates=("conflict",),
+            provenance=Provenance(
+                kb_rows=["test:conflict"],
+                scores={"confidence": 1.0, "code:conflict": 1.0},
+                evidence={"anchor": "aspirin"},
+            ),
+        )
+        fresh_masked = self.pipeline.run(masked_tref)
+        unresolved = next(
+            mention for mention in fresh_masked if "*" in mention.span.text
+        )
+        conflict_stats = CrossDocumentMaskResolver().resolve({
+            "visible.txt": (visible_tref, visible),
+            "conflict.txt": (visible_tref, [conflicting]),
+            "masked.txt": (masked_tref, fresh_masked),
+        })
+        self.assertEqual(0, conflict_stats.resolved)
+        self.assertGreaterEqual(conflict_stats.conflicts, 1)
+        self.assertFalse(unresolved.candidates)
+
+    def test_rxnorm_output_modes_are_traceable(self):
+        current = "1665021"
+        legacy = self.kb.remap_reverse[current][0]
+
+        class FixedDrugExtractor:
+            name = "fixed_drug"
+
+            @staticmethod
+            def extract(tref):
+                return [Candidate(
+                    Span(0, len(tref.raw), tref.raw),
+                    ConceptType.THUOC,
+                    (current,),
+                    Provenance(
+                        link_path="rxnorm_rerank",
+                        kb_rows=[f"rx:{current}"],
+                        scores={"confidence": 1.0, f"code:{current}": 1.0},
+                    ),
+                )]
+
+        tref = build_textref("fixed drug")
+        expected = {
+            "current": (current,),
+            "legacy": (legacy,),
+            "both": (current, legacy),
+        }
+        for mode, codes in expected.items():
+            with self.subTest(mode=mode):
+                mention = Pipeline(
+                    self.kb,
+                    FixedDrugExtractor(),
+                    PipelineConfig(rxnorm_output_mode=mode),
+                ).run(tref)[0]
+                self.assertEqual(codes, mention.candidates)
+                if mode != "current":
+                    self.assertIn(
+                        f"rx-remap:{legacy}->{current}", mention.provenance.kb_rows
+                    )
+                if mode == "legacy":
+                    self.assertNotIn(
+                        f"code:{current}", mention.provenance.scores
+                    )
 
     def test_glucose_infusion_is_drug_not_lab(self):
         raw = "Glucose 5% x 1000ml truyền tĩnh mạch."

@@ -23,6 +23,7 @@ _TEST_NAMES = (
     "điện tâm đồ", "chụp x-quang ngực", "chụp x quang ngực",
     "chụp ct sọ não", "cấy nước tiểu", "phân tích nước tiểu",
     "xét nghiệm chức năng gan", "xét nghiệm phân", "cấy máu",
+    "chọc dò dịch não tủy",
     "bilirubin toàn phần", "bilirubin trực tiếp", "ldl-cholesterol",
     "hdl-cholesterol", "ldl cholesterol", "hdl cholesterol",
     "tỷ lệ prothrombin", "tỷ số de ritis", "glucose máu",
@@ -35,7 +36,7 @@ _TEST_NAMES = (
     "glucose", "albumin", "protein", "lactat", "lactate", "nitrite",
     "bạch cầu", "hồng cầu", "tiểu cầu", "ure", "urê", "natri", "kali",
     "calci", "calcium", "chloride", "đường huyết", "huyết áp",
-    "wbc", "rbc", "hgb", "hct", "plt", "neut", "lymph", "crp", "ldl", "hdl",
+    "wbc", "rbc", "hgb", "hct", "plt", "neut", "lymph", "lyph", "crp", "ldl", "hdl",
     "got", "gpt", "ggt", "ast", "alt", "alp", "inr", "aptt", "pt", "tq",
     "hba1c", "bnp", "hco3", "po2", "pco2", "spo2", "ph", "bun", "hct", "hst",
     "ecg", "ctm", "shm", "na+", "k+", "cl-", "ca++", "ha",
@@ -65,7 +66,7 @@ _QUAL_RE = re.compile(_QUALITATIVE)
 
 _LAB_CONTEXT_RE = re.compile(
     r"\b(?:xét\s*nghiệm|cận\s+lâm\s+sàng|kết\s+quả|sinh\s+hóa|huyết\s+học|"
-    r"đông\s+máu|định\s+lượng|đo\s+hoạt\s+độ|chụp|siêu\s+âm|cấy|"
+    r"đông\s+máu|định\s+lượng|đo\s+hoạt\s+độ|chụp|siêu\s+âm|cấy|chọc\s+dò|"
     r"điện\s+tâm\s+đồ|ecg)\b"
 )
 _DRUG_CONTEXT_RE = re.compile(
@@ -81,7 +82,7 @@ _HARD_BREAK_RE = re.compile(r"[.!?]\s|\b(?:nhưng|tuy\s+nhiên)\b")
 class LabObservationExtractor:
     """Extract test names and quantitative or qualitative result values."""
 
-    name = "lab_observation_v3"
+    name = "lab_observation_v3_2"
 
     @staticmethod
     def _candidate(

@@ -53,6 +53,48 @@ class GazetteerExtractor:
 
     name = "gazetteer"
 
+    # Exact string matches that are procedures, anatomy, generic findings or
+    # treatment concepts rather than patient diagnoses.  These aliases are
+    # frequent false positives in the 100-file corpus because their ICD rows
+    # are valid but their surface use is not diagnostic.
+    _BLOCKED_GENERIC_ALIASES = frozenset({
+        "bàng quang",
+        "bệnh tim mạch",
+        "cách ly",
+        "các bệnh hô hấp",
+        "chống đông máu",
+        "cột sống",
+        "dò dịch não tủy",
+        "giảm thể tích",
+        "hiến máu",
+        "khám răng",
+        "nhiễm trùng",
+        "niệu quản",
+        "tác dụng phụ",
+        "thuốc lợi tiểu",
+        "tinh hoàn",
+        "tổn thương",
+        "tránh thai",
+        "tuyến tiền liệt",
+    })
+
+    # Short ICD aliases that are valid only until a following token makes a
+    # more specific concept.  The corresponding full phrases are emitted by
+    # IcdCueExtractor, preventing incorrect spans such as ``viêm tủy`` inside
+    # ``viêm tủy xương`` (dental pulpitis K04.0 vs osteomyelitis M86).
+    _BLOCKED_FOLLOWING = {
+        "nhiễm khuẩn": ("đường ", "hệ ", "máu", "huyết", "lợi", "da", "chi "),
+        "phù gai": ("thị",),
+        "viêm tủy": ("xương",),
+    }
+
+    # The organiser's GERD example explicitly accepts both child codes when
+    # the text does not say whether oesophagitis is present.  Preserve this
+    # contract instead of collapsing the hierarchy to the parent K21.
+    _CONTRACT_AMBIGUOUS_CHILDREN = {
+        "K21": ("K21.0", "K21.9"),
+    }
+
     def __init__(
         self,
         kb: KnowledgeBase,
@@ -67,6 +109,8 @@ class GazetteerExtractor:
     @staticmethod
     def _resolve_hierarchy(codes: tuple[str, ...], alias: str) -> tuple[str, ...]:
         """Choose a parent or unspecified child only when codes form one hierarchy."""
+        if "K21" in codes and "trào ngược" in alias:
+            return GazetteerExtractor._CONTRACT_AMBIGUOUS_CHILDREN["K21"]
         if len(codes) < 2:
             return codes
         ordered = sorted(set(codes), key=lambda code: (len(code), code))
@@ -74,6 +118,9 @@ class GazetteerExtractor:
         children = [code for code in ordered[1:] if code.startswith(parent + ".")]
         if len(children) != len(ordered) - 1:
             return codes
+        contracted = GazetteerExtractor._CONTRACT_AMBIGUOUS_CHILDREN.get(parent)
+        if contracted and all(code in children for code in contracted):
+            return contracted
         unspecified = any(
             phrase in alias for phrase in ("không đặc hiệu", "không xác định", "không rõ")
         )
@@ -82,6 +129,14 @@ class GazetteerExtractor:
     def extract(self, tref: TextRef) -> list[Candidate]:
         out: list[Candidate] = []
         for m in self.kb.icd_gaz.scan(tref.norm):
+            if m.alias in self._BLOCKED_GENERIC_ALIASES:
+                continue
+            following = tref.norm[m.ne:m.ne + 32].lstrip()
+            if any(
+                following.startswith(prefix)
+                for prefix in self._BLOCKED_FOLLOWING.get(m.alias, ())
+            ):
+                continue
             rs, re_ = tref.to_raw(m.ns, m.ne)
             text = tref.raw[rs:re_]
             span = Span(rs, re_, text)
@@ -103,6 +158,7 @@ class GazetteerExtractor:
                 codes = m.codes
                 if self.contextual_ambiguity:
                     codes = self._resolve_hierarchy(codes, m.alias)
+                    prov.kb_rows = [f"icd:{code}" for code in codes]
                 out.append(
                     Candidate(
                         span,
@@ -128,12 +184,24 @@ class IcdCueExtractor:
         r"(?<![\wăâđêôơư])(?:chẩn\s*đoán(?:\s+là)?|mắc)\s*[:\-]?\s*"
     )
     _STANDALONE_RE = re.compile(
-        r"(?<!\w)(?:thiếu\s+men\s+g6pd|cao\s+huyết\s+áp|"
+        r"(?<!\w)(?:nhiễm\s+(?:trùng|khuẩn)\s+đường\s+tiết\s+niệu|"
+        r"nhiễm\s+(?:trùng|khuẩn)\s+(?:máu|huyết)|"
+        r"viêm\s+(?:tủy\s+xương|xương\s+tủy)|"
+        r"phù\s+gai\s+thị|thiếu\s+men\s+g6pd|cao\s+huyết\s+áp|"
         r"tiểu\s+đường(?:\s+(?:típ|type|loại)\s*[12])?|viêm\s+bao\s+tử|"
         r"xuất\s+huyết\s+tiêu\s+hóa|xhth|rụng\s+tóc\s+từng\s+vùng|"
         r"bàn\s+chân\s+bẹt)(?!\w)"
     )
     _STANDALONE_CODES = {
+        "nhiễm trùng đường tiết niệu": "N39.0",
+        "nhiễm khuẩn đường tiết niệu": "N39.0",
+        "nhiễm trùng máu": "A41",
+        "nhiễm trùng huyết": "A41",
+        "nhiễm khuẩn máu": "A41",
+        "nhiễm khuẩn huyết": "A41",
+        "viêm tủy xương": "M86",
+        "viêm xương tủy": "M86",
+        "phù gai thị": "H47.1",
         "thiếu men g6pd": "D55.0",
         "cao huyết áp": "I10",
         "tiểu đường": "E14",
@@ -170,8 +238,13 @@ class IcdCueExtractor:
     def extract(self, tref: TextRef) -> list[Candidate]:
         out: list[Candidate] = []
         for match in self._STANDALONE_RE.finditer(tref.norm):
-            ranked = self.retriever.retrieve(match.group(), top_k=self.top_k)
             preferred = self._STANDALONE_CODES.get(match.group())
+            if preferred in self.kb.icd_concepts:
+                out.append(self._make_direct_candidate(
+                    tref, match.start(), match.end(), preferred
+                ))
+                continue
+            ranked = self.retriever.retrieve(match.group(), top_k=self.top_k)
             preferred_ranked = [item for item in ranked if item.code == preferred]
             if preferred_ranked:
                 ranked = preferred_ranked
@@ -222,6 +295,26 @@ class IcdCueExtractor:
             unique.setdefault((candidate.span.start, candidate.span.end), candidate)
         return sorted(unique.values(), key=lambda candidate: candidate.span.start)
 
+    def _make_direct_candidate(
+        self, tref: TextRef, ns: int, ne: int, code: str
+    ) -> Candidate:
+        rs, re_ = tref.to_raw(ns, ne)
+        span = Span(rs, re_, tref.raw[rs:re_])
+        confidence = 0.96
+        return Candidate(
+            span=span,
+            type=ConceptType.CHAN_DOAN,
+            codes=(code,),
+            provenance=Provenance(
+                extractor=self.name,
+                locate_method="contextual_phrase_rewrite",
+                link_path="icd_contextual_rewrite",
+                kb_rows=[f"icd:{code}"],
+                scores={"confidence": confidence, f"code:{code}": confidence},
+                evidence={"normalized_surface": tref.norm[ns:ne]},
+            ),
+        )
+
     def _make_candidate(self, tref: TextRef, ns: int, ne: int, ranked) -> Candidate:
         rs, re_ = tref.to_raw(ns, ne)
         span = Span(rs, re_, tref.raw[rs:re_])
@@ -246,11 +339,36 @@ class IcdCueExtractor:
 class RxNormExtractor:
     """Conservative drug NER + SCD/SBD reranking + masked-token resolver."""
 
-    name = "rxnorm_v2"
+    name = "rxnorm_v3_2"
 
     _MASK_RE = re.compile(r"\*{3,}")
     _DOSE_RE = re.compile(
-        r"\s+(\d+(?:[.,]\d+)?)\s*(mg|mcg|g|ml|microgam|microgram|miligam|milligram)\b",
+        r"\s+(?P<low>\d+(?:[.,]\d+)?)"
+        r"(?:\s*-\s*(?P<high>\d+(?:[.,]\d+)?))?\s*"
+        r"(?P<unit>mg|mcg|g|ml|microgam|microgram|miligam|milligram)\b",
+        re.IGNORECASE,
+    )
+    _REGIMEN_SUFFIX_RE = re.compile(
+        r"(?P<form>(?:\s+(?:xl|xr|er|sr|cr|dr|oral\s+suspension|"
+        r"oral\s+solution|oral\s+tablet|oral\s+capsule)){0,2})"
+        r"(?P<dose>\s+\d+(?:[.,]\d+)?(?:\s*-\s*\d+(?:[.,]\d+)?)?\s*"
+        r"(?:mg|mcg|g|ml|microgam|microgram|miligam|milligram)\b)?"
+        r"(?P<bare_volume>\s+ml\b)?"
+        r"(?P<quantity>\s*(?:x|×)\s*\d+(?:[.,]\d+)?"
+        r"(?:\s*(?:viên|ống|gói|lần))?)?"
+        r"(?P<route>\s*(?:[,;]\s*)?(?:po|iv|im|sc|sl|uống|tiêm|truyền)"
+        r"(?:\s+tĩnh\s+mạch)?)?"
+        r"(?P<frequency>\s*(?:daily|once\s+daily|once|bid|tid|qid|qhs|qam|"
+        r"q\d+h)(?::?prn)?|\s*prn|\s*/\s*ngày|\s+mỗi\s+ngày|"
+        r"\s+\d{1,2}h\s+sáng|\s+(?:sáng|chiều|tối)"
+        r"(?:\s+(?:trước|sau)\s+ăn)?|\s+(?:trước|sau)\s+ăn)?",
+        re.IGNORECASE,
+    )
+    _PREPOSED_REGIMEN_RE = re.compile(
+        r"(?P<regimen>(?:\d+(?:[.,]\d+)?(?:\s*-\s*\d+(?:[.,]\d+)?)?\s*"
+        r"(?:mg|mcg|g|ml|microgam|microgram|miligam|milligram)\b"
+        r"(?:\s+(?:po|iv|im|sc|sl|uống|tiêm|truyền))?|"
+        r"(?:po|iv|im|sc|sl|uống|tiêm|truyền))\s*)$",
         re.IGNORECASE,
     )
     _DRUG_CONTEXT_RE = re.compile(
@@ -276,6 +394,9 @@ class RxNormExtractor:
     _UNIT_CANON = {
         "microgam": "mcg", "microgram": "mcg",
         "miligam": "mg", "milligram": "mg",
+    }
+    _SURFACE_SYNONYMS = {
+        "senna": "sennosides, usp",
     }
 
     @classmethod
@@ -304,6 +425,7 @@ class RxNormExtractor:
         self._anchor_rows: dict[str, dict] = {}
         self._targets: list[dict] = []
         self._target_by_first: dict[str, list[dict]] = {}
+        self._target_by_token: dict[str, list[dict]] = {}
         self._target_by_brand: dict[str, list[dict]] = {}
 
         for row in kb.rx_aliases:
@@ -312,6 +434,8 @@ class RxNormExtractor:
                 self._targets.append(row)
                 first = alias.split(" ", 1)[0]
                 self._target_by_first.setdefault(first, []).append(row)
+                for token in set(re.findall(r"[^\W_]+", alias)):
+                    self._target_by_token.setdefault(token, []).append(row)
                 for brand in re.findall(r"\[([^\]]+)\]", alias):
                     self._target_by_brand.setdefault(brand, []).append(row)
             if not int(row.get("is_anchor", 0)):
@@ -321,6 +445,20 @@ class RxNormExtractor:
             if alias.startswith(("glucose-", "propionibacterium ")):
                 continue
             self._anchor_rows.setdefault(alias, row)
+
+        # Add conservative surface synonyms only when the source KB contains a
+        # traceable ingredient anchor.  The canonical phrase is used solely
+        # for target lookup; emitted text always remains the raw surface.
+        for surface in self._SURFACE_SYNONYMS:
+            source = next(
+                (
+                    row for alias, row in self._anchor_rows.items()
+                    if alias.startswith(surface + " ")
+                ),
+                None,
+            )
+            if source is not None:
+                self._anchor_rows.setdefault(surface, source)
 
         for alias in self._anchor_rows:
             self._by_first.setdefault(alias.split(" ", 1)[0], []).append(alias)
@@ -338,6 +476,35 @@ class RxNormExtractor:
         window = norm[max(0, start - 90) : min(len(norm), end + 90)]
         return bool(self._DRUG_CONTEXT_RE.search(window) or self._DOSE_RE.search(" " + window))
 
+    @classmethod
+    def _extend_regimen(cls, tref: TextRef, anchor_end: int) -> int:
+        """Extend a drug anchor through strength, route and frequency only."""
+        match = cls._REGIMEN_SUFFIX_RE.match(tref.norm, anchor_end)
+        if not match:
+            return anchor_end
+        if not any(match.group(name) for name in (
+            "form", "dose", "bare_volume", "quantity", "route", "frequency"
+        )):
+            return anchor_end
+        candidate_end = match.end()
+        for pos in range(anchor_end, candidate_end):
+            raw_piece = tref.raw[tref.n2r[pos]:tref.n2r_end[pos]]
+            if "\n" in raw_piece or "\r" in raw_piece:
+                return pos
+        return candidate_end
+
+    @classmethod
+    def _regimen_start(cls, tref: TextRef, anchor_start: int) -> int:
+        """Include an immediately preposed dose/route (``80mg po lasix``)."""
+        window_start = max(0, anchor_start - 48)
+        prefix = tref.norm[window_start:anchor_start]
+        match = cls._PREPOSED_REGIMEN_RE.search(prefix)
+        if not match:
+            return anchor_start
+        candidate_start = window_start + match.start("regimen")
+        raw_piece = tref.slice_raw(candidate_start, anchor_start)
+        return anchor_start if "\n" in raw_piece or "\r" in raw_piece else candidate_start
+
     def _scan_plain(self, tref: TextRef) -> list[Candidate]:
         out: list[Candidate] = []
         norm = tref.norm
@@ -347,7 +514,7 @@ class RxNormExtractor:
                 i += 1
                 continue
             j = i
-            while j < n and norm[j] != " ":
+            while j < n and (norm[j].isalnum() or norm[j] in "-_"):
                 j += 1
             first = norm[i:j]
             match = next(
@@ -366,11 +533,13 @@ class RxNormExtractor:
                 i = end
                 continue
 
-            dose = self._DOSE_RE.match(norm, end)
-            mention_end = dose.end() if dose else end
-            rs, re_ = tref.to_raw(i, mention_end)
+            mention_start = self._regimen_start(tref, i)
+            mention_end = self._extend_regimen(tref, end)
+            rs, re_ = tref.to_raw(mention_start, mention_end)
             span = Span(rs, re_, tref.raw[rs:re_])
-            codes, scores, alias = self._link(match, norm, i, mention_end)
+            codes, scores, alias = self._link(
+                match, tref, mention_start, mention_end
+            )
             anchor = self._anchor_rows[match]
             rows = [f"rx-anchor:{anchor['rxcui']}"]
             rows.extend(f"rx:{code}" for code in codes)
@@ -434,31 +603,94 @@ class RxNormExtractor:
         return out
 
     def _link(
-        self, anchor: str, norm: str, start: int, end: int
+        self, anchor: str, tref: TextRef, start: int, end: int
     ) -> tuple[tuple[str, ...], tuple[float, ...], str]:
-        context = norm[max(0, start - 28) : min(len(norm), end + 56)]
-        dose = self._DOSE_RE.search(context)
-        strength = dose.group(1).replace(",", ".") if dose else ""
-        unit = self._UNIT_CANON.get(dose.group(2).casefold(), dose.group(2).casefold()) if dose else ""
-        query_amount = self._amount(strength, unit) if strength else None
+        # Linking evidence must be local to this regimen.  The previous broad
+        # window could pick up the dose of an adjacent numbered medication.
+        norm = tref.norm
+        regimen = norm[start:end]
+        context_end = min(len(norm), end + 160)
+        for pos in range(end, context_end):
+            raw_piece = tref.raw[tref.n2r[pos]:tref.n2r_end[pos]]
+            if "\n" in raw_piece or "\r" in raw_piece:
+                context_end = pos
+                break
+        tail = norm[end:context_end]
+        boundary = re.search(r"\s+\d{1,2}\s*[.]\s+", tail)
+        if boundary:
+            tail = tail[:boundary.start()]
+        context = regimen + tail
+        canonical_anchor = self._SURFACE_SYNONYMS.get(anchor, anchor)
+        dose = self._DOSE_RE.search(" " + regimen)
+        if dose is None:
+            contextual_dose = self._DOSE_RE.search(tail)
+            if contextual_dose:
+                cue_prefix = tail[max(0, contextual_dose.start() - 28):contextual_dose.start()]
+                if re.search(r"(?:với\s+liều|liều|hàm\s+lượng)\s*$", cue_prefix):
+                    dose = contextual_dose
+        strength = dose.group("low").replace(",", ".") if dose else ""
+        high_strength = dose.group("high").replace(",", ".") if dose and dose.group("high") else ""
+        unit = (
+            self._UNIT_CANON.get(dose.group("unit").casefold(), dose.group("unit").casefold())
+            if dose else ""
+        )
+        administration_volume = bool(
+            dose and unit == "ml" and re.search(r"\boral\s+(?:solution|suspension)\b", regimen)
+        )
+        allow_nearest_strength = bool(re.search(
+            r"\b(?:po|iv|im|sc|sl|daily|bid|tid|qid|qhs|qam|q\d+h|"
+            r"oral\s+(?:tablet|capsule|solution|suspension))\b",
+            regimen,
+        ))
+        query_amounts = [] if administration_volume or not strength else [self._amount(strength, unit)]
+        if high_strength:
+            query_amounts.append(self._amount(high_strength, unit))
 
         candidates: list[dict] = []
-        candidates.extend(self._target_by_first.get(anchor.split(" ", 1)[0], ()))
+        candidates.extend(self._target_by_first.get(canonical_anchor.split(" ", 1)[0], ()))
+        for token in set(re.findall(r"[^\W_]+", canonical_anchor)):
+            candidates.extend(self._target_by_token.get(token, ()))
         candidates.extend(self._target_by_brand.get(anchor, ()))
 
-        ranked: dict[str, tuple[float, str]] = {}
-        context_tokens = set(norm_text(context).split())
+        ranked: dict[str, tuple[float, str, bool]] = {}
+        context_tokens = set(re.findall(r"[^\W_]+", norm_text(context)))
+        explicit_parenteral_route = bool(
+            {"iv", "im", "sc", "tiêm", "truyền"} & context_tokens
+        )
         for row in candidates:
             target = row["alias_norm"]
-            name_match = target == anchor or target.startswith(anchor + " ") or f"[{anchor}]" in target
+            exact_brand = row["tty"] == "SBD" and f"[{anchor}]" in target
+            name_match = (
+                target == canonical_anchor
+                or f" {canonical_anchor} " in f" {target} "
+                or f"[{anchor}]" in target
+            )
             if not name_match:
                 continue
             score = 0.55
+            exact_strength = False
             row_strength, row_unit = row.get("strength", ""), row.get("unit", "")
             row_amount = self._amount(row_strength, row_unit) if row_strength and row_unit else None
-            if query_amount and row_amount and query_amount[1] == row_amount[1] and abs(query_amount[0] - row_amount[0]) < 1e-9:
+            comparable = [
+                amount for amount in query_amounts
+                if row_amount and amount[1] == row_amount[1]
+            ]
+            if comparable and row_amount and any(
+                abs(amount[0] - row_amount[0]) < 1e-9 for amount in comparable
+            ):
+                exact_strength = True
                 score += 0.27
-            elif strength:
+            elif comparable and row_amount and len(query_amounts) == 1:
+                query_value = comparable[0][0]
+                relative_gap = abs(query_value - row_amount[0]) / max(query_value, 1.0)
+                single_ingredient = target.count(" mg") + target.count(" mcg") <= 1
+                if allow_nearest_strength and relative_gap <= 0.50 and single_ingredient:
+                    score += max(0.10, 0.17 - 0.08 * relative_gap)
+                    if row_amount[0] <= query_value:
+                        score += 0.01
+                else:
+                    continue
+            elif query_amounts:
                 continue
             target_tokens = set(target.split())
             score += 0.08 * (len(context_tokens & target_tokens) / max(1, len(context_tokens)))
@@ -466,19 +698,25 @@ class RxNormExtractor:
             form_supported = False
             if "oral tablet" in target:
                 form_known = True
-                form_supported = bool({"viên", "tablet", "pills", "po"} & context_tokens)
+                form_supported = bool(
+                    {"viên", "tablet", "pills", "po", "uống"} & context_tokens
+                )
             elif "oral capsule" in target:
                 form_known = True
-                form_supported = "capsule" in context_tokens or "nang" in context_tokens
+                form_supported = bool({"capsule", "nang"} & context_tokens)
             elif "injection" in target or "injectable" in target:
                 form_known = True
                 form_supported = bool({"iv", "tiêm", "truyền"} & context_tokens)
             elif "oral solution" in target or "suspension" in target:
                 form_known = True
-                form_supported = bool({"ml", "siro", "solution", "dịch"} & context_tokens)
+                form_supported = bool(
+                    {"ml", "siro", "solution", "dịch", "uống"} & context_tokens
+                )
             if form_supported:
                 score += 0.08
-            elif form_known:
+            elif form_known and not (
+                exact_brand and exact_strength and not explicit_parenteral_route
+            ):
                 score -= 0.16
             qualifier_signals = {
                 "delayed release": {"delayed", "chậm"},
@@ -492,6 +730,11 @@ class RxNormExtractor:
             for qualifier, signals in qualifier_signals.items():
                 if qualifier in target and not (signals & context_tokens):
                     score -= 0.12
+            if (
+                ("oral suspension" in target and "oral suspension" in context)
+                or ("oral solution" in target and "oral solution" in context)
+            ):
+                score += 0.12
             if row["tty"] == "SBD" and "[" in target and f"[{anchor}]" not in target:
                 score -= 0.15
             if target.count(" mg") + target.count(" mcg") > 1:
@@ -503,10 +746,14 @@ class RxNormExtractor:
             code = row["rxcui"]
             old = ranked.get(code)
             if old is None or score > old[0]:
-                ranked[code] = (score, target)
+                ranked[code] = (score, target, exact_strength)
 
         ordered = sorted(ranked.items(), key=lambda item: (-item[1][0], item[0]))
         ordered = [item for item in ordered if item[1][0] >= self.threshold]
+        if dose and ordered and not ordered[0][1][2]:
+            # A non-exact strength is a dosage-form inference (for example a
+            # 1.5 mg regimen using a 1 mg tablet), not genuine ambiguity.
+            ordered = ordered[:1]
         ordered = ordered[: self.max_candidates]
         return (
             tuple(code for code, _ in ordered),
@@ -518,8 +765,11 @@ class RxNormExtractor:
         out: list[Candidate] = []
         linked = [m for m in plain if m.codes]
         distinct = {m.codes for m in linked}
-        for match in self._MASK_RE.finditer(tref.raw):
-            span = Span(match.start(), match.end(), match.group())
+        for match in self._MASK_RE.finditer(tref.norm):
+            ns, ne = match.span()
+            regimen_end = self._extend_regimen(tref, ne)
+            rs, re_ = tref.to_raw(ns, regimen_end)
+            span = Span(rs, re_, tref.raw[rs:re_])
             nearest = min(
                 linked,
                 key=lambda m: min(abs(span.start - m.span.end), abs(m.span.start - span.end)),
@@ -536,7 +786,11 @@ class RxNormExtractor:
             length_codes = {candidate.codes for candidate in same_length}
             if len(length_codes) == 1:
                 resolved = same_length[0]
-                codes = resolved.codes
+                # Coreference must not turn a ranked list into artificial
+                # ambiguity by assigning one flat score to every raw code.
+                # Propagate only the best product; the normal pipeline filter
+                # has not run yet at extractor time.
+                codes = resolved.codes[:1]
                 confidence = min(0.90, resolved.provenance.scores.get("confidence", 0.0))
                 rows = list(resolved.provenance.kb_rows)
                 evidence = {
@@ -546,7 +800,7 @@ class RxNormExtractor:
             if nearest is not None:
                 distance = min(abs(span.start - nearest.span.end), abs(nearest.span.start - span.end))
                 if not codes and (distance <= 220 or (len(distinct) == 1 and distance <= 700)):
-                    codes = nearest.codes
+                    codes = nearest.codes[:1]
                     confidence = min(0.88, nearest.provenance.scores.get("confidence", 0.0))
                     rows = list(nearest.provenance.kb_rows)
                     evidence = {"resolved_from": nearest.span.text, "distance": str(distance)}
@@ -586,6 +840,21 @@ class CompositeExtractor:
         out = list(exact)
         for provider in self.extras:
             for candidate in provider.extract(tref):
+                # In medication lists, phrases after ``điều trị`` describe the
+                # indication/symptom, not a newly asserted diagnosis.  The
+                # organiser example explicitly labels ``táo bón`` this way.
+                if (
+                    candidate.type is ConceptType.TRIEU_CHUNG
+                    and candidate.provenance.evidence.get("type_signal")
+                    == "medication_treatment_indication"
+                ):
+                    out = [
+                        old for old in out
+                        if not (
+                            old.type is ConceptType.CHAN_DOAN
+                            and candidate.span.overlaps(old.span)
+                        )
+                    ]
                 # Fuzzy diagnosis retrieval must never replace an exact ICD
                 # match.  Other types are left for the pipeline's global
                 # longest-span overlap policy.

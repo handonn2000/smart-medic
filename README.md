@@ -23,7 +23,7 @@ Không cần `pip install`, không cần virtualenv, không cần mạng. Đây 
 ## Chạy
 
 ```bash
-# 1. Chạy v3.1 trên 100 file test (KB build artifact đã có trong repo)
+# 1. Chạy v3.3 trên 100 file test (KB build artifact đã có trong repo)
 PYTHONPATH=src python3 -m smart_medic.infer \
     --extractor v3 --input data/test --output data/output \
     --zip data/output.zip --explain
@@ -49,6 +49,9 @@ python3 -m unittest discover -s tests -v
 # 5. Chứng minh bundle sạch chạy được khi không có nguồn ICD/RxNorm thô,
 #    đồng thời chạy lặp 2 lần + metric simulator với curated gold
 python3 scripts/clean_smoke.py
+
+# 6. Dựng ba artifact thử nghiệm RxNorm current / legacy / both
+python3 scripts/build_v3_3_variants.py
 ```
 
 Baseline hồi quy v0 vẫn chạy bằng `--extractor gazetteer`. Dựng lại toàn bộ KB
@@ -64,11 +67,12 @@ PYTHONPATH=src python3 -m smart_medic.score \
     --pred data/output --gold data/gold --src data/test --verbose
 ```
 
-## Trạng thái hiện tại: **v3.1 accuracy + deployment hardened**
+## Trạng thái hiện tại: **v3.3 precision + compatibility hardened**
 
 Nhánh hiện tại là `feature/solution_v3`. Runtime vẫn **offline, deterministic,
-không LLM và không model training**; v3.2 rule hardening mới ở trạng thái kế
-hoạch và chưa được áp dụng vào `data/output.zip`.
+không LLM và không model training**. Artifact `data/output.zip` hiện được dựng từ
+v3.3: giữ toàn bộ v3.2, bổ sung batch mask resolver bảo thủ, medication parser có
+cấu trúc, diagnosis context gate và bộ artifact RxNorm current/legacy/both.
 
 | Vòng | Nội dung thực tế | Trạng thái / kết quả |
 |---|---|---|
@@ -77,21 +81,22 @@ hoạch và chưa được áp dụng vào `data/output.zip`.
 | **v2** | Top-5 lexical rerank, ngưỡng precision, thuốc plaintext/mask, RxNorm SCD/SBD | ✅ Viettel **14.0595** |
 | **v3.0** | Checksum KB, deterministic gzip/ZIP, run manifest và clean-bundle smoke | ✅ hardening; output ngữ nghĩa gần v2 |
 | **v3.1** | Mention-first symptom/lab, ICD context, ConText và các rule từ corpus | ✅ Viettel **19.4812** |
-| **v3.2** | Contract tests từ ví dụ BTC, regimen thuốc, type arbitration và precision gate chẩn đoán | ⏳ kế hoạch tiếp theo; chưa triển khai |
+| **v3.2** | Contract tests từ ví dụ BTC, regimen thuốc, type arbitration và precision gate chẩn đoán | ✅ triển khai; chờ điểm Viettel |
+| **v3.3** | Cross-document mask template, structured brand regimen, context gate và RxNorm variants | ✅ artifact sẵn sàng; chờ điểm Viettel |
 | **v4** | Pretrained multilingual encoder / hybrid retrieval nếu rule đạt trần | hoãn; chỉ làm khi chi phí đóng gói hợp lý |
 
 ### Điểm và phạm vi kiểm chứng
 
-| Phép đo | v2 | v3.1 | Ý nghĩa |
-|---|---:|---:|---|
-| Viettel AI leaderboard | 14.0595 | **19.4812** | Điểm thật do nhóm ghi nhận; **+5.4217** (+38.56%) |
-| Simulator expected proxy @ 0.80 | 0.8328 | 0.8705 | Không có gold; chỉ dùng so sánh nội bộ |
-| Curated v3 regression | — | 1.0000 | 6 tình huống do nhóm tự gán, không đại diện private gold |
+| Phép đo | v2 | v3.1 | v3.2 | v3.3 | Ý nghĩa |
+|---|---:|---:|---:|---:|---|
+| Viettel AI leaderboard | 14.0595 | **19.4812** | chưa nộp | chưa nộp | Điểm thật chỉ có đến v3.1 |
+| Simulator expected proxy @ 0.80 | 0.8328 | 0.8705 | 0.8648 | 0.8638 | Không có gold; proxy phạt cả abstention đúng |
+| Curated v3 regression | — | 1.0000 | 1.0000 | 1.0000 | 6 tình huống tự gán, không đại diện private gold |
 
 `score --pred output --gold output = 1.0000` chỉ chứng minh schema, offset và
-tính tự nhất quán; **không phải accuracy**. Tương tự, proxy 0.8705 không được
-quy đổi thành điểm leaderboard. Nguồn đáng tin nhất hiện tại là chênh lệch điểm
-Viettel v2→v3.1 nêu trên.
+tính tự nhất quán; **không phải accuracy**. Proxy không biết mapping bị loại là
+false positive, nên không được quy đổi thành điểm leaderboard. Nguồn accuracy
+đáng tin nhất hiện tại vẫn là chênh lệch Viettel v2→v3.1.
 
 V2 giữ nguyên baseline exact, bổ sung chẩn đoán dân dã qua retrieve-then-rerank,
 phát hiện thuốc plaintext và token bị che, chỉ trả RxNorm SCD/SBD khi ngữ cảnh
@@ -105,36 +110,64 @@ phân biệt `Glucose` xét nghiệm với `Glucose 5% x 1000ml` truyền tĩnh 
 Phạm vi `isNegated` dùng ranh giới dòng/mệnh đề và pseudo-negation; phạm vi
 `isHistorical` kết thúc đúng ở heading bệnh án/Q&A.
 
-So với artifact v2 đã nộp, v3.1 thay đổi **88/100 file**, thêm ròng 707
-mention: +245 tên xét nghiệm, +136 kết quả, +311 triệu chứng, +10 chẩn
-đoán và +5 thuốc. Full output hiện có **1,668 mention**, trong đó 569 mention
-có candidates; 0 schema error. Artifact `data/output.zip` có SHA-256
-`03fdfba105fd21d1da20fe9449215c3533559816ad86b04dc6fa25abb64fec47`.
+V3.2 chuyển các ví dụ chính thức thành contract tests rồi sửa theo từng contract:
+span thuốc giữ trọn strength/route/frequency, liều chỉ được link trong regimen
+cục bộ, section thuốc trước nhập viện chỉ đánh historical cho thuốc, indication
+sau `điều trị` được phân xử về triệu chứng, và bổ sung các phrase family như
+`tức ngực`, `đau thượng vị`, `ợ hơi`, `LYPH%`, `chọc dò dịch não tủy`. Precision
+gate loại các mapping rộng như `tổn thương`, `tác dụng phụ`, `tránh thai`,
+`cột sống` và `bàng quang`; thiếu bằng chứng RxNorm thì chủ động trả rỗng.
+
+V3.3 thay blocklist đơn giản bằng context gate cho các alias ngắn/tổng quát và
+rewrite span đầy đủ: `viêm tủy xương`→M86, `nhiễm khuẩn đường tiết niệu`→N39.0,
+`phù gai thị`→H47.1 và `nhiễm khuẩn huyết`→A41. Medication parser hiểu brand +
+strength + `x N viên` + route/frequency, bổ sung ba product exact Medrol, Zestril
+và Coumadin. Batch resolver chỉ phục hồi mask khi template từ file khác khớp và
+mọi support đồng thuận; corpus hiện tại không có ca đủ bằng chứng nên resolve 0.
+
+So với v3.2, v3.3 thay đổi **41/100 file**. Full output có **1.585 mention**:
+420 chẩn đoán, 520 triệu chứng, 251 tên xét nghiệm, 256 thuốc và 138 kết quả;
+434 mention có candidates với tổng 475 mã. Diagnosis giảm ròng 31 vì 65 span
+ngắn/tổng quát được bỏ hoặc thay bằng 34 span cụ thể; thuốc có thêm 3 mention
+được link exact. Có 0 schema error. Artifact `data/output.zip` có SHA-256
+`bd91d7a2d5ef7d26f7144b61cd65b7ce1b5987bdda6d216cc0966f5d2b7020da`.
 
 Phần deployment xác minh SHA-256/kích thước KB; gzip và ZIP tái lập
 byte-for-byte; `run_manifest.json` ghi fingerprint đầy đủ;
 `scripts/clean_smoke.py` chạy v3 hai lần từ bundle không có Git metadata hay
-nguồn ICD/RxNorm thô, sau đó chấm curated gold. Toàn bộ **71 test** xanh khi
-`data/output/` chỉ chứa 100 JSON submission cùng explain/manifest.
+nguồn ICD/RxNorm thô, sau đó chấm curated gold. Bộ v3.3 có **81 test**, gồm
+contract batch-mask, diagnosis context, structured regimen và remap traceability.
+Tất cả đều xanh khi `data/output/` chỉ chứa 100 JSON submission cùng
+explain/manifest.
 
-### Khoảng trống đã biết trước v3.2
+### Ba artifact RxNorm v3.3
 
-- **Thuốc là khoảng trống lớn nhất:** 214/226 mention thuốc chưa có candidate;
-  98/99 token bị che chưa phục hồi được. Parser hiện có thể lấy nhầm liều của
-  thuốc đứng cạnh và chưa giữ trọn route/frequency trong span regimen.
-- **Chẩn đoán đang thiên về recall:** 557/557 mention chẩn đoán đều có
-  candidate, gồm các mapping quá rộng như `tổn thương`, `tác dụng phụ` hoặc tên
-  cơ quan. Cần patient-context gate và reject/abstain thay vì luôn gán mã.
-- **Coverage theo contract còn thiếu:** ví dụ chính thức còn bỏ sót các triệu
-  chứng `tức ngực`, `đau thượng vị`, `ợ hơi` và alias xét nghiệm `LYPH%`.
-- **Chưa có gold dev thật:** mọi thay đổi v3.2 phải có contract test, ablation
-  và so sánh output; metric proxy chỉ là guardrail, không phải mục tiêu tối ưu.
+| Mode | Số record thuốc đổi so với current | SHA-256 |
+|---|---:|---|
+| `current` | — | `bd91d7a2d5ef7d26f7144b61cd65b7ce1b5987bdda6d216cc0966f5d2b7020da` |
+| `legacy` | 7 | `000f8a18668b44a938295224667dcc8df2a4a9b2301e397520bae06dc53a9978` |
+| `both` | 7 | `cda377b9f109d687f5cec7cca8de0223ac342001f273a219cb5065536c0a13d6` |
 
-Chiến lược v3.2 theo thứ tự: chuyển ví dụ BTC thành contract tests → parse
-section → grammar medication regimen và dose cục bộ → type arbitration →
-precision gate chẩn đoán → mở rộng symptom/lab theo phrase family → confidence
-tier và ablation. Chi tiết phân tích v3.1 nằm tại
-[`docs/reports/2026-07-26-v3.1-enhanced-solution.md`](docs/reports/2026-07-26-v3.1-enhanced-solution.md).
+Main artifact vẫn là `current`. Chỉ dùng `legacy`/`both` như thử nghiệm một biến
+trên leaderboard; không thể chọn mode đúng khi BTC chưa xác nhận bản RxNorm gold.
+
+### Khoảng trống còn lại sau v3.3
+
+- **Thuốc vẫn là khoảng trống lớn nhất:** 242/256 mention thuốc chủ động không
+  có candidate; 98/99 mask không có neo duy nhất. Cần alias/dose-form evidence
+  thật hoặc gold dev trước khi mở rộng linking.
+- **Precision gate chẩn đoán mới phủ nhóm lỗi quan sát được:** 420 mention còn
+  lại đều có candidate; cần leaderboard/dev labels để tìm các false positive
+  dài đuôi thay vì tiếp tục thêm blocklist mù.
+- **Assertion historical thay đổi mạnh:** section thuốc chỉ còn đánh dấu thuốc,
+  đúng contract BTC nhưng cần private-gold feedback để xác nhận cách annotate
+  các indication đi kèm.
+- **Chưa có gold dev thật:** simulator chỉ là guardrail. Bước kế tiếp nên là nộp
+  artifact v3.3 current, phân tích delta điểm, rồi thử legacy/both từng biến.
+
+Chi tiết: [`v3.1 enhanced solution`](docs/reports/2026-07-26-v3.1-enhanced-solution.md),
+[`v3.2 rule hardening`](docs/reports/2026-07-26-v3.2-rule-hardening.md) và
+[`v3.3 precision/compatibility`](docs/reports/2026-07-26-v3.3-precision-compatibility.md).
 
 ## Cấu trúc
 

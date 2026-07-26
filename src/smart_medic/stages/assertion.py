@@ -60,11 +60,14 @@ NEG_SCOPE_TRANSITION = re.compile(
 
 #: Tiêu đề mục — tín hiệu mạnh hơn nhiều so với cue cục bộ. Đo được: 58 file có
 #: mục "tiền sử", 55 "tiền sử bệnh", 23 "bệnh sử", 22 "thuốc trước khi nhập viện".
-SECTION_HISTORICAL = (
+SECTION_HISTORICAL_GENERAL = (
     "tiền sử bệnh", "tiền sử", "tiền căn", "bệnh sử",
+)
+SECTION_HISTORICAL_MEDICATION = (
     "thuốc trước khi nhập viện", "thuốc trước nhập viện",
     "danh sách thuốc trước nhập viện",
 )
+SECTION_HISTORICAL = SECTION_HISTORICAL_GENERAL + SECTION_HISTORICAL_MEDICATION
 #: Tiêu đề kết thúc phạm vi tiền sử.
 SECTION_OTHER = (
     "khám bệnh", "khám lâm sàng", "lý do vào viện", "chẩn đoán", "điều trị",
@@ -90,8 +93,22 @@ def _heading_re(names: tuple[str, ...]) -> re.Pattern[str]:
     return re.compile(rf"(?<![\wăâđêôơư])({alt})\s*:")
 
 
-HEADING_HIST_RE = _heading_re(SECTION_HISTORICAL)
+HEADING_HIST_RE = _heading_re(SECTION_HISTORICAL_GENERAL)
+HEADING_HIST_MED_RE = _heading_re(SECTION_HISTORICAL_MEDICATION)
 HEADING_OTHER_RE = _heading_re(SECTION_OTHER)
+
+# The official medication example is a prose preamble followed by a numbered
+# list, not a colon-terminated heading.  Keep this grammar deliberately narrow
+# so ordinary mentions of pre-admission medication do not open a section.
+_MED_HEADING_ALT = "|".join(sorted(
+    (re.escape(name) for name in SECTION_HISTORICAL_MEDICATION),
+    key=len,
+    reverse=True,
+))
+HEADING_HIST_MED_PREAMBLE_RE = re.compile(
+    rf"(?<![\wăâđêôơư])(?:{_MED_HEADING_ALT})"
+    r"(?:\s+chính\s+xác\s+và\s+đầy\s+đủ)?\s*[.]\s*(?=\d+\s*[.])"
+)
 
 
 @dataclass(frozen=True)
@@ -99,33 +116,46 @@ class Section:
     start: int
     end: int
     historical: bool
+    medication_only: bool = False
 
 
 class SectionMap:
     """Cây khoảng phẳng cho các mục của văn bản (tính trên chuỗi norm)."""
 
     def __init__(self, norm: str) -> None:
-        marks: list[tuple[int, bool]] = []
-        marks += [(m.start(), True) for m in HEADING_HIST_RE.finditer(norm)]
-        marks += [(m.start(), False) for m in HEADING_OTHER_RE.finditer(norm)]
-        marks.sort()
+        marks: list[tuple[int, bool, bool]] = []
+        marks += [(m.start(), True, False) for m in HEADING_HIST_RE.finditer(norm)]
+        marks += [(m.start(), True, True) for m in HEADING_HIST_MED_RE.finditer(norm)]
+        marks += [
+            (m.start(), True, True)
+            for m in HEADING_HIST_MED_PREAMBLE_RE.finditer(norm)
+        ]
+        marks += [(m.start(), False, False) for m in HEADING_OTHER_RE.finditer(norm)]
+        marks.sort(key=lambda item: item[0])
 
         # Tiêu đề dài thắng tiêu đề ngắn lồng trong nó ("tiền sử bệnh" vs "tiền sử").
-        dedup: list[tuple[int, bool]] = []
-        for pos, hist in marks:
+        dedup: list[tuple[int, bool, bool]] = []
+        for pos, hist, medication_only in marks:
             if dedup and pos - dedup[-1][0] < 3:
                 continue
-            dedup.append((pos, hist))
+            dedup.append((pos, hist, medication_only))
 
         self.sections: list[Section] = []
-        for k, (pos, hist) in enumerate(dedup):
+        for k, (pos, hist, medication_only) in enumerate(dedup):
             end = dedup[k + 1][0] if k + 1 < len(dedup) else len(norm)
-            self.sections.append(Section(pos, end, hist))
+            self.sections.append(Section(pos, end, hist, medication_only))
 
-    def is_historical(self, ns: int) -> bool:
+    def is_historical(self, ns: int, ctype: ConceptType | None = None) -> bool:
         for s in self.sections:
             if s.start <= ns < s.end:
-                return s.historical
+                return bool(
+                    s.historical
+                    and (
+                        not s.medication_only
+                        or ctype is None
+                        or ctype is ConceptType.THUOC
+                    )
+                )
         return False
 
 
@@ -160,7 +190,7 @@ class AssertionTagger:
         flags: set[Assertion] = set()
         evidence: dict[str, str] = {}
 
-        if self.enable_historical and self.sections.is_historical(ns):
+        if self.enable_historical and self.sections.is_historical(ns, ctype):
             flags.add(Assertion.HISTORICAL)
             evidence["isHistorical"] = "phạm vi mục tiền sử"
 

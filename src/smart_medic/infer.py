@@ -20,9 +20,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from . import __version__
+from .batch import BatchResolutionStats, CrossDocumentMaskResolver
 from .kb.store import KBError, load_kb
 from .pipeline import Pipeline, PipelineConfig, RunStats
-from .schema import dumps, validate_file
+from .schema import Mention, dumps, validate_file
 from .stages.extract import (
     CompositeExtractor,
     GazetteerExtractor,
@@ -31,7 +32,7 @@ from .stages.extract import (
 )
 from .stages.clinical import ClinicalSymptomExtractor
 from .stages.lab import LabObservationExtractor
-from .textref import read_textref
+from .textref import TextRef, read_textref
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -129,6 +130,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--keep-risk-short", action="store_true",
                     help="giữ alias ICD ≤6 ký tự (mặc định loại — xem store.py)")
     ap.add_argument("--no-assertions", action="store_true")
+    ap.add_argument(
+        "--no-batch-mask-resolution",
+        action="store_true",
+        help="tắt resolver mask liên văn bản của v3",
+    )
     ap.add_argument("--explain", action="store_true", help="ghi kèm provenance")
     args = ap.parse_args(argv)
 
@@ -181,6 +187,7 @@ def main(argv: list[str] | None = None) -> int:
     stats = RunStats()
     schema_errors: list[str] = []
     explain: dict[str, list] = {}
+    results: dict[str, tuple[Path, TextRef | None, list[Mention]]] = {}
 
     for path in files:
         try:
@@ -190,6 +197,23 @@ def main(argv: list[str] | None = None) -> int:
             stats.errors.append(f"{path.name}: {type(exc).__name__}: {exc}")
             mentions, tref = [], None                  # vẫn ghi file rỗng hợp lệ
 
+        results[path.name] = (path, tref, mentions)
+
+    batch_resolution = BatchResolutionStats()
+    if args.extractor == "v3" and not args.no_batch_mask_resolution:
+        batch_resolution = CrossDocumentMaskResolver().resolve({
+            filename: (tref, mentions)
+            for filename, (_, tref, mentions) in results.items()
+            if tref is not None
+        })
+
+    stats.recount(
+        (mentions for _, _, mentions in results.values()),
+        files=len(files),
+    )
+
+    for path in files:
+        _, tref, mentions = results[path.name]
         payload = dumps(mentions)
         (args.output / f"{path.stem}.json").write_text(payload, encoding="utf-8")
 
@@ -239,6 +263,9 @@ def main(argv: list[str] | None = None) -> int:
             "enable_historical": cfg.enable_historical,
             "enable_family": cfg.enable_family,
             "rxnorm_output_mode": cfg.rxnorm_output_mode,
+            "batch_mask_resolution": (
+                args.extractor == "v3" and not args.no_batch_mask_resolution
+            ),
             "drop_risk_short": not args.keep_risk_short,
         },
         "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -257,6 +284,7 @@ def main(argv: list[str] | None = None) -> int:
         "dropped_invariant": stats.dropped_invariant,
         "dropped_overlap": stats.dropped_overlap,
         "dropped_threshold": stats.dropped_threshold,
+        "batch_mask_resolution": asdict(batch_resolution),
         "by_link_path": stats.by_link_path,
         "schema_errors": len(schema_errors),
         "errors": stats.errors,
@@ -272,6 +300,12 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  loại (bất biến): {stats.dropped_invariant} · "
           f"(chồng lấn): {stats.dropped_overlap} · "
           f"(ngưỡng): {stats.dropped_threshold}")
+    if args.extractor == "v3" and not args.no_batch_mask_resolution:
+        print(
+            "  mask liên VB   : "
+            f"{batch_resolution.resolved} resolve · "
+            f"{batch_resolution.conflicts} conflict"
+        )
 
     if schema_errors:
         print(f"\n✗ {len(schema_errors)} LỖI SCHEMA:", file=sys.stderr)

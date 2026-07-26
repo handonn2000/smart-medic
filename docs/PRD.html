@@ -411,7 +411,7 @@
       <button class="tab" data-tab="app"  role="tab"><span class="n">03</span> Hướng tiếp cận</button>
       <button class="tab" data-tab="data" role="tab"><span class="n">04</span> Đặc trưng dữ liệu</button>
       <button class="tab" data-tab="sysd" role="tab"><span class="n">05</span> Thiết kế hệ thống</button>
-      <button class="tab" data-tab="plan" role="tab"><span class="n">06</span> Tiến độ v0→v3.2</button>
+      <button class="tab" data-tab="plan" role="tab"><span class="n">06</span> Tiến độ v0→v3.3</button>
     </nav>
   </div>
 </header>
@@ -1646,7 +1646,7 @@ python score.py --pred output/ --gold output/
       </div>
       <div class="card">
         <h4>Quyết định #2 — Provider pattern cho mọi thứ có thể thay</h4>
-        <p><code>Extractor</code> có nhiều implementation offline: gazetteer, ICD cue, RxNorm, symptom và lab; <code>CompositeExtractor</code> hợp kết quả rồi khử chồng lấn. Interface giữ pipeline ổn định khi thêm provider ở v2/v3.1 và vẫn để ngỏ hybrid model ở v4.</p>
+        <p><code>Extractor</code> có nhiều implementation offline: gazetteer, ICD cue, RxNorm, symptom và lab; <code>CompositeExtractor</code> hợp kết quả rồi khử chồng lấn. Interface giữ pipeline ổn định khi thêm provider ở v2–v3.3 và vẫn để ngỏ hybrid model ở v4.</p>
       </div>
     </div>
   </section>
@@ -1738,20 +1738,20 @@ class <span class="k">Mention</span>:
       <thead><tr><th>Implementation</th><th>Vòng</th><th>Offline</th><th>Ghi chú</th></tr></thead>
       <tbody>
         <tr><td><code>GazetteerExtractor</code></td><td>v0</td><td><span class="tag pass">CÓ</span></td><td>Quét tên ICD nguyên văn. <b>Baseline hồi quy vĩnh viễn</b></td></tr>
-        <tr><td><code>IcdCueExtractor</code></td><td>v1–v3.1</td><td><span class="tag pass">CÓ</span></td><td>Exact + rewrite cách gọi dân dã + top-5 lexical rerank có ngưỡng</td></tr>
-        <tr><td><code>RxNormExtractor</code></td><td>v1–v3.1</td><td><span class="tag pass">CÓ</span></td><td>Drug anchor, strength/form, SCD/SBD và token bị che</td></tr>
-        <tr><td><code>ClinicalSymptomExtractor</code></td><td>v3.1</td><td><span class="tag pass">CÓ</span></td><td>Grammar triệu chứng mention-first với false-positive guards</td></tr>
-        <tr><td><code>LabObservationExtractor</code></td><td>v3.1</td><td><span class="tag pass">CÓ</span></td><td>Tách tên xét nghiệm và kết quả định lượng/định tính</td></tr>
+        <tr><td><code>IcdCueExtractor</code></td><td>v1–v3.3</td><td><span class="tag pass">CÓ</span></td><td>Exact + rewrite + lexical rerank; v3.3 thay alias ngắn bằng full context span</td></tr>
+        <tr><td><code>RxNormExtractor</code></td><td>v1–v3.3</td><td><span class="tag pass">CÓ</span></td><td>Structured regimen, dose cục bộ, SCD/SBD, mask và RxNorm version modes</td></tr>
+        <tr><td><code>ClinicalSymptomExtractor</code></td><td>v3.1–v3.2</td><td><span class="tag pass">CÓ</span></td><td>Grammar mention-first, phrase family BTC và type arbitration cho treatment indication</td></tr>
+        <tr><td><code>LabObservationExtractor</code></td><td>v3.1–v3.2</td><td><span class="tag pass">CÓ</span></td><td>Tên/kết quả định lượng-định tính; thêm <code>LYPH%</code> và chọc dò dịch não tủy</td></tr>
       </tbody>
     </table>
-    <div class="callout note"><b>Cập nhật triển khai 26/07/2026:</b> <code>LLMExtractor</code> và <code>EncoderExtractor</code> là hướng nghiên cứu ban đầu, <b>chưa được đưa vào runtime</b>. Bản v3.1 phát hành chỉ dùng Python standard library, chạy offline và không training.</div>
+    <div class="callout note"><b>Cập nhật triển khai 26/07/2026:</b> <code>LLMExtractor</code> và <code>EncoderExtractor</code> là hướng nghiên cứu ban đầu, <b>chưa được đưa vào runtime</b>. Bản v3.3 phát hành chỉ dùng Python standard library, chạy offline và không training.</div>
     <p><b>Ba luật cứng cho extractor hiện tại:</b></p>
     <ol class="clean">
       <li><b>So khớp trên NFC, trả offset trên raw.</b> Mọi provider phát hiện span trên <code>TextRef.norm</code>; <code>Locate</code>/<code>to_raw()</code> là đường duy nhất tạo <code>position</code>.</li>
       <li><b>Type gate trước linking.</b> Chỉ <code>CHẨN_ĐOÁN</code> được mang ICD và chỉ <code>THUỐC</code> được mang RxNorm; ba type còn lại luôn có <code>candidates: []</code>.</li>
       <li><b>Abstain khi thiếu bằng chứng.</b> Candidate rỗng tốt hơn một mã sai; mọi mã phải truy được về KB và mọi thay đổi rule phải qua contract/regression tests.</li>
     </ol>
-    <div class="callout note"><b>Chunking:</b> file dài nhất <b>4.481</b> ký tự — vừa một lượt xử lý, v0–v3.1 không cần chunk. Nhưng private test có thể khác → thiết kế sẵn chunk-có-chồng-lấn + khử trùng lặp span ở biên, <b>để tắt mặc định</b>.</div>
+    <div class="callout note"><b>Chunking:</b> file dài nhất <b>4.481</b> ký tự — vừa một lượt xử lý, v0–v3.3 không cần chunk. Nhưng private test có thể khác → thiết kế sẵn chunk-có-chồng-lấn + khử trùng lặp span ở biên, <b>để tắt mặc định</b>.</div>
 
     <h3><span class="lead">4.3</span><code>Locate</code></h3>
     <ul class="clean">
@@ -1898,7 +1898,7 @@ class <span class="k">Mention</span>:
         <tr><td><b>Mã không có trong KB</b></td><td>KB lookup/provenance rỗng</td><td><b>chặn cứng</b>: candidate bị loại</td><td><b>không bao giờ xuất mã không truy nguyên được</b></td></tr>
         <tr><td>Offset lệch NFC</td><td>assert bất biến ở ranh giới stage</td><td>loại mention + báo lỗi</td><td>phát hiện được, <b>không âm thầm</b></td></tr>
         <tr><td>KB thiếu / sai version</td><td>check <code>MANIFEST.json</code> lúc khởi động</td><td><b>fail loud ngay lúc start</b>, không phải lúc chạy</td><td>dừng sớm, rõ nguyên nhân</td></tr>
-        <tr><td>Mất mạng</td><td>không áp dụng ở runtime v3.1</td><td>không có API call hay model download</td><td>inference không bị ảnh hưởng</td></tr>
+        <tr><td>Mất mạng</td><td>không áp dụng ở runtime v3.3</td><td>không có API call hay model download</td><td>inference không bị ảnh hưởng</td></tr>
         <tr><td>Lỗi decode</td><td><code>utf-8</code> strict</td><td>fail loud</td><td>không đoán encoding</td></tr>
       </tbody>
     </table>
@@ -1935,11 +1935,11 @@ class <span class="k">Provenance</span>:
 
 <span class="cm"># run manifest ghi cạnh output.zip — ĐÂY CHÍNH LÀ artifact reproducibility</span>
 {
-  <span class="s">"pipeline_version"</span>: <span class="s">"3.1.0"</span>, <span class="s">"git_sha"</span>: …, <span class="s">"normalizer_version"</span>: 1,
+  <span class="s">"pipeline_version"</span>: <span class="s">"3.2.0"</span>, <span class="s">"git_sha"</span>: …, <span class="s">"normalizer_version"</span>: 1,
   <span class="s">"extractor"</span>: <span class="s">"v3_composite"</span>, <span class="s">"input_sha256"</span>: …, <span class="s">"output_sha256"</span>: …,
   <span class="s">"rxnorm_output_mode"</span>: <span class="s">"current"</span>,
   <span class="s">"config"</span>: {<span class="s">"candidate_threshold"</span>: 0.8, <span class="s">"max_candidates"</span>: 2},
-  <span class="s">"timestamp"</span>: …, <span class="s">"n_files"</span>: 100, <span class="s">"n_mentions"</span>: 1668
+  <span class="s">"timestamp"</span>: …, <span class="s">"n_files"</span>: 100, <span class="s">"n_mentions"</span>: 1616
 }</pre>
     </div>
   </section>
@@ -1949,7 +1949,7 @@ class <span class="k">Provenance</span>:
     <table class="def">
       <thead><tr><th>#</th><th>Quyết định</th><th>Phương án khác</th><th>Vì sao chọn</th><th>Đánh đổi</th></tr></thead>
       <tbody>
-        <tr><td><b>1</b></td><td>Rule/provider offline ở v1–v3.1</td><td>LLM hoặc trained NER</td><td>Không dependency, deterministic, chạy được từ bundle sạch</td><td>Coverage ngôn ngữ dài đuôi thấp hơn → xử lý bằng contract + phrase family trước</td></tr>
+        <tr><td><b>1</b></td><td>Rule/provider offline ở v1–v3.3</td><td>LLM hoặc trained NER</td><td>Không dependency, deterministic, chạy được từ bundle sạch</td><td>Coverage ngôn ngữ dài đuôi thấp hơn → xử lý bằng contract + phrase family trước</td></tr>
         <tr><td><b>2</b></td><td>Lexical retrieval standard library</td><td>Embedding + FAISS</td><td>KB hiện tại đủ nhỏ, giảm rủi ro cài đặt</td><td>Khoảng cách ngữ nghĩa vẫn là giới hạn; v4 có thể thêm hybrid retrieval</td></tr>
         <tr><td><b>3</b></td><td>CSV.gz deterministic cho KB</td><td>Parquet</td><td>Python chuẩn đọc được, checksum ổn định, không cần pyarrow</td><td>Load chậm hơn và type schema ít chặt hơn</td></tr>
         <tr><td><b>4</b></td><td>Package phân tầng</td><td>Một script</td><td>Sẽ lặp qua <b>4 vòng</b>; script đơn sẽ mục ở v2</td><td>Chi phí khởi tạo cao hơn ở v0</td></tr>
@@ -1979,24 +1979,25 @@ class <span class="k">Provenance</span>:
 
 </section>
 
-<!-- ══════════════════════════ TAB 06 · TIẾN ĐỘ v0→v3.2 ══════════════════════════ -->
+<!-- ══════════════════════════ TAB 06 · TIẾN ĐỘ v0→v3.3 ══════════════════════════ -->
 <section class="panel" id="plan" role="tabpanel">
 
   <div class="hero">
     <span class="eyebrow">Trạng thái thực thi · cập nhật 26/07/2026</span>
-    <h1 class="title">Tiến độ v0 → v3.2<br><span class="en">Từ baseline tất định đến rule hardening</span></h1>
-    <p class="subtitle">Bản đang phát hành là <b>v3.1</b>: offline, deterministic, không LLM và không model training. Điểm Viettel tăng từ <b>14.0595</b> ở v2 lên <b>19.4812</b>. v3.2 là pha sửa luật tiếp theo và <b>chưa được áp dụng</b> vào artifact hiện tại.</p>
+    <h1 class="title">Tiến độ v0 → v3.3<br><span class="en">Từ baseline tất định đến precision/compatibility hardening</span></h1>
+    <p class="subtitle">Bản đang phát hành là <b>v3.3</b>: offline, deterministic, không LLM và không model training. Điểm Viettel đã tăng từ <b>14.0595</b> ở v2 lên <b>19.4812</b> ở v3.1; v3.2/v3.3 đang chờ điểm leaderboard.</p>
     <div class="hero-meta">
       <span class="chip"><span class="dot"></span><b>v0–v2</b> hoàn thành</span>
       <span class="chip"><span class="dot"></span><b>v3.0</b> deployment hardened</span>
       <span class="chip"><span class="dot"></span><b>v3.1</b> leaderboard 19.4812</span>
-      <span class="chip"><span class="dot"></span><b>v3.2</b> planned</span>
+      <span class="chip"><span class="dot"></span><b>v3.2</b> rule hardened</span>
+      <span class="chip"><span class="dot"></span><b>v3.3</b> artifact ready</span>
     </div>
   </div>
 
   <section class="block">
     <div class="sec-head"><span class="sec-num">NOW</span><h2>Ảnh chụp trạng thái hiện tại</h2></div>
-    <div class="callout note"><b>Nguồn sự thật:</b> nhánh <code>feature/solution_v3</code>, extractor mặc định <code>v3</code>, artifact <code>data/output.zip</code>. SHA-256: <code>03fdfba105fd21d1da20fe9449215c3533559816ad86b04dc6fa25abb64fec47</code>.</div>
+    <div class="callout note"><b>Nguồn sự thật:</b> nhánh <code>feature/solution_v3</code>, extractor mặc định <code>v3</code>, artifact v3.3 current-mode <code>data/output.zip</code>. SHA-256: <code>bd91d7a2d5ef7d26f7144b61cd65b7ce1b5987bdda6d216cc0966f5d2b7020da</code>.</div>
     <table class="def">
       <thead><tr><th>Vòng</th><th>Phạm vi đã giao</th><th>Trạng thái</th><th>Kết quả biết được</th></tr></thead>
       <tbody>
@@ -2004,27 +2005,28 @@ class <span class="k">Provenance</span>:
         <tr><td><b>v1</b></td><td>Provider stack offline, 5 type, ICD/RxNorm, assertion theo section</td><td><span class="tag pass">XONG</span></td><td>Không dùng LLM; chưa lưu điểm leaderboard riêng</td></tr>
         <tr><td><b>v2</b></td><td>Top-5 lexical rerank, precision threshold, thuốc plaintext/mask, SCD/SBD</td><td><span class="tag pass">XONG</span></td><td>Viettel <b>14.0595</b></td></tr>
         <tr><td><b>v3.0</b></td><td>Checksum KB, ZIP/gzip deterministic, manifest, clean smoke</td><td><span class="tag pass">XONG</span></td><td>Hardening deployment; prediction chủ đích gần v2</td></tr>
-        <tr><td><b>v3.1</b></td><td>Mention-first symptom/lab, ICD context, ConText, corpus rules</td><td><span class="tag pass">HIỆN TẠI</span></td><td>Viettel <b>19.4812</b>; +5.4217 (+38.56%)</td></tr>
-        <tr><td><b>v3.2</b></td><td>Official contract tests, medication regimen, type arbitration, diagnosis precision gate</td><td><span class="tag partial">KẾ TIẾP</span></td><td>Chưa triển khai; chưa có artifact/điểm</td></tr>
+        <tr><td><b>v3.1</b></td><td>Mention-first symptom/lab, ICD context, ConText, corpus rules</td><td><span class="tag pass">XONG</span></td><td>Viettel <b>19.4812</b>; +5.4217 (+38.56%)</td></tr>
+        <tr><td><b>v3.2</b></td><td>Official contract tests, medication regimen, type arbitration, diagnosis precision gate</td><td><span class="tag pass">XONG</span></td><td>Artifact đã dựng và kiểm chứng; chưa có điểm riêng</td></tr>
+        <tr><td><b>v3.3</b></td><td>Batch mask template, structured regimen, diagnosis context gate, RxNorm variants</td><td><span class="tag pass">HIỆN TẠI</span></td><td>81 tests; ba artifact sẵn sàng; chờ điểm Viettel</td></tr>
         <tr><td><b>v4</b></td><td>Hybrid pretrained encoder/retrieval nếu rule đạt trần</td><td><span class="tag partial">HOÃN</span></td><td>Chưa chọn model; không thuộc runtime hiện tại</td></tr>
       </tbody>
     </table>
 
-    <h3><span class="lead">0.1</span>Kết quả output và kiểm chứng v3.1</h3>
+    <h3><span class="lead">0.1</span>Kết quả output và kiểm chứng v3.3</h3>
     <div class="grid3">
-      <div class="card"><h4>1,668 mentions</h4><p>557 chẩn đoán · 504 triệu chứng · 245 tên xét nghiệm · 226 thuốc · 136 kết quả xét nghiệm.</p></div>
-      <div class="card"><h4>569 có candidates</h4><p>Tổng 609 candidate codes; 0 schema error. 102 mention negated và 94 historical.</p></div>
-      <div class="card"><h4>71 tests xanh</h4><p>Trên output chỉ chứa 100 JSON submission; clean smoke chạy hai lần, output/ZIP byte-identical và curated regression đạt 1.0000.</p></div>
+      <div class="card"><h4>1.585 mentions</h4><p>420 chẩn đoán · 520 triệu chứng · 251 tên xét nghiệm · 256 thuốc · 138 kết quả xét nghiệm.</p></div>
+      <div class="card"><h4>434 có candidates</h4><p>Tổng 475 candidate codes; 0 schema error. 93 mention negated và 36 historical.</p></div>
+      <div class="card"><h4>81 tests xanh</h4><p>Batch mask/context/remap contracts đạt; clean smoke byte-identical và curated metric đạt 1.0000.</p></div>
     </div>
     <table class="def">
-      <thead><tr><th>Phép đo</th><th>v2</th><th>v3.1</th><th>Cách diễn giải</th></tr></thead>
+      <thead><tr><th>Phép đo</th><th>v2</th><th>v3.1</th><th>v3.2</th><th>v3.3</th><th>Cách diễn giải</th></tr></thead>
       <tbody>
-        <tr><td>Viettel AI leaderboard</td><td>14.0595</td><td><b>19.4812</b></td><td>Điểm thật do nhóm ghi nhận</td></tr>
-        <tr><td>Expected proxy @ 0.80</td><td>0.8328</td><td>0.8705</td><td><b>Không có gold</b>; chỉ so sánh nội bộ</td></tr>
-        <tr><td>Curated v3 regression</td><td>—</td><td>1.0000</td><td>6 tình huống tự gán; không đại diện private gold</td></tr>
+        <tr><td>Viettel AI leaderboard</td><td>14.0595</td><td><b>19.4812</b></td><td>chưa nộp</td><td>chưa nộp</td><td>Điểm thật chỉ có đến v3.1</td></tr>
+        <tr><td>Expected proxy @ 0.80</td><td>0.8328</td><td>0.8705</td><td>0.8648</td><td>0.8638</td><td><b>Không có gold</b>; proxy phạt cả abstention đúng</td></tr>
+        <tr><td>Curated v3 regression</td><td>—</td><td>1.0000</td><td>1.0000</td><td>1.0000</td><td>6 tình huống tự gán; không đại diện private gold</td></tr>
       </tbody>
     </table>
-    <div class="callout warn"><b>Ranh giới bằng chứng:</b> self-score 1.0000 chứng minh schema/offset/tính tự nhất quán, không chứng minh accuracy. Proxy 0.8705 cũng không được quy đổi thành điểm Viettel.</div>
+    <div class="callout warn"><b>Ranh giới bằng chứng:</b> self-score 1.0000 chứng minh schema/offset/tính tự nhất quán, không chứng minh accuracy. Proxy không biết mapping bị loại là false positive; không được quy đổi proxy thành điểm Viettel.</div>
   </section>
 
   <section class="block">
@@ -2034,7 +2036,7 @@ class <span class="k">Provenance</span>:
       <div class="acc-item open">
         <button class="acc-head"><span class="rn">1</span>Không có model để train<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></button>
         <div class="acc-body"><div class="acc-body-inner">
-          <b>0 file có nhãn vàng trong repo</b> → zero-shot/rule-first. v0–v3.1 đều là <b>pipeline offline</b>, không phải model đã train. Encoder đa ngôn ngữ chỉ là phương án v4 nếu rule đạt trần và có thể đóng gói reproducibly.
+          <b>0 file có nhãn vàng trong repo</b> → zero-shot/rule-first. v0–v3.3 đều là <b>pipeline offline</b>, không phải model đã train. Encoder đa ngôn ngữ chỉ là phương án v4 nếu rule đạt trần và có thể đóng gói reproducibly.
         </div></div>
       </div>
       <div class="acc-item">
@@ -2061,7 +2063,7 @@ class <span class="k">Provenance</span>:
       <thead><tr><th>Thành phần</th><th>Trọng số</th><th>Đầu tư</th><th>Vì sao</th></tr></thead>
       <tbody>
         <tr><td><code>candidates</code></td><td><b>0.4</b></td><td><span class="tag fail">CAO NHẤT</span></td><td>Khó nhất, và là nơi ăn điểm. Cần KB + retrieve + rerank</td></tr>
-        <tr><td><code>text</code></td><td><b>0.3</b></td><td><span class="tag partial">TRUNG BÌNH</span></td><td>Phụ thuộc mention discovery; v3.1 đã thêm 707 mention ròng nhưng official examples vẫn cho thấy thiếu coverage</td></tr>
+        <tr><td><code>text</code></td><td><b>0.3</b></td><td><span class="tag partial">TRUNG BÌNH</span></td><td>Phụ thuộc mention discovery; v3.2 đã khóa các official examples bằng contract tests nhưng coverage dài đuôi vẫn chưa có gold để đo</td></tr>
         <tr><td><code>assertions</code></td><td><b>0.3</b></td><td><span class="tag pass">THẤP NHẤT</span></td><td><b>~80%</b> concept có assertion rỗng → mặc định rỗng cho <b>J=1</b>. Thêm luật phạm vi mục là <b>gần chạm trần</b>. Không đầu tư model ở đây</td></tr>
       </tbody>
     </table>
@@ -2193,42 +2195,63 @@ class <span class="k">Provenance</span>:
   </section>
 
   <section class="block">
-    <div class="sec-head"><span class="sec-num">5</span><h2>v3.0–v3.1 — Deployment hardening + accuracy</h2></div>
-    <p><b>Kết quả thực tế:</b> v3 được chia thành hai lát cắt. v3.0 làm cứng khả năng tái lập mà không chủ đích đổi prediction; v3.1 mới mở rộng mention discovery và context rules. Không có bước distill/model training trong hai lát cắt này.</p>
+    <div class="sec-head"><span class="sec-num">5</span><h2>v3.0–v3.3 — Deployment, accuracy và precision hardening</h2></div>
+    <p><b>Kết quả thực tế:</b> v3 có bốn lát cắt. v3.0 làm cứng khả năng tái lập, v3.1 mở rộng mention discovery/context rules, v3.2 khóa ví dụ BTC thành contract, và v3.3 thêm structured regimen, full diagnosis span, batch mask cùng RxNorm compatibility artifacts. Không có distill hay model training.</p>
     <ul class="clean">
       <li><b>v3.0 deployment:</b> loader xác minh checksum/kích thước KB; gzip và ZIP deterministic; <code>run_manifest.json</code> ghi fingerprint; clean bundle chạy không cần Git metadata hay nguồn KB thô.</li>
       <li><b>v3.1 triệu chứng:</b> grammar mention-first cho cách nói dân dã, có guards loại cụm hành động/điều kiện và lỗi dịch.</li>
       <li><b>v3.1 xét nghiệm:</b> tách riêng tên và kết quả, hỗ trợ unit, kết quả định tính, imaging và parenthetical names.</li>
       <li><b>v3.1 linking/assertion:</b> ICD rewrite + hierarchy context; mask từ 3 ký tự; glucose infusion context; ConText-style negation/historical scope.</li>
+      <li><b>v3.2 medication:</b> span regimen giữ strength/form/route/frequency, hỗ trợ liều đứng trước tên thuốc và chỉ dùng evidence trong cùng dòng/regimen.</li>
+      <li><b>v3.2 precision:</b> type arbitration cho treatment indication; block các diagnosis tổng quát; thêm symptom/lab phrase family và section historical riêng cho thuốc.</li>
+      <li><b>v3.3 medication:</b> hiểu brand + strength + số viên + lịch uống; exact-link Medrol/Zestril/Coumadin; batch mask chỉ resolve khi template liên file đồng thuận.</li>
+      <li><b>v3.3 context/compatibility:</b> full span cho UTI/osteomyelitis/papilledema/sepsis; ba ZIP RxNorm <code>current|legacy|both</code>.</li>
     </ul>
     <div class="verdict">
       <div class="em">◆</div>
       <div>
         <p class="big">Viettel: 14.0595 → 19.4812, tăng 5.4217 điểm (+38.56%).</p>
-        <p>So với v2, v3.1 đổi 88/100 file và thêm ròng 707 mention, trong khi vẫn giữ 0 schema error và bundle tái lập byte-for-byte.</p>
+        <p>V3.3 đổi thêm 41/100 file so với v3.2: diagnosis giảm ròng 31 sau khi thay alias ngắn bằng full span hoặc abstain; drug exact-link tăng 11→14, giữ 0 schema error.</p>
       </div>
     </div>
   </section>
 
   <section class="block">
-    <div class="sec-head"><span class="sec-num">6</span><h2>v3.2 — Rule hardening tiếp theo</h2></div>
-    <div class="callout warn"><b>Chưa áp dụng:</b> đây là backlog đã phân tích, không phải mô tả artifact v3.1 hiện tại. Mọi thay đổi phải chạy ablation riêng và chỉ giữ khi contract/regression tốt hơn.</div>
+    <div class="sec-head"><span class="sec-num">6</span><h2>v3.2 — Rule hardening đã áp dụng</h2></div>
+    <div class="callout ok"><b>Artifact sẵn sàng:</b> các rule dưới đây đã có trong <code>data/output.zip</code>; 77/77 tests, schema/offset self-score 1.0000, clean deployment smoke và curated metric 1.0000 đều đạt.</div>
     <table class="def">
-      <thead><tr><th>Ưu tiên</th><th>Thay đổi</th><th>Vấn đề hiện tại cần giải quyết</th></tr></thead>
+      <thead><tr><th>Ưu tiên</th><th>Thay đổi đã giao</th><th>Kết quả đo được</th></tr></thead>
       <tbody>
-        <tr><td><b>P0</b></td><td>Biến ví dụ chính thức của BTC thành contract tests</td><td>Đang thiếu symptom, full regimen span, historical flag, RxNorm và alias <code>LYPH%</code> trong các ví dụ chuẩn</td></tr>
-        <tr><td><b>P0</b></td><td>Section parser + medication-regimen grammar</td><td>214/226 thuốc chưa có candidate; 98/99 mask chưa phục hồi; dose có thể bị lấy từ thuốc đứng cạnh</td></tr>
-        <tr><td><b>P1</b></td><td>Type arbitration + diagnosis patient-context gate</td><td>557/557 chẩn đoán có candidate; mapping rộng như <code>tổn thương</code>, <code>tác dụng phụ</code>, tên cơ quan làm tăng false positive</td></tr>
-        <tr><td><b>P1</b></td><td>Phrase families cho symptom/lab</td><td>Thiếu <code>tức ngực</code>, <code>đau thượng vị</code>, <code>ợ hơi</code> và một số alias xét nghiệm</td></tr>
-        <tr><td><b>P2</b></td><td>Confidence tiers + ablation report</td><td>Tách exact/high-confidence khỏi contextual/weak để có thể abstain và truy nguyên từng delta</td></tr>
+        <tr><td><b>P0</b></td><td>Ví dụ chính thức BTC thành contract tests</td><td>Full medication regimens/RxNorm/historical, symptom GERD và <code>LYPH%</code> đều qua contract</td></tr>
+        <tr><td><b>P0</b></td><td>Section parser + medication-regimen grammar</td><td>Thêm ròng 30 mention thuốc; giữ route/frequency; test chống lấy dose từ dòng kế bên</td></tr>
+        <tr><td><b>P1</b></td><td>Type arbitration + diagnosis precision gate</td><td>Loại 106 mention tổng quát: <code>tổn thương</code>, <code>tác dụng phụ</code>, <code>tránh thai</code>, <code>cột sống</code>, <code>bàng quang</code>…</td></tr>
+        <tr><td><b>P1</b></td><td>Phrase families cho symptom/lab</td><td>+16 triệu chứng, +6 tên xét nghiệm, +2 kết quả so với v3.1</td></tr>
+        <tr><td><b>P2</b></td><td>Provenance + conservative abstention</td><td>462/1.616 mention có candidate; thiếu bằng chứng RxNorm thì để rỗng thay vì lấy liều lân cận</td></tr>
       </tbody>
     </table>
-    <p><b>Thứ tự release:</b> official contracts → section parser → medication regimen/local dose → type arbitration → diagnosis precision gate → symptom/lab families → confidence calibration. Sau mỗi bước: unit tests, full inference, schema/offset validation, diff v3.1 và metric simulator.</p>
-    <div class="callout note"><b>v4 chỉ là đường nâng trần:</b> multilingual encoder hoặc hybrid retrieval được xem xét sau khi v3.2 rule-level đạt trần. Model phải đóng gói offline, benchmark theo ablation và không được làm yếu clean deployment.</div>
+    <p><b>Delta output:</b> 1.668 → 1.616 mention; candidates 569 → 462; negated 102 → 97; historical 94 → 36. Historical giảm mạnh vì section “thuốc trước nhập viện” nay chỉ gắn cho <code>THUỐC</code>, đúng contract chính thức, không còn lan sang indication.</p>
+    <div class="callout warn"><b>Simulator không phải leaderboard:</b> expected proxy v3.2 @ 0.80 là 0.8648, thấp hơn v3.1 0.8705. Proxy giả định candidate bị bỏ đều có ích nên không định giá được việc loại false positive; con số này được giữ như mốc lịch sử, không phải release gate.</div>
+    <div class="callout note"><b>Khoảng trống:</b> 245/256 mention thuốc và 98/99 mask vẫn không có candidate do thiếu bằng chứng duy nhất. Sau feedback leaderboard, ưu tiên error analysis theo rule family; v4 multilingual encoder/hybrid retrieval chỉ được xem xét nếu rule đạt trần và model đóng gói offline reproducibly.</div>
   </section>
 
   <section class="block">
-    <div class="sec-head"><span class="sec-num">7</span><h2>Hai blocker ngoài tầm kiểm soát</h2></div>
+    <div class="sec-head"><span class="sec-num">7</span><h2>v3.3 — Precision và RxNorm compatibility</h2></div>
+    <div class="callout ok"><b>Current artifact sẵn sàng:</b> 1.585 mention, 434 có candidates, 475 codes, 81/81 tests và SHA-256 <code>bd91d7a2d5ef7d26f7144b61cd65b7ce1b5987bdda6d216cc0966f5d2b7020da</code>.</div>
+    <table class="def">
+      <thead><tr><th>Hạng mục</th><th>Kết quả</th><th>Precision gate</th></tr></thead>
+      <tbody>
+        <tr><td>Structured brand regimen</td><td>+3 drug exact candidates</td><td>Brand + exact strength; route tiêm/truyền xung đột thì abstain</td></tr>
+        <tr><td>Diagnosis full-span rewrite</td><td>M86, N39.0, H47.1, A41</td><td>Alias ngắn bị chặn khi token sau tạo concept cụ thể</td></tr>
+        <tr><td>Cross-document mask</td><td>0 resolve trên public corpus</td><td>Chỉ exact/long-window template từ file khác và mọi support phải đồng thuận</td></tr>
+        <tr><td>RxNorm modes</td><td>7 drug record khác giữa modes</td><td>Remap có provenance; current là mặc định</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn"><b>Expected proxy @ 0.80 = 0.8638</b>, thấp hơn v3.2 đúng 0.0010. Đây không phải accuracy: proxy không biết các mã anatomy/procedure/alias-ngắn bị loại là false positive. Cần leaderboard để đo uplift thật.</div>
+    <p><b>Controlled ZIP:</b> current <code>bd91d7…</code> · legacy <code>000f8a…</code> · both <code>cda377…</code>. Chỉ nộp legacy/both như thử nghiệm một biến nếu quota cho phép.</p>
+  </section>
+
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">8</span><h2>Hai blocker ngoài tầm kiểm soát</h2></div>
     <table class="def">
       <thead><tr><th>#</th><th>Câu hỏi phải hỏi BTC</th><th>Ảnh hưởng</th></tr></thead>
       <tbody>
@@ -2240,7 +2263,7 @@ class <span class="k">Provenance</span>:
   </section>
 
   <section class="block">
-    <div class="sec-head"><span class="sec-num">8</span><h2>Bảng tóm tắt</h2></div>
+    <div class="sec-head"><span class="sec-num">9</span><h2>Bảng tóm tắt</h2></div>
     <table class="def">
       <thead><tr><th>Vòng</th><th>Ra được gì</th><th>Phụ thuộc model</th><th>Bằng chứng / release gate</th></tr></thead>
       <tbody>
@@ -2248,8 +2271,9 @@ class <span class="k">Provenance</span>:
         <tr><td><b>v1</b></td><td>5 type + ICD/RxNorm + assertion</td><td><span class="tag pass">KHÔNG</span></td><td>Provider contract và KB traceability</td></tr>
         <tr><td><b>v2</b></td><td>Lexical rerank + precision policy</td><td><span class="tag pass">KHÔNG</span></td><td>Viettel 14.0595</td></tr>
         <tr><td><b>v3.0</b></td><td>Clean, deterministic deployment</td><td><span class="tag pass">KHÔNG</span></td><td>Hai lần chạy byte-identical</td></tr>
-        <tr><td><b>v3.1</b></td><td>Mention-first + context rules</td><td><span class="tag pass">KHÔNG</span></td><td>71 tests trên submission-only output; Viettel 19.4812</td></tr>
-        <tr><td><b>v3.2</b></td><td>Rule precision/coverage fixes</td><td><span class="tag pass">KHÔNG</span></td><td>Chưa release; cần contract + ablation + simulator</td></tr>
+        <tr><td><b>v3.1</b></td><td>Mention-first + context rules</td><td><span class="tag pass">KHÔNG</span></td><td>71 tests; Viettel 19.4812</td></tr>
+        <tr><td><b>v3.2</b></td><td>Rule precision/coverage fixes</td><td><span class="tag pass">KHÔNG</span></td><td>77 tests; artifact/schema/clean smoke đạt; chờ điểm Viettel</td></tr>
+        <tr><td><b>v3.3</b></td><td>Context precision + RxNorm compatibility</td><td><span class="tag pass">KHÔNG</span></td><td>81 tests; ba artifact; chờ điểm Viettel</td></tr>
         <tr><td><b>v4</b></td><td>Hybrid pretrained model nếu cần</td><td><span class="tag partial">CÓ THỂ</span></td><td>Chỉ nhận nếu uplift bù chi phí deployment</td></tr>
       </tbody>
     </table>

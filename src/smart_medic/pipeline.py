@@ -13,9 +13,10 @@ Trường hợp xấu nhất cho một file là ``[]`` — vẫn đúng schema, 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import Iterable
 
 from .kb.store import KnowledgeBase
-from .schema import ASSERTABLE, MAPPABLE, ConceptType, Mention
+from .schema import ASSERTABLE, MAPPABLE, ConceptType, Mention, Provenance
 from .stages.assertion import AssertionTagger
 from .stages.extract import Extractor
 from .textref import TextRef
@@ -34,6 +35,29 @@ class RunStats:
     with_candidates: int = 0
     errors: list[str] = field(default_factory=list)
 
+    def recount(self, mention_sets: Iterable[list[Mention]], *, files: int) -> None:
+        """Recount final mentions after deterministic batch post-processing."""
+        self.files = files
+        self.mentions = 0
+        self.by_type.clear()
+        self.by_assertion.clear()
+        self.by_link_path.clear()
+        self.with_candidates = 0
+        for mentions in mention_sets:
+            self.mentions += len(mentions)
+            for mention in mentions:
+                self.by_type[mention.type.value] = (
+                    self.by_type.get(mention.type.value, 0) + 1
+                )
+                if mention.candidates:
+                    self.with_candidates += 1
+                path = mention.provenance.link_path or "unknown"
+                self.by_link_path[path] = self.by_link_path.get(path, 0) + 1
+                for assertion in mention.assertions:
+                    self.by_assertion[assertion.value] = (
+                        self.by_assertion.get(assertion.value, 0) + 1
+                    )
+
 
 @dataclass
 class PipelineConfig:
@@ -47,6 +71,12 @@ class PipelineConfig:
     #: phải code, vì câu trả lời nằm ở BTC: mã 360047 trong ví dụ của đề đã
     #: hết hiệu lực 2019, và mã kế nhiệm 2178097 nay cũng SUPPRESS=O.
     rxnorm_output_mode: str = "current"
+
+    def __post_init__(self) -> None:
+        if self.rxnorm_output_mode not in {"current", "legacy", "both"}:
+            raise ValueError(
+                "rxnorm_output_mode phải là current, legacy hoặc both"
+            )
 
 
 class Pipeline:
@@ -85,7 +115,7 @@ class Pipeline:
             # ── TypeGate: chỉ CHẨN_ĐOÁN và THUỐC được giữ candidates ──
             codes = tuple(c.codes) if c.type in MAPPABLE else ()
             codes = self._filter_codes(codes, c.provenance, st)
-            codes = self._apply_remap(codes, c.type)
+            codes = self._apply_remap(codes, c.type, c.provenance)
 
             flags, evidence = (frozenset(), {})
             if c.type in ASSERTABLE:
@@ -149,7 +179,9 @@ class Pipeline:
         stats.dropped_threshold += len(codes) - len(out)
         return tuple(out)
 
-    def _apply_remap(self, codes: tuple[str, ...], ctype: ConceptType) -> tuple[str, ...]:
+    def _apply_remap(
+        self, codes: tuple[str, ...], ctype: ConceptType, provenance: Provenance
+    ) -> tuple[str, ...]:
         if ctype is not ConceptType.THUOC or self.cfg.rxnorm_output_mode == "current":
             return codes
         rev = self.kb.remap_reverse
@@ -157,10 +189,22 @@ class Pipeline:
         for c in codes:
             legacy = rev.get(c, [])
             if self.cfg.rxnorm_output_mode == "legacy" and legacy:
-                out.append(legacy[0])
+                selected = legacy[0]
+                out.append(selected)
+                provenance.kb_rows.append(f"rx-remap:{selected}->{c}")
+                provenance.scores[f"code:{selected}"] = provenance.scores.get(
+                    f"code:{c}", provenance.scores.get("confidence", 0.0)
+                )
+                provenance.scores.pop(f"code:{c}", None)
             elif self.cfg.rxnorm_output_mode == "both":
                 out.append(c)
-                out.extend(legacy[:1])
+                if legacy:
+                    selected = legacy[0]
+                    out.append(selected)
+                    provenance.kb_rows.append(f"rx-remap:{selected}->{c}")
+                    provenance.scores[f"code:{selected}"] = provenance.scores.get(
+                        f"code:{c}", provenance.scores.get("confidence", 0.0)
+                    )
             else:
                 out.append(c)
         return tuple(dict.fromkeys(out))[: self.cfg.max_candidates]

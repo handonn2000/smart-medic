@@ -21,8 +21,11 @@ _SYMPTOM_PATTERNS = (
     r"chảy\s+máu\s+mũi",
     r"vàng\s+da(?:\s+vàng\s+mắt)?",
     r"nổi\s+mẩn(?:\s+đỏ)?(?:\s+ngứa)?",
+    r"đau\s+thượng\s+vị",
     r"đau\s+bụng(?:\s+(?:quanh\s+rốn|thượng\s+vị|âm\s+ỉ|dữ\s+dội|râm\s+ran))?",
     r"đau\s+(?:đầu\s+gối|ngực|lưng|đầu|bao\s+tử)(?:\s+(?:phải|trái|âm\s+ỉ))?",
+    r"tức\s+ngực",
+    r"ợ\s+hơi",
     r"buồn\s+nôn",
     r"khó\s+thở(?:\s+(?:liên\s+tục|khi\s+gắng\s+sức))?",
     r"mệt(?:\s+mỏi)?(?:\s+kéo\s+dài)?",
@@ -36,6 +39,9 @@ _SYMPTOM_PATTERNS = (
     r"phù(?!\s+hợp)(?:\s+(?:phổi|chân|hai\s+chi))?",
     r"ngứa(?:\s+(?:da|toàn\s+thân))?",
     r"tiểu\s+ít",
+    r"táo\s+bón",
+    r"lo\s+âu",
+    r"mất\s+ngủ",
 )
 _SYMPTOM_RE = re.compile(
     r"(?<![\wăâđêôơư])(?:"
@@ -45,7 +51,7 @@ _SYMPTOM_RE = re.compile(
 
 
 class ClinicalSymptomExtractor:
-    name = "clinical_symptom_v3"
+    name = "clinical_symptom_v3_2"
 
     def extract(self, tref: TextRef) -> list[Candidate]:
         out: list[Candidate] = []
@@ -60,6 +66,9 @@ class ClinicalSymptomExtractor:
                 r"\s+(?:bệnh|rối\s+loạn|rung\s+nhĩ|đái\s+tháo\s+đường)", after
             ):
                 continue
+            treatment_indication = bool(
+                re.search(r"\bđiều\s+trị(?:\s+[^\W_]+){0,2}\s*$", before)
+            )
             rs, re_ = tref.to_raw(ns, ne)
             span = Span(rs, re_, tref.raw[rs:re_])
             out.append(Candidate(
@@ -70,7 +79,13 @@ class ClinicalSymptomExtractor:
                     locate_method="clinical_phrase_grammar",
                     link_path="symptom_surface_rule",
                     scores={"confidence": 0.90},
-                    evidence={"normalized_surface": surface},
+                    evidence={
+                        "normalized_surface": surface,
+                        **(
+                            {"type_signal": "medication_treatment_indication"}
+                            if treatment_indication else {}
+                        ),
+                    },
                 ),
             ))
         return out

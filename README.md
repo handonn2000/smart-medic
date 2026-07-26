@@ -42,6 +42,8 @@ PYTHONPATH=src python3 -m smart_medic.metric_simulator \
     --explain data/output/explain.json --gold data/dev_gold
 
 # 4. Test (v0 + v2 + accuracy/deployment v3)
+#    TestEndToEnd xem data/output là thư mục submission; hãy để các report
+#    metric_*.json ngoài thư mục này khi chạy test.
 python3 -m unittest discover -s tests -v
 
 # 5. Chứng minh bundle sạch chạy được khi không có nguồn ICD/RxNorm thô,
@@ -62,20 +64,39 @@ PYTHONPATH=src python3 -m smart_medic.score \
     --pred data/output --gold data/gold --src data/test --verbose
 ```
 
-## Trạng thái: **v3.1 accuracy + deployment hardened**
+## Trạng thái hiện tại: **v3.1 accuracy + deployment hardened**
 
-| Vòng | Nội dung | Trạng thái |
+Nhánh hiện tại là `feature/solution_v3`. Runtime vẫn **offline, deterministic,
+không LLM và không model training**; v3.2 rule hardening mới ở trạng thái kế
+hoạch và chưa được áp dụng vào `data/output.zip`.
+
+| Vòng | Nội dung thực tế | Trạng thái / kết quả |
 |---|---|---|
-| **v0** | Hạ tầng + gazetteer ICD tất định | ✅ baseline hồi quy |
-| **v1** | Provider stack + hai nhánh ICD/RxNorm | ✅ bản offline, không LLM |
-| **v2** | Top-5 lexical rerank, ngưỡng precision, thuốc bị che | ✅ xong |
-| **v3.1** | Mention-first symptom/lab, ICD context, ConText + deployment hardening | ✅ xong, không training |
-| v4 | Distill sang encoder offline (chỉ khi vào top-15) | hoãn |
+| **v0** | Hạ tầng, schema, NFC↔raw offset, gazetteer ICD, scorer và ZIP | ✅ baseline hồi quy |
+| **v1** | Provider stack offline, phủ 5 type, hai nhánh ICD/RxNorm và assertion theo section | ✅ hoàn thành, không LLM |
+| **v2** | Top-5 lexical rerank, ngưỡng precision, thuốc plaintext/mask, RxNorm SCD/SBD | ✅ Viettel **14.0595** |
+| **v3.0** | Checksum KB, deterministic gzip/ZIP, run manifest và clean-bundle smoke | ✅ hardening; output ngữ nghĩa gần v2 |
+| **v3.1** | Mention-first symptom/lab, ICD context, ConText và các rule từ corpus | ✅ Viettel **19.4812** |
+| **v3.2** | Contract tests từ ví dụ BTC, regimen thuốc, type arbitration và precision gate chẩn đoán | ⏳ kế hoạch tiếp theo; chưa triển khai |
+| **v4** | Pretrained multilingual encoder / hybrid retrieval nếu rule đạt trần | hoãn; chỉ làm khi chi phí đóng gói hợp lý |
+
+### Điểm và phạm vi kiểm chứng
+
+| Phép đo | v2 | v3.1 | Ý nghĩa |
+|---|---:|---:|---|
+| Viettel AI leaderboard | 14.0595 | **19.4812** | Điểm thật do nhóm ghi nhận; **+5.4217** (+38.56%) |
+| Simulator expected proxy @ 0.80 | 0.8328 | 0.8705 | Không có gold; chỉ dùng so sánh nội bộ |
+| Curated v3 regression | — | 1.0000 | 6 tình huống do nhóm tự gán, không đại diện private gold |
+
+`score --pred output --gold output = 1.0000` chỉ chứng minh schema, offset và
+tính tự nhất quán; **không phải accuracy**. Tương tự, proxy 0.8705 không được
+quy đổi thành điểm leaderboard. Nguồn đáng tin nhất hiện tại là chênh lệch điểm
+Viettel v2→v3.1 nêu trên.
 
 V2 giữ nguyên baseline exact, bổ sung chẩn đoán dân dã qua retrieve-then-rerank,
 phát hiện thuốc plaintext và token bị che, chỉ trả RxNorm SCD/SBD khi ngữ cảnh
-có đủ hoạt chất, hàm lượng và dạng dùng. Không có gold trong repo nên simulator
-chỉ báo điểm kỳ vọng; không xem self-score 1.0 là độ chính xác thật.
+có đủ hoạt chất, hàm lượng và dạng dùng. V3.0 sau đó làm cứng deployment nhưng
+không chủ đích thay đổi prediction, vì vậy artifact ban đầu nhìn gần giống v2.
 
 V3.1 bổ sung phát hiện mention trước khi linking: grammar triệu chứng dân dã,
 cặp tên/kết quả xét nghiệm định lượng và định tính, rewrite ICD cho cách gọi
@@ -86,13 +107,34 @@ Phạm vi `isNegated` dùng ranh giới dòng/mệnh đề và pseudo-negation; 
 
 So với artifact v2 đã nộp, v3.1 thay đổi **88/100 file**, thêm ròng 707
 mention: +245 tên xét nghiệm, +136 kết quả, +311 triệu chứng, +10 chẩn
-đoán và +5 thuốc. Proxy simulator ở ngưỡng 0,80 tăng từ 0,8328 lên
-0,8705; đây là **EXPECTED không có gold**, không phải dự báo điểm Viettel.
+đoán và +5 thuốc. Full output hiện có **1,668 mention**, trong đó 569 mention
+có candidates; 0 schema error. Artifact `data/output.zip` có SHA-256
+`03fdfba105fd21d1da20fe9449215c3533559816ad86b04dc6fa25abb64fec47`.
 
-Phần deployment vẫn giữ nguyên: loader xác minh SHA-256/kích thước KB;
-gzip và ZIP tái lập byte-for-byte; `run_manifest.json` ghi fingerprint đầy đủ;
+Phần deployment xác minh SHA-256/kích thước KB; gzip và ZIP tái lập
+byte-for-byte; `run_manifest.json` ghi fingerprint đầy đủ;
 `scripts/clean_smoke.py` chạy v3 hai lần từ bundle không có Git metadata hay
-nguồn ICD/RxNorm thô, sau đó chấm curated gold.
+nguồn ICD/RxNorm thô, sau đó chấm curated gold. Toàn bộ **71 test** xanh khi
+`data/output/` chỉ chứa 100 JSON submission cùng explain/manifest.
+
+### Khoảng trống đã biết trước v3.2
+
+- **Thuốc là khoảng trống lớn nhất:** 214/226 mention thuốc chưa có candidate;
+  98/99 token bị che chưa phục hồi được. Parser hiện có thể lấy nhầm liều của
+  thuốc đứng cạnh và chưa giữ trọn route/frequency trong span regimen.
+- **Chẩn đoán đang thiên về recall:** 557/557 mention chẩn đoán đều có
+  candidate, gồm các mapping quá rộng như `tổn thương`, `tác dụng phụ` hoặc tên
+  cơ quan. Cần patient-context gate và reject/abstain thay vì luôn gán mã.
+- **Coverage theo contract còn thiếu:** ví dụ chính thức còn bỏ sót các triệu
+  chứng `tức ngực`, `đau thượng vị`, `ợ hơi` và alias xét nghiệm `LYPH%`.
+- **Chưa có gold dev thật:** mọi thay đổi v3.2 phải có contract test, ablation
+  và so sánh output; metric proxy chỉ là guardrail, không phải mục tiêu tối ưu.
+
+Chiến lược v3.2 theo thứ tự: chuyển ví dụ BTC thành contract tests → parse
+section → grammar medication regimen và dose cục bộ → type arbitration →
+precision gate chẩn đoán → mở rộng symptom/lab theo phrase family → confidence
+tier và ablation. Chi tiết phân tích v3.1 nằm tại
+[`docs/reports/2026-07-26-v3.1-enhanced-solution.md`](docs/reports/2026-07-26-v3.1-enhanced-solution.md).
 
 ## Cấu trúc
 

@@ -1,7 +1,13 @@
 # System Design — Smart Medic
 
-**Ngày:** 25/07/2026 · **Trạng thái:** đề xuất, chưa triển khai
+**Ngày:** 25/07/2026 · **Trạng thái:** tài liệu thiết kế gốc (lịch sử)
 **Căn cứ:** [`2026-07-25-phan-tich-du-lieu.md`](./2026-07-25-phan-tich-du-lieu.md) · [`ke-hoach-v0-v3.md`](./ke-hoach-v0-v3.md)
+
+> **Cập nhật 26/07/2026:** pipeline offline đã triển khai đến **v3.3**.
+> Trạng thái thực thi, artifact và kết quả đo hiện tại nằm trong
+> [`README.md`](../../README.md) và
+> [`2026-07-26-v3.3-precision-compatibility.md`](./2026-07-26-v3.3-precision-compatibility.md).
+> Phần còn lại của tài liệu này được giữ nguyên để ghi lại quyết định thiết kế ban đầu.
 
 ---
 

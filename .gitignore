@@ -36,3 +36,16 @@ data/output/*.json
 # redistributing the much larger raw RxNorm release.
 data/output.zip
 data/v3_3_variants/
+data/v4_medication_variants/
+
+# Curation data can contain clinical context or licensed source material.
+# Track only the contracts/placeholders; generated Bronze/Silver/Gold stays local.
+data/curation/bronze/**
+data/curation/silver/**
+data/curation/gold/**
+!data/curation/bronze/.gitkeep
+!data/curation/silver/.gitkeep
+!data/curation/gold/.gitkeep
+data/sources/dav/**
+!data/sources/dav/README.md
+!data/sources/dav/drug_aliases.template.csv

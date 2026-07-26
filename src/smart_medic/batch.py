@@ -54,6 +54,19 @@ class CrossDocumentMaskResolver:
     min_window_words = 8
     window_tokens = 14
 
+    def __init__(self, *, excluded_support_paths: tuple[str, ...] = ()) -> None:
+        # V4 ingredient/brand backoff identifies a medication family, not a
+        # fully specified product.  Keeping it out of mask propagation makes
+        # the first v4 experiment one controlled change and prevents a broad
+        # code from being copied into an information-free redaction.
+        self.excluded_support_paths = excluded_support_paths
+
+    def _eligible_support(self, mention: Mention) -> bool:
+        return not any(
+            mention.provenance.link_path.startswith(prefix)
+            for prefix in self.excluded_support_paths
+        )
+
     @staticmethod
     def _line_bounds(raw: str, mention: Mention) -> tuple[int, int]:
         start = raw.rfind("\n", 0, mention.span.start) + 1
@@ -153,6 +166,7 @@ class CrossDocumentMaskResolver:
                     mention.type is not ConceptType.THUOC
                     or not mention.candidates
                     or _MASK_RE.search(mention.span.text)
+                    or not self._eligible_support(mention)
                 ):
                     continue
                 confidence = mention.provenance.scores.get("confidence", 0.0)
@@ -216,4 +230,3 @@ class CrossDocumentMaskResolver:
                     token_window += 1
 
         return BatchResolutionStats(resolved, exact_line, token_window, conflicts)
-

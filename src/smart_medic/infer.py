@@ -19,7 +19,7 @@ from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-from . import __version__
+from . import V4_VERSION, __version__
 from .batch import BatchResolutionStats, CrossDocumentMaskResolver
 from .kb.store import KBError, load_kb
 from .pipeline import Pipeline, PipelineConfig, RunStats
@@ -32,6 +32,11 @@ from .stages.extract import (
 )
 from .stages.clinical import ClinicalSymptomExtractor
 from .stages.lab import LabObservationExtractor
+from .stages.medication_v4 import (
+    DrugAliasStore,
+    MedicationDataError,
+    V4MedicationExtractor,
+)
 from .textref import TextRef, read_textref
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -119,7 +124,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--output", type=Path, default=ROOT / "data/output")
     ap.add_argument("--kb", type=Path, default=ROOT / "data/kb")
     ap.add_argument("--zip", type=Path, default=None, help="đóng gói ra output.zip")
-    ap.add_argument("--extractor", default="v3", choices=["gazetteer", "v2", "v3"])
+    ap.add_argument(
+        "--extractor", default="v3", choices=["gazetteer", "v2", "v3", "v4"],
+        help="v4 is opt-in; the default remains the frozen v3 path",
+    )
     ap.add_argument("--max-candidates", type=int, default=2)
     ap.add_argument("--candidate-threshold", type=float, default=0.80)
     ap.add_argument("--retrieval-threshold", type=float, default=0.80)
@@ -127,6 +135,18 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--ambiguity-margin", type=float, default=0.04)
     ap.add_argument("--rxnorm-output-mode", default="current",
                     choices=["current", "legacy", "both"])
+    ap.add_argument(
+        "--rxnorm-specificity",
+        default="strict",
+        choices=["strict", "hierarchical"],
+        help="v4 only: strict SCD/SBD output or exact IN/BN backoff",
+    )
+    ap.add_argument(
+        "--drug-aliases",
+        type=Path,
+        default=None,
+        help="v4 only: reviewed UTF-8 drug alias CSV outside the immutable KB",
+    )
     ap.add_argument("--keep-risk-short", action="store_true",
                     help="giữ alias ICD ≤6 ký tự (mặc định loại — xem store.py)")
     ap.add_argument("--no-assertions", action="store_true")
@@ -138,11 +158,27 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--explain", action="store_true", help="ghi kèm provenance")
     args = ap.parse_args(argv)
 
+    use_v2_plus = args.extractor in {"v2", "v3", "v4"}
+    use_v3_plus = args.extractor in {"v3", "v4"}
+    use_v4 = args.extractor == "v4"
+    if not use_v4 and (
+        args.rxnorm_specificity != "strict" or args.drug_aliases is not None
+    ):
+        ap.error("--rxnorm-specificity/--drug-aliases require --extractor v4")
+
     try:
         kb = load_kb(args.kb, drop_risk_short=not args.keep_risk_short)
     except KBError as exc:
         print(f"LỖI KB: {exc}", file=sys.stderr)   # fail loud lúc start
         return 2
+
+    alias_store = DrugAliasStore.empty()
+    if args.drug_aliases is not None:
+        try:
+            alias_store = DrugAliasStore.from_csv(args.drug_aliases, kb)
+        except MedicationDataError as exc:
+            print(f"LỖI DỮ LIỆU THUỐC V4: {exc}", file=sys.stderr)
+            return 2
 
     cfg = PipelineConfig(
         max_candidates=args.max_candidates,
@@ -156,20 +192,32 @@ def main(argv: list[str] | None = None) -> int:
     gazetteer = GazetteerExtractor(
         kb,
         max_candidates=args.max_candidates,
-        contextual_ambiguity=args.extractor == "v3",
+        contextual_ambiguity=use_v3_plus,
     )
     extractor = gazetteer
-    if args.extractor in {"v2", "v3"}:
-        extras = [
-            IcdCueExtractor(kb, threshold=args.retrieval_threshold),
+    if use_v2_plus:
+        medication_extractor = (
+            V4MedicationExtractor(
+                kb,
+                specificity=args.rxnorm_specificity,
+                alias_store=alias_store,
+                threshold=args.drug_threshold,
+                max_candidates=args.max_candidates,
+                contextual_analytes=True,
+            )
+            if use_v4 else
             RxNormExtractor(
                 kb,
                 threshold=args.drug_threshold,
                 max_candidates=args.max_candidates,
-                contextual_analytes=args.extractor == "v3",
-            ),
+                contextual_analytes=use_v3_plus,
+            )
+        )
+        extras = [
+            IcdCueExtractor(kb, threshold=args.retrieval_threshold),
+            medication_extractor,
         ]
-        if args.extractor == "v3":
+        if use_v3_plus:
             extras.extend([ClinicalSymptomExtractor(), LabObservationExtractor()])
         extractor = CompositeExtractor(
             gazetteer,
@@ -200,8 +248,14 @@ def main(argv: list[str] | None = None) -> int:
         results[path.name] = (path, tref, mentions)
 
     batch_resolution = BatchResolutionStats()
-    if args.extractor == "v3" and not args.no_batch_mask_resolution:
-        batch_resolution = CrossDocumentMaskResolver().resolve({
+    if use_v3_plus and not args.no_batch_mask_resolution:
+        resolver = CrossDocumentMaskResolver(
+            excluded_support_paths=(
+                "rxnorm_hierarchical_backoff",
+                "rxnorm_external_alias|hierarchical",
+            ) if use_v4 else (),
+        )
+        batch_resolution = resolver.resolve({
             filename: (tref, mentions)
             for filename, (_, tref, mentions) in results.items()
             if tref is not None
@@ -241,7 +295,7 @@ def main(argv: list[str] | None = None) -> int:
 
     manifest = {
         "manifest_version": 2,
-        "pipeline_version": __version__,
+        "pipeline_version": V4_VERSION if use_v4 else __version__,
         "git_sha": _git_sha(),
         "git_dirty": _git_dirty(),
         "kb_manifest": kb.manifest.get("built_at"),
@@ -264,9 +318,14 @@ def main(argv: list[str] | None = None) -> int:
             "enable_family": cfg.enable_family,
             "rxnorm_output_mode": cfg.rxnorm_output_mode,
             "batch_mask_resolution": (
-                args.extractor == "v3" and not args.no_batch_mask_resolution
+                use_v3_plus and not args.no_batch_mask_resolution
             ),
             "drop_risk_short": not args.keep_risk_short,
+            **({
+                "rxnorm_specificity": args.rxnorm_specificity,
+                "drug_aliases": alias_store.manifest_entry(),
+                "hierarchical_mask_support": False,
+            } if use_v4 else {}),
         },
         "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "input_sha256": _files_fingerprint(files),
@@ -300,7 +359,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  loại (bất biến): {stats.dropped_invariant} · "
           f"(chồng lấn): {stats.dropped_overlap} · "
           f"(ngưỡng): {stats.dropped_threshold}")
-    if args.extractor == "v3" and not args.no_batch_mask_resolution:
+    if use_v3_plus and not args.no_batch_mask_resolution:
         print(
             "  mask liên VB   : "
             f"{batch_resolution.resolved} resolve · "

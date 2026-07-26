@@ -168,7 +168,7 @@ Nhưng **hai nhánh cần hai normalizer khác nhau** (cùng interface, khác im
 
 **Chỉ làm khi đã lọt top-15.** Trước đó là đầu tư sai chỗ.
 
-### Trạng thái nhánh `feature/solution_v3` (v3.1, không model training)
+### Trạng thái nhánh `feature/solution_v3` (v3.3, không model training)
 
 - [x] KB runtime tự xác minh SHA-256 + kích thước trước khi parse.
 - [x] Artifact CSV.gz và submission ZIP tái lập byte-for-byte.
@@ -182,16 +182,32 @@ Nhưng **hai nhánh cần hai normalizer khác nhau** (cùng interface, khác im
       mà không thêm model/dependency.
 - [x] Phân biệt analyte/thuốc bằng ngữ cảnh; khôi phục ca
       `Glucose 5% x 1000ml truyền tĩnh mạch` → RxNorm SCD `1795612`.
-- [x] Mask `***` không cò bị bỏ sót; co-reference dùng độ dài khi duy nhất.
+- [x] Mask `***` không còn bị bỏ sót; co-reference dùng độ dài khi duy nhất.
 - [x] ConText scope chặn pseudo-negation/conditional và section leak sang phần Q&A.
 - [x] Curated v3 gold + regression cho 6 cặp near-duplicate mạnh nhất.
+- [x] v3.2 hardening các span chẩn đoán đặc hiệu, loại span ngắn/generic và
+      mở rộng từ điển thuốc exact-match mà không thêm dependency runtime.
+- [x] v3.3 thêm batch cross-document resolver có cơ chế abstain an toàn và ba
+      artifact RxNorm (`current`, `legacy`, `both`) để kiểm tra tương thích gold.
+- [x] 81 test, smoke test bundle sạch, schema/offset validator và curated metric
+      đều pass; artifact ZIP giữ tính deterministic.
 - [ ] Distill XLM-R được hoãn; đây là bước model-training riêng, không cần cho
       pipeline offline hiện tại.
 
-Kết quả full-corpus v3.1: 1.668 mention, 569 mention có candidates, schema
-OK. So với artifact v2: 88/100 file khác nhau, +728/-21 mention và 132
-mention chung thay đổi candidate set. Proxy simulator tại ngưỡng 0,80 tăng
-0,8328 → 0,8705; con số này chỉ là expectation model khi chưa có gold.
+Kết quả full-corpus v3.3 (`current`): **100 file, 1.585 mention**, trong đó
+434 mention có candidates và tổng cộng 475 candidate code; schema/offset
+self-score đạt **1,0000**. Phân bố type gồm 420 chẩn đoán, 520 triệu chứng,
+251 tên xét nghiệm, 256 thuốc và 138 kết quả xét nghiệm. So với v3.2, 41/100
+file thay đổi, loại ròng 31 chẩn đoán ngắn/generic và tăng 3 thuốc exact-match.
+Proxy simulator tại ngưỡng 0,80 đạt **0,8638** (v3.2: 0,8648); đây chỉ là
+expectation model khi chưa có gold, không phải dự báo trực tiếp điểm Viettel AI.
+
+Artifact khuyến nghị là `data/output.zip`, SHA-256
+`bd91d7a2d5ef7d26f7144b61cd65b7ce1b5987bdda6d216cc0966f5d2b7020da`.
+Hai biến thể tương thích nằm ở `data/v3_3_variants/`; chỉ 7 bản ghi thuốc khác
+nhau giữa các mode, nên giữ `current` làm mặc định. Chi tiết thay đổi và phép đo:
+[`báo cáo v3.2`](./2026-07-26-v3.2-rule-hardening.md) và
+[`báo cáo v3.3`](./2026-07-26-v3.3-precision-compatibility.md).
 
 - Distill: LLM sinh nhãn bạc trên 100 file (+ dữ liệu ngoài nếu có) → fine-tune XLM-R token-classification (BIO + CRF). **Dùng XLM-R, không PhoBERT** trừ khi chạy VnCoreNLP tách từ — sai bước này là nguyên nhân phổ biến làm PhoBERT kém kỳ vọng, và span lệch thì WER tăng.
 - Đóng gói weights, **không tải model lúc runtime**. SapBERT đã có tiền lệ tải rất dễ vỡ (cần socksio, sentence-transformers không load được vì thiếu config, tokenizer XLM-R cần sentencepiece + protobuf).

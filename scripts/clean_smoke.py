@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the deployable v3 bundle without Git metadata or raw KB sources."""
+"""Verify deployable v3/v4 paths without Git metadata or raw KB sources."""
 
 from __future__ import annotations
 
@@ -103,6 +103,31 @@ def main(argv: list[str] | None = None) -> int:
         if any(manifest["git_sha"] != "unknown" for manifest in manifests):
             raise RuntimeError("Git metadata leaked into the clean deployment bundle")
 
+        v4_outputs: dict[str, Path] = {}
+        v4_manifests: dict[str, dict] = {}
+        for specificity in ("strict", "hierarchical"):
+            output = bundle / f"v4-{specificity}"
+            run([
+                sys.executable, "-m", "smart_medic.infer",
+                "--extractor", "v4",
+                "--rxnorm-specificity", specificity,
+                "--input", str(bundle / "fixture/input"),
+                "--output", str(output),
+                "--kb", str(bundle / "data/kb"),
+                "--explain",
+            ], cwd=bundle, env=env)
+            v4_outputs[specificity] = output
+            v4_manifests[specificity] = json.loads(
+                (output / "run_manifest.json").read_text(encoding="utf-8")
+            )
+        if numeric_outputs(v4_outputs["strict"]) != numeric_outputs(output_dirs[0]):
+            raise RuntimeError("v4 strict no longer preserves the frozen v3 path")
+        if any(
+            manifest["errors"] or manifest["schema_errors"]
+            for manifest in v4_manifests.values()
+        ):
+            raise RuntimeError(f"v4 clean-bundle validation failed: {v4_manifests}")
+
         metric_path = bundle / "metric.json"
         run([
             sys.executable, "-m", "smart_medic.metric_simulator",
@@ -122,7 +147,10 @@ def main(argv: list[str] | None = None) -> int:
             f"mentions={manifests[0]['n_mentions']} "
             f"output_sha256={manifests[0]['output_sha256']} "
             f"zip_sha256={sha256(zip_paths[0])} "
-            f"metric={point['final_score']:.4f} raw_kb=absent"
+            f"metric={point['final_score']:.4f} "
+            f"v4_strict={v4_manifests['strict']['output_sha256']} "
+            f"v4_hier={v4_manifests['hierarchical']['output_sha256']} "
+            "raw_kb=absent"
         )
     return 0
 

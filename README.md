@@ -41,9 +41,7 @@ PYTHONPATH=src python3 -m smart_medic.metric_simulator \
 PYTHONPATH=src python3 -m smart_medic.metric_simulator \
     --explain data/output/explain.json --gold data/dev_gold
 
-# 4. Test (v0 + v2 + accuracy/deployment v3)
-#    TestEndToEnd xem data/output là thư mục submission; hãy để các report
-#    metric_*.json ngoài thư mục này khi chạy test.
+# 4. Test (v0-v4 + deployment/data regressions)
 python3 -m unittest discover -s tests -v
 
 # 5. Chứng minh bundle sạch chạy được khi không có nguồn ICD/RxNorm thô,
@@ -52,6 +50,14 @@ python3 scripts/clean_smoke.py
 
 # 6. Dựng ba artifact thử nghiệm RxNorm current / legacy / both
 python3 scripts/build_v3_3_variants.py
+
+# 7. Tạo Bronze/Silver/Gold medication review pack (256 mention)
+PYTHONPATH=src python3 -m smart_medic.review_pack \
+    --input data/test --explain data/output/explain.json \
+    --kb data/kb --root data/curation --scope all
+
+# 8. Dựng hai artifact v4 medication độc lập: strict / hierarchical
+python3 scripts/build_v4_medication_variants.py
 ```
 
 Baseline hồi quy v0 vẫn chạy bằng `--extractor gazetteer`. Dựng lại toàn bộ KB
@@ -67,12 +73,11 @@ PYTHONPATH=src python3 -m smart_medic.score \
     --pred data/output --gold data/gold --src data/test --verbose
 ```
 
-## Trạng thái hiện tại: **v3.3 precision + compatibility hardened**
+## Trạng thái hiện tại: **v4 medication/data experiment**
 
-Nhánh hiện tại là `feature/solution_v3`. Runtime vẫn **offline, deterministic,
-không LLM và không model training**. Artifact `data/output.zip` hiện được dựng từ
-v3.3: giữ toàn bộ v3.2, bổ sung batch mask resolver bảo thủ, medication parser có
-cấu trúc, diagnosis context gate và bộ artifact RxNorm current/legacy/both.
+Nhánh phát triển là `codex/v4-medication-data`. Runtime vẫn **offline,
+deterministic, không LLM và không model training**. Đường mặc định `--extractor
+v3` vẫn là artifact v3.3 đã nộp; v4 chỉ chạy khi bật rõ `--extractor v4`.
 
 | Vòng | Nội dung thực tế | Trạng thái / kết quả |
 |---|---|---|
@@ -81,22 +86,23 @@ cấu trúc, diagnosis context gate và bộ artifact RxNorm current/legacy/both
 | **v2** | Top-5 lexical rerank, ngưỡng precision, thuốc plaintext/mask, RxNorm SCD/SBD | ✅ Viettel **14.0595** |
 | **v3.0** | Checksum KB, deterministic gzip/ZIP, run manifest và clean-bundle smoke | ✅ hardening; output ngữ nghĩa gần v2 |
 | **v3.1** | Mention-first symptom/lab, ICD context, ConText và các rule từ corpus | ✅ Viettel **19.4812** |
-| **v3.2** | Contract tests từ ví dụ BTC, regimen thuốc, type arbitration và precision gate chẩn đoán | ✅ triển khai; chờ điểm Viettel |
-| **v3.3** | Cross-document mask template, structured brand regimen, context gate và RxNorm variants | ✅ artifact sẵn sàng; chờ điểm Viettel |
-| **v4** | Pretrained multilingual encoder / hybrid retrieval nếu rule đạt trần | hoãn; chỉ làm khi chi phí đóng gói hợp lý |
+| **v3.2** | Contract tests từ ví dụ BTC, regimen thuốc, type arbitration và precision gate chẩn đoán | ✅ Viettel **21.5450** |
+| **v3.3** | Cross-document mask template, structured brand regimen, context gate và RxNorm variants | ✅ Viettel **21.5450** |
+| **v4.0-med** | Gold review pack, parser thuộc tính, alias có kiểm duyệt và RxNorm IN/BN backoff | 🚧 opt-in; chưa nộp |
 
 ### Điểm và phạm vi kiểm chứng
 
 | Phép đo | v2 | v3.1 | v3.2 | v3.3 | Ý nghĩa |
 |---|---:|---:|---:|---:|---|
-| Viettel AI leaderboard | 14.0595 | **19.4812** | chưa nộp | chưa nộp | Điểm thật chỉ có đến v3.1 |
+| Viettel AI leaderboard | 14.0595 | 19.4812 | **21.5450** | **21.5450** | Điểm thật do người dùng xác nhận |
 | Simulator expected proxy @ 0.80 | 0.8328 | 0.8705 | 0.8648 | 0.8638 | Không có gold; proxy phạt cả abstention đúng |
 | Curated v3 regression | — | 1.0000 | 1.0000 | 1.0000 | 6 tình huống tự gán, không đại diện private gold |
 
 `score --pred output --gold output = 1.0000` chỉ chứng minh schema, offset và
 tính tự nhất quán; **không phải accuracy**. Proxy không biết mapping bị loại là
 false positive, nên không được quy đổi thành điểm leaderboard. Nguồn accuracy
-đáng tin nhất hiện tại vẫn là chênh lệch Viettel v2→v3.1.
+đáng tin nhất hiện tại vẫn là leaderboard; v3.2 và v3.3 bằng điểm cho thấy
+precision hardening của v3.3 chưa tạo lift quan sát được.
 
 V2 giữ nguyên baseline exact, bổ sung chẩn đoán dân dã qua retrieve-then-rerank,
 phát hiện thuốc plaintext và token bị che, chỉ trả RxNorm SCD/SBD khi ngữ cảnh

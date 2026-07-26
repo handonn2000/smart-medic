@@ -2006,8 +2006,8 @@ class <span class="k">Provenance</span>:
         <tr><td><b>v2</b></td><td>Top-5 lexical rerank, precision threshold, thuốc plaintext/mask, SCD/SBD</td><td><span class="tag pass">XONG</span></td><td>Viettel <b>14.0595</b></td></tr>
         <tr><td><b>v3.0</b></td><td>Checksum KB, ZIP/gzip deterministic, manifest, clean smoke</td><td><span class="tag pass">XONG</span></td><td>Hardening deployment; prediction chủ đích gần v2</td></tr>
         <tr><td><b>v3.1</b></td><td>Mention-first symptom/lab, ICD context, ConText, corpus rules</td><td><span class="tag pass">XONG</span></td><td>Viettel <b>19.4812</b>; +5.4217 (+38.56%)</td></tr>
-        <tr><td><b>v3.2</b></td><td>Official contract tests, medication regimen, type arbitration, diagnosis precision gate</td><td><span class="tag pass">XONG</span></td><td>Artifact đã dựng và kiểm chứng; chưa có điểm riêng</td></tr>
-        <tr><td><b>v3.3</b></td><td>Batch mask template, structured regimen, diagnosis context gate, RxNorm variants</td><td><span class="tag pass">HIỆN TẠI</span></td><td>81 tests; ba artifact sẵn sàng; chờ điểm Viettel</td></tr>
+        <tr><td><b>v3.2</b></td><td>Official contract tests, medication regimen, type arbitration, diagnosis precision gate</td><td><span class="tag pass">XONG</span></td><td>Viettel AI: <b>21.5450</b></td></tr>
+        <tr><td><b>v3.3</b></td><td>Batch mask template, structured regimen, diagnosis context gate, RxNorm variants</td><td><span class="tag pass">HIỆN TẠI</span></td><td>81 tests; ba artifact; Viettel AI: <b>21.5450</b></td></tr>
         <tr><td><b>v4</b></td><td>Hybrid pretrained encoder/retrieval nếu rule đạt trần</td><td><span class="tag partial">HOÃN</span></td><td>Chưa chọn model; không thuộc runtime hiện tại</td></tr>
       </tbody>
     </table>
@@ -2021,7 +2021,7 @@ class <span class="k">Provenance</span>:
     <table class="def">
       <thead><tr><th>Phép đo</th><th>v2</th><th>v3.1</th><th>v3.2</th><th>v3.3</th><th>Cách diễn giải</th></tr></thead>
       <tbody>
-        <tr><td>Viettel AI leaderboard</td><td>14.0595</td><td><b>19.4812</b></td><td>chưa nộp</td><td>chưa nộp</td><td>Điểm thật chỉ có đến v3.1</td></tr>
+        <tr><td>Viettel AI leaderboard</td><td>14.0595</td><td>19.4812</td><td><b>21.5450</b></td><td><b>21.5450</b></td><td>v3.2 và v3.3 có cùng điểm leaderboard</td></tr>
         <tr><td>Expected proxy @ 0.80</td><td>0.8328</td><td>0.8705</td><td>0.8648</td><td>0.8638</td><td><b>Không có gold</b>; proxy phạt cả abstention đúng</td></tr>
         <tr><td>Curated v3 regression</td><td>—</td><td>1.0000</td><td>1.0000</td><td>1.0000</td><td>6 tình huống tự gán; không đại diện private gold</td></tr>
       </tbody>
@@ -2210,8 +2210,8 @@ class <span class="k">Provenance</span>:
     <div class="verdict">
       <div class="em">◆</div>
       <div>
-        <p class="big">Viettel: 14.0595 → 19.4812, tăng 5.4217 điểm (+38.56%).</p>
-        <p>V3.3 đổi thêm 41/100 file so với v3.2: diagnosis giảm ròng 31 sau khi thay alias ngắn bằng full span hoặc abstain; drug exact-link tăng 11→14, giữ 0 schema error.</p>
+        <p class="big">Viettel: 14.0595 → 19.4812 → 21.5450; tăng tổng 7.4855 điểm (+53.24%) so với v2.</p>
+        <p>V3.2 và v3.3 cùng đạt 21.5450. V3.3 đổi thêm 41/100 file so với v3.2 nhưng chưa tạo uplift leaderboard: diagnosis giảm ròng 31 sau khi thay alias ngắn bằng full span hoặc abstain; drug exact-link tăng 11→14, giữ 0 schema error.</p>
       </div>
     </div>
   </section>
@@ -2230,7 +2230,7 @@ class <span class="k">Provenance</span>:
       </tbody>
     </table>
     <p><b>Delta output:</b> 1.668 → 1.616 mention; candidates 569 → 462; negated 102 → 97; historical 94 → 36. Historical giảm mạnh vì section “thuốc trước nhập viện” nay chỉ gắn cho <code>THUỐC</code>, đúng contract chính thức, không còn lan sang indication.</p>
-    <div class="callout warn"><b>Simulator không phải leaderboard:</b> expected proxy v3.2 @ 0.80 là 0.8648, thấp hơn v3.1 0.8705. Proxy giả định candidate bị bỏ đều có ích nên không định giá được việc loại false positive; con số này được giữ như mốc lịch sử, không phải release gate.</div>
+    <div class="callout warn"><b>Viettel AI: 21.5450.</b> Expected proxy v3.2 @ 0.80 là 0.8648, thấp hơn v3.1 0.8705. Simulator không phải leaderboard: proxy giả định candidate bị bỏ đều có ích nên không định giá được việc loại false positive; con số này được giữ như mốc lịch sử, không phải release gate.</div>
     <div class="callout note"><b>Khoảng trống:</b> 245/256 mention thuốc và 98/99 mask vẫn không có candidate do thiếu bằng chứng duy nhất. Sau feedback leaderboard, ưu tiên error analysis theo rule family; v4 multilingual encoder/hybrid retrieval chỉ được xem xét nếu rule đạt trần và model đóng gói offline reproducibly.</div>
   </section>
 
@@ -2246,7 +2246,7 @@ class <span class="k">Provenance</span>:
         <tr><td>RxNorm modes</td><td>7 drug record khác giữa modes</td><td>Remap có provenance; current là mặc định</td></tr>
       </tbody>
     </table>
-    <div class="callout warn"><b>Expected proxy @ 0.80 = 0.8638</b>, thấp hơn v3.2 đúng 0.0010. Đây không phải accuracy: proxy không biết các mã anatomy/procedure/alias-ngắn bị loại là false positive. Cần leaderboard để đo uplift thật.</div>
+    <div class="callout warn"><b>Viettel AI: 21.5450 — bằng v3.2.</b> Expected proxy @ 0.80 = 0.8638, thấp hơn v3.2 đúng 0.0010. Proxy không phải accuracy và không biết các mã anatomy/procedure/alias-ngắn bị loại là false positive; kết quả leaderboard cho thấy các thay đổi v3.3 chưa tạo uplift tổng điểm.</div>
     <p><b>Controlled ZIP:</b> current <code>bd91d7…</code> · legacy <code>000f8a…</code> · both <code>cda377…</code>. Chỉ nộp legacy/both như thử nghiệm một biến nếu quota cho phép.</p>
   </section>
 
@@ -2272,8 +2272,8 @@ class <span class="k">Provenance</span>:
         <tr><td><b>v2</b></td><td>Lexical rerank + precision policy</td><td><span class="tag pass">KHÔNG</span></td><td>Viettel 14.0595</td></tr>
         <tr><td><b>v3.0</b></td><td>Clean, deterministic deployment</td><td><span class="tag pass">KHÔNG</span></td><td>Hai lần chạy byte-identical</td></tr>
         <tr><td><b>v3.1</b></td><td>Mention-first + context rules</td><td><span class="tag pass">KHÔNG</span></td><td>71 tests; Viettel 19.4812</td></tr>
-        <tr><td><b>v3.2</b></td><td>Rule precision/coverage fixes</td><td><span class="tag pass">KHÔNG</span></td><td>77 tests; artifact/schema/clean smoke đạt; chờ điểm Viettel</td></tr>
-        <tr><td><b>v3.3</b></td><td>Context precision + RxNorm compatibility</td><td><span class="tag pass">KHÔNG</span></td><td>81 tests; ba artifact; chờ điểm Viettel</td></tr>
+        <tr><td><b>v3.2</b></td><td>Rule precision/coverage fixes</td><td><span class="tag pass">KHÔNG</span></td><td>77 tests; Viettel 21.5450</td></tr>
+        <tr><td><b>v3.3</b></td><td>Context precision + RxNorm compatibility</td><td><span class="tag pass">KHÔNG</span></td><td>81 tests; ba artifact; Viettel 21.5450 (bằng v3.2)</td></tr>
         <tr><td><b>v4</b></td><td>Hybrid pretrained model nếu cần</td><td><span class="tag partial">CÓ THỂ</span></td><td>Chỉ nhận nếu uplift bù chi phí deployment</td></tr>
       </tbody>
     </table>

@@ -321,8 +321,12 @@ class TestAssertionTraps(unittest.TestCase):
 class TestEndToEnd(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.files = [f for f in sorted(OUT_DIR.glob("*.json"))
-                     if f.name not in {"run_manifest.json", "explain.json"}]
+        # Only numeric JSON files belong to the submission.  Diagnostic and
+        # metric JSON artifacts may coexist in data/output.
+        cls.files = sorted(
+            (f for f in OUT_DIR.glob("*.json") if f.stem.isdigit()),
+            key=lambda path: int(path.stem),
+        )
 
     def test_one_output_per_input(self):
         self.assertEqual(len(self.files), len(corpus()))

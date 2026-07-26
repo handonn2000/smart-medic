@@ -22,6 +22,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+from ..normalize import norm_text
 from ..schema import Assertion, ConceptType, Span
 from ..textref import TextRef
 
@@ -32,6 +33,8 @@ NON_NEGATING = (
     "không đặc hiệu", "không rõ", "không xác định", "không nên", "không được",
     "không thể", "không chỉ", "không phải", "không khí", "không gian",
     "không may", "không ít", "không còn nghi", "không bào",
+    "chưa được thiết lập", "chưa được chứng minh",
+    "chưa được nghiên cứu", "chưa từng xét nghiệm",
 )
 
 NEG_CUES = ("không", "chưa", "chẳng", "phủ nhận", "loại trừ", "âm tính")
@@ -39,8 +42,19 @@ NEG_CUES = ("không", "chưa", "chẳng", "phủ nhận", "loại trừ", "âm t
 #: Phạm vi phủ định kết thúc ở dấu câu hoặc liên từ (kiểu ConText/NegEx).
 SCOPE_BREAK = re.compile(r"[.;:!?\n]|\bnhưng\b|\btuy nhiên\b|\bmà\b|\bcòn\b")
 
-#: Cửa sổ tối đa (ký tự) từ cue tới concept.
-NEG_WINDOW = 60
+#: Safety cap only. Scope is primarily terminated by clause/sentence markers.
+NEG_WINDOW = 320
+NEG_SCOPE_TOKENS = 14
+
+# Clause transitions that are not represented by terminal punctuation.  A
+# broad character window is needed for coordinated negative symptom lists, so
+# these lexical breaks prevent that same window from leaking into a later,
+# affirmative proposition.
+NEG_SCOPE_TRANSITION = re.compile(
+    r"\b(?:ngoại\s+trừ|sau\s+đó|cũng\s+như|và\s+có\s+khả\s+năng|"
+    r"trong\s+bối\s+cảnh)\b|"
+    r",\s*(?:bắt\s+đầu|bệnh|cần|nên|được|nếu|khi|sau)\b"
+)
 
 # ── Historical ────────────────────────────────────────────────────────────────
 
@@ -55,7 +69,11 @@ SECTION_HISTORICAL = (
 SECTION_OTHER = (
     "khám bệnh", "khám lâm sàng", "lý do vào viện", "chẩn đoán", "điều trị",
     "kết quả xét nghiệm", "cận lâm sàng", "tóm tắt bệnh án", "diễn biến",
-    "quá trình bệnh lý", "thuốc điều trị", "y lệnh",
+    "quá trình bệnh lý", "thuốc điều trị", "y lệnh", "xử trí", "kế hoạch",
+    "triệu chứng hiện tại", "triệu chứng", "tình trạng hiện tại",
+    "đánh giá tại bệnh viện", "kết quả chẩn đoán hình ảnh",
+    "các thủ thuật đã thực hiện", "câu trả lời của bác sĩ",
+    "câu hỏi từ người dùng",
 )
 
 def _heading_re(names: tuple[str, ...]) -> re.Pattern[str]:
@@ -147,7 +165,7 @@ class AssertionTagger:
             evidence["isHistorical"] = "phạm vi mục tiền sử"
 
         if self.enable_negated:
-            cue = self._negation_cue(ns)
+            cue = self._negation_cue(ns, span)
             if cue:
                 flags.add(Assertion.NEGATED)
                 evidence["isNegated"] = cue
@@ -169,20 +187,44 @@ class AssertionTagger:
                 hi = mid
         return lo
 
-    def _negation_cue(self, ns: int) -> str | None:
-        lo = max(0, ns - NEG_WINDOW)
-        window = self.tref.norm[lo:ns]
+    def _negation_cue(self, ns: int, span: Span) -> str | None:
+        raw_start = self.tref.n2r[ns]
+        raw_window = self.tref.raw[max(0, raw_start - NEG_WINDOW):raw_start]
+        # Preserve line boundaries before normalizing whitespace.  Clinical
+        # negative lists often share a line, while a new line usually starts a
+        # new item or section.
+        raw_parts = re.split(
+            r"[.;:!?\n\r]|\b(?:nhưng|tuy\s+nhiên|mà|còn)\b",
+            raw_window,
+            flags=re.IGNORECASE,
+        )
+        window = norm_text(raw_parts[-1])
 
-        brk = None
-        for m in SCOPE_BREAK.finditer(window):
-            brk = m.end()
-        if brk is not None:
-            window = window[brk:]     # phủ định không vượt qua dấu câu/liên từ
-
-        for m in re.finditer(r"(?<![\wăâđêôơư])(%s)" % "|".join(NEG_CUES), window):
+        matches = list(re.finditer(
+            r"(?<![\wăâđêôơư])(%s)" % "|".join(NEG_CUES), window
+        ))
+        for m in reversed(matches):
             cue = m.group(1)
             tail = window[m.start():m.start() + 24]
             if any(tail.startswith(p) for p in NON_NEGATING):
-                continue              # "không đặc hiệu" là tên bệnh, không phải phủ định
+                break                 # closest cue is explicitly pseudo-negation
+            prefix = window[max(0, m.start() - 8):m.start()]
+            between = window[m.end():]
+            if re.search(r"\bnếu\s*$", prefix):
+                break                 # conditional consequence, not patient absence
+            if len(between.split()) > NEG_SCOPE_TOKENS:
+                break
+            if NEG_SCOPE_TRANSITION.search(between):
+                break
             return cue
+        raw_after = norm_text(
+            self.tref.raw[span.end:min(len(self.tref.raw), span.end + 48)]
+        )
+        post = re.match(
+            r"\s*(?:là\s+)?(âm\s+tính|được\s+loại\s+trừ|không\s+ghi\s+nhận)",
+            raw_after,
+            flags=re.IGNORECASE,
+        )
+        if post:
+            return post.group(1).casefold()
         return None

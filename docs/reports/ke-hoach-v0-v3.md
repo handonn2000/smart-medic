@@ -168,6 +168,31 @@ Nhưng **hai nhánh cần hai normalizer khác nhau** (cùng interface, khác im
 
 **Chỉ làm khi đã lọt top-15.** Trước đó là đầu tư sai chỗ.
 
+### Trạng thái nhánh `feature/solution_v3` (v3.1, không model training)
+
+- [x] KB runtime tự xác minh SHA-256 + kích thước trước khi parse.
+- [x] Artifact CSV.gz và submission ZIP tái lập byte-for-byte.
+- [x] Run manifest ghi phiên bản runtime cùng fingerprint input/output/KB/ZIP.
+- [x] Smoke test từ bundle sạch, không có Git metadata hay nguồn ICD/RxNorm thô.
+- [x] Metric simulator chạy với curated gold trong smoke gate.
+- [x] Mention-first cho triệu chứng dân dã, giữ offset raw trên 20 file NFD.
+- [x] Trích cặp `TÊN_XÉT_NGHIỆM`/`KẾT_QUẢ_XÉT_NGHIỆM` có unit,
+      kết quả định tính và chẩn đoán hình ảnh.
+- [x] Rewrite ICD cho cách gọi trong corpus + giải quyết parent/unspecified
+      mà không thêm model/dependency.
+- [x] Phân biệt analyte/thuốc bằng ngữ cảnh; khôi phục ca
+      `Glucose 5% x 1000ml truyền tĩnh mạch` → RxNorm SCD `1795612`.
+- [x] Mask `***` không cò bị bỏ sót; co-reference dùng độ dài khi duy nhất.
+- [x] ConText scope chặn pseudo-negation/conditional và section leak sang phần Q&A.
+- [x] Curated v3 gold + regression cho 6 cặp near-duplicate mạnh nhất.
+- [ ] Distill XLM-R được hoãn; đây là bước model-training riêng, không cần cho
+      pipeline offline hiện tại.
+
+Kết quả full-corpus v3.1: 1.668 mention, 569 mention có candidates, schema
+OK. So với artifact v2: 88/100 file khác nhau, +728/-21 mention và 132
+mention chung thay đổi candidate set. Proxy simulator tại ngưỡng 0,80 tăng
+0,8328 → 0,8705; con số này chỉ là expectation model khi chưa có gold.
+
 - Distill: LLM sinh nhãn bạc trên 100 file (+ dữ liệu ngoài nếu có) → fine-tune XLM-R token-classification (BIO + CRF). **Dùng XLM-R, không PhoBERT** trừ khi chạy VnCoreNLP tách từ — sai bước này là nguyên nhân phổ biến làm PhoBERT kém kỳ vọng, và span lệch thì WER tăng.
 - Đóng gói weights, **không tải model lúc runtime**. SapBERT đã có tiền lệ tải rất dễ vỡ (cần socksio, sentence-transformers không load được vì thiếu config, tokenizer XLM-R cần sentencepiece + protobuf).
 - Ghim phiên bản + seed. README cài đặt viết và thử từ **máy sạch**.

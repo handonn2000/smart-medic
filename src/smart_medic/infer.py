@@ -9,7 +9,9 @@ cần để chạy lại và ra đúng con số của ta.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import platform
 import subprocess
 import sys
 import zipfile
@@ -17,6 +19,7 @@ from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 
+from . import __version__
 from .kb.store import KBError, load_kb
 from .pipeline import Pipeline, PipelineConfig, RunStats
 from .schema import dumps, validate_file
@@ -26,6 +29,8 @@ from .stages.extract import (
     IcdCueExtractor,
     RxNormExtractor,
 )
+from .stages.clinical import ClinicalSymptomExtractor
+from .stages.lab import LabObservationExtractor
 from .textref import read_textref
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -40,6 +45,41 @@ def _git_sha() -> str:
         return "unknown"
 
 
+def _git_dirty() -> bool | None:
+    try:
+        result = subprocess.run(
+            ["git", "status", "--porcelain"],
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            check=True,
+        )
+        return bool(result.stdout.strip())
+    except Exception:
+        return None
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as fh:
+        while chunk := fh.read(1 << 20):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _files_fingerprint(files: list[Path]) -> str:
+    """Hash file names and bytes in caller-provided deterministic order."""
+    digest = hashlib.sha256()
+    for path in files:
+        digest.update(path.name.encode("utf-8"))
+        digest.update(b"\0")
+        with path.open("rb") as fh:
+            while chunk := fh.read(1 << 20):
+                digest.update(chunk)
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
 def _sorted_txt(d: Path) -> list[Path]:
     def key(p: Path) -> tuple[int, str]:
         stem = p.stem
@@ -48,18 +88,28 @@ def _sorted_txt(d: Path) -> list[Path]:
     return sorted(d.glob("*.txt"), key=key)
 
 
-def package_zip(outdir: Path, zpath: Path) -> int:
-    """Đóng gói output/N.json → output.zip đúng cấu trúc BTC quy định."""
-    files = sorted(
-        outdir.glob("*.json"),
+def package_zip(outdir: Path, zpath: Path, files: list[Path] | None = None) -> int:
+    """Package numeric JSON files with stable order and ZIP metadata."""
+    selected = sorted(
+        outdir.glob("*.json") if files is None else files,
         key=lambda p: (int(p.stem), "") if p.stem.isdigit() else (10**9, p.stem),
     )
-    files = [f for f in files if f.name not in {"run_manifest.json", "explain.json"}]
+    selected = [
+        path for path in selected
+        if path.stem.isdigit() and path.suffix == ".json" and path.is_file()
+    ]
     zpath.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(zpath, "w", zipfile.ZIP_DEFLATED) as z:
-        for f in files:
-            z.write(f, arcname=f"output/{f.name}")
-    return len(files)
+    with zipfile.ZipFile(
+        zpath, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9
+    ) as z:
+        for f in selected:
+            info = zipfile.ZipInfo(f"output/{f.name}", date_time=(1980, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.create_system = 3
+            info.external_attr = 0o100644 << 16
+            z.writestr(info, f.read_bytes(), compress_type=zipfile.ZIP_DEFLATED,
+                       compresslevel=9)
+    return len(selected)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -68,7 +118,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--output", type=Path, default=ROOT / "data/output")
     ap.add_argument("--kb", type=Path, default=ROOT / "data/kb")
     ap.add_argument("--zip", type=Path, default=None, help="đóng gói ra output.zip")
-    ap.add_argument("--extractor", default="v2", choices=["gazetteer", "v2"])
+    ap.add_argument("--extractor", default="v3", choices=["gazetteer", "v2", "v3"])
     ap.add_argument("--max-candidates", type=int, default=2)
     ap.add_argument("--candidate-threshold", type=float, default=0.80)
     ap.add_argument("--retrieval-threshold", type=float, default=0.80)
@@ -97,17 +147,28 @@ def main(argv: list[str] | None = None) -> int:
         enable_family=False,
         rxnorm_output_mode=args.rxnorm_output_mode,
     )
-    gazetteer = GazetteerExtractor(kb, max_candidates=args.max_candidates)
+    gazetteer = GazetteerExtractor(
+        kb,
+        max_candidates=args.max_candidates,
+        contextual_ambiguity=args.extractor == "v3",
+    )
     extractor = gazetteer
-    if args.extractor == "v2":
-        extractor = CompositeExtractor(
-            gazetteer,
+    if args.extractor in {"v2", "v3"}:
+        extras = [
             IcdCueExtractor(kb, threshold=args.retrieval_threshold),
             RxNormExtractor(
                 kb,
                 threshold=args.drug_threshold,
                 max_candidates=args.max_candidates,
+                contextual_analytes=args.extractor == "v3",
             ),
+        ]
+        if args.extractor == "v3":
+            extras.extend([ClinicalSymptomExtractor(), LabObservationExtractor()])
+        extractor = CompositeExtractor(
+            gazetteer,
+            *extras,
+            name=f"{args.extractor}_composite",
         )
     pipe = Pipeline(kb, extractor, cfg)
 
@@ -140,10 +201,33 @@ def main(argv: list[str] | None = None) -> int:
                 {**m.to_dict(), "_provenance": asdict(m.provenance)} for m in mentions
             ]
 
+    if args.explain:
+        (args.output / "explain.json").write_text(
+            json.dumps(explain, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
+    output_files = sorted(
+        (args.output / f"{path.stem}.json" for path in files),
+        key=lambda path: (int(path.stem), "") if path.stem.isdigit() else (10**9, path.stem),
+    )
+    packaged: tuple[int, str] | None = None
+    if args.zip:
+        n = package_zip(args.output, args.zip, output_files)
+        packaged = (n, _sha256(args.zip))
+
     manifest = {
+        "manifest_version": 2,
+        "pipeline_version": __version__,
         "git_sha": _git_sha(),
+        "git_dirty": _git_dirty(),
         "kb_manifest": kb.manifest.get("built_at"),
         "normalizer_version": kb.manifest.get("normalizer_version"),
+        "kb_artifacts": kb.manifest.get("artifacts", {}),
+        "runtime": {
+            "python": platform.python_version(),
+            "implementation": platform.python_implementation(),
+            "platform": platform.platform(),
+        },
         "extractor": pipe.extractor.name,
         "config": {
             "max_candidates": cfg.max_candidates,
@@ -158,6 +242,13 @@ def main(argv: list[str] | None = None) -> int:
             "drop_risk_short": not args.keep_risk_short,
         },
         "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "input_sha256": _files_fingerprint(files),
+        "output_sha256": _files_fingerprint(output_files),
+        "submission": None if packaged is None else {
+            "path": args.zip.name,
+            "files": packaged[0],
+            "sha256": packaged[1],
+        },
         "n_files": stats.files,
         "n_mentions": stats.mentions,
         "by_type": stats.by_type,
@@ -173,10 +264,6 @@ def main(argv: list[str] | None = None) -> int:
     (args.output / "run_manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    if args.explain:
-        (args.output / "explain.json").write_text(
-            json.dumps(explain, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
 
     print(f"{stats.files} file · {stats.mentions} mention "
           f"· {stats.with_candidates} có candidates")
@@ -198,9 +285,9 @@ def main(argv: list[str] | None = None) -> int:
         for e in stats.errors[:10]:
             print(f"    {e}")
 
-    if args.zip:
-        n = package_zip(args.output, args.zip)
-        print(f"  đóng gói       : {args.zip} ({n} file)")
+    if args.zip and packaged is not None:
+        print(f"  đóng gói       : {args.zip} ({packaged[0]} file, "
+              f"sha256={packaged[1][:12]}…)")
     return 0
 
 

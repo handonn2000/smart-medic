@@ -8,11 +8,17 @@ from __future__ import annotations
 
 import csv
 import gzip
+import hashlib
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from ..normalize import NORMALIZER_VERSION
+
+ICD_ARTIFACTS = frozenset({"icd10_concepts.csv.gz", "icd10_aliases.csv.gz"})
+RX_ARTIFACTS = frozenset({
+    "rxnorm_concepts.csv.gz", "rxnorm_aliases.csv.gz", "rxnorm_remap.csv.gz",
+})
 
 
 class KBError(RuntimeError):
@@ -22,8 +28,84 @@ class KBError(RuntimeError):
 def _read(path: Path) -> list[dict]:
     if not path.exists():
         raise KBError(f"thiếu bảng KB: {path}\nChạy: python -m smart_medic.kb.build")
-    with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
-        return list(csv.DictReader(fh))
+    try:
+        with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
+            return list(csv.DictReader(fh))
+    except (OSError, UnicodeError, csv.Error) as exc:
+        raise KBError(f"không parse được artifact KB {path.name}: {exc}") from exc
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as fh:
+        while chunk := fh.read(1 << 20):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _verify_artifacts(kbdir: Path, manifest: dict) -> frozenset[str]:
+    """Fail before parsing if a runtime KB artifact is missing or modified."""
+    artifacts = manifest.get("artifacts")
+    if not isinstance(artifacts, dict) or not artifacts:
+        raise KBError("MANIFEST.json thiếu bảng artifacts có checksum")
+
+    names = frozenset(artifacts)
+    unsupported = names - ICD_ARTIFACTS - RX_ARTIFACTS
+    if unsupported:
+        raise KBError(
+            "manifest khai báo artifact không được hỗ trợ: "
+            + ", ".join(sorted(unsupported))
+        )
+    if not ICD_ARTIFACTS <= names:
+        missing = ", ".join(sorted(ICD_ARTIFACTS - names))
+        raise KBError(f"manifest thiếu artifact ICD bắt buộc: {missing}")
+    rx_names = names & RX_ARTIFACTS
+    if rx_names and rx_names != RX_ARTIFACTS:
+        missing = ", ".join(sorted(RX_ARTIFACTS - rx_names))
+        raise KBError(f"manifest RxNorm không đầy đủ; thiếu: {missing}")
+
+    for name, metadata in artifacts.items():
+        if Path(name).name != name or not name.endswith(".csv.gz"):
+            raise KBError(f"tên artifact không an toàn trong manifest: {name!r}")
+        if not isinstance(metadata, dict):
+            raise KBError(f"metadata artifact không hợp lệ: {name}")
+        path = kbdir / name
+        if path.is_symlink():
+            raise KBError(f"artifact KB không được là symlink: {path}")
+        if not path.is_file():
+            raise KBError(f"thiếu artifact KB: {path}")
+        expected_size = metadata.get("bytes")
+        expected_hash = metadata.get("sha256")
+        if not isinstance(expected_size, int) or expected_size < 0:
+            raise KBError(f"bytes không hợp lệ trong manifest: {name}")
+        if (
+            not isinstance(expected_hash, str)
+            or len(expected_hash) != 64
+            or any(char not in "0123456789abcdef" for char in expected_hash)
+        ):
+            raise KBError(f"sha256 không hợp lệ trong manifest: {name}")
+        actual_size = path.stat().st_size
+        if actual_size != expected_size:
+            raise KBError(
+                f"artifact KB sai kích thước: {name} "
+                f"(manifest={expected_size}, thực tế={actual_size})"
+            )
+        actual_hash = _sha256(path)
+        if actual_hash != expected_hash:
+            raise KBError(
+                f"artifact KB sai checksum: {name} "
+                f"(manifest={expected_hash}, thực tế={actual_hash})"
+            )
+
+    if manifest["manifest_version"] >= 2:
+        actual = {path.name for path in kbdir.glob("*.csv.gz")}
+        unexpected = actual - names
+        if unexpected:
+            raise KBError(
+                "KB chứa artifact không được manifest khai báo: "
+                + ", ".join(sorted(unexpected))
+            )
+    return names
 
 
 @dataclass(frozen=True)
@@ -146,7 +228,18 @@ def load_kb(kbdir: Path, *, with_rxnorm: bool = True, drop_risk_short: bool = Tr
         raise KBError(
             f"thiếu {mpath}\nChạy: python -m smart_medic.kb.build"
         )
-    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    try:
+        manifest = json.loads(mpath.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise KBError(f"không đọc được manifest KB: {exc}") from exc
+    if not isinstance(manifest, dict):
+        raise KBError("MANIFEST.json phải là một JSON object")
+    manifest_version = manifest.get("manifest_version")
+    if not isinstance(manifest_version, int) or manifest_version < 2:
+        raise KBError(
+            f"manifest_version={manifest_version!r} không được hỗ trợ; "
+            "hãy build lại KB bằng v3"
+        )
 
     got = manifest.get("normalizer_version")
     if got != NORMALIZER_VERSION:
@@ -157,6 +250,8 @@ def load_kb(kbdir: Path, *, with_rxnorm: bool = True, drop_risk_short: bool = Tr
             f"Chạy lại: python -m smart_medic.kb.build"
         )
 
+    artifact_names = _verify_artifacts(kbdir, manifest)
+
     concepts = {c["code"]: c for c in _read(kbdir / "icd10_concepts.csv.gz")}
     icd_aliases = _read(kbdir / "icd10_aliases.csv.gz")
     gaz = IcdGazetteer(
@@ -166,7 +261,7 @@ def load_kb(kbdir: Path, *, with_rxnorm: bool = True, drop_risk_short: bool = Tr
     rx_concepts: dict[str, dict] = {}
     rx_aliases: list[dict] = []
     remap: dict[str, str] = {}
-    if with_rxnorm and (kbdir / "rxnorm_concepts.csv.gz").exists():
+    if with_rxnorm and RX_ARTIFACTS <= artifact_names:
         rx_concepts = {c["rxcui"]: c for c in _read(kbdir / "rxnorm_concepts.csv.gz")}
         rx_aliases = _read(kbdir / "rxnorm_aliases.csv.gz")
         remap = {

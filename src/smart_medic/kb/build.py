@@ -21,6 +21,7 @@ import argparse
 import csv
 import gzip
 import hashlib
+import io
 import json
 import re
 import subprocess
@@ -257,25 +258,22 @@ def build_remap(rrf_dir: Path, outdir: Path) -> dict:
 
 
 def _write(path: Path, rows: list[dict]) -> None:
+    """Write a reproducible gzip member (no source path or build timestamp)."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    if not rows:
-        path.write_bytes(b"")
-        return
-    with gzip.open(path, "wt", encoding="utf-8", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
-        w.writeheader()
-        w.writerows(rows)
+    with path.open("wb") as raw:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as compressed:
+            with io.TextIOWrapper(compressed, encoding="utf-8", newline="") as fh:
+                if rows:
+                    writer = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
+                    writer.writeheader()
+                    writer.writerows(rows)
 
 
-def _sha256(path: Path, limit: int = 1 << 30) -> str:
+def _sha256(path: Path) -> str:
     h = hashlib.sha256()
     with open(path, "rb") as fh:
-        read = 0
         while chunk := fh.read(1 << 20):
             h.update(chunk)
-            read += len(chunk)
-            if read >= limit:
-                break
     return h.hexdigest()
 
 
@@ -302,6 +300,25 @@ def main(argv: list[str] | None = None) -> int:
         print(f"LỖI: không thấy {icd_src}", file=sys.stderr)
         return 1
 
+    rrf_dirs = sorted(args.kb_src.glob("RxNorm_full_*/rrf"))
+    will_build_rxnorm = not args.skip_rxnorm and bool(rrf_dirs)
+    artifact_names = ["icd10_concepts.csv.gz", "icd10_aliases.csv.gz"]
+    if will_build_rxnorm:
+        artifact_names.extend([
+            "rxnorm_concepts.csv.gz", "rxnorm_aliases.csv.gz", "rxnorm_remap.csv.gz",
+        ])
+    stale = sorted(
+        path.name for path in args.out.glob("*.csv.gz") if path.name not in artifact_names
+    )
+    if stale:
+        print(
+            "LỖI: thư mục output chứa artifact cũ không thuộc lần build này: "
+            + ", ".join(stale)
+            + "\nHãy build vào một thư mục sạch.",
+            file=sys.stderr,
+        )
+        return 1
+
     print(f"[1/3] ICD  ← {icd_src.name}")
     icd_stats = build_icd(icd_src, args.out)
     print(f"      {icd_stats['concepts']:,} mã · {icd_stats['aliases']:,} alias "
@@ -311,8 +328,7 @@ def main(argv: list[str] | None = None) -> int:
     sources = {"ICD10.csv": _sha256(icd_src)}
     rx_stats = remap_stats = {}
 
-    rrf_dirs = sorted(args.kb_src.glob("RxNorm_full_*/rrf"))
-    if args.skip_rxnorm or not rrf_dirs:
+    if not will_build_rxnorm:
         print("[2/3] RxNorm — BỎ QUA")
     else:
         rrf = rrf_dirs[-1]
@@ -327,11 +343,21 @@ def main(argv: list[str] | None = None) -> int:
         sources["RXNCONSO.RRF"] = _sha256(rrf / "RXNCONSO.RRF")
         sources["RXNCUI.RRF"] = _sha256(rrf / "RXNCUI.RRF")
 
+    artifacts = {
+        name: {
+            "sha256": _sha256(args.out / name),
+            "bytes": (args.out / name).stat().st_size,
+        }
+        for name in artifact_names
+    }
     manifest = {
+        "manifest_version": 2,
+        "artifact_format": "deterministic-gzip-v1",
         "normalizer_version": NORMALIZER_VERSION,
         "built_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "git_sha": _git_sha(),
         "sources": sources,
+        "artifacts": artifacts,
         "icd": icd_stats,
         "rxnorm": rx_stats,
         "remap": remap_stats,

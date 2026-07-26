@@ -11,7 +11,7 @@ Làm cho **Viettel AI Race 2026 — Vòng 1**. Đề bài đầy đủ, phân t�
 
 ## Cài đặt
 
-**Yêu cầu: Python ≥ 3.10. Không có dependency ngoài** — v2 vẫn chỉ dùng thư viện chuẩn.
+**Yêu cầu: Python ≥ 3.10. Không có dependency ngoài** — v3 vẫn chỉ dùng thư viện chuẩn.
 
 ```bash
 git clone <repo> && cd smart-medic
@@ -23,9 +23,9 @@ Không cần `pip install`, không cần virtualenv, không cần mạng. Đây 
 ## Chạy
 
 ```bash
-# 1. Chạy v2 trên 100 file test (KB build artifact đã có trong repo)
+# 1. Chạy v3.1 trên 100 file test (KB build artifact đã có trong repo)
 PYTHONPATH=src python3 -m smart_medic.infer \
-    --extractor v2 --input data/test --output data/output \
+    --extractor v3 --input data/test --output data/output \
     --zip data/output.zip --explain
 
 # 2. Kiểm tra schema + verify position (dùng chính pred làm gold)
@@ -41,13 +41,19 @@ PYTHONPATH=src python3 -m smart_medic.metric_simulator \
 PYTHONPATH=src python3 -m smart_medic.metric_simulator \
     --explain data/output/explain.json --gold data/dev_gold
 
-# 4. Test (v0 + v2)
+# 4. Test (v0 + v2 + accuracy/deployment v3)
 python3 -m unittest discover -s tests -v
+
+# 5. Chứng minh bundle sạch chạy được khi không có nguồn ICD/RxNorm thô,
+#    đồng thời chạy lặp 2 lần + metric simulator với curated gold
+python3 scripts/clean_smoke.py
 ```
 
-Baseline hồi quy v0 vẫn chạy bằng `--extractor gazetteer`. Dựng lại KB từ
-nguồn thô bằng `python3 src/smart_medic/kb/build.py`; nếu không có bản phát hành
-RxNorm RRF cục bộ, builder chỉ dựng nhánh ICD.
+Baseline hồi quy v0 vẫn chạy bằng `--extractor gazetteer`. Dựng lại toàn bộ KB
+từ nguồn thô bằng `python3 src/smart_medic/kb/build.py`. Nếu không có bản phát
+hành RxNorm RRF cục bộ, dựng nhánh ICD vào một thư mục sạch bằng
+`python3 src/smart_medic/kb/build.py --skip-rxnorm --out /tmp/smart-medic-kb`;
+builder cố ý từ chối trộn artifact cũ vào một lần build thiếu nguồn.
 
 Chấm điểm thật khi đã có thư mục `gold/`:
 
@@ -56,19 +62,37 @@ PYTHONPATH=src python3 -m smart_medic.score \
     --pred data/output --gold data/gold --src data/test --verbose
 ```
 
-## Trạng thái: **v2 deterministic**
+## Trạng thái: **v3.1 accuracy + deployment hardened**
 
 | Vòng | Nội dung | Trạng thái |
 |---|---|---|
 | **v0** | Hạ tầng + gazetteer ICD tất định | ✅ baseline hồi quy |
 | **v1** | Provider stack + hai nhánh ICD/RxNorm | ✅ bản offline, không LLM |
 | **v2** | Top-5 lexical rerank, ngưỡng precision, thuốc bị che | ✅ xong |
-| v3 | Distill sang encoder offline (chỉ khi vào top-15) | chưa |
+| **v3.1** | Mention-first symptom/lab, ICD context, ConText + deployment hardening | ✅ xong, không training |
+| v4 | Distill sang encoder offline (chỉ khi vào top-15) | hoãn |
 
 V2 giữ nguyên baseline exact, bổ sung chẩn đoán dân dã qua retrieve-then-rerank,
 phát hiện thuốc plaintext và token bị che, chỉ trả RxNorm SCD/SBD khi ngữ cảnh
 có đủ hoạt chất, hàm lượng và dạng dùng. Không có gold trong repo nên simulator
 chỉ báo điểm kỳ vọng; không xem self-score 1.0 là độ chính xác thật.
+
+V3.1 bổ sung phát hiện mention trước khi linking: grammar triệu chứng dân dã,
+cặp tên/kết quả xét nghiệm định lượng và định tính, rewrite ICD cho cách gọi
+trong corpus, chọn parent/unspecified theo ngữ cảnh, nhận mask từ 3 ký tự và
+phân biệt `Glucose` xét nghiệm với `Glucose 5% x 1000ml` truyền tĩnh mạch.
+Phạm vi `isNegated` dùng ranh giới dòng/mệnh đề và pseudo-negation; phạm vi
+`isHistorical` kết thúc đúng ở heading bệnh án/Q&A.
+
+So với artifact v2 đã nộp, v3.1 thay đổi **88/100 file**, thêm ròng 707
+mention: +245 tên xét nghiệm, +136 kết quả, +311 triệu chứng, +10 chẩn
+đoán và +5 thuốc. Proxy simulator ở ngưỡng 0,80 tăng từ 0,8328 lên
+0,8705; đây là **EXPECTED không có gold**, không phải dự báo điểm Viettel.
+
+Phần deployment vẫn giữ nguyên: loader xác minh SHA-256/kích thước KB;
+gzip và ZIP tái lập byte-for-byte; `run_manifest.json` ghi fingerprint đầy đủ;
+`scripts/clean_smoke.py` chạy v3 hai lần từ bundle không có Git metadata hay
+nguồn ICD/RxNorm thô, sau đó chấm curated gold.
 
 ## Cấu trúc
 
@@ -88,11 +112,15 @@ smart-medic/
 │   │   └── store.py       nạp KB + gazetteer longest-match
 │   └── stages/
 │       ├── extract.py     Extractor protocol + GazetteerExtractor (v0)
+│       ├── clinical.py    grammar triệu chứng mention-first (v3)
+│       ├── lab.py         cặp tên/kết quả xét nghiệm (v3)
 │       ├── locate.py      định vị span trên chuỗi thô
 │       └── assertion.py   SectionMap + luật negation/historical
-├── tests/                 test hồi quy v0 + provider/simulator v2
+├── tests/                 test hồi quy v0–v3 + deployment/simulator
+├── scripts/
+│   └── clean_smoke.py     deploy bundle sạch + chạy lặp + metric gold
 ├── data/
-│   ├── knowledge_base/    nguồn thô: ICD10.csv, RxNorm_full_07062026/
+│   ├── knowledge_base/    nguồn build-time cục bộ (RxNorm RRF là tùy chọn)
 │   ├── kb/                KB đã build (CSV.gz + MANIFEST.json)
 │   ├── test/              100 file input
 │   └── output/            kết quả + run_manifest.json

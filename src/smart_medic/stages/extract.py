@@ -53,9 +53,31 @@ class GazetteerExtractor:
 
     name = "gazetteer"
 
-    def __init__(self, kb: KnowledgeBase, *, max_candidates: int = 2) -> None:
+    def __init__(
+        self,
+        kb: KnowledgeBase,
+        *,
+        max_candidates: int = 2,
+        contextual_ambiguity: bool = False,
+    ) -> None:
         self.kb = kb
         self.max_candidates = max_candidates
+        self.contextual_ambiguity = contextual_ambiguity
+
+    @staticmethod
+    def _resolve_hierarchy(codes: tuple[str, ...], alias: str) -> tuple[str, ...]:
+        """Choose a parent or unspecified child only when codes form one hierarchy."""
+        if len(codes) < 2:
+            return codes
+        ordered = sorted(set(codes), key=lambda code: (len(code), code))
+        parent = ordered[0]
+        children = [code for code in ordered[1:] if code.startswith(parent + ".")]
+        if len(children) != len(ordered) - 1:
+            return codes
+        unspecified = any(
+            phrase in alias for phrase in ("không đặc hiệu", "không xác định", "không rõ")
+        )
+        return (children[-1] if unspecified else parent,)
 
     def extract(self, tref: TextRef) -> list[Candidate]:
         out: list[Candidate] = []
@@ -78,11 +100,14 @@ class GazetteerExtractor:
                 # Chương R → triệu chứng. KHÔNG gán mã: schema cấm.
                 out.append(Candidate(span, ConceptType.TRIEU_CHUNG, (), prov))
             else:
+                codes = m.codes
+                if self.contextual_ambiguity:
+                    codes = self._resolve_hierarchy(codes, m.alias)
                 out.append(
                     Candidate(
                         span,
                         ConceptType.CHAN_DOAN,
-                        m.codes[: self.max_candidates],
+                        codes[: self.max_candidates],
                         prov,
                     )
                 )
@@ -102,7 +127,28 @@ class IcdCueExtractor:
     _CUE_RE = re.compile(
         r"(?<![\wăâđêôơư])(?:chẩn\s*đoán(?:\s+là)?|mắc)\s*[:\-]?\s*"
     )
-    _STANDALONE_RE = re.compile(r"(?<!\w)(?:thiếu\s+men\s+g6pd)(?!\w)")
+    _STANDALONE_RE = re.compile(
+        r"(?<!\w)(?:thiếu\s+men\s+g6pd|cao\s+huyết\s+áp|"
+        r"tiểu\s+đường(?:\s+(?:típ|type|loại)\s*[12])?|viêm\s+bao\s+tử|"
+        r"xuất\s+huyết\s+tiêu\s+hóa|xhth|rụng\s+tóc\s+từng\s+vùng|"
+        r"bàn\s+chân\s+bẹt)(?!\w)"
+    )
+    _STANDALONE_CODES = {
+        "thiếu men g6pd": "D55.0",
+        "cao huyết áp": "I10",
+        "tiểu đường": "E14",
+        "tiểu đường típ 1": "E10",
+        "tiểu đường type 1": "E10",
+        "tiểu đường loại 1": "E10",
+        "tiểu đường típ 2": "E11",
+        "tiểu đường type 2": "E11",
+        "tiểu đường loại 2": "E11",
+        "viêm bao tử": "K29.7",
+        "xuất huyết tiêu hóa": "K92.2",
+        "xhth": "K92.2",
+        "rụng tóc từng vùng": "L63",
+        "bàn chân bẹt": "Q66.5",
+    }
     _WORD_RE = re.compile(r"[^\W_]+(?:-[^\W_]+)*", re.UNICODE)
     _GENERIC = frozenset(
         {"bệnh", "hội", "chứng", "viêm", "xác", "định", "biến", "chứng"}
@@ -125,6 +171,10 @@ class IcdCueExtractor:
         out: list[Candidate] = []
         for match in self._STANDALONE_RE.finditer(tref.norm):
             ranked = self.retriever.retrieve(match.group(), top_k=self.top_k)
+            preferred = self._STANDALONE_CODES.get(match.group())
+            preferred_ranked = [item for item in ranked if item.code == preferred]
+            if preferred_ranked:
+                ranked = preferred_ranked
             if ranked and ranked[0].score >= self.threshold:
                 out.append(self._make_candidate(tref, match.start(), match.end(), ranked))
 
@@ -198,7 +248,7 @@ class RxNormExtractor:
 
     name = "rxnorm_v2"
 
-    _MASK_RE = re.compile(r"\*{5,}")
+    _MASK_RE = re.compile(r"\*{3,}")
     _DOSE_RE = re.compile(
         r"\s+(\d+(?:[.,]\d+)?)\s*(mg|mcg|g|ml|microgam|microgram|miligam|milligram)\b",
         re.IGNORECASE,
@@ -206,6 +256,12 @@ class RxNormExtractor:
     _DRUG_CONTEXT_RE = re.compile(
         r"\b(?:thuốc|uống|dùng|liều|viên|kê đơn|dị ứng|ngừng|tiêm|truyền|"
         r"được cho|điều trị bằng|mg|mcg|microgam|miligam|iv|po|bid)\b",
+        re.IGNORECASE,
+    )
+    _CONTEXTUAL_ANALYTE_DRUG_RE = re.compile(
+        r"(?<!\w)glucose\s+(?P<pct>\d+(?:[.,]\d+)?)\s*%\s*x\s*"
+        r"(?P<volume>\d+(?:[.,]\d+)?)\s*ml\s+"
+        r"(?:truyền|tiêm)(?:\s+tĩnh\s+mạch)?(?!\w)",
         re.IGNORECASE,
     )
     _ANALYTE_OR_AMBIGUOUS = frozenset(
@@ -238,10 +294,12 @@ class RxNormExtractor:
         *,
         threshold: float = 0.84,
         max_candidates: int = 2,
+        contextual_analytes: bool = False,
     ) -> None:
         self.kb = kb
         self.threshold = threshold
         self.max_candidates = max_candidates
+        self.contextual_analytes = contextual_analytes
         self._by_first: dict[str, list[str]] = {}
         self._anchor_rows: dict[str, dict] = {}
         self._targets: list[dict] = []
@@ -330,6 +388,49 @@ class RxNormExtractor:
             )
             out.append(Candidate(span, ConceptType.THUOC, codes, prov))
             i = mention_end
+        return out
+
+    def _scan_contextual_analytes(self, tref: TextRef) -> list[Candidate]:
+        """Recover analytes that are unambiguously used as medication.
+
+        ``glucose`` is excluded from ordinary drug anchors because it is most
+        often a laboratory analyte.  The corpus also contains the explicit
+        infusion ``Glucose 5% x 1000ml truyền tĩnh mạch``.  Five percent
+        glucose is 50 mg/mL, which maps directly to the current RxNorm SCD for
+        a 1000 mL injection.  Other concentrations/volumes remain unlinked.
+        """
+        if not self.contextual_analytes:
+            return []
+        out: list[Candidate] = []
+        for match in self._CONTEXTUAL_ANALYTE_DRUG_RE.finditer(tref.norm):
+            pct = float(match.group("pct").replace(",", "."))
+            volume = float(match.group("volume").replace(",", "."))
+            codes = ("1795612",) if pct == 5.0 and volume == 1000.0 else ()
+            rs, re_ = tref.to_raw(match.start(), match.end())
+            confidence = 0.98 if codes else 0.86
+            out.append(Candidate(
+                Span(rs, re_, tref.raw[rs:re_]),
+                ConceptType.THUOC,
+                codes,
+                Provenance(
+                    extractor="rxnorm_v3",
+                    locate_method="contextual_analyte_drug_grammar",
+                    link_path=(
+                        "contextual_analyte_drug|rxnorm_exact"
+                        if codes else "contextual_analyte_drug|unlinked"
+                    ),
+                    kb_rows=[f"rx:{code}" for code in codes],
+                    scores={
+                        "confidence": confidence,
+                        **{f"code:{code}": confidence for code in codes},
+                    },
+                    evidence={
+                        "percent": f"{pct:g}",
+                        "volume_ml": f"{volume:g}",
+                        "conversion": "5% w/v = 50 mg/mL" if codes else "unsupported",
+                    },
+                ),
+            ))
         return out
 
     def _link(
@@ -428,9 +529,23 @@ class RxNormExtractor:
             rows: list[str] = []
             confidence = 0.0
             evidence: dict[str, str] = {}
+            same_length = [
+                candidate for candidate in linked
+                if len(candidate.provenance.evidence.get("anchor", "")) == len(match.group())
+            ]
+            length_codes = {candidate.codes for candidate in same_length}
+            if len(length_codes) == 1:
+                resolved = same_length[0]
+                codes = resolved.codes
+                confidence = min(0.90, resolved.provenance.scores.get("confidence", 0.0))
+                rows = list(resolved.provenance.kb_rows)
+                evidence = {
+                    "resolved_from": resolved.span.text,
+                    "constraint": "same_file_and_mask_length",
+                }
             if nearest is not None:
                 distance = min(abs(span.start - nearest.span.end), abs(nearest.span.start - span.end))
-                if distance <= 220 or (len(distinct) == 1 and distance <= 700):
+                if not codes and (distance <= 220 or (len(distinct) == 1 and distance <= 700)):
                     codes = nearest.codes
                     confidence = min(0.88, nearest.provenance.scores.get("confidence", 0.0))
                     rows = list(nearest.provenance.kb_rows)
@@ -438,7 +553,10 @@ class RxNormExtractor:
             prov = Provenance(
                 extractor=self.name,
                 locate_method="masked_token",
-                link_path="masked_coreference" if codes else "masked_unresolved",
+                link_path=(
+                    "masked_length_coreference" if codes and "constraint" in evidence
+                    else "masked_coreference" if codes else "masked_unresolved"
+                ),
                 kb_rows=rows,
                 scores={"confidence": confidence, **{f"code:{c}": confidence for c in codes}},
                 evidence=evidence,
@@ -448,7 +566,7 @@ class RxNormExtractor:
 
     def extract(self, tref: TextRef) -> list[Candidate]:
         plain = self._scan_plain(tref)
-        return plain + self._scan_masked(tref, plain)
+        return plain + self._scan_contextual_analytes(tref) + self._scan_masked(tref, plain)
 
 
 class CompositeExtractor:
@@ -456,9 +574,12 @@ class CompositeExtractor:
 
     name = "v2_composite"
 
-    def __init__(self, primary: Extractor, *extras: Extractor) -> None:
+    def __init__(
+        self, primary: Extractor, *extras: Extractor, name: str = "v2_composite"
+    ) -> None:
         self.primary = primary
         self.extras = extras
+        self.name = name
 
     def extract(self, tref: TextRef) -> list[Candidate]:
         exact = self.primary.extract(tref)

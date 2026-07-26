@@ -1,4 +1,6 @@
 {
+  "manifest_version": 2,
+  "artifact_format": "deterministic-gzip-v1",
   "normalizer_version": 1,
   "built_at": "2026-07-25T15:57:13+00:00",
   "git_sha": "3d8a12f",
@@ -6,6 +8,28 @@
     "ICD10.csv": "a28fa62edc11cada8f043c984de3271eff3c99c6c7a9d9c33edd3da610ea6d85",
     "RXNCONSO.RRF": "093e26be3a173770aa6d44ab10fe7b3e8c02fce88a0dc94ca7816fab1e3ffece",
     "RXNCUI.RRF": "0062288b882797d18d8846259f8570be7957f0f94cfec6d835c60d2361b54962"
+  },
+  "artifacts": {
+    "icd10_aliases.csv.gz": {
+      "sha256": "79f24c30d80ad884e41803b90d1b4e5e03ff873d39d9200575812dcc2b875925",
+      "bytes": 342950
+    },
+    "icd10_concepts.csv.gz": {
+      "sha256": "39db76f4f78d27563748dfe1e6abff30af495ee74ccd515e972200a4812800d6",
+      "bytes": 183623
+    },
+    "rxnorm_aliases.csv.gz": {
+      "sha256": "bbaac6e0892469159ec576af6b0f222b7e34b09d09146f50c3a4ee24b3c123e5",
+      "bytes": 1993142
+    },
+    "rxnorm_concepts.csv.gz": {
+      "sha256": "3433b77f1e1aef2104b5389122208020701faa4f8ce6b9c44e01bb6b6e9a8fcf",
+      "bytes": 982117
+    },
+    "rxnorm_remap.csv.gz": {
+      "sha256": "06e1f2ac1689a013ecd7b3d105573799af3cbb0ae299e7d2a6354c687b91d858",
+      "bytes": 159433
+    }
   },
   "icd": {
     "rows_raw": 36689,

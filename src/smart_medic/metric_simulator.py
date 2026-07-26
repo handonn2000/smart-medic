@@ -225,7 +225,7 @@ def _load_gold(directory: Path) -> dict[str, list[dict]]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Smart Medic v2 metric threshold simulator")
+    parser = argparse.ArgumentParser(description="Smart Medic metric threshold simulator")
     parser.add_argument("--explain", type=Path, required=True)
     parser.add_argument("--gold", type=Path, default=None)
     parser.add_argument("--start", type=float, default=0.50)

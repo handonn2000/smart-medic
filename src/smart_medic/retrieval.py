@@ -27,7 +27,31 @@ _ABBREVIATIONS = {
     "g6pd": ("glucose", "6", "phosphate", "dehydrogenase"),
     "copd": ("bệnh", "phổi", "tắc", "nghẽn", "mạn", "tính"),
     "gerd": ("trào", "ngược", "dạ", "dày", "thực", "quản"),
+    "xhth": ("chảy", "máu", "tiêu", "hóa"),
+    "tha": ("bệnh", "lý", "tăng", "huyết", "áp"),
+    "đtđ": ("đái", "tháo", "đường"),
 }
+
+
+def _rewrite_query(value: str) -> str:
+    """Expand corpus-observed colloquialisms before deterministic retrieval."""
+    normalized = norm_text(value)
+    rewrites = (
+        (r"\bcao huyết áp\b", "bệnh lý tăng huyết áp"),
+        (r"\btiểu đường\s+(?:típ|type|loại)\s*1\b",
+         "bệnh đái tháo đường phụ thuộc insuline"),
+        (r"\btiểu đường\s+(?:típ|type|loại)\s*2\b",
+         "bệnh đái tháo đường không phụ thuộc insuline"),
+        (r"\btiểu đường\b", "các thể loại đái tháo đường không xác định"),
+        (r"\bbao tử\b", "dạ dày"),
+        (r"\bxuất huyết tiêu hóa\b", "chảy máu tiêu hóa"),
+        (r"\bđi (?:tiêu|ngoài) ra máu\b", "ỉa ra máu"),
+        (r"\brụng tóc từng vùng\b", "rụng tóc từng mảng"),
+        (r"\bbàn chân bẹt(?!\s+bẩm sinh)\b", "bàn chân bẹt bẩm sinh"),
+    )
+    for pattern, replacement in rewrites:
+        normalized = re.sub(pattern, replacement, normalized)
+    return normalized
 
 
 def _tokens(value: str, *, fold_diacritics: bool = False) -> tuple[str, ...]:
@@ -71,9 +95,10 @@ class IcdRetriever:
                 self._by_token.setdefault(tok, set()).add(idx)
 
     def retrieve(self, mention: str, *, top_k: int = 5) -> list[RankedCode]:
-        qnorm = nodiac(norm_text(mention))
-        qtoks = frozenset(_tokens(mention))
-        qfolded = frozenset(_tokens(mention, fold_diacritics=True))
+        rewritten = _rewrite_query(mention)
+        qnorm = nodiac(rewritten)
+        qtoks = frozenset(_tokens(rewritten))
+        qfolded = frozenset(_tokens(rewritten, fold_diacritics=True))
         raw_tokens = frozenset(_TOKEN_RE.findall(qnorm))
         expanded_abbreviations = [
             frozenset(expansion)

@@ -1,0 +1,189 @@
+Bạn là chuyên gia annotate khái niệm y khoa trong văn bản lâm sàng tiếng Việt tự do (ghi chú bác sĩ, giấy ra viện, kết quả xét nghiệm, hỏi đáp bệnh nhân).
+
+NHIỆM VỤ: đọc toàn bộ văn bản và liệt kê MỌI khái niệm y tế xuất hiện trong đó.
+
+## 5 nhãn hợp lệ — viết ĐẦY ĐỦ, CÓ DẤU, ĐÚNG TỪNG KÝ TỰ
+
+| type | nghĩa | ví dụ |
+|---|---|---|
+| `TRIỆU_CHỨNG` | dấu hiệu/triệu chứng bệnh nhân cảm thấy hoặc được mô tả | `sốt`, `khó thở`, `đau thượng vị`, `táo bón` |
+| `TÊN_XÉT_NGHIỆM` | TÊN của một xét nghiệm/thăm dò/thủ thuật chẩn đoán | `công thức máu`, `Glucose`, `siêu âm ổ bụng`, `nội soi dạ dày` |
+| `KẾT_QUẢ_XÉT_NGHIỆM` | GIÁ TRỊ hoặc kết luận của xét nghiệm | `5.6 mmol/L`, `âm tính`, `tăng nhẹ`, `HP (+)` |
+| `CHẨN_ĐOÁN` | tên bệnh / chẩn đoán xác định hoặc nghi ngờ | `viêm dạ dày`, `đái tháo đường type 2`, `Thiếu men G6PD` |
+| `THUỐC` | tên thuốc, kèm hàm lượng/đường dùng/tần suất nếu có liền kề | `omeprazole 20 mg po daily`, `Medrol 16mg`, `*****` |
+
+TUYỆT ĐỐI KHÔNG viết tắt nhãn. Không dùng `TÊN_XN`, `TRIEU_CHUNG`, `CHAN_DOAN`,
+không bỏ dấu, không đổi dấu gạch dưới. Sai một ký tự là hỏng toàn bộ file.
+
+## 3 assertion hợp lệ
+
+| assertion | khi nào gán |
+|---|---|
+| `isNegated` | khái niệm bị PHỦ ĐỊNH (`không sốt`, `chưa ghi nhận đau ngực`, `âm tính với`) |
+| `isFamily` | khái niệm thuộc về NGƯỜI NHÀ, không phải bệnh nhân (`mẹ bị đái tháo đường`) |
+| `isHistorical` | khái niệm thuộc TIỀN SỬ / quá khứ, không phải tình trạng hiện tại |
+
+`assertions` là mảng, thường RỖNG. Chỉ gán khi văn bản nói rõ. Không đoán.
+Chỉ ba type `TRIỆU_CHỨNG`, `CHẨN_ĐOÁN`, `THUỐC` được có assertions;
+`TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` luôn có `assertions: []`.
+
+## candidates
+
+* `CHẨN_ĐOÁN` → mã ICD-10 (ví dụ `["K21.0"]`), tối đa 2 mã, `[]` nếu không chắc.
+* `THUỐC` → mã RxNorm RXCUI dạng chuỗi (ví dụ `["308135"]`), `[]` nếu không chắc.
+* Ba type còn lại → **LUÔN LUÔN** `[]`. Không có ngoại lệ.
+
+## QUY TẮC QUAN TRỌNG NHẤT: KHÔNG TRẢ VỀ VỊ TRÍ
+
+Trường `text` phải là **chuỗi con NGUYÊN VĂN** copy từ văn bản đầu vào — đúng
+từng ký tự, đúng hoa/thường, đúng dấu, không sửa chính tả, không chuẩn hóa,
+không diễn giải, không dịch. Hệ thống sẽ tự dò chuỗi này trong văn bản gốc để
+tính offset; nếu bạn viết lại dù chỉ một ký tự thì mention đó bị LOẠI BỎ.
+
+TUYỆT ĐỐI KHÔNG thêm trường `position`, `start`, `end` hay chỉ số ký tự nào.
+Bạn không thể đếm đúng offset (20% file dùng Unicode tổ hợp); code sẽ làm việc đó.
+
+## Thứ tự và lặp lại
+
+Liệt kê các mention theo ĐÚNG THỨ TỰ XUẤT HIỆN trong văn bản, từ trên xuống.
+Nếu một khái niệm xuất hiện nhiều lần, liệt kê nó nhiều lần — lần thứ n trong
+danh sách sẽ được gán cho lần xuất hiện thứ n trong văn bản.
+
+## Định dạng đầu ra
+
+CHỈ một mảng JSON, không markdown fence, không lời dẫn, không giải thích.
+Mỗi phần tử đúng 4 trường: `text`, `type`, `assertions`, `candidates`.
+
+
+## Ví dụ
+
+### Ví dụ 1 — đơn thuốc (trích từ ví dụ chính thức của đề bài)
+
+Đầu vào:
+```
+Thuốc dùng trước nhập viện:
+1. amlodipine 10 mg po daily
+2. aspirin 81 mg po daily
+8. docusate sodium 100 mg po bid điều trị táo bón
+```
+
+Đầu ra:
+```json
+[
+  {"text": "amlodipine 10 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["308135"]},
+  {"text": "aspirin 81 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["243670"]},
+  {"text": "docusate sodium 100 mg po bid", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "táo bón", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: span thuốc giữ trọn hàm lượng + đường dùng + tần suất, nhưng KHÔNG nuốt
+phần `điều trị táo bón` — đó là chỉ định, và `táo bón` là một mention riêng.
+
+### Ví dụ 2 — ghi chú lâm sàng có phủ định, tiền sử, người nhà
+
+Đầu vào:
+```
+Bệnh nhân sốt 39 độ, không khó thở. Tiền sử: viêm dạ dày.
+Mẹ bị đái tháo đường type 2. Glucose máu 8.5 mmol/L, HbA1c 7.2%.
+Siêu âm ổ bụng: chưa phát hiện bất thường.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "viêm dạ dày", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["K29.7"]},
+  {"text": "đái tháo đường type 2", "type": "CHẨN_ĐOÁN", "assertions": ["isFamily"], "candidates": ["E11"]},
+  {"text": "Glucose máu", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "8.5 mmol/L", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "HbA1c", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "7.2%", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Siêu âm ổ bụng", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "chưa phát hiện bất thường", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: `TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` có `candidates: []` và
+`assertions: []` — kể cả khi kết quả là âm tính. Phủ định của một *kết quả* nằm
+trong chính chuỗi kết quả, không phải trong assertion.
+
+### Ví dụ 3 — token bị che
+
+Đầu vào:
+```
+Bệnh nhân được điều trị bằng ***** 500mg mỗi 8 giờ.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "***** 500mg", "type": "THUỐC", "assertions": [], "candidates": []}
+]
+```
+
+Token bị che vẫn là một mention `THUỐC`; giữ nguyên dấu sao, `candidates` rỗng
+vì không có bằng chứng nào xác định được hoạt chất.
+
+
+## Văn bản cần annotate (file 22)
+
+Đây là toàn bộ nội dung file. Copy span NGUYÊN VĂN từ đây.
+
+<document>
+1. Tiền sử bệnh
+Các tập tương tự trước đây: Từng bị khó chịu tương tự trong quá khứ, luôn thuyên giảm khi dùng thuốc
+Thuốc trước khi nhập viện
+- Tự điều trị bằng liều cao acetaminophen 500mg, taking 10 pills at a time khi cơn đau dữ dội, thường 4 viên mỗi giờ
+- làm hỏng dạ dày của cô ấy bằng cách uống 2 chai thuốc an thần trong quá khứ
+
+2. Bệnh sử hiện tại
+Lý do nhập viện: đau bụng ngày càng nặng
+Thời điểm khởi phát triệu chứng
+- Tiền sử 2 ngày đau bụng ngày càng nặng
+- Tiền sử 2 tháng đau bụng liên tục
+Diễn biến bệnh
+- Tiền sử 2 tháng đau bụng liên tục
+- 2 ngày trước khi nhập viện, đau bụng trở nên tồi tệ hơn
+- Diễn biến trong viện: tăng men gan bắt đầu có xu hướng giảm mặc dù tổng bilirubin bắt đầu tăng lên đạt đỉnh 6.7 vào
+Các triệu chứng hiện tại triệu chứng
+- đau bụng ngày càng nặng
+- đau bụng liên tục
+- mệt mỏi toàn thân
+- yếu sức
+- khó thở khi gắng sức
+- ngứa toàn thân
+- Vài lần tiểu ra máu không đau
+Đặc điểm triệu chứng
+- Vị trí: Đau vùng gan phải (RUQ) và thượng vị lan ra sau lưng
+- Không có buồn nôn
+- Không có nôn
+- Không có thay đổi thói quen đại tiện
+- Không có phân có máu, đen hoặc nhựa đường
+Các sự kiện trước khi nhập viện
+- Tự điều trị bằng liều cao acetaminophen 500mg
+- làm hỏng dạ dày của cô ấy bằng cách uống 2 chai thuốc an thần trong quá khứ
+Câu hỏi từ người dùng : Dạ em có một người, hiện tại bạn ấy đang nổi những nét nhẹ nhàng nhẹ nhàng rất đến và khắp nơi, bạn em nổi quanh năm ạ. Những thuốc giảm đau nổi bật rất khó chịu và tư vấn, được biết bạn đã từng đi chữa trị và sử dụng rất nhiều thuốc nhưng không đỡ ạ. Mẹ của bạn cũng là người nên Yên tĩnh chắc chắn là dây truyền tải. Cả hai người đều không phải dị ứng thời tiết hay thức ăn, nó có thể nổi lên mọi lúc. Mọi người cho em hỏi là bệnh này là bệnh gì ạ và để lâu có bệnh nặng hay ảnh hưởng nghiêm trọng gì không ạ. Mọi người cho em xin ý kiến ​​​​​​​và có cách nào để giải quyết cho em không ạ. Em cảm ơn rất nhiều .
+
+3. Đánh giá tại bệnh viện
+Kết quả xét nghiệm
+- ast 421
+- alt 336
+- alp 185
+- bilirubin toàn phần 0.9
+- total bili bắt đầu tăng lên đạt đỉnh 6.7
+- bảng xét nghiệm viêm gan virus là âm tính
+- ferritin là bình thường
+- ceruloplasmin vẫn đang chờ kết quả đang chờ kết quả tại thời điểm chuyển viện
+Kết quả chẩn đoán hình ảnh
+- siêu âm bụng có doppler âm tính âm tính
+- âm tính chụp hida
+- ercp cho thấy túi mật giãn nở rõ rệt túi mật giãn nhưng không có sỏi hoặc bệnh lý giải phẫu bệnh khác
+Thủ thuật thực hiện: ercp
+Các phát hiện chẩn đoán khác
+- tăng men gan
+- tăng bilirubin máu
+</document>
+
+Trả về CHỈ mảng JSON các mention, theo thứ tự xuất hiện, không kèm `position`.

@@ -1,0 +1,215 @@
+Bạn là chuyên gia annotate khái niệm y khoa trong văn bản lâm sàng tiếng Việt tự do (ghi chú bác sĩ, giấy ra viện, kết quả xét nghiệm, hỏi đáp bệnh nhân).
+
+NHIỆM VỤ: đọc toàn bộ văn bản và liệt kê MỌI khái niệm y tế xuất hiện trong đó.
+
+## 5 nhãn hợp lệ — viết ĐẦY ĐỦ, CÓ DẤU, ĐÚNG TỪNG KÝ TỰ
+
+| type | nghĩa | ví dụ |
+|---|---|---|
+| `TRIỆU_CHỨNG` | dấu hiệu/triệu chứng bệnh nhân cảm thấy hoặc được mô tả | `sốt`, `khó thở`, `đau thượng vị`, `táo bón` |
+| `TÊN_XÉT_NGHIỆM` | TÊN của một xét nghiệm/thăm dò/thủ thuật chẩn đoán | `công thức máu`, `Glucose`, `siêu âm ổ bụng`, `nội soi dạ dày` |
+| `KẾT_QUẢ_XÉT_NGHIỆM` | GIÁ TRỊ hoặc kết luận của xét nghiệm | `5.6 mmol/L`, `âm tính`, `tăng nhẹ`, `HP (+)` |
+| `CHẨN_ĐOÁN` | tên bệnh / chẩn đoán xác định hoặc nghi ngờ | `viêm dạ dày`, `đái tháo đường type 2`, `Thiếu men G6PD` |
+| `THUỐC` | tên thuốc, kèm hàm lượng/đường dùng/tần suất nếu có liền kề | `omeprazole 20 mg po daily`, `Medrol 16mg`, `*****` |
+
+TUYỆT ĐỐI KHÔNG viết tắt nhãn. Không dùng `TÊN_XN`, `TRIEU_CHUNG`, `CHAN_DOAN`,
+không bỏ dấu, không đổi dấu gạch dưới. Sai một ký tự là hỏng toàn bộ file.
+
+## 3 assertion hợp lệ
+
+| assertion | khi nào gán |
+|---|---|
+| `isNegated` | khái niệm bị PHỦ ĐỊNH (`không sốt`, `chưa ghi nhận đau ngực`, `âm tính với`) |
+| `isFamily` | khái niệm thuộc về NGƯỜI NHÀ, không phải bệnh nhân (`mẹ bị đái tháo đường`) |
+| `isHistorical` | khái niệm thuộc TIỀN SỬ / quá khứ, không phải tình trạng hiện tại |
+
+`assertions` là mảng, thường RỖNG. Chỉ gán khi văn bản nói rõ. Không đoán.
+Chỉ ba type `TRIỆU_CHỨNG`, `CHẨN_ĐOÁN`, `THUỐC` được có assertions;
+`TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` luôn có `assertions: []`.
+
+## candidates
+
+* `CHẨN_ĐOÁN` → mã ICD-10 (ví dụ `["K21.0"]`), tối đa 2 mã, `[]` nếu không chắc.
+* `THUỐC` → mã RxNorm RXCUI dạng chuỗi (ví dụ `["308135"]`), `[]` nếu không chắc.
+* Ba type còn lại → **LUÔN LUÔN** `[]`. Không có ngoại lệ.
+
+## QUY TẮC QUAN TRỌNG NHẤT: KHÔNG TRẢ VỀ VỊ TRÍ
+
+Trường `text` phải là **chuỗi con NGUYÊN VĂN** copy từ văn bản đầu vào — đúng
+từng ký tự, đúng hoa/thường, đúng dấu, không sửa chính tả, không chuẩn hóa,
+không diễn giải, không dịch. Hệ thống sẽ tự dò chuỗi này trong văn bản gốc để
+tính offset; nếu bạn viết lại dù chỉ một ký tự thì mention đó bị LOẠI BỎ.
+
+TUYỆT ĐỐI KHÔNG thêm trường `position`, `start`, `end` hay chỉ số ký tự nào.
+Bạn không thể đếm đúng offset (20% file dùng Unicode tổ hợp); code sẽ làm việc đó.
+
+## Thứ tự và lặp lại
+
+Liệt kê các mention theo ĐÚNG THỨ TỰ XUẤT HIỆN trong văn bản, từ trên xuống.
+Nếu một khái niệm xuất hiện nhiều lần, liệt kê nó nhiều lần — lần thứ n trong
+danh sách sẽ được gán cho lần xuất hiện thứ n trong văn bản.
+
+## Định dạng đầu ra
+
+CHỈ một mảng JSON, không markdown fence, không lời dẫn, không giải thích.
+Mỗi phần tử đúng 4 trường: `text`, `type`, `assertions`, `candidates`.
+
+
+## Ví dụ
+
+### Ví dụ 1 — đơn thuốc (trích từ ví dụ chính thức của đề bài)
+
+Đầu vào:
+```
+Thuốc dùng trước nhập viện:
+1. amlodipine 10 mg po daily
+2. aspirin 81 mg po daily
+8. docusate sodium 100 mg po bid điều trị táo bón
+```
+
+Đầu ra:
+```json
+[
+  {"text": "amlodipine 10 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["308135"]},
+  {"text": "aspirin 81 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["243670"]},
+  {"text": "docusate sodium 100 mg po bid", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "táo bón", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: span thuốc giữ trọn hàm lượng + đường dùng + tần suất, nhưng KHÔNG nuốt
+phần `điều trị táo bón` — đó là chỉ định, và `táo bón` là một mention riêng.
+
+### Ví dụ 2 — ghi chú lâm sàng có phủ định, tiền sử, người nhà
+
+Đầu vào:
+```
+Bệnh nhân sốt 39 độ, không khó thở. Tiền sử: viêm dạ dày.
+Mẹ bị đái tháo đường type 2. Glucose máu 8.5 mmol/L, HbA1c 7.2%.
+Siêu âm ổ bụng: chưa phát hiện bất thường.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "viêm dạ dày", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["K29.7"]},
+  {"text": "đái tháo đường type 2", "type": "CHẨN_ĐOÁN", "assertions": ["isFamily"], "candidates": ["E11"]},
+  {"text": "Glucose máu", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "8.5 mmol/L", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "HbA1c", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "7.2%", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Siêu âm ổ bụng", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "chưa phát hiện bất thường", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: `TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` có `candidates: []` và
+`assertions: []` — kể cả khi kết quả là âm tính. Phủ định của một *kết quả* nằm
+trong chính chuỗi kết quả, không phải trong assertion.
+
+### Ví dụ 3 — token bị che
+
+Đầu vào:
+```
+Bệnh nhân được điều trị bằng ***** 500mg mỗi 8 giờ.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "***** 500mg", "type": "THUỐC", "assertions": [], "candidates": []}
+]
+```
+
+Token bị che vẫn là một mention `THUỐC`; giữ nguyên dấu sao, `candidates` rỗng
+vì không có bằng chứng nào xác định được hoạt chất.
+
+
+## Văn bản cần annotate (file 3)
+
+Đây là toàn bộ nội dung file. Copy span NGUYÊN VĂN từ đây.
+
+<document>
+1.  Tiền sử bệnh
+ nhưng hiện tượng run tay không khỏi hẳn. Em muốn hỏi có phải run tay là phản ứng phụ của thuốc không và mẹ em nên làm gì để cải thiện tình trạng này. Ngoài ra việc sử dụng Nitralmyl lâu dài có gây ảnh hưởng xấu gì không ạ?
+ Em xin cảm ơn Bác sĩ.
+Câu trả lời của bác sĩ: 
+Chào bạn, kể từ tháng 6/2012 thuốcVastarel (trimetazidin) đã được cảnh báo ở Pháp, và sau đó là ở Châu Âu và trên toàn thế giới về việc lưu ý tác dụng bất lợi của thuốc này là lớn hơn lợi ích của thuốc: 
+như làm nặng hơn hội chứng Parkinson, gây run tay chân, mất thăng bằng khi đi hoặc run rấy toàn thân. Chính vì vậy mà thuốc bị giới hạn chỉ định "điều trị triệu chứng đau thắt ngực ổn địnhkhi bệnh nhân
+ không dung nạp với các thuốc khác hoặc các thuốc khác dùng không hiệu quả". Thuốc này chống chỉ định ở người bị chóng mặt, ù tai, rối loạn thị lực, đặc biệt không dùng thuốc ở người bị Parkinson
+2.  Tiền sử bệnh hiện tại
+    Lý do nhập viện
+    - yếu sức nửa người bên phải
+    - tình trạng tri giác giảm sút
+    - nhìn song thị
+    Thời điểm khởi phát triệu chứng
+    - Thời gian: khoảng 11:00 sáng
+    - Khởi phát cấp tính hay từ từ: Không ghi rõ
+    Diễn biến bệnh
+    - Được con trai phát hiện tại nhà lúc khoảng 11:00 sáng, nằm sải trên sàn.
+    - Than phiền về không thể tự đứng dậy do yếu sức chân phải.
+    - Không nhớ cách mình bị ngã xuống sàn hay lý do tại sao mình bị ngã.
+    - không thể chịu lực ở chân phải, liên tục khuỵu chân khi được giúp đỡ đứng dậy.
+    - Đã được chụp chụp ct sọ não kết quả âm tính.
+    - Đội ngũ y tế tiến hành chọc dò dịch não tủy.
+    - Bị một cơn nhịp tim chậm nặng và hạ huyết áp ngay sau khi study.
+    - Cơn bệnh tự khỏi sau khi dùng intravenous fluids.
+    - Chụp lại chụp ct sọ não, kết quả âm tính.
+    - Chuyển đến bệnh viện để tiếp tục điều trị.
+    - Được gọi là Code tai biến mạch máu não.
+    - Ban đầu tỉnh chậm phản xạ kém.
+    - Dần dần tỉnh táo hơn tỉnh táo và tỉnh khi gọi.
+    - Phủ nhận các bệnh nền lớn tiền sử bệnh hoặc triệu chứng nào khác ngoại trừ nhiễm trùng nhiễm trùng răng miệng gần đây cần dùng kháng sinh.
+    - Phủ nhận tiền sử bị tai biến mạch máu não hoặc co giật.
+    Triệu chứng khi nhập viện
+    - yếu sức nửa người bên phải
+    - tình trạng tri giác giảm sút
+    - nhìn song thị
+    - mệt mỏi
+    Đặc điểm triệu chứng
+    - Vị trí: yếu chân phải
+    - Mức độ nghiêm trọng: Không ghi rõ
+    - Thời gian: Không ghi rõ
+    - Tần suất: Không ghi rõ
+    - Lan tỏa: Không ghi rõ
+    - Các yếu tố làm nặng thêm: Không ghi rõ
+    - Các yếu tố làm giảm bớt: Không ghi rõ
+    - Triệu chứng liên quan: mệt mỏi
+    Các sự kiện trước khi nhập viện
+    - Được con trai phát hiện tại nhà.
+    - Than phiền về yếu sức chân phải.
+    - Đã được chụp chụp ct sọ não kết quả âm tính.
+    - Tiến hành chọc dò dịch não tủy.
+    - Bị nhịp tim chậm nặng và hạ huyết áp, không đặc hiệu.
+    - Cơn bệnh tự khỏi sau khi dùng intravenous fluids.
+    - Chụp lại chụp ct sọ não, kết quả âm tính.
+    - Đã dùng kháng sinh cho nhiễm trùng nhiễm trùng răng miệng gần đây.
+    Tình trạng ngay trước khi nhập viện
+    - Nằm sải trên sàn.
+    - không thể tự đứng dậy do yếu sức chân phải.
+    - không thể chịu lực ở chân phải, liên tục khuỵu chân.
+    - tỉnh chậm, phản xạ kém.
+
+3.  Đánh giá tại bệnh viện
+    Dấu hiệu lâm sàng
+    - yếu nửa người bên phải
+    - suy giảm tri giác
+    - nhìn song thị
+    - nhịp tim chậm
+    - hạ huyết áp, không đặc hiệu
+    - không nhấc chân phải khỏi mặt giường
+    - chân phải liên tục khuỵ xuống
+    - tỉnh chậm, phản xạ kém
+    Kết quả xét nghiệm
+    - Chẩn đoán hình ảnh
+    - chụp ct sọ não: âm tính
+    - Chụp lại chụp ct sọ não: âm tính
+    Các thủ thuật đã thực hiện
+    - chụp ct sọ não
+    - chọc dò dịch não tủy
+    - Truyền dịch tĩnh mạch
+</document>
+
+Trả về CHỈ mảng JSON các mention, theo thứ tự xuất hiện, không kèm `position`.

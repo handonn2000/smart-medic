@@ -1,0 +1,215 @@
+Bạn là chuyên gia annotate khái niệm y khoa trong văn bản lâm sàng tiếng Việt tự do (ghi chú bác sĩ, giấy ra viện, kết quả xét nghiệm, hỏi đáp bệnh nhân).
+
+NHIỆM VỤ: đọc toàn bộ văn bản và liệt kê MỌI khái niệm y tế xuất hiện trong đó.
+
+## 5 nhãn hợp lệ — viết ĐẦY ĐỦ, CÓ DẤU, ĐÚNG TỪNG KÝ TỰ
+
+| type | nghĩa | ví dụ |
+|---|---|---|
+| `TRIỆU_CHỨNG` | dấu hiệu/triệu chứng bệnh nhân cảm thấy hoặc được mô tả | `sốt`, `khó thở`, `đau thượng vị`, `táo bón` |
+| `TÊN_XÉT_NGHIỆM` | TÊN của một xét nghiệm/thăm dò/thủ thuật chẩn đoán | `công thức máu`, `Glucose`, `siêu âm ổ bụng`, `nội soi dạ dày` |
+| `KẾT_QUẢ_XÉT_NGHIỆM` | GIÁ TRỊ hoặc kết luận của xét nghiệm | `5.6 mmol/L`, `âm tính`, `tăng nhẹ`, `HP (+)` |
+| `CHẨN_ĐOÁN` | tên bệnh / chẩn đoán xác định hoặc nghi ngờ | `viêm dạ dày`, `đái tháo đường type 2`, `Thiếu men G6PD` |
+| `THUỐC` | tên thuốc, kèm hàm lượng/đường dùng/tần suất nếu có liền kề | `omeprazole 20 mg po daily`, `Medrol 16mg`, `*****` |
+
+TUYỆT ĐỐI KHÔNG viết tắt nhãn. Không dùng `TÊN_XN`, `TRIEU_CHUNG`, `CHAN_DOAN`,
+không bỏ dấu, không đổi dấu gạch dưới. Sai một ký tự là hỏng toàn bộ file.
+
+## 3 assertion hợp lệ
+
+| assertion | khi nào gán |
+|---|---|
+| `isNegated` | khái niệm bị PHỦ ĐỊNH (`không sốt`, `chưa ghi nhận đau ngực`, `âm tính với`) |
+| `isFamily` | khái niệm thuộc về NGƯỜI NHÀ, không phải bệnh nhân (`mẹ bị đái tháo đường`) |
+| `isHistorical` | khái niệm thuộc TIỀN SỬ / quá khứ, không phải tình trạng hiện tại |
+
+`assertions` là mảng, thường RỖNG. Chỉ gán khi văn bản nói rõ. Không đoán.
+Chỉ ba type `TRIỆU_CHỨNG`, `CHẨN_ĐOÁN`, `THUỐC` được có assertions;
+`TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` luôn có `assertions: []`.
+
+## candidates
+
+* `CHẨN_ĐOÁN` → mã ICD-10 (ví dụ `["K21.0"]`), tối đa 2 mã, `[]` nếu không chắc.
+* `THUỐC` → mã RxNorm RXCUI dạng chuỗi (ví dụ `["308135"]`), `[]` nếu không chắc.
+* Ba type còn lại → **LUÔN LUÔN** `[]`. Không có ngoại lệ.
+
+## QUY TẮC QUAN TRỌNG NHẤT: KHÔNG TRẢ VỀ VỊ TRÍ
+
+Trường `text` phải là **chuỗi con NGUYÊN VĂN** copy từ văn bản đầu vào — đúng
+từng ký tự, đúng hoa/thường, đúng dấu, không sửa chính tả, không chuẩn hóa,
+không diễn giải, không dịch. Hệ thống sẽ tự dò chuỗi này trong văn bản gốc để
+tính offset; nếu bạn viết lại dù chỉ một ký tự thì mention đó bị LOẠI BỎ.
+
+TUYỆT ĐỐI KHÔNG thêm trường `position`, `start`, `end` hay chỉ số ký tự nào.
+Bạn không thể đếm đúng offset (20% file dùng Unicode tổ hợp); code sẽ làm việc đó.
+
+## Thứ tự và lặp lại
+
+Liệt kê các mention theo ĐÚNG THỨ TỰ XUẤT HIỆN trong văn bản, từ trên xuống.
+Nếu một khái niệm xuất hiện nhiều lần, liệt kê nó nhiều lần — lần thứ n trong
+danh sách sẽ được gán cho lần xuất hiện thứ n trong văn bản.
+
+## Định dạng đầu ra
+
+CHỈ một mảng JSON, không markdown fence, không lời dẫn, không giải thích.
+Mỗi phần tử đúng 4 trường: `text`, `type`, `assertions`, `candidates`.
+
+
+## Ví dụ
+
+### Ví dụ 1 — đơn thuốc (trích từ ví dụ chính thức của đề bài)
+
+Đầu vào:
+```
+Thuốc dùng trước nhập viện:
+1. amlodipine 10 mg po daily
+2. aspirin 81 mg po daily
+8. docusate sodium 100 mg po bid điều trị táo bón
+```
+
+Đầu ra:
+```json
+[
+  {"text": "amlodipine 10 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["308135"]},
+  {"text": "aspirin 81 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["243670"]},
+  {"text": "docusate sodium 100 mg po bid", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "táo bón", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: span thuốc giữ trọn hàm lượng + đường dùng + tần suất, nhưng KHÔNG nuốt
+phần `điều trị táo bón` — đó là chỉ định, và `táo bón` là một mention riêng.
+
+### Ví dụ 2 — ghi chú lâm sàng có phủ định, tiền sử, người nhà
+
+Đầu vào:
+```
+Bệnh nhân sốt 39 độ, không khó thở. Tiền sử: viêm dạ dày.
+Mẹ bị đái tháo đường type 2. Glucose máu 8.5 mmol/L, HbA1c 7.2%.
+Siêu âm ổ bụng: chưa phát hiện bất thường.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "viêm dạ dày", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["K29.7"]},
+  {"text": "đái tháo đường type 2", "type": "CHẨN_ĐOÁN", "assertions": ["isFamily"], "candidates": ["E11"]},
+  {"text": "Glucose máu", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "8.5 mmol/L", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "HbA1c", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "7.2%", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Siêu âm ổ bụng", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "chưa phát hiện bất thường", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: `TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` có `candidates: []` và
+`assertions: []` — kể cả khi kết quả là âm tính. Phủ định của một *kết quả* nằm
+trong chính chuỗi kết quả, không phải trong assertion.
+
+### Ví dụ 3 — token bị che
+
+Đầu vào:
+```
+Bệnh nhân được điều trị bằng ***** 500mg mỗi 8 giờ.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "***** 500mg", "type": "THUỐC", "assertions": [], "candidates": []}
+]
+```
+
+Token bị che vẫn là một mention `THUỐC`; giữ nguyên dấu sao, `candidates` rỗng
+vì không có bằng chứng nào xác định được hoạt chất.
+
+
+## Văn bản cần annotate (file 2)
+
+Đây là toàn bộ nội dung file. Copy span NGUYÊN VĂN từ đây.
+
+<document>
+1. Bệnh Kawasaki là gì?
+
+Bệnh Kawasaki là tình trạng sốt cấp kéo dài, thường đi kèm phát ban toàn thân, với đặc điểm chính là viêm lan tỏa hệ mạch máu nhỏ và vừa, bao gồm động mạch vành – mạch máu quan trọng cung cấp máu cho tim. Bệnh được mô tả lần đầu bởi bác sĩ Tomisaku Kawasaki (Nhật Bản) vào năm 1967.
+ • Độ tuổi thường gặp: Chủ yếu ở trẻ dưới 5 tuổi, đặc biệt là nhóm bú mẹ.
+ • Giới tính: Trẻ trai mắc bệnh nhiều hơn trẻ gái.
+ • Đặc điểm nguy hiểm: Giai đoạn đầu có thể chưa quá nghiêm trọng, nhưng nếu không điều trị kịp thời, bệnh có thể dẫn đến viêm tim, phình giãn động mạch vành, đột tử, nhồi máu cơ tim, hoặc hẹp tắc mạch vành gây suy tim về sau.
+
+Tóm lại: Kawasaki là bệnh viêm mạch máu nguy hiểm, cần phát hiện sớm để tránh biến chứng nặng.
+2. Nguyên nhân gây bệnh Kawasaki
+Mặc dù được nghiên cứu nhiều, cho đến nay nguyên nhân chính xác vẫn chưa rõ ràng. Nhiều chuyên gia đưa ra các giả thuyết:
+Các yếu tố nghi ngờ liên quan:
+ • Nhiễm khuẩn – nhiễm virus hoặc độc tố vi khuẩn.
+ • Phản ứng miễn dịch bất thường ở trẻ có cơ địa nhạy cảm.
+ • Yếu tố chủng tộc: Trẻ gốc Á, đặc biệt trẻ Nhật Bản và Hàn Quốc, có tỉ lệ mắc cao.
+ • Yếu tố môi trường: thay đổi khí hậu, chất độc trong không khí.
+Điều quan trọng: Bệnh không lây từ trẻ này sang trẻ khác và đến nay chưa có bằng chứng về lây truyền trong cộng đồng.
+3. Triệu chứng bệnh Kawasaki ở trẻ em
+Triệu chứng điển hình
+(Ít nhất 5 trong số các dấu hiệu sau, kèm sốt ≥5 ngày)
+1. Sốt cao kéo dài
+ • Sốt 39–40°C trong hơn 5 ngày.
+ • Ít đáp ứng với hạ sốt hoặc kháng sinh.
+
+2. Mắt đỏ
+ • Viêm kết mạc 2 bên, đỏ nhưng không có ghèn.
+
+3. Thay đổi niêm mạc miệng
+ • Môi đỏ, nứt, có thể rỉ máu.
+ • Lưỡi đỏ như dâu tây.
+ • Họng đỏ.
+4. Tổn thương ở đầu chi
+ • Sưng, đỏ mu bàn tay – chân.
+ • Đỏ gan bàn tay – chân.
+ • Bong da đầu ngón tay, ngón chân vào ngày 7–14 của bệnh.
+
+5. Ban đỏ toàn thân
+ • Ban dạng đa hình: dát – sẩn – mảng đỏ.
+
+    - Sẽ không điển hình cho Bệnh đa xơ cứng theo ý kiến của bác sĩ thần kinh
+    - Ảo giác do rượu (suy nghĩ)
+    - Không được coi là thực sự loạn thần • Công thức máu, CRP, máu lắng
+ • Men gan, albumin
+ • Xét nghiệm nước tiểu
+ • Cấy máu, dịch hầu họng
+ • Siêu âm tim (quan trọng nhất để đánh giá động mạch vành)
+ • ECG điện tâm đồ
+
+6. Điều trị bệnh Kawasaki ở trẻ
+Điều trị cần được thực hiện tại bệnh viện, đặc biệt là bệnh viện có chuyên khoa tim mạch nhi.
+1. ********************* – Điều trị quan trọng nhất
+ • Dùng liều cao truyền tĩnh mạch.
+ • Hiệu quả 80% nếu truyền trước ngày thứ 10 của bệnh.
+ • Giảm biến chứng động mạch vành rõ rệt.
+2. ******* (ASA)
+ • Dùng liều cao giai đoạn cấp tính để giảm viêm.
+ • Sau đó giảm liều duy trì để ngừa huyết khối.
+3. Điều trị lặp lại nếu cần
+ • Một số trẻ cần truyền **** lần 2 hoặc sử dụng thuốc ức chế miễn dịch khác
+7. Theo dõi trẻ sau điều trị
+
+Trẻ cần được theo dõi 6 tháng – 1 năm:
+ • Tái khám định kỳ, siêu âm tim đánh giá động mạch vành.
+ • Dùng thuốc đúng chỉ định.
+ • Tránh tiêm vắc xin sống ngay sau khi truyền **** (thường phải hoãn 9–11 tháng).
+
+8. Chế độ dinh dưỡng và vận động cho trẻ mắc Kawasaki
+Dinh dưỡng
+ • Ăn uống lành mạnh, nhiều rau – trái cây.
+ • Hạn chế đồ ăn quá nhiều dầu mỡ.
+ • Ưu tiên thực phẩm tốt cho tim mạch.
+Vận động
+ • Trẻ nên tập luyện nhẹ nhàng.
+ • Tham gia các hoạt động phù hợp độ tuổi.
+ • Tránh hoạt động mạnh nếu có tổn thương vành mạch.
+Tránh nguy cơ tim mạch
+ • Trẻ lớn nên tránh hút thuốc lá thụ động, môi trường ô nhiễm.
+Kết luận
+Bệnh Kawasaki là bệnh nguy hiểm nhưng hoàn toàn có thể điều trị hiệu quả nếu được phát hiện sớm. Cha mẹ cần đưa trẻ đến bệnh viện ngay khi trẻ sốt cao kéo dài kèm các dấu hiệu như đỏ mắt, ban đỏ, môi đỏ – nứt, lưỡi đỏ dâu tây hoặc sưng hạch cổ. Điều trị bằng **** trong 10 ngày đầu là yếu tố then chốt giúp giảm biến chứng mạch vành.
+</document>
+
+Trả về CHỈ mảng JSON các mention, theo thứ tự xuất hiện, không kèm `position`.

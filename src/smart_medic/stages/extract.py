@@ -29,11 +29,12 @@ from ..textref import TextRef
 #: rỗng.  Trước đây cờ này bị dùng như blocklist (bỏ thẳng mention); giờ nó là
 #: tiên nghiệm về TYPE, nên việc bỏ trống candidates xảy ra vì ĐÚNG LÝ DO.
 #:
-#: PLACEHOLDER — 0.15 chưa được hiệu chuẩn. Ước lượng thật là tỉ lệ span khớp
-#: chương R mà gold vẫn gán CHẨN_ĐOÁN, đo trên data/dev_gold/ (đang dựng song
-#: song, chưa có trong repo). Chỉ cần nó < PipelineConfig.min_type_confidence
-#: là chính sách hiện tại không đổi.
-SYMPTOM_CHAPTER_TYPE_CONFIDENCE = 0.15
+#: HIỆU CHUẨN 27/07 trên data/dev_gold (20 file): trong 40 span bị gắn cờ chương
+#: R mà ghép được với gold, gold gọi CẢ 40 là TRIỆU_CHỨNG — 0 mention nào là
+#: CHẨN_ĐOÁN. Ước lượng Laplace 1/42 ≈ 0.024. Giá trị cũ 0.15 là phỏng đoán;
+#: cả hai đều nằm sâu dưới ngưỡng 0.624 suy từ a₁ nên HÀNH VI KHÔNG ĐỔI — sửa
+#: để con số nói đúng bằng chứng, không phải để đổi chính sách.
+SYMPTOM_CHAPTER_TYPE_CONFIDENCE = 0.024
 
 
 @dataclass
@@ -119,6 +120,40 @@ class GazetteerExtractor:
         self.kb = kb
         self.max_candidates = max_candidates
         self.contextual_ambiguity = contextual_ambiguity
+        #: Mã cha 3 ký tự CÓ con ".9" trong KB. Dựng một lần, tra O(1).
+        self._has_unspecified_child = frozenset(
+            code.split(".", 1)[0]
+            for code in kb.icd_concepts
+            if code.endswith(".9")
+        )
+
+    def _prefer_unspecified_child(self, codes: tuple[str, ...]) -> tuple[str, ...]:
+        """``N17`` → ``N17.9``: mention trần thì gold muốn con "không đặc hiệu".
+
+        Đo được 27/07 trên data/dev_gold — đây là NHÓM LỖI LỚN NHẤT của nhánh
+        gazetteer, 22/37 lỗi. Ta trả mã cha 3 ký tự trong khi gold trả con ".9"::
+
+            suy thận cấp    N17 → gold N17.9      bại não        G80 → gold G80.9
+            loét tá tràng   K26 → gold K26.9      suy tim        I50 → gold I50.9
+
+        Quét toàn bộ cặp gazetteer đã ghép: 24/61 → **37/61** và **0 hồi quy** —
+        phép nâng này chưa từng phá một mã vốn đã đúng. Biến thể chặt hơn (chỉ
+        nâng khi tên con chứa "không đặc hiệu") chỉ đạt 32/61 vì bỏ sót những
+        con ".9" đặt tên khác, ví dụ ``K58.9 = Hội chứng ruột kích thích, không
+        tiêu chảy``. Nên dùng luật KHÔNG điều kiện.
+
+        Chính đề bài xác nhận chiều này: ví dụ GERD của BTC ánh xạ sang
+        ``{K21.0, K21.9}`` — các mã CON, không phải ``K21`` trần.
+
+        Lưu ý: điều này BÁC BỎ đề xuất "gộp về tổ tiên chung (LCA)" ở báo cáo v4
+        §2.6 — gold đi theo hướng ngược lại, chọn con đặc hiệu chứ không phải cha.
+        """
+        return tuple(
+            f"{code}.9"
+            if "." not in code and code in self._has_unspecified_child
+            else code
+            for code in codes
+        )
 
     @staticmethod
     def _resolve_hierarchy(codes: tuple[str, ...], alias: str) -> tuple[str, ...]:
@@ -176,6 +211,10 @@ class GazetteerExtractor:
                 codes = m.codes
                 if self.contextual_ambiguity:
                     codes = self._resolve_hierarchy(codes, m.alias)
+                    # Sau khi chốt độ đặc hiệu theo alias, nâng mã cha trần lên
+                    # con ".9". Chạy SAU _resolve_hierarchy nên hợp đồng K21 của
+                    # BTC (đã là mã con) không bị đụng tới.
+                    codes = self._prefer_unspecified_child(codes)
                     prov.kb_rows = [f"icd:{code}" for code in codes]
                 out.append(
                     Candidate(

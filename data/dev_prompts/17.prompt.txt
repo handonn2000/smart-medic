@@ -1,0 +1,165 @@
+Bạn là chuyên gia annotate khái niệm y khoa trong văn bản lâm sàng tiếng Việt tự do (ghi chú bác sĩ, giấy ra viện, kết quả xét nghiệm, hỏi đáp bệnh nhân).
+
+NHIỆM VỤ: đọc toàn bộ văn bản và liệt kê MỌI khái niệm y tế xuất hiện trong đó.
+
+## 5 nhãn hợp lệ — viết ĐẦY ĐỦ, CÓ DẤU, ĐÚNG TỪNG KÝ TỰ
+
+| type | nghĩa | ví dụ |
+|---|---|---|
+| `TRIỆU_CHỨNG` | dấu hiệu/triệu chứng bệnh nhân cảm thấy hoặc được mô tả | `sốt`, `khó thở`, `đau thượng vị`, `táo bón` |
+| `TÊN_XÉT_NGHIỆM` | TÊN của một xét nghiệm/thăm dò/thủ thuật chẩn đoán | `công thức máu`, `Glucose`, `siêu âm ổ bụng`, `nội soi dạ dày` |
+| `KẾT_QUẢ_XÉT_NGHIỆM` | GIÁ TRỊ hoặc kết luận của xét nghiệm | `5.6 mmol/L`, `âm tính`, `tăng nhẹ`, `HP (+)` |
+| `CHẨN_ĐOÁN` | tên bệnh / chẩn đoán xác định hoặc nghi ngờ | `viêm dạ dày`, `đái tháo đường type 2`, `Thiếu men G6PD` |
+| `THUỐC` | tên thuốc, kèm hàm lượng/đường dùng/tần suất nếu có liền kề | `omeprazole 20 mg po daily`, `Medrol 16mg`, `*****` |
+
+TUYỆT ĐỐI KHÔNG viết tắt nhãn. Không dùng `TÊN_XN`, `TRIEU_CHUNG`, `CHAN_DOAN`,
+không bỏ dấu, không đổi dấu gạch dưới. Sai một ký tự là hỏng toàn bộ file.
+
+## 3 assertion hợp lệ
+
+| assertion | khi nào gán |
+|---|---|
+| `isNegated` | khái niệm bị PHỦ ĐỊNH (`không sốt`, `chưa ghi nhận đau ngực`, `âm tính với`) |
+| `isFamily` | khái niệm thuộc về NGƯỜI NHÀ, không phải bệnh nhân (`mẹ bị đái tháo đường`) |
+| `isHistorical` | khái niệm thuộc TIỀN SỬ / quá khứ, không phải tình trạng hiện tại |
+
+`assertions` là mảng, thường RỖNG. Chỉ gán khi văn bản nói rõ. Không đoán.
+Chỉ ba type `TRIỆU_CHỨNG`, `CHẨN_ĐOÁN`, `THUỐC` được có assertions;
+`TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` luôn có `assertions: []`.
+
+## candidates
+
+* `CHẨN_ĐOÁN` → mã ICD-10 (ví dụ `["K21.0"]`), tối đa 2 mã, `[]` nếu không chắc.
+* `THUỐC` → mã RxNorm RXCUI dạng chuỗi (ví dụ `["308135"]`), `[]` nếu không chắc.
+* Ba type còn lại → **LUÔN LUÔN** `[]`. Không có ngoại lệ.
+
+## QUY TẮC QUAN TRỌNG NHẤT: KHÔNG TRẢ VỀ VỊ TRÍ
+
+Trường `text` phải là **chuỗi con NGUYÊN VĂN** copy từ văn bản đầu vào — đúng
+từng ký tự, đúng hoa/thường, đúng dấu, không sửa chính tả, không chuẩn hóa,
+không diễn giải, không dịch. Hệ thống sẽ tự dò chuỗi này trong văn bản gốc để
+tính offset; nếu bạn viết lại dù chỉ một ký tự thì mention đó bị LOẠI BỎ.
+
+TUYỆT ĐỐI KHÔNG thêm trường `position`, `start`, `end` hay chỉ số ký tự nào.
+Bạn không thể đếm đúng offset (20% file dùng Unicode tổ hợp); code sẽ làm việc đó.
+
+## Thứ tự và lặp lại
+
+Liệt kê các mention theo ĐÚNG THỨ TỰ XUẤT HIỆN trong văn bản, từ trên xuống.
+Nếu một khái niệm xuất hiện nhiều lần, liệt kê nó nhiều lần — lần thứ n trong
+danh sách sẽ được gán cho lần xuất hiện thứ n trong văn bản.
+
+## Định dạng đầu ra
+
+CHỈ một mảng JSON, không markdown fence, không lời dẫn, không giải thích.
+Mỗi phần tử đúng 4 trường: `text`, `type`, `assertions`, `candidates`.
+
+
+## Ví dụ
+
+### Ví dụ 1 — đơn thuốc (trích từ ví dụ chính thức của đề bài)
+
+Đầu vào:
+```
+Thuốc dùng trước nhập viện:
+1. amlodipine 10 mg po daily
+2. aspirin 81 mg po daily
+8. docusate sodium 100 mg po bid điều trị táo bón
+```
+
+Đầu ra:
+```json
+[
+  {"text": "amlodipine 10 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["308135"]},
+  {"text": "aspirin 81 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["243670"]},
+  {"text": "docusate sodium 100 mg po bid", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "táo bón", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: span thuốc giữ trọn hàm lượng + đường dùng + tần suất, nhưng KHÔNG nuốt
+phần `điều trị táo bón` — đó là chỉ định, và `táo bón` là một mention riêng.
+
+### Ví dụ 2 — ghi chú lâm sàng có phủ định, tiền sử, người nhà
+
+Đầu vào:
+```
+Bệnh nhân sốt 39 độ, không khó thở. Tiền sử: viêm dạ dày.
+Mẹ bị đái tháo đường type 2. Glucose máu 8.5 mmol/L, HbA1c 7.2%.
+Siêu âm ổ bụng: chưa phát hiện bất thường.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "viêm dạ dày", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["K29.7"]},
+  {"text": "đái tháo đường type 2", "type": "CHẨN_ĐOÁN", "assertions": ["isFamily"], "candidates": ["E11"]},
+  {"text": "Glucose máu", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "8.5 mmol/L", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "HbA1c", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "7.2%", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Siêu âm ổ bụng", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "chưa phát hiện bất thường", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: `TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` có `candidates: []` và
+`assertions: []` — kể cả khi kết quả là âm tính. Phủ định của một *kết quả* nằm
+trong chính chuỗi kết quả, không phải trong assertion.
+
+### Ví dụ 3 — token bị che
+
+Đầu vào:
+```
+Bệnh nhân được điều trị bằng ***** 500mg mỗi 8 giờ.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "***** 500mg", "type": "THUỐC", "assertions": [], "candidates": []}
+]
+```
+
+Token bị che vẫn là một mention `THUỐC`; giữ nguyên dấu sao, `candidates` rỗng
+vì không có bằng chứng nào xác định được hoạt chất.
+
+
+## Văn bản cần annotate (file 17)
+
+Đây là toàn bộ nội dung file. Copy span NGUYÊN VĂN từ đây.
+
+<document>
+Câu hỏi từ người dùng:
+
+chào bác sĩ, em 28 tuổi, dạo này em đánh răng hay chảy máu chân răng, miệng thấy hơi thở mùi khó chịu, kèm theo thấy nhiều mảng bám quanh răng nữa, bác sĩ tư vấn giúp em với.
+
+Câu trả lời của bác sĩ:
+
+Chào bạn
+Vấn đề của bạn nói nguy hiểm hay không nguy hiểm thì còn tùy một số trường hợp, các nguy cơ có thể xảy ra như sau:
+Nguyên nhân:
+- Vệ sinh răng miệng kém: Đây được xem là nguyên nhân phổ biến gây ra chảy máu chân răng kèm hôi miệng. Nếu không vệ sinh răng miệng đúng cách sẽ tạo điều kiện cho vi khuẩn xâm nhập, gây tổn thương nướu và làm phát sinh mùi hôi.
+- Viêm quanh răng: Các mô bao quanh cuống răng bị viêm và sưng do nhiễm vi khuẩn, sang chấn răng. 
+- Viêm nha chu: Đây là dạng nhiễm trùng lợi nặng, các triệu chứng gồm đau khi nhai, răng lung lay, sưng nướu, dễ chảy máu răng, hôi miệng, có mủ. Viêm nha chu nếu để kéo dài, chân răng có thể bị hư hại dẫn đến tình trạng mất răng hoặc viêm khớp dạng thấp, các bệnh hô hấp, đột quỵ,...
+- Thiếu canxi và vitamin: Thiếu hụt canxi dễ gây loãng xương, sâu răng và có nguy cơ bị viêm nha chu. Hôi miệng và chảy máu chân răng còn có thể do cơ thể thiếu hụt vitamin K.
+- Tiểu đường: Hôi miệng và chảy máu chân răng là dấu hiệu của bệnh tiểu đường. Nguyên nhân là do cơ thể sẽ giảm sản xuất insulin nên người bị tiểu đường suy yếu hệ miễn dịch, dễ gặp phải các vấn đề về răng miệng. Tình trạng khó đông máu khiến chân răng chảy máu kéo dài do nồng độ đường trong máu cao.
+- Tác dụng phụ của thuốc: Sử dụng một số loại thuốc có thể gây hôi miệng kèm chảy máu chân răng. Các loại thuốc gồm: Kháng histamin H1, thuốc chống trầm cảm, thuốc lợi tiểu, thuốc kháng sinh, thuốc chống nôn,..
+-Hút thuốc lá: Thành phần trong thuốc lá gây hỏng men răng, gai lưỡi phát triển quá mức khiến vi khuẩn xâm nhập, gây hôi miệng, chảy máu chân răng và mất răng.
+    - bệnh mạch máu ngoại biên
+    - bệnh phổi tắc nghẽn mạn tính
+    - Ngưng thở khi ngủ do tắc nghẽn đang dùng BiPAP
+    - Ung thư biểu mô tế bào vảy xâm nhập của dương vậtbiệt hóa kém, sau cắt bao quy đầu với bờ diện cắt dương tính.
+    Tiền sử phẫu thuật / thủ thuật
+•	Uống trà gừng và mật ong để loại bỏ vi khuẩn gây hại, khử mùi hôi do viêm, làm dịu niêm mạc, giảm sưng đau
+•	Trà đinh hương giúp loại bỏ mùi hôi trong khoang miệng, ngăn ngừa chảy máu, giảm tình trạng chảy máu chân răng và hôi miệng.
+•	Thực hiện bào láng gốc răng để ngăn chặn quá trình tích tụ cao răng và hỗ trợ loại bỏ vi khuẩn gây viêm.
+•	Ghép mô mềm ở vòm họng vào vùng nướu bị ảnh hưởng để tái tạo mô và ổn định chân răng.
+Để đảm bảo sức khỏe răng miệng, bạn nên đi khám răng miệng để biết nguyên nhân chính xác nhé!
+
+
+</document>
+
+Trả về CHỈ mảng JSON các mention, theo thứ tự xuất hiện, không kèm `position`.

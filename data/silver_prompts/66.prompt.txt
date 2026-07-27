@@ -1,0 +1,150 @@
+Bạn là chuyên gia annotate khái niệm y khoa trong văn bản lâm sàng tiếng Việt tự do (ghi chú bác sĩ, giấy ra viện, kết quả xét nghiệm, hỏi đáp bệnh nhân).
+
+NHIỆM VỤ: đọc toàn bộ văn bản và liệt kê MỌI khái niệm y tế xuất hiện trong đó.
+
+## 5 nhãn hợp lệ — viết ĐẦY ĐỦ, CÓ DẤU, ĐÚNG TỪNG KÝ TỰ
+
+| type | nghĩa | ví dụ |
+|---|---|---|
+| `TRIỆU_CHỨNG` | dấu hiệu/triệu chứng bệnh nhân cảm thấy hoặc được mô tả | `sốt`, `khó thở`, `đau thượng vị`, `táo bón` |
+| `TÊN_XÉT_NGHIỆM` | TÊN của một xét nghiệm/thăm dò/thủ thuật chẩn đoán | `công thức máu`, `Glucose`, `siêu âm ổ bụng`, `nội soi dạ dày` |
+| `KẾT_QUẢ_XÉT_NGHIỆM` | GIÁ TRỊ hoặc kết luận của xét nghiệm | `5.6 mmol/L`, `âm tính`, `tăng nhẹ`, `HP (+)` |
+| `CHẨN_ĐOÁN` | tên bệnh / chẩn đoán xác định hoặc nghi ngờ | `viêm dạ dày`, `đái tháo đường type 2`, `Thiếu men G6PD` |
+| `THUỐC` | tên thuốc, kèm hàm lượng/đường dùng/tần suất nếu có liền kề | `omeprazole 20 mg po daily`, `Medrol 16mg`, `*****` |
+
+TUYỆT ĐỐI KHÔNG viết tắt nhãn. Không dùng `TÊN_XN`, `TRIEU_CHUNG`, `CHAN_DOAN`,
+không bỏ dấu, không đổi dấu gạch dưới. Sai một ký tự là hỏng toàn bộ file.
+
+## 3 assertion hợp lệ
+
+| assertion | khi nào gán |
+|---|---|
+| `isNegated` | khái niệm bị PHỦ ĐỊNH (`không sốt`, `chưa ghi nhận đau ngực`, `âm tính với`) |
+| `isFamily` | khái niệm thuộc về NGƯỜI NHÀ, không phải bệnh nhân (`mẹ bị đái tháo đường`) |
+| `isHistorical` | khái niệm thuộc TIỀN SỬ / quá khứ, không phải tình trạng hiện tại |
+
+`assertions` là mảng, thường RỖNG. Chỉ gán khi văn bản nói rõ. Không đoán.
+Chỉ ba type `TRIỆU_CHỨNG`, `CHẨN_ĐOÁN`, `THUỐC` được có assertions;
+`TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` luôn có `assertions: []`.
+
+## candidates
+
+* `CHẨN_ĐOÁN` → mã ICD-10 (ví dụ `["K21.0"]`), tối đa 2 mã, `[]` nếu không chắc.
+* `THUỐC` → mã RxNorm RXCUI dạng chuỗi (ví dụ `["308135"]`), `[]` nếu không chắc.
+* Ba type còn lại → **LUÔN LUÔN** `[]`. Không có ngoại lệ.
+
+## QUY TẮC QUAN TRỌNG NHẤT: KHÔNG TRẢ VỀ VỊ TRÍ
+
+Trường `text` phải là **chuỗi con NGUYÊN VĂN** copy từ văn bản đầu vào — đúng
+từng ký tự, đúng hoa/thường, đúng dấu, không sửa chính tả, không chuẩn hóa,
+không diễn giải, không dịch. Hệ thống sẽ tự dò chuỗi này trong văn bản gốc để
+tính offset; nếu bạn viết lại dù chỉ một ký tự thì mention đó bị LOẠI BỎ.
+
+TUYỆT ĐỐI KHÔNG thêm trường `position`, `start`, `end` hay chỉ số ký tự nào.
+Bạn không thể đếm đúng offset (20% file dùng Unicode tổ hợp); code sẽ làm việc đó.
+
+## Thứ tự và lặp lại
+
+Liệt kê các mention theo ĐÚNG THỨ TỰ XUẤT HIỆN trong văn bản, từ trên xuống.
+Nếu một khái niệm xuất hiện nhiều lần, liệt kê nó nhiều lần — lần thứ n trong
+danh sách sẽ được gán cho lần xuất hiện thứ n trong văn bản.
+
+## Định dạng đầu ra
+
+CHỈ một mảng JSON, không markdown fence, không lời dẫn, không giải thích.
+Mỗi phần tử đúng 4 trường: `text`, `type`, `assertions`, `candidates`.
+
+
+## Ví dụ
+
+### Ví dụ 1 — đơn thuốc (trích từ ví dụ chính thức của đề bài)
+
+Đầu vào:
+```
+Thuốc dùng trước nhập viện:
+1. amlodipine 10 mg po daily
+2. aspirin 81 mg po daily
+8. docusate sodium 100 mg po bid điều trị táo bón
+```
+
+Đầu ra:
+```json
+[
+  {"text": "amlodipine 10 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["308135"]},
+  {"text": "aspirin 81 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["243670"]},
+  {"text": "docusate sodium 100 mg po bid", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "táo bón", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: span thuốc giữ trọn hàm lượng + đường dùng + tần suất, nhưng KHÔNG nuốt
+phần `điều trị táo bón` — đó là chỉ định, và `táo bón` là một mention riêng.
+
+### Ví dụ 2 — ghi chú lâm sàng có phủ định, tiền sử, người nhà
+
+Đầu vào:
+```
+Bệnh nhân sốt 39 độ, không khó thở. Tiền sử: viêm dạ dày.
+Mẹ bị đái tháo đường type 2. Glucose máu 8.5 mmol/L, HbA1c 7.2%.
+Siêu âm ổ bụng: chưa phát hiện bất thường.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "viêm dạ dày", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["K29.7"]},
+  {"text": "đái tháo đường type 2", "type": "CHẨN_ĐOÁN", "assertions": ["isFamily"], "candidates": ["E11"]},
+  {"text": "Glucose máu", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "8.5 mmol/L", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "HbA1c", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "7.2%", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Siêu âm ổ bụng", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "chưa phát hiện bất thường", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: `TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` có `candidates: []` và
+`assertions: []` — kể cả khi kết quả là âm tính. Phủ định của một *kết quả* nằm
+trong chính chuỗi kết quả, không phải trong assertion.
+
+### Ví dụ 3 — token bị che
+
+Đầu vào:
+```
+Bệnh nhân được điều trị bằng ***** 500mg mỗi 8 giờ.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "***** 500mg", "type": "THUỐC", "assertions": [], "candidates": []}
+]
+```
+
+Token bị che vẫn là một mention `THUỐC`; giữ nguyên dấu sao, `candidates` rỗng
+vì không có bằng chứng nào xác định được hoạt chất.
+
+
+## Văn bản cần annotate (file 66)
+
+Đây là toàn bộ nội dung file. Copy span NGUYÊN VĂN từ đây.
+
+<document>
+Câu hỏi từ người dùng:
+Dạ e chào bác sĩ . Cho e hỏi những người mà có u lành về tuyến vú như u xơ tuyến vú hay u nang tuyến vú chẳng hạn .có thể bổ sung vitamin 3b b1 b6 b12 được ko ạ . E tìm thông tin trên mạng thì có đọc được nói rằng vitamin b12 làm kích thích khối u ung thư phát triển , 
+còn đối với khối u lành tính có ảnh hưởng ko bác . Em cảm ơn ạ
+Câu trả lời của bác sĩ
+Chào bạn! 
+Vitamin B12 là một vitamin rất cần thiết cho cơ thể. Cơ thể người không thể tự tổng hợp được chúng. Nhu cầu hàng ngày khuyến khích là 2mcg đối với nam, nưa trưởng thành; còn đối với phụ nữ có thai thì  và cho con bú thì khoảng 2,2mcg. 
+Những người dễ thiếu vitamin B12 bao gồm những người ăn chay trường diễn, viêm teo niêm mạc dạ dày, phẫu thuật cắt bỏ 1 phần hay toàn bộ dạ dày,.... Khi thiếu B12 sẽ rối loạn sản xuất máu ở tủy xương; các biểu hiện về thần kinh như dị cảm, 
+giảm cảm giác vị thế, khả năng trí óc giảm, hạ huyết áp tư thế đứng,.... Đối với bệnh nhân ung thư cũng được khuyên là không nên sử dụng B12. Đối với bệnh u nang tuyến vú, u xơ tuyến vú thì cũng chưa có nghiên cứu về việc sử dụng B12 có tăng nguy cơ 
+ung thư hay không. Tuy nhiên nếu u nang tuyến vú, u xơ tuyến vú thì việc bổ sung B12 cũng giúp bệnh nhân củng cố sức khỏe, giảm nguy cơ thiếu máu. Với u xơ tuyến vú, u nang tuyến vú thì những thực phẩm không nên sử dụng là: các sản phẩm chứa nội tiết Estrogen;
+- cúm âm tính
+Kết quả chẩn đoán hình ảnh: chụp x-quang ngực: Tăng gánh nhẹ tuần hoàn phổi, tràn dịch màng phổi hai bên nhẹ, tim to
+Với những trường hợp u xơ tuyến vú, u nang tuyến vú nên tự theo dõi tị nhà và  đi khám định kỳ theo hẹn của bác sỹ để theo dõi sự phát triển của khối u.
+Chúc bạn sức khỏe!
+</document>
+
+Trả về CHỈ mảng JSON các mention, theo thứ tự xuất hiện, không kèm `position`.

@@ -614,7 +614,46 @@ the model in §1.2, that class of change is score-neutral at best.
 
 ---
 
-## 6. Caveats on this document's own numbers
+## 5b. Leaderboard feedback, 27/07 — 21.5450 → 23.5314
+
+The v4.1 artifact (Phase 1 + Phase 2) scored **23.5314, +1.9864**. §5 predicted
++1 to +2 for that work. The prediction landed in band, which corroborates the
+*structure* of the §1.2 model — but read the following carefully, because it
+confirms less than it appears to.
+
+**What can be derived.** Only `candidates_score` changed, so
+`Δfinal = 0.4 · (newly correct codes) / D` with `D = G + P − M` and `P = 1585`.
+We changed exactly 144 drug mentions (plus ~2 from Phase 2), and `D ≥ P` because
+`G ≥ M`. Squeezing from both sides:
+
+| quantity | bound | meaning |
+|---|---|---|
+| newly-correct codes | **79 … 146** | of 144 emitted IN/BN codes, ≥55% were both matched to gold *and* exactly right |
+| `D` | **≤ 2,940** | hence **`G ≤ 2,940`** — a hard cap on gold size |
+
+The ≥55% hit rate is the **first real measurement of drug-linking quality** in
+this project — every prior number for that branch was an estimate.
+`G ≤ 2,940` is consistent with the 2,800 density extrapolation, so that
+extrapolation was not badly wrong.
+
+**What this does NOT confirm.** Phase 1 changed no spans at all — mention count
+stayed at 1,585. **The recall thesis remains untested.** Depending on the true
+`D`, recall sits somewhere in **37%–84%**:
+
+| matched `M` | D=1,732 | D=2,014 | D=2,400 | D=2,940 |
+|---:|---:|---:|---:|---:|
+| 800 | 84% | 65% | 50% | 37% |
+| 1,200 | 89% | 74% | 60% | 47% |
+
+That range is far too wide to act on. If recall is really 84%, Phase 3's neural
+provider is close to worthless and would mostly add false positives; if it is
+37%, it is worth more than everything else combined. **Only the gold dev set
+separates these**, which promotes §5 item #1 from "enabler" to "the single
+blocking measurement".
+
+**What this does confirm.** Abstaining on candidates genuinely cost points,
+exactly as `J(∅, G) = 0` predicts. The v3.3 doctrine that empty is safe was
+wrong, and correcting it is now paid for.
 
 - §1.2's recall/precision figures are **model-implied, not measured.** They depend
   on `G ≈ 2,800` (the PRD's density extrapolation) and on estimated `q_*` values.

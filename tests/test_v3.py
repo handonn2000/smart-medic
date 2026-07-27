@@ -356,6 +356,47 @@ class TestV3Pipeline(unittest.TestCase):
             resolve(("L50", "L50.8"), "mày đay không đặc hiệu"),
         )
 
+    def test_bare_diagnosis_prefers_unspecified_child_code(self):
+        """``suy thận cấp`` → N17.9, không phải N17.
+
+        Hiệu chuẩn trên data/dev_gold: đây là nhóm lỗi lớn nhất của nhánh
+        gazetteer (22/37). Nâng mã cha trần lên con ".9" đưa a₁ của đường này
+        từ 24/61 lên 37/61 với 0 hồi quy.
+        """
+        extractor = GazetteerExtractor(self.kb, contextual_ambiguity=True)
+        for phrase, code in (
+            ("suy thận cấp", "N17.9"),
+            ("bại não", "G80.9"),
+            ("loét tá tràng", "K26.9"),
+            ("suy tim", "I50.9"),
+        ):
+            with self.subTest(phrase=phrase):
+                raw = f"Bệnh nhân được chẩn đoán {phrase}."
+                got = [
+                    c for c in extractor.extract(build_textref(raw))
+                    if c.type is ConceptType.CHAN_DOAN and c.span.text == phrase
+                ]
+                self.assertEqual(1, len(got), f"không tìm thấy span {phrase!r}")
+                self.assertEqual((code,), got[0].codes)
+                # Mã phải luôn truy được về KB.
+                self.assertIn(f"icd:{code}", got[0].provenance.kb_rows)
+
+    def test_unspecified_promotion_never_invents_a_code(self):
+        """Chỉ nâng khi con ".9" THỰC SỰ có trong KB; không thì giữ nguyên."""
+        extractor = GazetteerExtractor(self.kb, contextual_ambiguity=True)
+        promoted = extractor._prefer_unspecified_child(("N17", "G80"))
+        self.assertEqual(("N17.9", "G80.9"), promoted)
+        # Mã đã là con thì không đụng tới — giữ hợp đồng K21 của BTC.
+        self.assertEqual(
+            ("K21.0", "K21.9"), extractor._prefer_unspecified_child(("K21.0", "K21.9"))
+        )
+        for code in extractor._prefer_unspecified_child(("N17", "G80", "K21.0")):
+            self.assertIn(code, self.kb.icd_concepts, f"{code} không có trong KB")
+        # Mã cha không có con .9 phải đi qua nguyên vẹn.
+        fake = "ZZ9"
+        self.assertNotIn(fake, extractor._has_unspecified_child)
+        self.assertEqual((fake,), extractor._prefer_unspecified_child((fake,)))
+
     def test_bare_drug_mentions_fall_back_to_exact_anchor(self):
         """A bare ingredient/brand links to its IN/BN, never to ()."""
         extractor = RxNormExtractor(self.kb)
@@ -638,16 +679,34 @@ class TestCandidateDecisionLayer(unittest.TestCase):
         return pipeline.run(build_textref("một mention"))[0]
 
     def test_abstention_floor_is_derived_from_a1(self):
-        self.assertAlmostEqual(2 / 3, PipelineConfig().min_type_confidence)
+        """Sàn = 1/(1+a₁) — khẳng định CÔNG THỨC, không phải giá trị a₁ đang dùng.
+
+        a₁ là số ĐO ĐƯỢC (hiệu chuẩn 27/07 trên data/dev_gold: 0.602) và sẽ đổi
+        khi đo lại trên gold tốt hơn. Khóa cứng 2/3 ở đây từng làm test đỏ chỉ vì
+        thay placeholder bằng số thật — đó là test sai trục.
+        """
+        default = PipelineConfig()
         self.assertAlmostEqual(
-            0.5, PipelineConfig(a1_top1_accuracy=1.0).min_type_confidence
+            1.0 / (1.0 + default.a1_top1_accuracy), default.min_type_confidence
+        )
+        for a1 in (0.0, 0.25, 0.5, 0.602, 1.0):
+            with self.subTest(a1=a1):
+                self.assertAlmostEqual(
+                    1.0 / (1.0 + a1),
+                    PipelineConfig(a1_top1_accuracy=a1).min_type_confidence,
+                )
+        # a₁ càng cao ⇒ đoán càng đáng giá ⇒ ngưỡng bỏ trống càng thấp.
+        self.assertLess(
+            PipelineConfig(a1_top1_accuracy=0.9).min_type_confidence,
+            PipelineConfig(a1_top1_accuracy=0.1).min_type_confidence,
         )
         # Sàn cứng chỉ siết chặt được, không nới ra.
         self.assertAlmostEqual(
             0.9, PipelineConfig(type_confidence_floor=0.9).min_type_confidence
         )
         self.assertAlmostEqual(
-            2 / 3, PipelineConfig(type_confidence_floor=0.1).min_type_confidence
+            default.min_type_confidence,
+            PipelineConfig(type_confidence_floor=0.1).min_type_confidence,
         )
 
     def test_low_retrieval_score_alone_never_abstains(self):

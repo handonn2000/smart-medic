@@ -1,0 +1,31 @@
+```json
+[
+  {"text": "************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "Bệnh bạch cầu dòng tủy mãn tính", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["C92.1"]},
+  {"text": "gleevec", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "Tăng huyết áp", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["I10"]},
+  {"text": "tăng lipid máu, không đặc hiệu", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["E78.5"]},
+  {"text": "Đái tháo đường típ 2", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["E11"]},
+  {"text": "hẹp ống sống", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["M48.0"]},
+  {"text": "Giả gout", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["M11.2"]},
+  {"text": "bệnh thận mạn, không đặc hiệu Giai đoạn 4", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["N18.4"]},
+  {"text": "tăng sản tuyến tiền liệt", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["N40"]},
+  {"text": "Nhiều lần ngã gần đây Ngã", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ảo giác", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "gleevec", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "Toàn trạng suy kiệt  kể từ khi xuất viện", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ảo giác dai dẳng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Lú lẫn ngày càng nặng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Cực kỳ yếu kể từ khi xuất viện", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ảo giác được vợ nhận thấy", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Lú lẫn ngày càng nặng được vợ nhận thấy", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "yếu cơ dẫn đến ngã hôm nay", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "toàn trạng suy kiệt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ảo giác", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Lú lẫn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "dị tật bẩm sinh", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "nipt", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "double test", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "siêu âm", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]
+```

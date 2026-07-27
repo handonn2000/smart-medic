@@ -1,0 +1,222 @@
+Bạn là chuyên gia annotate khái niệm y khoa trong văn bản lâm sàng tiếng Việt tự do (ghi chú bác sĩ, giấy ra viện, kết quả xét nghiệm, hỏi đáp bệnh nhân).
+
+NHIỆM VỤ: đọc toàn bộ văn bản và liệt kê MỌI khái niệm y tế xuất hiện trong đó.
+
+## 5 nhãn hợp lệ — viết ĐẦY ĐỦ, CÓ DẤU, ĐÚNG TỪNG KÝ TỰ
+
+| type | nghĩa | ví dụ |
+|---|---|---|
+| `TRIỆU_CHỨNG` | dấu hiệu/triệu chứng bệnh nhân cảm thấy hoặc được mô tả | `sốt`, `khó thở`, `đau thượng vị`, `táo bón` |
+| `TÊN_XÉT_NGHIỆM` | TÊN của một xét nghiệm/thăm dò/thủ thuật chẩn đoán | `công thức máu`, `Glucose`, `siêu âm ổ bụng`, `nội soi dạ dày` |
+| `KẾT_QUẢ_XÉT_NGHIỆM` | GIÁ TRỊ hoặc kết luận của xét nghiệm | `5.6 mmol/L`, `âm tính`, `tăng nhẹ`, `HP (+)` |
+| `CHẨN_ĐOÁN` | tên bệnh / chẩn đoán xác định hoặc nghi ngờ | `viêm dạ dày`, `đái tháo đường type 2`, `Thiếu men G6PD` |
+| `THUỐC` | tên thuốc, kèm hàm lượng/đường dùng/tần suất nếu có liền kề | `omeprazole 20 mg po daily`, `Medrol 16mg`, `*****` |
+
+TUYỆT ĐỐI KHÔNG viết tắt nhãn. Không dùng `TÊN_XN`, `TRIEU_CHUNG`, `CHAN_DOAN`,
+không bỏ dấu, không đổi dấu gạch dưới. Sai một ký tự là hỏng toàn bộ file.
+
+## 3 assertion hợp lệ
+
+| assertion | khi nào gán |
+|---|---|
+| `isNegated` | khái niệm bị PHỦ ĐỊNH (`không sốt`, `chưa ghi nhận đau ngực`, `âm tính với`) |
+| `isFamily` | khái niệm thuộc về NGƯỜI NHÀ, không phải bệnh nhân (`mẹ bị đái tháo đường`) |
+| `isHistorical` | khái niệm thuộc TIỀN SỬ / quá khứ, không phải tình trạng hiện tại |
+
+`assertions` là mảng, thường RỖNG. Chỉ gán khi văn bản nói rõ. Không đoán.
+Chỉ ba type `TRIỆU_CHỨNG`, `CHẨN_ĐOÁN`, `THUỐC` được có assertions;
+`TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` luôn có `assertions: []`.
+
+## candidates
+
+* `CHẨN_ĐOÁN` → mã ICD-10 (ví dụ `["K21.0"]`), tối đa 2 mã, `[]` nếu không chắc.
+* `THUỐC` → mã RxNorm RXCUI dạng chuỗi (ví dụ `["308135"]`), `[]` nếu không chắc.
+* Ba type còn lại → **LUÔN LUÔN** `[]`. Không có ngoại lệ.
+
+## QUY TẮC QUAN TRỌNG NHẤT: KHÔNG TRẢ VỀ VỊ TRÍ
+
+Trường `text` phải là **chuỗi con NGUYÊN VĂN** copy từ văn bản đầu vào — đúng
+từng ký tự, đúng hoa/thường, đúng dấu, không sửa chính tả, không chuẩn hóa,
+không diễn giải, không dịch. Hệ thống sẽ tự dò chuỗi này trong văn bản gốc để
+tính offset; nếu bạn viết lại dù chỉ một ký tự thì mention đó bị LOẠI BỎ.
+
+TUYỆT ĐỐI KHÔNG thêm trường `position`, `start`, `end` hay chỉ số ký tự nào.
+Bạn không thể đếm đúng offset (20% file dùng Unicode tổ hợp); code sẽ làm việc đó.
+
+## Thứ tự và lặp lại
+
+Liệt kê các mention theo ĐÚNG THỨ TỰ XUẤT HIỆN trong văn bản, từ trên xuống.
+Nếu một khái niệm xuất hiện nhiều lần, liệt kê nó nhiều lần — lần thứ n trong
+danh sách sẽ được gán cho lần xuất hiện thứ n trong văn bản.
+
+## Định dạng đầu ra
+
+CHỈ một mảng JSON, không markdown fence, không lời dẫn, không giải thích.
+Mỗi phần tử đúng 4 trường: `text`, `type`, `assertions`, `candidates`.
+
+
+## Ví dụ
+
+### Ví dụ 1 — đơn thuốc (trích từ ví dụ chính thức của đề bài)
+
+Đầu vào:
+```
+Thuốc dùng trước nhập viện:
+1. amlodipine 10 mg po daily
+2. aspirin 81 mg po daily
+8. docusate sodium 100 mg po bid điều trị táo bón
+```
+
+Đầu ra:
+```json
+[
+  {"text": "amlodipine 10 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["308135"]},
+  {"text": "aspirin 81 mg po daily", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["243670"]},
+  {"text": "docusate sodium 100 mg po bid", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "táo bón", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: span thuốc giữ trọn hàm lượng + đường dùng + tần suất, nhưng KHÔNG nuốt
+phần `điều trị táo bón` — đó là chỉ định, và `táo bón` là một mention riêng.
+
+### Ví dụ 2 — ghi chú lâm sàng có phủ định, tiền sử, người nhà
+
+Đầu vào:
+```
+Bệnh nhân sốt 39 độ, không khó thở. Tiền sử: viêm dạ dày.
+Mẹ bị đái tháo đường type 2. Glucose máu 8.5 mmol/L, HbA1c 7.2%.
+Siêu âm ổ bụng: chưa phát hiện bất thường.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "viêm dạ dày", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["K29.7"]},
+  {"text": "đái tháo đường type 2", "type": "CHẨN_ĐOÁN", "assertions": ["isFamily"], "candidates": ["E11"]},
+  {"text": "Glucose máu", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "8.5 mmol/L", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "HbA1c", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "7.2%", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Siêu âm ổ bụng", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "chưa phát hiện bất thường", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]
+```
+
+Lưu ý: `TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` có `candidates: []` và
+`assertions: []` — kể cả khi kết quả là âm tính. Phủ định của một *kết quả* nằm
+trong chính chuỗi kết quả, không phải trong assertion.
+
+### Ví dụ 3 — token bị che
+
+Đầu vào:
+```
+Bệnh nhân được điều trị bằng ***** 500mg mỗi 8 giờ.
+```
+
+Đầu ra:
+```json
+[
+  {"text": "***** 500mg", "type": "THUỐC", "assertions": [], "candidates": []}
+]
+```
+
+Token bị che vẫn là một mention `THUỐC`; giữ nguyên dấu sao, `candidates` rỗng
+vì không có bằng chứng nào xác định được hoạt chất.
+
+
+## Văn bản cần annotate (file 18)
+
+Đây là toàn bộ nội dung file. Copy span NGUYÊN VĂN từ đây.
+
+<document>
+Cận lâm sàng
+
+Điện tâm đồ (ECG)
+ • ST chênh lên / chênh xuống
+ • Sóng T đảo
+ • Q bệnh lý
+
+Men tim
+ • Troponin I/T ↑ (chẩn đoán nhồi máu)
+ • CK-MB ↑
+
+Siêu âm tim
+ • Rối loạn vận động vùng
+ • Đánh giá chức năng thất trái
+
+Nghiệm pháp gắng sức
+ • Phát hiện thiếu máu cơ tim khi gắng sức
+
+Chụp mạch vành (tiêu chuẩn vàng) 
+ • Xác định vị trí – mức độ hẹp
+ • Quyết định can thiệp
+
+Điều trị 
+
+Mục tiêu
+ • Giảm đau
+ • Ngăn nhồi máu
+ • Cải thiện tưới máu tim
+ • Giảm tử vong
+
+
+Điều trị nội khoa
+Thuốc nền tảng
+ • ******* / *********** 
+ • ******  (ổn định mảng xơ vữa)
+ • ********* 
+ • ************* 
+ • ***************** / ***
+
+
+Can thiệp – phẫu thuật
+Can thiệp mạch vành qua da (PCI)
+ • Nong bóng
+ • Đặt stent
+
+Phẫu thuật bắc cầu mạch vành (CABG)
+ • Khi tổn thương nhiều nhánh, nặng
+
+
+6. Dự phòng bệnh mạch vành 
+
+Dự phòng tiên phát (chưa mắc bệnh)
+
+Ăn ít mỡ bão hòa – ít muối
+    - Ban đầu xuất hiện đau bụng trên. sau đó nhập viện để khám và điều trị tại bệnh viện,  trong quá trình nằm viện ngày hôm qua bệnh nhân thấy  đỡ đau hơn. 
+    - Bệnh nhân Tự ý bỏ về từ  bệnh viện ngày hôm qua.
+    - Hôm nay, bệnh nhân có sốt nhẹ đến 38.3°C kèm theo đau hạ sườn phải tái phát, ngày càng nặng hơn.
+    - Được gọi lại nhập viện do có kết quả  cấy máu dương tính 
+    Triệu chứng hiện tại
+    - sốt
+    - đau bụng
+    - đau hạ sườn phải
+    - sốt nhẹ đến 38.3°C
+    - đau hạ sườn phải tái phát, ngày càng nặng hơn
+    - đau hạ sườn phải liên tục
+    Đặc điểm triệu chứng
+    - Vị trí: Vùng hạ sườn phải 
+    - Mức độ nghiêm trọng: ngày càng nặng hơn
+    - Tính chất: liên tục
+    - Triệu chứng liên quan: không thấy  buồn nôn, nôn, ớn lạnh, thay đổi chức năng ruột, đau ngực, khó thở.
+  Diễn biến  trước khi nhập viện
+    - Tự ý rời bệnh viện (AMA) ngày hôm qua sau khi cơn đau đỡ hơn ở  lần nhập viện trước.
+    - Được thực hiện siêu âm vùng gan mật tại phòng cấp cứu cho thấy túi mật căng to với dịch quanh túi mật gợi ý viêm túi mật cấp.
+3.  Đánh giá tại bệnh viện
+    Kết quả laboratory
+    - lipase là tăng lên ở mức 623 (lần nhập viện trước)
+    - tăng men gan nhẹ (lần nhập viện trước)
+    - tbr là cao tới 1.0 sau đó cải thiện (lần nhập viện trước)
+    - các xét nghiệm khác có xu hướng giảm (lần nhập viện trước)
+    - dương tính cấy máu khi tái khám với GPRs
+    Kết quả chẩn đoán hình ảnh
+    - siêu âm vùng gan mật cho thấy sỏi mật nhưng không có viêm túi mật hoặc sỏi ống mật (lần nhập viện trước)
+    - chụp ct bụng chậu là chưa phát hiện bất thường (lần nhập viện trước)
+    - siêu âm vùng gan mật hiện tại cho thấy túi mật căng to với dịch quanh túi mật gợi ý viêm túi mật cấp
+    Các phát hiện chẩn đoán khác: lo ngại viêm túi mật cấp
+</document>
+
+Trả về CHỈ mảng JSON các mention, theo thứ tự xuất hiện, không kèm `position`.

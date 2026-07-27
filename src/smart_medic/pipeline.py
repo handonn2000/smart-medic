@@ -186,18 +186,34 @@ class PipelineConfig:
     #: (xem :func:`select_candidate_set`) — đó là trục sai.
     candidate_threshold: float = 0.80
     #: ``q/(1−q)`` với ``q`` = P(gold thật sự liệt kê cả hai mã anh em).
-    #: 0.0 = chỉ nhận cặp hòa điểm tuyệt đối. PLACEHOLDER — con số này phải
-    #: được ước lượng trên data/dev_gold/ (đếm tỉ lệ gold có ≥2 mã), không
-    #: được chỉnh tay như hằng số 0.04 của v3.3.
+    #: 0.0 = chỉ nhận cặp hòa điểm tuyệt đối.
+    #:
+    #: HIỆU CHUẨN 27/07 trên data/dev_gold (20 file): 171/171 mention có mã đều
+    #: có ĐÚNG MỘT mã ⇒ q ≈ 0. Đo lại trên cả ba biến thể gold độc lập: 1/290.
+    #: NHƯNG cả bốn gold đều do LLM sinh từ cùng một prompt nên chia sẻ thiên
+    #: kiến, còn ví dụ chính thức của BTC (GERD → {K21.0, K21.9}) thì CÓ hai mã.
+    #: Giữ 0.0: cổng hiện tại đòi hòa điểm tuyệt đối VÀ hai mã là anh em ICD —
+    #: đúng hình dạng ví dụ BTC, và q≈0.003 vẫn đủ để E[J] chọn thêm mã khi
+    #: p₁−p₂ = 0. Không siết thêm khi bằng chứng chỉ là gold LLM.
     ambiguity_margin: float = 0.0
-    #: ``a₁`` = P(mã đầu bảng nằm trong gold). PLACEHOLDER — phải đo bằng
-    #: Recall@1 trên data/dev_gold/ (đang được dựng song song, chưa có trong
-    #: repo). 0.5 là giá trị trung lập lấy từ §1.5 của báo cáo v4, KHÔNG phải
-    #: số đã hiệu chuẩn. Nó chỉ vào công thức qua min_type_confidence.
-    a1_top1_accuracy: float = 0.5
+    #: ``a₁`` = P(mã đầu bảng nằm trong gold).
+    #:
+    #: HIỆU CHUẨN 27/07 trên data/dev_gold: 56/93 = 0.602 trên các cặp đã ghép
+    #: mà hai bên đều có mã. Phân rã theo link_path rất lệch:
+    #:     icd_contextual_rewrite  16/16 = 1.000
+    #:     rxnorm_anchor_exact     15/15 = 1.000   ← fallback IN/BN của Phase 1
+    #:     icd_lexical_retrieval    1/1  = 1.000
+    #:     gazetteer_exact         24/61 = 0.393   ← ĐƯỜNG "TIN CẬY NHẤT" LẠI TỆ NHẤT
+    #: 22/37 lỗi gazetteer là sai ĐỘ ĐẶC HIỆU: ta trả mã cha 3 ký tự (N17, G80,
+    #: K58, K26) còn gold muốn con ".9" không đặc hiệu (N17.9, G80.9, ...).
+    #: Xem docs/TODO-v4.md — đây là lỗi cơ học, không phải giới hạn model.
+    a1_top1_accuracy: float = 0.602
     #: Sàn cứng bổ sung cho ``p_t``, áp CHỒNG lên ngưỡng suy ra từ ``a₁``.
-    #: 0.0 = tin hoàn toàn vào công thức. PLACEHOLDER cùng lý do trên: khi có
-    #: gold, chỗ này là nơi ghi đè nếu p_t của provider bị lệch hiệu chuẩn.
+    #: 0.0 = tin hoàn toàn vào công thức (a₁=0.602 → ngưỡng 0.624).
+    #:
+    #: HIỆU CHUẨN 27/07: không cần sàn thêm. 40/40 span bị gắn cờ chương R mà
+    #: ghép được với gold đều được gold gọi là TRIỆU_CHỨNG — p_t thực đo bằng 0,
+    #: nằm sâu dưới ngưỡng 0.624, nên tiên nghiệm chương R đã tự bỏ trống đúng.
     type_confidence_floor: float = 0.0
     enable_negated: bool = True
     enable_historical: bool = True

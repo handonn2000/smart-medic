@@ -23,6 +23,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Iterable
 
+from .pipeline import PipelineConfig, select_candidate_set
 from .schema import MAPPABLE
 from .score import W_ASSERT, W_CAND, W_TEXT, score_file
 
@@ -66,24 +67,38 @@ def candidates_at_threshold(
     threshold: float,
     *,
     max_candidates: int = 2,
-    ambiguity_margin: float = 0.04,
+    ambiguity_margin: float = 0.0,
 ) -> list[str]:
-    provenance = record.get("_provenance", {})
-    path = provenance.get("link_path", "")
-    if "gazetteer_exact" in path:
-        return list(record.get("candidates", ()))[:max_candidates]
+    """Áp ĐÚNG chính sách của pipeline lên một bản ghi explain.
 
-    kept = [(code, score) for code, score in _candidate_scores(record) if score >= threshold]
-    if not kept:
-        return []
-    out = [kept[0][0]]
-    if (
-        max_candidates > 1
-        and len(kept) > 1
-        and kept[0][1] - kept[1][1] <= ambiguity_margin
-    ):
-        out.append(kept[1][0])
-    return out
+    Trước đây hàm này chép lại luật lọc bằng tay và đã lệch (nó chỉ biết
+    ``gazetteer_exact``, không biết ``rxnorm_anchor_exact`` thêm ở phase 1).
+    Giờ nó gọi thẳng :func:`smart_medic.pipeline.select_candidate_set`, nên mô
+    phỏng không thể lệch khỏi thứ đang chạy.
+
+    Lưu ý: ``threshold`` không còn quét được đường bỏ trống nữa — bỏ trống bây
+    giờ do ``p_t`` quyết định, không do điểm rerank. Sweep vì thế chỉ còn ảnh
+    hưởng tới mã thứ hai.
+    """
+    provenance = record.get("_provenance", {})
+    scores = {
+        key: float(value)
+        for key, value in provenance.get("scores", {}).items()
+    }
+    codes = [code for code, _ in _candidate_scores(record)]
+    if not codes:
+        codes = list(record.get("candidates", ()))
+    decision = select_candidate_set(
+        codes,
+        scores=scores,
+        link_path=provenance.get("link_path", ""),
+        type_confidence=float(provenance.get("type_confidence", 1.0)),
+        min_type_confidence=PipelineConfig().min_type_confidence,
+        max_candidates=max_candidates,
+        candidate_threshold=threshold,
+        ambiguity_margin=ambiguity_margin,
+    )
+    return list(decision.codes)
 
 
 def predictions_at_threshold(
@@ -91,7 +106,7 @@ def predictions_at_threshold(
     threshold: float,
     *,
     max_candidates: int = 2,
-    ambiguity_margin: float = 0.04,
+    ambiguity_margin: float = 0.0,
 ) -> dict[str, list[dict]]:
     predictions: dict[str, list[dict]] = {}
     for filename, records in explain.items():
@@ -186,7 +201,7 @@ def sweep(
     *,
     gold: dict[str, list[dict]] | None = None,
     max_candidates: int = 2,
-    ambiguity_margin: float = 0.04,
+    ambiguity_margin: float = 0.0,
     exact_accuracy: float = 0.92,
     empty_gold_rate: float = 0.20,
     text_score: float = 0.85,
@@ -232,7 +247,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--stop", type=float, default=0.95)
     parser.add_argument("--step", type=float, default=0.05)
     parser.add_argument("--max-candidates", type=int, default=2)
-    parser.add_argument("--ambiguity-margin", type=float, default=0.04)
+    parser.add_argument("--ambiguity-margin", type=float, default=0.0)
     parser.add_argument("--exact-accuracy", type=float, default=0.92)
     parser.add_argument("--empty-gold-rate", type=float, default=0.20)
     parser.add_argument("--text-score", type=float, default=0.85)

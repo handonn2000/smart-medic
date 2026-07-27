@@ -73,6 +73,16 @@ class Provenance:
     kb_rows: list[str] = field(default_factory=list)
     scores: dict[str, float] = field(default_factory=dict)
     evidence: dict[str, str] = field(default_factory=dict)
+    #: ``p_t`` = P(nhãn vàng của span này thuộc MAPPABLE), tức là P(gold có
+    #: candidates KHÔNG rỗng).  Đây là trục quyết định bỏ trống candidates —
+    #: KHÔNG phải điểm rerank.  Bỏ trống chỉ đúng khi gold cũng rỗng, mà gold
+    #: rỗng là chuyện của TYPE (TRIỆU_CHỨNG / TÊN_XÉT_NGHIỆM /
+    #: KẾT_QUẢ_XÉT_NGHIỆM), không phải chuyện retrieval chắc hay không.
+    #: Xem :func:`smart_medic.pipeline.select_candidate_set`.
+    #:
+    #: Mặc định 1.0 = "provider này khẳng định type"; provider nào có bằng
+    #: chứng ngược lại thì hạ xuống.
+    type_confidence: float = 1.0
 
 
 @dataclass

@@ -3,9 +3,13 @@
     Extract → Locate → TypeGate → Assert → Link → Filter → Emit
 
 Chính sách lỗi (system design §3.3): một file lỗi không được làm hỏng 99 file
-còn lại. Mỗi stage có giá trị mặc định an toàn — và điểm may mắn của bài này là
-"giá trị mặc định an toàn" TRÙNG với "giá trị điểm cao": metric quy ước J=1 khi
-cả gold lẫn pred đều rỗng, còn candidates rỗng an toàn hơn đoán bừa.
+còn lại. Mỗi stage có giá trị mặc định an toàn, và metric quy ước J=1 khi cả
+gold lẫn pred đều rỗng — nên hỏng thì trả rỗng vẫn nộp được.
+
+CẢNH BÁO, sửa từ v3.3: "candidates rỗng an toàn hơn đoán bừa" là SAI khi mention
+đã khớp và gold khác rỗng — lúc đó J(∅, G) = 0 tuyệt đối, còn một mã bất kỳ có
+kỳ vọng P(c ∈ G) ≥ 0. Rỗng chỉ an toàn khi gold cũng rỗng, mà điều đó do TYPE
+quyết định chứ không do retrieval. Xem :func:`select_candidate_set`.
 
 Trường hợp xấu nhất cho một file là ``[]`` — vẫn đúng schema, vẫn nộp được.
 """
@@ -13,7 +17,7 @@ Trường hợp xấu nhất cho một file là ``[]`` — vẫn đúng schema, 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Iterable
+from typing import Iterable, Mapping, Sequence
 
 from .kb.store import KnowledgeBase
 from .schema import ASSERTABLE, MAPPABLE, ConceptType, Mention, Provenance
@@ -22,18 +26,134 @@ from .stages.extract import Extractor
 from .textref import TextRef
 
 
+#: Link paths whose codes come from an exact, unambiguous KB alias rather than
+#: from ranked retrieval.  They carry no rerank score to threshold against, and
+#: thresholding them would silently discard the most reliable codes we have.
+EXACT_LINK_PATHS = ("gazetteer_exact", "rxnorm_anchor_exact")
+
+
+@dataclass(frozen=True)
+class CandidateDecision:
+    """Kết quả của tầng quyết định candidates cho MỘT mention."""
+
+    codes: tuple[str, ...]
+    #: True = dự đoán "gold cũng rỗng". Khác hẳn với "retrieval yếu nên bỏ".
+    abstained: bool = False
+    #: Số mã bị loại khi chọn kích thước tập (không phải do bỏ trống).
+    dropped: int = 0
+
+
+def _icd_siblings(a: str, b: str) -> bool:
+    """True khi hai mã là hai phân nhánh CÙNG cha (``K21.0`` / ``K21.9``).
+
+    Đây chính là hình dạng của ví dụ BTC tự đưa ra: một alias tiếng Việt, hai
+    con của cùng một mã cha, và văn bản không có gì để chọn giữa chúng — nên
+    gold liệt kê CẢ HAI.  Ngược lại ``I60`` / ``I60.8`` KHÔNG phải: cha và con
+    ruột của nó là lựa chọn về độ đặc hiệu, gold chỉ lấy một.
+
+    Mã RxNorm thuần số, không có dấu chấm → thuốc không bao giờ lọt cửa này.
+    """
+    if a == b or "." not in a or "." not in b:
+        return False
+    return a.split(".", 1)[0] == b.split(".", 1)[0]
+
+
+def select_candidate_set(
+    codes: Sequence[str],
+    *,
+    scores: Mapping[str, float],
+    link_path: str = "",
+    type_confidence: float = 1.0,
+    min_type_confidence: float = 0.0,
+    max_candidates: int = 2,
+    candidate_threshold: float = 0.0,
+    ambiguity_margin: float = 0.0,
+) -> CandidateDecision:
+    """Chọn tập candidates tối ưu kỳ vọng dưới độ đo Jaccard.
+
+    Hàm thuần (không sửa gì) để :mod:`smart_medic.metric_simulator` mô phỏng
+    ĐÚNG chính sách đang chạy chứ không phải một bản sao đã lệch.
+
+    **1. Khi nào bỏ trống.** Với một mention khớp và gold ``G`` khác rỗng::
+
+        J(∅, G)   = |∅ ∩ G| / |∅ ∪ G| = 0        — luôn luôn đúng bằng 0
+        E[J({c})] = P(c ∈ G)                     — luôn ≥ 0
+
+    Nên bỏ trống bị *weakly dominated* bởi mọi phỏng đoán, MIỄN LÀ gold khác
+    rỗng.  Bỏ trống chỉ có lãi khi gold cũng rỗng — tức khi TYPE sai (gold gọi
+    span này là TRIỆU_CHỨNG, mà TRIỆU_CHỨNG bắt buộc candidates rỗng), chứ
+    không phải khi retrieval không chắc.  Đặt ``p_t`` = P(type gold thuộc
+    MAPPABLE) và ``a₁`` = P(mã đầu bảng đúng)::
+
+        emit  ⟺  p_t·a₁ > 1 − p_t  ⟺  p_t > 1/(1 + a₁)
+
+    ``min_type_confidence`` chính là vế phải đó (xem
+    :attr:`PipelineConfig.min_type_confidence`).
+
+    **2. Kích thước tập.** Với gold đơn phần tử và xác suất đã hiệu chuẩn
+    ``p₁ ≥ p₂ ≥ …``, ``E[J(top-k)] = (Σᵢ≤ₖ pᵢ)/k`` đạt cực đại tại ``k = 1``
+    LUÔN LUÔN — vì ``(p₁+p₂)/2 > p₁`` đòi ``p₂ > p₁``, vô lý.  Mã thứ hai chỉ
+    có lãi khi CHÍNH GOLD có thể có hai mã.  Gọi ``q`` = P(gold = {c₁, c₂})::
+
+        E[J({c₁})]    = q·½ + (1−q)·p₁'
+        E[J({c₁,c₂})] = q·1 + (1−q)·(p₁' + p₂')/2
+        thêm mã 2  ⟺  q/(1−q) > p₁' − p₂'
+
+    Điều kiện phụ thuộc ``q``, KHÔNG phụ thuộc khoảng cách điểm rerank.  Ta chỉ
+    có hai nguồn bằng chứng thật cho ``q > 0``:
+
+    * điểm hai mã BẰNG NHAU (``p₁' − p₂' = 0``) — không có gì phân biệt chúng,
+      nên bất kỳ ``q > 0`` nào cũng làm vế trái thắng; và
+    * hai mã là anh em cùng cha trong ICD — đúng hình dạng ví dụ K21.0/K21.9
+      mà BTC đã chấm là gold hai mã.
+
+    ``ambiguity_margin`` bây giờ MANG NGHĨA ``q/(1−q)``, mặc định 0.0 = đòi hòa
+    điểm tuyệt đối.  Nó không còn là hằng số chỉnh tay 0.04 nữa.
+
+    **3. Điểm rerank** chỉ còn dùng để XẾP HẠNG và để chặn mã thứ hai; nó không
+    bao giờ gây bỏ trống nữa, vì đó là trục sai.
+    """
+    if not codes:
+        return CandidateDecision(())
+    if type_confidence < min_type_confidence:
+        return CandidateDecision((), abstained=True)
+
+    exact = any(path in link_path for path in EXACT_LINK_PATHS)
+    default = scores.get("confidence", 0.0)
+    # sorted() ổn định → mã hòa điểm giữ nguyên thứ tự KB ⇒ tất định.
+    ranked = sorted(
+        ((code, scores.get(f"code:{code}", default)) for code in codes),
+        key=lambda item: -item[1],
+    )
+
+    out = [ranked[0][0]]
+    if max_candidates > 1 and len(ranked) > 1:
+        (top, top_score), (second, second_score) = ranked[0], ranked[1]
+        if (
+            top_score - second_score <= ambiguity_margin
+            and _icd_siblings(top, second)
+            and (exact or second_score >= candidate_threshold)
+        ):
+            out.append(second)
+    return CandidateDecision(tuple(out), dropped=len(codes) - len(out))
+
+
 @dataclass
 class RunStats:
     files: int = 0
     mentions: int = 0
     dropped_invariant: int = 0
     dropped_overlap: int = 0
+    #: Mã bị loại khi chọn KÍCH THƯỚC tập (đuôi danh sách rerank).
     dropped_threshold: int = 0
+    #: Mã bị bỏ vì p_t thấp — tức ta dự đoán gold cũng rỗng.
+    dropped_type_confidence: int = 0
     by_type: dict[str, int] = field(default_factory=dict)
     by_assertion: dict[str, int] = field(default_factory=dict)
     by_link_path: dict[str, int] = field(default_factory=dict)
     with_candidates: int = 0
     errors: list[str] = field(default_factory=list)
+
 
     def recount(self, mention_sets: Iterable[list[Mention]], *, files: int) -> None:
         """Recount final mentions after deterministic batch post-processing."""
@@ -62,8 +182,23 @@ class RunStats:
 @dataclass
 class PipelineConfig:
     max_candidates: int = 2
+    #: Điểm rerank tối thiểu cho MÃ THỨ HAI. Không còn gây bỏ trống candidates
+    #: (xem :func:`select_candidate_set`) — đó là trục sai.
     candidate_threshold: float = 0.80
-    ambiguity_margin: float = 0.04
+    #: ``q/(1−q)`` với ``q`` = P(gold thật sự liệt kê cả hai mã anh em).
+    #: 0.0 = chỉ nhận cặp hòa điểm tuyệt đối. PLACEHOLDER — con số này phải
+    #: được ước lượng trên data/dev_gold/ (đếm tỉ lệ gold có ≥2 mã), không
+    #: được chỉnh tay như hằng số 0.04 của v3.3.
+    ambiguity_margin: float = 0.0
+    #: ``a₁`` = P(mã đầu bảng nằm trong gold). PLACEHOLDER — phải đo bằng
+    #: Recall@1 trên data/dev_gold/ (đang được dựng song song, chưa có trong
+    #: repo). 0.5 là giá trị trung lập lấy từ §1.5 của báo cáo v4, KHÔNG phải
+    #: số đã hiệu chuẩn. Nó chỉ vào công thức qua min_type_confidence.
+    a1_top1_accuracy: float = 0.5
+    #: Sàn cứng bổ sung cho ``p_t``, áp CHỒNG lên ngưỡng suy ra từ ``a₁``.
+    #: 0.0 = tin hoàn toàn vào công thức. PLACEHOLDER cùng lý do trên: khi có
+    #: gold, chỗ này là nơi ghi đè nếu p_t của provider bị lệch hiệu chuẩn.
+    type_confidence_floor: float = 0.0
     enable_negated: bool = True
     enable_historical: bool = True
     enable_family: bool = False
@@ -77,6 +212,17 @@ class PipelineConfig:
             raise ValueError(
                 "rxnorm_output_mode phải là current, legacy hoặc both"
             )
+        if not 0.0 <= self.a1_top1_accuracy <= 1.0:
+            raise ValueError("a1_top1_accuracy phải nằm trong [0, 1]")
+
+    @property
+    def min_type_confidence(self) -> float:
+        """``1/(1 + a₁)`` — ngưỡng ``p_t`` để phát mã thay vì bỏ trống.
+
+        Suy ra trực tiếp từ ``p_t·a₁ > 1 − p_t``; với ``a₁ = 0.5`` là 0.667.
+        ``type_confidence_floor`` chỉ có thể siết chặt thêm, không nới ra.
+        """
+        return max(self.type_confidence_floor, 1.0 / (1.0 + self.a1_top1_accuracy))
 
 
 class Pipeline:
@@ -114,7 +260,7 @@ class Pipeline:
 
             # ── TypeGate: chỉ CHẨN_ĐOÁN và THUỐC được giữ candidates ──
             codes = tuple(c.codes) if c.type in MAPPABLE else ()
-            codes = self._filter_codes(codes, c.provenance, st)
+            codes = self._select_candidates(codes, c.provenance, st)
             codes = self._apply_remap(codes, c.type, c.provenance)
 
             flags, evidence = (frozenset(), {})
@@ -147,37 +293,36 @@ class Pipeline:
                 st.by_assertion[a.value] = st.by_assertion.get(a.value, 0) + 1
         return mentions
 
-    def _filter_codes(self, codes, provenance, stats: RunStats) -> tuple[str, ...]:
-        """Apply the v2 precision threshold to non-exact link paths.
+    def _select_candidates(
+        self, codes, provenance: Provenance, stats: RunStats
+    ) -> tuple[str, ...]:
+        """Tầng quyết định candidates — bọc :func:`select_candidate_set`.
 
-        Exact gazetteer hits are the regression anchor and bypass the threshold.
-        Retrieved codes carry per-code rerank scores in provenance.  A second
-        code is retained only when it is genuinely close to the first.
+        Ở đây chỉ có kế toán: hàm quyết định thật là hàm thuần phía trên, để
+        metric_simulator dùng chung đúng một chính sách.  Bỏ trống được ghi
+        RIÊNG (``dropped_type_confidence``) khỏi cắt đuôi danh sách
+        (``dropped_threshold``) — hai chuyện khác hẳn nhau và trước đây bị gộp
+        vào một con số khiến báo cáo "24 mã bị ngưỡng loại" bị đọc nhầm thành
+        24 mention đã bỏ trống.
         """
         if not codes:
             return ()
-        if "gazetteer_exact" in provenance.link_path:
-            return tuple(codes[: self.cfg.max_candidates])
-
-        scored = [
-            (code, provenance.scores.get(f"code:{code}", provenance.scores.get("confidence", 0.0)))
-            for code in codes
-        ]
-        kept = [(code, score) for code, score in scored if score >= self.cfg.candidate_threshold]
-        if not kept:
-            stats.dropped_threshold += len(codes)
-            provenance.link_path += "|dropped_threshold"
+        decision = select_candidate_set(
+            codes,
+            scores=provenance.scores,
+            link_path=provenance.link_path,
+            type_confidence=provenance.type_confidence,
+            min_type_confidence=self.cfg.min_type_confidence,
+            max_candidates=self.cfg.max_candidates,
+            candidate_threshold=self.cfg.candidate_threshold,
+            ambiguity_margin=self.cfg.ambiguity_margin,
+        )
+        if decision.abstained:
+            stats.dropped_type_confidence += len(codes)
+            provenance.link_path += "|abstained_low_type_confidence"
             return ()
-
-        out = [kept[0][0]]
-        if (
-            self.cfg.max_candidates > 1
-            and len(kept) > 1
-            and kept[0][1] - kept[1][1] <= self.cfg.ambiguity_margin
-        ):
-            out.append(kept[1][0])
-        stats.dropped_threshold += len(codes) - len(out)
-        return tuple(out)
+        stats.dropped_threshold += decision.dropped
+        return decision.codes
 
     def _apply_remap(
         self, codes: tuple[str, ...], ctype: ConceptType, provenance: Provenance

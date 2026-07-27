@@ -124,7 +124,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--candidate-threshold", type=float, default=0.80)
     ap.add_argument("--retrieval-threshold", type=float, default=0.80)
     ap.add_argument("--drug-threshold", type=float, default=0.84)
-    ap.add_argument("--ambiguity-margin", type=float, default=0.04)
+    ap.add_argument("--ambiguity-margin", type=float, default=0.0,
+                    help="q/(1-q): P(gold thật sự có 2 mã anh em). PLACEHOLDER")
+    ap.add_argument("--a1-top1-accuracy", type=float, default=0.5,
+                    help="a₁ = P(mã đầu bảng đúng). PLACEHOLDER, chờ dev gold")
+    ap.add_argument("--type-confidence-floor", type=float, default=0.0,
+                    help="sàn cứng thêm cho p_t, chồng lên 1/(1+a₁)")
     ap.add_argument("--rxnorm-output-mode", default="current",
                     choices=["current", "legacy", "both"])
     ap.add_argument("--keep-risk-short", action="store_true",
@@ -148,6 +153,8 @@ def main(argv: list[str] | None = None) -> int:
         max_candidates=args.max_candidates,
         candidate_threshold=args.candidate_threshold,
         ambiguity_margin=args.ambiguity_margin,
+        a1_top1_accuracy=args.a1_top1_accuracy,
+        type_confidence_floor=args.type_confidence_floor,
         enable_negated=not args.no_assertions,
         enable_historical=not args.no_assertions,
         enable_family=False,
@@ -259,6 +266,9 @@ def main(argv: list[str] | None = None) -> int:
             "retrieval_threshold": args.retrieval_threshold,
             "drug_threshold": args.drug_threshold,
             "ambiguity_margin": cfg.ambiguity_margin,
+            "a1_top1_accuracy": cfg.a1_top1_accuracy,
+            "type_confidence_floor": cfg.type_confidence_floor,
+            "min_type_confidence": cfg.min_type_confidence,
             "enable_negated": cfg.enable_negated,
             "enable_historical": cfg.enable_historical,
             "enable_family": cfg.enable_family,
@@ -284,6 +294,7 @@ def main(argv: list[str] | None = None) -> int:
         "dropped_invariant": stats.dropped_invariant,
         "dropped_overlap": stats.dropped_overlap,
         "dropped_threshold": stats.dropped_threshold,
+        "dropped_type_confidence": stats.dropped_type_confidence,
         "batch_mask_resolution": asdict(batch_resolution),
         "by_link_path": stats.by_link_path,
         "schema_errors": len(schema_errors),
@@ -299,7 +310,8 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  theo assertion : {stats.by_assertion or '{}'}")
     print(f"  loại (bất biến): {stats.dropped_invariant} · "
           f"(chồng lấn): {stats.dropped_overlap} · "
-          f"(ngưỡng): {stats.dropped_threshold}")
+          f"(cắt tập): {stats.dropped_threshold} · "
+          f"(p_t thấp): {stats.dropped_type_confidence}")
     if args.extractor == "v3" and not args.no_batch_mask_resolution:
         print(
             "  mask liên VB   : "

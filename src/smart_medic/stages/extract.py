@@ -22,6 +22,20 @@ from ..schema import ConceptType, Provenance, Span
 from ..textref import TextRef
 
 
+#: ``p_t`` khi mã ICD khớp tốt nhất nằm ở chương R ("triệu chứng, dấu hiệu và
+#: phát hiện bất thường").  Đo được: 27% mention khớp tên ICD nguyên văn rơi vào
+#: chương R (khó thở→R06.0, đau đầu→R51).  Một span rơi vào đó là BẰNG CHỨNG
+#: người gán nhãn gọi nó là TRIỆU_CHỨNG — mà TRIỆU_CHỨNG bắt buộc candidates
+#: rỗng.  Trước đây cờ này bị dùng như blocklist (bỏ thẳng mention); giờ nó là
+#: tiên nghiệm về TYPE, nên việc bỏ trống candidates xảy ra vì ĐÚNG LÝ DO.
+#:
+#: PLACEHOLDER — 0.15 chưa được hiệu chuẩn. Ước lượng thật là tỉ lệ span khớp
+#: chương R mà gold vẫn gán CHẨN_ĐOÁN, đo trên data/dev_gold/ (đang dựng song
+#: song, chưa có trong repo). Chỉ cần nó < PipelineConfig.min_type_confidence
+#: là chính sách hiện tại không đổi.
+SYMPTOM_CHAPTER_TYPE_CONFIDENCE = 0.15
+
+
 @dataclass
 class Candidate:
     """Một khái niệm ứng viên do Extractor đề xuất, ĐÃ định vị."""
@@ -152,7 +166,11 @@ class GazetteerExtractor:
             )
 
             if m.is_symptom_chapter:
-                # Chương R → triệu chứng. KHÔNG gán mã: schema cấm.
+                # Chương R → triệu chứng. KHÔNG gán mã: schema cấm. Ghi luôn
+                # p_t để tầng quyết định của pipeline nhìn thấy CÙNG bằng chứng
+                # ấy dưới dạng số, thay vì tin vào một type gate câm.
+                prov.type_confidence = SYMPTOM_CHAPTER_TYPE_CONFIDENCE
+                prov.evidence["type_prior"] = "icd_chapter_r"
                 out.append(Candidate(span, ConceptType.TRIEU_CHUNG, (), prov))
             else:
                 codes = m.codes
@@ -284,9 +302,6 @@ class IcdCueExtractor:
                 continue
             if top.score < self.threshold:
                 continue
-            concept = self.kb.icd_concepts.get(top.code, {})
-            if int(concept.get("is_symptom_chapter", 0)):
-                continue
 
             ns, ne = tail_start, tail_start + phrase_end
             out.append(self._make_candidate(tref, ns, ne, ranked))
@@ -295,25 +310,24 @@ class IcdCueExtractor:
             unique.setdefault((candidate.span.start, candidate.span.end), candidate)
         return sorted(unique.values(), key=lambda candidate: candidate.span.start)
 
+    def _is_symptom_chapter(self, code: str) -> bool:
+        return bool(int(self.kb.icd_concepts.get(code, {}).get("is_symptom_chapter", 0)))
+
     def _make_direct_candidate(
         self, tref: TextRef, ns: int, ne: int, code: str
     ) -> Candidate:
         rs, re_ = tref.to_raw(ns, ne)
         span = Span(rs, re_, tref.raw[rs:re_])
         confidence = 0.96
-        return Candidate(
-            span=span,
-            type=ConceptType.CHAN_DOAN,
-            codes=(code,),
-            provenance=Provenance(
-                extractor=self.name,
-                locate_method="contextual_phrase_rewrite",
-                link_path="icd_contextual_rewrite",
-                kb_rows=[f"icd:{code}"],
-                scores={"confidence": confidence, f"code:{code}": confidence},
-                evidence={"normalized_surface": tref.norm[ns:ne]},
-            ),
+        prov = Provenance(
+            extractor=self.name,
+            locate_method="contextual_phrase_rewrite",
+            link_path="icd_contextual_rewrite",
+            kb_rows=[f"icd:{code}"],
+            scores={"confidence": confidence, f"code:{code}": confidence},
+            evidence={"normalized_surface": tref.norm[ns:ne]},
         )
+        return self._typed_candidate(span, (code,), prov, code)
 
     def _make_candidate(self, tref: TextRef, ns: int, ne: int, ranked) -> Candidate:
         rs, re_ = tref.to_raw(ns, ne)
@@ -328,16 +342,38 @@ class IcdCueExtractor:
             scores={"confidence": top.score, **code_scores},
             evidence={"best_alias": top.alias},
         )
-        return Candidate(
-            span=span,
-            type=ConceptType.CHAN_DOAN,
-            codes=tuple(r.code for r in ranked),
-            provenance=prov,
+        return self._typed_candidate(
+            span, tuple(r.code for r in ranked), prov, top.code
         )
+
+    def _typed_candidate(
+        self, span: Span, codes: tuple[str, ...], prov: Provenance, best_code: str
+    ) -> Candidate:
+        """Quyết định TYPE bằng tiên nghiệm chương ICD, rồi ghi ``p_t``.
+
+        Trước đây khớp chương R bị ``continue`` — mất luôn cả mention, tức là
+        đánh đổi recall để tránh một mã sai.  Nhưng chương R không nói "đừng
+        gán mã", nó nói "type gold nhiều khả năng là TRIỆU_CHỨNG".  Nên: giữ
+        mention, đổi type theo argmax, và hạ ``p_t`` xuống dưới ngưỡng để tầng
+        quyết định bỏ trống candidates VÌ ĐÚNG LÝ DO chứ không vì điểm rerank.
+        """
+        if not self._is_symptom_chapter(best_code):
+            return Candidate(span, ConceptType.CHAN_DOAN, codes, prov)
+        prov.type_confidence = SYMPTOM_CHAPTER_TYPE_CONFIDENCE
+        prov.link_path = f"{prov.link_path}|symptom_chapter_prior"
+        prov.evidence["type_prior"] = "icd_chapter_r"
+        # kb_rows giữ nguyên để vẫn truy nguyên được quyết định này.
+        return Candidate(span, ConceptType.TRIEU_CHUNG, (), prov)
 
 
 class RxNormExtractor:
-    """Conservative drug NER + SCD/SBD reranking + masked-token resolver."""
+    """Conservative drug NER + SCD/SBD reranking + masked-token resolver.
+
+    ``p_t`` giữ mặc định 1.0: một anchor RxNorm khớp nguyên văn TRONG ngữ cảnh
+    dùng thuốc là bằng chứng trực tiếp rằng type gold là THUỐC — nhánh này
+    không có chương R để nghi ngờ. Nên với thuốc, tầng quyết định không bao giờ
+    bỏ trống; nó chỉ chọn kích thước tập.
+    """
 
     name = "rxnorm_v3_2"
 
@@ -818,9 +854,48 @@ class RxNormExtractor:
             out.append(Candidate(span, ConceptType.THUOC, codes, prov))
         return out
 
+    def _apply_anchor_fallback(self, plain: list[Candidate]) -> None:
+        """Emit the ingredient/brand RXCUI when no product code was found.
+
+        The v2/v3 policy targeted TTY=SCD because 5/6 codes in the official
+        examples are SCD.  But every one of those examples is a *full regimen*
+        (``amlodipine 10 mg po daily``).  A bare ``omeprazole`` carries neither
+        strength nor dose form, so it cannot have an SCD gold code at all — the
+        plausible gold is the ingredient.  Returning ``()`` there is not
+        caution, it is the one choice that scores zero for certain: Jaccard of
+        an empty prediction against a non-empty gold is 0 by definition, while
+        any single code has expected value ``P(correct) >= 0``.
+
+        The anchor is an exact, unambiguous KB alias — all 27,242 anchor
+        aliases resolve to exactly one RXCUI — so this carries the same
+        epistemic weight as ``gazetteer_exact`` and bypasses the retrieval
+        threshold for the same reason.
+
+        MUST run after :meth:`_scan_masked`: masked-token coreference reads
+        ``codes`` off the plaintext mentions to infer what a ``*****`` hides,
+        and only a *product* match is evidence for that.  An ingredient
+        fallback would make every drug mention look like a coreference anchor.
+        """
+        for candidate in plain:
+            if candidate.codes:
+                continue
+            anchor = candidate.provenance.evidence.get("anchor")
+            row = self._anchor_rows.get(anchor) if anchor else None
+            if row is None:
+                continue
+            rxcui = row["rxcui"]
+            candidate.codes = (rxcui,)
+            candidate.provenance.link_path = "rxnorm_anchor_exact"
+            candidate.provenance.scores["confidence"] = 1.0
+            candidate.provenance.scores[f"code:{rxcui}"] = 1.0
+            candidate.provenance.evidence["anchor_tty"] = row.get("tty", "")
+
     def extract(self, tref: TextRef) -> list[Candidate]:
         plain = self._scan_plain(tref)
-        return plain + self._scan_contextual_analytes(tref) + self._scan_masked(tref, plain)
+        analytes = self._scan_contextual_analytes(tref)
+        masked = self._scan_masked(tref, plain)
+        self._apply_anchor_fallback(plain)
+        return plain + analytes + masked
 
 
 class CompositeExtractor:

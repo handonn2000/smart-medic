@@ -14,7 +14,11 @@ sys.path.insert(0, str(ROOT / "src"))
 from smart_medic.batch import CrossDocumentMaskResolver  # noqa: E402
 from smart_medic.kb.store import load_kb  # noqa: E402
 from smart_medic.normalize import norm_text  # noqa: E402
-from smart_medic.pipeline import Pipeline, PipelineConfig  # noqa: E402
+from smart_medic.pipeline import (  # noqa: E402
+    Pipeline,
+    PipelineConfig,
+    select_candidate_set,
+)
 from smart_medic.retrieval import IcdRetriever  # noqa: E402
 from smart_medic.schema import (  # noqa: E402
     Assertion,
@@ -27,6 +31,7 @@ from smart_medic.score import score_file  # noqa: E402
 from smart_medic.stages.assertion import AssertionTagger  # noqa: E402
 from smart_medic.stages.clinical import ClinicalSymptomExtractor  # noqa: E402
 from smart_medic.stages.extract import (  # noqa: E402
+    SYMPTOM_CHAPTER_TYPE_CONFIDENCE,
     Candidate,
     CompositeExtractor,
     GazetteerExtractor,
@@ -351,6 +356,47 @@ class TestV3Pipeline(unittest.TestCase):
             resolve(("L50", "L50.8"), "mày đay không đặc hiệu"),
         )
 
+    def test_bare_drug_mentions_fall_back_to_exact_anchor(self):
+        """A bare ingredient/brand links to its IN/BN, never to ()."""
+        extractor = RxNormExtractor(self.kb)
+        for text, code, tty in (
+            ("Bệnh nhân uống omeprazole mỗi sáng.", "7646", "IN"),
+            ("Được cho tylenol khi sốt.", "202433", "BN"),
+            ("Dùng thuốc doxycycline.", "3640", "IN"),
+        ):
+            with self.subTest(mention=text):
+                candidates = [
+                    c for c in extractor.extract(build_textref(text)) if c.type is ConceptType.THUOC
+                ]
+                self.assertEqual(1, len(candidates))
+                self.assertEqual((code,), candidates[0].codes)
+                self.assertEqual(tty, candidates[0].provenance.evidence["anchor_tty"])
+                # Every emitted code must still trace back to a KB row.
+                self.assertIn(f"rx-anchor:{code}", candidates[0].provenance.kb_rows)
+
+    def test_anchor_fallback_bypasses_the_retrieval_threshold(self):
+        """The fallback survives the pipeline filter, like gazetteer_exact."""
+        raw = "Bệnh nhân uống omeprazole mỗi sáng."
+        extractor = RxNormExtractor(self.kb)
+        pipe = Pipeline(self.kb, extractor, PipelineConfig(candidate_threshold=0.99))
+        drugs = [m for m in pipe.run(build_textref(raw)) if m.type is ConceptType.THUOC]
+        self.assertEqual([("7646",)], [m.candidates for m in drugs])
+
+    def test_analytes_never_gain_a_fallback_code(self):
+        """The fallback must not turn lab analytes into drugs."""
+        raw = "Xét nghiệm: glucose 5.6 mmol/L, creatinine 88 umol/L, albumin 40 g/L."
+        candidates = RxNormExtractor(self.kb).extract(build_textref(raw))
+        self.assertEqual([], [c.span.text for c in candidates])
+
+    def test_masked_token_still_abstains_under_the_fallback(self):
+        """A ``*****`` has no anchor, so there is nothing to fall back to."""
+        candidates = RxNormExtractor(self.kb).extract(
+            build_textref("Bệnh nhân uống ***** mỗi tối.")
+        )
+        self.assertEqual(1, len(candidates))
+        self.assertEqual((), candidates[0].codes)
+        self.assertEqual("masked_unresolved", candidates[0].provenance.link_path)
+
     def test_three_character_mask_is_not_lost(self):
         candidates = RxNormExtractor(self.kb).extract(build_textref("Dùng *** theo chỉ định."))
         self.assertEqual(1, len(candidates))
@@ -365,9 +411,21 @@ class TestV3Pipeline(unittest.TestCase):
         )
         candidates = RxNormExtractor(self.kb).extract(build_textref(raw))
         by_text = {candidate.span.text: candidate for candidate in candidates}
+        # Oral route + strength agree with a product → SCD.
         self.assertEqual(("205732",), by_text["80mg po lasix"].codes)
-        self.assertEqual((), by_text["80mg lasix iv"].codes)
-        self.assertEqual((), by_text["po metoprolol"].codes)
+        # IV route conflicts with the oral products, and ``po metoprolol`` has
+        # no strength at all.  Neither may be given a product code — but both
+        # fall back to their exact brand/ingredient anchor rather than to ().
+        for text, code, tty in (
+            ("80mg lasix iv", "202991", "BN"),      # Lasix
+            ("po metoprolol", "6918", "IN"),        # metoprolol
+        ):
+            with self.subTest(mention=text):
+                self.assertEqual((code,), by_text[text].codes)
+                self.assertEqual(tty, by_text[text].provenance.evidence["anchor_tty"])
+                self.assertEqual(
+                    "rxnorm_anchor_exact", by_text[text].provenance.link_path
+                )
 
     def test_structured_brand_regimen_links_exact_product(self):
         raw = (
@@ -537,6 +595,229 @@ class TestV3Pipeline(unittest.TestCase):
             with self.subTest(pair=(left, right)):
                 self.assertTrue(shared)
                 self.assertTrue(all(a[key][0] == b[key][0] for key in shared))
+
+
+class _StubKB:
+    """KB tối thiểu: tầng quyết định chỉ chạm tới remap khi đổi output mode."""
+
+    remap_reverse: dict[str, list[str]] = {}
+
+
+class _FixedExtractor:
+    """Phát đúng một mention đã dựng sẵn — để cô lập tầng quyết định."""
+
+    name = "fixed"
+
+    def __init__(self, ctype, codes, scores, *, link_path, type_confidence=1.0):
+        self.ctype = ctype
+        self.codes = codes
+        self.scores = scores
+        self.link_path = link_path
+        self.type_confidence = type_confidence
+
+    def extract(self, tref):
+        return [Candidate(
+            Span(0, len(tref.raw), tref.raw),
+            self.ctype,
+            self.codes,
+            Provenance(
+                extractor=self.name,
+                link_path=self.link_path,
+                kb_rows=[f"icd:{code}" for code in self.codes],
+                scores=self.scores,
+                type_confidence=self.type_confidence,
+            ),
+        )]
+
+
+class TestCandidateDecisionLayer(unittest.TestCase):
+    """§1.5 + §2.5 báo cáo v4: bỏ trống theo TYPE, kích thước tập suy ra."""
+
+    def run_fixed(self, extractor, cfg=None):
+        pipeline = Pipeline(_StubKB(), extractor, cfg or PipelineConfig())
+        return pipeline.run(build_textref("một mention"))[0]
+
+    def test_abstention_floor_is_derived_from_a1(self):
+        self.assertAlmostEqual(2 / 3, PipelineConfig().min_type_confidence)
+        self.assertAlmostEqual(
+            0.5, PipelineConfig(a1_top1_accuracy=1.0).min_type_confidence
+        )
+        # Sàn cứng chỉ siết chặt được, không nới ra.
+        self.assertAlmostEqual(
+            0.9, PipelineConfig(type_confidence_floor=0.9).min_type_confidence
+        )
+        self.assertAlmostEqual(
+            2 / 3, PipelineConfig(type_confidence_floor=0.1).min_type_confidence
+        )
+
+    def test_low_retrieval_score_alone_never_abstains(self):
+        """Điểm rerank thấp KHÔNG được làm ta bỏ trống: J(∅) = 0 tuyệt đối."""
+        mention = self.run_fixed(
+            _FixedExtractor(
+                ConceptType.CHAN_DOAN,
+                ("J18.9",),
+                {"confidence": 0.11, "code:J18.9": 0.11},
+                link_path="icd_lexical_retrieval|rerank",
+            ),
+            PipelineConfig(candidate_threshold=0.99),
+        )
+        self.assertEqual(("J18.9",), mention.candidates)
+        self.assertNotIn("abstained", mention.provenance.link_path)
+
+    def test_low_type_confidence_abstains_even_with_a_perfect_score(self):
+        mention = self.run_fixed(_FixedExtractor(
+            ConceptType.CHAN_DOAN,
+            ("R06.0",),
+            {"confidence": 1.0, "code:R06.0": 1.0},
+            link_path="icd_lexical_retrieval|rerank",
+            type_confidence=SYMPTOM_CHAPTER_TYPE_CONFIDENCE,
+        ))
+        self.assertEqual((), mention.candidates)
+        self.assertIn("abstained_low_type_confidence", mention.provenance.link_path)
+
+    def test_abstention_also_applies_to_exact_link_paths(self):
+        """Bypass của gazetteer_exact là bypass NGƯỠNG ĐIỂM, không phải p_t."""
+        mention = self.run_fixed(_FixedExtractor(
+            ConceptType.CHAN_DOAN,
+            ("R51",),
+            {"confidence": 1.0},
+            link_path="gazetteer_exact",
+            type_confidence=SYMPTOM_CHAPTER_TYPE_CONFIDENCE,
+        ))
+        self.assertEqual((), mention.candidates)
+
+    def test_single_code_unless_gold_plausibly_lists_two(self):
+        tied = {"confidence": 1.0}
+        cases = (
+            # Anh em cùng cha + hòa điểm → gold có thể liệt kê cả hai (K21).
+            (("K21.0", "K21.9"), tied, ("K21.0", "K21.9")),
+            (("K29.6", "K29.7"), tied, ("K29.6", "K29.7")),
+            # Cha/con ruột: đó là lựa chọn độ đặc hiệu, gold chỉ lấy một.
+            (("I60", "I60.8"), tied, ("I60",)),
+            # Anh em nhưng KHÔNG hòa điểm → E[J] cực đại tại k = 1.
+            (
+                ("K21.0", "K21.9"),
+                {"confidence": 0.9, "code:K21.0": 0.9, "code:K21.9": 0.7},
+                ("K21.0",),
+            ),
+            # Mã RxNorm không có phân cấp → không bao giờ là cặp.
+            (("2374360", "250651"), tied, ("2374360",)),
+        )
+        for codes, scores, expected in cases:
+            with self.subTest(codes=codes):
+                decision = select_candidate_set(
+                    codes, scores=scores, link_path="gazetteer_exact"
+                )
+                self.assertEqual(expected, decision.codes)
+                self.assertFalse(decision.abstained)
+                self.assertEqual(len(codes) - len(expected), decision.dropped)
+
+    def test_ambiguity_margin_is_the_derived_q_ratio(self):
+        """``q/(1−q) > p₁ − p₂`` — margin 0 nghĩa là đòi hòa điểm tuyệt đối."""
+        scores = {"code:K21.0": 0.90, "code:K21.9": 0.86}
+        self.assertEqual(
+            ("K21.0",),
+            select_candidate_set(
+                ("K21.0", "K21.9"), scores=scores, link_path="gazetteer_exact"
+            ).codes,
+        )
+        self.assertEqual(
+            ("K21.0", "K21.9"),
+            select_candidate_set(
+                ("K21.0", "K21.9"),
+                scores=scores,
+                link_path="gazetteer_exact",
+                ambiguity_margin=0.05,
+            ).codes,
+        )
+
+    def test_tied_order_follows_the_kb_and_is_deterministic(self):
+        for _ in range(3):
+            self.assertEqual(
+                ("K21.9", "K21.0"),
+                select_candidate_set(
+                    ("K21.9", "K21.0"),
+                    scores={"confidence": 1.0},
+                    link_path="gazetteer_exact",
+                ).codes,
+            )
+
+    def test_stats_separate_abstention_from_set_truncation(self):
+        from smart_medic.pipeline import RunStats
+
+        stats = RunStats()
+        Pipeline(_StubKB(), _FixedExtractor(
+            ConceptType.CHAN_DOAN,
+            ("R51",),
+            {"confidence": 1.0},
+            link_path="gazetteer_exact",
+            type_confidence=SYMPTOM_CHAPTER_TYPE_CONFIDENCE,
+        )).run(build_textref("đau đầu"), stats)
+        self.assertEqual(1, stats.dropped_type_confidence)
+        self.assertEqual(0, stats.dropped_threshold)
+
+        stats = RunStats()
+        Pipeline(_StubKB(), _FixedExtractor(
+            ConceptType.CHAN_DOAN,
+            ("I60", "I60.8", "I60.9"),
+            {"confidence": 1.0},
+            link_path="gazetteer_exact",
+        )).run(build_textref("xuất huyết"), stats)
+        self.assertEqual(0, stats.dropped_type_confidence)
+        self.assertEqual(2, stats.dropped_threshold)
+
+
+@unittest.skipUnless((KB_DIR / "icd10_aliases.csv.gz").exists(), "chưa build KB")
+class TestSymptomChapterTypePrior(unittest.TestCase):
+    """Chương R là TIÊN NGHIỆM VỀ TYPE, không phải blocklist."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.kb = load_kb(KB_DIR)
+
+    def test_chapter_r_gazetteer_hit_records_the_prior(self):
+        candidates = GazetteerExtractor(self.kb).extract(
+            build_textref("Bệnh nhân khó thở nhiều.")
+        )
+        match = next(c for c in candidates if c.span.text == "khó thở")
+        self.assertIs(ConceptType.TRIEU_CHUNG, match.type)
+        self.assertEqual((), match.codes)
+        self.assertEqual(
+            SYMPTOM_CHAPTER_TYPE_CONFIDENCE, match.provenance.type_confidence
+        )
+        self.assertEqual("icd_chapter_r", match.provenance.evidence["type_prior"])
+        # Chính con số đó phải nằm dưới ngưỡng phát mã.
+        self.assertLess(
+            match.provenance.type_confidence,
+            PipelineConfig().min_type_confidence,
+        )
+
+    def test_cue_retrieval_keeps_the_mention_and_retypes_it(self):
+        """Trước đây chương R bị ``continue`` — mất luôn mention lẫn recall."""
+        extractor = IcdCueExtractor(self.kb)
+        ranked = extractor.retriever.retrieve("chóng mặt và choáng váng")
+        self.assertTrue(ranked)
+        candidate = extractor._typed_candidate(
+            Span(0, 7, "sốt cao"),
+            ("R50.9",),
+            Provenance(link_path="icd_lexical_retrieval|rerank", kb_rows=["icd:R50.9"]),
+            "R50.9",
+        )
+        self.assertIs(ConceptType.TRIEU_CHUNG, candidate.type)
+        self.assertEqual((), candidate.codes)
+        self.assertIn("symptom_chapter_prior", candidate.provenance.link_path)
+        self.assertEqual(["icd:R50.9"], candidate.provenance.kb_rows)
+
+    def test_non_symptom_chapter_keeps_full_type_confidence(self):
+        candidates = GazetteerExtractor(self.kb).extract(
+            build_textref("Chẩn đoán viêm phổi.")
+        )
+        match = next(c for c in candidates if c.type is ConceptType.CHAN_DOAN)
+        self.assertEqual(1.0, match.provenance.type_confidence)
+        self.assertGreaterEqual(
+            match.provenance.type_confidence,
+            PipelineConfig().min_type_confidence,
+        )
 
 
 if __name__ == "__main__":

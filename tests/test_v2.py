@@ -52,14 +52,24 @@ class TestV2Providers(unittest.TestCase):
         self.assertTrue(mentions[0].span.verify(raw))
 
     def test_rxnorm_requires_dose_form_evidence(self):
+        """Without dose-form evidence we fall back to the ingredient, not a product.
+
+        The guarded invariant is that a *product* (SCD/SBD) code is never
+        invented from a strength alone.  Falling back to the ingredient is not
+        a guess: ``aspirin`` is an exact, unambiguous KB alias.  Returning ``()``
+        instead would score a certain zero under Jaccard.
+        """
         extractor = RxNormExtractor(self.kb)
         ambiguous = extractor.extract(build_textref("Được cho aspirin 325mg x 1."))
         self.assertEqual(1, len(ambiguous))
-        self.assertEqual((), ambiguous[0].codes)
+        self.assertEqual(("1191",), ambiguous[0].codes)          # IN aspirin
+        self.assertEqual("IN", ambiguous[0].provenance.evidence["anchor_tty"])
+        self.assertEqual("rxnorm_anchor_exact", ambiguous[0].provenance.link_path)
 
         supported_text = "Được cho aspirin 325mg, 1 viên uống."
         supported = extractor.extract(build_textref(supported_text))
-        self.assertEqual("212033", supported[0].codes[0])
+        self.assertEqual("212033", supported[0].codes[0])         # SCD product
+        self.assertEqual("rxnorm_rerank", supported[0].provenance.link_path)
         self.assertTrue(supported[0].span.verify(supported_text))
 
     def test_analyte_is_not_extracted_as_drug(self):
@@ -156,7 +166,15 @@ class TestMetricSimulator(unittest.TestCase):
 
     def test_threshold_reconstructs_candidates_from_provenance(self):
         self.assertEqual(["A"], candidates_at_threshold(self.record, 0.80))
-        self.assertEqual([], candidates_at_threshold(self.record, 0.95))
+        # v3.4: điểm rerank KHÔNG còn gây bỏ trống. Với gold khác rỗng thì
+        # J(∅) = 0 tuyệt đối, còn ["A"] có kỳ vọng P(A ∈ gold) ≥ 0.
+        self.assertEqual(["A"], candidates_at_threshold(self.record, 0.95))
+        # Trục đúng là p_t: hạ nó xuống dưới 1/(1+a₁) thì mới bỏ trống.
+        symptom = {
+            **self.record,
+            "_provenance": {**self.record["_provenance"], "type_confidence": 0.15},
+        }
+        self.assertEqual([], candidates_at_threshold(symptom, 0.80))
 
     def test_expected_sweep_labels_proxy_not_gold(self):
         points = sweep(
@@ -166,7 +184,8 @@ class TestMetricSimulator(unittest.TestCase):
             empty_gold_rate=0.20,
         )
         self.assertTrue(all(point.mode == "expected" for point in points))
-        self.assertGreater(points[0].candidate_score, points[1].candidate_score)
+        # Sweep theo ngưỡng rerank giờ phẳng: nó không còn là trục quyết định.
+        self.assertEqual(points[0].candidate_score, points[1].candidate_score)
 
 
 if __name__ == "__main__":

@@ -649,6 +649,29 @@ def print_reports(reports: list[FileReport], out_dir: Path) -> None:
 # ── CLI ───────────────────────────────────────────────────────────────────────
 
 
+def parse_file_selector(spec: str) -> tuple[int, ...]:
+    """``'1,3,4'`` hoặc ``'1-100'`` hoặc trộn cả hai → tuple số hiệu file.
+
+    Dạng khoảng tồn tại để chạy nhãn BẠC trên toàn corpus (``--files 1-100``)
+    bằng ĐÚNG code đã dùng cho gold, thay vì một script song song sẽ trôi khỏi
+    nhau. Nhãn bạc và nhãn gold phải đi qua cùng một đường gán vị trí, cùng một
+    lớp lọc ``Span.verify`` — nếu không thì model học trên một phân phối span
+    khác với phân phối được chấm.
+    """
+    out: list[int] = []
+    for token in spec.replace(",", " ").split():
+        if "-" in token[1:]:
+            lo_text, _, hi_text = token.partition("-")
+            lo, hi = int(lo_text), int(hi_text)
+            if lo > hi:
+                raise ValueError(f"khoảng ngược: {token!r}")
+            out.extend(range(lo, hi + 1))
+        else:
+            out.append(int(token))
+    # dedup giữ thứ tự → tất định
+    return tuple(dict.fromkeys(out))
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Pre-annotate 20 file dev bằng LLM (provider-agnostic)",
@@ -665,13 +688,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", type=Path, default=ROOT / "data/dev_gold",
                         help="thư mục gold đầu ra cho --ingest (mặc định data/dev_gold)")
     parser.add_argument("--files", default=None,
-                        help="ghi đè danh sách file dev, ví dụ '1,3,4'")
+                        help="ghi đè danh sách file, ví dụ '1,3,4' hoặc '1-100'")
     args = parser.parse_args(argv)
 
-    if args.files:
-        files = tuple(int(x) for x in args.files.replace(",", " ").split())
-    else:
-        files = DEV_FILES
+    files = parse_file_selector(args.files) if args.files else DEV_FILES
 
     if args.emit_prompts is not None:
         print(f"  sinh prompt cho {len(files)} file dev")

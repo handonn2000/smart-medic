@@ -1,0 +1,19 @@
+# DEV-TIME ONLY — BTC KHÔNG cần cài khối này để chấm bài.
+#
+# Chỉ cần khi dựng lại model bundle từ đầu:
+#     pip install -r requirements-dev.txt
+#     python3 scripts/train_ner.py --silver data/silver --gold data/dev_gold --export models
+#
+# Thứ được NỘP là models/ đã export + requirements.txt (ba wheel CPU). torch
+# không bao giờ nằm trong runtime — đó là toàn bộ lý do có hai file requirements
+# thay vì một.
+#
+# Teacher LLM sinh nhãn bạc chạy HOÀN TOÀN ngoài repo: scripts/preannotate_dev.py
+# chỉ ghi ra prompt và đọc lại JSON, nên không có SDK nhà cung cấp nào ở đây và
+# không khóa vào một nhà cung cấp cụ thể.
+
+-r requirements.txt
+
+torch>=2.2
+transformers>=4.40
+onnx>=1.16          # torch.onnx.export cần, không dùng lúc chạy

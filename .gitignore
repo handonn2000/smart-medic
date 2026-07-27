@@ -12,11 +12,27 @@ env/
 # Jupyter
 .ipynb_checkpoints/
 
-# Model artifacts (large binaries — track via git-lfs or release assets if needed)
+# Model artifacts.
+#
+# Training checkpoints stay OUT of the repo — they are a development-time
+# intermediate and are large.
 models/*.bin
 models/*.pt
 models/*.safetensors
-models/*.onnx
+models/**/checkpoint-*/
+
+# But the SHIPPED inference artifacts must be IN the repo. NFR1 (BTC phải cài
+# lại được từ máy sạch) là ràng buộc cứng nhất: không cài được = bị loại, tức
+# mất trắng chứ không phải mất điểm. Tải weights lúc runtime đã có tiền lệ vỡ
+# (xem PRD tab 04 §6 — SapBERT cần SOCKS proxy, ba domain, sai tokenizer).
+#
+# git-lfs cũng bị loại vì cùng lý do: nó thêm một bước cài đặt nữa có thể hỏng
+# trên máy BTC. Commit thẳng file .onnx đã lượng tử hóa int8 — repo nặng hơn,
+# nhưng đó là đánh đổi ĐÚNG chiều: nặng repo là chi phí, không cài được là
+# mất trắng. Xem system-design §9 (đánh đổi #8) — cùng lập luận đã dùng cho KB.
+!models/*.onnx
+!models/tokenizer.json
+!models/MANIFEST.json
 !models/.gitkeep
 
 # Generated predictions

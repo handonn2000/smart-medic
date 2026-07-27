@@ -22,6 +22,7 @@ from pathlib import Path
 from . import __version__
 from .batch import BatchResolutionStats, CrossDocumentMaskResolver
 from .kb.store import KBError, load_kb
+from .modelstore import ModelError, load_bundle
 from .pipeline import Pipeline, PipelineConfig, RunStats
 from .schema import Mention, dumps, validate_file
 from .stages.extract import (
@@ -32,6 +33,9 @@ from .stages.extract import (
 )
 from .stages.clinical import ClinicalSymptomExtractor
 from .stages.lab import LabObservationExtractor
+#: An toàn ở module level: neural.py chỉ import thư viện chuẩn: onnxruntime,
+#: tokenizers và numpy nạp lười trong NeuralExtractor.__init__.
+from .stages.neural import DEFAULT_MIN_SCORE as NEURAL_MIN_SCORE
 from .textref import TextRef, read_textref
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -119,7 +123,13 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--output", type=Path, default=ROOT / "data/output")
     ap.add_argument("--kb", type=Path, default=ROOT / "data/kb")
     ap.add_argument("--zip", type=Path, default=None, help="đóng gói ra output.zip")
-    ap.add_argument("--extractor", default="v3", choices=["gazetteer", "v2", "v3"])
+    ap.add_argument("--extractor", default="v3",
+                    choices=["gazetteer", "v2", "v3", "v4"],
+                    help="v4 thêm NeuralExtractor — cần models/ và requirements.txt")
+    ap.add_argument("--models", type=Path, default=None,
+                    help="thư mục model bundle (mặc định: models/)")
+    ap.add_argument("--neural-min-score", type=float, default=NEURAL_MIN_SCORE,
+                    help="ngưỡng prob mở đầu span của v4. PLACEHOLDER")
     ap.add_argument("--max-candidates", type=int, default=2)
     ap.add_argument("--candidate-threshold", type=float, default=0.80)
     ap.add_argument("--retrieval-threshold", type=float, default=0.80)
@@ -160,24 +170,44 @@ def main(argv: list[str] | None = None) -> int:
         enable_family=False,
         rxnorm_output_mode=args.rxnorm_output_mode,
     )
+    rich = args.extractor in {"v3", "v4"}
     gazetteer = GazetteerExtractor(
         kb,
         max_candidates=args.max_candidates,
-        contextual_ambiguity=args.extractor == "v3",
+        contextual_ambiguity=rich,
     )
     extractor = gazetteer
-    if args.extractor in {"v2", "v3"}:
+    if args.extractor in {"v2", "v3", "v4"}:
         extras = [
             IcdCueExtractor(kb, threshold=args.retrieval_threshold),
             RxNormExtractor(
                 kb,
                 threshold=args.drug_threshold,
                 max_candidates=args.max_candidates,
-                contextual_analytes=args.extractor == "v3",
+                contextual_analytes=rich,
             ),
         ]
-        if args.extractor == "v3":
+        if rich:
             extras.extend([ClinicalSymptomExtractor(), LabObservationExtractor()])
+        if args.extractor == "v4":
+            # Provider luật vẫn là PRIMARY (chúng mang provenance KB và khớp
+            # chính xác); tầng neural chỉ lấp đuôi dài. Nạp LƯỜI ở đây để v0–v3
+            # chạy được trên máy không có onnxruntime.
+            from .stages.neural import NeuralExtractor
+
+            try:
+                extras.append(
+                    NeuralExtractor(
+                        load_bundle(args.models),
+                        min_score=args.neural_min_score,
+                    )
+                )
+            except (ModelError, ImportError) as exc:
+                # Fail loud LÚC START, giống hợp đồng của KB. Chạy tiếp mà thiếu
+                # provider neural sẽ cho ra artifact trông hợp lệ nhưng kém hơn
+                # v3 — đúng loại lỗi im lặng đắt nhất khi không có nhãn vàng.
+                print(f"LỖI MODEL: {exc}", file=sys.stderr)
+                return 2
         extractor = CompositeExtractor(
             gazetteer,
             *extras,
@@ -207,7 +237,7 @@ def main(argv: list[str] | None = None) -> int:
         results[path.name] = (path, tref, mentions)
 
     batch_resolution = BatchResolutionStats()
-    if args.extractor == "v3" and not args.no_batch_mask_resolution:
+    if rich and not args.no_batch_mask_resolution:
         batch_resolution = CrossDocumentMaskResolver().resolve({
             filename: (tref, mentions)
             for filename, (_, tref, mentions) in results.items()
@@ -274,7 +304,7 @@ def main(argv: list[str] | None = None) -> int:
             "enable_family": cfg.enable_family,
             "rxnorm_output_mode": cfg.rxnorm_output_mode,
             "batch_mask_resolution": (
-                args.extractor == "v3" and not args.no_batch_mask_resolution
+                rich and not args.no_batch_mask_resolution
             ),
             "drop_risk_short": not args.keep_risk_short,
         },
@@ -312,7 +342,7 @@ def main(argv: list[str] | None = None) -> int:
           f"(chồng lấn): {stats.dropped_overlap} · "
           f"(cắt tập): {stats.dropped_threshold} · "
           f"(p_t thấp): {stats.dropped_type_confidence}")
-    if args.extractor == "v3" and not args.no_batch_mask_resolution:
+    if rich and not args.no_batch_mask_resolution:
         print(
             "  mask liên VB   : "
             f"{batch_resolution.resolved} resolve · "

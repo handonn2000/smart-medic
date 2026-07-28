@@ -1,0 +1,312 @@
+[
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      52,
+      76
+    ]
+  },
+  {
+    "text": "đau đầu vùng thái dương",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      80,
+      103
+    ]
+  },
+  {
+    "text": "khó thở khi nằm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      154,
+      169
+    ]
+  },
+  {
+    "text": "bồn chồn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      173,
+      181
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      192,
+      207
+    ]
+  },
+  {
+    "text": "tê bì",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      273,
+      278
+    ]
+  },
+  {
+    "text": "chuột rút bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      289,
+      307
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      339,
+      346
+    ]
+  },
+  {
+    "text": "gần ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      428,
+      436
+    ]
+  },
+  {
+    "text": "chảy máu chân răng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      465,
+      483
+    ]
+  },
+  {
+    "text": "Rối loạn chuyển hoá bilirubin",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E80.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      644,
+      673
+    ]
+  },
+  {
+    "text": "Chấn thương cột sống",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M48.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      723,
+      743
+    ]
+  },
+  {
+    "text": "Bệnh tuyến ức khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E32.8"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      891,
+      909
+    ]
+  },
+  {
+    "text": "labetalol",
+    "type": "THUỐC",
+    "candidates": [
+      "6185"
+    ],
+    "assertions": [],
+    "position": [
+      957,
+      966
+    ]
+  },
+  {
+    "text": "Protonix",
+    "type": "THUỐC",
+    "candidates": [
+      "40790"
+    ],
+    "assertions": [],
+    "position": [
+      992,
+      1000
+    ]
+  },
+  {
+    "text": "methotrexate",
+    "type": "THUỐC",
+    "candidates": [
+      "6851"
+    ],
+    "assertions": [],
+    "position": [
+      1070,
+      1082
+    ]
+  },
+  {
+    "text": "Colostrum",
+    "type": "THUỐC",
+    "candidates": [
+      "285277"
+    ],
+    "assertions": [],
+    "position": [
+      1119,
+      1128
+    ]
+  },
+  {
+    "text": "vàng da vàng mắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1232,
+      1248
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1346,
+      1349
+    ]
+  },
+  {
+    "text": "tăng nhẹ men gan so với giới hạn trên",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1412,
+      1449
+    ]
+  },
+  {
+    "text": "hồng cầu niệu dương tính ít",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1482,
+      1509
+    ]
+  },
+  {
+    "text": "chụp MRI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1534,
+      1542
+    ]
+  },
+  {
+    "text": "X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1546,
+      1553
+    ]
+  },
+  {
+    "text": "không thấy tổn thương khu trú",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1570,
+      1599
+    ]
+  },
+  {
+    "text": "Thể hỗn hợp Kwashiorkor-marasmus",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E42"
+    ],
+    "assertions": [],
+    "position": [
+      1638,
+      1670
+    ]
+  },
+  {
+    "text": "Bệnh sỏi tuyến nước bọt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K11.5"
+    ],
+    "assertions": [],
+    "position": [
+      1699,
+      1722
+    ]
+  },
+  {
+    "text": "Teo tuyến giáp (mắc phải)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.4"
+    ],
+    "assertions": [],
+    "position": [
+      1741,
+      1766
+    ]
+  },
+  {
+    "text": "Giảm thể tích",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E86"
+    ],
+    "assertions": [],
+    "position": [
+      1770,
+      1783
+    ]
+  }
+]

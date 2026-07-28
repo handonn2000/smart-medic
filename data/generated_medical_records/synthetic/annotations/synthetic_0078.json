@@ -1,0 +1,310 @@
+[
+  {
+    "text": "sốt cao liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      50,
+      70
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      119,
+      127
+    ]
+  },
+  {
+    "text": "khó thở khi nằm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      132,
+      152
+    ]
+  },
+  {
+    "text": "khát nước nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      220,
+      241
+    ]
+  },
+  {
+    "text": "ngứa nhiều vùng lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      260,
+      286
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      311,
+      315
+    ]
+  },
+  {
+    "text": "táo bón",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      320,
+      329
+    ]
+  },
+  {
+    "text": "chảy máu chân răng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      360,
+      382
+    ]
+  },
+  {
+    "text": "hoa mắt khi thay đổi tư thế",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      438,
+      472
+    ]
+  },
+  {
+    "text": "khó ngủ về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      490,
+      509
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      579,
+      587
+    ]
+  },
+  {
+    "text": "Tăng lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      730,
+      746
+    ]
+  },
+  {
+    "text": "Hội chứng viêm thận mạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N03"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      768,
+      799
+    ]
+  },
+  {
+    "text": "ALK âm tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C84.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      848,
+      861
+    ]
+  },
+  {
+    "text": "Olmesartan Medoxomil",
+    "type": "THUỐC",
+    "candidates": [
+      "118463"
+    ],
+    "assertions": [],
+    "position": [
+      1105,
+      1125
+    ]
+  },
+  {
+    "text": "Digitek",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [],
+    "position": [
+      1160,
+      1167
+    ]
+  },
+  {
+    "text": "ixabepilone",
+    "type": "THUỐC",
+    "candidates": [
+      "337523"
+    ],
+    "assertions": [],
+    "position": [
+      1214,
+      1225
+    ]
+  },
+  {
+    "text": "38.3°C",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1548,
+      1554
+    ]
+  },
+  {
+    "text": "HGB",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1623,
+      1626
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1650,
+      1653
+    ]
+  },
+  {
+    "text": "chụp x-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1694,
+      1714
+    ]
+  },
+  {
+    "text": "chụp CT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1759,
+      1767
+    ]
+  },
+  {
+    "text": "chức năng tâm thu thất trái bảo tồn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1845,
+      1890
+    ]
+  },
+  {
+    "text": "dương tính yếu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1947,
+      1966
+    ]
+  },
+  {
+    "text": "U lympho nguyên bào NK",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C86.4"
+    ],
+    "assertions": [],
+    "position": [
+      2023,
+      2047
+    ]
+  },
+  {
+    "text": "U ác của thuỳ trán",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C71.1"
+    ],
+    "assertions": [],
+    "position": [
+      2052,
+      2074
+    ]
+  },
+  {
+    "text": "Bệnh bạch cầu khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C95.7"
+    ],
+    "assertions": [],
+    "position": [
+      2118,
+      2142
+    ]
+  },
+  {
+    "text": "Biến chứng của thủ thuật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "T81"
+    ],
+    "assertions": [],
+    "position": [
+      2147,
+      2179
+    ]
+  }
+]

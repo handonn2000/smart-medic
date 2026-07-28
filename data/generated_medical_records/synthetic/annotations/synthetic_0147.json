@@ -1,0 +1,297 @@
+[
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      70,
+      80
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      85,
+      90
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      204,
+      214
+    ]
+  },
+  {
+    "text": "sụt cân không rõ nguyên nhân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      298,
+      332
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      419,
+      439
+    ]
+  },
+  {
+    "text": "run tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      444,
+      451
+    ]
+  },
+  {
+    "text": "khó ngủ về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      487,
+      506
+    ]
+  },
+  {
+    "text": "ngạt mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      536,
+      546
+    ]
+  },
+  {
+    "text": "Hội chứng kháng androgen",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E34.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      717,
+      746
+    ]
+  },
+  {
+    "text": "Tăng cholesterol máu đơn thuần",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      849,
+      884
+    ]
+  },
+  {
+    "text": "Hội chứng Lesch-Nyhan",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E79.1"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1086,
+      1111
+    ]
+  },
+  {
+    "text": "Bệnh nhiễm gangliosid khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E75.1"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1116,
+      1147
+    ]
+  },
+  {
+    "text": "cortisone",
+    "type": "THUỐC",
+    "candidates": [
+      "2878"
+    ],
+    "assertions": [],
+    "position": [
+      1214,
+      1223
+    ]
+  },
+  {
+    "text": "Aminosyn-PF 10 %, Sulfite-Free",
+    "type": "THUỐC",
+    "candidates": [
+      "10337",
+      "10524",
+      "10898",
+      "1091",
+      "10962",
+      "11115",
+      "42543",
+      "426",
+      "4919",
+      "5340",
+      "6033",
+      "6308",
+      "6536",
+      "6837",
+      "70602",
+      "8156",
+      "8737",
+      "9671"
+    ],
+    "assertions": [],
+    "position": [
+      1302,
+      1332
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1502,
+      1512
+    ]
+  },
+  {
+    "text": "chảy máu chân răng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1564,
+      1586
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1608,
+      1618
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1751,
+      1762
+    ]
+  },
+  {
+    "text": "thiếu máu hồng cầu nhỏ nhược sắc",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1871,
+      1916
+    ]
+  },
+  {
+    "text": "92 g/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1950,
+      1956
+    ]
+  },
+  {
+    "text": "26 U/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2225,
+      2231
+    ]
+  },
+  {
+    "text": "Viêm phổi do Pseudomonas",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J15.1"
+    ],
+    "assertions": [],
+    "position": [
+      2288,
+      2315
+    ]
+  },
+  {
+    "text": "Hội chứng kháng androgen",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E34.5"
+    ],
+    "assertions": [],
+    "position": [
+      2349,
+      2378
+    ]
+  },
+  {
+    "text": "Tăng cholesterol máu đơn thuần",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.0"
+    ],
+    "assertions": [],
+    "position": [
+      2383,
+      2418
+    ]
+  },
+  {
+    "text": "Tăng caroten máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E67.1"
+    ],
+    "assertions": [],
+    "position": [
+      2506,
+      2524
+    ]
+  }
+]

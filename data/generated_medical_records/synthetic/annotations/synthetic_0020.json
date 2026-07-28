@@ -1,0 +1,280 @@
+[
+  {
+    "text": "sốt cao liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      244,
+      260
+    ]
+  },
+  {
+    "text": "vàng da vàng mắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      270,
+      286
+    ]
+  },
+  {
+    "text": "bồn chồn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      404,
+      412
+    ]
+  },
+  {
+    "text": "nghe kém tai trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      416,
+      433
+    ]
+  },
+  {
+    "text": "U ác trực tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C20"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      599,
+      614
+    ]
+  },
+  {
+    "text": "U ác của vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      711,
+      722
+    ]
+  },
+  {
+    "text": "U ác của đầu tụy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C25.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      781,
+      797
+    ]
+  },
+  {
+    "text": "***********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      952,
+      963
+    ]
+  },
+  {
+    "text": "vitamin D",
+    "type": "THUỐC",
+    "candidates": [
+      "11253"
+    ],
+    "assertions": [],
+    "position": [
+      1004,
+      1013
+    ]
+  },
+  {
+    "text": "Solu-Medrol",
+    "type": "THUỐC",
+    "candidates": [
+      "6902"
+    ],
+    "assertions": [],
+    "position": [
+      1057,
+      1068
+    ]
+  },
+  {
+    "text": "U ác trực tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C20"
+    ],
+    "assertions": [],
+    "position": [
+      1088,
+      1103
+    ]
+  },
+  {
+    "text": "Escherichia Coli",
+    "type": "THUỐC",
+    "candidates": [
+      "350202"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1129,
+      1145
+    ]
+  },
+  {
+    "text": "manidipine",
+    "type": "THUỐC",
+    "candidates": [
+      "29275"
+    ],
+    "assertions": [],
+    "position": [
+      1209,
+      1219
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1291,
+      1297
+    ]
+  },
+  {
+    "text": "hôi miệng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1347,
+      1356
+    ]
+  },
+  {
+    "text": "sưng đau khớp bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1383,
+      1404
+    ]
+  },
+  {
+    "text": "nghe kém tai trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1446,
+      1463
+    ]
+  },
+  {
+    "text": "chảy máu chân răng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1481,
+      1499
+    ]
+  },
+  {
+    "text": "HCT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1557,
+      1560
+    ]
+  },
+  {
+    "text": "xét nghiệm chức năng gan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1651,
+      1675
+    ]
+  },
+  {
+    "text": "không ghi nhận gì bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1680,
+      1708
+    ]
+  },
+  {
+    "text": "gan nhiễm mỡ độ một",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1732,
+      1751
+    ]
+  },
+  {
+    "text": "monitor holter",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1771,
+      1785
+    ]
+  },
+  {
+    "text": "U ác túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C23"
+    ],
+    "assertions": [],
+    "position": [
+      1854,
+      1866
+    ]
+  },
+  {
+    "text": "Bệnh Sézary",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C84.1"
+    ],
+    "assertions": [],
+    "position": [
+      1868,
+      1879
+    ]
+  }
+]

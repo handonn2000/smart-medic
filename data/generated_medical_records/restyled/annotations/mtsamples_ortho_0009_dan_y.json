@@ -1,0 +1,161 @@
+[
+  {
+    "text": "đau ngay lập tức và sưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      119,
+      143
+    ]
+  },
+  {
+    "text": "đau và không ổn định ở đầu gối",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      172,
+      202
+    ]
+  },
+  {
+    "text": "chấn thương ACL ở đầu gối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      217,
+      242
+    ]
+  },
+  {
+    "text": "Không dùng thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Y63.6"
+    ],
+    "assertions": [],
+    "position": [
+      604,
+      620
+    ]
+  },
+  {
+    "text": "******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      662,
+      668
+    ]
+  },
+  {
+    "text": "sử dụng ma túy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.2"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      796,
+      810
+    ]
+  },
+  {
+    "text": "tăng cân gần đây",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      885,
+      901
+    ]
+  },
+  {
+    "text": "phát ban da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      916,
+      927
+    ]
+  },
+  {
+    "text": "khập khiễng rõ rệt ở bên phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1050,
+      1079
+    ]
+  },
+  {
+    "text": "tràn dịch đáng kể ở đầu gối",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1081,
+      1108
+    ]
+  },
+  {
+    "text": "đau khi sờ vào đường khớp trung bình và kết quả Lachman dương tính",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1124,
+      1190
+    ]
+  },
+  {
+    "text": "Chấn thương đầu gối phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1245,
+      1269
+    ]
+  },
+  {
+    "text": "rách dây chằng chéo trước tái phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1279,
+      1313
+    ]
+  },
+  {
+    "text": "rối loạn nội bộ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1322,
+      1337
+    ]
+  },
+  {
+    "text": "MRI đầu gối phải",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1382,
+      1398
+    ]
+  }
+]

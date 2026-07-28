@@ -1,0 +1,317 @@
+[
+  {
+    "text": "Viêm phế quản cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J20.9"
+    ],
+    "assertions": [],
+    "position": [
+      185,
+      208
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      277,
+      290
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      302,
+      311
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      316,
+      336
+    ]
+  },
+  {
+    "text": "sụt cân không rõ nguyên nhân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      397,
+      431
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      540,
+      544
+    ]
+  },
+  {
+    "text": "Tràn máu màng phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J94.2"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      604,
+      627
+    ]
+  },
+  {
+    "text": "Bệnh khác của thực quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K22"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      632,
+      662
+    ]
+  },
+  {
+    "text": "Viêm phổi do Mycoplasma pneumoniae",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J15.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      705,
+      742
+    ]
+  },
+  {
+    "text": "Hẹp thanh quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J38.6"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      843,
+      859
+    ]
+  },
+  {
+    "text": "Wellbutrin",
+    "type": "THUỐC",
+    "candidates": [
+      "42347"
+    ],
+    "assertions": [],
+    "position": [
+      1160,
+      1170
+    ]
+  },
+  {
+    "text": "Pravachol",
+    "type": "THUỐC",
+    "candidates": [
+      "42463"
+    ],
+    "assertions": [],
+    "position": [
+      1175,
+      1184
+    ]
+  },
+  {
+    "text": "Combretum indicum whole extract",
+    "type": "THUỐC",
+    "candidates": [
+      "2592962"
+    ],
+    "assertions": [],
+    "position": [
+      1349,
+      1380
+    ]
+  },
+  {
+    "text": "Phyllanthus emblica fruit juice",
+    "type": "THUỐC",
+    "candidates": [
+      "1356140"
+    ],
+    "assertions": [],
+    "position": [
+      1385,
+      1416
+    ]
+  },
+  {
+    "text": "đau lưng lan xuống chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1565,
+      1592
+    ]
+  },
+  {
+    "text": "RBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1881,
+      1884
+    ]
+  },
+  {
+    "text": "điện tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1962,
+      1972
+    ]
+  },
+  {
+    "text": "protein niệu dương tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2083,
+      2111
+    ]
+  },
+  {
+    "text": "37.8°C",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2155,
+      2161
+    ]
+  },
+  {
+    "text": "siêu âm tuyến giáp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2178,
+      2201
+    ]
+  },
+  {
+    "text": "không thấy hình ảnh sỏi đường tiết niệu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2234,
+      2286
+    ]
+  },
+  {
+    "text": "hình ảnh dày thành dạ dày vùng hang vị",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2314,
+      2360
+    ]
+  },
+  {
+    "text": "NEUT%",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2410,
+      2415
+    ]
+  },
+  {
+    "text": "Ban đỏ nổi cục rắn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L95.1"
+    ],
+    "assertions": [],
+    "position": [
+      2508,
+      2532
+    ]
+  },
+  {
+    "text": "Chấn thương gan khi sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "P15.0"
+    ],
+    "assertions": [],
+    "position": [
+      2557,
+      2585
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2679,
+      2692
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2697,
+      2706
+    ]
+  },
+  {
+    "text": "Bệnh hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J98.9"
+    ],
+    "assertions": [],
+    "position": [
+      2719,
+      2735
+    ]
+  }
+]

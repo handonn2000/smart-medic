@@ -1,0 +1,150 @@
+[
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      19,
+      33
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      40,
+      48
+    ]
+  },
+  {
+    "text": "Micronase",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      53,
+      62
+    ]
+  },
+  {
+    "text": "cholesterol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      143,
+      154
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      175,
+      188
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      384,
+      398
+    ]
+  },
+  {
+    "text": "Micronase",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      483,
+      492
+    ]
+  },
+  {
+    "text": "Bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      510,
+      517
+    ]
+  },
+  {
+    "text": "Đái tháo đường type II không kiểm soát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1027,
+      1065
+    ]
+  },
+  {
+    "text": "Viêm bàng quang cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N30.0"
+    ],
+    "assertions": [],
+    "position": [
+      1068,
+      1087
+    ]
+  },
+  {
+    "text": "công thức máu toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1126,
+      1149
+    ]
+  },
+  {
+    "text": "Micronase",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1156,
+      1165
+    ]
+  },
+  {
+    "text": "Bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      1179,
+      1186
+    ]
+  }
+]

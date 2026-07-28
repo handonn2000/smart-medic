@@ -9,7 +9,9 @@ hai bảng ban tổ chức đã có sẵn trên master:
 
 Không cần data/kb/, không cần src/smart_medic/, không cần tải dữ liệu ngoài.
 
-CÁCH LÀM — code chọn thực thể trước, LLM viết văn quanh chúng:
+CÁCH LÀM — hai nguồn dữ liệu, chung một cách giữ offset đúng tuyệt đối.
+
+A. TỰ SINH (synthetic): code chọn thực thể trước, LLM viết văn quanh chúng.
 
     1. compose : bốc một bộ thực thể (chẩn đoán/thuốc/triệu chứng/xét nghiệm) theo
                  phân bố đo từ gold, rồi gọi LLM viết bệnh án bọc mỗi cụm trong 〔 〕.
@@ -18,17 +20,31 @@ CÁCH LÀM — code chọn thực thể trước, LLM viết văn quanh chúng:
 Thứ tự này là kết quả của một lần đo: cách ngược lại (LLM viết khung có ô trống,
 code điền cụm vào) cho 33% câu vô nghĩa về y khoa, vì code điền không biết ràng
 buộc ngữ nghĩa mà LLM đã đặt vào câu ("thấy có 〈chướng bụng〉 trong phân").
+python scripts/gen_sample_data.py restyle --n 30 --use-api --model gpt-4o
+B. DỊCH (translated): lấy bệnh án tiếng Anh thật của mtsamples, dịch sang tiếng
+   Việt và bắt LLM bọc luôn thực thể trong 〔TYPE|...〕 NGAY TRONG BẢN DỊCH.
 
-Nhãn sinh ra ở data/synth/*.json là định dạng phụ, dùng để kiểm; nếu chỉ cần văn
-bản mẫu thì lấy data/train_input/*.txt.
+    3. translate : dịch + bọc dấu, bóc dấu để lấy offset, rồi gán mã ICD/RxNorm
+                   bằng gazetteer dựng từ chính bảng của ban tổ chức.
+
+Vì sao bọc dấu lúc dịch chứ không dịch xong rồi dò lại vị trí: dò lại phải khớp
+chuỗi trên bản dịch, mà tên bệnh trong bảng ICD là tên WHO trang trọng ("Đái tháo
+đường không phụ thuộc insulin có biến chứng thận") gần như không bao giờ xuất hiện
+nguyên văn trong văn xuôi bệnh án — dò lại cho recall ~0 ở CHẨN_ĐOÁN. Bọc lúc dịch
+thì offset tính lúc bóc dấu, sai số bằng 0 theo cách dựng, y hệt đường A.
 
     python scripts/gen_sample_data.py compose --n 200 --use-api
     python scripts/gen_sample_data.py emit
+    python scripts/gen_sample_data.py translate --n 100
     python scripts/gen_sample_data.py verify
+
+Đầu ra ở data/generated_medical_records/{synthetic,translated}/: text/*.txt là văn
+bản sạch, annotations/*.json là nhãn, intermediate/ là file trung gian.
 
 compose cần OPENAI_API_KEY khi có --use-api; không có thì nó chỉ ghi ra bộ thực
 thể và prompt để bạn tự gọi model nào cũng được, rồi nạp lại bằng --composed FILE.
-Đặt OPENAI_BASE_URL nếu dùng endpoint tương thích OpenAI (Azure, vLLM, OpenRouter).
+translate cũng vậy: không có --use-api thì nó ghi prompt ra đĩa, nạp lại bằng
+--translated FILE. Đặt OPENAI_BASE_URL nếu dùng endpoint tương thích OpenAI.
 """
 
 from __future__ import annotations
@@ -49,12 +65,48 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 KB = REPO / "data" / "knowledge_base"
-WORK = REPO / "data" / "synth" / "work"
-OUT_LABELS = REPO / "data" / "synth"
-OUT_TEXT = REPO / "data" / "train_input"
+EXT = REPO / "data" / "external"
+
+#: Cây thư mục đầu ra. Một gốc duy nhất, tách theo NGUỒN (tự sinh / dịch từ
+#: mtsamples) rồi mới tách theo VAI TRÒ (trung gian / văn bản / nhãn) — cách cũ
+#: rải ba vai trò ra ba chỗ khác nhau trong data/ nên không nói được thư mục nào
+#: thuộc lô nào khi có nhiều nguồn.
+BASE_DIR = REPO / "data" / "generated_medical_records"
+
+SYNTHETIC_DIR = BASE_DIR / "synthetic"
+SYNTHETIC_WORK = SYNTHETIC_DIR / "intermediate"
+SYNTHETIC_TEXT = SYNTHETIC_DIR / "text"
+SYNTHETIC_ANNOTATIONS = SYNTHETIC_DIR / "annotations"
+
+TRANSLATED_DIR = BASE_DIR / "translated"
+TRANSLATED_WORK = TRANSLATED_DIR / "intermediate"
+TRANSLATED_TEXT = TRANSLATED_DIR / "text"
+TRANSLATED_ANNOTATIONS = TRANSLATED_DIR / "annotations"
+
+RESTYLED_DIR = BASE_DIR / "restyled"
+RESTYLED_WORK = RESTYLED_DIR / "intermediate"
+RESTYLED_TEXT = RESTYLED_DIR / "text"
+RESTYLED_ANNOTATIONS = RESTYLED_DIR / "annotations"
+
 
 SEED = 20260727
 BRACKET = re.compile(r"〔([^〔〕]{1,80})〕")
+
+#: Dấu bọc thực thể ở đường DỊCH: 〔TYPE|văn bản〕. Khác dấu 〔 〕 trơn của đường
+#: tự sinh vì ở đó type đã biết trước (code bốc cụm rồi mới nhờ LLM viết), còn ở
+#: đây type do LLM quyết lúc dịch nên phải nằm trong dấu.
+BRACKET_TYPED = re.compile(r"〔([^\s|〔〕]{2,24})\|([^〔〕]{1,80})〕")
+
+ENTITY_TYPES = ("CHẨN_ĐOÁN", "TRIỆU_CHỨNG", "THUỐC",
+                "TÊN_XÉT_NGHIỆM", "KẾT_QUẢ_XÉT_NGHIỆM")
+
+#: LLM viết nhãn bằng ASCII cho chắc (tiếng Việt có dấu trong marker dễ bị nó
+#: gõ sai dấu, và một marker sai dấu là một span mất trắng). Bảng này quy đổi
+#: lại về đúng tên type của ban tổ chức.
+TYPE_ALIASES = {
+    "DX": "CHẨN_ĐOÁN", "SYM": "TRIỆU_CHỨNG", "DRUG": "THUỐC",
+    "TEST": "TÊN_XÉT_NGHIỆM", "RES": "KẾT_QUẢ_XÉT_NGHIỆM",
+}
 
 
 #: Tần số tên thuốc đo trên 3.612 bệnh án tiếng Anh (mtsamples), nhúng thẳng vào
@@ -258,6 +310,19 @@ DRUG_STOP = {
     "balance", "compound", "plus", "one", "two", "free", "sensitive",
 }
 
+#: Alias ICD phải bỏ: chúng là MẢNH VỠ của việc tách tên theo dấu phẩy, không
+#: phải tên bệnh. Q41 tên đầy đủ là "Không có, tịt và hẹp ruột non bẩm sinh" —
+#: tách ra thì mảnh đầu là "Không có", và nó khớp mọi câu phủ định trong bệnh án.
+#: Đo trên 5 bản dịch thử: "Không có" bị gán CHẨN_ĐOÁN + mã Q41 sáu lần trong
+#: hai tài liệu, nhiều hơn bất kỳ chẩn đoán thật nào.
+ICD_STOP = {
+    "không có", "không rõ", "không đặc hiệu", "không xác định", "chưa xác định",
+    "biến chứng", "biến chứng khác", "tổn thương", "tổn thương khác",
+    "di chứng", "bệnh khác", "các bệnh khác", "rối loạn khác", "nguyên nhân khác",
+    "căng thẳng", "tình trạng khác", "bệnh lý khác", "khối u", "triệu chứng",
+    "dấu hiệu", "hội chứng khác", "nhiễm trùng khác", "biểu hiện khác",
+}
+
 #: Dấu phủ định, đo trên 41 span isNegated của gold: "phủ nhận" 18 lần (nhiều
 #: nhất), "không ..." 12, "không có" 2, "không phải"/"không kèm" 1, viết tắt "k" 2.
 #: "Chưa ghi nhận" không xuất hiện lần nào ở gold nhưng giữ vì có trong test.
@@ -266,12 +331,16 @@ NEG_CUES = ("Không ", "Không có ", "Không kèm ", "Không phải ",
 
 # Section có ngữ cảnh assertion — đo từ gold: mọi span trong "Thuốc trước khi
 # nhập viện" và "Các bệnh lý mạn tính" đều mang isHistorical.
+#: Dạng viết tắt ("TS:", "TS gia đình:") có từ khi thêm bước restyle: thể loại
+#: bệnh án chép tay ghi tiêu đề cụt, và bệnh án thật của đề thi cũng vậy. Không
+#: có mấy dòng này thì toàn bộ isHistorical/isFamily của thể loại đó mất trắng.
 HIST_SECTIONS = (
     "Tiền sử bệnh", "Thuốc trước khi nhập viện", "Các bệnh lý mạn tính",
     "Tiền sử bệnh nội khoa", "Các thủ thuật đã thực hiện",
+    "Tiền sử", "TS bệnh", "TS nội khoa", "TS",
 )
 
-FAMILY_SECTIONS = ("Tiền sử gia đình",)
+FAMILY_SECTIONS = ("Tiền sử gia đình", "TS gia đình", "TS GĐ", "Tiền sử GĐ")
 
 #: Prompt viết bệnh án. Ký tự 〔 〕 chọn vì không có trong bảng BTC lẫn chữ tiếng
 #: Việt, nên bóc lại không nhập nhằng.
@@ -350,14 +419,62 @@ def load_icd(min_words: int = 2, max_words: int = 5) -> list[dict]:
             if not (min_words <= n_words <= max_words) or len(alias) < 6:
                 continue
             key = alias.lower()
-            if key in seen:
+            if key in seen or key in ICD_STOP:
                 continue
             seen.add(key)
             out.append({"code": code, "alias": alias})
     return out
 
 
-def load_rxnorm(max_words: int = 5) -> list[dict]:
+#: Bảng RxNorm đầy đủ (RxNorm_full_*/rrf/RXNREL.RRF) — quan hệ giữa các khái niệm.
+#: RXNORM.csv mà repo đang dùng chỉ là RXNCONSO (tên gọi), không có quan hệ nào.
+RXNREL_GLOB = "RxNorm_full_*/rrf/RXNREL.RRF"
+BRAND_MAP_CACHE = KB / "brand_to_ingredient.json"
+
+
+def load_brand_to_ingredient(rebuild: bool = False) -> dict[str, list[str]]:
+    """Bảng biệt dược -> hoạt chất, dựng từ RXNREL.RRF.
+
+    VÌ SAO CẦN: đo trên 20 file gold của ban tổ chức, 16/16 span THUỐC có mã đều
+    mang mã HOẠT CHẤT (tty=IN) — 'levothyroxine' 10582, 'omeprazole' 7646 — không
+    một mã biệt dược nào. Trong khi dữ liệu sinh ra hiện tại có 475/890 span mang
+    mã biệt dược (tty=BN): 'Synthroid' 224920 thay vì 10582, 'Lipitor' 153165 thay
+    vì 83367. Cùng một thuốc, khác quy ước mã — dạy model trả sai loại mã.
+
+    RXNCONSO (tức RXNORM.csv) KHÔNG nối được hai thứ đó: nó chỉ có tên gọi, quan hệ
+    tradename_of nằm ở RXNREL.RRF của bản full. Đây là lý do cần bản full.
+
+    Dòng RRF đọc theo chiều RXCUI2 --RELA--> RXCUI1, nên 'tradename_of' cho ta
+    RXCUI2 (biệt dược) -> RXCUI1 (hoạt chất). Kiểm bằng ca đã biết: Lipitor 153165
+    -> 83367 (atorvastatin), Synthroid 224920 -> 10582 (levothyroxine, đúng bằng
+    mã gold gán cho 'levothyroxine').
+
+    File RXNREL.RRF nặng ~530 MB nên kết quả được cache lại; xoá cache để dựng lại.
+    """
+    if BRAND_MAP_CACHE.exists() and not rebuild:
+        return json.loads(BRAND_MAP_CACHE.read_text(encoding="utf-8"))
+    src = next(iter(sorted(KB.glob(RXNREL_GLOB))), None)
+    if src is None:
+        return {}
+    print(f"  dựng bảng biệt dược->hoạt chất từ {src.name} (chỉ lần đầu)...")
+    fwd: dict[str, set] = collections.defaultdict(set)
+    with src.open(encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            f = line.split("|")
+            if len(f) < 12 or f[10] != "RXNORM" or f[2] != "CUI" or f[6] != "CUI":
+                continue
+            if f[7] == "tradename_of":
+                fwd[f[4]].add(f[0])
+            elif f[7] == "has_tradename":
+                fwd[f[0]].add(f[4])
+    out = {k: sorted(v) for k, v in fwd.items() if v}
+    BRAND_MAP_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    BRAND_MAP_CACHE.write_text(json.dumps(out), encoding="utf-8")
+    print(f"  {len(out)} biệt dược có hoạt chất -> {BRAND_MAP_CACHE.relative_to(REPO)}")
+    return out
+
+
+def load_rxnorm(max_words: int = 5, map_brands: bool = True) -> list[dict]:
     """Đọc data/knowledge_base/RXNORM.csv -> [{rxcui, alias}], chỉ tty IN/BN.
 
     IN = hoạt chất, BN = biệt dược. Đo trên gold: 13/13 thuốc tra được trong bảng
@@ -390,6 +507,14 @@ def load_rxnorm(max_words: int = 5) -> list[dict]:
                 continue
             seen.add(key)
             out.append({"rxcui": rxcui, "alias": alias})
+
+    # "codes" là mã ĐEM ĐI GÁN NHÃN, "rxcui" giữ mã gốc để verify còn tra được dữ
+    # liệu sinh ra từ trước. Biệt dược phối hợp (Augmentin, Hyzaar...) cho ra nhiều
+    # hoạt chất thì gán hết: chúng đều là hoạt chất thật của thuốc đó, và 20 file
+    # gold không có ca phối hợp nào để suy ra quy ước, nên không đoán bừa lấy một.
+    brands = load_brand_to_ingredient() if map_brands else {}
+    for row in out:
+        row["codes"] = brands.get(row["rxcui"]) or [row["rxcui"]]
     return out
 
 
@@ -436,7 +561,7 @@ def sample_bundle(rng: random.Random, pools: dict[str, list]) -> list[dict]:
     for _ in range(rng.randint(3, 5)):
         pick = rng.choice(common if rng.random() < 0.75 else pools["rx"])
         bundle.append({"type": "THUỐC", "text": pick["alias"],
-                       "candidates": [pick["rxcui"]]})
+                       "candidates": list(pick["codes"])})
     # Số CỤM KHÁC NHAU theo median của gold, không phải số span: gold lặp span nên
     # 11 span CHẨN_ĐOÁN chỉ từ 8 cụm, 15 span TRIỆU_CHỨNG từ 11 cụm. Bốc theo số span
     # thì bundle phình lên ~50 cụm và LLM từ chối viết (5/12 bản ở lô thử: "danh sách
@@ -482,6 +607,11 @@ def unwrap(composed: str, bundle: list[dict]) -> tuple[str, list[dict]] | str:
         offset = sum(len(p) for p in parts)
         surface = m.group(1)
         item = want.get(surface)
+        # Cụm là mảnh vỡ của tên ICD ("Không xác định", "Nhiễm trùng khác") thì
+        # bỏ NHÃN nhưng giữ CHỮ: nó vẫn nằm trong câu LLM đã viết, chỉ là không
+        # phải chẩn đoán nên không được gán mã. Xem ICD_STOP.
+        if item is not None and surface.lower() in ICD_STOP:
+            item = None
         if item is not None:
             records.append({"text": surface, "type": item["type"],
                             "candidates": list(item["candidates"]), "assertions": [],
@@ -504,6 +634,20 @@ def unwrap(composed: str, bundle: list[dict]) -> tuple[str, list[dict]] | str:
             return "offset lệch sau khi bóc dấu"
     return text, records
 
+#: Đầu dòng dạng danh sách: "3. ", "3) ", "- ", "•", và tổ hợp lồng nhau.
+LIST_MARKER = re.compile(r"^[\s>]*(?:(?:\d+|[a-zA-Z])[.)]\s*|[-–—•*+]\s*)+")
+
+
+def strip_list_marker(head: str) -> str:
+    """Bỏ số thứ tự / gạch đầu dòng khỏi tiêu đề mục.
+
+    Cần từ khi có bước restyle: thể loại dàn ý viết tiêu đề là "3. Tiền sử gia đình:",
+    và so khớp thẳng thì startswith("Tiền sử gia đình") sai — đo trên lô restyle đầu,
+    TOÀN BỘ isFamily/isHistorical bị mất, tỉ lệ span có assertion tụt còn 6%.
+    """
+    return LIST_MARKER.sub("", head).strip()
+
+
 def assertions_at(text: str, offset: int) -> list[str]:
     """Suy assertion cho span ở vị trí offset: mục chứa nó + dấu phủ định trên dòng.
 
@@ -516,8 +660,11 @@ def assertions_at(text: str, offset: int) -> list[str]:
 
     out: list[str] = []
     head = ""
-    for m in re.finditer(r"(?m)^([^\n:]{3,40}):", text[:offset]):
-        head = m.group(1).strip()
+    # {2,40} chứ không {3,40}: tiêu đề viết tắt "TS:" chỉ 2 ký tự. Đánh đổi là các
+    # dòng đo đạc kiểu "M: 82 ck/ph" cũng bị coi là tiêu đề và che mất tiêu đề mục
+    # thật phía trên — nhưng che thì ra assertion RỖNG, tức nhãn thiếu chứ không sai.
+    for m in re.finditer(r"(?m)^([^\n:]{2,40}):", text[:offset]):
+        head = strip_list_marker(m.group(1))
     if any(head.startswith(h) for h in FAMILY_SECTIONS):
         out.append("isFamily")
     elif any(head.startswith(h) for h in HIST_SECTIONS):
@@ -587,21 +734,923 @@ def postprocess(rng: random.Random, text: str, records: list[dict], args
     return text, records
 
 
+# =========================================================== ĐƯỜNG DỊCH mtsamples
+# ------------------------------------------------------- nguồn bệnh án tiếng Anh
+
+#: Thứ tự ưu tiên khi bốc theo danh mục. Đây là các chuyên khoa nội có bệnh cảnh
+#: gần với test của ban tổ chức nhất; các spec còn lại trong file (Surgery, Office
+#: Notes, Letters...) vẫn dùng được nhưng xếp sau, xem MTSAMPLES_EXTRA.
+MTSAMPLES_CATEGORIES = [
+    "Cardiovascular / Pulmonary",
+    "Gastroenterology",
+    "Neurology",
+    "Orthopedic",
+    "Nephrology",
+    "Endocrinology",
+    "General Medicine",
+    "Hematology - Oncology",
+]
+
+#: Danh mục bù khi 8 danh mục trên không đủ số bản cần: file chỉ có 457 note và
+#: phân bố rất lệch (Endocrinology 4 note, Cardiovascular 39). Không có bảng bù
+#: này thì `translate --n 100` chỉ ra ~76 bản.
+MTSAMPLES_EXTRA = [
+    "Consult - History and Phy.",
+    "SOAP / Chart / Progress Notes",
+    "Emergency Room Reports",
+    "Discharge Summary",
+    "Urology",
+    "Pediatrics - Neonatal",
+    "Obstetrics / Gynecology",
+    "Rheumatology",
+    "Dermatology",
+    "ENT - Otolaryngology",
+    "Psychiatry / Psychology",
+    "Podiatry",
+    "Bariatrics",
+    "Ophthalmology",
+    "Allergy / Immunology",
+    "Surgery",
+]
+
+#: Prefix ngắn cho tên file. Tên spec có dấu cách, gạch và dấu chấm nên không
+#: dùng thẳng làm tên file được.
+CATEGORY_PREFIXES = {
+    "Cardiovascular / Pulmonary": "cardio",
+    "Gastroenterology": "gastro",
+    "Neurology": "neuro",
+    "Orthopedic": "ortho",
+    "Nephrology": "nephro",
+    "Endocrinology": "endo",
+    "General Medicine": "general",
+    "Hematology - Oncology": "hemato",
+    "Consult - History and Phy.": "consult",
+    "SOAP / Chart / Progress Notes": "soap",
+    "Emergency Room Reports": "emerg",
+    "Discharge Summary": "discharge",
+    "Urology": "uro",
+    "Pediatrics - Neonatal": "peds",
+    "Obstetrics / Gynecology": "obgyn",
+    "Rheumatology": "rheum",
+    "Dermatology": "derma",
+    "ENT - Otolaryngology": "ent",
+    "Psychiatry / Psychology": "psych",
+    "Podiatry": "podia",
+    "Bariatrics": "bariat",
+    "Ophthalmology": "ophtha",
+    "Allergy / Immunology": "allergy",
+    "Surgery": "surg",
+}
+
+#: Tiêu đề mục trong mtsamples. File dùng dạng NỐI LIỀN bằng dấu phẩy chứ không
+#: xuống dòng — ",HISTORY OF PRESENT ILLNESS: , The patient is a 52-year-old..." —
+#: nên mẫu tách mục phải neo vào dấu phẩy/đầu chuỗi, không neo vào "\n" như bệnh
+#: án đã format sẵn.
+MTS_SECTION = re.compile(r"(?:^|[,.])\s*([A-Z][A-Z0-9 /&'\-]{2,40}):\s*,?\s*")
+
+
+def parse_mtsamples_sections(text: str) -> dict[str, str]:
+    """Tách bệnh án mtsamples thành {TÊN MỤC: nội dung}.
+
+    Mục thường gặp: REASON FOR VISIT, HISTORY OF PRESENT ILLNESS, ALLERGIES,
+    MEDICATIONS, PAST MEDICAL HISTORY, REVIEW OF SYSTEMS, PHYSICAL EXAMINATION,
+    LABORATORY DATA, IMPRESSION, PLAN. Không tách được mục nào thì trả về toàn
+    bộ văn bản dưới khoá rỗng để bước sau vẫn dịch được.
+    """
+    marks = list(MTS_SECTION.finditer(text))
+    if not marks:
+        return {"": text.strip()}
+    sections: dict[str, str] = {}
+    for i, m in enumerate(marks):
+        end = marks[i + 1].start() if i + 1 < len(marks) else len(text)
+        body = text[m.end():end].strip().strip(",").strip()
+        if body:
+            sections[m.group(1).strip()] = body
+    return sections
+
+
+def normalize_mtsamples_text(text: str) -> str:
+    """Đưa bệnh án mtsamples về dạng mỗi mục một khối, tiêu đề chiếm trọn dòng.
+
+    Bản gốc nhồi cả bệnh án vào một dòng dài ngăn bằng dấu phẩy. Đưa cho LLM dịch
+    nguyên dạng đó thì bản dịch cũng ra một khối liền — mà `verify` đo tỉ lệ file
+    có dòng tiêu đề mục (test 67%), và `assertions_at` phải dò ngược tiêu đề mục
+    gần nhất để suy isHistorical/isFamily. Không có tiêu đề thì cả hai đều hỏng.
+    """
+    out = []
+    for head, body in parse_mtsamples_sections(text).items():
+        body = re.sub(r"\s*,\s*(?=\d+\.\s)", "\n", body)   # ",1. ESRD" -> xuống dòng
+        # tiểu mục trong thân bài, cả dạng HOA HẾT ("HEART:") lẫn dạng Hoa Đầu Từ
+        # ("Vital Signs:") — mtsamples nối chúng bằng dấu phẩy vào câu trước
+        body = re.sub(r"[ \t]*[.,][ \t]*(?=(?:[A-Z]{2,}[A-Z /]*|[A-Z][a-z]+(?: [A-Za-z]+){0,3}):)",
+                      "\n", body)
+        body = re.sub(r"\.[ \t]*,[ \t]*", ". ", body)      # ".,O2 saturation" -> ". O2..."
+        body = re.sub(r"[ \t]{2,}", " ", body).strip()
+        out.append(f"{head}:\n{body}" if head else body)
+    return "\n\n".join(out)
+
+
+def fetch_mtsamples(categories: list[str], n_per_cat: int = 15,
+                    source: str = "auto", rng: random.Random | None = None,
+                    total: int | None = None, min_lab: int = 0) -> list[dict]:
+    """Nạp bệnh án tiếng Anh từ kho mtsamples đã lọc sẵn của repo.
+
+    KHÔNG crawl mtsamples.com: repo đã có sẵn 457 note đã lọc ở
+    data/external/en_notes/mtsamples_filtered.jsonl (trường: id, src, spec, text),
+    chính là kho đã dùng để đo bảng DRUG_FREQ ở đầu file. Crawl lại vừa thừa vừa
+    phải xử lý robots.txt, và sẽ cho ra kho khác với kho các hằng số này đo trên.
+
+    Bốc đều theo danh mục để bản dịch phủ nhiều chuyên khoa; danh mục nào thiếu
+    thì bù từ MTSAMPLES_EXTRA cho đủ `total`.
+
+    Trong mỗi danh mục, note NHIỀU XÉT NGHIỆM được ưu tiên (trường n_lab có sẵn
+    trong kho). Lý do đo được ở lô thử 5 bản: 310/457 note của kho là ghi chú tái
+    khám, KHÔNG có trị số xét nghiệm nào — bốc ngẫu nhiên trúng toàn loại đó thì
+    KẾT_QUẢ_XÉT_NGHIỆM chỉ ra 4 span/5 tài liệu, không phải vì đánh dấu sót mà vì
+    bản gốc không có gì để đánh dấu. Ngẫu nhiên vẫn giữ ở các note cùng mức n_lab.
+    """
+    rng = rng or random.Random(SEED)
+    path = Path(source) if source != "auto" else EXT / "en_notes" / "mtsamples_filtered.jsonl"
+    if not path.exists():
+        sys.exit(f"thiếu {path} — khôi phục bằng:\n"
+                 f"  git show bd6c440:data/external/en_notes/mtsamples_filtered.jsonl"
+                 f" > {path}")
+
+    by_spec: dict[str, list[dict]] = collections.defaultdict(list)
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        note = json.loads(line)
+        if note.get("text") and note.get("n_lab", 0) >= min_lab:
+            by_spec[note.get("spec", "")].append(note)
+    for notes in by_spec.values():
+        rng.shuffle(notes)                       # ngẫu nhiên trong cùng mức n_lab
+        notes.sort(key=lambda r: -r.get("n_lab", 0))   # sort ổn định: giữ thứ tự trên
+
+    taken: list[dict] = []
+    seen: set[str] = set()
+
+    def take(spec: str, k: int) -> None:
+        for note in by_spec.get(spec, []):
+            if k <= 0 or (total is not None and len(taken) >= total):
+                return
+            if note["id"] in seen:
+                continue
+            seen.add(note["id"])
+            taken.append({"id": note["id"], "category": spec,
+                          "text": normalize_mtsamples_text(note["text"])})
+            k -= 1
+
+    for spec in categories:
+        take(spec, n_per_cat)
+    # bù cho đủ số: vòng đầu vét nốt các danh mục chính, vòng sau lấy danh mục phụ
+    if total is not None:
+        for spec in list(categories) + MTSAMPLES_EXTRA + sorted(by_spec):
+            if len(taken) >= total:
+                break
+            take(spec, total - len(taken))
+    return taken
+
+
+# --------------------------------------------------- gazetteer tra mã ICD/RxNorm
+
+#: Tách từ để dò cụm: giữ chữ có dấu tiếng Việt (\w với re.UNICODE), giữ số, và
+#: nối các mảnh ngăn bằng gạch nối ("LDL-cholesterol" là MỘT từ, không phải hai).
+TOKEN_RE = re.compile(r"\w+(?:[-'’]\w+)*", re.UNICODE)
+
+
+def norm_token(tok: str) -> str:
+    return ud.normalize("NFC", tok).casefold()
+
+
+class Gazetteer:
+    """Dò cụm nhiều từ trong văn bản, khớp dài nhất thắng.
+
+    Đánh chỉ mục theo TỪ ĐẦU của cụm chứ không ghép một regex khổng lồ: bảng ICD
+    cho ~40k alias, một regex alternation cỡ đó biên dịch rất chậm và dò còn chậm
+    hơn. Với chỉ mục theo từ đầu thì mỗi vị trí trong văn bản chỉ phải thử vài
+    alias cùng từ mở đầu.
+    """
+
+    def __init__(self, entries: list[tuple[str, dict]], sub_index: bool = False):
+        self.index: dict[str, list[tuple[tuple[str, ...], dict]]] = {}
+        self.exact: dict[tuple[str, ...], dict] = {}
+        #: Chỉ mục CỤM CON: mọi đoạn liền ≥2 từ của alias -> alias ngắn nhất chứa nó.
+        #: Cần vì bảng ICD ghi tên trang trọng còn bác sĩ viết tên gọn: bảng có
+        #: "Bệnh lý tăng huyết áp" (I10), bệnh án viết "Tăng huyết áp" — không có
+        #: chỉ mục này thì chẩn đoán phổ biến nhất trong bệnh án lại không có mã.
+        self.sub: dict[tuple[str, ...], tuple[int, str, dict]] = {}
+        for alias, payload in entries:
+            toks = tuple(norm_token(t) for t in TOKEN_RE.findall(alias))
+            if not toks:
+                continue
+            self.index.setdefault(toks[0], []).append((toks, payload))
+            self.exact.setdefault(toks, payload)
+            if not sub_index:
+                continue
+            key_code = payload.get("code") or (payload.get("codes") or [""])[0]
+            rank = (len(toks), key_code)
+            for i in range(len(toks)):
+                for j in range(i + 2, len(toks) + 1):
+                    piece = toks[i:j]
+                    if piece == toks:
+                        continue
+                    cur = self.sub.get(piece)
+                    # alias NGẮN NHẤT thắng: nó là tên chung nhất chứa cụm này,
+                    # alias dài hơn là biến thể có thêm bổ ngữ mà bệnh án không viết
+                    if cur is None or rank < (cur[0], cur[1]):
+                        self.sub[piece] = (*rank, payload)
+        for bucket in self.index.values():
+            bucket.sort(key=lambda x: -len(x[0]))
+
+    def lookup(self, phrase: str) -> dict | None:
+        """Khớp NGUYÊN CỤM (đã chuẩn hoá) — dùng để gán mã cho span LLM đã bọc."""
+        return self.exact.get(tuple(norm_token(t) for t in TOKEN_RE.findall(phrase)))
+
+    def lookup_partial(self, phrase: str) -> dict | None:
+        """Cụm là một ĐOẠN CON của alias nào đó — nước cuối khi hai cách trên trượt."""
+        hit = self.sub.get(tuple(norm_token(t) for t in TOKEN_RE.findall(phrase)))
+        return hit[2] if hit else None
+
+    def find_all(self, text: str) -> list[tuple[int, int, dict]]:
+        """Quét toàn văn bản -> [(start, end, payload)], không chồng lấn."""
+        spans = [(m.start(), m.end(), norm_token(m.group())) for m in TOKEN_RE.finditer(text)]
+        out: list[tuple[int, int, dict]] = []
+        i = 0
+        while i < len(spans):
+            for toks, payload in self.index.get(spans[i][2], ()):
+                n = len(toks)
+                if i + n <= len(spans) and all(spans[i + k][2] == toks[k] for k in range(n)):
+                    out.append((spans[i][0], spans[i + n - 1][1], payload))
+                    i += n
+                    break
+            else:
+                i += 1
+        return out
+
+    def best_inside(self, phrase: str) -> dict | None:
+        """Cụm dài nhất tra được NẰM TRONG một span — dùng khi không khớp nguyên cụm.
+
+        Cần vì LLM bọc theo lối bệnh án ("đái tháo đường type 2 biến chứng thận")
+        còn bảng ICD ghi theo lối WHO; phần lõi thì trùng, phần bổ ngữ thì không.
+        """
+        found = self.find_all(phrase)
+        if not found:
+            return None
+        return max(found, key=lambda f: f[1] - f[0])[2]
+
+
+def build_term_mapping(icd_list: list[dict], rx_list: list[dict]
+                       ) -> tuple[Gazetteer, Gazetteer]:
+    """Dựng hai gazetteer tra mã, từ CHÍNH bảng của ban tổ chức.
+
+    Không cần bảng ánh xạ Anh-Việt riêng như bản nháp của kế hoạch dự tính: bảng
+    ICD10.csv của ban tổ chức đã là tiếng Việt sẵn (cột "Tên bệnh"), nên tra thẳng
+    trên bản dịch được. Còn tên thuốc thì prompt bắt giữ nguyên tiếng Anh, đúng
+    dạng alias RxNorm — cũng tra thẳng được. Một bảng ánh xạ tự dựng thêm chỉ tạo
+    ra tầng sai số thứ hai giữa hai bảng đã có.
+    """
+    icd_gaz = Gazetteer([(r["alias"], {"code": r["code"], "alias": r["alias"]})
+                         for r in icd_list], sub_index=True)
+    rx_gaz = Gazetteer([(r["alias"], {"codes": r["codes"], "alias": r["alias"]})
+                        for r in rx_list], sub_index=True)
+    return icd_gaz, rx_gaz
+
+
+# ------------------------------------------------------------- dịch + bọc thực thể
+
+TRANSLATE_SYS = """Bạn dịch bệnh án tiếng Anh sang tiếng Việt theo văn phong bệnh viện Việt Nam,
+ĐỒNG THỜI đánh dấu mọi thực thể y khoa ngay trong bản dịch.
+
+CÁCH ĐÁNH DẤU — bọc thực thể trong 〔LOẠI|nội dung〕, dùng đúng 5 mã loại sau:
+  〔DX|...〕    tên bệnh, chẩn đoán            ví dụ: 〔DX|đái tháo đường type 2〕
+  〔SYM|...〕   triệu chứng, dấu hiệu           ví dụ: 〔SYM|đau ngực khi gắng sức〕
+  〔DRUG|...〕  tên thuốc                       ví dụ: 〔DRUG|aspirin〕
+  〔TEST|...〕  tên xét nghiệm, thăm dò         ví dụ: 〔TEST|công thức máu toàn phần〕
+  〔RES|...〕   kết quả xét nghiệm              ví dụ: 〔RES|1.3 mg/dL〕
+
+BA CHỖ HAY ĐÁNH DẤU SAI, để ý kỹ:
+  a. TÊN CHẤT XÉT NGHIỆM là 〔TEST|...〕, KHÔNG phải 〔SYM|...〕. Các chất như
+     bilirubin, creatinine, phosphatase kiềm, cholesterol, hemoglobin, albumin,
+     natri, kali là ĐỐI TƯỢNG được đo — chúng là xét nghiệm, không phải triệu chứng.
+     Đúng: 〔TEST|bilirubin〕 〔RES|1.2 mg/dL〕     Sai: 〔SYM|bilirubin〕
+  b. MỌI TRỊ SỐ đi kèm xét nghiệm đều phải bọc 〔RES|...〕, kể cả số trần không
+     có đơn vị. Mục "Kết quả xét nghiệm" của bệnh án thật gần như dòng nào cũng
+     có một 〔TEST|...〕 và một 〔RES|...〕 đi cặp — đừng bỏ trống trị số.
+     Đúng: 〔TEST|HCT〕 〔RES|34.8〕, 〔TEST|BUN〕 〔RES|37〕, 〔TEST|LDL〕 〔RES|158 mg/dL〕.
+     〔RES|...〕 cũng dùng cho kết luận chẩn đoán hình ảnh:
+     〔TEST|X-quang ngực〕 cho thấy 〔RES|không có tổn thương khu trú〕.
+  c. Liều thuốc (50 mg, 2 lần/ngày) KHÔNG phải kết quả xét nghiệm — không bọc.
+
+QUY TẮC DỊCH:
+1. GIỮ NGUYÊN TIẾNG ANH, không dịch, không phiên âm:
+   - tên thuốc: aspirin, metformin, lisinopril, CellCept, Cozaar...
+   - viết tắt xét nghiệm: WBC, HGB, HCT, BUN, HbA1c, LDL, HDL, AST, ALT, CRP, INR, ECG...
+2. DỊCH sang tiếng Việt:
+   - tên bệnh: diabetes -> đái tháo đường · hypertension -> tăng huyết áp
+   - triệu chứng: chest pain -> đau ngực · shortness of breath -> khó thở
+   - tên xét nghiệm dạng đầy đủ: Complete Blood Count -> công thức máu toàn phần
+3. Tiêu đề mục dịch theo lối bệnh án Việt Nam. TIÊU ĐỀ PHẢI CHIẾM TRỌN MỘT DÒNG,
+   kết thúc bằng dấu hai chấm, nội dung xuống dòng dưới:
+       REASON FOR VISIT / CHIEF COMPLAINT   -> Lý do vào viện:
+       HISTORY OF PRESENT ILLNESS           -> Bệnh sử:
+       SUBJECTIVE                           -> Bệnh sử:
+       OBJECTIVE                            -> Khám thực thể:
+       PAST MEDICAL HISTORY                 -> Tiền sử bệnh:
+       FAMILY HISTORY                       -> Tiền sử gia đình:
+       ALLERGIES                            -> Dị ứng:
+       MEDICATIONS                          -> Thuốc đang dùng:
+       REVIEW OF SYSTEMS                    -> Khám các cơ quan:
+       PHYSICAL EXAMINATION                 -> Khám thực thể:
+       LABORATORY DATA / LABS               -> Kết quả xét nghiệm:
+       IMPRESSION / ASSESSMENT / DIAGNOSIS  -> Chẩn đoán:
+       PLAN / RECOMMENDATIONS               -> Hướng điều trị:
+   Đúng:
+       Bệnh sử:
+       Bệnh nhân nam 52 tuổi, 〔DX|bệnh thận giai đoạn cuối〕...
+   Sai: "Bệnh sử: Bệnh nhân nam 52 tuổi..." (tiêu đề dính vào nội dung).
+4. Đánh dấu ĐẦY ĐỦ: mỗi lần một thực thể xuất hiện là một lần bọc, kể cả khi
+   lặp lại ở mục khác. Bệnh án thật nhắc chẩn đoán ở cả Bệnh sử, Tiền sử và
+   Chẩn đoán — bọc cả ba lần.
+5. Dấu 〔 〕 chỉ được bọc ĐÚNG cụm thực thể, KHÔNG bọc kèm từ dẫn, liều lượng
+   hay dấu câu. Đúng: 〔DRUG|metoprolol〕 50 mg x 2 lần/ngày.
+   Sai: 〔DRUG|metoprolol 50 mg x 2 lần/ngày〕.
+6. KHÔNG lồng dấu 〔 〕 vào nhau. KHÔNG dùng ký tự 〔 〕 cho mục đích khác.
+7. Giữ nguyên tuổi, giới, số đo, liều lượng, mốc thời gian của bản gốc.
+   Bệnh án gốc có bao nhiêu mục thì bản dịch có bấy nhiêu mục, không lược bớt.
+8. Chỉ trả về bản dịch. KHÔNG giải thích, KHÔNG dùng markdown, KHÔNG dấu **."""
+
+
+def unwrap_typed(marked: str, allowed: set[tuple[str, str]] | None = None
+                 ) -> tuple[str, list[dict]] | str:
+    """Bóc dấu 〔LOẠI|...〕 -> (văn bản sạch, records), offset tính NGAY LÚC BÓC.
+
+    Cùng một cách với unwrap() ở đường tự sinh, khác mỗi chỗ loại thực thể đọc từ
+    trong dấu thay vì tra bundle. Trả về str mô tả lý do khi không dùng được.
+
+    `allowed` (dùng ở bước restyle): tập (mã loại, nội dung) được phép gán nhãn.
+    Dấu nằm ngoài tập này là do LLM bịa thêm lúc viết lại — BỎ NHÃN nhưng GIỮ CHỮ,
+    tức chỉ mất một nhãn chứ không sai nhãn. Bỏ được an toàn vì offset của các span
+    khác tính trên chuỗi cuối cùng, không phụ thuộc span này có được ghi hay không.
+    """
+    marked = re.sub(r"\*\*(?!\*)", "", marked)
+    marked = re.sub(r"(?m)^#{1,6}[ ]*", "", marked)
+
+    # Dấu 〔 〕 hỏng (thiếu mã loại, lồng nhau, thiếu vế đóng) phải bỏ TRƯỚC vòng
+    # tính offset, không phải sau: bỏ sau thì mọi offset đứng sau vị trí đó lệch
+    # đúng bằng số ký tự vừa bỏ — cùng loại lỗi mà unwrap() gặp với dấu **.
+    good = [(m.start(), m.end()) for m in BRACKET_TYPED.finditer(marked)]
+    if not good:
+        return "không có dấu 〔 〕 nào — LLM bỏ qua định dạng"
+    keep, prev = [], 0
+    for start, end in good:
+        keep.append(marked[prev:start].replace("〔", "").replace("〕", ""))
+        keep.append(marked[start:end])
+        prev = end
+    keep.append(marked[prev:].replace("〔", "").replace("〕", ""))
+    marked = "".join(keep)
+
+    parts: list[str] = []
+    records: list[dict] = []
+    pos = 0
+    for m in BRACKET_TYPED.finditer(marked):
+        parts.append(marked[pos:m.start()])
+        offset = sum(len(p) for p in parts)
+        tag, surface = m.group(1), m.group(2).strip()
+        ctype = TYPE_ALIASES.get(tag, tag if tag in ENTITY_TYPES else None)
+        if allowed is not None and (tag, norm_surface(surface)) not in allowed:
+            ctype = None
+        if surface and ctype:
+            records.append({"text": surface, "type": ctype, "candidates": [],
+                            "assertions": [],
+                            "position": [offset, offset + len(surface)]})
+        parts.append(surface)
+        pos = m.end()
+    parts.append(marked[pos:])
+    text = "".join(parts)
+
+    if not records:
+        return "không mã loại nào đọc được (LLM đặt tên loại lạ)"
+    for rec in records:
+        s, e = rec["position"]
+        if text[s:e] != rec["text"]:
+            return "offset lệch sau khi bóc dấu"
+    return text, records
+
+
+# ----------------------------------------------------------- gán mã + gom span
+
+def overlaps(pos1: list[int], pos2: list[int]) -> bool:
+    """Hai span có chồng lấn không."""
+    return not (pos1[1] <= pos2[0] or pos2[1] <= pos1[0])
+
+
+def remove_overlapping_spans(records: list[dict]) -> list[dict]:
+    """Bỏ span chồng lấn: span LLM đánh dấu thắng, sau đó span dài thắng.
+
+    Ưu tiên span LLM chứ không thuần theo độ dài, vì gazetteer dò được cả những
+    cụm nằm TRONG span LLM đã bọc (alias ICD "viêm phổi" nằm trong "viêm phổi
+    thuỳ dưới phải") — thuần theo độ dài thì vẫn đúng, nhưng khi dài bằng nhau,
+    nhãn của LLM sát ngữ cảnh câu hơn nhãn tra từ điển.
+    """
+    ordered = sorted(records, key=lambda r: (r["position"][0],
+                                             r.get("_src", 1),
+                                             -(r["position"][1] - r["position"][0])))
+    kept: list[dict] = []
+    for rec in ordered:
+        if not any(overlaps(rec["position"], k["position"]) for k in kept):
+            kept.append(rec)
+    return kept
+
+
+def link_candidates(records: list[dict], icd_gaz: Gazetteer, rx_gaz: Gazetteer) -> None:
+    """Gán mã ICD cho CHẨN_ĐOÁN và RxCUI cho THUỐC, sửa tại chỗ.
+
+    Ba type còn lại để rỗng: đo trên gold, TÊN_XÉT_NGHIỆM và KẾT_QUẢ_XÉT_NGHIỆM
+    có 0% span mang mã, và bảng của ban tổ chức không có mục nào tra được cho
+    TRIỆU_CHỨNG.
+    """
+    for rec in records:
+        gaz = {"CHẨN_ĐOÁN": icd_gaz, "THUỐC": rx_gaz}.get(rec["type"])
+        if gaz is None or "*" in rec["text"]:
+            continue
+        hit = (gaz.lookup(rec["text"]) or gaz.best_inside(rec["text"])
+               or gaz.lookup_partial(rec["text"]))
+        if hit:
+            rec["candidates"] = [hit["code"]] if "code" in hit else list(hit["codes"])
+
+
+#: Gazetteer của SYMPTOMS/TEST_NAMES dựng một lần rồi dùng lại: sweep chạy mỗi
+#: tài liệu một lần, dựng lại trong vòng lặp là phí.
+_PHRASE_GAZ: dict[str, Gazetteer] = {}
+
+
+def _phrase_gazetteer(key: str, phrases: list[str]) -> Gazetteer:
+    if key not in _PHRASE_GAZ:
+        _PHRASE_GAZ[key] = Gazetteer([(p, {}) for p in phrases])
+    return _PHRASE_GAZ[key]
+
+
+def sweep_gazetteers(text: str, icd_gaz: Gazetteer, rx_gaz: Gazetteer) -> list[dict]:
+    """Dò thêm thực thể LLM bỏ sót, bằng từ điển.
+
+    Chỉ bổ sung chứ không thay thế nhãn của LLM: mọi span dò được ở đây sẽ bị
+    remove_overlapping_spans loại nếu đè lên span LLM đã bọc.
+
+    Ngưỡng số từ tối thiểu là kết quả soát tay 5 bản dịch đầu, không phải phòng xa:
+      - ICD >=3 từ. Alias ICD 2 từ phần lớn trùng TRIỆU_CHỨNG chứ không phải chẩn
+        đoán ("Đau lưng" M54, "Đau khớp" M25.5) — quét vào thì cùng một cụm bị gán
+        CHẨN_ĐOÁN ở tài liệu này, TRIỆU_CHỨNG ở tài liệu kia, dạy model mâu thuẫn.
+      - cụm triệu chứng/xét nghiệm >=2 từ. Cụm 1 từ khớp cả khi nó chỉ là nửa của
+        từ ghép: "phù" khớp trong "phù hợp", "mệt" trong "mệt mỏi" — tách từ theo
+        khoảng trắng không phân biệt được, mà tiếng Việt thì từ ghép viết rời.
+    Thuốc giữ ngưỡng 1 từ: tên thuốc là tiếng Anh giữa văn bản Việt nên không có
+    chuyện trùng nửa từ ghép, và phần lớn tên thuốc vốn chỉ một từ.
+    """
+    found: list[dict] = []
+    for gaz, ctype, key, min_tok in ((icd_gaz, "CHẨN_ĐOÁN", "code", 3),
+                                     (rx_gaz, "THUỐC", "codes", 1)):
+        for start, end, payload in gaz.find_all(text):
+            if len(TOKEN_RE.findall(text[start:end])) < min_tok:
+                continue
+            found.append({"text": text[start:end], "type": ctype,
+                          "candidates": ([payload[key]] if key == "code"
+                                         else list(payload[key])), "assertions": [],
+                          "position": [start, end], "_src": 1})
+    for phrases, ctype in ((SYMPTOMS, "TRIỆU_CHỨNG"), (TEST_NAMES, "TÊN_XÉT_NGHIỆM")):
+        for start, end, _ in _phrase_gazetteer(ctype, phrases).find_all(text):
+            if len(TOKEN_RE.findall(text[start:end])) < 2:
+                continue
+            found.append({"text": text[start:end], "type": ctype, "candidates": [],
+                          "assertions": [], "position": [start, end], "_src": 1})
+    return found
+
+
+def extract_entities_from_mtsamples(marked_vi: str,
+                                    icd_gaz: Gazetteer, rx_gaz: Gazetteer,
+                                    allowed: set[tuple[str, str]] | None = None
+                                    ) -> tuple[str, list[dict]] | str:
+    """Từ bản dịch CÓ DẤU -> (văn bản sạch, records đầy đủ mã + assertion).
+
+    Khác chữ ký trong bản nháp kế hoạch ở hai chỗ, và cả hai đều là hệ quả của
+    việc bọc dấu lúc dịch:
+      - nhận `marked_vi` (bản dịch còn dấu) chứ không phải `text_vi` đã sạch, vì
+        vị trí span nằm ở chính dấu 〔 〕 — bỏ dấu trước rồi dò lại là quay về cách
+        cho recall ~0 ở CHẨN_ĐOÁN đã nói ở đầu file;
+      - trả về CẢ văn bản sạch, vì chỉ có hàm này biết văn bản sau khi bóc dấu
+        trông thế nào, mà offset thì tính trên đúng chuỗi đó.
+    """
+    res = unwrap_typed(marked_vi, allowed=allowed)
+    if isinstance(res, str):
+        return res
+    text_vi, records = res
+    for rec in records:
+        rec["_src"] = 0
+    records = remove_overlapping_spans(records + sweep_gazetteers(text_vi, icd_gaz, rx_gaz))
+    for rec in records:
+        rec.pop("_src", None)
+    link_candidates(records, icd_gaz, rx_gaz)
+    for rec in records:
+        rec["assertions"] = assertions_at(text_vi, rec["position"][0])
+        s, e = rec["position"]
+        if text_vi[s:e] != rec["text"]:
+            return "offset lệch sau khi gom span"
+    return text_vi, sorted(records, key=lambda r: r["position"])
+
+
+# ------------------------------------------------ bước 3': dịch mtsamples -> nhãn
+
+def cmd_translate(args) -> int:
+    rng = random.Random(args.seed + 2)
+    TRANSLATED_WORK.mkdir(parents=True, exist_ok=True)
+    TRANSLATED_TEXT.mkdir(parents=True, exist_ok=True)
+    TRANSLATED_ANNOTATIONS.mkdir(parents=True, exist_ok=True)
+
+    print("đọc bảng ban tổ chức...")
+    icd = load_icd()
+    rx = load_rxnorm()
+    icd_gaz, rx_gaz = build_term_mapping(icd, common_drugs(rx) if args.common_drugs_only else rx)
+    print(f"  gazetteer: {len(icd_gaz.exact)} cụm ICD | {len(rx_gaz.exact)} tên thuốc")
+
+    # Nạp lại từ file bản dịch: lấy DANH SÁCH BỆNH ÁN TỪ CHÍNH FILE ĐÓ, không bốc
+    # lại từ kho. Bốc lại là sai: thứ tự bốc phụ thuộc seed/tham số lọc, đổi một
+    # tham số (thêm --min-lab chẳng hạn) là bản dịch bị ghép vào bệnh án gốc khác,
+    # trong khi nhãn vẫn "đúng" so với bản dịch nên verify không phát hiện được.
+    preloaded = None
+    if args.translated:
+        rows = [json.loads(l) for l in
+                Path(args.translated).read_text(encoding="utf-8").splitlines() if l.strip()]
+        if rows and all(r.get("category") is not None and "text_vi_marked" in r for r in rows):
+            preloaded = rows
+
+    if preloaded is not None:
+        samples = [{"id": r.get("source_id", r["id"]), "category": r["category"],
+                    "text": r.get("text_en", ""), "file_id": r["id"]} for r in preloaded]
+        print(f"nạp {len(samples)} bệnh án kèm bản dịch từ {args.translated}")
+    else:
+        cats = MTSAMPLES_CATEGORIES[:args.n_categories]
+        n_per_cat = max(1, args.n // max(len(cats), 1))
+        samples = fetch_mtsamples(cats, n_per_cat, args.source, rng,
+                                  total=args.n, min_lab=args.min_lab)
+    if not samples:
+        sys.exit("không nạp được bệnh án nào từ mtsamples")
+    spread = collections.Counter(s["category"] for s in samples)
+    if preloaded is None:
+        print(f"đã nạp {len(samples)}/{args.n} bệnh án từ mtsamples")
+    for spec, k in spread.most_common():
+        print(f"    {k:3d}  {spec}")
+
+    # id có prefix chuyên khoa để nhìn tên file là biết bệnh cảnh
+    counters: collections.Counter = collections.Counter()
+    for s in samples:
+        if s.get("file_id"):
+            continue
+        prefix = CATEGORY_PREFIXES.get(s["category"], "other")
+        counters[prefix] += 1
+        s["file_id"] = f"mtsamples_{prefix}_{counters[prefix]:04d}"
+
+    path_trans = TRANSLATED_WORK / "translation_process.jsonl"
+    prompts = [f"Dịch bệnh án sau sang tiếng Việt và đánh dấu thực thể:\n\n{s['text']}"
+               for s in samples]
+
+    if args.translated:
+        loaded = {json.loads(l)["id"]: json.loads(l).get("text_vi_marked", "")
+                  for l in Path(args.translated).read_text(encoding="utf-8").splitlines() if l.strip()}
+        marked = [loaded.get(s["file_id"]) or loaded.get(s["id"], "") for s in samples]
+        print(f"nạp sẵn {sum(1 for m in marked if m)} bản dịch từ {args.translated}")
+    elif args.use_api:
+        print(f"dịch bằng {args.model}...")
+        marked = call_api(prompts, TRANSLATE_SYS, args.model, args.max_tokens)
+    else:
+        path_p = TRANSLATED_WORK / "translation_prompts.jsonl"
+        with path_p.open("w", encoding="utf-8") as fh:
+            for s, p in zip(samples, prompts):
+                fh.write(json.dumps({"id": s["file_id"], "source_id": s["id"],
+                                     "category": s["category"], "system": TRANSLATE_SYS,
+                                     "prompt": p}, ensure_ascii=False) + "\n")
+        print(f"  chưa gọi API — prompt ở {path_p.relative_to(REPO)}")
+        print(f"  gọi model nào cũng được rồi nạp lại: translate --translated FILE")
+        print(f"  (FILE mỗi dòng: {{\"id\": \"mtsamples_cardio_0001\","
+              f" \"text_vi_marked\": \"...\"}})")
+        return 0
+
+    # ghi nhật ký dịch trước khi lọc — bản bị loại vẫn cần xem lại được
+    with path_trans.open("w", encoding="utf-8") as fh:
+        for s, mk in zip(samples, marked):
+            fh.write(json.dumps({"id": s["file_id"], "source_id": s["id"],
+                                 "category": s["category"], "text_en": s["text"],
+                                 "text_vi_marked": mk}, ensure_ascii=False) + "\n")
+    print(f"đã dịch {sum(1 for m in marked if m)} bản -> {path_trans.relative_to(REPO)}")
+
+    n_ok = n_mask = n_nfd = 0
+    reasons: collections.Counter = collections.Counter()
+    by_type: collections.Counter = collections.Counter()
+    for s, mk in zip(samples, marked):
+        if not mk:
+            reasons["không có bản dịch"] += 1
+            continue
+        res = extract_entities_from_mtsamples(mk, icd_gaz, rx_gaz)
+        if isinstance(res, str):
+            reasons[res] += 1
+            continue
+        text, records = res
+        if len(records) < args.min_spans:
+            reasons[f"dưới {args.min_spans} span"] += 1
+            continue
+        # Bẫy *** hiệu chỉnh theo SỐ SPAN THUỐC của chính tài liệu này. Dùng thẳng
+        # một tỉ lệ mỗi-span như đường tự sinh thì sai mốc: bundle tự sinh có 3-5
+        # thuốc, còn mục "Thuốc đang dùng" của mtsamples thường 8-12 — cùng
+        # mask_rate 0,12 cho ra 68% FILE có bẫy thay vì 30% như đo trên test.
+        n_drug = sum(1 for r in records if r["type"] == "THUỐC")
+        per_span = 1 - (1 - args.mask_file_rate) ** (1 / n_drug) if n_drug else 0.0
+        text, records = postprocess(
+            rng, text, records,
+            argparse.Namespace(mask_rate=per_span, nfd_rate=args.nfd_rate))
+        if text is None:
+            reasons["hậu xử lý hỏng offset"] += 1
+            continue
+        n_ok += 1
+        n_mask += sum(1 for r in records if "*" in r["text"])
+        n_nfd += int(text != ud.normalize("NFC", text))
+        for r in records:
+            by_type[r["type"]] += 1
+        (TRANSLATED_TEXT / f"{s['file_id']}.txt").write_text(text, encoding="utf-8")
+        (TRANSLATED_ANNOTATIONS / f"{s['file_id']}.json").write_text(
+            json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    print(f"đã xuất {n_ok}/{len(samples)} bản dùng được")
+    print(f"  văn bản: {TRANSLATED_TEXT.relative_to(REPO)}")
+    print(f"  nhãn:    {TRANSLATED_ANNOTATIONS.relative_to(REPO)}")
+    print(f"  bẫy ***: {n_mask} span | NFD: {n_nfd} file")
+    if reasons:
+        print(f"  loại: {dict(reasons)}")
+    print(f"  span theo type: {dict(by_type)}")
+    return 0
+
+
+# ================================================ ĐỔI THỂ LOẠI cho khớp đề thi
+
+#: Tỉ lệ thể loại đo trên 100 file data/test. Bản dịch mtsamples ra 100% "văn xuôi
+#: lâm sàng có tiêu đề mục" — tức chỉ khớp 17% đề thi. PRD §7.3 gọi thẳng đây là
+#: việc phải làm: "Nhãn bạc & prompt few-shot phải phủ nhiều thể loại".
+RESTYLE_GENRES: dict[str, tuple[int, str]] = {
+    "dan_y": (45, """Viết lại thành DÀN Ý GẠCH ĐẦU DÒNG / ĐÁNH SỐ, kiểu bản ghi tóm tắt bệnh án.
+- Mục lớn đánh số "1.", "2." ... ; ý con dùng "-" thụt vào đầu dòng.
+- Câu cụt, không cần chủ ngữ, kiểu ghi chép nhanh: "- sốt cao 3 ngày", "- đã dùng ...".
+- Có thể có mục "Lời khuyên dành cho bạn:" hoặc "Hướng xử trí:" ở cuối."""),
+
+    "van_xuoi": (17, """Giữ dạng VĂN XUÔI LÂM SÀNG có tiêu đề mục như bản gốc, nhưng viết tự nhiên hơn:
+- Bỏ bớt vài tiêu đề mục, gộp nội dung vào đoạn văn liền mạch.
+- Câu dài, nhiều mệnh đề, giọng bác sĩ ghi bệnh án."""),
+
+    "pho_bien": (15, """Viết lại thành BÀI PHỔ BIẾN KIẾN THỨC Y KHOA cho người đọc phổ thông.
+- Mở đầu bằng câu hỏi kiểu "X là bệnh gì?" rồi giải thích chung.
+- Nói về bệnh NÓI CHUNG, không nói về một bệnh nhân cụ thể: đổi "bệnh nhân sốt cao"
+  thành "người bệnh có thể sốt cao", "bệnh thường khởi phát với ...".
+- Có thể liệt kê triệu chứng, nguyên nhân, cách phòng ngừa."""),
+
+    "hoi_dap": (14, """Viết lại thành HỎI–ĐÁP giữa người bệnh và bác sĩ trên diễn đàn y tế.
+- Bắt đầu bằng "Hỏi: Kính chào bác sĩ! ..." — người bệnh tự kể bệnh mình bằng lời dân dã,
+  xưng "em"/"tôi", có chi tiết đời thường (đi làm xa, ăn uống thất thường...).
+- Rồi "Trả lời:" — bác sĩ giải thích và tư vấn.
+- Dùng lối nói dân dã thay thuật ngữ khi hợp: "đau bao tử", "đi tiêu ra máu", "men gan cao"."""),
+
+    "xuong_dong": (9, """Viết lại thành BỆNH ÁN CHÉP TAY vội, thô ráp:
+- XUỐNG DÒNG CỨNG giữa câu, mỗi dòng chỉ 30-50 ký tự, ngắt ở chỗ bất kỳ kể cả giữa mệnh đề.
+  NHƯNG KHÔNG ĐƯỢC ngắt dòng vào giữa một cụm 〔...〕 — cụm nào dài thì cho hẳn xuống dòng dưới.
+- Dùng viết tắt bệnh viện: BN, TS, HA, M (mạch), NYHA III-IV, TTT, ck/ph, đ/n.
+  CHỈ viết tắt ở phần chữ NGOÀI dấu 〔 〕. Bên trong dấu giữ nguyên si:
+  〔DX|tăng huyết áp〕 KHÔNG được rút thành 〔DX|tăng HA〕.
+- Tiêu đề mục ghi cụt kiểu "TS:", "TS gia đình:", "Khám:", "Thuốc:".
+- Dùng "->" thay cho "dẫn đến"; bỏ bớt dấu câu; có thể sai chính tả nhẹ ("điêu trị").
+- Không cần tiêu đề mục đầy đủ, ghi cụt: "Khám:", "TS:"."""),
+}
+
+RESTYLE_SYS = """Bạn viết lại một bệnh án tiếng Việt sang THỂ LOẠI VĂN BẢN KHÁC.
+
+RÀNG BUỘC TUYỆT ĐỐI — đọc kỹ, đây là phần quan trọng nhất:
+
+1. Văn bản có các cụm được bọc trong 〔LOẠI|nội dung〕. Bạn PHẢI giữ lại TẤT CẢ,
+   NGUYÊN VĂN, cả mã loại lẫn nội dung bên trong, kể cả khi câu quanh nó đổi hoàn toàn.
+   Đúng:  gốc "Bệnh nhân có 〔DX|đái tháo đường type 2〕."
+          viết lại "- tiền sử 〔DX|đái tháo đường type 2〕"
+   Sai:   "- tiền sử đái tháo đường type 2"        (mất dấu)
+   Sai:   "- tiền sử 〔DX|tiểu đường〕"              (đổi chữ bên trong dấu)
+   Sai:   "- tiền sử 〔DIAGNOSIS|đái tháo đường type 2〕"  (đổi mã loại)
+
+2. KHÔNG tạo dấu 〔 〕 mới cho cụm chưa có. Thà để trần còn hơn bọc thêm.
+
+3. KHÔNG thêm bệnh, thuốc, xét nghiệm hay trị số nào không có trong bản gốc.
+   Mọi thông tin y khoa phải giữ đúng: tuổi, giới, liều lượng, trị số, mốc thời gian.
+   Được phép bỏ bớt câu rườm rà, đổi trật tự, đổi cách xưng hô, đổi giọng văn.
+
+4. Giữ nguyên ngôn ngữ của cụm trong dấu: tên thuốc tiếng Anh vẫn tiếng Anh.
+
+5. Chỉ trả về văn bản đã viết lại. KHÔNG giải thích, KHÔNG markdown, KHÔNG dấu **.
+
+THỂ LOẠI CẦN VIẾT LẠI:
+"""
+
+
+def norm_surface(s: str) -> str:
+    """Gộp mọi khoảng trắng về một dấu cách — dùng khi đối chiếu nội dung dấu.
+
+    Thể loại "bệnh án chép tay" ngắt dòng cứng mỗi 30-50 ký tự, và LLM ngắt cả
+    vào GIỮA dấu: 〔TEST|MRI⏎MRCP〕. So khớp thô thì cụm đó khác 〔TEST|MRI MRCP〕
+    của bản gốc nên bị coi là bịa và mất nhãn — 4/6 nhãn mất ở lô đầu là do đúng
+    lỗi này. Bản thân span vẫn hợp lệ: chuỗi trong văn bản có xuống dòng thật,
+    offset vẫn khớp từng ký tự, chỉ việc ĐỐI CHIẾU là cần bỏ qua khoảng trắng.
+    """
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def marker_set(marked: str) -> collections.Counter:
+    """Đa tập (mã loại, nội dung) của mọi dấu 〔 〕 — dùng để đối chiếu trước/sau."""
+    return collections.Counter((m.group(1), norm_surface(m.group(2)))
+                               for m in BRACKET_TYPED.finditer(marked))
+
+
+def check_restyle(before: str, after: str, min_keep: float) -> str | None:
+    """Trả lý do loại, hoặc None nếu bản viết lại dùng được.
+
+    Ngưỡng giữ dấu để RẤT THẤP, và đây là chỗ tôi đã đặt sai ở lượt đầu: để 80%
+    thì 4/5 bản bị loại với tỉ lệ giữ 31-71%, trong khi đọc tay thì cả 4 đều tốt.
+    Lý do: bỏ bớt nội dung CHÍNH LÀ việc đổi thể loại — bài phổ biến kiến thức
+    không kể hết 6 thuốc của một bệnh nhân, bệnh án chép vội cũng lược nhiều.
+
+    Bỏ bớt dấu KHÔNG làm sai nhãn: offset tính trên chuỗi cuối cùng nên các span
+    còn lại vẫn đúng từng ký tự, chỉ là tài liệu có ít span hơn — mà số span tối
+    thiểu đã có --min-spans canh rồi. Hai rủi ro thật (LLM bịa dấu mới, hoặc đổi
+    chữ bên trong dấu) do tập `allowed` ở unwrap_typed chặn, không phải hàm này.
+    Ngưỡng ở đây chỉ còn để bắt trường hợp model bỏ hẳn nhiệm vụ.
+    """
+    if len(after) < 200:
+        return "bản viết lại quá ngắn"
+    src, dst = marker_set(before), marker_set(after)
+    if not src:
+        return "bản gốc không có dấu nào"
+    kept = sum((src & dst).values()) / sum(src.values())
+    if kept < min_keep:
+        return f"chỉ giữ {kept:.0%} dấu (cần >={min_keep:.0%})"
+    return None
+
+
+def cmd_restyle(args) -> int:
+    rng = random.Random(args.seed + 3)
+    RESTYLED_WORK.mkdir(parents=True, exist_ok=True)
+    RESTYLED_TEXT.mkdir(parents=True, exist_ok=True)
+    RESTYLED_ANNOTATIONS.mkdir(parents=True, exist_ok=True)
+
+    src = Path(args.source) if args.source else TRANSLATED_WORK / "translation_process.jsonl"
+    if not src.exists():
+        sys.exit(f"chưa có {src} — chạy translate trước")
+    rows = [json.loads(l) for l in src.read_text(encoding="utf-8").splitlines() if l.strip()]
+    rows = [r for r in rows if r.get("text_vi_marked")]
+    if args.n:
+        rows = rows[:args.n]
+    if not rows:
+        sys.exit(f"{src} không có bản dịch nào dùng được")
+
+    print("đọc bảng ban tổ chức...")
+    icd_gaz, rx_gaz = build_term_mapping(load_icd(), load_rxnorm())
+
+    names = list(RESTYLE_GENRES)
+    weights = [RESTYLE_GENRES[g][0] for g in names]
+    for r in rows:
+        r["genre"] = args.genre if args.genre else rng.choices(names, weights)[0]
+    spread = collections.Counter(r["genre"] for r in rows)
+    print(f"viết lại {len(rows)} bản, thể loại theo tỉ lệ đo trên data/test:")
+    for g, k in spread.most_common():
+        print(f"    {k:3d}  {g}")
+
+    path_out = RESTYLED_WORK / "restyle_process.jsonl"
+    prompts = [f"Viết lại văn bản sau:\n\n{r['text_vi_marked']}" for r in rows]
+
+    if args.restyled:
+        loaded = {json.loads(l)["id"]: json.loads(l).get("text_restyled", "")
+                  for l in Path(args.restyled).read_text(encoding="utf-8").splitlines() if l.strip()}
+        out = [loaded.get(r["id"], "") for r in rows]
+        print(f"nạp sẵn {sum(1 for x in out if x)} bản viết lại từ {args.restyled}")
+    elif args.use_api:
+        # gọi theo TỪNG NHÓM thể loại: mỗi thể loại là một system prompt khác nhau,
+        # mà call_api chỉ nhận một system cho cả lô
+        out = [""] * len(rows)
+        for g in names:
+            idx = [i for i, r in enumerate(rows) if r["genre"] == g]
+            if not idx:
+                continue
+            print(f"  thể loại {g} ({len(idx)} bản)...")
+            got = call_api([prompts[i] for i in idx],
+                           RESTYLE_SYS + RESTYLE_GENRES[g][1], args.model, args.max_tokens)
+            for i, txt in zip(idx, got):
+                out[i] = txt
+    else:
+        path_p = RESTYLED_WORK / "restyle_prompts.jsonl"
+        with path_p.open("w", encoding="utf-8") as fh:
+            for r, p in zip(rows, prompts):
+                fh.write(json.dumps({"id": r["id"], "genre": r["genre"],
+                                     "system": RESTYLE_SYS + RESTYLE_GENRES[r["genre"]][1],
+                                     "prompt": p}, ensure_ascii=False) + "\n")
+        print(f"  chưa gọi API — prompt ở {path_p.relative_to(REPO)}")
+        print(f"  gọi model nào cũng được rồi nạp lại: restyle --restyled FILE")
+        print(f"  (FILE mỗi dòng: {{\"id\": \"...\", \"text_restyled\": \"...\"}})")
+        return 0
+
+    with path_out.open("w", encoding="utf-8") as fh:
+        for r, txt in zip(rows, out):
+            fh.write(json.dumps({"id": r["id"], "genre": r["genre"],
+                                 "category": r.get("category", ""),
+                                 "text_vi_marked": r["text_vi_marked"],
+                                 "text_restyled": txt}, ensure_ascii=False) + "\n")
+    print(f"đã viết lại {sum(1 for x in out if x)} bản -> {path_out.relative_to(REPO)}")
+
+    n_ok = n_mask = n_nfd = 0
+    reasons: collections.Counter = collections.Counter()
+    by_genre: collections.Counter = collections.Counter()
+    for r, txt in zip(rows, out):
+        if not txt:
+            reasons["không có bản viết lại"] += 1
+            continue
+        why = check_restyle(r["text_vi_marked"], txt, args.min_keep)
+        if why:
+            reasons[why] += 1
+            continue
+        # Chỉ nhận dấu đã có ở bản gốc: LLM bịa thêm dấu thì bỏ NHÃN, giữ CHỮ.
+        allowed = set(marker_set(r["text_vi_marked"]))
+        res = extract_entities_from_mtsamples(txt, icd_gaz, rx_gaz, allowed=allowed)
+        if isinstance(res, str):
+            reasons[res] += 1
+            continue
+        text, records = res
+        if len(records) < args.min_spans:
+            reasons[f"dưới {args.min_spans} span"] += 1
+            continue
+        n_drug = sum(1 for x in records if x["type"] == "THUỐC")
+        per_span = 1 - (1 - args.mask_file_rate) ** (1 / n_drug) if n_drug else 0.0
+        text, records = postprocess(
+            rng, text, records,
+            argparse.Namespace(mask_rate=per_span, nfd_rate=args.nfd_rate))
+        if text is None:
+            reasons["hậu xử lý hỏng offset"] += 1
+            continue
+        n_ok += 1
+        by_genre[r["genre"]] += 1
+        n_mask += sum(1 for x in records if "*" in x["text"])
+        n_nfd += int(text != ud.normalize("NFC", text))
+        # Xoá bản cũ CỦA CHÍNH id này trước khi ghi: thể loại nằm trong tên file mà
+        # mỗi lượt chạy bốc thể loại lại, nên chạy lần hai để lại file mồ côi của
+        # lần một — verify đếm cả hai và báo số liệu trộn hai lô.
+        for old in list(RESTYLED_TEXT.glob(f"{r['id']}_*.txt")):
+            old.unlink()
+        for old in list(RESTYLED_ANNOTATIONS.glob(f"{r['id']}_*.json")):
+            old.unlink()
+        stem = f"{r['id']}_{r['genre']}"
+        (RESTYLED_TEXT / f"{stem}.txt").write_text(text, encoding="utf-8")
+        (RESTYLED_ANNOTATIONS / f"{stem}.json").write_text(
+            json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    print(f"đã xuất {n_ok}/{len(rows)} bản dùng được")
+    print(f"  văn bản: {RESTYLED_TEXT.relative_to(REPO)}")
+    print(f"  nhãn:    {RESTYLED_ANNOTATIONS.relative_to(REPO)}")
+    print(f"  bẫy ***: {n_mask} span | NFD: {n_nfd} file")
+    print(f"  theo thể loại: {dict(by_genre)}")
+    if reasons:
+        print(f"  loại: {dict(reasons)}")
+    return 0
+
+
 # ----------------------------------------------------------- bước 3: kiểm lại
 
-def cmd_verify(args) -> int:
-    files = sorted(OUT_LABELS.glob("cmp*.json"))
-    if not files:
-        sys.exit(f"chưa có tài liệu nào trong {OUT_LABELS.relative_to(REPO)}")
-    icd_codes = {r["code"] for r in load_icd()}
-    rx_codes = {r["rxcui"] for r in load_rxnorm()}
+#: Độ dài span trung bình (từ) đo trên gold — mốc để đối chiếu dữ liệu sinh ra.
+#: Chỉ hai type này mang mã trong gold — ba type còn lại có 0% span có mã, nên
+#: gộp chung vào một tỉ lệ "span có mã" làm loãng số: lô dịch giàu xét nghiệm tụt
+#: còn 29% chỉ vì có nhiều span xét nghiệm, dù mã chẩn đoán/thuốc vẫn 74%.
+CODEABLE_TYPES = ("CHẨN_ĐOÁN", "THUỐC")
 
+GOLD_SPAN_LEN = {"CHẨN_ĐOÁN": 4.05, "TRIỆU_CHỨNG": 3.27, "THUỐC": 2.10,
+                 "TÊN_XÉT_NGHIỆM": 3.71, "KẾT_QUẢ_XÉT_NGHIỆM": 5.32}
+
+
+def verify_dataset(files: list[Path], icd_codes: set, rx_codes: set,
+                   indent: str = "  ") -> dict:
+    """Kiểm một lô nhãn, in thống kê, trả về {avg_spans, pct_with_code, errors}.
+
+    Thư mục văn bản suy từ CHÍNH đường dẫn của từng file nhãn (…/annotations/x.json
+    -> …/text/x.txt) chứ không nhận vào một thư mục chung: hàm này còn được gọi
+    với lô trộn cả synthetic lẫn translated, hai lô nằm ở hai cây khác nhau.
+    """
     bad: collections.Counter = collections.Counter()
-    n_span = n_cand = n_assert = n_mask = n_nfd = n_hdr = 0
+    n_span = n_assert = n_mask = n_nfd = n_hdr = 0
+    n_codeable = n_codeable_hit = 0
     lens: collections.defaultdict = collections.defaultdict(list)
+
     for path in files:
         records = json.loads(path.read_text(encoding="utf-8"))
-        raw = (OUT_TEXT / f"{path.stem}.txt").read_text(encoding="utf-8")
+        text_file = path.parent.parent / "text" / f"{path.stem}.txt"
+        if not text_file.exists():
+            bad["thiếu file văn bản đi kèm"] += 1
+            continue
+        raw = text_file.read_text(encoding="utf-8")
         n_nfd += int(raw != ud.normalize("NFC", raw))
         n_hdr += bool(re.search(r"(?m)^[^\n]{3,40}:\s*$", raw))
         n_mask += int(any("*" in r["text"] for r in records))
@@ -611,30 +1660,83 @@ def cmd_verify(args) -> int:
             if raw[start:end] != rec["text"]:
                 bad["text != raw[position]"] += 1
                 continue
-            n_cand += bool(rec["candidates"])
+            if rec["type"] in CODEABLE_TYPES:
+                n_codeable += 1
+                n_codeable_hit += bool(rec["candidates"])
             n_assert += bool(rec["assertions"])
             lens[rec["type"]].append(len(rec["text"].split()))
             for code in rec["candidates"]:
                 if code not in icd_codes and code not in rx_codes:
                     bad["mã không tra được trong bảng BTC"] += 1
-    n = len(files)
-    print(f"{n} tài liệu · {n_span} span · {n_span / n:.1f} span/file (gold median 48)")
-    print(f"  lỗi offset:        {sum(bad.values())}")
-    print(f"  span có mã:        {100 * n_cand / max(n_span, 1):.0f}%")
-    print(f"  span có assertion: {100 * n_assert / max(n_span, 1):.0f}%")
-    print(f"  file có bẫy ***:   {100 * n_mask / n:.0f}%   (test 30%)")
-    print(f"  file dạng NFD:     {100 * n_nfd / n:.0f}%   (test 20%)")
-    print(f"  file có tiêu đề:   {100 * n_hdr / n:.0f}%   (test 67%)")
-    print("  độ dài span (từ) — sinh ra / gold:")
-    ref = {"CHẨN_ĐOÁN": 4.05, "TRIỆU_CHỨNG": 3.27, "THUỐC": 2.10,
-           "TÊN_XÉT_NGHIỆM": 3.71, "KẾT_QUẢ_XÉT_NGHIỆM": 5.32}
-    for ctype in sorted(lens):
-        print(f"    {ctype:22} {st.mean(lens[ctype]):5.2f}  {ref.get(ctype, 0):5.2f}"
-              f"   n={len(lens[ctype])}")
+
+    n = max(len(files), 1)
+    avg_spans = n_span / n
+    pct_code = 100 * n_codeable_hit / max(n_codeable, 1)
+    print(f"{indent}{len(files)} tài liệu · {n_span} span · {avg_spans:.1f} span/file"
+          f" (gold median 48)")
+    print(f"{indent}  lỗi offset:        {sum(bad.values())}")
+    print(f"{indent}  span có mã:        {pct_code:.0f}%"
+          f"   (trên {n_codeable} span CHẨN_ĐOÁN+THUỐC; 3 type còn lại gold không gán mã)")
+    print(f"{indent}  span có assertion: {100 * n_assert / max(n_span, 1):.0f}%")
+    print(f"{indent}  file có bẫy ***:   {100 * n_mask / n:.0f}%   (test 30%)")
+    print(f"{indent}  file dạng NFD:     {100 * n_nfd / n:.0f}%   (test 20%)")
+    print(f"{indent}  file có tiêu đề:   {100 * n_hdr / n:.0f}%   (test 67%)")
+    if lens:
+        print(f"{indent}  độ dài span (từ) — sinh ra / gold:")
+        for ctype in sorted(lens):
+            print(f"{indent}    {ctype:22} {st.mean(lens[ctype]):5.2f}"
+                  f"  {GOLD_SPAN_LEN.get(ctype, 0):5.2f}   n={len(lens[ctype])}")
     if bad:
-        print(f"  LỖI: {dict(bad)}")
-        return 1
-    return 0
+        print(f"{indent}  LỖI: {dict(bad)}")
+    return {"avg_spans": avg_spans, "pct_with_code": pct_code,
+            "errors": sum(bad.values())}
+
+
+#: Các nguồn dữ liệu sinh ra, theo thứ tự trong đường ống.
+SOURCES = (("synthetic", SYNTHETIC_ANNOTATIONS),
+           ("translated", TRANSLATED_ANNOTATIONS),
+           ("restyled", RESTYLED_ANNOTATIONS))
+
+
+def cmd_verify(args) -> int:
+    got = [(name, sorted(d.glob("*.json"))) for name, d in SOURCES]
+    got = [(name, files) for name, files in got if files]
+    all_files = [f for _, files in got for f in files]
+    if not all_files:
+        sys.exit(f"chưa có tài liệu nào trong {BASE_DIR.relative_to(REPO)}"
+                 f" — chạy emit, translate hoặc restyle trước")
+
+    print(f"\n{'=' * 60}\n{'KIỂM TRA DỮ LIỆU SINH RA':^60}\n{'=' * 60}\n")
+    for name, d in SOURCES:
+        n = len(dict(got).get(name, []))
+        print(f"  {name + ':':12} {n:3d} file  ({d.relative_to(REPO)})")
+    print(f"  {'TỔNG:':12} {len(all_files):3d} file\n")
+
+    icd_codes = {r["code"] for r in load_icd()}
+    # Nhận cả mã gốc lẫn mã đã quy về hoạt chất: lô sinh trước khi có bảng ánh xạ
+    # mang mã biệt dược, vẫn là mã tra được trong bảng BTC nên không phải lỗi.
+    rx = load_rxnorm()
+    rx_codes = {r["rxcui"] for r in rx} | {c for r in rx for c in r["codes"]}
+    stats_all = verify_dataset(all_files, icd_codes, rx_codes)
+
+    if len(got) > 1:
+        print(f"\n{'=' * 60}\n{'SO SÁNH CÁC NGUỒN':^60}\n{'=' * 60}\n")
+        stats = {}
+        for name, files in got:
+            print(f"{name.upper()}:")
+            stats[name] = verify_dataset(files, icd_codes, rx_codes, indent="    ")
+            print()
+        names = [n for n, _ in got]
+        print(f"{'-' * 60}")
+        print(f"  {'':14}" + "".join(f"{n:>12}" for n in names) + f"{'mốc':>12}")
+        print(f"  {'span/file':14}"
+              + "".join(f"{stats[n]['avg_spans']:>12.1f}" for n in names) + f"{'48 (gold)':>12}")
+        print(f"  {'span có mã':14}"
+              + "".join(f"{stats[n]['pct_with_code']:>11.0f}%" for n in names) + f"{'>50%':>12}")
+        print(f"  {'lỗi offset':14}"
+              + "".join(f"{stats[n]['errors']:>12d}" for n in names) + f"{'0':>12}")
+
+    return 1 if stats_all["errors"] else 0
 
 
 # ------------------------------------------------------------------- gọi LLM
@@ -714,7 +1816,7 @@ def call_api(prompts: list[str], system: str, model: str,
 
 def cmd_compose(args) -> int:
     rng = random.Random(args.seed)
-    WORK.mkdir(parents=True, exist_ok=True)
+    SYNTHETIC_WORK.mkdir(parents=True, exist_ok=True)
 
     print("đọc bảng ban tổ chức...")
     icd = load_icd()
@@ -725,9 +1827,9 @@ def cmd_compose(args) -> int:
 
     pools = {"icd": icd, "rx": rx, "rx_common": rx_common,
              "sym": list(SYMPTOMS), "test": list(TEST_NAMES), "res": list(RESULT_PHRASES)}
-    bundles = [{"id": f"cmp{i:04d}", "bundle": sample_bundle(rng, pools)}
+    bundles = [{"id": f"synthetic_{i:04d}", "bundle": sample_bundle(rng, pools)}
                for i in range(args.n)]
-    path_b = WORK / "bundles.jsonl"
+    path_b = SYNTHETIC_WORK / "entity_bundles.jsonl"
     with path_b.open("w", encoding="utf-8") as fh:
         for b in bundles:
             fh.write(json.dumps(b, ensure_ascii=False) + "\n")
@@ -737,7 +1839,7 @@ def cmd_compose(args) -> int:
     prompts = ["DANH SÁCH CỤM BẮT BUỘC:\n" +
                "\n".join(f"- {it['type']}: {it['text']}" for it in b["bundle"])
                for b in bundles]
-    path_c = WORK / "composed.jsonl"
+    path_c = SYNTHETIC_WORK / "composed_texts.jsonl"
     if args.use_api:
         texts = call_api(prompts, COMPOSE_SYS, args.model)
     elif args.composed:
@@ -745,14 +1847,14 @@ def cmd_compose(args) -> int:
                   for l in Path(args.composed).read_text(encoding="utf-8").splitlines()}
         texts = [loaded.get(b["id"], "") for b in bundles]
     else:
-        path_p = WORK / "prompts.jsonl"
+        path_p = SYNTHETIC_WORK / "prompts.jsonl"
         with path_p.open("w", encoding="utf-8") as fh:
             for b, p in zip(bundles, prompts):
                 fh.write(json.dumps({"id": b["id"], "system": COMPOSE_SYS,
                                      "prompt": p}, ensure_ascii=False) + "\n")
         print(f"  chưa gọi API — prompt ở {path_p}")
         print(f"  gọi model nào cũng được rồi nạp lại: emit --composed FILE")
-        print(f"  (FILE mỗi dòng: {{\"id\": \"cmp0000\", \"composed\": \"...\"}})")
+        print(f"  (FILE mỗi dòng: {{\"id\": \"synthetic_0000\", \"composed\": \"...\"}})")
         return 0
     with path_c.open("w", encoding="utf-8") as fh:
         for b, t in zip(bundles, texts):
@@ -766,13 +1868,33 @@ def cmd_compose(args) -> int:
 
 def cmd_emit(args) -> int:
     rng = random.Random(args.seed + 1)
-    src_c = Path(args.composed) if args.composed else WORK / "composed.jsonl"
+    src_c = Path(args.composed) if args.composed else SYNTHETIC_WORK / "composed_texts.jsonl"
     if not src_c.exists():
         sys.exit(f"chưa có {src_c} — chạy compose trước")
+    src_b = SYNTHETIC_WORK / "entity_bundles.jsonl"
+    if not src_b.exists():
+        sys.exit(f"chưa có {src_b} — chạy compose trước")
     bundles = {json.loads(l)["id"]: json.loads(l)["bundle"]
-               for l in (WORK / "bundles.jsonl").read_text(encoding="utf-8").splitlines()}
-    OUT_LABELS.mkdir(parents=True, exist_ok=True)
-    OUT_TEXT.mkdir(parents=True, exist_ok=True)
+               for l in src_b.read_text(encoding="utf-8").splitlines()}
+
+    # Tra lại mã THUỐC theo bảng hiện tại thay vì dùng mã đã đóng băng trong bundle.
+    # Bundle sinh ra trước khi có bảng biệt dược->hoạt chất nên mang mã biệt dược;
+    # tra lại ở đây sửa được cả lô cũ mà không phải gọi API viết lại văn bản.
+    drug_codes = {r["alias"].lower(): r["codes"] for r in load_rxnorm()}
+    n_remap = 0
+    for bundle in bundles.values():
+        for item in bundle:
+            if item["type"] != "THUỐC":
+                continue
+            codes = drug_codes.get(item["text"].lower())
+            if codes and codes != item["candidates"]:
+                item["candidates"] = list(codes)
+                n_remap += 1
+    if n_remap:
+        print(f"  quy {n_remap} mã thuốc về hoạt chất theo bảng RxNorm đầy đủ")
+
+    SYNTHETIC_ANNOTATIONS.mkdir(parents=True, exist_ok=True)
+    SYNTHETIC_TEXT.mkdir(parents=True, exist_ok=True)
 
     n_ok, n_mask, n_nfd = 0, 0, 0
     reasons: collections.Counter = collections.Counter()
@@ -797,11 +1919,11 @@ def cmd_emit(args) -> int:
         n_nfd += int(text != ud.normalize("NFC", text))
         for r in records:
             by_type[r["type"]] += 1
-        (OUT_TEXT / f"{row['id']}.txt").write_text(text, encoding="utf-8")
-        (OUT_LABELS / f"{row['id']}.json").write_text(
+        (SYNTHETIC_TEXT / f"{row['id']}.txt").write_text(text, encoding="utf-8")
+        (SYNTHETIC_ANNOTATIONS / f"{row['id']}.json").write_text(
             json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"đã sinh {n_ok} tài liệu vào {OUT_LABELS.relative_to(REPO)}")
-    print(f"  văn bản: {OUT_TEXT.relative_to(REPO)}")
+    print(f"đã sinh {n_ok} tài liệu vào {SYNTHETIC_ANNOTATIONS.relative_to(REPO)}")
+    print(f"  văn bản: {SYNTHETIC_TEXT.relative_to(REPO)}")
     print(f"  bẫy ***: {n_mask} span | NFD: {n_nfd} file")
     if reasons:
         print(f"  loại: {dict(reasons)}")
@@ -832,16 +1954,60 @@ def main() -> int:
     c.add_argument("--composed", help="nạp bản viết sẵn thay vì gọi API")
 
     e = sub.add_parser("emit", parents=[seed_arg], help="bóc dấu 〔 〕 -> văn bản + nhãn")
-    e.add_argument("--composed", help="file bản viết (mặc định work/composed.jsonl)")
+    e.add_argument("--composed", help="file bản viết (mặc định intermediate/composed_texts.jsonl)")
     e.add_argument("--mask-rate", type=float, default=0.12,
                    help="tỉ lệ span THUỐC bị che *** (mặc định cho ra 30%% FILE có bẫy, khớp test)")
     e.add_argument("--nfd-rate", type=float, default=0.20,
                    help="tỉ lệ file ở dạng NFD (test: 20/100 file)")
 
+    t = sub.add_parser("translate", parents=[seed_arg],
+                       help="dịch bệnh án mtsamples -> tiếng Việt + nhãn")
+    t.add_argument("--n", type=int, default=100, help="số bệnh án cần dịch")
+    t.add_argument("--n-categories", type=int, default=8,
+                   help="số danh mục mtsamples bốc đều (mặc định 8)")
+    t.add_argument("--use-api", action="store_true",
+                   help="gọi OpenAI API (cần OPENAI_API_KEY)")
+    t.add_argument("--model", default="gpt-4o", help="model dùng để dịch")
+    t.add_argument("--max-tokens", type=int, default=4000,
+                   help="hạn mức token mỗi bản dịch")
+    t.add_argument("--source", default="auto",
+                   help="'auto' = data/external/en_notes/mtsamples_filtered.jsonl,"
+                        " hoặc đường dẫn file jsonl khác")
+    t.add_argument("--translated", help="nạp bản dịch sẵn thay vì gọi API")
+    t.add_argument("--min-lab", type=int, default=0,
+                   help="chỉ lấy note có ít nhất N lần nhắc xét nghiệm"
+                        " (kho: 147 note >=1, 69 note >=3, 41 note >=5)")
+    t.add_argument("--min-spans", type=int, default=12,
+                   help="ngưỡng span tối thiểu để giữ tài liệu (gold ít nhất 13)")
+    t.add_argument("--common-drugs-only", action="store_true",
+                   help="chỉ tra tên thuốc trong bảng tần số, ít nhiễu hơn nhưng sót nhiều")
+    t.add_argument("--mask-file-rate", type=float, default=0.30,
+                   help="tỉ lệ FILE có ít nhất một span THUỐC bị che *** (test: 30/100)")
+    t.add_argument("--nfd-rate", type=float, default=0.20,
+                   help="tỉ lệ file ở dạng NFD (test: 20/100 file)")
+
+    r = sub.add_parser("restyle", parents=[seed_arg],
+                       help="viết lại bản dịch sang các thể loại của đề thi")
+    r.add_argument("--n", type=int, help="số bản viết lại (mặc định: tất cả)")
+    r.add_argument("--use-api", action="store_true",
+                   help="gọi OpenAI API (cần OPENAI_API_KEY)")
+    r.add_argument("--model", default="gpt-4o", help="model dùng để viết lại")
+    r.add_argument("--max-tokens", type=int, default=4000)
+    r.add_argument("--source", help="file translation_process.jsonl (mặc định của translate)")
+    r.add_argument("--restyled", help="nạp bản viết lại sẵn thay vì gọi API")
+    r.add_argument("--genre", choices=list(RESTYLE_GENRES),
+                   help="ép một thể loại duy nhất (mặc định: trộn theo tỉ lệ đo trên data/test)")
+    r.add_argument("--min-keep", type=float, default=0.30,
+                   help="tỉ lệ dấu 〔 〕 tối thiểu phải giữ lại thì mới nhận bản viết lại")
+    r.add_argument("--min-spans", type=int, default=12)
+    r.add_argument("--mask-file-rate", type=float, default=0.30)
+    r.add_argument("--nfd-rate", type=float, default=0.20)
+
     sub.add_parser("verify", parents=[seed_arg], help="kiểm offset, mã, và đối chiếu với test")
 
     args = ap.parse_args()
-    return {"compose": cmd_compose, "emit": cmd_emit, "verify": cmd_verify}[args.cmd](args)
+    return {"compose": cmd_compose, "emit": cmd_emit, "translate": cmd_translate,
+            "restyle": cmd_restyle, "verify": cmd_verify}[args.cmd](args)
 
 
 if __name__ == "__main__":

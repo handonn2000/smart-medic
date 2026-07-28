@@ -1,0 +1,276 @@
+[
+  {
+    "text": "đau đầu vùng thái dương",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      67,
+      90
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      100,
+      115
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      119,
+      125
+    ]
+  },
+  {
+    "text": "đau tai phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      157,
+      169
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      173,
+      180
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      281,
+      296
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      450,
+      456
+    ]
+  },
+  {
+    "text": "đau tai phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      558,
+      570
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      574,
+      581
+    ]
+  },
+  {
+    "text": "U lành da thân mình",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D23.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      768,
+      787
+    ]
+  },
+  {
+    "text": "U hắc tố tại chỗ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      791,
+      807
+    ]
+  },
+  {
+    "text": "Trĩ ngoại không biến chứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I84.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      865,
+      891
+    ]
+  },
+  {
+    "text": "Peridex",
+    "type": "THUỐC",
+    "candidates": [
+      "2358"
+    ],
+    "assertions": [],
+    "position": [
+      1049,
+      1056
+    ]
+  },
+  {
+    "text": "Isordil",
+    "type": "THUỐC",
+    "candidates": [
+      "6058"
+    ],
+    "assertions": [],
+    "position": [
+      1108,
+      1115
+    ]
+  },
+  {
+    "text": "cortisone",
+    "type": "THUỐC",
+    "candidates": [
+      "2878"
+    ],
+    "assertions": [],
+    "position": [
+      1158,
+      1167
+    ]
+  },
+  {
+    "text": "mất cảm giác đầu chi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1239,
+      1259
+    ]
+  },
+  {
+    "text": "yếu nửa người bên phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1283,
+      1305
+    ]
+  },
+  {
+    "text": "co giật toàn thể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1310,
+      1326
+    ]
+  },
+  {
+    "text": "tăng cao",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1437,
+      1445
+    ]
+  },
+  {
+    "text": "HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1670,
+      1675
+    ]
+  },
+  {
+    "text": "giảm nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1685,
+      1693
+    ]
+  },
+  {
+    "text": "26 U/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1878,
+      1884
+    ]
+  },
+  {
+    "text": "tăng bạch cầu chiếm ưu thế bạch cầu trung tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1886,
+      1932
+    ]
+  },
+  {
+    "text": "U lành âm đạo",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D28.1"
+    ],
+    "assertions": [],
+    "position": [
+      1977,
+      1990
+    ]
+  },
+  {
+    "text": "U lành da chi trên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D23.6"
+    ],
+    "assertions": [],
+    "position": [
+      1994,
+      2012
+    ]
+  }
+]

@@ -1,0 +1,276 @@
+[
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      236,
+      245
+    ]
+  },
+  {
+    "text": "tiểu buốt tiểu rắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      344,
+      370
+    ]
+  },
+  {
+    "text": "tiểu nhiều lần về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      389,
+      419
+    ]
+  },
+  {
+    "text": "bí tiểu cấp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      473,
+      489
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      682,
+      691
+    ]
+  },
+  {
+    "text": "ngứa nhiều vùng lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      696,
+      722
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      759,
+      766
+    ]
+  },
+  {
+    "text": "Vytorin",
+    "type": "THUỐC",
+    "candidates": [
+      "341248",
+      "36567"
+    ],
+    "assertions": [],
+    "position": [
+      1441,
+      1448
+    ]
+  },
+  {
+    "text": "Maxzide",
+    "type": "THUỐC",
+    "candidates": [
+      "10763",
+      "5487"
+    ],
+    "assertions": [],
+    "position": [
+      1453,
+      1460
+    ]
+  },
+  {
+    "text": "Zoloft",
+    "type": "THUỐC",
+    "candidates": [
+      "36437"
+    ],
+    "assertions": [],
+    "position": [
+      1580,
+      1586
+    ]
+  },
+  {
+    "text": "Invega",
+    "type": "THUỐC",
+    "candidates": [
+      "679314"
+    ],
+    "assertions": [],
+    "position": [
+      1591,
+      1597
+    ]
+  },
+  {
+    "text": "lo lắng quá mức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1616,
+      1636
+    ]
+  },
+  {
+    "text": "Ivacaftor/Lumacaftor",
+    "type": "THUỐC",
+    "candidates": [
+      "1655927"
+    ],
+    "assertions": [],
+    "position": [
+      1722,
+      1742
+    ]
+  },
+  {
+    "text": "run tay khi nghỉ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1935,
+      1952
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2220,
+      2235
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2248,
+      2251
+    ]
+  },
+  {
+    "text": "định lượng mỡ máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2256,
+      2280
+    ]
+  },
+  {
+    "text": "phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2319,
+      2345
+    ]
+  },
+  {
+    "text": "140 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2425,
+      2435
+    ]
+  },
+  {
+    "text": "0.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2581,
+      2584
+    ]
+  },
+  {
+    "text": "Suy thận cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N17"
+    ],
+    "assertions": [],
+    "position": [
+      2656,
+      2672
+    ]
+  },
+  {
+    "text": "Bệnh thận nhiễm độc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N14.4"
+    ],
+    "assertions": [],
+    "position": [
+      2677,
+      2704
+    ]
+  },
+  {
+    "text": "Bệnh của lưỡi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K14"
+    ],
+    "assertions": [],
+    "position": [
+      2709,
+      2728
+    ]
+  },
+  {
+    "text": "Sa hậu môn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K62.2"
+    ],
+    "assertions": [],
+    "position": [
+      2733,
+      2746
+    ]
+  },
+  {
+    "text": "Viêm bàng quang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N30"
+    ],
+    "assertions": [],
+    "position": [
+      2751,
+      2768
+    ]
+  }
+]

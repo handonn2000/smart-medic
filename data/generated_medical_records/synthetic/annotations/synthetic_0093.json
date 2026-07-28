@@ -1,0 +1,246 @@
+[
+  {
+    "text": "đau ngực khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      188,
+      215
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      237,
+      257
+    ]
+  },
+  {
+    "text": "đau cách hồi khi đi bộ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      300,
+      327
+    ]
+  },
+  {
+    "text": "tê bì hai bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      339,
+      359
+    ]
+  },
+  {
+    "text": "sưng đau khớp bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      364,
+      389
+    ]
+  },
+  {
+    "text": "gần ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      425,
+      437
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      489,
+      497
+    ]
+  },
+  {
+    "text": "ngạt mũi hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      502,
+      521
+    ]
+  },
+  {
+    "text": "đau khớp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      575,
+      585
+    ]
+  },
+  {
+    "text": "Viêm phổi do Pseudomonas",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J15.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      656,
+      683
+    ]
+  },
+  {
+    "text": "Viêm họng do liên cầu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J02.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      688,
+      714
+    ]
+  },
+  {
+    "text": "Holodiscus discolor whole extract",
+    "type": "THUỐC",
+    "candidates": [
+      "2387538"
+    ],
+    "assertions": [],
+    "position": [
+      1037,
+      1070
+    ]
+  },
+  {
+    "text": "Vicoprofen",
+    "type": "THUỐC",
+    "candidates": [
+      "5489",
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      1072,
+      1082
+    ]
+  },
+  {
+    "text": "Phyllostachys reticulata resin",
+    "type": "THUỐC",
+    "candidates": [
+      "1312720"
+    ],
+    "assertions": [],
+    "position": [
+      1150,
+      1180
+    ]
+  },
+  {
+    "text": "đường huyết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1410,
+      1426
+    ]
+  },
+  {
+    "text": "LDL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1463,
+      1466
+    ]
+  },
+  {
+    "text": "9.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1480,
+      1483
+    ]
+  },
+  {
+    "text": "không rõ tổn thương",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1598,
+      1623
+    ]
+  },
+  {
+    "text": "không thấy khối choán chỗ nội sọ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1661,
+      1704
+    ]
+  },
+  {
+    "text": "có dịch tự do trong ổ bụng lượng ít",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1743,
+      1789
+    ]
+  },
+  {
+    "text": "Viêm phổi do chlamydia",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J16.0"
+    ],
+    "assertions": [],
+    "position": [
+      1809,
+      1834
+    ]
+  },
+  {
+    "text": "Viêm phổi thuỳ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18.1"
+    ],
+    "assertions": [],
+    "position": [
+      1838,
+      1856
+    ]
+  }
+]

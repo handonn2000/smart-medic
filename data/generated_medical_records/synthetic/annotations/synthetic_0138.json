@@ -1,0 +1,321 @@
+[
+  {
+    "text": "đau vùng thượng vị sau ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      155,
+      180
+    ]
+  },
+  {
+    "text": "mệt mỏi nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      213,
+      226
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      230,
+      245
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      265,
+      275
+    ]
+  },
+  {
+    "text": "sốt nhẹ về chiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      279,
+      295
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      362,
+      365
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      369,
+      385
+    ]
+  },
+  {
+    "text": "Viêm dạ dày mạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      485,
+      500
+    ]
+  },
+  {
+    "text": "Phình động mạch chủ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I71.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      535,
+      554
+    ]
+  },
+  {
+    "text": "Đa hồng cầu sơ sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "P61.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      609,
+      628
+    ]
+  },
+  {
+    "text": "Trĩ ngoại không biến chứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I84.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      632,
+      658
+    ]
+  },
+  {
+    "text": "Xuất huyết dưới màng nhện",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I60"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      688,
+      713
+    ]
+  },
+  {
+    "text": "Percocet",
+    "type": "THUỐC",
+    "candidates": [
+      "161",
+      "7804"
+    ],
+    "assertions": [],
+    "position": [
+      896,
+      904
+    ]
+  },
+  {
+    "text": "triamcinolone",
+    "type": "THUỐC",
+    "candidates": [
+      "10759"
+    ],
+    "assertions": [],
+    "position": [
+      908,
+      921
+    ]
+  },
+  {
+    "text": "Lagerstroemia",
+    "type": "THUỐC",
+    "candidates": [
+      "1301225"
+    ],
+    "assertions": [],
+    "position": [
+      997,
+      1010
+    ]
+  },
+  {
+    "text": "Synalar",
+    "type": "THUỐC",
+    "candidates": [
+      "25126"
+    ],
+    "assertions": [],
+    "position": [
+      1014,
+      1021
+    ]
+  },
+  {
+    "text": "galbanum",
+    "type": "THUỐC",
+    "candidates": [
+      "1796918"
+    ],
+    "assertions": [],
+    "position": [
+      1086,
+      1094
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1233,
+      1240
+    ]
+  },
+  {
+    "text": "rụng tóc nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1256,
+      1270
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1323,
+      1339
+    ]
+  },
+  {
+    "text": "xét nghiệm sinh hoá máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1390,
+      1413
+    ]
+  },
+  {
+    "text": "giảm mật độ xương mức loãng xương",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1423,
+      1456
+    ]
+  },
+  {
+    "text": "HDL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1458,
+      1461
+    ]
+  },
+  {
+    "text": "hình ảnh xơ hoá mô kẽ hai bên",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1524,
+      1553
+    ]
+  },
+  {
+    "text": "tốc độ máu lắng tăng cao",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1704,
+      1728
+    ]
+  },
+  {
+    "text": "Phình động mạch chủ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I71.8"
+    ],
+    "assertions": [],
+    "position": [
+      1746,
+      1765
+    ]
+  },
+  {
+    "text": "Viêm dạ dày mạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.5"
+    ],
+    "assertions": [],
+    "position": [
+      1768,
+      1783
+    ]
+  },
+  {
+    "text": "Trĩ ngoại không biến chứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I84.5"
+    ],
+    "assertions": [],
+    "position": [
+      1786,
+      1812
+    ]
+  }
+]

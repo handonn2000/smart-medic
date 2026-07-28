@@ -1,0 +1,326 @@
+[
+  {
+    "text": "ra mồ hôi về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      197,
+      213
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      215,
+      221
+    ]
+  },
+  {
+    "text": "ngạt mũi hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      238,
+      254
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      283,
+      290
+    ]
+  },
+  {
+    "text": "hôi miệng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      315,
+      324
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      393,
+      399
+    ]
+  },
+  {
+    "text": "gần ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      438,
+      446
+    ]
+  },
+  {
+    "text": "chảy máu chân răng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      503,
+      521
+    ]
+  },
+  {
+    "text": "Viêm gan mãn khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K73.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      633,
+      650
+    ]
+  },
+  {
+    "text": "Loét tá tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K26"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      739,
+      752
+    ]
+  },
+  {
+    "text": "U lành buồng trứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D27"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      798,
+      816
+    ]
+  },
+  {
+    "text": "Zantac",
+    "type": "THUỐC",
+    "candidates": [
+      "9143"
+    ],
+    "assertions": [],
+    "position": [
+      988,
+      994
+    ]
+  },
+  {
+    "text": "Digitek",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [],
+    "position": [
+      1014,
+      1021
+    ]
+  },
+  {
+    "text": "Miralax",
+    "type": "THUỐC",
+    "candidates": [
+      "221147"
+    ],
+    "assertions": [],
+    "position": [
+      1080,
+      1087
+    ]
+  },
+  {
+    "text": "NovoLog",
+    "type": "THUỐC",
+    "candidates": [
+      "51428"
+    ],
+    "assertions": [],
+    "position": [
+      1105,
+      1112
+    ]
+  },
+  {
+    "text": "Bordetella pertussis",
+    "type": "THUỐC",
+    "candidates": [
+      "1608803"
+    ],
+    "assertions": [],
+    "position": [
+      1179,
+      1199
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1307,
+      1314
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1565,
+      1572
+    ]
+  },
+  {
+    "text": "LDL-cholesterol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1582,
+      1597
+    ]
+  },
+  {
+    "text": "4.4 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1604,
+      1614
+    ]
+  },
+  {
+    "text": "định lượng mỡ máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1625,
+      1642
+    ]
+  },
+  {
+    "text": "giảm nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1655,
+      1663
+    ]
+  },
+  {
+    "text": "soi tươi dịch âm đạo",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1696,
+      1716
+    ]
+  },
+  {
+    "text": "nipt",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1758,
+      1762
+    ]
+  },
+  {
+    "text": "Nhiễm cryptococcus lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B45.7"
+    ],
+    "assertions": [],
+    "position": [
+      1821,
+      1847
+    ]
+  },
+  {
+    "text": "Bệnh khác của túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K82"
+    ],
+    "assertions": [],
+    "position": [
+      1858,
+      1879
+    ]
+  },
+  {
+    "text": "Tắc ống mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K83.1"
+    ],
+    "assertions": [],
+    "position": [
+      1894,
+      1905
+    ]
+  },
+  {
+    "text": "Viêm gan mãn khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K73.8"
+    ],
+    "assertions": [],
+    "position": [
+      1974,
+      1991
+    ]
+  },
+  {
+    "text": "Loét tá tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K26"
+    ],
+    "assertions": [],
+    "position": [
+      1995,
+      2008
+    ]
+  }
+]

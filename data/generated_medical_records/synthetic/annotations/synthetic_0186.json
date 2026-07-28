@@ -1,0 +1,470 @@
+[
+  {
+    "text": "sốt cao liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      81,
+      101
+    ]
+  },
+  {
+    "text": "bồn chồn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      111,
+      123
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      128,
+      139
+    ]
+  },
+  {
+    "text": "sốt cao liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      242,
+      262
+    ]
+  },
+  {
+    "text": "bồn chồn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      293,
+      305
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      443,
+      454
+    ]
+  },
+  {
+    "text": "chuột rút bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      528,
+      552
+    ]
+  },
+  {
+    "text": "tê bì",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      586,
+      593
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      624,
+      644
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      741,
+      761
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      780,
+      784
+    ]
+  },
+  {
+    "text": "Viêm gan mãn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K73"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1037,
+      1051
+    ]
+  },
+  {
+    "text": "Suy giáp xác định khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1053,
+      1079
+    ]
+  },
+  {
+    "text": "Tăng lipid máu khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.4"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1084,
+      1106
+    ]
+  },
+  {
+    "text": "Béo phì khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1144,
+      1159
+    ]
+  },
+  {
+    "text": "Cường năng đa tuyến",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E31.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1164,
+      1189
+    ]
+  },
+  {
+    "text": "Thừa androgen",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E28.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1206,
+      1221
+    ]
+  },
+  {
+    "text": "glipizide",
+    "type": "THUỐC",
+    "candidates": [
+      "4821"
+    ],
+    "assertions": [],
+    "position": [
+      1563,
+      1572
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1606,
+      1613
+    ]
+  },
+  {
+    "text": "Compazine",
+    "type": "THUỐC",
+    "candidates": [
+      "8704"
+    ],
+    "assertions": [],
+    "position": [
+      1683,
+      1692
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1915,
+      1919
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1965,
+      1972
+    ]
+  },
+  {
+    "text": "đau tai phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2038,
+      2051
+    ]
+  },
+  {
+    "text": "xét nghiệm chức năng thận",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2100,
+      2133
+    ]
+  },
+  {
+    "text": "giảm nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2145,
+      2155
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2171,
+      2174
+    ]
+  },
+  {
+    "text": "dương tính yếu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2179,
+      2198
+    ]
+  },
+  {
+    "text": "ecg",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2211,
+      2214
+    ]
+  },
+  {
+    "text": "điện tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2219,
+      2229
+    ]
+  },
+  {
+    "text": "nhịp xoang chiếm ưu thế",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2241,
+      2270
+    ]
+  },
+  {
+    "text": "LDL-cholesterol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2283,
+      2298
+    ]
+  },
+  {
+    "text": "sinh thiết niêm mạc dạ dày",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2303,
+      2335
+    ]
+  },
+  {
+    "text": "toan chuyển hoá còn bù",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2460,
+      2487
+    ]
+  },
+  {
+    "text": "Suy giáp xác định khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.8"
+    ],
+    "assertions": [],
+    "position": [
+      2507,
+      2533
+    ]
+  },
+  {
+    "text": "Viêm gan mãn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K73"
+    ],
+    "assertions": [],
+    "position": [
+      2538,
+      2552
+    ]
+  },
+  {
+    "text": "Tăng lipid máu khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.4"
+    ],
+    "assertions": [],
+    "position": [
+      2557,
+      2579
+    ]
+  },
+  {
+    "text": "Cường năng đa tuyến",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E31.1"
+    ],
+    "assertions": [],
+    "position": [
+      2584,
+      2609
+    ]
+  },
+  {
+    "text": "Kinh nguyệt nhiều",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N92"
+    ],
+    "assertions": [],
+    "position": [
+      2614,
+      2635
+    ]
+  },
+  {
+    "text": "Giả lao khớp háng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M91.3"
+    ],
+    "assertions": [],
+    "position": [
+      2640,
+      2661
+    ]
+  },
+  {
+    "text": "Béo phì khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.8"
+    ],
+    "assertions": [],
+    "position": [
+      2666,
+      2681
+    ]
+  },
+  {
+    "text": "Thừa androgen",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E28.1"
+    ],
+    "assertions": [],
+    "position": [
+      2686,
+      2701
+    ]
+  },
+  {
+    "text": "Thiếu pyridoxine",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E53.1"
+    ],
+    "assertions": [],
+    "position": [
+      2706,
+      2724
+    ]
+  }
+]

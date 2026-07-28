@@ -1,0 +1,215 @@
+[
+  {
+    "text": "đau vùng thượng vị sau ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      191,
+      216
+    ]
+  },
+  {
+    "text": "đầy hơi chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      304,
+      323
+    ]
+  },
+  {
+    "text": "tiêu chảy nhiều lần trong ngày",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      380,
+      410
+    ]
+  },
+  {
+    "text": "mệt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      428,
+      431
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      467,
+      473
+    ]
+  },
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      477,
+      485
+    ]
+  },
+  {
+    "text": "gầy sút cân nhanh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      506,
+      523
+    ]
+  },
+  {
+    "text": "rụng tóc nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      546,
+      560
+    ]
+  },
+  {
+    "text": "U ác của Dạ dày",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D00.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      673,
+      688
+    ]
+  },
+  {
+    "text": "Suy tủy xương do thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D61.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      789,
+      811
+    ]
+  },
+  {
+    "text": "Bệnh tăng hồng cầu KXĐK",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D75.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      870,
+      893
+    ]
+  },
+  {
+    "text": "methemoglobin máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D74"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      912,
+      929
+    ]
+  },
+  {
+    "text": "Avastin",
+    "type": "THUỐC",
+    "candidates": [
+      "253337"
+    ],
+    "assertions": [],
+    "position": [
+      1112,
+      1119
+    ]
+  },
+  {
+    "text": "Medrol",
+    "type": "THUỐC",
+    "candidates": [
+      "6902"
+    ],
+    "assertions": [],
+    "position": [
+      1203,
+      1209
+    ]
+  },
+  {
+    "text": "Gengraf",
+    "type": "THUỐC",
+    "candidates": [
+      "3008"
+    ],
+    "assertions": [],
+    "position": [
+      1268,
+      1275
+    ]
+  },
+  {
+    "text": "26 U/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1574,
+      1580
+    ]
+  },
+  {
+    "text": "xét nghiệm đông máu cơ bản",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1641,
+      1667
+    ]
+  },
+  {
+    "text": "siêu âm ổ bụng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1780,
+      1794
+    ]
+  },
+  {
+    "text": "chức năng tâm thu thất trái bảo tồn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1914,
+      1949
+    ]
+  }
+]

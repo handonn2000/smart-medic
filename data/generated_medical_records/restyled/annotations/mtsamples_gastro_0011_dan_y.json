@@ -1,0 +1,330 @@
+[
+  {
+    "text": "Buồn nôn và nôn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R11"
+    ],
+    "assertions": [],
+    "position": [
+      44,
+      59
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      131,
+      146
+    ]
+  },
+  {
+    "text": "vã mồ hôi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      167,
+      176
+    ]
+  },
+  {
+    "text": "tiêu chảy nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      207,
+      220
+    ]
+  },
+  {
+    "text": "đau họng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      236,
+      244
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      250,
+      252
+    ]
+  },
+  {
+    "text": "Fluoxetine",
+    "type": "THUỐC",
+    "candidates": [
+      "4493"
+    ],
+    "assertions": [],
+    "position": [
+      317,
+      327
+    ]
+  },
+  {
+    "text": "trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32"
+    ],
+    "assertions": [],
+    "position": [
+      332,
+      340
+    ]
+  },
+  {
+    "text": "Zyrtec",
+    "type": "THUỐC",
+    "candidates": [
+      "20610"
+    ],
+    "assertions": [],
+    "position": [
+      347,
+      353
+    ]
+  },
+  {
+    "text": "dị ứng môi trường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      358,
+      375
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      543,
+      546
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      552,
+      554
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1090,
+      1100
+    ]
+  },
+  {
+    "text": "Công thức máu toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1107,
+      1130
+    ]
+  },
+  {
+    "text": "12.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1141,
+      1145
+    ]
+  },
+  {
+    "text": "Hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1178,
+      1188
+    ]
+  },
+  {
+    "text": "33.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1190,
+      1194
+    ]
+  },
+  {
+    "text": "BMP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1230,
+      1233
+    ]
+  },
+  {
+    "text": "Glucose",
+    "type": "THUỐC",
+    "candidates": [
+      "4850"
+    ],
+    "assertions": [],
+    "position": [
+      1235,
+      1242
+    ]
+  },
+  {
+    "text": "147",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1254,
+      1257
+    ]
+  },
+  {
+    "text": "Chức năng gan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1264,
+      1277
+    ]
+  },
+  {
+    "text": "Nồng độ cồn trong huyết thanh",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1297,
+      1326
+    ]
+  },
+  {
+    "text": "5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1333,
+      1334
+    ]
+  },
+  {
+    "text": "Compazine",
+    "type": "THUỐC",
+    "candidates": [
+      "8704"
+    ],
+    "assertions": [],
+    "position": [
+      1396,
+      1405
+    ]
+  },
+  {
+    "text": "Imodium",
+    "type": "THUỐC",
+    "candidates": [
+      "6468"
+    ],
+    "assertions": [],
+    "position": [
+      1446,
+      1453
+    ]
+  },
+  {
+    "text": "Viêm dạ dày ruột do virus",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.7"
+    ],
+    "assertions": [],
+    "position": [
+      1528,
+      1553
+    ]
+  },
+  {
+    "text": "Compazine",
+    "type": "THUỐC",
+    "candidates": [
+      "8704"
+    ],
+    "assertions": [],
+    "position": [
+      1585,
+      1594
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1673,
+      1681
+    ]
+  },
+  {
+    "text": "Imodium",
+    "type": "THUỐC",
+    "candidates": [
+      "6468"
+    ],
+    "assertions": [],
+    "position": [
+      1751,
+      1758
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1806,
+      1815
+    ]
+  }
+]

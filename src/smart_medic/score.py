@@ -25,6 +25,7 @@ import json
 import sys
 from pathlib import Path
 
+from .fileset import parse_file_selector
 from .schema import validate_file
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -162,10 +163,23 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--match", default="overlap", choices=["overlap", "order", "text"])
     ap.add_argument("--wer", default="mean", choices=["mean", "joint"])
     ap.add_argument("--unmatched", default="zero", choices=["zero", "skip"])
+    ap.add_argument("--files", default=None,
+                    help="chỉ chấm các file này, ví dụ '12,16,25,26,31,42' — dùng "
+                         "để chấm trên holdout mà KHÔNG phải nhân đôi gold ra đĩa "
+                         "(gold nhân đôi rồi sẽ trôi khỏi bản gốc)")
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args(argv)
 
     gold, pred = _load(args.gold), _load(args.pred)
+    if args.files:
+        wanted = {str(n) for n in parse_file_selector(args.files)}
+        missing = wanted - (set(gold) | set(pred))
+        if missing:
+            print(f"LỖI: --files yêu cầu file không có trong gold lẫn pred: "
+                  f"{', '.join(sorted(missing, key=int))}", file=sys.stderr)
+            return 2
+        gold = {k: v for k, v in gold.items() if k in wanted}
+        pred = {k: v for k, v in pred.items() if k in wanted}
     keys = sorted(set(gold) | set(pred), key=lambda k: (int(k), "") if k.isdigit() else (10**9, k))
     if not keys:
         print("LỖI: không có file nào để chấm", file=sys.stderr)

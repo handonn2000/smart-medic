@@ -1,208 +1,310 @@
 [
   {
-    "text": "lo âu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "F41.9"
-    ],
-    "assertions": [],
-    "position": [
-      280,
-      285
-    ]
-  },
-  {
-    "text": "tăng huyết áp",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I10"
-    ],
-    "assertions": [],
-    "position": [
-      441,
-      454
-    ]
-  },
-  {
-    "text": "đột quỵ",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I69.4"
-    ],
-    "assertions": [],
-    "position": [
-      458,
-      465
-    ]
-  },
-  {
-    "text": "Toprol",
-    "type": "THUỐC",
-    "candidates": [
-      "6918"
-    ],
-    "assertions": [],
-    "position": [
-      504,
-      510
-    ]
-  },
-  {
-    "text": "*******",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      514,
-      521
-    ]
-  },
-  {
-    "text": "tăng huyết áp",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I10"
-    ],
-    "assertions": [],
-    "position": [
-      526,
-      539
-    ]
-  },
-  {
-    "text": "lo âu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "F41.9"
-    ],
-    "assertions": [],
-    "position": [
-      543,
-      548
-    ]
-  },
-  {
-    "text": "mệt mỏi",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      601,
-      608
-    ]
-  },
-  {
-    "text": "glucose",
-    "type": "THUỐC",
-    "candidates": [
-      "4850"
-    ],
-    "assertions": [],
-    "position": [
-      727,
-      734
-    ]
-  },
-  {
-    "text": "bệnh đái tháo đường",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      739,
-      758
-    ]
-  },
-  {
-    "text": "glucose",
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
+    "assertions": [],
+    "position": [
+      457,
+      467
+    ]
+  },
+  {
+    "text": "Bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      469,
+      477
+    ]
+  },
+  {
+    "text": "15.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      503,
+      507
+    ]
+  },
+  {
+    "text": "Hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      509,
+      519
+    ]
+  },
+  {
+    "text": "9.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      523,
+      526
+    ]
+  },
+  {
+    "text": "Hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      528,
+      538
+    ]
+  },
+  {
+    "text": "30",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      542,
+      544
+    ]
+  },
+  {
+    "text": "Tiểu cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      549,
+      557
+    ]
+  },
+  {
+    "text": "269000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      561,
+      567
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      569,
+      572
+    ]
+  },
+  {
+    "text": "22",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      588,
+      590
+    ]
+  },
+  {
+    "text": "Creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      592,
+      602
+    ]
+  },
+  {
+    "text": "Nhiễm trùng huyết do nhiễm trùng đường tiểu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      664,
+      707
+    ]
+  },
+  {
+    "text": "Cấy nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      709,
+      722
+    ]
+  },
+  {
+    "text": "Escherichia coli, kháng với Levaquin",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      732,
+      768
+    ]
+  },
+  {
+    "text": "doripenem",
+    "type": "THUỐC",
+    "candidates": [
+      "119771"
+    ],
     "assertions": [],
     "position": [
       782,
-      789
+      791
     ]
   },
   {
-    "text": "hồ sơ lipid",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      791,
-      802
-    ]
-  },
-  {
-    "text": "Hemoccult",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      806,
-      815
-    ]
-  },
-  {
-    "text": "nhũ ảnh",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      830,
-      837
-    ]
-  },
-  {
-    "text": "Lo âu lan toả",
+    "text": "Nhiễm trùng đường tiểu",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2179,
-      2192
+      796,
+      818
     ]
   },
   {
-    "text": "tăng huyết áp",
-    "type": "CHẨN_ĐOÁN",
+    "text": "doripenem",
+    "type": "THUỐC",
     "candidates": [
-      "I10"
+      "119771"
     ],
     "assertions": [],
     "position": [
-      2196,
-      2209
+      837,
+      846
     ]
   },
   {
-    "text": "hồ sơ lipid",
+    "text": "Hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      873,
+      884
+    ]
+  },
+  {
+    "text": "Bệnh cơ tim thiếu máu cục bộ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I42"
+    ],
+    "assertions": [],
+    "position": [
+      936,
+      964
+    ]
+  },
+  {
+    "text": "Đái tháo đường type 2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1012,
+      1033
+    ]
+  },
+  {
+    "text": "insulin",
+    "type": "THUỐC",
+    "candidates": [
+      "253182"
+    ],
+    "assertions": [],
+    "position": [
+      1080,
+      1087
+    ]
+  },
+  {
+    "text": "Thuyên tắc phổi gần đây",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1092,
+      1115
+    ]
+  },
+  {
+    "text": "INR",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2343,
-      2354
+      1117,
+      1120
     ]
   },
   {
-    "text": "nhũ ảnh tầm soát",
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "202421"
+    ],
+    "assertions": [],
+    "position": [
+      1157,
+      1165
+    ]
+  },
+  {
+    "text": "bệnh động mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [],
+    "position": [
+      1191,
+      1205
+    ]
+  },
+  {
+    "text": "Troponin",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2423,
-      2439
+      1212,
+      1220
     ]
   },
   {
-    "text": "nội soi",
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1276,
+      1286
+    ]
+  },
+  {
+    "text": "troponin do suy giảm thanh thải",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2455,
-      2462
+      1334,
+      1365
     ]
   }
 ]

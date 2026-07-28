@@ -1,0 +1,281 @@
+[
+  {
+    "text": "thay đổi tâm trạng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      63,
+      81
+    ]
+  },
+  {
+    "text": "dễ xúc động",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      85,
+      96
+    ]
+  },
+  {
+    "text": "Wellbutrin",
+    "type": "THUỐC",
+    "candidates": [
+      "42568"
+    ],
+    "assertions": [],
+    "position": [
+      380,
+      390
+    ]
+  },
+  {
+    "text": "rối loạn ám ảnh cưỡng chế",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      472,
+      497
+    ]
+  },
+  {
+    "text": "mất ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      781,
+      788
+    ]
+  },
+  {
+    "text": "nóng bừng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      816,
+      825
+    ]
+  },
+  {
+    "text": "đổ mồ hôi ban đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      831,
+      848
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      983,
+      993
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1028,
+      1043
+    ]
+  },
+  {
+    "text": "tiểu không tự chủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1045,
+      1062
+    ]
+  },
+  {
+    "text": "rụng tóc",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isFamily",
+      "isNegated"
+    ],
+    "position": [
+      1064,
+      1072
+    ]
+  },
+  {
+    "text": "viêm xoang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J01"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1118,
+      1128
+    ]
+  },
+  {
+    "text": "Sulfa",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1158,
+      1163
+    ]
+  },
+  {
+    "text": "Minocin",
+    "type": "THUỐC",
+    "candidates": [
+      "152056"
+    ],
+    "assertions": [],
+    "position": [
+      1197,
+      1204
+    ]
+  },
+  {
+    "text": "Duraphen II DM",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1208,
+      1222
+    ]
+  },
+  {
+    "text": "loạn tâm thần",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1389,
+      1402
+    ]
+  },
+  {
+    "text": "Mãn kinh sau phẫu thuật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1604,
+      1627
+    ]
+  },
+  {
+    "text": "Thay đổi tâm trạng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1634,
+      1652
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1898,
+      1908
+    ]
+  },
+  {
+    "text": "Wellbutrin XL",
+    "type": "THUỐC",
+    "candidates": [
+      "42568"
+    ],
+    "assertions": [],
+    "position": [
+      1954,
+      1967
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2273,
+      2283
+    ]
+  },
+  {
+    "text": "CBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2301,
+      2304
+    ]
+  },
+  {
+    "text": "UA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2306,
+      2308
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2310,
+      2313
+    ]
+  },
+  {
+    "text": "chemistry panel",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2315,
+      2330
+    ]
+  },
+  {
+    "text": "lipid profile",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2334,
+      2347
+    ]
+  }
+]

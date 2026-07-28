@@ -5,28 +5,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      30,
-      47
+      32,
+      49
     ]
   },
   {
-    "text": "các xét nghiệm chức năng gan",
+    "text": "xét nghiệm chức năng gan",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      116,
-      144
-    ]
-  },
-  {
-    "text": "xét nghiệm máu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      155,
-      169
+      126,
+      150
     ]
   },
   {
@@ -35,8 +25,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      197,
-      204
+      201,
+      208
     ]
   },
   {
@@ -45,8 +35,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      279,
-      294
+      276,
+      291
     ]
   },
   {
@@ -55,8 +45,28 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      342,
-      349
+      350,
+      357
+    ]
+  },
+  {
+    "text": "chụp CT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      388,
+      395
+    ]
+  },
+  {
+    "text": "chụp MRI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      526,
+      534
     ]
   },
   {
@@ -65,18 +75,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      673,
-      680
-    ]
-  },
-  {
-    "text": "nội soi",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      700,
-      707
+      710,
+      717
     ]
   },
   {
@@ -85,18 +85,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      774,
-      791
+      808,
+      825
     ]
   },
   {
-    "text": "xét nghiệm máu",
+    "text": "Xét nghiệm máu",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      867,
-      881
+      876,
+      890
     ]
   },
   {
@@ -105,8 +105,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      927,
-      931
+      964,
+      968
     ]
   },
   {
@@ -119,72 +119,54 @@
       "isHistorical"
     ],
     "position": [
-      1146,
-      1159
+      1181,
+      1194
     ]
   },
   {
-    "text": "rối loạn lipid máu",
+    "text": "rối loạn mỡ máu",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      1163,
-      1181
+      1198,
+      1213
     ]
   },
   {
-    "text": "gãy xương mắt cá",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "S92.1"
-    ],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      1300,
-      1316
-    ]
-  },
-  {
-    "text": "Diovan",
+    "text": "******",
     "type": "THUỐC",
-    "candidates": [
-      "69749"
-    ],
+    "candidates": [],
     "assertions": [],
     "position": [
-      1349,
-      1355
+      1385,
+      1391
     ]
   },
   {
     "text": "Lipitor",
     "type": "THUỐC",
     "candidates": [
-      "83367"
+      "153165"
     ],
     "assertions": [],
     "position": [
-      1378,
-      1385
+      1413,
+      1420
     ]
   },
   {
-    "text": "bệnh tim",
+    "text": "Dị ứng:  \nChưa xác định",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "I51.9"
+      "T78.4"
     ],
-    "assertions": [
-      "isFamily"
-    ],
+    "assertions": [],
     "position": [
-      1555,
-      1563
+      1515,
+      1538
     ]
   },
   {
@@ -197,56 +179,44 @@
       "isFamily"
     ],
     "position": [
-      1668,
-      1681
+      1712,
+      1725
     ]
   },
   {
     "text": "đau thắt ngực",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I20"
-    ],
-    "assertions": [
-      "isFamily"
-    ],
-    "position": [
-      1872,
-      1885
-    ]
-  },
-  {
-    "text": "mất trí nhớ",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [
-      "isFamily"
-    ],
-    "position": [
-      1909,
-      1920
-    ]
-  },
-  {
-    "text": "triệu chứng",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
-      "isNegated"
+      "isFamily"
     ],
     "position": [
-      2382,
-      2393
+      1926,
+      1939
+    ]
+  },
+  {
+    "text": "sa sút trí tuệ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F01.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1967,
+      1981
     ]
   },
   {
     "text": "phosphatase kiềm bất thường",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      2416,
-      2443
+      2516,
+      2543
     ]
   },
   {
@@ -255,8 +225,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2447,
-      2466
+      2547,
+      2566
     ]
   },
   {
@@ -265,8 +235,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2468,
-      2471
+      2568,
+      2571
     ]
   },
   {
@@ -275,8 +245,44 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2475,
-      2478
+      2575,
+      2578
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2714,
+      2717
+    ]
+  },
+  {
+    "text": "ớn lạnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2719,
+      2726
+    ]
+  },
+  {
+    "text": "đổ mồ hôi đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2728,
+      2741
     ]
   },
   {
@@ -285,8 +291,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2625,
-      2634
+      2756,
+      2765
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2771,
+      2781
     ]
   }
 ]

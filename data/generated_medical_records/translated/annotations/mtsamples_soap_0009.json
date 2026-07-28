@@ -1,0 +1,474 @@
+[
+  {
+    "text": "bệnh thận mạn giai đoạn IV",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.2"
+    ],
+    "assertions": [],
+    "position": [
+      65,
+      91
+    ]
+  },
+  {
+    "text": "bệnh thận đa nang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Q61.1"
+    ],
+    "assertions": [],
+    "position": [
+      106,
+      123
+    ]
+  },
+  {
+    "text": "Creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      125,
+      135
+    ]
+  },
+  {
+    "text": "4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      159,
+      160
+    ]
+  },
+  {
+    "text": "4.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      165,
+      168
+    ]
+  },
+  {
+    "text": "bệnh thận giai đoạn cuối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.0"
+    ],
+    "assertions": [],
+    "position": [
+      244,
+      268
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      460,
+      468
+    ]
+  },
+  {
+    "text": "đo huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z01.3"
+    ],
+    "assertions": [],
+    "position": [
+      497,
+      508
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      536,
+      544
+    ]
+  },
+  {
+    "text": "PSA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      732,
+      735
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      980,
+      987
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      989,
+      997
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1009,
+      1017
+    ]
+  },
+  {
+    "text": "Vytorin",
+    "type": "THUỐC",
+    "candidates": [
+      "495215"
+    ],
+    "assertions": [],
+    "position": [
+      1087,
+      1094
+    ]
+  },
+  {
+    "text": "Rocaltrol",
+    "type": "THUỐC",
+    "candidates": [
+      "152323"
+    ],
+    "assertions": [],
+    "position": [
+      1127,
+      1136
+    ]
+  },
+  {
+    "text": "Carvedilol",
+    "type": "THUỐC",
+    "candidates": [
+      "20352"
+    ],
+    "assertions": [],
+    "position": [
+      1167,
+      1177
+    ]
+  },
+  {
+    "text": "Cozaar",
+    "type": "THUỐC",
+    "candidates": [
+      "151558"
+    ],
+    "assertions": [],
+    "position": [
+      1209,
+      1215
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "202991"
+    ],
+    "assertions": [],
+    "position": [
+      1245,
+      1250
+    ]
+  },
+  {
+    "text": "140/57",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1334,
+      1340
+    ]
+  },
+  {
+    "text": "58",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1347,
+      1349
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1809,
+      1819
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1840,
+      1850
+    ]
+  },
+  {
+    "text": "4.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1854,
+      1857
+    ]
+  },
+  {
+    "text": "canxi ion hóa",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1870,
+      1883
+    ]
+  },
+  {
+    "text": "8.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1884,
+      1887
+    ]
+  },
+  {
+    "text": "PTH nguyên vẹn",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1889,
+      1903
+    ]
+  },
+  {
+    "text": "458",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1904,
+      1907
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1912,
+      1922
+    ]
+  },
+  {
+    "text": "10.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1937,
+      1941
+    ]
+  },
+  {
+    "text": "Xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1965,
+      1975
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1976,
+      1985
+    ]
+  },
+  {
+    "text": "UA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1987,
+      1989
+    ]
+  },
+  {
+    "text": "Bệnh thận mạn giai đoạn IV",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.2"
+    ],
+    "assertions": [],
+    "position": [
+      2017,
+      2043
+    ]
+  },
+  {
+    "text": "bệnh thận đa nang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Q61.1"
+    ],
+    "assertions": [],
+    "position": [
+      2058,
+      2075
+    ]
+  },
+  {
+    "text": "16 mL/phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2093,
+      2103
+    ]
+  },
+  {
+    "text": "uremia",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2126,
+      2132
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      2139,
+      2152
+    ]
+  },
+  {
+    "text": "Bệnh xương chuyển hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2191,
+      2212
+    ]
+  },
+  {
+    "text": "Thiếu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D46.4"
+    ],
+    "assertions": [],
+    "position": [
+      2219,
+      2228
+    ]
+  },
+  {
+    "text": "xét nghiệm máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2552,
+      2566
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2612,
+      2622
+    ]
+  },
+  {
+    "text": "PSA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2623,
+      2626
+    ]
+  },
+  {
+    "text": "PSA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2683,
+      2686
+    ]
+  },
+  {
+    "text": "37",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2709,
+      2711
+    ]
+  }
+]

@@ -1,0 +1,320 @@
+[
+  {
+    "text": "Nhiễm trùng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A02.9"
+    ],
+    "assertions": [],
+    "position": [
+      19,
+      30
+    ]
+  },
+  {
+    "text": "Đau vùng chậu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      35,
+      48
+    ]
+  },
+  {
+    "text": "Thay đổi tâm trạng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      53,
+      71
+    ]
+  },
+  {
+    "text": "Đau khi quan hệ tình dục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      76,
+      100
+    ]
+  },
+  {
+    "text": "viêm nang lông",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L66.3"
+    ],
+    "assertions": [],
+    "position": [
+      278,
+      292
+    ]
+  },
+  {
+    "text": "đau vùng chậu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      441,
+      454
+    ]
+  },
+  {
+    "text": "lithium",
+    "type": "THUỐC",
+    "candidates": [
+      "6448"
+    ],
+    "assertions": [],
+    "position": [
+      533,
+      540
+    ]
+  },
+  {
+    "text": "thay đổi tâm trạng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      568,
+      586
+    ]
+  },
+  {
+    "text": "sứt môi hở hàm ếch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1010,
+      1028
+    ]
+  },
+  {
+    "text": "******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1056,
+      1062
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1278,
+      1286
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1291,
+      1298
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1326,
+      1334
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1339,
+      1346
+    ]
+  },
+  {
+    "text": "tê bì",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1368,
+      1373
+    ]
+  },
+  {
+    "text": "yếu cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1375,
+      1381
+    ]
+  },
+  {
+    "text": "châm chích",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1386,
+      1396
+    ]
+  },
+  {
+    "text": "viêm nang lông",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L66.3"
+    ],
+    "assertions": [],
+    "position": [
+      1749,
+      1763
+    ]
+  },
+  {
+    "text": "áp-xe nhẹ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1767,
+      1776
+    ]
+  },
+  {
+    "text": "Viêm nang lông",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L66.3"
+    ],
+    "assertions": [],
+    "position": [
+      1868,
+      1882
+    ]
+  },
+  {
+    "text": "Đau vùng chậu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1887,
+      1900
+    ]
+  },
+  {
+    "text": "Thay đổi tâm trạng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1905,
+      1923
+    ]
+  },
+  {
+    "text": "Đau khi quan hệ tình dục",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1928,
+      1952
+    ]
+  },
+  {
+    "text": "công thức máu toàn phần (CBC)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1996,
+      2025
+    ]
+  },
+  {
+    "text": "hóa sinh 12 thông số (chem-12)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2027,
+      2057
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2059,
+      2062
+    ]
+  },
+  {
+    "text": "phân tích nước tiểu (UA)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2066,
+      2090
+    ]
+  },
+  {
+    "text": "cephalexin",
+    "type": "THUỐC",
+    "candidates": [
+      "2231"
+    ],
+    "assertions": [],
+    "position": [
+      2122,
+      2132
+    ]
+  },
+  {
+    "text": "đau vùng chậu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2208,
+      2221
+    ]
+  }
+]

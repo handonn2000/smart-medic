@@ -1,0 +1,340 @@
+[
+  {
+    "text": "Buồn nôn và đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      20,
+      45
+    ]
+  },
+  {
+    "text": "không dung nạp thức ăn nhiều dầu mỡ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      170,
+      216
+    ]
+  },
+  {
+    "text": "nước tiểu sẫm màu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      218,
+      243
+    ]
+  },
+  {
+    "text": "ớn lạnh chủ quan",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      245,
+      265
+    ]
+  },
+  {
+    "text": "sốt nhẹ chủ quan",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      267,
+      287
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      289,
+      300
+    ]
+  },
+  {
+    "text": "đau nhói sắc bén",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      305,
+      325
+    ]
+  },
+  {
+    "text": "triệu chứng của bệnh nhân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      332,
+      365
+    ]
+  },
+  {
+    "text": "triệu chứng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      401,
+      416
+    ]
+  },
+  {
+    "text": "siêu âm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      566,
+      575
+    ]
+  },
+  {
+    "text": "sỏi túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      602,
+      617
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      675,
+      688
+    ]
+  },
+  {
+    "text": "bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      709,
+      718
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      723,
+      726
+    ]
+  },
+  {
+    "text": "nội soi",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      856,
+      865
+    ]
+  },
+  {
+    "text": "không dùng thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Y63.6"
+    ],
+    "assertions": [],
+    "position": [
+      988,
+      1008
+    ]
+  },
+  {
+    "text": "sử dụng rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.1"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1240,
+      1258
+    ]
+  },
+  {
+    "text": "sử dụng ma túy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.2"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1281,
+      1299
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1527,
+      1540
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1727,
+      1737
+    ]
+  },
+  {
+    "text": "khó thở khi nằm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1761,
+      1781
+    ]
+  },
+  {
+    "text": "ho ra máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R04.2"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1883,
+      1893
+    ]
+  },
+  {
+    "text": "thở khò khè",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R06.2"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1895,
+      1910
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1912,
+      1922
+    ]
+  },
+  {
+    "text": "triệu chứng co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2042,
+      2067
+    ]
+  },
+  {
+    "text": "mất điều hòa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2072,
+      2089
+    ]
+  },
+  {
+    "text": "Âm ruột cao độ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2958,
+      2977
+    ]
+  },
+  {
+    "text": "Bệnh túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3258,
+      3275
+    ]
+  },
+  {
+    "text": "Đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3277,
+      3286
+    ]
+  }
+]

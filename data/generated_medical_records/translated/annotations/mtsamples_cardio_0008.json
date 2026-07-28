@@ -1,68 +1,12 @@
 [
   {
-    "text": "huyết áp",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      26,
-      34
-    ]
-  },
-  {
-    "text": "mổ lấy thai",
+    "text": "Tràn dịch màng tim",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "O82.2"
-    ],
-    "assertions": [],
-    "position": [
-      118,
-      129
-    ]
-  },
-  {
-    "text": "huyết áp",
-    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      166,
-      174
-    ]
-  },
-  {
-    "text": "huyết áp không kiểm soát được",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      237,
-      266
-    ]
-  },
-  {
-    "text": "huyết áp",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      332,
-      340
-    ]
-  },
-  {
-    "text": "đau ngực",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      394,
-      402
+      16,
+      34
     ]
   },
   {
@@ -71,66 +15,106 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      408,
-      415
+      88,
+      95
     ]
   },
   {
-    "text": "mệt mỏi và kiệt sức",
+    "text": "mệt mỏi",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      435,
-      454
+      97,
+      104
     ]
   },
   {
-    "text": "tăng huyết áp",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I10"
-    ],
+    "text": "uể oải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
-      640,
-      653
+      108,
+      114
     ]
   },
   {
-    "text": "tiểu đường thai kỳ",
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      179,
+      187
+    ]
+  },
+  {
+    "text": "Chụp CT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      299,
+      306
+    ]
+  },
+  {
+    "text": "tràn dịch màng tim",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      663,
-      681
+      342,
+      360
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      446,
+      455
+    ]
+  },
+  {
+    "text": "tăng huyết áp biên độ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      545,
+      566
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      585,
+      599
     ]
   },
   {
     "text": "cholesterol",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      707,
-      718
-    ]
-  },
-  {
-    "text": "bệnh động mạch vành đã xác định",
-    "type": "CHẨN_ĐOÁN",
+    "type": "THUỐC",
     "candidates": [
-      "I79"
+      "2438"
     ],
-    "assertions": [
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      752,
-      783
+      625,
+      636
     ]
   },
   {
@@ -143,247 +127,237 @@
       "isNegated"
     ],
     "position": [
-      823,
-      837
+      682,
+      696
     ]
   },
   {
-    "text": "mổ lấy thai",
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      858,
+      865
+    ]
+  },
+  {
+    "text": "sử dụng ma túy",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "O82.2"
+      "Z72.2"
     ],
     "assertions": [
       "isHistorical",
       "isNegated"
     ],
     "position": [
-      937,
-      948
+      1002,
+      1016
     ]
   },
   {
-    "text": "Cardizem",
-    "type": "THUỐC",
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "3443"
+      "E03.9"
     ],
-    "assertions": [],
+    "assertions": [
+      "isHistorical"
+    ],
     "position": [
-      979,
-      987
+      1045,
+      1053
     ]
   },
   {
-    "text": "metoprolol",
-    "type": "THUỐC",
-    "candidates": [
-      "6918"
+    "text": "Tăng huyết áp biên độ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
     ],
-    "assertions": [],
-    "position": [
-      991,
-      1001
-    ]
-  },
-  {
-    "text": "hydralazine",
-    "type": "THUỐC",
-    "candidates": [
-      "5470"
-    ],
-    "assertions": [],
-    "position": [
-      1030,
-      1041
-    ]
-  },
-  {
-    "text": "labetalol",
-    "type": "THUỐC",
-    "candidates": [
-      "6185"
-    ],
-    "assertions": [],
     "position": [
       1058,
-      1067
+      1079
     ]
   },
   {
-    "text": "hydrochlorothiazide",
-    "type": "THUỐC",
-    "candidates": [
-      "5487"
-    ],
-    "assertions": [],
-    "position": [
-      1082,
-      1101
-    ]
-  },
-  {
-    "text": "insulin",
-    "type": "THUỐC",
-    "candidates": [
-      "253182"
-    ],
-    "assertions": [],
-    "position": [
-      1114,
-      1121
-    ]
-  },
-  {
-    "text": "Tăng huyết áp",
+    "text": "Viêm khớp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "I10"
+      "M02"
     ],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      1266,
-      1279
+      1084,
+      1093
     ]
   },
   {
-    "text": "tiểu đường thai kỳ",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      1281,
-      1299
-    ]
-  },
-  {
-    "text": "tiền sản giật",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "O14"
-    ],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      1301,
-      1314
-    ]
-  },
-  {
-    "text": "viêm phổi",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "J18"
-    ],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1570,
-      1579
-    ]
-  },
-  {
-    "text": "khó chịu",
+    "text": "đau ngực",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
-      "isNegated"
+      "isHistorical"
     ],
     "position": [
-      1617,
-      1625
+      1110,
+      1118
     ]
   },
   {
-    "text": "nôn ra máu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "K92.0"
-    ],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1642,
-      1652
-    ]
-  },
-  {
-    "text": "co giật",
+    "text": "khó thở",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
-      "isNegated"
+      "isHistorical"
     ],
     "position": [
-      1910,
-      1917
+      1122,
+      1129
     ]
   },
   {
-    "text": "huyết áp",
+    "text": "Yếu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1162,
+      1165
+    ]
+  },
+  {
+    "text": "mệt mỏi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1167,
+      1174
+    ]
+  },
+  {
+    "text": "uể oải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1178,
+      1184
+    ]
+  },
+  {
+    "text": "Đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1263,
+      1271
+    ]
+  },
+  {
+    "text": "suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1282,
+      1300
+    ]
+  },
+  {
+    "text": "rối loạn nhịp tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I49.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1311,
+      1328
+    ]
+  },
+  {
+    "text": "Khó chịu vùng thượng vị",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1404,
+      1427
+    ]
+  },
+  {
+    "text": "Viêm khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M02"
+    ],
+    "assertions": [],
+    "position": [
+      1541,
+      1550
+    ]
+  },
+  {
+    "text": "yếu cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1554,
+      1560
+    ]
+  },
+  {
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1965,
-      1973
+      2038,
+      2048
     ]
   },
   {
-    "text": "175/86",
+    "text": "20",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1974,
-      1980
+      2059,
+      2061
     ]
   },
   {
-    "text": "xét nghiệm",
-    "type": "TÊN_XÉT_NGHIỆM",
+    "text": "13",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2161,
-      2171
+      2069,
+      2071
     ]
   },
   {
-    "text": "EKG",
-    "type": "TÊN_XÉT_NGHIỆM",
+    "text": "39",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2175,
-      2178
-    ]
-  },
-  {
-    "text": "xét nghiệm",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2247,
-      2257
-    ]
-  },
-  {
-    "text": "BUN",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2273,
-      2276
+      2075,
+      2077
     ]
   },
   {
@@ -392,88 +366,68 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2280,
-      2290
+      2086,
+      2096
     ]
   },
   {
-    "text": "Tiền sản giật",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "O14"
-    ],
-    "assertions": [],
-    "position": [
-      2336,
-      2349
-    ]
-  },
-  {
-    "text": "mổ lấy thai",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "O82.2"
-    ],
-    "assertions": [],
-    "position": [
-      2374,
-      2385
-    ]
-  },
-  {
-    "text": "huyết áp không kiểm soát được",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2390,
-      2419
-    ]
-  },
-  {
-    "text": "tiểu đường thai kỳ cận biên",
+    "text": "tràn dịch màng tim",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      2456,
-      2483
+      2201,
+      2219
     ]
   },
   {
-    "text": "siêu âm tim",
+    "text": "Siêu âm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2530,
-      2541
+      2221,
+      2228
     ]
   },
   {
-    "text": "labetalol",
-    "type": "THUỐC",
-    "candidates": [
-      "6185"
-    ],
+    "text": "tràn dịch màng tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
     "assertions": [],
     "position": [
-      2606,
-      2615
+      2242,
+      2260
     ]
   },
   {
-    "text": "hydralazine",
-    "type": "THUỐC",
-    "candidates": [
-      "5470"
-    ],
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
-      2619,
-      2630
+      2376,
+      2384
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2388,
+      2395
+    ]
+  },
+  {
+    "text": "Tràn dịch màng tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2482,
+      2500
     ]
   }
 ]

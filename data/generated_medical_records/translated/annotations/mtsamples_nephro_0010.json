@@ -1,34 +1,34 @@
 [
   {
-    "text": "tiểu ra máu vi thể",
+    "text": "tiểu máu vi thể",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      44,
-      62
+      62,
+      77
     ]
   },
   {
-    "text": "đau khớp mới",
+    "text": "đau khớp",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      229,
-      241
+      224,
+      232
     ]
   },
   {
-    "text": "bệnh khớp thoái hóa mãn tính",
+    "text": "bệnh thoái hóa khớp mạn tính",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      259,
-      287
+      263,
+      291
     ]
   },
   {
@@ -39,32 +39,28 @@
     ],
     "assertions": [],
     "position": [
-      299,
-      315
+      296,
+      312
     ]
   },
   {
-    "text": "tiểu ra máu đại thể",
+    "text": "tiểu máu đại thể",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      361,
-      380
+      355,
+      371
     ]
   },
   {
     "text": "ho ra máu",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      393,
-      402
+      388,
+      397
     ]
   },
   {
@@ -75,8 +71,8 @@
       "isNegated"
     ],
     "position": [
-      434,
-      442
+      426,
+      434
     ]
   },
   {
@@ -87,18 +83,8 @@
       "isNegated"
     ],
     "position": [
-      447,
-      454
-    ]
-  },
-  {
-    "text": "giảm thính lực",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      498,
-      512
+      439,
+      446
     ]
   },
   {
@@ -109,8 +95,8 @@
       "isNegated"
     ],
     "position": [
-      549,
-      557
+      531,
+      539
     ]
   },
   {
@@ -121,8 +107,8 @@
       "isNegated"
     ],
     "position": [
-      559,
-      567
+      547,
+      555
     ]
   },
   {
@@ -133,44 +119,48 @@
       "isNegated"
     ],
     "position": [
-      572,
-      579
+      560,
+      567
     ]
   },
   {
     "text": "thiếu máu",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D46.4"
+    ],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      590,
-      599
+      581,
+      590
     ]
   },
   {
-    "text": "phù nề",
+    "text": "sưng phù",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      627,
-      633
+      606,
+      614
     ]
   },
   {
-    "text": "cơn động kinh",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
+    "text": "co giật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R56"
+    ],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      652,
-      665
+      636,
+      643
     ]
   },
   {
@@ -183,8 +173,8 @@
       "isHistorical"
     ],
     "position": [
-      701,
-      714
+      683,
+      696
     ]
   },
   {
@@ -195,8 +185,8 @@
       "isHistorical"
     ],
     "position": [
-      718,
-      736
+      700,
+      718
     ]
   },
   {
@@ -210,8 +200,8 @@
       "isNegated"
     ],
     "position": [
-      755,
-      770
+      737,
+      752
     ]
   },
   {
@@ -225,20 +215,20 @@
       "isNegated"
     ],
     "position": [
-      775,
-      782
+      758,
+      765
     ]
   },
   {
-    "text": "ung thư biểu mô tuyến",
+    "text": "ung thư biểu mô",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      915,
-      936
+      883,
+      898
     ]
   },
   {
@@ -251,33 +241,32 @@
       "isHistorical"
     ],
     "position": [
-      958,
-      967
+      921,
+      930
     ]
   },
   {
     "text": "Dyazide",
     "type": "THUỐC",
     "candidates": [
-      "10763",
-      "5487"
+      "23742"
     ],
     "assertions": [],
     "position": [
-      1116,
-      1123
+      1043,
+      1050
     ]
   },
   {
     "text": "Pravachol",
     "type": "THUỐC",
     "candidates": [
-      "42463"
+      "203333"
     ],
     "assertions": [],
     "position": [
-      1148,
-      1157
+      1075,
+      1084
     ]
   },
   {
@@ -288,8 +277,8 @@
     ],
     "assertions": [],
     "position": [
-      1192,
-      1201
+      1105,
+      1114
     ]
   },
   {
@@ -300,20 +289,42 @@
     ],
     "assertions": [],
     "position": [
-      1240,
-      1247
+      1147,
+      1154
     ]
   },
   {
-    "text": "xanh tím da",
+    "text": "nhịp nhanh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1684,
+      1694
+    ]
+  },
+  {
+    "text": "thổi tâm trương",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      2053,
-      2064
+      1730,
+      1745
+    ]
+  },
+  {
+    "text": "tím tái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1858,
+      1865
     ]
   },
   {
@@ -322,20 +333,32 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2082,
-      2101
+      1883,
+      1902
     ]
   },
   {
-    "text": "co giật",
+    "text": "giật cơ",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      2141,
-      2148
+      1943,
+      1950
+    ]
+  },
+  {
+    "text": "co giật cơ bắp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1955,
+      1969
     ]
   },
   {
@@ -344,50 +367,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2172,
-      2182
+      1980,
+      1990
     ]
   },
   {
-    "text": "nước tiểu",
+    "text": "Nước tiểu",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2192,
-      2201
-    ]
-  },
-  {
-    "text": "protein niệu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      2266,
-      2278
-    ]
-  },
-  {
-    "text": "creatinine",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2311,
-      2321
-    ]
-  },
-  {
-    "text": "1 mg %",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2339,
-      2345
+      1994,
+      2003
     ]
   },
   {
@@ -400,8 +391,40 @@
       "isNegated"
     ],
     "position": [
-      2358,
-      2365
+      2056,
+      2063
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2099,
+      2109
+    ]
+  },
+  {
+    "text": "1 mg%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2113,
+      2118
+    ]
+  },
+  {
+    "text": "protein niệu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2131,
+      2143
     ]
   },
   {
@@ -412,8 +435,8 @@
       "isNegated"
     ],
     "position": [
-      2407,
-      2420
+      2160,
+      2173
     ]
   },
   {
@@ -422,28 +445,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2493,
-      2502
+      2233,
+      2242
     ]
   },
   {
-    "text": "siêu âm thường quy",
+    "text": "siêu âm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2533,
-      2551
-    ]
-  },
-  {
-    "text": "phân tích nước tiểu thường quy",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2577,
-      2607
+      2273,
+      2280
     ]
   },
   {
@@ -452,8 +465,28 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2657,
-      2667
+      2308,
+      2318
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2319,
+      2328
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2393,
+      2403
     ]
   },
   {
@@ -462,8 +495,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2668,
-      2676
+      2404,
+      2412
     ]
   },
   {
@@ -472,28 +505,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2684,
-      2693
-    ]
-  },
-  {
-    "text": "xét nghiệm",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2698,
-      2708
-    ]
-  },
-  {
-    "text": "nội soi bàng quang kết hợp chụp niệu quản ngược dòng",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2743,
-      2795
+      2428,
+      2437
     ]
   }
 ]

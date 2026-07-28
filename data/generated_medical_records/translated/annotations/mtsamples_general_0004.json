@@ -1,72 +1,190 @@
 [
   {
-    "text": "yếu cơ được cải thiện",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
     "assertions": [],
     "position": [
-      71,
-      92
+      134,
+      148
     ]
   },
   {
-    "text": "giảm đau cơ",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
     "assertions": [],
     "position": [
-      96,
-      107
+      245,
+      259
     ]
   },
   {
-    "text": "147/68",
+    "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      574,
+      581
+    ]
+  },
+  {
+    "text": "30",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      257,
-      263
+      595,
+      597
     ]
   },
   {
-    "text": "82",
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      602,
+      615
+    ]
+  },
+  {
+    "text": "labetalol",
+    "type": "THUỐC",
+    "candidates": [
+      "6185"
+    ],
+    "assertions": [],
+    "position": [
+      763,
+      772
+    ]
+  },
+  {
+    "text": "Norvasc",
+    "type": "THUỐC",
+    "candidates": [
+      "58927"
+    ],
+    "assertions": [],
+    "position": [
+      804,
+      811
+    ]
+  },
+  {
+    "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      830,
+      837
+    ]
+  },
+  {
+    "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      862,
+      869
+    ]
+  },
+  {
+    "text": "175",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      270,
-      272
+      901,
+      904
     ]
   },
   {
-    "text": "20",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
+    "text": "Đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
     "position": [
-      283,
-      285
+      921,
+      935
     ]
   },
   {
-    "text": "97.7",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
     "position": [
-      296,
-      300
+      937,
+      950
     ]
   },
   {
-    "text": "99%",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
     "assertions": [],
     "position": [
-      316,
-      319
+      1120,
+      1134
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1153,
+      1166
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      1181,
+      1188
+    ]
+  },
+  {
+    "text": "đau cấp tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R52.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1338,
+      1350
     ]
   },
   {
@@ -75,58 +193,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      585,
-      595
+      1906,
+      1916
     ]
   },
   {
-    "text": "Total CK",
+    "text": "CPK",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      597,
-      605
-    ]
-  },
-  {
-    "text": "70,142",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      614,
-      620
-    ]
-  },
-  {
-    "text": "25,573",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      627,
-      633
-    ]
-  },
-  {
-    "text": "total CK",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      635,
-      643
-    ]
-  },
-  {
-    "text": "200",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      647,
-      650
+      1933,
+      1936
     ]
   },
   {
@@ -135,58 +213,48 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      652,
-      660
+      1938,
+      1946
     ]
   },
   {
-    "text": "2.3",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      664,
-      667
-    ]
-  },
-  {
-    "text": "1.9",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      675,
-      678
-    ]
-  },
-  {
-    "text": "BNP",
+    "text": "CMP",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      693,
-      696
+      1956,
+      1959
     ]
   },
   {
-    "text": "đường máu",
+    "text": "glucose",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      698,
-      707
+      1975,
+      1982
     ]
   },
   {
-    "text": "93",
+    "text": "33",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      708,
-      710
+      1986,
+      1988
+    ]
+  },
+  {
+    "text": "BMP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1990,
+      1993
     ]
   },
   {
@@ -195,18 +263,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      712,
-      715
+      2009,
+      2012
     ]
   },
   {
-    "text": "55.7",
+    "text": "60",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      716,
-      720
+      2016,
+      2018
     ]
   },
   {
@@ -215,38 +283,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      722,
-      732
+      2020,
+      2030
     ]
   },
   {
-    "text": "2.7",
+    "text": "4.3",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      733,
-      736
-    ]
-  },
-  {
-    "text": "sodium",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      738,
-      744
-    ]
-  },
-  {
-    "text": "137",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      745,
-      748
+      2034,
+      2037
     ]
   },
   {
@@ -255,386 +303,68 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      750,
-      759
+      2039,
+      2048
     ]
   },
   {
-    "text": "3.9",
+    "text": "4.7",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      760,
-      763
+      2052,
+      2055
     ]
   },
   {
-    "text": "chloride",
+    "text": "Phân tích nước tiểu",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      765,
-      773
+      2057,
+      2076
     ]
   },
   {
-    "text": "108",
+    "text": "10.30",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      774,
-      777
+      2107,
+      2112
     ]
   },
   {
-    "text": "CO2",
+    "text": "CT não",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      782,
-      785
+      2114,
+      2120
     ]
   },
   {
-    "text": "22",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      786,
-      788
-    ]
-  },
-  {
-    "text": "Xét nghiệm chức năng gan",
+    "text": "X-quang ngực",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      790,
-      814
+      2151,
+      2163
     ]
   },
   {
-    "text": "AST",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      816,
-      819
-    ]
-  },
-  {
-    "text": "704",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      820,
-      823
-    ]
-  },
-  {
-    "text": "ALT",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      825,
-      828
-    ]
-  },
-  {
-    "text": "298",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      829,
-      832
-    ]
-  },
-  {
-    "text": "alkaline phosphatase",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      834,
-      854
-    ]
-  },
-  {
-    "text": "67",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      855,
-      857
-    ]
-  },
-  {
-    "text": "total bilirubin",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      859,
-      874
-    ]
-  },
-  {
-    "text": "0.3",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      875,
-      878
-    ]
-  },
-  {
-    "text": "CBC",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      880,
-      883
-    ]
-  },
-  {
-    "text": "WBC",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      894,
-      897
-    ]
-  },
-  {
-    "text": "9.1",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      898,
-      901
-    ]
-  },
-  {
-    "text": "hemoglobin",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      903,
-      913
-    ]
-  },
-  {
-    "text": "9.9",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      914,
-      917
-    ]
-  },
-  {
-    "text": "hematocrit",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      919,
-      929
-    ]
-  },
-  {
-    "text": "29.2",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      930,
-      934
-    ]
-  },
-  {
-    "text": "tiểu cầu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      948,
-      956
-    ]
-  },
-  {
-    "text": "204",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      957,
-      960
-    ]
-  },
-  {
-    "text": "Siêu âm bụng",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      991,
-      1003
-    ]
-  },
-  {
-    "text": "bệnh thận mãn tính",
+    "text": "Hạ đường huyết",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1055,
-      1073
-    ]
-  },
-  {
-    "text": "Siêu âm Doppler chi dưới",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1075,
-      1099
-    ]
-  },
-  {
-    "text": "Tiêu cơ vân",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1150,
-      1161
-    ]
-  },
-  {
-    "text": "statin",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1177,
-      1183
-    ]
-  },
-  {
-    "text": "gemfibrozil",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1187,
-      1198
-    ]
-  },
-  {
-    "text": "Suy thận cấp trên nền mãn tính",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "N17"
-    ],
-    "assertions": [],
-    "position": [
-      1286,
-      1316
-    ]
-  },
-  {
-    "text": "Thiếu máu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "D46.4"
-    ],
-    "assertions": [],
-    "position": [
-      1364,
-      1373
-    ]
-  },
-  {
-    "text": "pha loãng máu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1406,
-      1419
-    ]
-  },
-  {
-    "text": "CBC",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1429,
-      1432
-    ]
-  },
-  {
-    "text": "Tăng bạch cầu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1451,
-      1464
-    ]
-  },
-  {
-    "text": "Tăng men gan",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1490,
-      1502
-    ]
-  },
-  {
-    "text": "đau bụng",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1557,
-      1565
-    ]
-  },
-  {
-    "text": "siêu âm",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1573,
-      1580
+      2233,
+      2247
     ]
   },
   {
@@ -645,52 +375,40 @@
     ],
     "assertions": [],
     "position": [
-      1597,
-      1610
+      2282,
+      2295
     ]
   },
   {
-    "text": "Tăng men tim",
+    "text": "Suy thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N17"
+    ],
+    "assertions": [],
+    "position": [
+      2300,
+      2308
+    ]
+  },
+  {
+    "text": "thận do đái tháo đường",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1640,
-      1652
+      2339,
+      2361
     ]
   },
   {
-    "text": "Béo phì",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "E66.9"
-    ],
-    "assertions": [],
-    "position": [
-      1701,
-      1708
-    ]
-  },
-  {
-    "text": "huyết khối tĩnh mạch sâu",
-    "type": "CHẨN_ĐOÁN",
+    "text": "đường huyết",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1722,
-      1746
-    ]
-  },
-  {
-    "text": "Lovenox",
-    "type": "THUỐC",
-    "candidates": [
-      "67108"
-    ],
-    "assertions": [],
-    "position": [
-      1757,
-      1764
+      2439,
+      2450
     ]
   }
 ]

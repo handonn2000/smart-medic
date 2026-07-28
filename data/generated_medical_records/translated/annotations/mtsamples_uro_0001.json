@@ -1,0 +1,514 @@
+[
+  {
+    "text": "khó tiểu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      176,
+      187
+    ]
+  },
+  {
+    "text": "táo bón",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      192,
+      201
+    ]
+  },
+  {
+    "text": "Cấy nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      203,
+      223
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      239,
+      248
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "217992"
+    ],
+    "assertions": [],
+    "position": [
+      322,
+      330
+    ]
+  },
+  {
+    "text": "tiểu máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      408,
+      419
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      483,
+      494
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      514,
+      525
+    ]
+  },
+  {
+    "text": "Số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      631,
+      656
+    ]
+  },
+  {
+    "text": "7.6",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      661,
+      664
+    ]
+  },
+  {
+    "text": "H và H",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      666,
+      673
+    ]
+  },
+  {
+    "text": "10.8 và 38.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      678,
+      691
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      697,
+      700
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      705,
+      715
+    ]
+  },
+  {
+    "text": "27 và 1.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      734,
+      744
+    ]
+  },
+  {
+    "text": "Cấy nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      746,
+      766
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      790,
+      804
+    ]
+  },
+  {
+    "text": "Xét nghiệm nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      828,
+      856
+    ]
+  },
+  {
+    "text": "Nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      955,
+      969
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1013,
+      1030
+    ]
+  },
+  {
+    "text": "Cholesterol cao",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1037,
+      1052
+    ]
+  },
+  {
+    "text": "Ung thư bàng quang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1059,
+      1079
+    ]
+  },
+  {
+    "text": "Đục thủy tinh thể",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H26.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1130,
+      1151
+    ]
+  },
+  {
+    "text": "Phì đại tuyến tiền liệt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D29.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1158,
+      1189
+    ]
+  },
+  {
+    "text": "Atenolol",
+    "type": "THUỐC",
+    "candidates": [
+      "1202"
+    ],
+    "assertions": [],
+    "position": [
+      1238,
+      1246
+    ]
+  },
+  {
+    "text": "Cardura",
+    "type": "THUỐC",
+    "candidates": [
+      "196468"
+    ],
+    "assertions": [],
+    "position": [
+      1253,
+      1260
+    ]
+  },
+  {
+    "text": "Zegerid",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1267,
+      1274
+    ]
+  },
+  {
+    "text": "Flomax",
+    "type": "THUỐC",
+    "candidates": [
+      "190283"
+    ],
+    "assertions": [],
+    "position": [
+      1281,
+      1287
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "217992"
+    ],
+    "assertions": [],
+    "position": [
+      1294,
+      1302
+    ]
+  },
+  {
+    "text": "Proscar",
+    "type": "THUỐC",
+    "candidates": [
+      "196476"
+    ],
+    "assertions": [],
+    "position": [
+      1309,
+      1316
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1323,
+      1330
+    ]
+  },
+  {
+    "text": "Morphine",
+    "type": "THUỐC",
+    "candidates": [
+      "7052"
+    ],
+    "assertions": [],
+    "position": [
+      1337,
+      1345
+    ]
+  },
+  {
+    "text": "Phenergan",
+    "type": "THUỐC",
+    "candidates": [
+      "152218"
+    ],
+    "assertions": [],
+    "position": [
+      1352,
+      1361
+    ]
+  },
+  {
+    "text": "Ativan",
+    "type": "THUỐC",
+    "candidates": [
+      "202479"
+    ],
+    "assertions": [],
+    "position": [
+      1369,
+      1375
+    ]
+  },
+  {
+    "text": "Zocor",
+    "type": "THUỐC",
+    "candidates": [
+      "196503"
+    ],
+    "assertions": [],
+    "position": [
+      1383,
+      1388
+    ]
+  },
+  {
+    "text": "Prinivil",
+    "type": "THUỐC",
+    "candidates": [
+      "203644"
+    ],
+    "assertions": [],
+    "position": [
+      1396,
+      1404
+    ]
+  },
+  {
+    "text": "Hydrochlorothiazide",
+    "type": "THUỐC",
+    "candidates": [
+      "5487"
+    ],
+    "assertions": [],
+    "position": [
+      1412,
+      1431
+    ]
+  },
+  {
+    "text": "Acid folic",
+    "type": "THUỐC",
+    "candidates": [
+      "1048113"
+    ],
+    "assertions": [],
+    "position": [
+      1439,
+      1449
+    ]
+  },
+  {
+    "text": "Digoxin",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [],
+    "position": [
+      1457,
+      1464
+    ]
+  },
+  {
+    "text": "Vitamin B12",
+    "type": "THUỐC",
+    "candidates": [
+      "11248"
+    ],
+    "assertions": [],
+    "position": [
+      1472,
+      1483
+    ]
+  },
+  {
+    "text": "Multivitamin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1491,
+      1503
+    ]
+  },
+  {
+    "text": "162/60",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1867,
+      1873
+    ]
+  },
+  {
+    "text": "98%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1897,
+      1900
+    ]
+  },
+  {
+    "text": "Nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2194,
+      2208
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2228,
+      2241
+    ]
+  },
+  {
+    "text": "Tiểu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2279,
+      2290
+    ]
+  }
+]

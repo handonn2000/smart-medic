@@ -7,8 +7,8 @@
     ],
     "assertions": [],
     "position": [
-      99,
-      116
+      94,
+      111
     ]
   },
   {
@@ -19,86 +19,92 @@
     ],
     "assertions": [],
     "position": [
-      120,
-      128
+      115,
+      123
     ]
   },
   {
-    "text": "tán sỏi",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
+    "text": "niệu quản trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.2"
+    ],
     "assertions": [],
     "position": [
-      292,
-      299
+      176,
+      190
     ]
   },
   {
     "text": "Levaquin",
     "type": "THUỐC",
     "candidates": [
-      "82122"
+      "217992"
     ],
     "assertions": [],
     "position": [
-      910,
-      918
+      969,
+      977
     ]
   },
   {
-    "text": "Sulfa",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
+    "text": "stent niệu quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.2"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
     "position": [
-      1182,
-      1187
+      1180,
+      1195
     ]
   },
   {
     "text": "Levaquin",
     "type": "THUỐC",
     "candidates": [
-      "82122"
+      "217992"
     ],
     "assertions": [],
     "position": [
-      1234,
-      1242
+      1329,
+      1337
     ]
   },
   {
     "text": "Prinivil",
     "type": "THUỐC",
     "candidates": [
-      "29046"
+      "203644"
     ],
     "assertions": [],
     "position": [
-      1244,
-      1252
+      1339,
+      1347
     ]
   },
   {
     "text": "Bumex",
     "type": "THUỐC",
     "candidates": [
-      "1808"
+      "203538"
     ],
     "assertions": [],
     "position": [
-      1269,
-      1274
+      1364,
+      1369
     ]
   },
   {
-    "text": "********",
+    "text": "Levsinex",
     "type": "THUỐC",
     "candidates": [],
     "assertions": [],
     "position": [
-      1292,
-      1300
+      1387,
+      1395
     ]
   },
   {
@@ -109,8 +115,8 @@
     ],
     "assertions": [],
     "position": [
-      1320,
-      1330
+      1415,
+      1425
     ]
   },
   {
@@ -121,8 +127,8 @@
     ],
     "assertions": [],
     "position": [
-      1348,
-      1366
+      1443,
+      1461
     ]
   },
   {
@@ -133,8 +139,8 @@
     ],
     "assertions": [],
     "position": [
-      1386,
-      1394
+      1481,
+      1489
     ]
   },
   {
@@ -145,8 +151,8 @@
       "isNegated"
     ],
     "position": [
-      1485,
-      1488
+      1582,
+      1585
     ]
   },
   {
@@ -157,30 +163,20 @@
       "isNegated"
     ],
     "position": [
-      1490,
-      1497
+      1587,
+      1594
     ]
   },
   {
-    "text": "ra mồ hôi",
+    "text": "đổ mồ hôi",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      1503,
-      1512
-    ]
-  },
-  {
-    "text": "Huyết áp",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1619,
-      1627
+      1601,
+      1610
     ]
   },
   {
@@ -189,8 +185,20 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1645,
-      1651
+      1729,
+      1735
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1814,
+      1820
     ]
   },
   {
@@ -201,8 +209,8 @@
     ],
     "assertions": [],
     "position": [
-      1775,
-      1788
+      1837,
+      1850
     ]
   },
   {
@@ -213,50 +221,42 @@
     ],
     "assertions": [],
     "position": [
-      1813,
-      1821
+      1870,
+      1878
     ]
   },
   {
-    "text": "tán sỏi",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
+    "text": "niệu quản trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.2"
+    ],
     "assertions": [],
     "position": [
-      1826,
-      1833
+      1912,
+      1926
     ]
   },
   {
-    "text": "stent",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1841,
-      1846
-    ]
-  },
-  {
-    "text": "Tiểu không tự chủ",
+    "text": "Tiểu không kiểm soát",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1887,
-      1904
+      1944,
+      1964
     ]
   },
   {
-    "text": "nhiễm trùng huyết",
+    "text": "Nhiễm trùng huyết",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "A41.9"
     ],
     "assertions": [],
     "position": [
-      1922,
-      1939
+      1969,
+      1986
     ]
   }
 ]

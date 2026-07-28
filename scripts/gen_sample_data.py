@@ -1,0 +1,811 @@
+#!/usr/bin/env python3
+"""Sinh bệnh án tiếng Việt tổng hợp làm dữ liệu train — bản ĐỘC LẬP cho master.
+
+Khác bản ở nhánh feature: script này KHÔNG phụ thuộc gì ngoài thư viện chuẩn và
+hai bảng ban tổ chức đã có sẵn trên master:
+
+    data/knowledge_base/ICD10.csv     (36.689 mã, cột "Mã" + "Tên bệnh")
+    data/knowledge_base/RXNORM.csv    (637.977 dòng, lọc tty IN/BN)
+
+Không cần data/kb/, không cần src/smart_medic/, không cần tải dữ liệu ngoài.
+
+CÁCH LÀM — code chọn thực thể trước, LLM viết văn quanh chúng:
+
+    1. compose : bốc một bộ thực thể (chẩn đoán/thuốc/triệu chứng/xét nghiệm) theo
+                 phân bố đo từ gold, rồi gọi LLM viết bệnh án bọc mỗi cụm trong 〔 〕.
+    2. emit    : bóc dấu 〔 〕, offset tính NGAY LÚC BÓC nên không bao giờ lệch.
+
+Thứ tự này là kết quả của một lần đo: cách ngược lại (LLM viết khung có ô trống,
+code điền cụm vào) cho 33% câu vô nghĩa về y khoa, vì code điền không biết ràng
+buộc ngữ nghĩa mà LLM đã đặt vào câu ("thấy có 〈chướng bụng〉 trong phân").
+
+Nhãn sinh ra ở data/synth/*.json là định dạng phụ, dùng để kiểm; nếu chỉ cần văn
+bản mẫu thì lấy data/train_input/*.txt.
+
+    python scripts/gen_sample_data.py compose --n 200 --use-api
+    python scripts/gen_sample_data.py emit
+    python scripts/gen_sample_data.py verify
+
+compose cần ANTHROPIC_API_KEY khi có --use-api; không có thì nó chỉ ghi ra bộ thực
+thể và prompt để bạn tự gọi model nào cũng được, rồi nạp lại bằng --composed FILE.
+"""
+
+from __future__ import annotations
+
+import argparse
+import collections
+import csv
+import json
+import os
+import random
+import re
+import statistics as st
+import sys
+import unicodedata as ud
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent.parent
+KB = REPO / "data" / "knowledge_base"
+WORK = REPO / "data" / "synth" / "work"
+OUT_LABELS = REPO / "data" / "synth"
+OUT_TEXT = REPO / "data" / "train_input"
+
+SEED = 20260727
+BRACKET = re.compile(r"〔([^〔〕]{1,80})〕")
+
+
+#: Tần số tên thuốc đo trên 3.612 bệnh án tiếng Anh (mtsamples), nhúng thẳng vào
+#: script để master không phụ thuộc file ngoài. Vì sao cần: bảng RxNorm không có
+#: tín hiệu độ phổ thông nào (mọi dòng cùng trọng số), nên bốc đều từ 27.537 tên
+#: IN/BN cho ra "silicon dioxide", "trientine" — đây là nguyên nhân của 14/90 câu
+#: bị chấm 0 điểm ở lô thử. Bảng này chỉ 402 tên và phủ 14/19 thuốc gold, nên cách
+#: bốc là TRỘN: 75% theo tần số, 25% từ cả bảng (5 thuốc gold còn lại — bumetanide,
+#: eliquis, gleevec, levofloxacin, metoclopramide — chỉ có ở bảng đầy đủ).
+DRUG_FREQ = {
+    "coumadin": 67, "aspirin": 55, "tylenol": 38, "prednisone": 36, "oxygen": 34, "lasix": 29,
+    "lisinopril": 25, "water": 25, "morphine": 24, "albuterol": 23, "levaquin": 23,
+    "flomax": 21, "metoprolol": 20, "synthroid": 20, "lipitor": 19, "tomorrow": 19,
+    "benadryl": 18, "cocaine": 18, "digoxin": 18, "fentanyl": 18, "hydrochlorothiazide": 17,
+    "adderall": 16, "atenolol": 16, "heroin": 16, "phenergan": 16, "amoxicillin": 15,
+    "xanax": 15, "bactrim": 14, "clindamycin": 14, "folic acid": 14, "levothyroxine": 14,
+    "ambien": 13, "diovan": 13, "hydralazine": 13, "metformin": 13, "percocet": 13,
+    "toprol": 13, "advair": 12, "allegra": 12, "barium": 12, "ceftriaxone": 12, "claritin": 12,
+    "codeine": 12, "nexium": 12, "omeprazole": 12, "prilosec": 12, "tamoxifen": 12,
+    "zocor": 12, "accutane": 11, "ativan": 11, "demerol": 11, "lidocaine": 11, "motrin": 11,
+    "vitamin d": 11, "zantac": 11, "cardizem": 10, "ibuprofen": 10, "lantus": 10, "lead": 10,
+    "methadone": 10, "paxil": 10, "plavix": 10, "prevacid": 10, "unasyn": 10, "clonidine": 9,
+    "doxycycline": 9, "nitroglycerin": 9, "perform": 9, "pravachol": 9, "zithromax": 9,
+    "augmentin": 8, "carboplatin": 8, "cipro": 8, "colace": 8, "cozaar": 8, "humulin": 8,
+    "keflex": 8, "labetalol": 8, "procainamide": 8, "coreg": 7, "crestor": 7,
+    "cyclosporine": 7, "erythromycin": 7, "flagyl": 7, "keppra": 7, "medrol": 7,
+    "metronidazole": 7, "protonix": 7, "reglan": 7, "simvastatin": 7, "verapamil": 7,
+    "vitamin k": 7, "zyrtec": 7, "abilify": 6, "aciphex": 6, "advil": 6, "buspar": 6,
+    "cialis": 6, "compazine": 6, "cortisone": 6, "epinephrine": 6, "hydrea": 6, "lamictal": 6,
+    "nasonex": 6, "norvasc": 6, "plaquenil": 6, "prinivil": 6, "ritalin": 6, "seroquel": 6,
+    "solu-medrol": 6, "vancomycin": 6, "xopenex": 6, "zonegran": 6, "ciprodex": 5,
+    "dilantin": 5, "femara": 5, "fosamax": 5, "furosemide": 5, "heparin": 5, "iodine": 5,
+    "lamisil": 5, "lanoxin": 5, "lotensin": 5, "lotrimin": 5, "miralax": 5, "morning after": 5,
+    "neurontin": 5, "pepcid": 5, "provera": 5, "singulair": 5, "vitamin e": 5, "warfarin": 5,
+    "wellbutrin": 5, "zetia": 5, "actonel": 4, "actos": 4, "arimidex": 4, "betadine": 4,
+    "cardura": 4, "carvedilol": 4, "celebrex": 4, "chlorthalidone": 4, "decadron": 4,
+    "detrol": 4, "doripenem": 4, "elidel": 4, "enalapril": 4, "famotidine": 4, "fiber": 4,
+    "gabapentin": 4, "hydrocodone": 4, "hydroxychloroquine": 4, "imuran": 4, "klonopin": 4,
+    "lexapro": 4, "lithium": 4, "lovastatin": 4, "lupron": 4, "lyrica": 4, "macrodantin": 4,
+    "marcaine": 4, "methotrexate": 4, "nystatin": 4, "phenobarbital": 4, "premarin": 4,
+    "propofol": 4, "proscar": 4, "restart": 4, "rocaltrol": 4, "soma": 4, "tetracycline": 4,
+    "timoptic": 4, "trazodone": 4, "vesicare": 4, "viagra": 4, "vitamin b12": 4, "zoloft": 4,
+    "amlodipine": 3, "aricept": 3, "atrovent": 3, "bactroban": 3, "benicar": 3, "caffeine": 3,
+    "carafate": 3, "carnitine": 3, "cephalexin": 3, "cymbalta": 3, "ditropan": 3, "enablex": 3,
+    "escherichia coli": 3, "evista": 3, "feldene": 3, "feosol": 3, "ferrous sulfate": 3,
+    "glyburide": 3, "humalog": 3, "isordil": 3, "lactulose": 3, "latex": 3, "lopressor": 3,
+    "loratadine": 3, "lovenox": 3, "lumigan": 3, "lutein": 3, "macrobid": 3, "minipress": 3,
+    "naprosyn": 3, "oxycodone": 3, "pacerone": 3, "polysporin": 3, "procrit": 3,
+    "pulmicort": 3, "qvar": 3, "remeron": 3, "senokot": 3, "tandem": 3, "temodar": 3,
+    "tramadol": 3, "valtrex": 3, "zanaflex": 3, "abraxane": 2, "adriamycin": 2, "afrin": 2,
+    "aldactone": 2, "allopurinol": 2, "alprazolam": 2, "altace": 2, "antivert": 2,
+    "aquaphor": 2, "aranesp": 2, "arava": 2, "atripla": 2, "avalide": 2, "avapro": 2,
+    "avelox": 2, "azithromycin": 2, "bayer aspirin": 2, "bumex": 2, "cefazolin": 2,
+    "cefuroxime": 2, "cellcept": 2, "cetacaine": 2, "chantix": 2, "cimetidine": 2,
+    "ciprofloxacin": 2, "cisplatin": 2, "citronella oil": 2, "cleocin": 2, "collagen": 2,
+    "copaxone": 2, "cutivate": 2, "depakote": 2, "depo-provera": 2, "dexamethasone": 2,
+    "dicyclomine": 2, "diphenhydramine": 2, "diprivan": 2, "dyazide": 2, "effexor": 2,
+    "enoxaparin": 2, "estrace": 2, "etoposide": 2, "flonase": 2, "flovent": 2, "fortaz": 2,
+    "gemfibrozil": 2, "glipizide": 2, "glucotrol": 2, "helicobacter pylori": 2, "holmium": 2,
+    "hydrocortisone": 2, "hydromorphone": 2, "imodium": 2, "indocin": 2, "invega": 2,
+    "isoproterenol": 2, "ixempra": 2, "kenalog": 2, "kerosene": 2, "lomotil": 2, "lopid": 2,
+    "lotrel": 2, "maxzide": 2, "metamucil": 2, "mirapex": 2, "mobic": 2, "namenda": 2,
+    "nitrofurantoin": 2, "norco": 2, "novolin": 2, "orapred": 2, "paraffin": 2, "peridex": 2,
+    "pravastatin": 2, "proctofoam": 2, "propranolol": 2, "proventil": 2, "provigil": 2,
+    "react": 2, "rhinocort": 2, "rozerem": 2, "serevent": 2, "spiriva": 2, "spironolactone": 2,
+    "synalar": 2, "tazorac": 2, "tekturna": 2, "timolol": 2, "topamax": 2, "triamcinolone": 2,
+    "triamterene": 2, "tussionex": 2, "ultram": 2, "uric acid": 2, "valium": 2, "vasotec": 2,
+    "vytorin": 2, "welchol": 2, "acyclovir": 1, "alendronate": 1, "alphagan": 1, "amaryl": 1,
+    "amitriptyline": 1, "anaprox": 1, "apple juice": 1, "aromasin": 1, "atropine": 1,
+    "avastin": 1, "benzoyl peroxide": 1, "botox": 1, "brimonidine": 1, "caduet": 1,
+    "caverject": 1, "celexa": 1, "citalopram": 1, "clarinex": 1, "clavulanate": 1,
+    "climara": 1, "clonazepam": 1, "clopidogrel": 1, "colestid": 1, "combivent": 1,
+    "condylox": 1, "cyclobenzaprine": 1, "daypro": 1, "depo-medrol": 1, "depo-testosterone": 1,
+    "desmopressin": 1, "diclofenac": 1, "diflucan": 1, "digitek": 1, "docusate": 1,
+    "doxorubicin": 1, "elavil": 1, "equagesic": 1, "faslodex": 1, "fenofibrate": 1,
+    "fluoxetine": 1, "gengraf": 1, "glucophage": 1, "haloperidol": 1, "hyzaar": 1,
+    "ixabepilone": 1, "kadian": 1, "levitra": 1, "lidoderm": 1, "lorazepam": 1, "malarone": 1,
+    "meloxicam": 1, "micardis": 1, "minocin": 1, "mucinex": 1, "nasacort": 1, "nicotine": 1,
+    "nifedipine": 1, "novolog": 1, "octreotide": 1, "oxaprozin": 1, "paroxetine": 1,
+    "pediarix": 1, "phenylpropanolamine": 1, "phoslo": 1, "pred forte": 1, "prograf": 1,
+    "prozac": 1, "raloxifene": 1, "ranitidine": 1, "ropinirole": 1, "skelaxin": 1,
+    "staphylococcus epidermidis": 1, "sudafed": 1, "tacrolimus": 1, "theophylline": 1,
+    "trimethoprim": 1, "tums": 1, "valganciclovir": 1, "varivax": 1, "vicoprofen": 1,
+    "vitamin b6": 1, "vitamin d3": 1, "xylocaine": 1, "ziac": 1,
+}
+
+#: Phân bố chương ICD trong gold (203 mã). Seed thì gần như đều mọi chương, nên bốc
+#: đều sẽ sinh ra bệnh cảnh lệch: 80 mã chương O (sản khoa) gán bừa cho bệnh nhân nam
+#: là nguồn câu vô nghĩa lớn nhất đo được ở cách cũ.
+GOLD_CHAPTERS = {
+    "I": 43, "K": 40, "E": 32, "A": 27, "D": 23, "J": 19, "N": 13, "C": 12,
+    "M": 11, "L": 10, "F": 8, "S": 7, "G": 6, "B": 5, "Q": 3, "H": 3,
+    "P": 1, "T": 1, "O": 1,
+}
+
+# Phân bố khớp gold: 199/410 span TRIỆU_CHỨNG chỉ 1-2 từ (median 3), đuôi dài tới
+# 16 từ. Chỉ dùng cụm mô tả dài thì span sinh ra TB 4,22 từ, dài hơn gold 3,27.
+SYMPTOMS = [
+    # 1-2 từ (chiếm ~nửa trong gold)
+    "sốt", "ho", "buồn nôn", "nôn", "khó thở", "chóng mặt", "đau đầu", "mệt",
+    "vàng da", "co giật", "lú lẫn", "chảy máu", "phù", "ngứa", "ban đỏ",
+    "chướng bụng", "hôi miệng", "bồn chồn", "gần ngất", "sốt cao", "đau bụng",
+    "khó chịu", "sụt cân", "táo bón", "tiêu chảy", "mất ngủ", "ợ chua",
+    "run tay", "tê bì", "khàn tiếng", "ngạt mũi", "đau lưng", "đau khớp",
+    # 3 từ trở lên
+    "đau ngực khi gắng sức", "khó thở khi nằm", "ho khan kéo dài", "sốt cao liên tục",
+    "buồn nôn và nôn", "chóng mặt khi đứng lên", "đau đầu vùng thái dương",
+    "mệt mỏi nhiều", "sụt cân không rõ nguyên nhân", "vàng da vàng mắt",
+    "phù hai chi dưới", "tiểu buốt tiểu rắt", "đau bụng vùng hạ sườn phải",
+    "tê bì hai bàn tay", "đau lưng lan xuống chân", "khó ngủ về đêm",
+    "đánh trống ngực", "ra mồ hôi về đêm", "chán ăn", "táo bón kéo dài",
+    "tiêu chảy nhiều lần trong ngày", "khàn tiếng", "chảy máu chân răng",
+    "nổi ban đỏ toàn thân", "ngứa nhiều vùng lưng", "sưng đau khớp bàn tay",
+    "cứng khớp buổi sáng", "giảm thị lực mắt phải", "nghe kém tai trái",
+    "hoa mắt khi thay đổi tư thế", "run tay khi nghỉ", "yếu nửa người bên phải",
+    "nói khó", "co giật toàn thể", "mất ngủ kéo dài", "lo lắng quá mức",
+    "đau vùng thượng vị sau ăn", "ợ chua", "khó tiêu", "đầy hơi chướng bụng",
+    "khó thở khi gắng sức nhẹ", "thở khò khè", "đau họng khi nuốt",
+    "chảy nước mũi trong", "ngạt mũi hai bên", "đau tai phải", "sốt nhẹ về chiều",
+    "gầy sút cân nhanh", "khát nước nhiều", "tiểu nhiều lần về đêm",
+    "chuột rút bắp chân", "đau cách hồi khi đi bộ", "loét bàn chân lâu lành",
+    "rụng tóc nhiều", "kinh nguyệt không đều", "đau khi quan hệ",
+    "ra máu âm đạo bất thường", "són tiểu khi ho", "bí tiểu cấp", "mất cảm giác đầu chi",
+]
+
+# Phân bố khớp gold: 42/122 span TÊN_XÉT_NGHIỆM chỉ 1-2 từ (median 4), và gold có
+# cả viết tắt tiếng Anh giữ nguyên ('WBC', 'LDL', 'ERCP', 'ecg', 'spo2', 'troponin')
+# — đây là chỗ tôi đã giả định sai ở lượt trước khi coi hai type xét nghiệm là thuần
+# cụm mô tả tiếng Việt. Chỉ dùng cụm dài thì span sinh ra TB 5,41 từ, dài hơn gold.
+TEST_NAMES = [
+    # 1-2 từ, gồm viết tắt Anh y như gold
+    "WBC", "RBC", "HGB", "HCT", "PLT", "LDL", "HDL", "AST", "ALT", "CRP",
+    "HbA1c", "BUN", "INR", "TSH", "ESR", "troponin", "ecg", "spo2", "ERCP",
+    "siêu âm", "nội soi", "sinh thiết", "chụp CT", "chụp MRI", "X-quang",
+    "đường huyết", "xét nghiệm", "double test", "nipt", "monitor holter",
+    "NEUT%", "LDL-cholesterol", "khí máu", "điện tim", "nước tiểu",
+    "xét nghiệm máu", "công thức máu toàn phần", "xét nghiệm sinh hoá máu",
+    "phân tích nước tiểu", "chụp x-quang ngực", "siêu âm ổ bụng",
+    "siêu âm tim qua thành ngực", "điện tâm đồ", "monitor holter điện tâm đồ",
+    "chụp cắt lớp vi tính lồng ngực", "chụp cộng hưởng từ sọ não",
+    "nội soi dạ dày tá tràng", "nội soi đại tràng toàn bộ",
+    "xét nghiệm chức năng gan", "xét nghiệm chức năng thận",
+    "định lượng đường huyết lúc đói", "xét nghiệm HbA1c", "định lượng mỡ máu",
+    "xét nghiệm chức năng tuyến giáp", "cấy máu tìm vi khuẩn",
+    "cấy nước tiểu định danh vi khuẩn", "xét nghiệm dịch màng phổi",
+    "chọc dò dịch não tuỷ", "sinh thiết niêm mạc dạ dày",
+    "đo chức năng thông khí phổi", "nghiệm pháp gắng sức thảm chạy",
+    "chụp mạch vành qua da", "đo mật độ xương", "xét nghiệm đông máu cơ bản",
+    "định lượng men tim troponin", "xét nghiệm khí máu động mạch",
+    "soi tươi dịch âm đạo", "xét nghiệm tế bào cổ tử cung",
+    "chụp x-quang khớp gối hai bên", "siêu âm doppler mạch chi dưới",
+    "xét nghiệm sàng lọc sơ sinh", "lấy máu khô ở gót chân",
+    "xét nghiệm nước tiểu 24 giờ", "chụp x-quang bụng không chuẩn bị",
+    "siêu âm tuyến giáp", "đo điện cơ chi dưới", "xét nghiệm phân tìm hồng cầu",
+]
+
+# Phân bố độ dài khớp gold: 32/63 span KẾT_QUẢ_XÉT_NGHIỆM chỉ 1-3 từ (median 3),
+# nhưng đuôi dài tới 19 từ kéo trung bình lên 5,32. Danh sách phải có cả hai phía —
+# chỉ dùng cụm mô tả dài thì span sinh ra TB 7,08 từ, dài hơn gold.
+RESULT_PHRASES = [
+    # 1-3 từ (chiếm phần lớn trong gold)
+    "bình thường", "âm tính", "dương tính", "dương tính yếu", "không bất thường",
+    "tăng nhẹ", "giảm nhẹ", "tăng cao", "trong giới hạn", "chưa ghi nhận",
+    "không rõ tổn thương", "ổn định", "tăng", "giảm",
+    # số trần và số kèm đơn vị — gold có gán nhãn dạng này: '12.5', '1.05',
+    # '38.3°C', '<70 mg/dL', '90-92%', '93%', '14.99 G/L', '92 g/L'
+    "12.5", "1.05", "9.3", "0.3", "38.3°C", "37.8°C", "93%", "90-92%",
+    "<70 mg/dL", "14.99 G/L", "92 g/L", "140 mmol/L", "4.4 mmol/L",
+    "110 mg/dL", "1.8 mg/dL", "26 U/L", "56 U/L",
+    # 4 từ trở lên
+    "không ghi nhận gì bất thường", "trong giới hạn bình thường",
+    "không có gì đáng chú ý", "bình thường", "nhịp xoang chiếm ưu thế",
+    "không thấy tổn thương khu trú", "hình ảnh dày thành dạ dày vùng hang vị",
+    "tăng nhẹ men gan so với giới hạn trên", "giảm nhẹ số lượng tiểu cầu",
+    "tăng bạch cầu chiếm ưu thế bạch cầu trung tính",
+    "có dịch tự do trong ổ bụng lượng ít", "chức năng tâm thu thất trái bảo tồn",
+    "hở van hai lá mức độ nhẹ", "không thấy hẹp đáng kể lòng mạch",
+    "đường huyết cao hơn giới hạn bình thường", "protein niệu dương tính",
+    "hồng cầu niệu dương tính ít", "cấy máu âm tính sau bảy ngày",
+    "không phát hiện vi khuẩn gây bệnh", "tổn thương dạng kính mờ hai đáy phổi",
+    "hình ảnh xơ hoá mô kẽ hai bên", "không thấy khối choán chỗ nội sọ",
+    "giảm mật độ xương mức loãng xương", "rối loạn thông khí tắc nghẽn mức độ vừa",
+    "điện tâm đồ có sóng T âm ở các chuyển đạo trước tim",
+    "men tim trong giới hạn bình thường", "toan chuyển hoá còn bù",
+    "thiếu máu hồng cầu nhỏ nhược sắc", "tốc độ máu lắng tăng cao",
+    "chỉ số đông máu kéo dài nhẹ", "âm tính", "dương tính yếu",
+    "không thấy hình ảnh sỏi đường tiết niệu", "gan nhiễm mỡ độ một",
+    "kích thước tuyến giáp bình thường không có nhân",
+]
+
+#: Bảng RxNorm chứa biệt dược trùng từ tiếng Anh thông thường. Không lọc thì
+#: "today" bị khoá 247 lần trên 457 note — nhiều nhất trong toàn bộ, và mọi lần
+#: đều là trạng từ chỉ thời gian. Danh sách này duyệt tay từ 59 alias trùng từ
+#: điển hệ thống trong chính 457 note đã lọc; không dùng từ điển làm bộ lọc tự
+#: động được vì nó chặn luôn aspirin, morphine, heparin, codeine.
+DRUG_STOP = {
+    "today", "tomorrow", "yesterday", "air", "water", "perform", "restart",
+    "tandem", "lead", "fiber", "latex", "react", "rid", "soma", "kerosene",
+    "paraffin", "collagen", "lutein", "barium", "iodine", "holmium", "oxygen",
+    "saline", "dextrose", "alcohol", "tissue", "control", "spirit", "gas",
+    "balance", "compound", "plus", "one", "two", "free", "sensitive",
+}
+
+#: Dấu phủ định, đo trên 41 span isNegated của gold: "phủ nhận" 18 lần (nhiều
+#: nhất), "không ..." 12, "không có" 2, "không phải"/"không kèm" 1, viết tắt "k" 2.
+#: "Chưa ghi nhận" không xuất hiện lần nào ở gold nhưng giữ vì có trong test.
+NEG_CUES = ("Không ", "Không có ", "Không kèm ", "Không phải ",
+            "Phủ nhận ", "Chưa ghi nhận ")
+
+# Section có ngữ cảnh assertion — đo từ gold: mọi span trong "Thuốc trước khi
+# nhập viện" và "Các bệnh lý mạn tính" đều mang isHistorical.
+HIST_SECTIONS = (
+    "Tiền sử bệnh", "Thuốc trước khi nhập viện", "Các bệnh lý mạn tính",
+    "Tiền sử bệnh nội khoa", "Các thủ thuật đã thực hiện",
+)
+
+FAMILY_SECTIONS = ("Tiền sử gia đình",)
+
+#: Prompt viết bệnh án. Ký tự 〔 〕 chọn vì không có trong bảng BTC lẫn chữ tiếng
+#: Việt, nên bóc lại không nhập nhằng.
+COMPOSE_SYS = """Bạn viết bệnh án tiếng Việt theo văn phong bệnh viện Việt Nam.
+
+Bạn được cấp một DANH SÁCH cụm bắt buộc. Nhiệm vụ: viết một bệnh án hoàn chỉnh,
+tự nhiên, dùng ĐÚNG NGUYÊN VĂN mọi cụm trong danh sách, mỗi cụm bọc trong 〔...〕.
+
+QUY TẮC:
+1. Mỗi cụm được cấp phải xuất hiện ÍT NHẤT một lần, nguyên văn, bọc 〔 〕.
+   Ví dụ: cụm "viêm phổi" -> viết 〔viêm phổi〕. KHÔNG bọc bất cứ thứ gì khác.
+   Cụm nào nhắc lại ở mục khác thì bọc lại lần nữa (bệnh án thật nhắc chẩn đoán ở
+   cả Bệnh sử, Tiền sử và Chẩn đoán) — nhắc lại 2-3 lần với chẩn đoán chính là tốt.
+2. Đặt mỗi cụm vào chỗ hợp lý về y khoa: triệu chứng vào phần bệnh sử, chẩn đoán
+   vào phần chẩn đoán hoặc tiền sử, thuốc vào phần thuốc đang dùng, xét nghiệm và
+   kết quả vào phần kết quả xét nghiệm.
+3. Nếu một cụm không hợp bệnh cảnh, VẪN phải dùng — hãy xây bệnh cảnh quanh nó cho
+   hợp lý (đổi tuổi, giới, tiền sử của bệnh nhân nếu cần), đừng nhồi vào câu sai nghĩa.
+4. Viết đủ các mục sau, theo thứ tự: Lý do vào viện, Bệnh sử, Tiền sử bệnh, Tiền sử
+   gia đình, Thuốc đang dùng, Khám thực thể, Kết quả xét nghiệm, Chẩn đoán.
+   TIÊU ĐỀ MỤC PHẢI CHIẾM TRỌN MỘT DÒNG, kết thúc bằng dấu hai chấm, nội dung xuống
+   dòng dưới. Đúng:
+       Bệnh sử:
+       Khoảng 3 ngày trước nhập viện...
+   Sai: "Bệnh sử: Khoảng 3 ngày trước..." (67/100 bệnh án thật dùng dạng đúng ở trên).
+5. Phần văn bản NGOÀI 〔 〕 tuyệt đối không được chứa tên bệnh, tên thuốc, tên xét
+   nghiệm hay triệu chứng cụ thể nào khác. Chỉ mô tả chung, số đo, mốc thời gian.
+6. Dài 400-700 từ. Không viết gì ngoài bệnh án, không dùng dấu ** hay markdown.
+7. Danh sách có thể gồm nhiều bệnh khác nhau — đó là bình thường với bệnh nhân nhiều
+   bệnh đồng mắc. Hãy dựng một bệnh nhân cao tuổi nhiều bệnh nền, xếp bệnh chính vào
+   mục Chẩn đoán và các bệnh còn lại vào Tiền sử bệnh. LUÔN viết được; đừng từ chối.
+8. Ở mục Tiền sử bệnh, viết 1-2 câu phủ định mở đầu bằng "Phủ nhận" hoặc "Không có",
+   và các cụm bị phủ định PHẢI LÀ CỤM LẤY TỪ DANH SÁCH, bọc 〔 〕, nằm cùng câu với
+   từ phủ định và trước dấu chấm kết câu. Đúng:
+       Phủ nhận tiền sử 〔viêm phổi〕 và 〔đái tháo đường type 2〕.
+   Sai: "Phủ nhận tiền sử tai biến mạch máu não." (bệnh này không có trong danh
+   sách nên không bọc được, câu thành vô ích). 4,2% span của bệnh án thật là phủ
+   định, và "phủ nhận" là cách viết phổ biến nhất — 18/41 lần."""
+
+
+# --------------------------------------------------------------- đọc bảng BTC
+
+def load_icd(min_words: int = 2, max_words: int = 5) -> list[dict]:
+    """Đọc data/knowledge_base/ICD10.csv -> [{code, alias}].
+
+    File có 5 dòng tiêu đề trang trước header thật (dòng bắt đầu bằng "STT,Mã"),
+    và mã hoá lẫn lộn nên đọc với errors="replace".
+
+    Lọc alias 2-5 từ: span CHẨN_ĐOÁN của gold dài TB 4,05 từ, tên ICD một từ thì
+    quá chung ("Sốc", "Ngất") còn trên 5 từ thì gần như không xuất hiện nguyên văn
+    trong bệnh án thật.
+    """
+    path = KB / "ICD10.csv"
+    if not path.exists():
+        sys.exit(f"thiếu {path.relative_to(REPO)} — bảng ICD của ban tổ chức")
+    lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+    head = next((i for i, l in enumerate(lines) if l.startswith("STT,Mã")), 0)
+    rows = csv.DictReader(lines[head:])
+    out, seen = [], set()
+    for row in rows:
+        code = (row.get("Mã") or "").strip()
+        name = (row.get("Tên bệnh ") or row.get("Tên bệnh") or "").strip()
+        if not code or not name or (row.get("Hiệu lực") or "").strip() == "Không":
+            continue
+        # Tên nhiều mảnh ngăn bằng dấu phẩy. Mảnh ĐẦU gần như luôn là tên bệnh
+        # ("Tabes sống lưng"), mảnh SAU thì 5.796/5.918 là bổ ngữ chứ không phải
+        # tên riêng: "không đặc hiệu", "gãy kín", "mức độ chưa xác định". Phân biệt
+        # bằng chữ đầu: mảnh sau viết HOA (122 cái, "Parkinson do giang mai") mới là
+        # biến thể tên thật. Giữ hết mảnh sau thì 12% alias là bổ ngữ vô nghĩa.
+        pieces = re.split(r"\s*[,;]\s*", name)
+        for idx_p, alias in enumerate(pieces):
+            alias = alias.strip(" .")
+            if idx_p and not alias[:1].isupper():
+                continue
+            n_words = len(alias.split())
+            if not (min_words <= n_words <= max_words) or len(alias) < 6:
+                continue
+            key = alias.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append({"code": code, "alias": alias})
+    return out
+
+
+def load_rxnorm(max_words: int = 5) -> list[dict]:
+    """Đọc data/knowledge_base/RXNORM.csv -> [{rxcui, alias}], chỉ tty IN/BN.
+
+    IN = hoạt chất, BN = biệt dược. Đo trên gold: 13/13 thuốc tra được trong bảng
+    đều thuộc đúng hai loại này; các tty khác (SCD, DP, PSN...) là dạng bào chế
+    đầy đủ kiểu "Tremfya 100 MG/ML Auto-Injector", không phải cách bệnh án viết.
+    """
+    path = KB / "RXNORM.csv"
+    if not path.exists():
+        sys.exit(f"thiếu {path.relative_to(REPO)} — bảng RxNorm của ban tổ chức")
+    out, seen = [], set()
+    with path.open(encoding="utf-8", errors="replace", newline="") as fh:
+        for row in csv.DictReader(fh):
+            if (row.get("tty") or "").strip() not in ("IN", "BN"):
+                continue
+            if (row.get("suppress") or "").strip() not in ("", "N"):
+                continue
+            alias = (row.get("str") or "").strip()
+            rxcui = (row.get("rxcui") or "").strip()
+            # 5.802/23.355 tên trong bảng viết HOA hết ("WARTICIDE", "HEPARIN") —
+            # bệnh án không viết vậy: chỉ 1/102 span THUỐC của gold viết HOA hết.
+            # Giữ nguyên chuỗi ngắn (E.E.S., BCG) vì đó là viết tắt thật.
+            if alias.isupper() and len(alias) > 4:
+                alias = alias.title()
+            if not alias or not rxcui or not (4 <= len(alias) <= 40):
+                continue
+            if len(alias.split()) > max_words or alias.lower() in DRUG_STOP:
+                continue
+            key = alias.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append({"rxcui": rxcui, "alias": alias})
+    return out
+
+
+def common_drugs(rx: list[dict]) -> list[dict]:
+    """Lọc theo bảng tần số nhúng sẵn (DRUG_FREQ)."""
+    return [r for r in rx if r["alias"].lower() in DRUG_FREQ]
+
+def sample_bundle(rng: random.Random, pools: dict[str, list]) -> list[dict]:
+    """Bốc một bộ thực thể cho một bệnh án, theo tỉ lệ type và chương đo từ gold.
+
+    Hai chỗ khác cách bốc đều, và cả hai đều sửa nguyên nhân câu vô nghĩa đo được:
+    thuốc chỉ lấy hoạt chất/biệt dược có is_anchor (13/13 thuốc gold tra được trong
+    bảng đều thoả), và chẩn đoán bốc theo phân bố chương của gold thay vì đều.
+    """
+    chapters = list(GOLD_CHAPTERS)
+    weights = [GOLD_CHAPTERS[c] for c in chapters]
+    by_ch: dict[str, list] = {}
+    for entry in pools["icd"]:
+        by_ch.setdefault(entry["code"][:1], []).append(entry)
+
+    # Một CHƯƠNG CHỦ ĐẠO cộng vài bệnh đồng mắc, thay vì bốc mỗi bệnh một chương độc
+    # lập. Đo trên gold: median 2 chương khác nhau mỗi bệnh án, chương chủ đạo chiếm
+    # 67% số mã. Bốc độc lập cho ra bundle trộn 4-6 chương không có bệnh cảnh chung
+    # và LLM TỪ CHỐI viết: 4/12 bản ở lô thử trả về "không thể viết bệnh án ... các
+    # yếu tố y khoa không tương thích về mặt lâm sàng".
+    bundle: list[dict] = []
+    main_ch = rng.choices(chapters, weights)[0]
+    n_dx = rng.randint(6, 10)
+    for i in range(n_dx):
+        for _ in range(8):                        # thử vài lần nếu chương rỗng
+            ch = main_ch if (i == 0 or rng.random() < 0.67) else rng.choices(chapters, weights)[0]
+            if by_ch.get(ch):
+                pick = rng.choice(by_ch[ch])
+                bundle.append({"type": "CHẨN_ĐOÁN", "text": pick["alias"],
+                               "candidates": [pick["code"]]})
+                break
+    # Thuốc: 3/4 bốc theo tần số đo trên mtsamples, 1/4 bốc đều từ cả bảng.
+    # Vì sao trộn chứ không chỉ dùng bảng tần số: bảng chỉ có 402 tên (thuốc thật
+    # xuất hiện trong 3.6k bệnh án Anh) và phủ 14/19 thuốc gold — 5 cái còn lại
+    # (bumetanide, eliquis, gleevec, levofloxacin, metoclopramide) chỉ có ở bảng đầy
+    # đủ. Bốc đều từ cả bảng thì ra tên rất lạ ('silicon dioxide', 'trientine') —
+    # đây là nguyên nhân của 14 câu bị chấm 0 điểm ở lô thử.
+    common = pools.get("rx_common") or pools["rx"]
+    for _ in range(rng.randint(3, 5)):
+        pick = rng.choice(common if rng.random() < 0.75 else pools["rx"])
+        bundle.append({"type": "THUỐC", "text": pick["alias"],
+                       "candidates": [pick["rxcui"]]})
+    # Số CỤM KHÁC NHAU theo median của gold, không phải số span: gold lặp span nên
+    # 11 span CHẨN_ĐOÁN chỉ từ 8 cụm, 15 span TRIỆU_CHỨNG từ 11 cụm. Bốc theo số span
+    # thì bundle phình lên ~50 cụm và LLM từ chối viết (5/12 bản ở lô thử: "danh sách
+    # chứa khoảng 50 tình trạng bệnh lý").
+    for key, ctype, lo, hi in [("sym", "TRIỆU_CHỨNG", 9, 13),
+                               ("test", "TÊN_XÉT_NGHIỆM", 4, 7),
+                               ("res", "KẾT_QUẢ_XÉT_NGHIỆM", 3, 5)]:
+        for _ in range(rng.randint(lo, hi)):
+            bundle.append({"type": ctype, "text": rng.choice(pools[key]),
+                           "candidates": []})
+
+    # cụm trùng nhau thì bỏ: LLM chỉ bọc được một lần, span thứ hai sẽ không tìm thấy
+    seen, uniq = set(), []
+    for item in bundle:
+        if item["text"].lower() in seen:
+            continue
+        seen.add(item["text"].lower())
+        uniq.append(item)
+    rng.shuffle(uniq)
+    return uniq
+
+def unwrap(composed: str, bundle: list[dict]) -> tuple[str, list[dict]] | str:
+    """Bóc dấu 〔 〕, trả về (text, records) với offset tính lúc bóc.
+
+    Trả về str mô tả lý do khi không dùng được — nhãn phải đúng tuyệt đối, thà bỏ
+    tài liệu còn hơn giữ một span lệch.
+    """
+    # LLM hay viết '**Lý do vào viện:**' dù prompt cấm markdown. Bỏ dấu ** TRƯỚC khi
+    # tính offset, không phải sau: bỏ sau thì mọi offset lệch. Đo trên lô thử: để
+    # nguyên thì 0% tài liệu có tiêu đề mục nhận ra được (test 81%).
+    composed = re.sub(r"\*\*(?!\*)", "", composed)
+    composed = re.sub(r"(?m)^#{1,6}[ ]*", "", composed)
+
+    # Cụm bọc nhiều lần thì mỗi lần là một span riêng, KHÔNG chỉ lấy lần đầu: gold
+    # cũng lặp — CHẨN_ĐOÁN median 11 span nhưng chỉ 8 cụm khác nhau mỗi file, và có
+    # file gán nhãn 'thiếu men g6pd' 17 lần. Bệnh án thật nhắc lại chẩn đoán ở nhiều mục.
+    want = {item["text"]: item for item in bundle}
+    parts: list[str] = []
+    records: list[dict] = []
+    pos, used = 0, 0
+    for m in BRACKET.finditer(composed):
+        parts.append(composed[pos:m.start()])
+        offset = sum(len(p) for p in parts)
+        surface = m.group(1)
+        item = want.get(surface)
+        if item is not None:
+            records.append({"text": surface, "type": item["type"],
+                            "candidates": list(item["candidates"]), "assertions": [],
+                            "position": [offset, offset + len(surface)]})
+            used += 1
+        parts.append(surface)
+        pos = m.end()
+    parts.append(composed[pos:])
+    text = "".join(parts)
+
+    # Ngưỡng 12 span, không phải tỉ lệ dùng hết bundle. Cụm bị LLM bỏ không làm nhãn
+    # sai — offset tính lúc bóc dấu nên span còn lại vẫn đúng tuyệt đối, chỉ là tài
+    # liệu có ít span hơn. Đo trên gold: file ít span nhất có 13 span, median 48.
+    # Ngưỡng 80% bundle loại 11/12 bản ở lô thử dù phần lớn dùng 14-17/22 cụm.
+    if used < 12:
+        return f"chỉ {used} span (cần >=12)"
+    for rec in records:
+        s, e = rec["position"]
+        if text[s:e] != rec["text"]:
+            return "offset lệch sau khi bóc dấu"
+    return text, records
+
+def assertions_at(text: str, offset: int) -> list[str]:
+    """Suy assertion cho span ở vị trí offset: mục chứa nó + dấu phủ định trên dòng.
+
+    Khác section_assertions (nhận tiêu đề mục, dùng ở đường điền slot vì lúc đó ta
+    đang đi từng dòng): ở đây văn bản do LLM viết liền mạch nên phải tự tìm ngược
+    tiêu đề mục gần nhất phía trên.
+    """
+    line_start = text.rfind("\n", 0, offset) + 1
+    line = text[line_start:text.find("\n", offset) if text.find("\n", offset) > 0 else len(text)]
+
+    out: list[str] = []
+    head = ""
+    for m in re.finditer(r"(?m)^([^\n:]{3,40}):", text[:offset]):
+        head = m.group(1).strip()
+    if any(head.startswith(h) for h in FAMILY_SECTIONS):
+        out.append("isFamily")
+    elif any(head.startswith(h) for h in HIST_SECTIONS):
+        out.append("isHistorical")
+
+    before = line[:offset - line_start].lower()
+    if any(re.search(cue.strip().lower() + r"\b[^.;]{0,30}$", before) for cue in NEG_CUES):
+        out.append("isNegated")
+    return out
+
+def reindex(text: str, records: list[dict]) -> list[dict] | None:
+    """Tìm lại offset của từng span trong văn bản đã chèn placeholder.
+
+    Quét tuần tự theo thứ tự span gốc nên bản sao trùng nội dung không bị lẫn.
+    """
+    out, cursor = [], 0
+    for rec in records:
+        idx = text.find(rec["text"], cursor)
+        if idx < 0:
+            return None
+        cursor = idx + len(rec["text"])
+        out.append({**rec, "position": [idx, cursor]})
+    return out
+
+
+# --------------------------------------------------------------- hậu xử lý
+
+def postprocess(rng: random.Random, text: str, records: list[dict], args
+                ) -> tuple[str, list[dict]] | tuple[None, None]:
+    """Chèn hai bẫy đo được trên test, rồi suy assertion.
+
+    KHÁC bản ở nhánh feature: bản này KHÔNG hấp thu chỗ lọt (đoạn LLM tự viết ra
+    một tên bệnh có trong bảng nhưng không nằm trong bộ thực thể). Hấp thu cần
+    dựng matcher trên toàn bộ alias ICD, chậm và không cần cho việc sinh văn bản
+    mẫu. Hệ quả: nhãn có thể THIẾU vài span (false negative), không bao giờ SAI.
+    """
+    # bẫy ***: đo trên test — 30/100 file có ít nhất một cụm bị che, và span bị
+    # che thì candidates phải rỗng vì không tra được mã từ chuỗi dấu sao.
+    kept: list[dict] = []
+    shift = 0
+    for rec in sorted(records, key=lambda r: r["position"]):
+        s, e = rec["position"][0] + shift, rec["position"][1] + shift
+        if rec["type"] == "THUỐC" and rng.random() < args.mask_rate:
+            masked = "*" * (e - s)
+            text = text[:s] + masked + text[e:]
+            kept.append({**rec, "text": masked, "candidates": [],
+                         "position": [s, s + len(masked)]})
+        else:
+            kept.append({**rec, "position": [s, e]})
+    records = kept
+
+    for rec in records:
+        rec["assertions"] = assertions_at(text, rec["position"][0])
+        s, e = rec["position"]
+        if text[s:e] != rec["text"]:
+            return None, None
+
+    # bẫy NFD: đo trên test — 20/100 file không ở dạng NFC. Phải chuẩn hoá cả text
+    # của từng span, không chỉ văn bản: tìm chuỗi NFC trong văn bản NFD luôn hỏng.
+    if rng.random() < args.nfd_rate:
+        text_nfd = ud.normalize("NFD", text)
+        shifted = reindex(text_nfd, [{**r, "text": ud.normalize("NFD", r["text"])}
+                                     for r in records])
+        if shifted is None:
+            return None, None
+        text, records = text_nfd, shifted
+    return text, records
+
+
+# ----------------------------------------------------------- bước 3: kiểm lại
+
+def cmd_verify(args) -> int:
+    files = sorted(OUT_LABELS.glob("cmp*.json"))
+    if not files:
+        sys.exit(f"chưa có tài liệu nào trong {OUT_LABELS.relative_to(REPO)}")
+    icd_codes = {r["code"] for r in load_icd()}
+    rx_codes = {r["rxcui"] for r in load_rxnorm()}
+
+    bad: collections.Counter = collections.Counter()
+    n_span = n_cand = n_assert = n_mask = n_nfd = n_hdr = 0
+    lens: collections.defaultdict = collections.defaultdict(list)
+    for path in files:
+        records = json.loads(path.read_text(encoding="utf-8"))
+        raw = (OUT_TEXT / f"{path.stem}.txt").read_text(encoding="utf-8")
+        n_nfd += int(raw != ud.normalize("NFC", raw))
+        n_hdr += bool(re.search(r"(?m)^[^\n]{3,40}:\s*$", raw))
+        n_mask += int(any("*" in r["text"] for r in records))
+        for rec in records:
+            n_span += 1
+            start, end = rec["position"]
+            if raw[start:end] != rec["text"]:
+                bad["text != raw[position]"] += 1
+                continue
+            n_cand += bool(rec["candidates"])
+            n_assert += bool(rec["assertions"])
+            lens[rec["type"]].append(len(rec["text"].split()))
+            for code in rec["candidates"]:
+                if code not in icd_codes and code not in rx_codes:
+                    bad["mã không tra được trong bảng BTC"] += 1
+    n = len(files)
+    print(f"{n} tài liệu · {n_span} span · {n_span / n:.1f} span/file (gold median 48)")
+    print(f"  lỗi offset:        {sum(bad.values())}")
+    print(f"  span có mã:        {100 * n_cand / max(n_span, 1):.0f}%")
+    print(f"  span có assertion: {100 * n_assert / max(n_span, 1):.0f}%")
+    print(f"  file có bẫy ***:   {100 * n_mask / n:.0f}%   (test 30%)")
+    print(f"  file dạng NFD:     {100 * n_nfd / n:.0f}%   (test 20%)")
+    print(f"  file có tiêu đề:   {100 * n_hdr / n:.0f}%   (test 67%)")
+    print("  độ dài span (từ) — sinh ra / gold:")
+    ref = {"CHẨN_ĐOÁN": 4.05, "TRIỆU_CHỨNG": 3.27, "THUỐC": 2.10,
+           "TÊN_XÉT_NGHIỆM": 3.71, "KẾT_QUẢ_XÉT_NGHIỆM": 5.32}
+    for ctype in sorted(lens):
+        print(f"    {ctype:22} {st.mean(lens[ctype]):5.2f}  {ref.get(ctype, 0):5.2f}"
+              f"   n={len(lens[ctype])}")
+    if bad:
+        print(f"  LỖI: {dict(bad)}")
+        return 1
+    return 0
+
+
+# ------------------------------------------------------------------- gọi LLM
+
+def call_api(prompts: list[str], system: str, model: str,
+             max_tokens: int = 4000) -> list[str]:
+    """Gọi Anthropic Messages API tuần tự bằng urllib — không thêm phụ thuộc.
+
+    max_tokens 4000 chứ không thấp hơn: model reasoning tiêu hết hạn mức cho suy
+    luận rồi trả về rỗng (stop_reason=max_tokens) ở lô thử đầu với 1500.
+    """
+    key = os.environ.get("ANTHROPIC_API_KEY")
+    if not key:
+        sys.exit("thiếu ANTHROPIC_API_KEY — bỏ --use-api để chỉ ghi prompt ra đĩa")
+    out = []
+    for i, prompt in enumerate(prompts, 1):
+        body = json.dumps({
+            "model": model, "max_tokens": max_tokens, "system": system,
+            "messages": [{"role": "user", "content": prompt}],
+        }).encode("utf-8")
+        req = urllib.request.Request(
+            "https://api.anthropic.com/v1/messages", data=body,
+            headers={"x-api-key": key, "anthropic-version": "2023-06-01",
+                     "content-type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=180) as resp:
+                data = json.load(resp)
+            out.append("".join(b.get("text", "") for b in data.get("content", [])))
+        except urllib.error.HTTPError as exc:
+            print(f"  [{i}/{len(prompts)}] HTTP {exc.code}: {exc.read()[:200]!r}")
+            out.append("")
+        except Exception as exc:                                  # noqa: BLE001
+            print(f"  [{i}/{len(prompts)}] lỗi: {exc}")
+            out.append("")
+        if i % 10 == 0:
+            print(f"  {i}/{len(prompts)}")
+    return out
+
+
+# ------------------------------------------------------- bước 1: bốc + viết văn
+
+def cmd_compose(args) -> int:
+    rng = random.Random(args.seed)
+    WORK.mkdir(parents=True, exist_ok=True)
+
+    print("đọc bảng ban tổ chức...")
+    icd = load_icd()
+    rx = load_rxnorm()
+    rx_common = common_drugs(rx)
+    print(f"  ICD {len(icd)} alias / {len({r['code'] for r in icd})} mã"
+          f" | RxNorm {len(rx)} alias (IN/BN), {len(rx_common)} trong bảng tần số")
+
+    pools = {"icd": icd, "rx": rx, "rx_common": rx_common,
+             "sym": list(SYMPTOMS), "test": list(TEST_NAMES), "res": list(RESULT_PHRASES)}
+    bundles = [{"id": f"cmp{i:04d}", "bundle": sample_bundle(rng, pools)}
+               for i in range(args.n)]
+    path_b = WORK / "bundles.jsonl"
+    with path_b.open("w", encoding="utf-8") as fh:
+        for b in bundles:
+            fh.write(json.dumps(b, ensure_ascii=False) + "\n")
+    print(f"đã bốc {len(bundles)} bộ thực thể -> {path_b}")
+    print(f"  TB {st.mean(len(b['bundle']) for b in bundles):.1f} cụm/bệnh án")
+
+    prompts = ["DANH SÁCH CỤM BẮT BUỘC:\n" +
+               "\n".join(f"- {it['type']}: {it['text']}" for it in b["bundle"])
+               for b in bundles]
+    path_c = WORK / "composed.jsonl"
+    if args.use_api:
+        texts = call_api(prompts, COMPOSE_SYS, args.model)
+    elif args.composed:
+        loaded = {json.loads(l)["id"]: json.loads(l)["composed"]
+                  for l in Path(args.composed).read_text(encoding="utf-8").splitlines()}
+        texts = [loaded.get(b["id"], "") for b in bundles]
+    else:
+        path_p = WORK / "prompts.jsonl"
+        with path_p.open("w", encoding="utf-8") as fh:
+            for b, p in zip(bundles, prompts):
+                fh.write(json.dumps({"id": b["id"], "system": COMPOSE_SYS,
+                                     "prompt": p}, ensure_ascii=False) + "\n")
+        print(f"  chưa gọi API — prompt ở {path_p}")
+        print(f"  gọi model nào cũng được rồi nạp lại: emit --composed FILE")
+        print(f"  (FILE mỗi dòng: {{\"id\": \"cmp0000\", \"composed\": \"...\"}})")
+        return 0
+    with path_c.open("w", encoding="utf-8") as fh:
+        for b, t in zip(bundles, texts):
+            fh.write(json.dumps({"id": b["id"], "composed": t}, ensure_ascii=False) + "\n")
+    ok = sum(1 for t in texts if len(BRACKET.findall(t)) >= 12)
+    print(f"đã viết {ok}/{len(texts)} bản dùng được -> {path_c}")
+    return 0
+
+
+# ------------------------------------------------------- bước 2: bóc dấu -> nhãn
+
+def cmd_emit(args) -> int:
+    rng = random.Random(args.seed + 1)
+    src_c = Path(args.composed) if args.composed else WORK / "composed.jsonl"
+    if not src_c.exists():
+        sys.exit(f"chưa có {src_c} — chạy compose trước")
+    bundles = {json.loads(l)["id"]: json.loads(l)["bundle"]
+               for l in (WORK / "bundles.jsonl").read_text(encoding="utf-8").splitlines()}
+    OUT_LABELS.mkdir(parents=True, exist_ok=True)
+    OUT_TEXT.mkdir(parents=True, exist_ok=True)
+
+    n_ok, n_mask, n_nfd = 0, 0, 0
+    reasons: collections.Counter = collections.Counter()
+    by_type: collections.Counter = collections.Counter()
+    for line in src_c.read_text(encoding="utf-8").splitlines():
+        row = json.loads(line)
+        bundle = bundles.get(row["id"])
+        if not bundle or not row.get("composed"):
+            reasons["không có bản viết"] += 1
+            continue
+        res = unwrap(row["composed"], bundle)
+        if isinstance(res, str):
+            reasons[res] += 1
+            continue
+        text, records = res
+        text, records = postprocess(rng, text, records, args)
+        if text is None:
+            reasons["hậu xử lý hỏng offset"] += 1
+            continue
+        n_ok += 1
+        n_mask += sum(1 for r in records if "*" in r["text"])
+        n_nfd += int(text != ud.normalize("NFC", text))
+        for r in records:
+            by_type[r["type"]] += 1
+        (OUT_TEXT / f"{row['id']}.txt").write_text(text, encoding="utf-8")
+        (OUT_LABELS / f"{row['id']}.json").write_text(
+            json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"đã sinh {n_ok} tài liệu vào {OUT_LABELS.relative_to(REPO)}")
+    print(f"  văn bản: {OUT_TEXT.relative_to(REPO)}")
+    print(f"  bẫy ***: {n_mask} span | NFD: {n_nfd} file")
+    if reasons:
+        print(f"  loại: {dict(reasons)}")
+    print(f"  span theo type: {dict(by_type)}")
+    return 0
+
+
+# ---------------------------------------------------------------------- CLI
+
+def main() -> int:
+    ap = argparse.ArgumentParser(
+        description="Sinh bệnh án tiếng Việt tổng hợp (bản độc lập)",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__.split("CÁCH LÀM")[1])
+    # --seed khai ở cả cha lẫn từng lệnh con: argparse không cho đặt cờ của parser
+    # cha SAU tên lệnh con, mà "compose --seed 7" là cách gõ tự nhiên hơn.
+    ap.add_argument("--seed", type=int, default=SEED)
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    seed_arg = argparse.ArgumentParser(add_help=False)
+    seed_arg.add_argument("--seed", type=int, default=SEED)
+
+    c = sub.add_parser("compose", parents=[seed_arg], help="bốc thực thể + gọi LLM viết bệnh án")
+    c.add_argument("--n", type=int, default=200, help="số bệnh án cần sinh")
+    c.add_argument("--use-api", action="store_true",
+                   help="gọi Anthropic API (cần ANTHROPIC_API_KEY)")
+    c.add_argument("--model", default="claude-sonnet-4-5",
+                   help="model dùng khi --use-api")
+    c.add_argument("--composed", help="nạp bản viết sẵn thay vì gọi API")
+
+    e = sub.add_parser("emit", parents=[seed_arg], help="bóc dấu 〔 〕 -> văn bản + nhãn")
+    e.add_argument("--composed", help="file bản viết (mặc định work/composed.jsonl)")
+    e.add_argument("--mask-rate", type=float, default=0.12,
+                   help="tỉ lệ span THUỐC bị che *** (mặc định cho ra 30%% FILE có bẫy, khớp test)")
+    e.add_argument("--nfd-rate", type=float, default=0.20,
+                   help="tỉ lệ file ở dạng NFD (test: 20/100 file)")
+
+    sub.add_parser("verify", parents=[seed_arg], help="kiểm offset, mã, và đối chiếu với test")
+
+    args = ap.parse_args()
+    return {"compose": cmd_compose, "emit": cmd_emit, "verify": cmd_verify}[args.cmd](args)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

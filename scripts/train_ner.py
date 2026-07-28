@@ -32,11 +32,34 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from smart_medic.fileset import parse_file_selector  # noqa: E402
 from smart_medic.modelstore import write_manifest  # noqa: E402
 from smart_medic.schema import ConceptType  # noqa: E402
 from smart_medic.textref import TextRef, build_textref  # noqa: E402
 
 DEFAULT_BASE = "xlm-roberta-base"
+
+#: 6/20 file gold GIỮ LẠI, không đưa vào train — dùng để so v3 với v4 cho công bằng.
+#:
+#: Vì sao phải có: ``data/test/``, ``data/silver_prompts/`` và ``data/dev_gold/``
+#: là **cùng một tập file**. Nhãn bạc là pseudo-label cho chính tập test, và
+#: trước đây không có chỗ nào tách holdout. Nên "v4 > v3 trên gold" là phép so
+#: không công bằng: v4 đã train trên đúng 20 file gold đó, v3 thì chưa — con số
+#: sẽ đẹp, và phần đẹp lên có thể chỉ là ghi nhớ.
+#:
+#: Chọn 6 file này để **phản chiếu đúng phân tầng của tập dev** (xem
+#: docs/reports/2026-07-25-phan-tich-du-lieu.md §thiết kế), không phải lấy bừa
+#: hay lấy 6 file đầu:
+#:
+#:   thể loại  ghi chú lâm sàng 2 · hỏi đáp bệnh nhân 3 · giáo dục/khác 1
+#:             (dev là 8 : 9 : 3 — cùng tỉ lệ)
+#:   NFD       2/6 = 33%   (dev 6/20 = 30%)
+#:   token che 2/6 = 33%   (dev 7/20 = 35%)
+#:
+#: NFD và token che PHẢI có mặt: chúng là hai chỗ đã gây lỗi thật (position lệch
+#: âm thầm, và mất hoạt chất để map RxNorm). Một holdout toàn file NFC sạch sẽ
+#: báo "ổn" ngay cả khi hai lớp lỗi đó quay lại.
+HOLDOUT_FILES: tuple[int, ...] = (12, 16, 25, 26, 31, 42)
 
 
 def bio_labels() -> list[str]:
@@ -98,8 +121,15 @@ def encode_document(tokenizer, tref: TextRef, records: list[dict], label_index: 
     return encoding["input_ids"], labels, offsets
 
 
-def load_dataset(dirs: list[Path], input_dir: Path, tokenizer, label_index):
-    """Nạp mọi thư mục nhãn. Trùng file thì thư mục SAU thắng (gold > silver)."""
+def load_dataset(dirs: list[Path], input_dir: Path, tokenizer, label_index,
+                 holdout: frozenset[str] = frozenset()):
+    """Nạp mọi thư mục nhãn. Trùng file thì thư mục SAU thắng (gold > silver).
+
+    ``holdout`` lọc theo TÊN FILE sau khi đã gộp, nên nó loại file khỏi **cả**
+    silver lẫn gold. Lọc riêng từng thư mục thì không đủ: silver phủ file 1–100
+    nên một file gold bị giữ lại vẫn sẽ lọt vào train qua đường nhãn bạc, và
+    holdout coi như vô nghĩa mà không có dấu hiệu gì.
+    """
     by_name: dict[str, list[dict]] = {}
     for d in dirs:
         if d is None or not d.is_dir():
@@ -108,6 +138,9 @@ def load_dataset(dirs: list[Path], input_dir: Path, tokenizer, label_index):
             if path.name in {"run_manifest.json", "explain.json"}:
                 continue
             by_name[path.stem] = json.loads(path.read_text(encoding="utf-8"))
+
+    for name in holdout & set(by_name):
+        del by_name[name]
 
     samples = []
     for name, records in sorted(by_name.items(), key=lambda kv: int(kv[0]) if kv[0].isdigit() else 10**9):
@@ -147,9 +180,13 @@ def train(args) -> int:
     label_index = {name: i for i, name in enumerate(label_list)}
 
     tokenizer = AutoTokenizer.from_pretrained(args.base_model)
+    holdout = frozenset(str(n) for n in args.holdout)
     samples = load_dataset(
-        [args.silver, args.gold], args.input, tokenizer, label_index
+        [args.silver, args.gold], args.input, tokenizer, label_index, holdout
     )
+    if holdout:
+        print(f"  holdout {len(holdout)} file (KHÔNG train): "
+              f"{', '.join(sorted(holdout, key=int))}")
     if not samples:
         print(
             "LỖI: không có dữ liệu train.\n"
@@ -288,7 +325,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--lr", type=float, default=3e-5)
     parser.add_argument("--seed", type=int, default=13)
+    parser.add_argument("--holdout", default=",".join(str(n) for n in HOLDOUT_FILES),
+                        help="file GIỮ LẠI khỏi train để chấm công bằng; "
+                             "'' để train trên tất cả (khi đó đừng chấm trên gold)")
     args = parser.parse_args(argv)
+    args.holdout = parse_file_selector(args.holdout) if args.holdout.strip() else ()
 
     try:
         return train(args)

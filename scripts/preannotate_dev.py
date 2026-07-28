@@ -51,6 +51,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
+from smart_medic.fileset import parse_file_selector  # noqa: E402
 from smart_medic.normalize import norm_text  # noqa: E402
 from smart_medic.schema import (  # noqa: E402
     ASSERTABLE,
@@ -60,6 +61,8 @@ from smart_medic.schema import (  # noqa: E402
     Span,
     validate_file,
 )
+from smart_medic.kb.store import KBError, load_kb  # noqa: E402
+from smart_medic.kb.validate import normalize_candidates  # noqa: E402
 from smart_medic.textref import TextRef, read_textref  # noqa: E402
 
 #: 20 file dev đã chốt — phủ đủ 14 tổ hợp genre × NFD × mask, không near-duplicate.
@@ -451,6 +454,7 @@ class FileReport:
     dropped_bad_type: list[str] = field(default_factory=list)
     dropped_malformed: list[str] = field(default_factory=list)
     stripped_candidates: list[str] = field(default_factory=list)
+    fixed_candidates: list[str] = field(default_factory=list)
     stripped_assertions: list[str] = field(default_factory=list)
     ignored_positions: int = 0
     schema_errors: list[str] = field(default_factory=list)
@@ -472,20 +476,31 @@ def _clean_assertions(values: Any) -> list[str]:
     return sorted({v for v in values if isinstance(v, str) and v in valid})
 
 
-def _clean_candidates(values: Any) -> list[str]:
+def _clean_candidates(values: Any, type_name: str = "", kb: Any = None) -> tuple[list[str], list[str]]:
+    """Ép kiểu, khử trùng, và — nếu có KB — chuẩn hóa mã về bộ mã KB đang dùng.
+
+    Không có KB thì suy biến về hành vi cũ (chỉ ép kiểu string) để script vẫn
+    chạy được khi ``data/kb/`` chưa build; nhưng đó là chế độ suy giảm, và
+    ``--kb`` mặc định BẬT vì candidates chiếm trọng số 0.4.
+    """
+    if kb is not None and type_name:
+        codes, fixes = normalize_candidates(values, type_name, kb)
+        return codes, [str(f) for f in fixes]
+
     if isinstance(values, str):
         values = [values]
     if not isinstance(values, list):
-        return []
+        return [], []
     out: list[str] = []
     for v in values:
         code = str(v).strip()
         if code and code not in out:
             out.append(code)
-    return out
+    return out, []
 
 
-def ingest_file(name: str, tref: TextRef, items: list[Any], report: FileReport) -> list[dict]:
+def ingest_file(name: str, tref: TextRef, items: list[Any], report: FileReport,
+                kb: Any = None) -> list[dict]:
     """Gán position cho từng item; span nào không verify được thì loại.
 
     ``DevLocator`` giữ trạng thái qua cả file nên mention thứ n của cùng một
@@ -510,7 +525,8 @@ def ingest_file(name: str, tref: TextRef, items: list[Any], report: FileReport) 
         if any(k in item for k in ("position", "start", "end", "offset")):
             report.ignored_positions += 1   # LLM không được phép; ta bỏ qua
 
-        candidates = _clean_candidates(item.get("candidates"))
+        candidates, fixes = _clean_candidates(item.get("candidates"), type_name, kb)
+        report.fixed_candidates.extend(f"{text!r} {f}" for f in fixes)
         if candidates and type_name not in MAPPABLE_NAMES:
             # Type gate: ba type triệu chứng/xét nghiệm luôn có candidates rỗng.
             report.stripped_candidates.append(f"{text!r} ({type_name}) {candidates}")
@@ -552,7 +568,7 @@ def _read_response(response_dir: Path, name: str) -> str | None:
 
 
 def ingest(response_dir: Path, input_dir: Path, out_dir: Path,
-           files: Iterable[int]) -> tuple[int, list[FileReport]]:
+           files: Iterable[int], kb: Any = None) -> tuple[int, list[FileReport]]:
     out_dir.mkdir(parents=True, exist_ok=True)
     reports: list[FileReport] = []
     failed = 0
@@ -578,7 +594,7 @@ def ingest(response_dir: Path, input_dir: Path, out_dir: Path,
         report.parse_mode = mode
         report.raw_items = len(items)
 
-        records = ingest_file(name, tref, items, report)
+        records = ingest_file(name, tref, items, report, kb)
         errors = validate_file(records, tref.raw)
         report.schema_errors = errors
         if errors:
@@ -607,6 +623,8 @@ def print_reports(reports: list[FileReport], out_dir: Path) -> None:
             note.append(f"{len(r.dropped_malformed)} hỏng")
         if r.stripped_candidates:
             note.append(f"{len(r.stripped_candidates)} type-gate")
+        if r.fixed_candidates:
+            note.append(f"{len(r.fixed_candidates)} mã sửa/loại")
         if r.stripped_assertions:
             note.append(f"{len(r.stripped_assertions)} assert-gate")
         if r.ignored_positions:
@@ -635,6 +653,7 @@ def print_reports(reports: list[FileReport], out_dir: Path) -> None:
             + [f"type không hợp lệ: {t}" for t in r.dropped_bad_type]
             + [f"item hỏng: {t}" for t in r.dropped_malformed]
             + [f"type gate xóa candidates: {t}" for t in r.stripped_candidates]
+            + [f"chuẩn hóa mã: {t}" for t in r.fixed_candidates]
             + [f"type gate xóa assertions: {t}" for t in r.stripped_assertions]
             + [f"schema: {e}" for e in r.schema_errors]
         )
@@ -647,29 +666,6 @@ def print_reports(reports: list[FileReport], out_dir: Path) -> None:
 
 
 # ── CLI ───────────────────────────────────────────────────────────────────────
-
-
-def parse_file_selector(spec: str) -> tuple[int, ...]:
-    """``'1,3,4'`` hoặc ``'1-100'`` hoặc trộn cả hai → tuple số hiệu file.
-
-    Dạng khoảng tồn tại để chạy nhãn BẠC trên toàn corpus (``--files 1-100``)
-    bằng ĐÚNG code đã dùng cho gold, thay vì một script song song sẽ trôi khỏi
-    nhau. Nhãn bạc và nhãn gold phải đi qua cùng một đường gán vị trí, cùng một
-    lớp lọc ``Span.verify`` — nếu không thì model học trên một phân phối span
-    khác với phân phối được chấm.
-    """
-    out: list[int] = []
-    for token in spec.replace(",", " ").split():
-        if "-" in token[1:]:
-            lo_text, _, hi_text = token.partition("-")
-            lo, hi = int(lo_text), int(hi_text)
-            if lo > hi:
-                raise ValueError(f"khoảng ngược: {token!r}")
-            out.extend(range(lo, hi + 1))
-        else:
-            out.append(int(token))
-    # dedup giữ thứ tự → tất định
-    return tuple(dict.fromkeys(out))
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -689,6 +685,10 @@ def main(argv: list[str] | None = None) -> int:
                         help="thư mục gold đầu ra cho --ingest (mặc định data/dev_gold)")
     parser.add_argument("--files", default=None,
                         help="ghi đè danh sách file, ví dụ '1,3,4' hoặc '1-100'")
+    parser.add_argument("--kb", type=Path, default=ROOT / "data/kb",
+                        help="thư mục KB dùng để chuẩn hóa mã candidates")
+    parser.add_argument("--no-kb", action="store_true",
+                        help="bỏ qua chuẩn hóa mã — chỉ dùng khi data/kb chưa build")
     args = parser.parse_args(argv)
 
     files = parse_file_selector(args.files) if args.files else DEV_FILES
@@ -697,7 +697,19 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  sinh prompt cho {len(files)} file dev")
         return emit_prompts(args.input, args.emit_prompts, files)
 
-    failed, reports = ingest(args.ingest, args.input, args.out, files)
+    kb = None
+    if not args.no_kb:
+        try:
+            kb = load_kb(args.kb)
+        except KBError as exc:
+            # Fail loud: candidates chiếm trọng số 0.4, nên im lặng bỏ qua khâu
+            # chuẩn hóa mã là đúng cách để hỏng mà không ai biết.
+            print(f"LỖI: không nạp được KB từ {args.kb}: {exc}\n"
+                  "Dùng --no-kb nếu thực sự muốn ingest mà không kiểm mã.",
+                  file=sys.stderr)
+            return 2
+
+    failed, reports = ingest(args.ingest, args.input, args.out, files, kb)
     print_reports(reports, args.out)
     if failed:
         print(f"\n  ✗ {failed} file KHÔNG được ghi — sửa rồi chạy lại.", file=sys.stderr)

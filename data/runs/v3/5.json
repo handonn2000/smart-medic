@@ -1,0 +1,155 @@
+[
+  {
+    "text": "xét nghiệm cận lâm sàng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z01.7"
+    ],
+    "assertions": [],
+    "position": [
+      588,
+      611
+    ]
+  },
+  {
+    "text": "siêu âm (đánh giá các bất thường về giải phẫu)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      616,
+      662
+    ]
+  },
+  {
+    "text": "Hội chứng buồng trứng đa nang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E28.2"
+    ],
+    "assertions": [],
+    "position": [
+      982,
+      1011
+    ]
+  },
+  {
+    "text": "rậm lông",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L68.0"
+    ],
+    "assertions": [],
+    "position": [
+      1021,
+      1029
+    ]
+  },
+  {
+    "text": "béo phì",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.8",
+      "E66.9"
+    ],
+    "assertions": [],
+    "position": [
+      1031,
+      1038
+    ]
+  },
+  {
+    "text": "siêu âm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1040,
+      1047
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1169,
+      1177
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1184,
+      1187
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1939,
+      1947
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1954,
+      1962
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1969,
+      1976
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2366,
+      2374
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2381,
+      2384
+    ]
+  }
+]

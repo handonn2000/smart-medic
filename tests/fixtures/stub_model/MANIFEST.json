@@ -1,0 +1,32 @@
+{
+  "artifacts": {
+    "ner.onnx": {
+      "bytes": 1297,
+      "sha256": "eb55fdd76e7cd7e5f53e22ab4ce02f89e7aedcaad05bb5f447bd5673c7623367"
+    },
+    "tokenizer.json": {
+      "bytes": 756,
+      "sha256": "4dc93a8bee206fc238c3c06ab53c544d048c59823dfe31c67c9e42646db380c8"
+    }
+  },
+  "base_model": "stub/wordlevel",
+  "labels": [
+    "O",
+    "B-TRIỆU_CHỨNG",
+    "I-TRIỆU_CHỨNG",
+    "B-TÊN_XÉT_NGHIỆM",
+    "I-TÊN_XÉT_NGHIỆM",
+    "B-KẾT_QUẢ_XÉT_NGHIỆM",
+    "I-KẾT_QUẢ_XÉT_NGHIỆM",
+    "B-CHẨN_ĐOÁN",
+    "I-CHẨN_ĐOÁN",
+    "B-THUỐC",
+    "I-THUỐC"
+  ],
+  "manifest_version": 1,
+  "max_length": 16,
+  "model_version": "stub-v1",
+  "normalizer_version": 1,
+  "stride": 4,
+  "task": "token_classification"
+}

@@ -1,4 +1,36 @@
-# Add project dependencies here, e.g.:
-# torch
-# transformers
-# pandas
+# ── RUNTIME (bắt buộc để chạy inference) ─────────────────────────────────────
+#
+# v0–v3 KHÔNG CÓ dependency ngoài. Đó là quyết định có chủ đích và nó đã đúng
+# suốt bốn vòng: yêu cầu reproducible của BTC là ràng buộc cứng nhất (không cài
+# lại được = bị loại, tức mất trắng chứ không phải mất điểm), và mỗi dependency
+# là thêm một cách để việc cài đặt thất bại trên máy khác.
+# Xem docs/reports/system-design.md §9 (đánh đổi #2).
+#
+# v4 phá lệ đó, có cân nhắc. Lý do: đo được nút thắt điểm là RECALL mention
+# (~31%, xem docs/reports/2026-07-26-v4-research-directions.md §1), và không có
+# cách nào phủ được đuôi dài cách diễn đạt lâm sàng tiếng Việt bằng luật viết
+# tay — v3.1→v3.3 đã thử, số mention còn GIẢM (1.668 → 1.585). Rule đã chạm
+# trần, đúng điều kiện mà PRD đặt ra để mở khóa v4.
+#
+# Ba wheel dưới đây được chọn để TỐI THIỂU HÓA bề mặt cài đặt:
+#
+#   * đều là wheel nhị phân dựng sẵn cho CPU — không biên dịch lúc cài,
+#   * KHÔNG có torch (~2.5 GB, nhiều biến thể CUDA/CPU) trong runtime; torch chỉ
+#     dùng lúc train, xem requirements-dev.txt,
+#   * KHÔNG có transformers + sentencepiece + protobuf: tokenizer XLM-R nạp
+#     thẳng từ models/tokenizer.json bằng `tokenizers` (Rust, một wheel). Đây
+#     đúng chỗ đã vỡ trước đây — PRD tab 04 §6 ghi "sentence-transformers không
+#     load được SapBERT, tokenizer XLM-R cần sentencepiece và protobuf".
+#
+# Weights được COMMIT trong models/ và verify checksum lúc khởi động
+# (src/smart_medic/modelstore.py). Runtime KHÔNG tải gì từ mạng.
+#
+#   PYTHONPATH=src python3 -m smart_medic.infer --extractor v4
+#
+# Nhánh v0–v3 vẫn chạy được KHÔNG cần ba wheel này:
+#
+#   PYTHONPATH=src python3 -m smart_medic.infer --extractor v3
+
+onnxruntime>=1.17,<2
+numpy>=1.26,<3
+tokenizers>=0.15,<1

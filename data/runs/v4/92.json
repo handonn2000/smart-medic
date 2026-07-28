@@ -1,0 +1,306 @@
+[
+  {
+    "text": "viêm tủy xương",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M86"
+    ],
+    "assertions": [],
+    "position": [
+      18,
+      32
+    ]
+  },
+  {
+    "text": "g quang thần kinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      48,
+      65
+    ]
+  },
+  {
+    "text": "liệt hai chi dưới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G82.2"
+    ],
+    "assertions": [],
+    "position": [
+      81,
+      98
+    ]
+  },
+  {
+    "text": "nhiễm khuẩn đường tiết niệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N39.0"
+    ],
+    "assertions": [],
+    "position": [
+      163,
+      190
+    ]
+  },
+  {
+    "text": "cozosyn",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      239,
+      246
+    ]
+  },
+  {
+    "text": "bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "151399"
+    ],
+    "assertions": [],
+    "position": [
+      321,
+      328
+    ]
+  },
+  {
+    "text": "nhiễm khuẩn đường tiết niệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N39.0"
+    ],
+    "assertions": [],
+    "position": [
+      341,
+      368
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      407,
+      414
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.8",
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      466,
+      477
+    ]
+  },
+  {
+    "text": "nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41"
+    ],
+    "assertions": [],
+    "position": [
+      497,
+      514
+    ]
+  },
+  {
+    "text": "cozosynbactrim",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      544,
+      558
+    ]
+  },
+  {
+    "text": "tuỷ xương",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      580,
+      589
+    ]
+  },
+  {
+    "text": "zosyn",
+    "type": "THUỐC",
+    "candidates": [
+      "74170"
+    ],
+    "assertions": [],
+    "position": [
+      604,
+      609
+    ]
+  },
+  {
+    "text": "viêm tủy xương",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M86"
+    ],
+    "assertions": [],
+    "position": [
+      655,
+      669
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      822,
+      829
+    ]
+  },
+  {
+    "text": "t nước\nDa khô",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      908,
+      921
+    ]
+  },
+  {
+    "text": "nếp véo da mất chậm\nKhông ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      923,
+      953
+    ]
+  },
+  {
+    "text": "khó thở\nĐau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      962,
+      978
+    ]
+  },
+  {
+    "text": "hông từng cơn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      984,
+      997
+    ]
+  },
+  {
+    "text": "Hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.8",
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      999,
+      1010
+    ]
+  },
+  {
+    "text": "Trứng cá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L70.9"
+    ],
+    "assertions": [],
+    "position": [
+      1042,
+      1050
+    ]
+  },
+  {
+    "text": "bã nhờn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1098,
+      1105
+    ]
+  },
+  {
+    "text": "thâm nhiễm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1138,
+      1148
+    ]
+  },
+  {
+    "text": "nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41"
+    ],
+    "assertions": [],
+    "position": [
+      1232,
+      1249
+    ]
+  },
+  {
+    "text": "viêm tủy xương",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M86"
+    ],
+    "assertions": [],
+    "position": [
+      1271,
+      1285
+    ]
+  },
+  {
+    "text": "fepim",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1356,
+      1361
+    ]
+  },
+  {
+    "text": "Vancomycin truyền tĩnh mạch",
+    "type": "THUỐC",
+    "candidates": [
+      "11124"
+    ],
+    "assertions": [],
+    "position": [
+      1365,
+      1392
+    ]
+  }
+]

@@ -1,0 +1,414 @@
+[
+  {
+    "text": "u lành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D24"
+    ],
+    "assertions": [],
+    "position": [
+      70,
+      76
+    ]
+  },
+  {
+    "text": "u xơ tuyến vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D24"
+    ],
+    "assertions": [],
+    "position": [
+      93,
+      106
+    ]
+  },
+  {
+    "text": "u nang tuyến vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N60.0"
+    ],
+    "assertions": [],
+    "position": [
+      111,
+      126
+    ]
+  },
+  {
+    "text": "vitamin 3b b1 b6 b12",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      153,
+      173
+    ]
+  },
+  {
+    "text": "vitamin b12",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      237,
+      248
+    ]
+  },
+  {
+    "text": "ung thư",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C80"
+    ],
+    "assertions": [],
+    "position": [
+      271,
+      278
+    ]
+  },
+  {
+    "text": "u lành tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D24"
+    ],
+    "assertions": [],
+    "position": [
+      310,
+      321
+    ]
+  },
+  {
+    "text": "Vitamin B12",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      390,
+      401
+    ]
+  },
+  {
+    "text": "thiếu vitamin B12",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E53.8"
+    ],
+    "assertions": [],
+    "position": [
+      641,
+      658
+    ]
+  },
+  {
+    "text": "viêm teo niêm mạc dạ dày",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.4"
+    ],
+    "assertions": [],
+    "position": [
+      700,
+      724
+    ]
+  },
+  {
+    "text": "thiếu B12",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E53.8"
+    ],
+    "assertions": [],
+    "position": [
+      779,
+      788
+    ]
+  },
+  {
+    "text": "rối loạn sản xuất máu ở tủy xương",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      792,
+      825
+    ]
+  },
+  {
+    "text": "dị cảm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      858,
+      864
+    ]
+  },
+  {
+    "text": "giảm cảm giác vị thế",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      867,
+      887
+    ]
+  },
+  {
+    "text": "khả năng trí óc giảm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      889,
+      909
+    ]
+  },
+  {
+    "text": "hạ huyết áp tư thế đứng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      911,
+      934
+    ]
+  },
+  {
+    "text": "ung thư",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C80"
+    ],
+    "assertions": [],
+    "position": [
+      958,
+      965
+    ]
+  },
+  {
+    "text": "B12",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1004,
+      1007
+    ]
+  },
+  {
+    "text": "u nang tuyến vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N60.0"
+    ],
+    "assertions": [],
+    "position": [
+      1022,
+      1037
+    ]
+  },
+  {
+    "text": "u xơ tuyến vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D24"
+    ],
+    "assertions": [],
+    "position": [
+      1039,
+      1052
+    ]
+  },
+  {
+    "text": "B12",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1097,
+      1100
+    ]
+  },
+  {
+    "text": "ung thư",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C80"
+    ],
+    "assertions": [],
+    "position": [
+      1118,
+      1125
+    ]
+  },
+  {
+    "text": "u nang tuyến vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N60.0"
+    ],
+    "assertions": [],
+    "position": [
+      1151,
+      1166
+    ]
+  },
+  {
+    "text": "u xơ tuyến vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D24"
+    ],
+    "assertions": [],
+    "position": [
+      1168,
+      1181
+    ]
+  },
+  {
+    "text": "B12",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1199,
+      1202
+    ]
+  },
+  {
+    "text": "thiếu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D64.9"
+    ],
+    "assertions": [],
+    "position": [
+      1254,
+      1263
+    ]
+  },
+  {
+    "text": "u xơ tuyến vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D24"
+    ],
+    "assertions": [],
+    "position": [
+      1269,
+      1282
+    ]
+  },
+  {
+    "text": "u nang tuyến vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N60.0"
+    ],
+    "assertions": [],
+    "position": [
+      1284,
+      1299
+    ]
+  },
+  {
+    "text": "Estrogen",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1369,
+      1377
+    ]
+  },
+  {
+    "text": "cúm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1381,
+      1384
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1385,
+      1392
+    ]
+  },
+  {
+    "text": "chụp x-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1421,
+      1438
+    ]
+  },
+  {
+    "text": "Tăng gánh nhẹ tuần hoàn phổi",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1440,
+      1468
+    ]
+  },
+  {
+    "text": "tràn dịch màng phổi hai bên nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1470,
+      1501
+    ]
+  },
+  {
+    "text": "tim to",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1503,
+      1509
+    ]
+  },
+  {
+    "text": "u xơ tuyến vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D24"
+    ],
+    "assertions": [],
+    "position": [
+      1531,
+      1544
+    ]
+  },
+  {
+    "text": "u nang tuyến vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N60.0"
+    ],
+    "assertions": [],
+    "position": [
+      1546,
+      1561
+    ]
+  }
+]

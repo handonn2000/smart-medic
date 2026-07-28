@@ -1,0 +1,163 @@
+[
+  {
+    "text": "giảm cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      24,
+      32
+    ]
+  },
+  {
+    "text": "tăng cân trở lại",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      36,
+      52
+    ]
+  },
+  {
+    "text": "MÀY đay VÔ CĂN",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L50.1"
+    ],
+    "assertions": [],
+    "position": [
+      170,
+      184
+    ]
+  },
+  {
+    "text": "MÀY đay MẠN",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L50.8",
+      "L50.9"
+    ],
+    "assertions": [],
+    "position": [
+      268,
+      279
+    ]
+  },
+  {
+    "text": "mô bệnh học",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      291,
+      302
+    ]
+  },
+  {
+    "text": "xâm nhập của tế bào một nhân kết hợp với bạch huyết T và đại thực bào",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      325,
+      394
+    ]
+  },
+  {
+    "text": "kính hiển thị vi quang học",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      435,
+      461
+    ]
+  },
+  {
+    "text": "kính hiển thị vi điện tử",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      488,
+      512
+    ]
+  },
+  {
+    "text": "không tìm thấy hình ảnh giảm phức tạp, bổ sung hay sợi fibrin",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      668,
+      729
+    ]
+  },
+  {
+    "text": "mày đay vô căn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L50.1"
+    ],
+    "assertions": [],
+    "position": [
+      747,
+      761
+    ]
+  },
+  {
+    "text": "đay vô căn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L50.1"
+    ],
+    "assertions": [],
+    "position": [
+      751,
+      761
+    ]
+  },
+  {
+    "text": "***************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1143,
+      1158
+    ]
+  },
+  {
+    "text": "buồn ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1183,
+      1191
+    ]
+  },
+  {
+    "text": "***************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1219,
+      1234
+    ]
+  },
+  {
+    "text": "*********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1248,
+      1257
+    ]
+  }
+]

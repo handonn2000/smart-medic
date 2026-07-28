@@ -26,8 +26,9 @@ bản mẫu thì lấy data/train_input/*.txt.
     python scripts/gen_sample_data.py emit
     python scripts/gen_sample_data.py verify
 
-compose cần ANTHROPIC_API_KEY khi có --use-api; không có thì nó chỉ ghi ra bộ thực
+compose cần OPENAI_API_KEY khi có --use-api; không có thì nó chỉ ghi ra bộ thực
 thể và prompt để bạn tự gọi model nào cũng được, rồi nạp lại bằng --composed FILE.
+Đặt OPENAI_BASE_URL nếu dùng endpoint tương thích OpenAI (Azure, vLLM, OpenRouter).
 """
 
 from __future__ import annotations
@@ -640,30 +641,66 @@ def cmd_verify(args) -> int:
 
 def call_api(prompts: list[str], system: str, model: str,
              max_tokens: int = 4000) -> list[str]:
-    """Gọi Anthropic Messages API tuần tự bằng urllib — không thêm phụ thuộc.
+    """Gọi OpenAI Chat Completions tuần tự bằng urllib — không thêm phụ thuộc.
 
     max_tokens 4000 chứ không thấp hơn: model reasoning tiêu hết hạn mức cho suy
-    luận rồi trả về rỗng (stop_reason=max_tokens) ở lô thử đầu với 1500.
+    luận rồi trả về rỗng (finish_reason=length) ở lô thử đầu với 1500.
+
+    Hai chỗ khác nhau giữa các dòng model, xử lý bằng thử-rồi-lùi thay vì đoán
+    theo tên model (tên model đổi liên tục, đoán sai thì hỏng cả lô):
+      - dòng reasoning (o-series, gpt-5) từ chối `max_tokens`, chỉ nhận
+        `max_completion_tokens`; dòng cũ thì ngược lại. Gửi cái mới trước, HTTP
+        400 nhắc tới tham số thì gửi lại bằng cái cũ.
+      - dòng reasoning cũng từ chối `temperature` khác 1, nên không gửi
+        `temperature` gì cả — mặc định của API là đủ.
+
+    OPENAI_BASE_URL đổi được để trỏ sang endpoint tương thích OpenAI (Azure,
+    vLLM, OpenRouter...) mà không phải sửa mã.
     """
-    key = os.environ.get("ANTHROPIC_API_KEY")
+    key = os.environ.get("OPENAI_API_KEY")
     if not key:
-        sys.exit("thiếu ANTHROPIC_API_KEY — bỏ --use-api để chỉ ghi prompt ra đĩa")
-    out = []
-    for i, prompt in enumerate(prompts, 1):
+        sys.exit("thiếu OPENAI_API_KEY — bỏ --use-api để chỉ ghi prompt ra đĩa")
+    base = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+    url = f"{base}/chat/completions"
+    tok_field = "max_completion_tokens"
+
+    def send(prompt: str, field: str):
         body = json.dumps({
-            "model": model, "max_tokens": max_tokens, "system": system,
-            "messages": [{"role": "user", "content": prompt}],
+            "model": model, field: max_tokens,
+            "messages": [{"role": "system", "content": system},
+                         {"role": "user", "content": prompt}],
         }).encode("utf-8")
         req = urllib.request.Request(
-            "https://api.anthropic.com/v1/messages", data=body,
-            headers={"x-api-key": key, "anthropic-version": "2023-06-01",
+            url, data=body,
+            headers={"Authorization": f"Bearer {key}",
                      "content-type": "application/json"})
+        with urllib.request.urlopen(req, timeout=180) as resp:
+            return json.load(resp)
+
+    out = []
+    for i, prompt in enumerate(prompts, 1):
         try:
-            with urllib.request.urlopen(req, timeout=180) as resp:
-                data = json.load(resp)
-            out.append("".join(b.get("text", "") for b in data.get("content", [])))
+            try:
+                data = send(prompt, tok_field)
+            except urllib.error.HTTPError as exc:
+                # Lỗi của OpenAI nằm trong BODY, nhưng gateway tương thích có thể
+                # để ở reason — đọc cả hai, nếu không nhánh lùi không kích hoạt.
+                try:
+                    msg = exc.read()[:400].decode("utf-8", "replace")
+                except Exception:                                 # noqa: BLE001
+                    msg = ""
+                msg = f"{msg} {exc.reason}"
+                other = "max_tokens" if tok_field == "max_completion_tokens" else "max_completion_tokens"
+                if exc.code == 400 and tok_field in msg:
+                    tok_field = other          # nhớ lại, khỏi thử hai lần mỗi prompt
+                    data = send(prompt, tok_field)
+                else:
+                    raise urllib.error.HTTPError(
+                        exc.url, exc.code, msg, exc.headers, None) from None
+            choices = data.get("choices") or [{}]
+            out.append((choices[0].get("message") or {}).get("content") or "")
         except urllib.error.HTTPError as exc:
-            print(f"  [{i}/{len(prompts)}] HTTP {exc.code}: {exc.read()[:200]!r}")
+            print(f"  [{i}/{len(prompts)}] HTTP {exc.code}: {exc.reason!r:.200}")
             out.append("")
         except Exception as exc:                                  # noqa: BLE001
             print(f"  [{i}/{len(prompts)}] lỗi: {exc}")
@@ -789,8 +826,8 @@ def main() -> int:
     c = sub.add_parser("compose", parents=[seed_arg], help="bốc thực thể + gọi LLM viết bệnh án")
     c.add_argument("--n", type=int, default=200, help="số bệnh án cần sinh")
     c.add_argument("--use-api", action="store_true",
-                   help="gọi Anthropic API (cần ANTHROPIC_API_KEY)")
-    c.add_argument("--model", default="claude-sonnet-4-5",
+                   help="gọi OpenAI API (cần OPENAI_API_KEY)")
+    c.add_argument("--model", default="gpt-4o",
                    help="model dùng khi --use-api")
     c.add_argument("--composed", help="nạp bản viết sẵn thay vì gọi API")
 

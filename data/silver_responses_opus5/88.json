@@ -1,0 +1,21 @@
+[
+  {"text": "ung thư đường mật", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["C24.0"]},
+  {"text": "chụp đường mật", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "run rẩy", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "các ổ dịch trong ổ bụng", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "áp xe", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["K65.1"]},
+  {"text": "kháng sinh tĩnh mạch", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "Augmentin đường uống trong 10 ngày", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "chụp chẩn đoán hình ảnh", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "cân nặng", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "trong giới hạn bình thường", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "dấu hiệu gì bất thường khác", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "ra mồ hôi nhiều", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Thiếu một số vi chất cho cơ thể", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "ba stent mật kim loại đã được đặt", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "một ổ dịch sau phẫu thuật giảm kích thước", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "chụp chẩn đoán hình ảnh", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]

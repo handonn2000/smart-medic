@@ -1,0 +1,18 @@
+[
+  {"text": "cắt bỏ ống dẫn mật chủ", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "cắt bỏ phân đoạn bên trái gan", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "phẫu thuật nối ống gan - hỗng tràng", "type": "TÊN_XÉT_NGHIỆM", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "ung thư đường mật không thể cắt bỏ", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["C24.0"]},
+  {"text": "chụp đường mật", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "đặt 3 stent đường mật lưu dài hạn", "type": "TÊN_XÉT_NGHIỆM", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "run rẩy", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "áp xe", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["L02.9"]},
+  {"text": "kháng sinh tĩnh mạch", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "Augmentin đường uống trong 10 ngày", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["151392"]},
+  {"text": "ra mồ hôi nhiều", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ba stent mật kim loại đã được đặt", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "một ổ dịch sau phẫu thuật giảm kích thước so với lần chụp chẩn đoán hình ảnh  trước", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]

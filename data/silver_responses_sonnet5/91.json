@@ -1,0 +1,30 @@
+```json
+[
+  {"text": "hội chứng turner, không đặc hiệu", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["Q96.9"]},
+  {"text": "Tăng huyết áp", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["I10"]},
+  {"text": "Ung thư đại tràng", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["C18.9"]},
+  {"text": "Thuyên tắc phổi", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["I26.9"]},
+  {"text": "coumadin", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["11289"]},
+  {"text": "Thuyên tắc phổi", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["I26.9"]},
+  {"text": "coumadin", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["11289"]},
+  {"text": "coumadin", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["11289"]},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Cảm giác có đờm ở cổ họng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Cần phải ho nó ra", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "ớn lạnh", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "đau ngực", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "khó thở khi gắng sức", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "đánh trống ngực", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "khó thở tăng lên khi xuất hiện  Cơn nhịp nhanh", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "đau ngực", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "khó nuốt", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "albuterolipratropium nebs x2", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "Sỏi niệu quản", "type": "CHẨN_ĐOÁN", "assertions": ["isFamily"], "candidates": ["N20.1"]},
+  {"text": "hr", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "110", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "metoprolol", "type": "THUỐC", "assertions": [], "candidates": ["6918"]}
+]
+```

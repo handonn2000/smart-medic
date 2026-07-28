@@ -1,0 +1,26 @@
+```json
+[
+  {"text": "bệnh động mạch vành", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["I25.10"]},
+  {"text": "bệnh lý thần kinh ngoại biên", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["G62.9"]},
+  {"text": "mệt mỏi", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó thở tăng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tỉnh", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mệt mỏi", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Khó thở tăng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Đi lại khó khăn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Đau hai bàn chân", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "bệnh lý thần kinh ngoại biên", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["G62.9"]},
+  {"text": "Đo sức bền cơ tim bằng đồng vị phóng xạ", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "có dị tật cố định vùng trước vách và vách dưới với  giảm chức năng tâm thu thất trái nghiêm trọng kèm theo rối loạn chức năng thất trái", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Chụp động mạch vành", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "bệnh ba thân động mạch vành nghiêm trọng", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["I25.10"]},
+  {"text": "Chụp động mạch vành can thiệp", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Augmentin (amoxicillin/acid clavulanic)", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "kháng sinh", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "Augmentin", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "tiêu chảy", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "men tiêu hóa", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "kháng sinh", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "bệnh nhiễm trùng", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["A49.9"]}
+]
+```

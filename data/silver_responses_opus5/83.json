@@ -1,0 +1,17 @@
+[
+  {"text": "giảm cân", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tăng cân trở lại", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "MÀY đay VÔ CĂN", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.1"]},
+  {"text": "MÀY đay MẠN", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.8", "L50.9"]},
+  {"text": "mô bệnh học", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "xâm nhập của tế bào một nhân kết hợp với bạch huyết T và đại thực bào", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "kính hiển thị vi quang học", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "kính hiển thị vi điện tử", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "không tìm thấy hình ảnh giảm phức tạp, bổ sung hay sợi fibrin", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "mày đay vô căn", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.1"]},
+  {"text": "đay vô căn", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.1"]},
+  {"text": "***************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "buồn ngủ", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "***************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "*********", "type": "THUỐC", "assertions": [], "candidates": []}
+]

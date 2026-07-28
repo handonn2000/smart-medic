@@ -1,0 +1,23 @@
+[
+  {"text": "mề đay", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.9"]},
+  {"text": "ngứa", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mề đay", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.9"]},
+  {"text": "ngứa", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "dị ứng", "type": "CHẨN_ĐOÁN", "assertions": ["isNegated"], "candidates": ["T78.4"]},
+  {"text": "MÀY ĐAY VÔ CĂN", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.1"]},
+  {"text": "MÀY ĐAY MẠN TÍNH", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.8"]},
+  {"text": "mô bệnh học", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "kính hiển vi quang học", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "kính hiển vi điện tử", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Nhuộm huỳnh quang miễn dịch", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "sinh thiết", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "không thấy có hình ảnh của lắng đọng các phức hợp miễn dịch, bổ thể hay sợi fibrin", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "mày đay vô căn", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.1"]},
+  {"text": "Mày đay vô căn", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.1"]},
+  {"text": "****************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "buồn ngủ", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "****************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "corticoid liều thấp cách ngày hoặc hàng ngày", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "chụp cộng hưởng từ (mri) cột sống cổ", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "hẹp ống sống C4-5, C5-6, C6-7 và hẹp lỗ liên hợp", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]

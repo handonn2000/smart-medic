@@ -1,0 +1,18 @@
+```json
+[
+  {"text": "ung thư đường mật", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["C24.9"]},
+  {"text": "chụp đường mật", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "run rẩy", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "áp xe", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["K65.1"]},
+  {"text": "kháng sinh tĩnh mạch", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "Augmentin đường uống trong 10 ngày", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "chụp chẩn đoán hình ảnh", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "ra mồ hôi nhiều", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Thiếu một số vi chất", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "ba stent mật kim loại đã được đặt", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "một ổ dịch sau phẫu thuật giảm kích thước so với lần chụp chẩn đoán hình ảnh  trước", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]
+```

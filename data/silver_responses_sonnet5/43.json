@@ -1,0 +1,31 @@
+```json
+[
+  {"text": "Bệnh bạch cầu dòng tủy mãn tính", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["C92.1"]},
+  {"text": "tăng cholesterol máu đơn thuần", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["E78.0"]},
+  {"text": "tăng huyết áp", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["I10"]},
+  {"text": "gleevec", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["282388"]},
+  {"text": "allopurinol", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["519"]},
+  {"text": "Thuốc giảm đau", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "ảo giác", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ảo giác", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nhiễm khuẩn đường tiết niệu", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["N39.0"]},
+  {"text": "Thuốc giảm đau", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "nhiễm khuẩn đường tiết niệu", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["N39.0"]},
+  {"text": "thuốc giảm đau", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "gleevec", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["282388"]},
+  {"text": "allopurinol", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["519"]},
+  {"text": "ảo giác", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ảo giác", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Ảo giác", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "hoang tưởng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "lo sợ", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "đi cầu phân sống", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "đi cầu phân sống", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "men Bacillus clausii 2 tỷ bào tử/5ml/ ống uống 1-2 ống/ ngày", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "Enterogermina", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "Biogermin", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "gleevec", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["282388"]},
+  {"text": "allopurinol", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["519"]},
+  {"text": "ảo giác", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]
+```

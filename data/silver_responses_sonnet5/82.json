@@ -1,0 +1,29 @@
+```json
+[
+  {"text": "NSAID", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "đau đầu gối", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "omeprazole", "type": "THUỐC", "assertions": [], "candidates": ["7646"]},
+  {"text": "đau vùng hạ sườn phải", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "đau vùng hạ sườn phải", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "chướng bụng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "buồn nôn thoáng qua", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nôn ói", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "đau lưng kéo dài từ lâu", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "Đau bụng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "chướng bụng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "buồn nôn thoáng qua", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nôn", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "đau lưng kéo dài", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "đau bụng vùng hạ sườn phải", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "amyloidosis", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "Nội soi thực quản - dạ dày - tá tràng", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "viêm dạ dày", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["K29.7"]},
+  {"text": "Cộng hưởng từ mật tụy", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "sỏi đoạn cuối ống mật chủ", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Nội soi mật tụy ngược dòng (ERCP)", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "ERCP", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "02 viên sỏi tại đoạn cuối ống mật chủ (CBD)", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "chụp cộng hưởng từ mật tụy", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "sỏi ống dẫn mật chung đoạn cuối", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]
+```

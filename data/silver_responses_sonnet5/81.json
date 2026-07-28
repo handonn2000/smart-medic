@@ -1,0 +1,24 @@
+```json
+[
+  {"text": "sảy thai", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["O03"]},
+  {"text": "xét nghiệm máu", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "hội chứng tăng đông", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["D68.69"]},
+  {"text": "gen đông máu", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "thrombophilia", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["D68.69"]},
+  {"text": "tiêm thuốc chống đông máu", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "thrombophilia", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["D68.69"]},
+  {"text": "tiêm thuốc chống đông máu", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "Tiêm thuốc đó", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "Thrombophilia", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["D68.69"]},
+  {"text": "bệnh tăng đông máu", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["D68.69"]},
+  {"text": "sẩy thai", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["O03"]},
+  {"text": "sinh non", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["O60"]},
+  {"text": "tiền sản giật", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["O14"]},
+  {"text": "thuốc chống đông", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "Thuốc chống đông này", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "ra máu bất thường", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "chảy máu khó cầm", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tắc mạch", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "đặt shunt dẫn lưu tĩnh mạch cửa qua da", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]
+```

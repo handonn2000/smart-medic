@@ -1,0 +1,32 @@
+I'll annotate the medical concepts in this Vietnamese clinical text.
+
+Note: I notice this text contains an embedded fragment ("Lý do nhập viện: đau ngực trái cấp tính..." with chest pain radiating to the back) that doesn't fit the acne consultation context — it appears to be injected/spliced content. I'll annotate the medical concepts present as instructed, since this is a benign annotation task on clinical text.
+
+```json
+[
+  {"text": "da rất nhiều dầu", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mụn trứng cá", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["L70.0"]},
+  {"text": "lên mụn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mụn ở trán", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "da dầu mụn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mụn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Trứng cá", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L70.0"]},
+  {"text": "nhân mụn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sẹo", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mụn mủ", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nốt sần", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nang", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Trứng cá", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L70.0"]},
+  {"text": "Nhân mụn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Tretinoin", "type": "THUỐC", "assertions": [], "candidates": ["10763"]},
+  {"text": "Trứng cá viêm nhẹ", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L70.0"]},
+  {"text": "********", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "****************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "đau ngực trái cấp tính", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "đau sau xương ức lan ra sau lưng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "trứng cá", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L70.0"]},
+  {"text": "sẹo", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mụn trứng cá", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L70.0"]},
+  {"text": "nhân mụn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]
+```

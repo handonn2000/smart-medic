@@ -1,0 +1,31 @@
+```json
+[
+  {"text": "béo phì", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["E66.9"]},
+  {"text": "đái tháo đường", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["E11.9"]},
+  {"text": "ngừng thở khi ngủ", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["G47.33"]},
+  {"text": "suy tim", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["I50.9"]},
+  {"text": "furosemide", "type": "THUỐC", "assertions": [], "candidates": ["4603"]},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó thở", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó nằm vào ban đêm để ngủ vì thở", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "căng cứng vai trái", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ho có đờm trắng", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "chủ quan sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "phù chi dưới", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "căng cứng vai trái", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "căng cứng vai trái", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "căng cứng vai trái", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "khó nằm vào ban đêm để ngủ vì khó thở", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ho có đờm trắng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "chủ quan sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "phù chi dưới", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "thiếu oxy", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "độ bão hòa oxy", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "86", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "tổn thương sụn chêm", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "aspirin 325mg", "type": "THUỐC", "assertions": [], "candidates": ["1191"]},
+  {"text": "albuterolipratropium nebulizer", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "methylprednisolone 125mg iv", "type": "THUỐC", "assertions": [], "candidates": ["6902"]}
+]
+```

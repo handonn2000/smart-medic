@@ -1,0 +1,22 @@
+[
+  {"text": "HA là 160/70 mmHg", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "HA: 170/60 mmHg", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "HA:  150/60 mmHg", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "hồi hợp", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "rợn người", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "HA nhịp tim đều tăng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "rợn người", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "hồi hộp", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tim đập rất mạnh", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tăng HA", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["I10"]},
+  {"text": "Suy thận mạn giai đoạn V", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["N18.5"]},
+  {"text": "đái tháo đường", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["E14"]},
+  {"text": "tăng huyết áp", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["I10"]},
+  {"text": "u ác của tuyến tiền liệt", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["C61"]},
+  {"text": "xạ trị cấy hạt", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Phẫu thuật cắt bỏ u dây thần kinh số VIII", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Đặt shunt động tĩnh mạch (AVF) ở tay phải (RUE AVF)", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "Sinh thiết tuyến tiền liệt", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "mệt mỏi", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mất trí nhớ", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]

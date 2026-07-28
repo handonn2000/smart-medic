@@ -1,0 +1,20 @@
+```json
+[
+  {"text": "ý định tự tử", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "trầm cảm", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["F32.9"]},
+  {"text": "rối loạn lo âu", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["F41.9"]},
+  {"text": "tổn thương chi dưới", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tự tử không thành", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tổn thương chi dưới", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "trầm cảm", "type": "CHẨN_ĐOÁN", "assertions": ["isNegated", "isHistorical"], "candidates": ["F32.9"]},
+  {"text": "ý định tự tử", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "tổn thương chi dưới nghiêm trọng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "thuyên tắc phổi hai bên", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["I26.9"]},
+  {"text": "nhiễm trùng chi dưới bên phải do Enterococcus kháng vancomycin", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "kháng sinh tĩnh mạch", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "nổi quanh năm", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "thuốc giảm đau", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "khó chịu", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "dị ứng thời tiết hay thức ăn", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []}
+]
+```

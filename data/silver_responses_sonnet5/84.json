@@ -1,0 +1,10 @@
+```json
+[
+  {"text": "thuốc giảm đau opioid", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "Nấm bẹn", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["B35.6"]},
+  {"text": "béo phì", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["E66.9"]},
+  {"text": "nấm bẹn", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["B35.6"]},
+  {"text": "thuốc kháng nấm dạng bôi hoặc dạng uống", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "nấm bẹn", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["B35.6"]}
+]
+```

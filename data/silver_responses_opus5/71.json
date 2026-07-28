@@ -1,0 +1,19 @@
+[
+  {"text": "trầm cảm", "type": "CHẨN_ĐOÁN", "assertions": ["isNegated", "isHistorical"], "candidates": ["F32.9"]},
+  {"text": "ý định tự tử", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "tổn thương chi dưới nghiêm trọng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Phẫu thuật cắt cụt chân trái bên trên gối", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "cắt cụt chân phải bên dưới gối", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "thuyên tắc phổi hai bên", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["I26.9"]},
+  {"text": "nhiễm trùng chi dưới bên phải do Enterococcus kháng vancomycin", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "phẫu thuật cắt cụt chân trái trên gối và chân phải dưới gối", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "nổi mẩn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nổi mẩn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nổi sần", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "viêm nang lông", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L73.9"]},
+  {"text": "nổi mẩn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nổi mẩn đỏ ngứa ở lưng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "suy giảm chức năng gan", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "nổi mề đay", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.9"]},
+  {"text": "bệnh vảy nến", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L40.9"]}
+]

@@ -1,0 +1,32 @@
+```json
+[
+  {"text": "Viêm loét đại tràng", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["K51.9"]},
+  {"text": "Bệnh gan do rượu", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["K70.9"]},
+  {"text": "bệnh nấm bẹn", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["B35.6"]},
+  {"text": "ăn uống kém", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "buồn nôn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "đau bụng/khó chịu vùng bụng tăng dần", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "buồn nôn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nôn x 1", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "run rẩy", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mất cảm giác ngon miệng/chán ăn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "suy nhược", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Toàn trạng suy kiệt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "giảm lượng nước tiểu từ 1800 ml xuống còn 300 ml trong vòng 24 giờ", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tăng đáng kể lượng dịch từ ống thông hồi tràng từ 350 ml lên 1200 mltrong cùng khoảng thời gian", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "đau bụng/khó chịu vùng bụng tăng dần", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nôn x 1", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "sốt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "run rẩy", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mất cảm giác ngon miệng/chán ăn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "suy nhược", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "toàn trạng suy kiệt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "thiểu niệu", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "chảy dịch từ lỗ dò tăng đáng kể", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ăn uống kém", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "buồn nôn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "thuốc giảm đau opioid", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "thuốc giảm đau opioid", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []}
+]
+```

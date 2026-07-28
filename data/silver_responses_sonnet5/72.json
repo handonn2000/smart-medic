@@ -1,0 +1,30 @@
+```json
+[
+  {"text": "****************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "****************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "corticoid liều thấp cách ngày hoặc hàng ngày và giảm liều chậm 2,5 – 5mg mỗi 2-3 tuần", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "Rối loạn cảm xúc", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "Rối loạn lưỡng cực", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["F31"]},
+  {"text": "rối loạn lo âu", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["F41"]},
+  {"text": "Thuốc kê đơn", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "klonopinclonidine", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "clonidine", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["2599"]},
+  {"text": "suboxone", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["351260"]},
+  {"text": "Lạm dụng chất kích thích", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "ý định tự tử", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ý nghĩ tự bắn vào đầu", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "trầm cảm", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["F32"]},
+  {"text": "hưng cảm", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["F30"]},
+  {"text": "tăng hoạt động", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "giảm nhu cầu ngủ", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "ý định tự tử", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Thuốc kê đơn", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "suboxone", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["351260"]},
+  {"text": "suboxone", "type": "THUỐC", "assertions": ["isHistorical"], "candidates": ["351260"]},
+  {"text": "ý nghĩ tự tử", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nghĩ tự bắn vào đầu", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "lo âu", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "hoảng sợ", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "hoang tưởng như đang chiếm khí oxy của người khác", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]
+```

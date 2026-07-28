@@ -1,0 +1,20 @@
+[
+  {"text": "ý định tự tử", "type": "TRIỆU_CHỨNG", "assertions": ["isHistorical"], "candidates": []},
+  {"text": "trầm cảm", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["F32.9"]},
+  {"text": "rối loạn lo âu", "type": "CHẨN_ĐOÁN", "assertions": ["isHistorical"], "candidates": ["F41.9"]},
+  {"text": "tổn thương chi dưới", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "buồn chán", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tổn thương chi dưới", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tỉnh", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "trầm cảm", "type": "CHẨN_ĐOÁN", "assertions": ["isNegated", "isHistorical"], "candidates": ["F32.9"]},
+  {"text": "ý định tự tử", "type": "TRIỆU_CHỨNG", "assertions": ["isNegated"], "candidates": []},
+  {"text": "tổn thương chi dưới nghiêm trọng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Phẫu thuật cắt cụt chân trái bên trên gối", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "cắt cụt chân phải bên dưới gối", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "thuyên tắc phổi hai bên", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["I26.99"]},
+  {"text": "nhiễm trùng chi dưới bên phải do Enterococcus kháng vancomycin", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "phẫu thuật cắt cụt chân trái trên gối", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "chân phải dưới gối", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": []},
+  {"text": "kháng sinh tĩnh mạch", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "dị ứng thời tiết", "type": "CHẨN_ĐOÁN", "assertions": ["isNegated"], "candidates": []}
+]

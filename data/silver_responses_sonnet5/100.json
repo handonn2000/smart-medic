@@ -1,0 +1,17 @@
+```json
+[
+  {"text": "nguy cơ tiền sản giật cao", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "cục máu đông", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "đi tiêu ra máu", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "tiền sản giật", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["O14.9"]},
+  {"text": "tiền sản giật", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["O14.9"]},
+  {"text": "tiền sản giật", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["O14.9"]},
+  {"text": "*******", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "chảy máu", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "*******", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "aspirin", "type": "THUỐC", "assertions": [], "candidates": ["1191"]},
+  {"text": "đại tiện ra máu đỏ tươi gián đoạn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []}
+]
+```

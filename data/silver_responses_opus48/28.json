@@ -1,0 +1,18 @@
+[
+  {"text": "nổi các dấu mề đay rất to", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ngứa khắp người", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "nổi quanh năm", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "dấu mề đay nổi rất khó chịu", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "ngứa", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Mẹ của bạn ấy cũng bị", "type": "TRIỆU_CHỨNG", "assertions": ["isFamily"], "candidates": []},
+  {"text": "dị ứng do thời tiết", "type": "CHẨN_ĐOÁN", "assertions": ["isNegated"], "candidates": []},
+  {"text": "MÀY ĐAY VÔ CĂN", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.1"]},
+  {"text": "MÀY ĐAY MẠN TÍNH", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.8"]},
+  {"text": "mày đay vô căn", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.1"]},
+  {"text": "Mày đay vô căn", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["L50.1"]},
+  {"text": "****************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "****************", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "corticoid liều thấp cách ngày hoặc hàng ngày", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "chụp cộng hưởng từ (mri) cột sống cổ", "type": "TÊN_XÉT_NGHIỆM", "assertions": [], "candidates": []},
+  {"text": "hẹp ống sống C4-5, C5-6, C6-7 và hẹp lỗ liên hợp", "type": "KẾT_QUẢ_XÉT_NGHIỆM", "assertions": [], "candidates": []}
+]

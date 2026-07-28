@@ -1,0 +1,26 @@
+```json
+[
+  {"text": "bệnh động mạch vành", "type": "CHẨN_ĐOÁN", "assertions": ["isFamily"], "candidates": ["I25.1"]},
+  {"text": "Vastarel", "type": "THUỐC", "assertions": ["isFamily"], "candidates": []},
+  {"text": "*********", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "run tay", "type": "TRIỆU_CHỨNG", "assertions": ["isFamily"], "candidates": []},
+  {"text": "Vastarel", "type": "THUỐC", "assertions": ["isFamily", "isHistorical"], "candidates": []},
+  {"text": "bệnh Graves", "type": "CHẨN_ĐOÁN", "assertions": ["isFamily"], "candidates": ["E05.0"]},
+  {"text": "tăng lipid máu", "type": "CHẨN_ĐOÁN", "assertions": ["isFamily"], "candidates": ["E78.5"]},
+  {"text": "run rẩy tay chân", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "mất thăng bằng khi đi đứng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "run tay", "type": "TRIỆU_CHỨNG", "assertions": ["isFamily"], "candidates": []},
+  {"text": "trimetazidine", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "run tay", "type": "TRIỆU_CHỨNG", "assertions": ["isFamily"], "candidates": []},
+  {"text": "Nitramyl 2,5 mg/viên", "type": "THUỐC", "assertions": [], "candidates": []},
+  {"text": "nitroglycerin", "type": "THUỐC", "assertions": [], "candidates": ["4917"]},
+  {"text": "đau thắt ngực", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["I20"]},
+  {"text": "bệnh mạch vành", "type": "CHẨN_ĐOÁN", "assertions": [], "candidates": ["I25"]},
+  {"text": "đau đầu", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "chóng mặt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "buồn nôn", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "đỏ mặt", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "tụt huyết áp thế đứng", "type": "TRIỆU_CHỨNG", "assertions": [], "candidates": []},
+  {"text": "Nitramyl", "type": "THUỐC", "assertions": [], "candidates": []}
+]
+```

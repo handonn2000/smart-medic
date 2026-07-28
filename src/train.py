@@ -1,3 +1,4 @@
+import argparse
 import os
 
 import torch
@@ -22,7 +23,7 @@ MODEL_PATH = os.path.join(MODEL_DIR, "pho_bert_crf_medical.pth")
 MODEL_NAME = "vinai/phobert-base-v2"
 MAX_LEN = 256
 BATCH_SIZE = 16
-EPOCHS = 4
+DEFAULT_EPOCHS = 4
 LR = 2e-5
 
 # Labels (must match src/inference.py get_labels())
@@ -35,14 +36,6 @@ labels = ["O",
 label2id = {label: i for i, label in enumerate(labels)}
 id2label = {i: label for label, i in label2id.items()}
 
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-model = PhoBERT_CRF(num_labels=len(labels))
-
-train_dataset = MedicalNERDataset(TRAIN_FILE, tokenizer, label2id, MAX_LEN)
-train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
-
-optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
-scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=len(train_loader)*EPOCHS)
 
 def get_device():
     """Pick the best available device: CUDA (NVIDIA) > MPS (Apple Silicon) > CPU."""
@@ -54,28 +47,62 @@ def get_device():
     return "cpu"
 
 
-device = torch.device(get_device())
-print(f"Using device: {device}")
-model.to(device)
+def parse_args():
+    parser = argparse.ArgumentParser(description="Train PhoBERT-CRF medical NER model.")
+    parser.add_argument(
+        "-e",
+        "--epochs",
+        type=int,
+        default=DEFAULT_EPOCHS,
+        help=f"Number of training epochs (default: {DEFAULT_EPOCHS}).",
+    )
+    return parser.parse_args()
 
-for epoch in range(EPOCHS):
-    model.train()
-    total_loss = 0
-    for batch in train_loader:
-        batch = {k: v.to(device) for k, v in batch.items()}
-        outputs = model(**batch)
-        loss = outputs["loss"]
-        
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        scheduler.step()
-        
-        total_loss += loss.item()
-    
-    print(f"Epoch {epoch+1}/{EPOCHS}, Loss: {total_loss/len(train_loader):.4f}")
 
-# Save model
-os.makedirs(MODEL_DIR, exist_ok=True)
-torch.save(model.state_dict(), MODEL_PATH)
-print(f"Saved model to: {MODEL_PATH}")
+def main():
+    args = parse_args()
+    epochs = args.epochs
+
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+    model = PhoBERT_CRF(num_labels=len(labels))
+
+    train_dataset = MedicalNERDataset(TRAIN_FILE, tokenizer, label2id, MAX_LEN)
+    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+
+    optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
+    scheduler = get_linear_schedule_with_warmup(
+        optimizer,
+        num_warmup_steps=0,
+        num_training_steps=len(train_loader) * epochs,
+    )
+
+    device = torch.device(get_device())
+    print(f"Using device: {device}")
+    print(f"Training for {epochs} epoch(s)")
+    model.to(device)
+
+    for epoch in range(epochs):
+        model.train()
+        total_loss = 0
+        for batch in train_loader:
+            batch = {k: v.to(device) for k, v in batch.items()}
+            outputs = model(**batch)
+            loss = outputs["loss"]
+
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            scheduler.step()
+
+            total_loss += loss.item()
+
+        print(f"Epoch {epoch+1}/{epochs}, Loss: {total_loss/len(train_loader):.4f}")
+
+    # Save model
+    os.makedirs(MODEL_DIR, exist_ok=True)
+    torch.save(model.state_dict(), MODEL_PATH)
+    print(f"Saved model to: {MODEL_PATH}")
+
+
+if __name__ == "__main__":
+    main()

@@ -52,3 +52,6 @@ data/output/*.json
 # redistributing the much larger raw RxNorm release.
 data/output.zip
 data/v3_3_variants/
+
+# dữ liệu ngoài: parquet gốc không commit (396 MB), file .jsonl đã lọc thì commit
+data/external/raw/

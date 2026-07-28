@@ -1,0 +1,441 @@
+[
+ {
+  "text": "vàng da vàng mắt",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   93,
+   113
+  ]
+ },
+ {
+  "text": "buồn nôn",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   115,
+   126
+  ]
+ },
+ {
+  "text": "đau vùng thượng vị sau ăn",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   128,
+   159
+  ]
+ },
+ {
+  "text": "vàng da vàng mắt",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   266,
+   286
+  ]
+ },
+ {
+  "text": "buồn nôn",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   298,
+   309
+  ]
+ },
+ {
+  "text": "đau vùng thượng vị sau ăn",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   384,
+   415
+  ]
+ },
+ {
+  "text": "khó ngủ về đêm",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   502,
+   521
+  ]
+ },
+ {
+  "text": "ngạt mũi hai bên",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   523,
+   542
+  ]
+ },
+ {
+  "text": "nghe kém tai trái",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   544,
+   563
+  ]
+ },
+ {
+  "text": "khó chịu",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   580,
+   590
+  ]
+ },
+ {
+  "text": "ra máu âm đạo bất thường",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   642,
+   674
+  ]
+ },
+ {
+  "text": "hạ huyết áp",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "I95.8"
+  ],
+  "assertions": [
+   "isHistorical"
+  ],
+  "position": [
+   764,
+   779
+  ]
+ },
+ {
+  "text": "viêm nha chu mãn",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K05.3"
+  ],
+  "assertions": [
+   "isHistorical"
+  ],
+  "position": [
+   880,
+   898
+  ]
+ },
+ {
+  "text": "tiêu răng bệnh lý",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K03.3"
+  ],
+  "assertions": [
+   "isHistorical"
+  ],
+  "position": [
+   900,
+   922
+  ]
+ },
+ {
+  "text": "răng lốm đốm",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K00.3"
+  ],
+  "assertions": [
+   "isHistorical"
+  ],
+  "position": [
+   924,
+   941
+  ]
+ },
+ {
+  "text": "nang khác ở vùng miệng",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K09.8"
+  ],
+  "assertions": [
+   "isHistorical"
+  ],
+  "position": [
+   946,
+   974
+  ]
+ },
+ {
+  "text": "polyp đại tràng",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K63.5"
+  ],
+  "assertions": [
+   "isHistorical"
+  ],
+  "position": [
+   1109,
+   1126
+  ]
+ },
+ {
+  "text": "sỏi bàng quang",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "N21.0"
+  ],
+  "assertions": [
+   "isHistorical"
+  ],
+  "position": [
+   1225,
+   1241
+  ]
+ },
+ {
+  "text": "bệnh tim mạch",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "I51.6"
+  ],
+  "assertions": [
+   "isFamily",
+   "isNegated"
+  ],
+  "position": [
+   1372,
+   1388
+  ]
+ },
+ {
+  "text": "*******",
+  "type": "THUỐC",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   1506,
+   1513
+  ]
+ },
+ {
+  "text": "nutrilipid",
+  "type": "THUỐC",
+  "candidates": [
+   "1654845"
+  ],
+  "assertions": [],
+  "position": [
+   1599,
+   1609
+  ]
+ },
+ {
+  "text": "protonix",
+  "type": "THUỐC",
+  "candidates": [
+   "261624"
+  ],
+  "assertions": [],
+  "position": [
+   1670,
+   1678
+  ]
+ },
+ {
+  "text": "phù hai chi dưới",
+  "type": "TRIỆU_CHỨNG",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   1954,
+   1974
+  ]
+ },
+ {
+  "text": "đau lưỡi",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K14.6"
+  ],
+  "assertions": [],
+  "position": [
+   2131,
+   2142
+  ]
+ },
+ {
+  "text": "bỏng buốt",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "G56.4"
+  ],
+  "assertions": [],
+  "position": [
+   2147,
+   2159
+  ]
+ },
+ {
+  "text": "tốc độ máu lắng tăng cao",
+  "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   2247,
+   2279
+  ]
+ },
+ {
+  "text": "CRP",
+  "type": "TÊN_XÉT_NGHIỆM",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   2467,
+   2470
+  ]
+ },
+ {
+  "text": "dương tính yếu",
+  "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   2486,
+   2505
+  ]
+ },
+ {
+  "text": "tổn thương dạng kính mờ hai đáy phổi",
+  "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+  "candidates": [],
+  "assertions": [],
+  "position": [
+   2750,
+   2797
+  ]
+ },
+ {
+  "text": "Polyp đại tràng",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K63.5"
+  ],
+  "assertions": [],
+  "position": [
+   2817,
+   2834
+  ]
+ },
+ {
+  "text": "Sỏi bàng quang",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "N21.0"
+  ],
+  "assertions": [],
+  "position": [
+   2849,
+   2865
+  ]
+ },
+ {
+  "text": "Hạ huyết áp",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "I95.8"
+  ],
+  "assertions": [],
+  "position": [
+   2892,
+   2907
+  ]
+ },
+ {
+  "text": "Viêm nha chu mãn",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K05.3"
+  ],
+  "assertions": [],
+  "position": [
+   2929,
+   2947
+  ]
+ },
+ {
+  "text": "tiêu răng bệnh lý",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K03.3"
+  ],
+  "assertions": [],
+  "position": [
+   2949,
+   2971
+  ]
+ },
+ {
+  "text": "răng lốm đốm",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K00.3"
+  ],
+  "assertions": [],
+  "position": [
+   2973,
+   2990
+  ]
+ },
+ {
+  "text": "nang khác ở vùng miệng",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K09.8"
+  ],
+  "assertions": [],
+  "position": [
+   2996,
+   3024
+  ]
+ },
+ {
+  "text": "Đau lưỡi",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "K14.6"
+  ],
+  "assertions": [],
+  "position": [
+   3028,
+   3039
+  ]
+ },
+ {
+  "text": "bỏng buốt",
+  "type": "CHẨN_ĐOÁN",
+  "candidates": [
+   "G56.4"
+  ],
+  "assertions": [],
+  "position": [
+   3044,
+   3056
+  ]
+ }
+]

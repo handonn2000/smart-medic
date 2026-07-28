@@ -1,0 +1,252 @@
+[
+  {
+    "text": "khó thở khi nằm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      247,
+      267
+    ]
+  },
+  {
+    "text": "sốt cao liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      323,
+      343
+    ]
+  },
+  {
+    "text": "ngạt mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      345,
+      355
+    ]
+  },
+  {
+    "text": "nghe kém tai trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      415,
+      434
+    ]
+  },
+  {
+    "text": "bí tiểu cấp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      485,
+      501
+    ]
+  },
+  {
+    "text": "Phình và tách động mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I72.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      690,
+      719
+    ]
+  },
+  {
+    "text": "Đau cột sống ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M54.6"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      776,
+      799
+    ]
+  },
+  {
+    "text": "Rung nhĩ mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      828,
+      848
+    ]
+  },
+  {
+    "text": "Bệnh van hai lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I05.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      937,
+      955
+    ]
+  },
+  {
+    "text": "Trĩ không xác định",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I84.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      989,
+      1011
+    ]
+  },
+  {
+    "text": "Viêm cơ tim do thấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I09.0"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      1028,
+      1051
+    ]
+  },
+  {
+    "text": "Nhồi máu não khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I63.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1115,
+      1137
+    ]
+  },
+  {
+    "text": "Giai đoạn trầm cảm vừa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1163,
+      1191
+    ]
+  },
+  {
+    "text": "lisinopril",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [],
+    "position": [
+      1403,
+      1413
+    ]
+  },
+  {
+    "text": "Vytorin",
+    "type": "THUỐC",
+    "candidates": [
+      "341248",
+      "36567"
+    ],
+    "assertions": [],
+    "position": [
+      1448,
+      1455
+    ]
+  },
+  {
+    "text": "Orapred",
+    "type": "THUỐC",
+    "candidates": [
+      "8638"
+    ],
+    "assertions": [],
+    "position": [
+      1488,
+      1495
+    ]
+  },
+  {
+    "text": "CRP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1819,
+      1822
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1838,
+      1853
+    ]
+  },
+  {
+    "text": "dương tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1896,
+      1909
+    ]
+  },
+  {
+    "text": "HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2040,
+      2045
+    ]
+  },
+  {
+    "text": "110 mg/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2140,
+      2149
+    ]
+  }
+]

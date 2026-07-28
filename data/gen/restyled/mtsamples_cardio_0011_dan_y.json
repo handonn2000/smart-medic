@@ -1,0 +1,305 @@
+[
+  {
+    "text": "hội chứng ngưng thở khi ngủ do tắc nghẽn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      33,
+      73
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      144,
+      157
+    ]
+  },
+  {
+    "text": "ngáy to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      176,
+      183
+    ]
+  },
+  {
+    "text": "ngộp thở, nghẹt thở, hay ho khan",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      209,
+      241
+    ]
+  },
+  {
+    "text": "tiểu đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      349,
+      357
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      421,
+      434
+    ]
+  },
+  {
+    "text": "Viêm dạ dày",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      440,
+      451
+    ]
+  },
+  {
+    "text": "Đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      457,
+      465
+    ]
+  },
+  {
+    "text": "Hytrin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      531,
+      537
+    ]
+  },
+  {
+    "text": "Motrin",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      543,
+      549
+    ]
+  },
+  {
+    "text": "Lotensin",
+    "type": "THUỐC",
+    "candidates": [
+      "18867"
+    ],
+    "assertions": [],
+    "position": [
+      555,
+      563
+    ]
+  },
+  {
+    "text": "Zantac",
+    "type": "THUỐC",
+    "candidates": [
+      "9143"
+    ],
+    "assertions": [],
+    "position": [
+      569,
+      575
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      629,
+      642
+    ]
+  },
+  {
+    "text": "ethanol",
+    "type": "THUỐC",
+    "candidates": [
+      "448"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      720,
+      727
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      910,
+      918
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      920,
+      922
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      924,
+      931
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      937,
+      949
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      951,
+      962
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1015,
+      1022
+    ]
+  },
+  {
+    "text": "156/90",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1070,
+      1076
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1544,
+      1557
+    ]
+  },
+  {
+    "text": "Béo phì",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.9"
+    ],
+    "assertions": [],
+    "position": [
+      1564,
+      1571
+    ]
+  },
+  {
+    "text": "nghiên cứu giấc ngủ qua đêm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1628,
+      1655
+    ]
+  },
+  {
+    "text": "hội chứng ngưng thở khi ngủ do tắc nghẽn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1668,
+      1708
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1752,
+      1755
+    ]
+  }
+]

@@ -1,0 +1,358 @@
+[
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      74,
+      81
+    ]
+  },
+  {
+    "text": "ho khan kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      100,
+      115
+    ]
+  },
+  {
+    "text": "chóng mặt khi đứng lên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      167,
+      189
+    ]
+  },
+  {
+    "text": "vàng da vàng mắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      234,
+      250
+    ]
+  },
+  {
+    "text": "bồn chồn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      287,
+      295
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      366,
+      369
+    ]
+  },
+  {
+    "text": "hôi miệng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      428,
+      437
+    ]
+  },
+  {
+    "text": "Viêm da dầu ở đầu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L21.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      592,
+      609
+    ]
+  },
+  {
+    "text": "Pemphigus vảy lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L10.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      663,
+      679
+    ]
+  },
+  {
+    "text": "Rám má",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L81.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      780,
+      786
+    ]
+  },
+  {
+    "text": "Rối loạn ăn uống khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F50.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      816,
+      837
+    ]
+  },
+  {
+    "text": "Nasonex",
+    "type": "THUỐC",
+    "candidates": [
+      "108118"
+    ],
+    "assertions": [],
+    "position": [
+      1082,
+      1089
+    ]
+  },
+  {
+    "text": "Ritalin",
+    "type": "THUỐC",
+    "candidates": [
+      "6901"
+    ],
+    "assertions": [],
+    "position": [
+      1140,
+      1147
+    ]
+  },
+  {
+    "text": "Prelief",
+    "type": "THUỐC",
+    "candidates": [
+      "1909"
+    ],
+    "assertions": [],
+    "position": [
+      1220,
+      1227
+    ]
+  },
+  {
+    "text": "**************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1249,
+      1263
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1584,
+      1588
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1642,
+      1651
+    ]
+  },
+  {
+    "text": "xét nghiệm nước tiểu 24 giờ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1655,
+      1682
+    ]
+  },
+  {
+    "text": "trong giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1695,
+      1721
+    ]
+  },
+  {
+    "text": "có dịch tự do trong ổ bụng lượng ít",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1756,
+      1791
+    ]
+  },
+  {
+    "text": "kích thước tuyến giáp bình thường không có nhân",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1818,
+      1865
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1892,
+      1895
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1913,
+      1917
+    ]
+  },
+  {
+    "text": "ecg",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1931,
+      1934
+    ]
+  },
+  {
+    "text": "monitor holter",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1941,
+      1955
+    ]
+  },
+  {
+    "text": "xét nghiệm phân tìm hồng cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1998,
+      2026
+    ]
+  },
+  {
+    "text": "Mày đay do rung động",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L50.4"
+    ],
+    "assertions": [],
+    "position": [
+      2063,
+      2083
+    ]
+  },
+  {
+    "text": "Pemphigus vảy lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L10.2"
+    ],
+    "assertions": [],
+    "position": [
+      2087,
+      2103
+    ]
+  },
+  {
+    "text": "Pemphigoid sẹo",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L12.1"
+    ],
+    "assertions": [],
+    "position": [
+      2116,
+      2130
+    ]
+  },
+  {
+    "text": "Rối loạn ăn uống khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F50.8"
+    ],
+    "assertions": [],
+    "position": [
+      2169,
+      2190
+    ]
+  },
+  {
+    "text": "Viêm da đặc hiệu khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L30.8"
+    ],
+    "assertions": [],
+    "position": [
+      2193,
+      2214
+    ]
+  },
+  {
+    "text": "Rám má",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L81.1"
+    ],
+    "assertions": [],
+    "position": [
+      2217,
+      2223
+    ]
+  }
+]

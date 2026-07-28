@@ -1,0 +1,347 @@
+[
+  {
+    "text": "đau ngực khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      234,
+      261
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      273,
+      293
+    ]
+  },
+  {
+    "text": "mất ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      298,
+      308
+    ]
+  },
+  {
+    "text": "ra mồ hôi về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      352,
+      374
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      379,
+      388
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      459,
+      463
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      474,
+      482
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      540,
+      545
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      561,
+      570
+    ]
+  },
+  {
+    "text": "đau họng khi nuốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      575,
+      595
+    ]
+  },
+  {
+    "text": "nổi ban đỏ toàn thân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      631,
+      656
+    ]
+  },
+  {
+    "text": "Giai đoạn trầm cảm vừa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      779,
+      807
+    ]
+  },
+  {
+    "text": "Rối loạn nhận thức nhẹ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F06.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      877,
+      907
+    ]
+  },
+  {
+    "text": "Sảng gối lên mất trí",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F05.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      912,
+      939
+    ]
+  },
+  {
+    "text": "Mất trí không biệt định",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F03"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      960,
+      990
+    ]
+  },
+  {
+    "text": "Quên phân ly",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F44.0"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      995,
+      1009
+    ]
+  },
+  {
+    "text": "Invega",
+    "type": "THUỐC",
+    "candidates": [
+      "679314"
+    ],
+    "assertions": [],
+    "position": [
+      1195,
+      1201
+    ]
+  },
+  {
+    "text": "Klonopin",
+    "type": "THUỐC",
+    "candidates": [
+      "2598"
+    ],
+    "assertions": [],
+    "position": [
+      1206,
+      1214
+    ]
+  },
+  {
+    "text": "Lopressor",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      1317,
+      1326
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1580,
+      1584
+    ]
+  },
+  {
+    "text": "HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1694,
+      1699
+    ]
+  },
+  {
+    "text": "không bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1711,
+      1733
+    ]
+  },
+  {
+    "text": "troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1749,
+      1757
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1772,
+      1777
+    ]
+  },
+  {
+    "text": "đo chức năng thông khí phổi",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1938,
+      1972
+    ]
+  },
+  {
+    "text": "monitor holter",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1977,
+      1991
+    ]
+  },
+  {
+    "text": "26 U/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2080,
+      2086
+    ]
+  },
+  {
+    "text": "Giai đoạn trầm cảm khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32.8"
+    ],
+    "assertions": [],
+    "position": [
+      2107,
+      2135
+    ]
+  },
+  {
+    "text": "Các rối loạn Tic khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F95.8"
+    ],
+    "assertions": [],
+    "position": [
+      2140,
+      2166
+    ]
+  },
+  {
+    "text": "Phì đại gai lưỡi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K14.3"
+    ],
+    "assertions": [],
+    "position": [
+      2220,
+      2241
+    ]
+  },
+  {
+    "text": "Sảng gối lên mất trí",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F05.1"
+    ],
+    "assertions": [],
+    "position": [
+      2328,
+      2355
+    ]
+  }
+]

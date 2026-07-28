@@ -1,0 +1,151 @@
+[
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      28,
+      45
+    ]
+  },
+  {
+    "text": "Sinh thiết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      83,
+      95
+    ]
+  },
+  {
+    "text": "sử dụng rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      280,
+      298
+    ]
+  },
+  {
+    "text": "sử dụng ma túy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.2"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      311,
+      329
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      484,
+      496
+    ]
+  },
+  {
+    "text": "Percocet",
+    "type": "THUỐC",
+    "candidates": [
+      "161",
+      "7804"
+    ],
+    "assertions": [],
+    "position": [
+      517,
+      525
+    ]
+  },
+  {
+    "text": "morphine",
+    "type": "THUỐC",
+    "candidates": [
+      "7052"
+    ],
+    "assertions": [],
+    "position": [
+      530,
+      538
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      544,
+      559
+    ]
+  },
+  {
+    "text": "******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      601,
+      607
+    ]
+  },
+  {
+    "text": "Coreg CR",
+    "type": "THUỐC",
+    "candidates": [
+      "20352"
+    ],
+    "assertions": [],
+    "position": [
+      638,
+      646
+    ]
+  },
+  {
+    "text": "Micardis HCT",
+    "type": "THUỐC",
+    "candidates": [
+      "73494"
+    ],
+    "assertions": [],
+    "position": [
+      677,
+      689
+    ]
+  },
+  {
+    "text": "133/72",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      765,
+      771
+    ]
+  }
+]

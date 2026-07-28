@@ -1,0 +1,307 @@
+[
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      139,
+      146
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      175,
+      184
+    ]
+  },
+  {
+    "text": "khó ngủ về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      188,
+      202
+    ]
+  },
+  {
+    "text": "ngứa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      270,
+      274
+    ]
+  },
+  {
+    "text": "đau tai phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      295,
+      307
+    ]
+  },
+  {
+    "text": "tiểu buốt tiểu rắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      345,
+      363
+    ]
+  },
+  {
+    "text": "đầy hơi chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      381,
+      400
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      437,
+      447
+    ]
+  },
+  {
+    "text": "nổi ban đỏ toàn thân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      478,
+      498
+    ]
+  },
+  {
+    "text": "Viêm xoang hàm cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J01.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      542,
+      560
+    ]
+  },
+  {
+    "text": "Viêm xoang sàng mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J32.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      613,
+      637
+    ]
+  },
+  {
+    "text": "Hội chứng Glibert",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E80.4"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      641,
+      658
+    ]
+  },
+  {
+    "text": "Rối loạn chuyển hóa sắt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E83.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      730,
+      753
+    ]
+  },
+  {
+    "text": "Zanaflex",
+    "type": "THUỐC",
+    "candidates": [
+      "57258"
+    ],
+    "assertions": [],
+    "position": [
+      947,
+      955
+    ]
+  },
+  {
+    "text": "Diovan",
+    "type": "THUỐC",
+    "candidates": [
+      "69749"
+    ],
+    "assertions": [],
+    "position": [
+      1028,
+      1034
+    ]
+  },
+  {
+    "text": "redwood pollen extract",
+    "type": "THUỐC",
+    "candidates": [
+      "1014707"
+    ],
+    "assertions": [],
+    "position": [
+      1093,
+      1115
+    ]
+  },
+  {
+    "text": "Lotrimin",
+    "type": "THUỐC",
+    "candidates": [
+      "2623"
+    ],
+    "assertions": [],
+    "position": [
+      1208,
+      1216
+    ]
+  },
+  {
+    "text": "Polysporin",
+    "type": "THUỐC",
+    "candidates": [
+      "1291",
+      "8536"
+    ],
+    "assertions": [],
+    "position": [
+      1225,
+      1235
+    ]
+  },
+  {
+    "text": "xét nghiệm nước tiểu 24 giờ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1456,
+      1483
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1496,
+      1507
+    ]
+  },
+  {
+    "text": "kích thước tuyến giáp bình thường không có nhân",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1537,
+      1584
+    ]
+  },
+  {
+    "text": "1.8 mg/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1713,
+      1722
+    ]
+  },
+  {
+    "text": "14.99 G/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1745,
+      1754
+    ]
+  },
+  {
+    "text": "Phù phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J81"
+    ],
+    "assertions": [],
+    "position": [
+      1858,
+      1866
+    ]
+  },
+  {
+    "text": "Bụi phổi bông",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J66.0"
+    ],
+    "assertions": [],
+    "position": [
+      1870,
+      1883
+    ]
+  },
+  {
+    "text": "Viêm xoang sàng mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J32.2"
+    ],
+    "assertions": [],
+    "position": [
+      1948,
+      1972
+    ]
+  },
+  {
+    "text": "Rối loạn chuyển hóa sắt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E83.1"
+    ],
+    "assertions": [],
+    "position": [
+      1976,
+      1999
+    ]
+  }
+]

@@ -1,0 +1,393 @@
+[
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      65,
+      72
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      76,
+      83
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      209,
+      216
+    ]
+  },
+  {
+    "text": "chóng mặt khi đứng lên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      233,
+      255
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      268,
+      283
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      327,
+      334
+    ]
+  },
+  {
+    "text": "vàng da vàng mắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      401,
+      417
+    ]
+  },
+  {
+    "text": "đau vùng thượng vị sau ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      481,
+      506
+    ]
+  },
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      511,
+      519
+    ]
+  },
+  {
+    "text": "Alpha thalassaemia",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D56.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      669,
+      687
+    ]
+  },
+  {
+    "text": "Rối loạn cân bằng nước",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E87"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      710,
+      732
+    ]
+  },
+  {
+    "text": "Viêm phổi do Mycoplasma pneumoniae",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J15.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      768,
+      802
+    ]
+  },
+  {
+    "text": "Lao tuyến thượng thận (E35.1*)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A18.7†"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      816,
+      846
+    ]
+  },
+  {
+    "text": "Nhiễm trùng huyết do Erysipelothrix",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A26.7"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      890,
+      925
+    ]
+  },
+  {
+    "text": "Tekturna",
+    "type": "THUỐC",
+    "candidates": [
+      "325646"
+    ],
+    "assertions": [],
+    "position": [
+      1100,
+      1108
+    ]
+  },
+  {
+    "text": "Ixempra",
+    "type": "THUỐC",
+    "candidates": [
+      "337523"
+    ],
+    "assertions": [],
+    "position": [
+      1133,
+      1140
+    ]
+  },
+  {
+    "text": "benzoyl peroxide",
+    "type": "THUỐC",
+    "candidates": [
+      "1418"
+    ],
+    "assertions": [],
+    "position": [
+      1196,
+      1212
+    ]
+  },
+  {
+    "text": "Adriamycin",
+    "type": "THUỐC",
+    "candidates": [
+      "3639"
+    ],
+    "assertions": [],
+    "position": [
+      1262,
+      1272
+    ]
+  },
+  {
+    "text": "cyclosporine",
+    "type": "THUỐC",
+    "candidates": [
+      "3008"
+    ],
+    "assertions": [],
+    "position": [
+      1337,
+      1349
+    ]
+  },
+  {
+    "text": "vàng da vàng mắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1416,
+      1432
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1490,
+      1505
+    ]
+  },
+  {
+    "text": "ngứa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1591,
+      1595
+    ]
+  },
+  {
+    "text": "xét nghiệm sinh hoá máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1650,
+      1673
+    ]
+  },
+  {
+    "text": "không bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1683,
+      1699
+    ]
+  },
+  {
+    "text": "chọc dò dịch não tuỷ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1789,
+      1809
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1813,
+      1824
+    ]
+  },
+  {
+    "text": "ecg",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1832,
+      1835
+    ]
+  },
+  {
+    "text": "tốc độ máu lắng tăng cao",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1904,
+      1928
+    ]
+  },
+  {
+    "text": "xét nghiệm chức năng gan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1941,
+      1965
+    ]
+  },
+  {
+    "text": "giảm nhẹ số lượng tiểu cầu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1979,
+      2005
+    ]
+  },
+  {
+    "text": "không thấy tổn thương khu trú",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2025,
+      2054
+    ]
+  },
+  {
+    "text": "Rối loạn cân bằng nước",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E87"
+    ],
+    "assertions": [],
+    "position": [
+      2097,
+      2119
+    ]
+  },
+  {
+    "text": "Lao tuyến thượng thận (E35.1*)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A18.7†"
+    ],
+    "assertions": [],
+    "position": [
+      2137,
+      2167
+    ]
+  },
+  {
+    "text": "Alpha thalassaemia",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D56.0"
+    ],
+    "assertions": [],
+    "position": [
+      2171,
+      2189
+    ]
+  },
+  {
+    "text": "Viêm não California",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A83.5"
+    ],
+    "assertions": [],
+    "position": [
+      2253,
+      2272
+    ]
+  }
+]

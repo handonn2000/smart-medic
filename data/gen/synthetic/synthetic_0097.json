@@ -1,0 +1,323 @@
+[
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      53,
+      56
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      74,
+      83
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      87,
+      111
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      193,
+      196
+    ]
+  },
+  {
+    "text": "chán ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      276,
+      283
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      287,
+      302
+    ]
+  },
+  {
+    "text": "mất cảm giác đầu chi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      333,
+      353
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      367,
+      373
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      416,
+      425
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      451,
+      475
+    ]
+  },
+  {
+    "text": "hôi miệng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      479,
+      488
+    ]
+  },
+  {
+    "text": "Lao hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A15"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      620,
+      630
+    ]
+  },
+  {
+    "text": "Nhiễm khuẩn mycobacteria khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A31.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      670,
+      699
+    ]
+  },
+  {
+    "text": "Bệnh Sézary",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C84.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      751,
+      762
+    ]
+  },
+  {
+    "text": "Sốt do O nyong-nyong",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A92.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      767,
+      787
+    ]
+  },
+  {
+    "text": "Viêm não do Adenovirus (G05.1*)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A85.1†"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      835,
+      866
+    ]
+  },
+  {
+    "text": "**********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1005,
+      1015
+    ]
+  },
+  {
+    "text": "Estrace",
+    "type": "THUỐC",
+    "candidates": [
+      "4083"
+    ],
+    "assertions": [],
+    "position": [
+      1079,
+      1086
+    ]
+  },
+  {
+    "text": "apple juice",
+    "type": "THUỐC",
+    "candidates": [
+      "1358965"
+    ],
+    "assertions": [],
+    "position": [
+      1098,
+      1109
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1190,
+      1196
+    ]
+  },
+  {
+    "text": "92 g/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1459,
+      1465
+    ]
+  },
+  {
+    "text": "<70 mg/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1484,
+      1493
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1506,
+      1509
+    ]
+  },
+  {
+    "text": "không bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1546,
+      1562
+    ]
+  },
+  {
+    "text": "X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1588,
+      1595
+    ]
+  },
+  {
+    "text": "chụp x-quang bụng không chuẩn bị",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1599,
+      1631
+    ]
+  },
+  {
+    "text": "Bệnh do Brucella suis",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A23.2"
+    ],
+    "assertions": [],
+    "position": [
+      1754,
+      1775
+    ]
+  },
+  {
+    "text": "Lao hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A15"
+    ],
+    "assertions": [],
+    "position": [
+      1810,
+      1820
+    ]
+  },
+  {
+    "text": "Nhiễm khuẩn mycobacteria khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A31.8"
+    ],
+    "assertions": [],
+    "position": [
+      1832,
+      1861
+    ]
+  }
+]

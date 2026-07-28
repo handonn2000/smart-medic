@@ -1,0 +1,310 @@
+[
+  {
+    "text": "Đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      19,
+      44
+    ]
+  },
+  {
+    "text": "Viêm phổi do liên cầu khuẩn kèm nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J15.3"
+    ],
+    "assertions": [],
+    "position": [
+      50,
+      99
+    ]
+  },
+  {
+    "text": "suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      176,
+      186
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      244,
+      253
+    ]
+  },
+  {
+    "text": "nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      268,
+      285
+    ]
+  },
+  {
+    "text": "Suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      291,
+      301
+    ]
+  },
+  {
+    "text": "đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      390,
+      415
+    ]
+  },
+  {
+    "text": "prothrombin",
+    "type": "THUỐC",
+    "candidates": [
+      "1441688"
+    ],
+    "assertions": [],
+    "position": [
+      447,
+      458
+    ]
+  },
+  {
+    "text": "Fibrinogen",
+    "type": "THUỐC",
+    "candidates": [
+      "4385"
+    ],
+    "assertions": [],
+    "position": [
+      472,
+      482
+    ]
+  },
+  {
+    "text": "D-dimer",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      489,
+      496
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      555,
+      563
+    ]
+  },
+  {
+    "text": "rối loạn đông máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      596,
+      613
+    ]
+  },
+  {
+    "text": "Xuất huyết kết mạc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H11.3"
+    ],
+    "assertions": [],
+    "position": [
+      1083,
+      1101
+    ]
+  },
+  {
+    "text": "xuất huyết chấm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1109,
+      1124
+    ]
+  },
+  {
+    "text": "ngón dùi trống",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1298,
+      1312
+    ]
+  },
+  {
+    "text": "tím tái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1314,
+      1321
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1323,
+      1329
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1399,
+      1409
+    ]
+  },
+  {
+    "text": "50,000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1437,
+      1443
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1449,
+      1452
+    ]
+  },
+  {
+    "text": "2.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1453,
+      1456
+    ]
+  },
+  {
+    "text": "PTT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1458,
+      1461
+    ]
+  },
+  {
+    "text": "**********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1479,
+      1489
+    ]
+  },
+  {
+    "text": "200",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1490,
+      1493
+    ]
+  },
+  {
+    "text": "D-dimer",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1495,
+      1502
+    ]
+  },
+  {
+    "text": "13",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1503,
+      1505
+    ]
+  },
+  {
+    "text": "heparin",
+    "type": "THUỐC",
+    "candidates": [
+      "5224"
+    ],
+    "assertions": [],
+    "position": [
+      1696,
+      1703
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1728,
+      1738
+    ]
+  }
+]

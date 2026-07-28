@@ -1,0 +1,270 @@
+[
+  {
+    "text": "mệt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      222,
+      225
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      227,
+      229
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      231,
+      234
+    ]
+  },
+  {
+    "text": "mất ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      238,
+      245
+    ]
+  },
+  {
+    "text": "giảm thị lực mắt phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      272,
+      293
+    ]
+  },
+  {
+    "text": "ra mồ hôi về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      310,
+      326
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      357,
+      381
+    ]
+  },
+  {
+    "text": "gần ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      402,
+      410
+    ]
+  },
+  {
+    "text": "Rung nhĩ mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      567,
+      584
+    ]
+  },
+  {
+    "text": "Gẫy mấu chuyển phụ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S72.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      650,
+      668
+    ]
+  },
+  {
+    "text": "Feldene",
+    "type": "THUỐC",
+    "candidates": [
+      "8356"
+    ],
+    "assertions": [],
+    "position": [
+      908,
+      915
+    ]
+  },
+  {
+    "text": "Synalar",
+    "type": "THUỐC",
+    "candidates": [
+      "25126"
+    ],
+    "assertions": [],
+    "position": [
+      962,
+      969
+    ]
+  },
+  {
+    "text": "******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1031,
+      1037
+    ]
+  },
+  {
+    "text": "đụng giập tại cổ chân",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S90.0"
+    ],
+    "assertions": [],
+    "position": [
+      1188,
+      1209
+    ]
+  },
+  {
+    "text": "chưa ghi nhận",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1504,
+      1517
+    ]
+  },
+  {
+    "text": "Gẫy phức tạp xương sườn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S22.4"
+    ],
+    "assertions": [],
+    "position": [
+      1564,
+      1587
+    ]
+  },
+  {
+    "text": "Tổn thương của lồng ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S20"
+    ],
+    "assertions": [],
+    "position": [
+      1595,
+      1619
+    ]
+  },
+  {
+    "text": "CRP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1622,
+      1625
+    ]
+  },
+  {
+    "text": "gan nhiễm mỡ độ một",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1685,
+      1704
+    ]
+  },
+  {
+    "text": "Gãy cổ xương đùi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S72.0"
+    ],
+    "assertions": [],
+    "position": [
+      1720,
+      1736
+    ]
+  },
+  {
+    "text": "Tổn thương của lồng ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S20"
+    ],
+    "assertions": [],
+    "position": [
+      1772,
+      1796
+    ]
+  },
+  {
+    "text": "Rung nhĩ mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.2"
+    ],
+    "assertions": [],
+    "position": [
+      1830,
+      1847
+    ]
+  },
+  {
+    "text": "U lành tuyến yên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D35.2"
+    ],
+    "assertions": [],
+    "position": [
+      1851,
+      1867
+    ]
+  },
+  {
+    "text": "Vết thương hở của ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S21"
+    ],
+    "assertions": [],
+    "position": [
+      1871,
+      1893
+    ]
+  }
+]

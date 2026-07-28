@@ -1,0 +1,378 @@
+[
+  {
+    "text": "huyết áp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      54,
+      65
+    ]
+  },
+  {
+    "text": "mổ lấy thai",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O82.2"
+    ],
+    "assertions": [],
+    "position": [
+      181,
+      196
+    ]
+  },
+  {
+    "text": "huyết áp không kiểm soát được",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      260,
+      299
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      410,
+      421
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      503,
+      513
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      518,
+      528
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      871,
+      888
+    ]
+  },
+  {
+    "text": "đái tháo đường thai kỳ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      893,
+      921
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      985,
+      998
+    ]
+  },
+  {
+    "text": "cholesterol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1010,
+      1021
+    ]
+  },
+  {
+    "text": "bệnh động mạch vành xác lập",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1090,
+      1126
+    ]
+  },
+  {
+    "text": "mổ lấy thai",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O82.2"
+    ],
+    "assertions": [],
+    "position": [
+      1225,
+      1240
+    ]
+  },
+  {
+    "text": "Cardizem",
+    "type": "THUỐC",
+    "candidates": [
+      "3443"
+    ],
+    "assertions": [],
+    "position": [
+      1317,
+      1325
+    ]
+  },
+  {
+    "text": "metoprolol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      1330,
+      1340
+    ]
+  },
+  {
+    "text": "hydralazine",
+    "type": "THUỐC",
+    "candidates": [
+      "5470"
+    ],
+    "assertions": [],
+    "position": [
+      1387,
+      1398
+    ]
+  },
+  {
+    "text": "*********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1430,
+      1439
+    ]
+  },
+  {
+    "text": "hydrochlorothiazide",
+    "type": "THUỐC",
+    "candidates": [
+      "5487"
+    ],
+    "assertions": [],
+    "position": [
+      1482,
+      1501
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1516,
+      1523
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1692,
+      1709
+    ]
+  },
+  {
+    "text": "đái tháo đường thai kỳ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1711,
+      1739
+    ]
+  },
+  {
+    "text": "tiền sản giật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O14"
+    ],
+    "assertions": [],
+    "position": [
+      1744,
+      1762
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2179,
+      2190
+    ]
+  },
+  {
+    "text": "175/86",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2202,
+      2208
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2356,
+      2369
+    ]
+  },
+  {
+    "text": "EKG",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2380,
+      2383
+    ]
+  },
+  {
+    "text": "nhịp nhanh xoang với thay đổi ST-T không đặc hiệu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2392,
+      2451
+    ]
+  },
+  {
+    "text": "BUN và creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2472,
+      2490
+    ]
+  },
+  {
+    "text": "tiền sản giật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O14"
+    ],
+    "assertions": [],
+    "position": [
+      2569,
+      2587
+    ]
+  },
+  {
+    "text": "mổ lấy thai",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O82.2"
+    ],
+    "assertions": [],
+    "position": [
+      2601,
+      2616
+    ]
+  },
+  {
+    "text": "huyết áp không kiểm soát",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2640,
+      2671
+    ]
+  },
+  {
+    "text": "rối loạn đường huyết thai kỳ ở ngưỡng giới hạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2740,
+      2803
+    ]
+  },
+  {
+    "text": "siêu âm tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2859,
+      2872
+    ]
+  },
+  {
+    "text": "labetalol",
+    "type": "THUỐC",
+    "candidates": [
+      "6185"
+    ],
+    "assertions": [],
+    "position": [
+      2953,
+      2962
+    ]
+  },
+  {
+    "text": "hydralazine",
+    "type": "THUỐC",
+    "candidates": [
+      "5470"
+    ],
+    "assertions": [],
+    "position": [
+      2967,
+      2978
+    ]
+  }
+]

@@ -1,0 +1,285 @@
+[
+  {
+    "text": "tiêu chảy nhiều lần trong ngày",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      140,
+      170
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      181,
+      188
+    ]
+  },
+  {
+    "text": "đau cách hồi khi đi bộ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      192,
+      214
+    ]
+  },
+  {
+    "text": "nói khó",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      261,
+      268
+    ]
+  },
+  {
+    "text": "thở khò khè",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      272,
+      283
+    ]
+  },
+  {
+    "text": "yếu nửa người bên phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      326,
+      348
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      369,
+      375
+    ]
+  },
+  {
+    "text": "Rối loạn của túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K87"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      488,
+      508
+    ]
+  },
+  {
+    "text": "Bệnh túi thừa của ruột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K57"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      530,
+      552
+    ]
+  },
+  {
+    "text": "Loét dạ dày-hỗng tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K28"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      612,
+      634
+    ]
+  },
+  {
+    "text": "Tụt lợi răng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K06.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      694,
+      706
+    ]
+  },
+  {
+    "text": "Cường năng tinh hoàn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E29.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      710,
+      730
+    ]
+  },
+  {
+    "text": "glyburide",
+    "type": "THUỐC",
+    "candidates": [
+      "4815"
+    ],
+    "assertions": [],
+    "position": [
+      850,
+      859
+    ]
+  },
+  {
+    "text": "hydrochlorothiazide",
+    "type": "THUỐC",
+    "candidates": [
+      "5487"
+    ],
+    "assertions": [],
+    "position": [
+      861,
+      880
+    ]
+  },
+  {
+    "text": "Caduet",
+    "type": "THUỐC",
+    "candidates": [
+      "17767",
+      "83367"
+    ],
+    "assertions": [],
+    "position": [
+      884,
+      890
+    ]
+  },
+  {
+    "text": "lard",
+    "type": "THUỐC",
+    "candidates": [
+      "1857906"
+    ],
+    "assertions": [],
+    "position": [
+      928,
+      932
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1234,
+      1237
+    ]
+  },
+  {
+    "text": "xét nghiệm phân tìm hồng cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1256,
+      1284
+    ]
+  },
+  {
+    "text": "LDL-cholesterol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1304,
+      1319
+    ]
+  },
+  {
+    "text": "phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1356,
+      1375
+    ]
+  },
+  {
+    "text": "ERCP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1413,
+      1417
+    ]
+  },
+  {
+    "text": "xét nghiệm khí máu động mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1476,
+      1504
+    ]
+  },
+  {
+    "text": "giảm mật độ xương mức loãng xương",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1548,
+      1581
+    ]
+  },
+  {
+    "text": "Tiêu chảy nhiệt đới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K90.1"
+    ],
+    "assertions": [],
+    "position": [
+      1622,
+      1641
+    ]
+  },
+  {
+    "text": "Bệnh vôi hóa sụn khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M11.2"
+    ],
+    "assertions": [],
+    "position": [
+      1693,
+      1714
+    ]
+  }
+]

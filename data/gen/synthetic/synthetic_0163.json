@@ -1,0 +1,332 @@
+[
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      54,
+      62
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      93,
+      96
+    ]
+  },
+  {
+    "text": "chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      100,
+      111
+    ]
+  },
+  {
+    "text": "táo bón kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      203,
+      218
+    ]
+  },
+  {
+    "text": "tê bì hai bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      238,
+      255
+    ]
+  },
+  {
+    "text": "nổi ban đỏ toàn thân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      259,
+      279
+    ]
+  },
+  {
+    "text": "đau tai phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      325,
+      337
+    ]
+  },
+  {
+    "text": "kinh nguyệt không đều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      352,
+      373
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      409,
+      417
+    ]
+  },
+  {
+    "text": "chảy máu chân răng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      434,
+      452
+    ]
+  },
+  {
+    "text": "mất ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      505,
+      512
+    ]
+  },
+  {
+    "text": "Hẹp (van) động mạch chủ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I35.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      743,
+      766
+    ]
+  },
+  {
+    "text": "Bệnh mạch máu não khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I67"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      873,
+      895
+    ]
+  },
+  {
+    "text": "Zithromax",
+    "type": "THUỐC",
+    "candidates": [
+      "18631"
+    ],
+    "assertions": [],
+    "position": [
+      1094,
+      1103
+    ]
+  },
+  {
+    "text": "Decadron",
+    "type": "THUỐC",
+    "candidates": [
+      "3264"
+    ],
+    "assertions": [],
+    "position": [
+      1105,
+      1113
+    ]
+  },
+  {
+    "text": "Provigil",
+    "type": "THUỐC",
+    "candidates": [
+      "30125"
+    ],
+    "assertions": [],
+    "position": [
+      1115,
+      1123
+    ]
+  },
+  {
+    "text": "oxycodone",
+    "type": "THUỐC",
+    "candidates": [
+      "7804"
+    ],
+    "assertions": [],
+    "position": [
+      1127,
+      1136
+    ]
+  },
+  {
+    "text": "HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1406,
+      1411
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1428,
+      1432
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1472,
+      1475
+    ]
+  },
+  {
+    "text": "chỉ số đông máu kéo dài nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1531,
+      1558
+    ]
+  },
+  {
+    "text": "siêu âm ổ bụng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1572,
+      1586
+    ]
+  },
+  {
+    "text": "methaemoglobin máu khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D74.8"
+    ],
+    "assertions": [],
+    "position": [
+      1670,
+      1693
+    ]
+  },
+  {
+    "text": "dương tính yếu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1706,
+      1720
+    ]
+  },
+  {
+    "text": "đo mật độ xương",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1734,
+      1749
+    ]
+  },
+  {
+    "text": "Dãn tĩnh mạch thực quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I85"
+    ],
+    "assertions": [],
+    "position": [
+      1822,
+      1845
+    ]
+  },
+  {
+    "text": "Cuồng nhĩ không điển hình",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.4"
+    ],
+    "assertions": [],
+    "position": [
+      1885,
+      1910
+    ]
+  },
+  {
+    "text": "Nhịp nhanh thất",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I47.2"
+    ],
+    "assertions": [],
+    "position": [
+      1988,
+      2003
+    ]
+  },
+  {
+    "text": "Hẹp (van) động mạch chủ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I35.0"
+    ],
+    "assertions": [],
+    "position": [
+      2007,
+      2030
+    ]
+  },
+  {
+    "text": "ALK âm tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C84.7"
+    ],
+    "assertions": [],
+    "position": [
+      2141,
+      2152
+    ]
+  }
+]

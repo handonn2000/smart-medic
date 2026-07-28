@@ -1,0 +1,290 @@
+[
+  {
+    "text": "Rối loạn đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      14,
+      48
+    ]
+  },
+  {
+    "text": "Viêm phổi do tụ cầu khuẩn kèm nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      53,
+      100
+    ]
+  },
+  {
+    "text": "suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      182,
+      192
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      247,
+      256
+    ]
+  },
+  {
+    "text": "nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      289,
+      306
+    ]
+  },
+  {
+    "text": "suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      310,
+      320
+    ]
+  },
+  {
+    "text": "rối loạn đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      463,
+      497
+    ]
+  },
+  {
+    "text": "prothrombin",
+    "type": "THUỐC",
+    "candidates": [
+      "1441688"
+    ],
+    "assertions": [],
+    "position": [
+      556,
+      567
+    ]
+  },
+  {
+    "text": "fibrinogen",
+    "type": "THUỐC",
+    "candidates": [
+      "4385"
+    ],
+    "assertions": [],
+    "position": [
+      577,
+      587
+    ]
+  },
+  {
+    "text": "Chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      755,
+      763
+    ]
+  },
+  {
+    "text": "rối loạn đông máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      913,
+      930
+    ]
+  },
+  {
+    "text": "sử dụng ma túy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.2"
+    ],
+    "assertions": [],
+    "position": [
+      1039,
+      1053
+    ]
+  },
+  {
+    "text": "xuất huyết kết mạc",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1534,
+      1552
+    ]
+  },
+  {
+    "text": "XÉT NGHIỆM",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2033,
+      2043
+    ]
+  },
+  {
+    "text": "50,000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2091,
+      2097
+    ]
+  },
+  {
+    "text": "2.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2103,
+      2106
+    ]
+  },
+  {
+    "text": "fibrinogen",
+    "type": "THUỐC",
+    "candidates": [
+      "4385"
+    ],
+    "assertions": [],
+    "position": [
+      2143,
+      2153
+    ]
+  },
+  {
+    "text": "200",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2154,
+      2157
+    ]
+  },
+  {
+    "text": "13",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2170,
+      2172
+    ]
+  },
+  {
+    "text": "rối loạn đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2198,
+      2232
+    ]
+  },
+  {
+    "text": "nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      2236,
+      2253
+    ]
+  },
+  {
+    "text": "viêm phổi do tụ cầu khuẩn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      2262,
+      2287
+    ]
+  },
+  {
+    "text": "rối loạn đông máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2524,
+      2541
+    ]
+  },
+  {
+    "text": "fibrinogen",
+    "type": "THUỐC",
+    "candidates": [
+      "4385"
+    ],
+    "assertions": [],
+    "position": [
+      2611,
+      2621
+    ]
+  },
+  {
+    "text": "heparin",
+    "type": "THUỐC",
+    "candidates": [
+      "5224"
+    ],
+    "assertions": [],
+    "position": [
+      2681,
+      2688
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2826,
+      2836
+    ]
+  }
+]

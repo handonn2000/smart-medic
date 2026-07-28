@@ -1,0 +1,290 @@
+[
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      150,
+      174
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      185,
+      200
+    ]
+  },
+  {
+    "text": "đầy hơi chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      256,
+      275
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      279,
+      285
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      319,
+      326
+    ]
+  },
+  {
+    "text": "nghe kém tai trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      330,
+      347
+    ]
+  },
+  {
+    "text": "Rối loạn tuyến giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E07.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      473,
+      492
+    ]
+  },
+  {
+    "text": "Béo phì khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      496,
+      508
+    ]
+  },
+  {
+    "text": "Tăng prolactin máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E22.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      550,
+      568
+    ]
+  },
+  {
+    "text": "Dậy thì sớm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E30.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      587,
+      598
+    ]
+  },
+  {
+    "text": "Không dung nạp lactose",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E73"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      611,
+      633
+    ]
+  },
+  {
+    "text": "Digitek",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [],
+    "position": [
+      801,
+      808
+    ]
+  },
+  {
+    "text": "Abilify",
+    "type": "THUỐC",
+    "candidates": [
+      "89013"
+    ],
+    "assertions": [],
+    "position": [
+      810,
+      817
+    ]
+  },
+  {
+    "text": "raloxifene",
+    "type": "THUỐC",
+    "candidates": [
+      "72143"
+    ],
+    "assertions": [],
+    "position": [
+      819,
+      829
+    ]
+  },
+  {
+    "text": "trazodone",
+    "type": "THUỐC",
+    "candidates": [
+      "10737"
+    ],
+    "assertions": [],
+    "position": [
+      833,
+      842
+    ]
+  },
+  {
+    "text": "methadone",
+    "type": "THUỐC",
+    "candidates": [
+      "6813"
+    ],
+    "assertions": [],
+    "position": [
+      879,
+      888
+    ]
+  },
+  {
+    "text": "xét nghiệm chức năng thận",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1170,
+      1195
+    ]
+  },
+  {
+    "text": "hình ảnh dày thành dạ dày vùng hang vị",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1300,
+      1338
+    ]
+  },
+  {
+    "text": "hình ảnh xơ hoá mô kẽ hai bên",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1342,
+      1371
+    ]
+  },
+  {
+    "text": "tăng nhẹ men gan so với giới hạn trên",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1399,
+      1436
+    ]
+  },
+  {
+    "text": "<70 mg/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1440,
+      1449
+    ]
+  },
+  {
+    "text": "có dịch tự do trong ổ bụng lượng ít",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1476,
+      1511
+    ]
+  },
+  {
+    "text": "Viêm giáp không đặc hiệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E06.9"
+    ],
+    "assertions": [],
+    "position": [
+      1527,
+      1551
+    ]
+  },
+  {
+    "text": "Tăng triglycerid máu đơn thuần",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.1"
+    ],
+    "assertions": [],
+    "position": [
+      1554,
+      1584
+    ]
+  },
+  {
+    "text": "Thiếu Vitamin D",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E55"
+    ],
+    "assertions": [],
+    "position": [
+      1587,
+      1602
+    ]
+  }
+]

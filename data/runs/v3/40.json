@@ -1,0 +1,383 @@
+[
+  {
+    "text": "Đi ngoài phân đen",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.1"
+    ],
+    "assertions": [],
+    "position": [
+      34,
+      51
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      53,
+      60
+    ]
+  },
+  {
+    "text": "đau bụng quanh rốn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      106,
+      124
+    ]
+  },
+  {
+    "text": "đi ngoài phân đen",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      150,
+      167
+    ]
+  },
+  {
+    "text": "khó thở liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      169,
+      185
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      196,
+      199
+    ]
+  },
+  {
+    "text": "XHTH",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      251,
+      255
+    ]
+  },
+  {
+    "text": "**********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      307,
+      317
+    ]
+  },
+  {
+    "text": "**********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      319,
+      329
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      567,
+      570
+    ]
+  },
+  {
+    "text": "Huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      756,
+      764
+    ]
+  },
+  {
+    "text": "130 / 70 mmHg",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      766,
+      779
+    ]
+  },
+  {
+    "text": "Xuất huyết tiêu hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.2"
+    ],
+    "assertions": [],
+    "position": [
+      812,
+      831
+    ]
+  },
+  {
+    "text": "Viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18.9"
+    ],
+    "assertions": [],
+    "position": [
+      868,
+      877
+    ]
+  },
+  {
+    "text": "Khí máu động mạch (23 thông số)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      993,
+      1024
+    ]
+  },
+  {
+    "text": "Thời gian Thromboplastin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1105,
+      1129
+    ]
+  },
+  {
+    "text": "Thời gian Prothrombin (PT / TQ / Tỷ lệ Prothrombin)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1178,
+      1229
+    ]
+  },
+  {
+    "text": "Fibrinogen (Yếu tố I)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1258,
+      1279
+    ]
+  },
+  {
+    "text": "Glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1358,
+      1365
+    ]
+  },
+  {
+    "text": "Urê",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1367,
+      1370
+    ]
+  },
+  {
+    "text": "Creatinin máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1372,
+      1385
+    ]
+  },
+  {
+    "text": "Điện giải đồ (Na+, K+, cl-)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1386,
+      1413
+    ]
+  },
+  {
+    "text": "AST (GOT)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1435,
+      1444
+    ]
+  },
+  {
+    "text": "ALT (GPT)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1448,
+      1457
+    ]
+  },
+  {
+    "text": "CRP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1486,
+      1489
+    ]
+  },
+  {
+    "text": "Troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1493,
+      1501
+    ]
+  },
+  {
+    "text": "Troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1518,
+      1526
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1568,
+      1575
+    ]
+  },
+  {
+    "text": "CRP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1647,
+      1650
+    ]
+  },
+  {
+    "text": "227.0 mg/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1652,
+      1662
+    ]
+  },
+  {
+    "text": "Creatinin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1663,
+      1672
+    ]
+  },
+  {
+    "text": "46 µmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1675,
+      1684
+    ]
+  },
+  {
+    "text": "Kali",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1685,
+      1689
+    ]
+  },
+  {
+    "text": "3.6 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1693,
+      1703
+    ]
+  },
+  {
+    "text": "Ceftriaxone 1g",
+    "type": "THUỐC",
+    "candidates": [
+      "1665021"
+    ],
+    "assertions": [],
+    "position": [
+      1886,
+      1900
+    ]
+  }
+]

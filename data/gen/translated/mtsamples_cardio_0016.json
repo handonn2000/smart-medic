@@ -1,0 +1,270 @@
+[
+  {
+    "text": "ngáy to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      212,
+      219
+    ]
+  },
+  {
+    "text": "ngưng thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      231,
+      240
+    ]
+  },
+  {
+    "text": "buồn ngủ ban ngày nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      651,
+      672
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      745,
+      758
+    ]
+  },
+  {
+    "text": "viêm dạ dày",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      760,
+      771
+    ]
+  },
+  {
+    "text": "đau lưng dưới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M54"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      776,
+      789
+    ]
+  },
+  {
+    "text": "Hytrin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      836,
+      842
+    ]
+  },
+  {
+    "text": "Motrin",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      844,
+      850
+    ]
+  },
+  {
+    "text": "Lotensin",
+    "type": "THUỐC",
+    "candidates": [
+      "18867"
+    ],
+    "assertions": [],
+    "position": [
+      852,
+      860
+    ]
+  },
+  {
+    "text": "Zantac",
+    "type": "THUỐC",
+    "candidates": [
+      "9143"
+    ],
+    "assertions": [],
+    "position": [
+      865,
+      871
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      911,
+      924
+    ]
+  },
+  {
+    "text": "sử dụng thuốc lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      962,
+      978
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1340,
+      1348
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1350,
+      1352
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1358,
+      1365
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1529,
+      1536
+    ]
+  },
+  {
+    "text": "156/90",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1570,
+      1576
+    ]
+  },
+  {
+    "text": "198 lb",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1652,
+      1658
+    ]
+  },
+  {
+    "text": "Hội chứng ngưng thở khi ngủ do tắc nghẽn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2015,
+      2055
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      2076,
+      2089
+    ]
+  },
+  {
+    "text": "Béo phì",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.9"
+    ],
+    "assertions": [],
+    "position": [
+      2094,
+      2101
+    ]
+  },
+  {
+    "text": "sử dụng thuốc lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.0"
+    ],
+    "assertions": [],
+    "position": [
+      2114,
+      2130
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2292,
+      2295
+    ]
+  }
+]

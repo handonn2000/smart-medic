@@ -1,0 +1,590 @@
+[
+  {
+    "text": "rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.0"
+    ],
+    "assertions": [],
+    "position": [
+      16,
+      24
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      28,
+      35
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      83,
+      90
+    ]
+  },
+  {
+    "text": "khó thở khi nằm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      206,
+      221
+    ]
+  },
+  {
+    "text": "khó thở kịch phát",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      225,
+      242
+    ]
+  },
+  {
+    "text": "bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      253,
+      267
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      297,
+      304
+    ]
+  },
+  {
+    "text": "yếu cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      306,
+      312
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      365,
+      378
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      394,
+      408
+    ]
+  },
+  {
+    "text": "cholesterol",
+    "type": "THUỐC",
+    "candidates": [
+      "2438"
+    ],
+    "assertions": [],
+    "position": [
+      426,
+      437
+    ]
+  },
+  {
+    "text": "bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      465,
+      479
+    ]
+  },
+  {
+    "text": "bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      556,
+      570
+    ]
+  },
+  {
+    "text": "atenolol",
+    "type": "THUỐC",
+    "candidates": [
+      "1202"
+    ],
+    "assertions": [],
+    "position": [
+      641,
+      649
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [],
+    "position": [
+      667,
+      672
+    ]
+  },
+  {
+    "text": "kali",
+    "type": "THUỐC",
+    "candidates": [
+      "704806"
+    ],
+    "assertions": [],
+    "position": [
+      682,
+      686
+    ]
+  },
+  {
+    "text": "lovastatin",
+    "type": "THUỐC",
+    "candidates": [
+      "6472"
+    ],
+    "assertions": [],
+    "position": [
+      688,
+      698
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [],
+    "position": [
+      719,
+      727
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      754,
+      761
+    ]
+  },
+  {
+    "text": "sử dụng rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      818,
+      830
+    ]
+  },
+  {
+    "text": "sử dụng ma túy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.2"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      849,
+      863
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      889,
+      902
+    ]
+  },
+  {
+    "text": "rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      904,
+      922
+    ]
+  },
+  {
+    "text": "rung nhĩ mạn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      924,
+      941
+    ]
+  },
+  {
+    "text": "Khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      991,
+      998
+    ]
+  },
+  {
+    "text": "yếu cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1000,
+      1006
+    ]
+  },
+  {
+    "text": "mệt mỏi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1008,
+      1015
+    ]
+  },
+  {
+    "text": "mệt nhọc",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1019,
+      1027
+    ]
+  },
+  {
+    "text": "cơn thiếu máu não thoáng qua",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1078,
+      1106
+    ]
+  },
+  {
+    "text": "yếu cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1151,
+      1157
+    ]
+  },
+  {
+    "text": "mệt mỏi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1159,
+      1166
+    ]
+  },
+  {
+    "text": "mệt nhọc",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1168,
+      1176
+    ]
+  },
+  {
+    "text": "Rối loạn nhịp tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I49.9"
+    ],
+    "assertions": [],
+    "position": [
+      1241,
+      1258
+    ]
+  },
+  {
+    "text": "suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [],
+    "position": [
+      1260,
+      1278
+    ]
+  },
+  {
+    "text": "bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1286,
+      1300
+    ]
+  },
+  {
+    "text": "Khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1311,
+      1318
+    ]
+  },
+  {
+    "text": "Buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1368,
+      1376
+    ]
+  },
+  {
+    "text": "nôn ra máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1395,
+      1405
+    ]
+  },
+  {
+    "text": "Viêm khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M02"
+    ],
+    "assertions": [],
+    "position": [
+      1503,
+      1512
+    ]
+  },
+  {
+    "text": "yếu cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1514,
+      1520
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2127,
+      2137
+    ]
+  },
+  {
+    "text": "H&H",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2139,
+      2142
+    ]
+  },
+  {
+    "text": "30 và 39",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2151,
+      2159
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2161,
+      2164
+    ]
+  },
+  {
+    "text": "1.86",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2165,
+      2169
+    ]
+  },
+  {
+    "text": "BUN và creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2171,
+      2188
+    ]
+  },
+  {
+    "text": "kali",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2217,
+      2221
+    ]
+  },
+  {
+    "text": "BNP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2282,
+      2285
+    ]
+  },
+  {
+    "text": "4810",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2286,
+      2290
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2292,
+      2304
+    ]
+  },
+  {
+    "text": "EKG",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2345,
+      2348
+    ]
+  },
+  {
+    "text": "rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.0"
+    ],
+    "assertions": [],
+    "position": [
+      2358,
+      2366
+    ]
+  },
+  {
+    "text": "ST-T",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2377,
+      2381
+    ]
+  }
+]

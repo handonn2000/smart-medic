@@ -1,0 +1,224 @@
+[
+  {
+    "text": "rách gân Achilles",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      296,
+      313
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      385,
+      388
+    ]
+  },
+  {
+    "text": "sưng nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      422,
+      430
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      454,
+      461
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      555,
+      569
+    ]
+  },
+  {
+    "text": "bệnh tim mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I51.6"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      571,
+      584
+    ]
+  },
+  {
+    "text": "bệnh phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J84.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      590,
+      599
+    ]
+  },
+  {
+    "text": "Malarone",
+    "type": "THUỐC",
+    "candidates": [
+      "2382",
+      "60212"
+    ],
+    "assertions": [],
+    "position": [
+      619,
+      627
+    ]
+  },
+  {
+    "text": "sử dụng thuốc lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.0"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      743,
+      759
+    ]
+  },
+  {
+    "text": "sưng nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      836,
+      844
+    ]
+  },
+  {
+    "text": "chuyển động tăng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      884,
+      900
+    ]
+  },
+  {
+    "text": "bầm tím",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1195,
+      1202
+    ]
+  },
+  {
+    "text": "khiếm khuyết sờ thấy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1230,
+      1250
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1338,
+      1348
+    ]
+  },
+  {
+    "text": "Rách gân Achilles chân phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1547,
+      1574
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1900,
+      1908
+    ]
+  },
+  {
+    "text": "tổn thương dây thần kinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S04.4"
+    ],
+    "assertions": [],
+    "position": [
+      1923,
+      1947
+    ]
+  },
+  {
+    "text": "Lovenox",
+    "type": "THUỐC",
+    "candidates": [
+      "67108"
+    ],
+    "assertions": [],
+    "position": [
+      2418,
+      2425
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      2471,
+      2478
+    ]
+  }
+]

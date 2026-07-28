@@ -1,0 +1,315 @@
+[
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      83,
+      103
+    ]
+  },
+  {
+    "text": "hoa mắt khi thay đổi tư thế",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      138,
+      172
+    ]
+  },
+  {
+    "text": "đầy hơi chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      235,
+      261
+    ]
+  },
+  {
+    "text": "táo bón",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      273,
+      282
+    ]
+  },
+  {
+    "text": "tê bì",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      326,
+      333
+    ]
+  },
+  {
+    "text": "ngứa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      338,
+      344
+    ]
+  },
+  {
+    "text": "mất cảm giác đầu chi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      367,
+      393
+    ]
+  },
+  {
+    "text": "chảy máu chân răng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      420,
+      442
+    ]
+  },
+  {
+    "text": "đau tai phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      523,
+      536
+    ]
+  },
+  {
+    "text": "ra máu âm đạo bất thường",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      627,
+      659
+    ]
+  },
+  {
+    "text": "yếu nửa người bên phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      739,
+      770
+    ]
+  },
+  {
+    "text": "Viêm xoang sàng cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J01.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      947,
+      970
+    ]
+  },
+  {
+    "text": "Xơ vữa động mạch não",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I67.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      975,
+      1002
+    ]
+  },
+  {
+    "text": "Thiếu men lactase bẩm sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E73.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1115,
+      1145
+    ]
+  },
+  {
+    "text": "Viêm xoang trán cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J01.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1233,
+      1256
+    ]
+  },
+  {
+    "text": "Viêm não ngựa miền Tây",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A83.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      1281,
+      1310
+    ]
+  },
+  {
+    "text": "Bệnh bạch cầu khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C95.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1318,
+      1342
+    ]
+  },
+  {
+    "text": "*********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1596,
+      1605
+    ]
+  },
+  {
+    "text": "Antivert",
+    "type": "THUỐC",
+    "candidates": [
+      "6676"
+    ],
+    "assertions": [],
+    "position": [
+      1654,
+      1662
+    ]
+  },
+  {
+    "text": "hydrocodone",
+    "type": "THUỐC",
+    "candidates": [
+      "5489"
+    ],
+    "assertions": [],
+    "position": [
+      1747,
+      1758
+    ]
+  },
+  {
+    "text": "chụp x-quang khớp gối hai bên",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2244,
+      2279
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2417,
+      2426
+    ]
+  },
+  {
+    "text": "không phát hiện vi khuẩn gây bệnh",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2432,
+      2474
+    ]
+  },
+  {
+    "text": "xét nghiệm sinh hoá máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2487,
+      2515
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2565,
+      2568
+    ]
+  },
+  {
+    "text": "tổn thương dạng kính mờ hai đáy phổi",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2706,
+      2753
+    ]
+  },
+  {
+    "text": "Xơ vữa động mạch não",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I67.2"
+    ],
+    "assertions": [],
+    "position": [
+      2797,
+      2824
+    ]
+  },
+  {
+    "text": "Viêm xoang sàng cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J01.2"
+    ],
+    "assertions": [],
+    "position": [
+      2827,
+      2850
+    ]
+  }
+]

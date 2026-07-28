@@ -1,0 +1,375 @@
+[
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      82,
+      92
+    ]
+  },
+  {
+    "text": "tiểu buốt tiểu rắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      97,
+      123
+    ]
+  },
+  {
+    "text": "khó thở khi nằm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      209,
+      229
+    ]
+  },
+  {
+    "text": "thở khò khè",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      279,
+      294
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      343,
+      363
+    ]
+  },
+  {
+    "text": "chán ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      379,
+      388
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      401,
+      410
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      489,
+      509
+    ]
+  },
+  {
+    "text": "run tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      521,
+      528
+    ]
+  },
+  {
+    "text": "kinh nguyệt không đều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      597,
+      623
+    ]
+  },
+  {
+    "text": "đau khi quan hệ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      628,
+      645
+    ]
+  },
+  {
+    "text": "U lành thân tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D26.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      708,
+      731
+    ]
+  },
+  {
+    "text": "Thoái hóa dạng bột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      817,
+      840
+    ]
+  },
+  {
+    "text": "Bệnh uốn ván sơ sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A33"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      934,
+      960
+    ]
+  },
+  {
+    "text": "Bệnh mắt hột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A71"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1054,
+      1072
+    ]
+  },
+  {
+    "text": "Bệnh Crohn không đặc hiệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K50.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1077,
+      1109
+    ]
+  },
+  {
+    "text": "alendronate",
+    "type": "THUỐC",
+    "candidates": [
+      "46041"
+    ],
+    "assertions": [],
+    "position": [
+      1178,
+      1189
+    ]
+  },
+  {
+    "text": "alclometasone",
+    "type": "THUỐC",
+    "candidates": [
+      "108088"
+    ],
+    "assertions": [],
+    "position": [
+      1238,
+      1251
+    ]
+  },
+  {
+    "text": "*********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1256,
+      1265
+    ]
+  },
+  {
+    "text": "38.3°C",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1481,
+      1487
+    ]
+  },
+  {
+    "text": "siêu âm tim qua thành ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1621,
+      1652
+    ]
+  },
+  {
+    "text": "chưa ghi nhận",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1668,
+      1684
+    ]
+  },
+  {
+    "text": "nipt",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1730,
+      1734
+    ]
+  },
+  {
+    "text": "<70 mg/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1761,
+      1770
+    ]
+  },
+  {
+    "text": "đo điện cơ chi dưới",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1783,
+      1808
+    ]
+  },
+  {
+    "text": "chỉ số đông máu kéo dài nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1820,
+      1855
+    ]
+  },
+  {
+    "text": "chụp mạch vành qua da",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1872,
+      1896
+    ]
+  },
+  {
+    "text": "không thấy tổn thương khu trú",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1912,
+      1949
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1965,
+      1968
+    ]
+  },
+  {
+    "text": "U lành thân tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D26.1"
+    ],
+    "assertions": [],
+    "position": [
+      2032,
+      2055
+    ]
+  },
+  {
+    "text": "Thiếu máu do thiếu protein",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D53.0"
+    ],
+    "assertions": [],
+    "position": [
+      2058,
+      2089
+    ]
+  },
+  {
+    "text": "Thoái hóa dạng bột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85"
+    ],
+    "assertions": [],
+    "position": [
+      2092,
+      2115
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2201,
+      2211
+    ]
+  },
+  {
+    "text": "tiểu buốt tiểu rắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2216,
+      2242
+    ]
+  }
+]

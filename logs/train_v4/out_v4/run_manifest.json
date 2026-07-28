@@ -1,0 +1,96 @@
+{
+  "manifest_version": 2,
+  "pipeline_version": "3.3.0",
+  "git_sha": "e714e35",
+  "git_dirty": true,
+  "kb_manifest": "2026-07-25T15:57:13+00:00",
+  "normalizer_version": 1,
+  "kb_artifacts": {
+    "icd10_aliases.csv.gz": {
+      "sha256": "79f24c30d80ad884e41803b90d1b4e5e03ff873d39d9200575812dcc2b875925",
+      "bytes": 342950
+    },
+    "icd10_concepts.csv.gz": {
+      "sha256": "39db76f4f78d27563748dfe1e6abff30af495ee74ccd515e972200a4812800d6",
+      "bytes": 183623
+    },
+    "rxnorm_aliases.csv.gz": {
+      "sha256": "bbaac6e0892469159ec576af6b0f222b7e34b09d09146f50c3a4ee24b3c123e5",
+      "bytes": 1993142
+    },
+    "rxnorm_concepts.csv.gz": {
+      "sha256": "3433b77f1e1aef2104b5389122208020701faa4f8ce6b9c44e01bb6b6e9a8fcf",
+      "bytes": 982117
+    },
+    "rxnorm_remap.csv.gz": {
+      "sha256": "06e1f2ac1689a013ecd7b3d105573799af3cbb0ae299e7d2a6354c687b91d858",
+      "bytes": 159433
+    }
+  },
+  "runtime": {
+    "python": "3.13.9",
+    "implementation": "CPython",
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O"
+  },
+  "extractor": "v4_composite",
+  "config": {
+    "max_candidates": 2,
+    "candidate_threshold": 0.8,
+    "retrieval_threshold": 0.8,
+    "drug_threshold": 0.84,
+    "ambiguity_margin": 0.0,
+    "a1_top1_accuracy": 0.5,
+    "type_confidence_floor": 0.0,
+    "min_type_confidence": 0.6666666666666666,
+    "enable_negated": true,
+    "enable_historical": true,
+    "enable_family": false,
+    "rxnorm_output_mode": "current",
+    "batch_mask_resolution": true,
+    "drop_risk_short": true
+  },
+  "timestamp": "2026-07-27T13:15:01+00:00",
+  "input_sha256": "984e84582e30ba34b0c17570347edc43ea825c014836ff140232c03b3f54e929",
+  "output_sha256": "5abc780ca82548acb499a4a23b628a52ee9cdbdf198090f94d0a3f1ff7bf207d",
+  "submission": null,
+  "n_files": 100,
+  "n_mentions": 2858,
+  "by_type": {
+    "CHẨN_ĐOÁN": 754,
+    "TRIỆU_CHỨNG": 1373,
+    "TÊN_XÉT_NGHIỆM": 251,
+    "THUỐC": 342,
+    "KẾT_QUẢ_XÉT_NGHIỆM": 138
+  },
+  "by_assertion": {
+    "isNegated": 202,
+    "isHistorical": 56
+  },
+  "with_candidates": 572,
+  "dropped_invariant": 0,
+  "dropped_overlap": 699,
+  "dropped_threshold": 29,
+  "dropped_type_confidence": 0,
+  "batch_mask_resolution": {
+    "resolved": 0,
+    "exact_line": 0,
+    "token_window": 0,
+    "conflicts": 0
+  },
+  "by_link_path": {
+    "icd_contextual_rewrite": 63,
+    "symptom_surface_rule": 293,
+    "neural_unlinked": 1356,
+    "gazetteer_exact": 497,
+    "lab_name": 251,
+    "masked_unresolved": 98,
+    "lab_value": 138,
+    "rxnorm_anchor_exact": 142,
+    "rxnorm_rerank": 12,
+    "masked_length_coreference": 1,
+    "icd_lexical_retrieval|rerank": 6,
+    "contextual_analyte_drug|rxnorm_exact": 1
+  },
+  "schema_errors": 0,
+  "errors": []
+}

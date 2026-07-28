@@ -1,0 +1,104 @@
+smart-medic v4 — train + đánh giá
+bắt đầu : 2026-07-27 19:59:38
+holdout : 12,16,25,26,31,42  (đọc từ train_ner.py)
+
+=== 0. Kiểm tra trước khi chạy ===
+  torch          2.13.0
+  transformers   5.14.1
+  onnx           1.22.0
+  tokenizers     0.22.2
+  data/silver    80 file
+  data/dev_gold  20 file
+  data/test      100 file
+  đĩa trống      165 GB
+
+=== 1. Baseline v3 trên holdout ===
+  files          : 6
+  FINAL_SCORE           : 0.4011
+
+=== 2. Train (phần lâu — theo dõi bằng: tail -f /Users/handonn/Workplace/viettelAI/smart-medic/logs/train_v4/train.log) ===
+bắt đầu train: 19:59:44
+kết thúc train: 20:12:53  (13 phút, exit=0)
+  holdout 6 file (KHÔNG train): 12, 16, 25, 26, 31, 42
+  94 document → 136 cửa sổ train
+  epoch 1/3  loss=1.3011
+  epoch 2/3  loss=0.9163
+  epoch 3/3  loss=0.7179
+✓ bundle → models
+    ner.onnx           1110.1 MB  07e59e1179a8445d…
+    tokenizer.json       17.1 MB  acbd420e2269cdc1…
+
+=== 3. Bundle ===
+  model_version  v4-xlmr-silver
+  base_model     xlm-roberta-base
+  labels         11
+  ner.onnx           1110.1 MB  OK
+  tokenizer.json       17.1 MB  OK
+
+=== 4. v4 — chạy suy luận ===
+kết thúc train: 20:13:00  (13 phút, exit=0)
+  holdout 6 file (KHÔNG train): 12, 16, 25, 26, 31, 42
+  94 document → 136 cửa sổ train
+  epoch 1/3  loss=1.3011
+  epoch 2/3  loss=0.9163
+  epoch 3/3  loss=0.7179
+✓ bundle → models
+    ner.onnx           1110.1 MB  07e59e1179a8445d…
+    tokenizer.json       17.1 MB  acbd420e2269cdc1…
+
+=== 3. Bundle ===
+  model_version  v4-xlmr-silver
+  base_model     xlm-roberta-base
+  labels         11
+  ner.onnx           1110.1 MB  OK
+  tokenizer.json       17.1 MB  OK
+
+=== 4. v4 — chạy suy luận ===
+  mask liên VB   : 0 resolve · 0 conflict
+  schema         : OK
+
+=== 4a. v4 trên HOLDOUT — đây là con số quyết định ===
+  files          : 6
+  text_score       ×0.3 : 0.5124
+  assertions_score ×0.3 : 0.5939
+  candidates_score ×0.4 : 0.5694
+  FINAL_SCORE           : 0.5597
+
+=== 4b. v4 trên toàn 20 file gold — số của TODO §4c (lạc quan: 14/20 file đã train) ===
+  files          : 20  (thiếu 80)
+  FINAL_SCORE           : 0.5425
+  (v3 để so)   FINAL_SCORE           : 0.3627
+
+=== 5. Phán quyết ===
+  holdout (6 file, v4 CHƯA thấy): v3 0.4011 → v4 0.5597   +0.1586
+  toàn gold (20 file, có rò rỉ) : v3 0.3627 → v4 0.5425   +0.1798
+
+  => v4 THẮNG trên holdout. Nhãn bạc có giá trị thật.
+     Bước sau: train lại trên đủ 20 file gold (--holdout '') rồi nộp.
+
+xong: 2026-07-27 20:14:55
+log đầy đủ: /Users/handonn/Workplace/viettelAI/smart-medic/logs/train_v4/
+  mask liên VB   : 0 resolve · 0 conflict
+  schema         : OK
+
+=== 4a. v4 trên HOLDOUT — đây là con số quyết định ===
+  files          : 6
+  text_score       ×0.3 : 0.5124
+  assertions_score ×0.3 : 0.5939
+  candidates_score ×0.4 : 0.5694
+  FINAL_SCORE           : 0.5597
+
+=== 4b. v4 trên toàn 20 file gold — số của TODO §4c (lạc quan: 14/20 file đã train) ===
+  files          : 20  (thiếu 80)
+  FINAL_SCORE           : 0.5425
+  (v3 để so)   FINAL_SCORE           : 0.3627
+
+=== 5. Phán quyết ===
+  holdout (6 file, v4 CHƯA thấy): v3 0.4011 → v4 0.5597   +0.1586
+  toàn gold (20 file, có rò rỉ) : v3 0.3627 → v4 0.5425   +0.1798
+
+  => v4 THẮNG trên holdout. Nhãn bạc có giá trị thật.
+     Bước sau: train lại trên đủ 20 file gold (--holdout '') rồi nộp.
+
+xong: 2026-07-27 20:15:01
+log đầy đủ: /Users/handonn/Workplace/viettelAI/smart-medic/logs/train_v4/

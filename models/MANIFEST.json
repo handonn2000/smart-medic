@@ -1,0 +1,34 @@
+{
+  "artifacts": {
+    "ner.onnx": {
+      "bytes": 1110147533,
+      "sha256": "07e59e1179a8445d84a5bb1a8433925771d327083a4439fc36497d83e4a04747"
+    },
+    "tokenizer.json": {
+      "bytes": 17098086,
+      "sha256": "acbd420e2269cdc1ef45332d3d5c418be4aef6b8cb5a0b7ccae0893485307153"
+    }
+  },
+  "base_model": "xlm-roberta-base",
+  "epochs": 3,
+  "labels": [
+    "O",
+    "B-TRIỆU_CHỨNG",
+    "I-TRIỆU_CHỨNG",
+    "B-TÊN_XÉT_NGHIỆM",
+    "I-TÊN_XÉT_NGHIỆM",
+    "B-KẾT_QUẢ_XÉT_NGHIỆM",
+    "I-KẾT_QUẢ_XÉT_NGHIỆM",
+    "B-CHẨN_ĐOÁN",
+    "I-CHẨN_ĐOÁN",
+    "B-THUỐC",
+    "I-THUỐC"
+  ],
+  "manifest_version": 1,
+  "max_length": 512,
+  "model_version": "v4-xlmr-silver",
+  "normalizer_version": 1,
+  "seed": 13,
+  "stride": 128,
+  "task": "token_classification"
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "text": "trứng cá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L70.9"
+    ],
+    "assertions": [],
+    "position": [
+      73,
+      81
+    ]
+  },
+  {
+    "text": "lactate",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      737,
+      744
+    ]
+  },
+  {
+    "text": "1.1",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      745,
+      748
+    ]
+  },
+  {
+    "text": "Cấy nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      757,
+      770
+    ]
+  },
+  {
+    "text": "nhiễm khuẩn đường tiết niệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N39.0"
+    ],
+    "assertions": [],
+    "position": [
+      773,
+      800
+    ]
+  },
+  {
+    "text": "cấy máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      827,
+      834
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      836,
+      843
+    ]
+  },
+  {
+    "text": "viêm xương tủy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M86.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      948,
+      962
+    ]
+  },
+  {
+    "text": "trứng cá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L70.9"
+    ],
+    "assertions": [],
+    "position": [
+      1064,
+      1072
+    ]
+  }
+]

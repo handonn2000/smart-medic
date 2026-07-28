@@ -31,6 +31,8 @@ models/**/checkpoint-*/
 # nhưng đó là đánh đổi ĐÚNG chiều: nặng repo là chi phí, không cài được là
 # mất trắng. Xem system-design §9 (đánh đổi #8) — cùng lập luận đã dùng cho KB.
 !models/*.onnx
+# Exclude ner.onnx specifically as it exceeds GitHub's 100MB limit (1GB)
+models/ner.onnx
 !models/tokenizer.json
 !models/MANIFEST.json
 !models/.gitkeep

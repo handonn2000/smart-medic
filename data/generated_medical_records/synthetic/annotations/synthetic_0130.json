@@ -1,0 +1,346 @@
+[
+  {
+    "text": "đầy hơi chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      242,
+      268
+    ]
+  },
+  {
+    "text": "táo bón kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      273,
+      292
+    ]
+  },
+  {
+    "text": "tê bì",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      323,
+      330
+    ]
+  },
+  {
+    "text": "chảy máu chân răng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      393,
+      415
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      420,
+      440
+    ]
+  },
+  {
+    "text": "chóng mặt khi đứng lên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      526,
+      554
+    ]
+  },
+  {
+    "text": "Tiêu răng bệnh lý",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K03.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      703,
+      725
+    ]
+  },
+  {
+    "text": "Loét dạ dày (Cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K25.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      815,
+      836
+    ]
+  },
+  {
+    "text": "Bệnh hệ tiêu hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      841,
+      863
+    ]
+  },
+  {
+    "text": "Loét tá tràng (Cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K26.2"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      979,
+      1002
+    ]
+  },
+  {
+    "text": "carboplatin",
+    "type": "THUỐC",
+    "candidates": [
+      "40048"
+    ],
+    "assertions": [],
+    "position": [
+      1071,
+      1082
+    ]
+  },
+  {
+    "text": "clonazepam",
+    "type": "THUỐC",
+    "candidates": [
+      "2598"
+    ],
+    "assertions": [],
+    "position": [
+      1150,
+      1160
+    ]
+  },
+  {
+    "text": "Varivax",
+    "type": "THUỐC",
+    "candidates": [
+      "1292422"
+    ],
+    "assertions": [],
+    "position": [
+      1189,
+      1196
+    ]
+  },
+  {
+    "text": "propofol",
+    "type": "THUỐC",
+    "candidates": [
+      "8782"
+    ],
+    "assertions": [],
+    "position": [
+      1296,
+      1304
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1452,
+      1459
+    ]
+  },
+  {
+    "text": "yếu nửa người bên phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1545,
+      1576
+    ]
+  },
+  {
+    "text": "HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1621,
+      1626
+    ]
+  },
+  {
+    "text": "trong giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1642,
+      1675
+    ]
+  },
+  {
+    "text": "chụp cắt lớp vi tính lồng ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1688,
+      1728
+    ]
+  },
+  {
+    "text": "chụp MRI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1733,
+      1742
+    ]
+  },
+  {
+    "text": "siêu âm tim qua thành ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1812,
+      1843
+    ]
+  },
+  {
+    "text": "trong giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1850,
+      1883
+    ]
+  },
+  {
+    "text": "siêu âm tuyến giáp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1896,
+      1919
+    ]
+  },
+  {
+    "text": "tăng cao",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1955,
+      1964
+    ]
+  },
+  {
+    "text": "Loét dạ dày (Cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K25.2"
+    ],
+    "assertions": [],
+    "position": [
+      1986,
+      2007
+    ]
+  },
+  {
+    "text": "Nôn ra máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.0"
+    ],
+    "assertions": [],
+    "position": [
+      2013,
+      2025
+    ]
+  },
+  {
+    "text": "Xuất huyết ngoài màng cứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I62.1"
+    ],
+    "assertions": [],
+    "position": [
+      2031,
+      2065
+    ]
+  },
+  {
+    "text": "Bệnh hệ tiêu hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.9"
+    ],
+    "assertions": [],
+    "position": [
+      2101,
+      2123
+    ]
+  },
+  {
+    "text": "đầy hơi chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2143,
+      2169
+    ]
+  },
+  {
+    "text": "táo bón kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2174,
+      2193
+    ]
+  },
+  {
+    "text": "Thóat vị rốn có tắc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K42.0"
+    ],
+    "assertions": [],
+    "position": [
+      2210,
+      2236
+    ]
+  }
+]

@@ -1,0 +1,419 @@
+[
+  {
+    "text": "bệnh thận giai đoạn cuối (ESRD)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.0"
+    ],
+    "assertions": [],
+    "position": [
+      90,
+      121
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      136,
+      149
+    ]
+  },
+  {
+    "text": "đau lưng tăng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      223,
+      236
+    ]
+  },
+  {
+    "text": "WelChol",
+    "type": "THUỐC",
+    "candidates": [
+      "141626"
+    ],
+    "assertions": [],
+    "position": [
+      258,
+      265
+    ]
+  },
+  {
+    "text": "Pravachol",
+    "type": "THUỐC",
+    "candidates": [
+      "42463"
+    ],
+    "assertions": [],
+    "position": [
+      297,
+      306
+    ]
+  },
+  {
+    "text": "Aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      422,
+      429
+    ]
+  },
+  {
+    "text": "Altace",
+    "type": "THUỐC",
+    "candidates": [
+      "35296"
+    ],
+    "assertions": [],
+    "position": [
+      433,
+      439
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      447,
+      449
+    ]
+  },
+  {
+    "text": "Lipitor",
+    "type": "THUỐC",
+    "candidates": [
+      "83367"
+    ],
+    "assertions": [],
+    "position": [
+      461,
+      468
+    ]
+  },
+  {
+    "text": "Pravachol",
+    "type": "THUỐC",
+    "candidates": [
+      "42463"
+    ],
+    "assertions": [],
+    "position": [
+      485,
+      494
+    ]
+  },
+  {
+    "text": "đau cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      507,
+      513
+    ]
+  },
+  {
+    "text": "Zetia",
+    "type": "THUỐC",
+    "candidates": [
+      "341248"
+    ],
+    "assertions": [],
+    "position": [
+      551,
+      556
+    ]
+  },
+  {
+    "text": "Gengraf",
+    "type": "THUỐC",
+    "candidates": [
+      "3008"
+    ],
+    "assertions": [],
+    "position": [
+      611,
+      618
+    ]
+  },
+  {
+    "text": "CellCept",
+    "type": "THUỐC",
+    "candidates": [
+      "68149"
+    ],
+    "assertions": [],
+    "position": [
+      620,
+      628
+    ]
+  },
+  {
+    "text": "acyclovir",
+    "type": "THUỐC",
+    "candidates": [
+      "281"
+    ],
+    "assertions": [],
+    "position": [
+      630,
+      639
+    ]
+  },
+  {
+    "text": "DexFol",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      641,
+      647
+    ]
+  },
+  {
+    "text": "sulfate",
+    "type": "THUỐC",
+    "candidates": [
+      "1426598"
+    ],
+    "assertions": [],
+    "position": [
+      653,
+      660
+    ]
+  },
+  {
+    "text": "metoprolol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      662,
+      672
+    ]
+  },
+  {
+    "text": "vitamin C",
+    "type": "THUỐC",
+    "candidates": [
+      "1151"
+    ],
+    "assertions": [],
+    "position": [
+      674,
+      683
+    ]
+  },
+  {
+    "text": "baby aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      685,
+      697
+    ]
+  },
+  {
+    "text": "Bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      699,
+      706
+    ]
+  },
+  {
+    "text": "Cozaar",
+    "type": "THUỐC",
+    "candidates": [
+      "52175"
+    ],
+    "assertions": [],
+    "position": [
+      708,
+      714
+    ]
+  },
+  {
+    "text": "WelChol",
+    "type": "THUỐC",
+    "candidates": [
+      "141626"
+    ],
+    "assertions": [],
+    "position": [
+      716,
+      723
+    ]
+  },
+  {
+    "text": "Pravachol",
+    "type": "THUỐC",
+    "candidates": [
+      "42463"
+    ],
+    "assertions": [],
+    "position": [
+      728,
+      737
+    ]
+  },
+  {
+    "text": "bệnh thận giai đoạn cuối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.0"
+    ],
+    "assertions": [],
+    "position": [
+      796,
+      820
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      832,
+      845
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1032,
+      1040
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1045,
+      1065
+    ]
+  },
+  {
+    "text": "Xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1253,
+      1263
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1303,
+      1313
+    ]
+  },
+  {
+    "text": "sodium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1315,
+      1321
+    ]
+  },
+  {
+    "text": "magnesium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1323,
+      1332
+    ]
+  },
+  {
+    "text": "potassium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1334,
+      1343
+    ]
+  },
+  {
+    "text": "albumin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1348,
+      1355
+    ]
+  },
+  {
+    "text": "LDL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1414,
+      1417
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1621,
+      1631
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1632,
+      1641
+    ]
+  }
+]

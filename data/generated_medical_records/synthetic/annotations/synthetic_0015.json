@@ -1,0 +1,255 @@
+[
+  {
+    "text": "U lành của Tinh hoàn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D29.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      585,
+      605
+    ]
+  },
+  {
+    "text": "U lành của Bàng quang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      609,
+      630
+    ]
+  },
+  {
+    "text": "Thalassaemia vết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D56.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      675,
+      691
+    ]
+  },
+  {
+    "text": "Nốt ruồi của thân mình",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D22.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      750,
+      772
+    ]
+  },
+  {
+    "text": "methadone",
+    "type": "THUỐC",
+    "candidates": [
+      "6813"
+    ],
+    "assertions": [],
+    "position": [
+      1008,
+      1017
+    ]
+  },
+  {
+    "text": "Faslodex",
+    "type": "THUỐC",
+    "candidates": [
+      "282357"
+    ],
+    "assertions": [],
+    "position": [
+      1019,
+      1027
+    ]
+  },
+  {
+    "text": "Novolin",
+    "type": "THUỐC",
+    "candidates": [
+      "1605101",
+      "253182"
+    ],
+    "assertions": [],
+    "position": [
+      1029,
+      1036
+    ]
+  },
+  {
+    "text": "Rocaltrol",
+    "type": "THUỐC",
+    "candidates": [
+      "1894"
+    ],
+    "assertions": [],
+    "position": [
+      1038,
+      1047
+    ]
+  },
+  {
+    "text": "Premarin",
+    "type": "THUỐC",
+    "candidates": [
+      "4099"
+    ],
+    "assertions": [],
+    "position": [
+      1052,
+      1060
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1239,
+      1242
+    ]
+  },
+  {
+    "text": "sưng đau khớp bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1321,
+      1342
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1385,
+      1392
+    ]
+  },
+  {
+    "text": "HDL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1454,
+      1457
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1500,
+      1503
+    ]
+  },
+  {
+    "text": "đo mật độ xương",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1505,
+      1520
+    ]
+  },
+  {
+    "text": "không có gì đáng chú ý",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1530,
+      1552
+    ]
+  },
+  {
+    "text": "giảm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1608,
+      1612
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1683,
+      1690
+    ]
+  },
+  {
+    "text": "không phát hiện vi khuẩn gây bệnh",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1694,
+      1727
+    ]
+  },
+  {
+    "text": "Tắc ống mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K83.1"
+    ],
+    "assertions": [],
+    "position": [
+      1809,
+      1820
+    ]
+  },
+  {
+    "text": "Nhồi máu lách",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D73.5"
+    ],
+    "assertions": [],
+    "position": [
+      1892,
+      1905
+    ]
+  },
+  {
+    "text": "sốt nhẹ về chiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1965,
+      1981
+    ]
+  }
+]

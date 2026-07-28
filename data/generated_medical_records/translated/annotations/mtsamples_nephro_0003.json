@@ -1,0 +1,825 @@
+[
+  {
+    "text": "bệnh thận giai đoạn cuối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.0"
+    ],
+    "assertions": [],
+    "position": [
+      79,
+      103
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      114,
+      127
+    ]
+  },
+  {
+    "text": "WelChol",
+    "type": "THUỐC",
+    "candidates": [
+      "141626"
+    ],
+    "assertions": [],
+    "position": [
+      191,
+      198
+    ]
+  },
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      205,
+      213
+    ]
+  },
+  {
+    "text": "Pravachol",
+    "type": "THUỐC",
+    "candidates": [
+      "42463"
+    ],
+    "assertions": [],
+    "position": [
+      241,
+      250
+    ]
+  },
+  {
+    "text": "Aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      319,
+      326
+    ]
+  },
+  {
+    "text": "Altace",
+    "type": "THUỐC",
+    "candidates": [
+      "35296"
+    ],
+    "assertions": [],
+    "position": [
+      330,
+      336
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      341,
+      343
+    ]
+  },
+  {
+    "text": "Lipitor",
+    "type": "THUỐC",
+    "candidates": [
+      "83367"
+    ],
+    "assertions": [],
+    "position": [
+      345,
+      352
+    ]
+  },
+  {
+    "text": "Pravachol",
+    "type": "THUỐC",
+    "candidates": [
+      "42463"
+    ],
+    "assertions": [],
+    "position": [
+      356,
+      365
+    ]
+  },
+  {
+    "text": "đau cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      381,
+      387
+    ]
+  },
+  {
+    "text": "Zetia",
+    "type": "THUỐC",
+    "candidates": [
+      "341248"
+    ],
+    "assertions": [],
+    "position": [
+      389,
+      394
+    ]
+  },
+  {
+    "text": "đau cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      399,
+      405
+    ]
+  },
+  {
+    "text": "Gengraf",
+    "type": "THUỐC",
+    "candidates": [
+      "3008"
+    ],
+    "assertions": [],
+    "position": [
+      425,
+      432
+    ]
+  },
+  {
+    "text": "CellCept",
+    "type": "THUỐC",
+    "candidates": [
+      "68149"
+    ],
+    "assertions": [],
+    "position": [
+      454,
+      462
+    ]
+  },
+  {
+    "text": "acyclovir",
+    "type": "THUỐC",
+    "candidates": [
+      "281"
+    ],
+    "assertions": [],
+    "position": [
+      478,
+      487
+    ]
+  },
+  {
+    "text": "ferrous sulfate",
+    "type": "THUỐC",
+    "candidates": [
+      "24947"
+    ],
+    "assertions": [],
+    "position": [
+      521,
+      536
+    ]
+  },
+  {
+    "text": "metoprolol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      565,
+      575
+    ]
+  },
+  {
+    "text": "vitamin C",
+    "type": "THUỐC",
+    "candidates": [
+      "1151"
+    ],
+    "assertions": [],
+    "position": [
+      590,
+      599
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      616,
+      623
+    ]
+  },
+  {
+    "text": "Bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      641,
+      648
+    ]
+  },
+  {
+    "text": "Cozaar",
+    "type": "THUỐC",
+    "candidates": [
+      "52175"
+    ],
+    "assertions": [],
+    "position": [
+      676,
+      682
+    ]
+  },
+  {
+    "text": "WelChol",
+    "type": "THUỐC",
+    "candidates": [
+      "141626"
+    ],
+    "assertions": [],
+    "position": [
+      700,
+      707
+    ]
+  },
+  {
+    "text": "Pravachol",
+    "type": "THUỐC",
+    "candidates": [
+      "42463"
+    ],
+    "assertions": [],
+    "position": [
+      729,
+      738
+    ]
+  },
+  {
+    "text": "Bệnh thận giai đoạn cuối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      774,
+      798
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      802,
+      815
+    ]
+  },
+  {
+    "text": "Rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      907,
+      925
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      965,
+      973
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      975,
+      995
+    ]
+  },
+  {
+    "text": "khó thở nằm nghiêng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      997,
+      1016
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1027,
+      1030
+    ]
+  },
+  {
+    "text": "tiểu máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1052,
+      1060
+    ]
+  },
+  {
+    "text": "nước tiểu có bọt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1062,
+      1078
+    ]
+  },
+  {
+    "text": "tiểu mủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1080,
+      1087
+    ]
+  },
+  {
+    "text": "tiểu nhiều lần",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1089,
+      1103
+    ]
+  },
+  {
+    "text": "tiểu khó",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1109,
+      1117
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1569,
+      1579
+    ]
+  },
+  {
+    "text": "Xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1581,
+      1591
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1607,
+      1617
+    ]
+  },
+  {
+    "text": "34.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1618,
+      1622
+    ]
+  },
+  {
+    "text": "sodium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1624,
+      1630
+    ]
+  },
+  {
+    "text": "137",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1631,
+      1634
+    ]
+  },
+  {
+    "text": "magnesium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1636,
+      1645
+    ]
+  },
+  {
+    "text": "1.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1646,
+      1649
+    ]
+  },
+  {
+    "text": "potassium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1651,
+      1660
+    ]
+  },
+  {
+    "text": "4.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1661,
+      1664
+    ]
+  },
+  {
+    "text": "chloride",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1666,
+      1674
+    ]
+  },
+  {
+    "text": "102",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1675,
+      1678
+    ]
+  },
+  {
+    "text": "CO2",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1680,
+      1683
+    ]
+  },
+  {
+    "text": "25",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1684,
+      1686
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1688,
+      1691
+    ]
+  },
+  {
+    "text": "37",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1695,
+      1697
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1699,
+      1709
+    ]
+  },
+  {
+    "text": "1.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1713,
+      1716
+    ]
+  },
+  {
+    "text": "calcium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1718,
+      1725
+    ]
+  },
+  {
+    "text": "10.1",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1726,
+      1730
+    ]
+  },
+  {
+    "text": "phosphorus",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1732,
+      1742
+    ]
+  },
+  {
+    "text": "3.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1743,
+      1746
+    ]
+  },
+  {
+    "text": "albumin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1751,
+      1758
+    ]
+  },
+  {
+    "text": "4.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1759,
+      1762
+    ]
+  },
+  {
+    "text": "LFTs",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1764,
+      1768
+    ]
+  },
+  {
+    "text": "Cholesterol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1791,
+      1802
+    ]
+  },
+  {
+    "text": "221",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1803,
+      1806
+    ]
+  },
+  {
+    "text": "triglycerides",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1808,
+      1821
+    ]
+  },
+  {
+    "text": "104",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1822,
+      1825
+    ]
+  },
+  {
+    "text": "HDL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1827,
+      1830
+    ]
+  },
+  {
+    "text": "42",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1831,
+      1833
+    ]
+  },
+  {
+    "text": "LDL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1835,
+      1838
+    ]
+  },
+  {
+    "text": "158",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1839,
+      1842
+    ]
+  },
+  {
+    "text": "cyclosporine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1847,
+      1859
+    ]
+  },
+  {
+    "text": "163",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1860,
+      1863
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1948,
+      1961
+    ]
+  },
+  {
+    "text": "Rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1990,
+      2008
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2192,
+      2202
+    ]
+  },
+  {
+    "text": "phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2227,
+      2246
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2360,
+      2369
+    ]
+  }
+]

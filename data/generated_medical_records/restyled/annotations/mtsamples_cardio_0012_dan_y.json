@@ -1,0 +1,250 @@
+[
+  {
+    "text": "Suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      28,
+      38
+    ]
+  },
+  {
+    "text": "Bệnh đường thở phản ứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      44,
+      67
+    ]
+  },
+  {
+    "text": "Suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      96,
+      106
+    ]
+  },
+  {
+    "text": "Bệnh đường thở phản ứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      112,
+      135
+    ]
+  },
+  {
+    "text": "Viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      141,
+      150
+    ]
+  },
+  {
+    "text": "hen suyễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      225,
+      234
+    ]
+  },
+  {
+    "text": "bệnh đường thở phản ứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      239,
+      262
+    ]
+  },
+  {
+    "text": "*********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      399,
+      408
+    ]
+  },
+  {
+    "text": "X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      432,
+      439
+    ]
+  },
+  {
+    "text": "CRP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      523,
+      526
+    ]
+  },
+  {
+    "text": "6.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      536,
+      539
+    ]
+  },
+  {
+    "text": "CBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      545,
+      548
+    ]
+  },
+  {
+    "text": "9.6",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      571,
+      574
+    ]
+  },
+  {
+    "text": "84%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      589,
+      592
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      607,
+      616
+    ]
+  },
+  {
+    "text": "amoxicillin",
+    "type": "THUỐC",
+    "candidates": [
+      "723"
+    ],
+    "assertions": [],
+    "position": [
+      634,
+      645
+    ]
+  },
+  {
+    "text": "Zithromax",
+    "type": "THUỐC",
+    "candidates": [
+      "18631"
+    ],
+    "assertions": [],
+    "position": [
+      649,
+      658
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      975,
+      982
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1299,
+      1306
+    ]
+  },
+  {
+    "text": "QVAR",
+    "type": "THUỐC",
+    "candidates": [
+      "1347"
+    ],
+    "assertions": [],
+    "position": [
+      1363,
+      1367
+    ]
+  },
+  {
+    "text": "Amoxicillin",
+    "type": "THUỐC",
+    "candidates": [
+      "723"
+    ],
+    "assertions": [],
+    "position": [
+      1419,
+      1430
+    ]
+  },
+  {
+    "text": "Zithromax",
+    "type": "THUỐC",
+    "candidates": [
+      "18631"
+    ],
+    "assertions": [],
+    "position": [
+      1476,
+      1485
+    ]
+  }
+]

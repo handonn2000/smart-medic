@@ -1,0 +1,499 @@
+[
+  {
+    "text": "tiểu ra máu vi thể",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      44,
+      62
+    ]
+  },
+  {
+    "text": "đau khớp mới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      229,
+      241
+    ]
+  },
+  {
+    "text": "bệnh khớp thoái hóa mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      259,
+      287
+    ]
+  },
+  {
+    "text": "không dùng thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Y63.6"
+    ],
+    "assertions": [],
+    "position": [
+      299,
+      315
+    ]
+  },
+  {
+    "text": "tiểu ra máu đại thể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      361,
+      380
+    ]
+  },
+  {
+    "text": "ho ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      393,
+      402
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      434,
+      442
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      447,
+      454
+    ]
+  },
+  {
+    "text": "giảm thính lực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      498,
+      512
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      549,
+      557
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      559,
+      567
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      572,
+      579
+    ]
+  },
+  {
+    "text": "thiếu máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      590,
+      599
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      627,
+      633
+    ]
+  },
+  {
+    "text": "cơn động kinh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      652,
+      665
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      701,
+      714
+    ]
+  },
+  {
+    "text": "rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      718,
+      736
+    ]
+  },
+  {
+    "text": "nhồi máu cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I21"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      755,
+      770
+    ]
+  },
+  {
+    "text": "đột quỵ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I69.4"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      775,
+      782
+    ]
+  },
+  {
+    "text": "ung thư biểu mô tuyến",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      915,
+      936
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      958,
+      967
+    ]
+  },
+  {
+    "text": "Dyazide",
+    "type": "THUỐC",
+    "candidates": [
+      "10763",
+      "5487"
+    ],
+    "assertions": [],
+    "position": [
+      1116,
+      1123
+    ]
+  },
+  {
+    "text": "Pravachol",
+    "type": "THUỐC",
+    "candidates": [
+      "42463"
+    ],
+    "assertions": [],
+    "position": [
+      1148,
+      1157
+    ]
+  },
+  {
+    "text": "Vitamin E",
+    "type": "THUỐC",
+    "candidates": [
+      "11256"
+    ],
+    "assertions": [],
+    "position": [
+      1192,
+      1201
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      1240,
+      1247
+    ]
+  },
+  {
+    "text": "xanh tím da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2053,
+      2064
+    ]
+  },
+  {
+    "text": "bệnh thoái hóa khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2082,
+      2101
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2141,
+      2148
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2172,
+      2182
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2192,
+      2201
+    ]
+  },
+  {
+    "text": "protein niệu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2266,
+      2278
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2311,
+      2321
+    ]
+  },
+  {
+    "text": "1 mg %",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2339,
+      2345
+    ]
+  },
+  {
+    "text": "protein",
+    "type": "THUỐC",
+    "candidates": [
+      "8859"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2358,
+      2365
+    ]
+  },
+  {
+    "text": "bệnh cầu thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2407,
+      2420
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2493,
+      2502
+    ]
+  },
+  {
+    "text": "siêu âm thường quy",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2533,
+      2551
+    ]
+  },
+  {
+    "text": "phân tích nước tiểu thường quy",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2577,
+      2607
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2657,
+      2667
+    ]
+  },
+  {
+    "text": "C3 và C4",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2668,
+      2676
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2684,
+      2693
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2698,
+      2708
+    ]
+  },
+  {
+    "text": "nội soi bàng quang kết hợp chụp niệu quản ngược dòng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2743,
+      2795
+    ]
+  }
+]

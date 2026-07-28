@@ -1,0 +1,597 @@
+[
+  {
+    "text": "Bệnh cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I42"
+    ],
+    "assertions": [],
+    "position": [
+      21,
+      35
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      40,
+      55
+    ]
+  },
+  {
+    "text": "sa sút trí tuệ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F01.9"
+    ],
+    "assertions": [],
+    "position": [
+      196,
+      214
+    ]
+  },
+  {
+    "text": "bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      246,
+      264
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      375,
+      386
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      391,
+      406
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      490,
+      501
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      508,
+      523
+    ]
+  },
+  {
+    "text": "suy thận cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N17"
+    ],
+    "assertions": [],
+    "position": [
+      528,
+      544
+    ]
+  },
+  {
+    "text": "bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      582,
+      600
+    ]
+  },
+  {
+    "text": "bệnh cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I42"
+    ],
+    "assertions": [],
+    "position": [
+      605,
+      619
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      773,
+      783
+    ]
+  },
+  {
+    "text": "tức ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      788,
+      800
+    ]
+  },
+  {
+    "text": "hồi hộp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      818,
+      829
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      902,
+      914
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      959,
+      964
+    ]
+  },
+  {
+    "text": "rét run",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      969,
+      977
+    ]
+  },
+  {
+    "text": "rối loạn thị giác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H53"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      998,
+      1020
+    ]
+  },
+  {
+    "text": "đau thắt ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1093,
+      1110
+    ]
+  },
+  {
+    "text": "tức ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1115,
+      1127
+    ]
+  },
+  {
+    "text": "hồi hộp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1136,
+      1147
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1209,
+      1218
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1234,
+      1245
+    ]
+  },
+  {
+    "text": "sa sút trí tuệ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F01.9"
+    ],
+    "assertions": [],
+    "position": [
+      1369,
+      1387
+    ]
+  },
+  {
+    "text": "bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1551,
+      1569
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1606,
+      1623
+    ]
+  },
+  {
+    "text": "Thiếu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D46.4"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1628,
+      1640
+    ]
+  },
+  {
+    "text": "Suy thận mạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1645,
+      1660
+    ]
+  },
+  {
+    "text": "Suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1665,
+      1685
+    ]
+  },
+  {
+    "text": "Loãng xương",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M81.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1718,
+      1732
+    ]
+  },
+  {
+    "text": "Gãy xương nén",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1737,
+      1754
+    ]
+  },
+  {
+    "text": "Đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1759,
+      1778
+    ]
+  },
+  {
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1783,
+      1792
+    ]
+  },
+  {
+    "text": "Amoxicillin",
+    "type": "THUỐC",
+    "candidates": [
+      "723"
+    ],
+    "assertions": [],
+    "position": [
+      1995,
+      2006
+    ]
+  },
+  {
+    "text": "Clavulanic acid",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2011,
+      2026
+    ]
+  },
+  {
+    "text": "Augmentin",
+    "type": "THUỐC",
+    "candidates": [
+      "48203",
+      "723"
+    ],
+    "assertions": [],
+    "position": [
+      2034,
+      2043
+    ]
+  },
+  {
+    "text": "Clopidogrel",
+    "type": "THUỐC",
+    "candidates": [
+      "32968"
+    ],
+    "assertions": [],
+    "position": [
+      2063,
+      2074
+    ]
+  },
+  {
+    "text": "Simvastatin",
+    "type": "THUỐC",
+    "candidates": [
+      "36567"
+    ],
+    "assertions": [],
+    "position": [
+      2097,
+      2108
+    ]
+  },
+  {
+    "text": "Sodium bicarbonate",
+    "type": "THUỐC",
+    "candidates": [
+      "36676"
+    ],
+    "assertions": [],
+    "position": [
+      2131,
+      2149
+    ]
+  },
+  {
+    "text": "Gabapentin",
+    "type": "THUỐC",
+    "candidates": [
+      "25480"
+    ],
+    "assertions": [],
+    "position": [
+      2183,
+      2193
+    ]
+  },
+  {
+    "text": "Levothyroxine",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      2205,
+      2218
+    ]
+  },
+  {
+    "text": "Digoxin",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [],
+    "position": [
+      2235,
+      2242
+    ]
+  },
+  {
+    "text": "Fenofibrate",
+    "type": "THUỐC",
+    "candidates": [
+      "8703"
+    ],
+    "assertions": [],
+    "position": [
+      2267,
+      2278
+    ]
+  },
+  {
+    "text": "Aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      2303,
+      2310
+    ]
+  },
+  {
+    "text": "Raloxifene",
+    "type": "THUỐC",
+    "candidates": [
+      "72143"
+    ],
+    "assertions": [],
+    "position": [
+      2334,
+      2344
+    ]
+  },
+  {
+    "text": "Calcium carbonate",
+    "type": "THUỐC",
+    "candidates": [
+      "1897"
+    ],
+    "assertions": [],
+    "position": [
+      2362,
+      2379
+    ]
+  },
+  {
+    "text": "alendronate",
+    "type": "THUỐC",
+    "candidates": [
+      "46041"
+    ],
+    "assertions": [],
+    "position": [
+      2384,
+      2395
+    ]
+  },
+  {
+    "text": "Metoprolol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      2401,
+      2411
+    ]
+  },
+  {
+    "text": "Brimonidine ophthalmic",
+    "type": "THUỐC",
+    "candidates": [
+      "134615"
+    ],
+    "assertions": [],
+    "position": [
+      2435,
+      2457
+    ]
+  }
+]

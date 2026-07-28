@@ -1,0 +1,198 @@
+[
+  {
+    "text": "u lympho tế bào B rìa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C85.1"
+    ],
+    "assertions": [],
+    "position": [
+      32,
+      53
+    ]
+  },
+  {
+    "text": "u lympho tế bào B lớn lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C85.1"
+    ],
+    "assertions": [],
+    "position": [
+      132,
+      161
+    ]
+  },
+  {
+    "text": "sưng tinh hoàn trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      327,
+      346
+    ]
+  },
+  {
+    "text": "ớn lạnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      384,
+      391
+    ]
+  },
+  {
+    "text": "đau ở tinh hoàn trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      554,
+      574
+    ]
+  },
+  {
+    "text": "u lympho tế bào B rìa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C85.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      691,
+      712
+    ]
+  },
+  {
+    "text": "u lympho tế bào lớn lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      727,
+      754
+    ]
+  },
+  {
+    "text": "đau đầu nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      921,
+      932
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      964,
+      977
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1049,
+      1056
+    ]
+  },
+  {
+    "text": "sưng đau tinh hoàn trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1140,
+      1163
+    ]
+  },
+  {
+    "text": "đái tháo đường type II",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1216,
+      1238
+    ]
+  },
+  {
+    "text": "thiếu máu kết mạc",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1274,
+      1291
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1297,
+      1304
+    ]
+  },
+  {
+    "text": "hạch cổ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1322,
+      1329
+    ]
+  },
+  {
+    "text": "tiếng thổi động mạch cảnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1340,
+      1365
+    ]
+  },
+  {
+    "text": "tiếng ngựa phi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1408,
+      1422
+    ]
+  }
+]

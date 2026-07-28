@@ -1,0 +1,571 @@
+[
+  {
+    "text": "Bệnh cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I42"
+    ],
+    "assertions": [],
+    "position": [
+      24,
+      35
+    ]
+  },
+  {
+    "text": "Hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      41,
+      52
+    ]
+  },
+  {
+    "text": "sa sút trí tuệ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F01.9"
+    ],
+    "assertions": [],
+    "position": [
+      95,
+      109
+    ]
+  },
+  {
+    "text": "bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      111,
+      125
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      180,
+      189
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      191,
+      202
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      227,
+      236
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      238,
+      249
+    ]
+  },
+  {
+    "text": "suy thận cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N17"
+    ],
+    "assertions": [],
+    "position": [
+      251,
+      263
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      316,
+      324
+    ]
+  },
+  {
+    "text": "tức ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      326,
+      334
+    ]
+  },
+  {
+    "text": "hồi hộp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      336,
+      343
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      345,
+      354
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      433,
+      436
+    ]
+  },
+  {
+    "text": "rét run",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      438,
+      445
+    ]
+  },
+  {
+    "text": "rối loạn thị giác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H53"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      463,
+      480
+    ]
+  },
+  {
+    "text": "đau thắt ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      538,
+      551
+    ]
+  },
+  {
+    "text": "hồi hộp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      553,
+      560
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      614,
+      623
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      631,
+      639
+    ]
+  },
+  {
+    "text": "Sa sút trí tuệ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F01.9"
+    ],
+    "assertions": [],
+    "position": [
+      741,
+      755
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      831,
+      844
+    ]
+  },
+  {
+    "text": "Thiếu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D46.4"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      850,
+      859
+    ]
+  },
+  {
+    "text": "Suy thận mạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      865,
+      877
+    ]
+  },
+  {
+    "text": "Suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      883,
+      901
+    ]
+  },
+  {
+    "text": "Loãng xương",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M81.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      918,
+      929
+    ]
+  },
+  {
+    "text": "Gãy xương nén",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      935,
+      948
+    ]
+  },
+  {
+    "text": "Đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      954,
+      968
+    ]
+  },
+  {
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      974,
+      982
+    ]
+  },
+  {
+    "text": "Amoxicillin",
+    "type": "THUỐC",
+    "candidates": [
+      "723"
+    ],
+    "assertions": [],
+    "position": [
+      1154,
+      1165
+    ]
+  },
+  {
+    "text": "Clavulanic acid",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1171,
+      1186
+    ]
+  },
+  {
+    "text": "Augmentin",
+    "type": "THUỐC",
+    "candidates": [
+      "48203",
+      "723"
+    ],
+    "assertions": [],
+    "position": [
+      1192,
+      1201
+    ]
+  },
+  {
+    "text": "Clopidogrel",
+    "type": "THUỐC",
+    "candidates": [
+      "32968"
+    ],
+    "assertions": [],
+    "position": [
+      1218,
+      1229
+    ]
+  },
+  {
+    "text": "Simvastatin",
+    "type": "THUỐC",
+    "candidates": [
+      "36567"
+    ],
+    "assertions": [],
+    "position": [
+      1251,
+      1262
+    ]
+  },
+  {
+    "text": "Sodium bicarbonate",
+    "type": "THUỐC",
+    "candidates": [
+      "36676"
+    ],
+    "assertions": [],
+    "position": [
+      1284,
+      1302
+    ]
+  },
+  {
+    "text": "Gabapentin",
+    "type": "THUỐC",
+    "candidates": [
+      "25480"
+    ],
+    "assertions": [],
+    "position": [
+      1332,
+      1342
+    ]
+  },
+  {
+    "text": "Levothyroxine",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      1355,
+      1368
+    ]
+  },
+  {
+    "text": "Digoxin",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [],
+    "position": [
+      1384,
+      1391
+    ]
+  },
+  {
+    "text": "Fenofibrate",
+    "type": "THUỐC",
+    "candidates": [
+      "8703"
+    ],
+    "assertions": [],
+    "position": [
+      1415,
+      1426
+    ]
+  },
+  {
+    "text": "Aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      1449,
+      1456
+    ]
+  },
+  {
+    "text": "Raloxifene",
+    "type": "THUỐC",
+    "candidates": [
+      "72143"
+    ],
+    "assertions": [],
+    "position": [
+      1478,
+      1488
+    ]
+  },
+  {
+    "text": "Calcium carbonate",
+    "type": "THUỐC",
+    "candidates": [
+      "1897"
+    ],
+    "assertions": [],
+    "position": [
+      1504,
+      1521
+    ]
+  },
+  {
+    "text": "alendronate",
+    "type": "THUỐC",
+    "candidates": [
+      "46041"
+    ],
+    "assertions": [],
+    "position": [
+      1525,
+      1536
+    ]
+  },
+  {
+    "text": "Metoprolol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      1542,
+      1552
+    ]
+  },
+  {
+    "text": "Brimonidine ophthalmic",
+    "type": "THUỐC",
+    "candidates": [
+      "134615"
+    ],
+    "assertions": [],
+    "position": [
+      1574,
+      1596
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      1701,
+      1712
+    ]
+  },
+  {
+    "text": "bệnh cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I42"
+    ],
+    "assertions": [],
+    "position": [
+      1716,
+      1727
+    ]
+  }
+]

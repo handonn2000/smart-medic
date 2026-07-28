@@ -1,0 +1,329 @@
+[
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      66,
+      90
+    ]
+  },
+  {
+    "text": "đau vùng thượng vị sau ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      94,
+      119
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      203,
+      227
+    ]
+  },
+  {
+    "text": "đau vùng thượng vị sau ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      283,
+      308
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      313,
+      329
+    ]
+  },
+  {
+    "text": "loét bàn chân lâu lành",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      376,
+      398
+    ]
+  },
+  {
+    "text": "co giật toàn thể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      436,
+      452
+    ]
+  },
+  {
+    "text": "mất cảm giác đầu chi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      456,
+      476
+    ]
+  },
+  {
+    "text": "tiểu nhiều lần về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      534,
+      555
+    ]
+  },
+  {
+    "text": "Lao hô hấp khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A16.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      649,
+      664
+    ]
+  },
+  {
+    "text": "Blốc nhĩ thất độ II",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I44.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      700,
+      719
+    ]
+  },
+  {
+    "text": "Bệnh tả",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A00"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      752,
+      759
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "82122"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      844,
+      852
+    ]
+  },
+  {
+    "text": "Chloroxylenol/Pramoxine",
+    "type": "THUỐC",
+    "candidates": [
+      "689374"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      856,
+      879
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "82122"
+    ],
+    "assertions": [],
+    "position": [
+      1052,
+      1060
+    ]
+  },
+  {
+    "text": "Chloroxylenol/Pramoxine",
+    "type": "THUỐC",
+    "candidates": [
+      "689374"
+    ],
+    "assertions": [],
+    "position": [
+      1087,
+      1110
+    ]
+  },
+  {
+    "text": "Pumpkin Seed",
+    "type": "THUỐC",
+    "candidates": [
+      "126291"
+    ],
+    "assertions": [],
+    "position": [
+      1154,
+      1166
+    ]
+  },
+  {
+    "text": "*****************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1233,
+      1250
+    ]
+  },
+  {
+    "text": "loét bàn chân lâu lành",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1369,
+      1391
+    ]
+  },
+  {
+    "text": "xét nghiệm khí máu động mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1553,
+      1581
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1586,
+      1593
+    ]
+  },
+  {
+    "text": "HCT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1595,
+      1598
+    ]
+  },
+  {
+    "text": "chỉ số đông máu kéo dài nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1655,
+      1682
+    ]
+  },
+  {
+    "text": "có dịch tự do trong ổ bụng lượng ít",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1752,
+      1787
+    ]
+  },
+  {
+    "text": "không thấy hẹp đáng kể lòng mạch",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1791,
+      1823
+    ]
+  },
+  {
+    "text": "Lao phúc mạc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A18.31"
+    ],
+    "assertions": [],
+    "position": [
+      1853,
+      1865
+    ]
+  },
+  {
+    "text": "Bệnh do amíp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A06"
+    ],
+    "assertions": [],
+    "position": [
+      1889,
+      1901
+    ]
+  },
+  {
+    "text": "Blốc nhĩ thất độ II",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I44.1"
+    ],
+    "assertions": [],
+    "position": [
+      1911,
+      1930
+    ]
+  },
+  {
+    "text": "Lao hô hấp khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A16.8"
+    ],
+    "assertions": [],
+    "position": [
+      1942,
+      1957
+    ]
+  }
+]

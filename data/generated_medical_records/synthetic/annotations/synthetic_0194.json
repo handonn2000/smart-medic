@@ -1,0 +1,337 @@
+[
+  {
+    "text": "sụt cân không rõ nguyên nhân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      64,
+      92
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      103,
+      113
+    ]
+  },
+  {
+    "text": "ngạt mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      117,
+      125
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      215,
+      222
+    ]
+  },
+  {
+    "text": "ngạt mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      297,
+      305
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      321,
+      331
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      399,
+      414
+    ]
+  },
+  {
+    "text": "ra mồ hôi về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      458,
+      474
+    ]
+  },
+  {
+    "text": "đau họng khi nuốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      503,
+      520
+    ]
+  },
+  {
+    "text": "đau cách hồi khi đi bộ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      534,
+      556
+    ]
+  },
+  {
+    "text": "Thiếu vitamin E",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E56.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      729,
+      744
+    ]
+  },
+  {
+    "text": "Pemphigoid không đặc hiệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L12.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      790,
+      815
+    ]
+  },
+  {
+    "text": "Rối loạn cân bằng nước",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E87"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      818,
+      840
+    ]
+  },
+  {
+    "text": "Afrin",
+    "type": "THUỐC",
+    "candidates": [
+      "7812"
+    ],
+    "assertions": [],
+    "position": [
+      967,
+      972
+    ]
+  },
+  {
+    "text": "ibuprofen",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      1004,
+      1013
+    ]
+  },
+  {
+    "text": "Hypoxis hemerocallidea root extract",
+    "type": "THUỐC",
+    "candidates": [
+      "1310069"
+    ],
+    "assertions": [],
+    "position": [
+      1057,
+      1092
+    ]
+  },
+  {
+    "text": "Lumigan",
+    "type": "THUỐC",
+    "candidates": [
+      "283810"
+    ],
+    "assertions": [],
+    "position": [
+      1100,
+      1107
+    ]
+  },
+  {
+    "text": "atropine",
+    "type": "THUỐC",
+    "candidates": [
+      "1223"
+    ],
+    "assertions": [],
+    "position": [
+      1131,
+      1139
+    ]
+  },
+  {
+    "text": "HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1393,
+      1398
+    ]
+  },
+  {
+    "text": "double test",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1439,
+      1450
+    ]
+  },
+  {
+    "text": "chụp x-quang bụng không chuẩn bị",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1511,
+      1543
+    ]
+  },
+  {
+    "text": "không thấy hình ảnh sỏi đường tiết niệu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1544,
+      1583
+    ]
+  },
+  {
+    "text": "4.4 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1626,
+      1636
+    ]
+  },
+  {
+    "text": "định lượng men tim troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1648,
+      1675
+    ]
+  },
+  {
+    "text": "đo chức năng thông khí phổi",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1678,
+      1705
+    ]
+  },
+  {
+    "text": "điện tâm đồ có sóng T âm ở các chuyển đạo trước tim",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1792,
+      1843
+    ]
+  },
+  {
+    "text": "Rối loạn chuyển hóa bilirubin",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E80.7"
+    ],
+    "assertions": [],
+    "position": [
+      1859,
+      1888
+    ]
+  },
+  {
+    "text": "Tim to",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I51.7"
+    ],
+    "assertions": [],
+    "position": [
+      1891,
+      1897
+    ]
+  },
+  {
+    "text": "Cường tuyến yên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E22"
+    ],
+    "assertions": [],
+    "position": [
+      1900,
+      1915
+    ]
+  },
+  {
+    "text": "Bệnh tuyến ức KXĐK",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E32.9"
+    ],
+    "assertions": [],
+    "position": [
+      1918,
+      1936
+    ]
+  }
+]

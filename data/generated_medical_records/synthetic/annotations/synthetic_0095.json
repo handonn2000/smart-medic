@@ -1,0 +1,336 @@
+[
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      52,
+      60
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      102,
+      109
+    ]
+  },
+  {
+    "text": "sụt cân không rõ nguyên nhân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      160,
+      188
+    ]
+  },
+  {
+    "text": "sốt cao liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      205,
+      221
+    ]
+  },
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      263,
+      271
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      290,
+      297
+    ]
+  },
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      307,
+      315
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      361,
+      377
+    ]
+  },
+  {
+    "text": "tê bì hai bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      381,
+      398
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      433,
+      443
+    ]
+  },
+  {
+    "text": "tiểu nhiều lần về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      470,
+      491
+    ]
+  },
+  {
+    "text": "Thoát vị bẹn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K40"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      582,
+      594
+    ]
+  },
+  {
+    "text": "Cường aldosterone",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E26"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      598,
+      615
+    ]
+  },
+  {
+    "text": "U ác của môi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C00.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      672,
+      684
+    ]
+  },
+  {
+    "text": "U ác của sàn miệng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C04"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      792,
+      810
+    ]
+  },
+  {
+    "text": "Crestor",
+    "type": "THUỐC",
+    "candidates": [
+      "301542"
+    ],
+    "assertions": [],
+    "position": [
+      911,
+      918
+    ]
+  },
+  {
+    "text": "Benicar",
+    "type": "THUỐC",
+    "candidates": [
+      "321064"
+    ],
+    "assertions": [],
+    "position": [
+      922,
+      929
+    ]
+  },
+  {
+    "text": "vitamin E",
+    "type": "THUỐC",
+    "candidates": [
+      "11256"
+    ],
+    "assertions": [],
+    "position": [
+      976,
+      985
+    ]
+  },
+  {
+    "text": "Caverject",
+    "type": "THUỐC",
+    "candidates": [
+      "598"
+    ],
+    "assertions": [],
+    "position": [
+      1020,
+      1029
+    ]
+  },
+  {
+    "text": "atropine",
+    "type": "THUỐC",
+    "candidates": [
+      "1223"
+    ],
+    "assertions": [],
+    "position": [
+      1103,
+      1111
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1229,
+      1232
+    ]
+  },
+  {
+    "text": "chức năng tâm thu thất trái bảo tồn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1449,
+      1484
+    ]
+  },
+  {
+    "text": "xét nghiệm chức năng gan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1501,
+      1525
+    ]
+  },
+  {
+    "text": "xét nghiệm chức năng thận",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1527,
+      1552
+    ]
+  },
+  {
+    "text": "xét nghiệm đông máu cơ bản",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1556,
+      1582
+    ]
+  },
+  {
+    "text": "monitor holter",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1623,
+      1637
+    ]
+  },
+  {
+    "text": "lấy máu khô ở gót chân",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1693,
+      1715
+    ]
+  },
+  {
+    "text": "U ác của môi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C00.5"
+    ],
+    "assertions": [],
+    "position": [
+      1788,
+      1800
+    ]
+  },
+  {
+    "text": "Nhân Schmorl",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M51.4"
+    ],
+    "assertions": [],
+    "position": [
+      1842,
+      1854
+    ]
+  },
+  {
+    "text": "U nang nang trứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N83.0"
+    ],
+    "assertions": [],
+    "position": [
+      1858,
+      1875
+    ]
+  }
+]

@@ -1,0 +1,258 @@
+[
+  {
+    "text": "Rối loạn đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      22,
+      65
+    ]
+  },
+  {
+    "text": "Viêm phổi do tụ cầu khuẩn kèm nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      71,
+      132
+    ]
+  },
+  {
+    "text": "suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      220,
+      233
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      289,
+      301
+    ]
+  },
+  {
+    "text": "nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      318,
+      340
+    ]
+  },
+  {
+    "text": "suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      342,
+      355
+    ]
+  },
+  {
+    "text": "rối loạn đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      460,
+      503
+    ]
+  },
+  {
+    "text": "prothrombin",
+    "type": "THUỐC",
+    "candidates": [
+      "1441688"
+    ],
+    "assertions": [],
+    "position": [
+      555,
+      566
+    ]
+  },
+  {
+    "text": "fibrinogen",
+    "type": "THUỐC",
+    "candidates": [
+      "4385"
+    ],
+    "assertions": [],
+    "position": [
+      578,
+      588
+    ]
+  },
+  {
+    "text": "Chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      671,
+      681
+    ]
+  },
+  {
+    "text": "rối loạn đông máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      731,
+      753
+    ]
+  },
+  {
+    "text": "xuất huyết kết mạc",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1284,
+      1309
+    ]
+  },
+  {
+    "text": "XÉT NGHIỆM",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1632,
+      1645
+    ]
+  },
+  {
+    "text": "50,000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1666,
+      1672
+    ]
+  },
+  {
+    "text": "2.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1678,
+      1681
+    ]
+  },
+  {
+    "text": "fibrinogen",
+    "type": "THUỐC",
+    "candidates": [
+      "4385"
+    ],
+    "assertions": [],
+    "position": [
+      1704,
+      1714
+    ]
+  },
+  {
+    "text": "200",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1715,
+      1718
+    ]
+  },
+  {
+    "text": "13",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1728,
+      1730
+    ]
+  },
+  {
+    "text": "rối loạn đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1766,
+      1809
+    ]
+  },
+  {
+    "text": "nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      1813,
+      1835
+    ]
+  },
+  {
+    "text": "viêm phổi do tụ cầu khuẩn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      1841,
+      1874
+    ]
+  },
+  {
+    "text": "heparin",
+    "type": "THUỐC",
+    "candidates": [
+      "5224"
+    ],
+    "assertions": [],
+    "position": [
+      1988,
+      1995
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2043,
+      2056
+    ]
+  }
+]

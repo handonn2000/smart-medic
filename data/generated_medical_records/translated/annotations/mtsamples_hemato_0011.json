@@ -1,0 +1,234 @@
+[
+  {
+    "text": "Ung thư phổi tế bào nhỏ giai đoạn rộng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      23,
+      71
+    ]
+  },
+  {
+    "text": "Hóa trị liệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z51.2"
+    ],
+    "assertions": [],
+    "position": [
+      76,
+      92
+    ]
+  },
+  {
+    "text": "carboplatin",
+    "type": "THUỐC",
+    "candidates": [
+      "40048"
+    ],
+    "assertions": [],
+    "position": [
+      99,
+      110
+    ]
+  },
+  {
+    "text": "etoposide",
+    "type": "THUỐC",
+    "candidates": [
+      "4179"
+    ],
+    "assertions": [],
+    "position": [
+      115,
+      124
+    ]
+  },
+  {
+    "text": "Đau vai trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      129,
+      142
+    ]
+  },
+  {
+    "text": "chụp CT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      151,
+      159
+    ]
+  },
+  {
+    "text": "ung thư phổi tế bào nhỏ giai đoạn rộng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      214,
+      262
+    ]
+  },
+  {
+    "text": "carboplatin",
+    "type": "THUỐC",
+    "candidates": [
+      "40048"
+    ],
+    "assertions": [],
+    "position": [
+      306,
+      317
+    ]
+  },
+  {
+    "text": "etoposide",
+    "type": "THUỐC",
+    "candidates": [
+      "4179"
+    ],
+    "assertions": [],
+    "position": [
+      322,
+      331
+    ]
+  },
+  {
+    "text": "đau lưng liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      402,
+      422
+    ]
+  },
+  {
+    "text": "chụp CT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      448,
+      456
+    ]
+  },
+  {
+    "text": "Levothyroxine",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      565,
+      578
+    ]
+  },
+  {
+    "text": "Soriatane",
+    "type": "THUỐC",
+    "candidates": [
+      "16818"
+    ],
+    "assertions": [],
+    "position": [
+      599,
+      608
+    ]
+  },
+  {
+    "text": "Timoptic",
+    "type": "THUỐC",
+    "candidates": [
+      "10600"
+    ],
+    "assertions": [],
+    "position": [
+      628,
+      636
+    ]
+  },
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      856,
+      865
+    ]
+  },
+  {
+    "text": "thuốc giảm đau",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Y45"
+    ],
+    "assertions": [],
+    "position": [
+      909,
+      926
+    ]
+  },
+  {
+    "text": "sốt nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      998,
+      1008
+    ]
+  },
+  {
+    "text": "rét run",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1036,
+      1044
+    ]
+  },
+  {
+    "text": "đổ mồ hôi đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1046,
+      1065
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1067,
+      1077
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1086,
+      1096
+    ]
+  }
+]

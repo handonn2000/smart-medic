@@ -1,0 +1,361 @@
+[
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      66,
+      76
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      78,
+      98
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      103,
+      112
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      252,
+      261
+    ]
+  },
+  {
+    "text": "bồn chồn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      285,
+      297
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      309,
+      319
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      324,
+      326
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      341,
+      361
+    ]
+  },
+  {
+    "text": "sốt nhẹ về chiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      436,
+      459
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      473,
+      486
+    ]
+  },
+  {
+    "text": "co giật toàn thể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      528,
+      549
+    ]
+  },
+  {
+    "text": "Bệnh lý tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      654,
+      682
+    ]
+  },
+  {
+    "text": "Rối loạn cơ thể hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F45.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      923,
+      949
+    ]
+  },
+  {
+    "text": "Bệnh than không xác định",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A22.9"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      1050,
+      1079
+    ]
+  },
+  {
+    "text": "Rozerem",
+    "type": "THUỐC",
+    "candidates": [
+      "596205"
+    ],
+    "assertions": [],
+    "position": [
+      1262,
+      1269
+    ]
+  },
+  {
+    "text": "tiadilon",
+    "type": "THUỐC",
+    "candidates": [
+      "38249"
+    ],
+    "assertions": [],
+    "position": [
+      1302,
+      1310
+    ]
+  },
+  {
+    "text": "Octoxynol 2",
+    "type": "THUỐC",
+    "candidates": [
+      "486901"
+    ],
+    "assertions": [],
+    "position": [
+      1323,
+      1334
+    ]
+  },
+  {
+    "text": "Estrace",
+    "type": "THUỐC",
+    "candidates": [
+      "4083"
+    ],
+    "assertions": [],
+    "position": [
+      1407,
+      1414
+    ]
+  },
+  {
+    "text": "nghe kém tai trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1534,
+      1553
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1671,
+      1691
+    ]
+  },
+  {
+    "text": "37.8°C",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1760,
+      1766
+    ]
+  },
+  {
+    "text": "xét nghiệm HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1779,
+      1798
+    ]
+  },
+  {
+    "text": "xét nghiệm máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1834,
+      1852
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1912,
+      1926
+    ]
+  },
+  {
+    "text": "cấy nước tiểu định danh vi khuẩn",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1980,
+      2022
+    ]
+  },
+  {
+    "text": "siêu âm doppler mạch chi dưới",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2059,
+      2094
+    ]
+  },
+  {
+    "text": "chức năng tâm thu thất trái bảo tồn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2150,
+      2195
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2211,
+      2214
+    ]
+  },
+  {
+    "text": "dương tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2230,
+      2243
+    ]
+  },
+  {
+    "text": "Phản ứng stress cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F43.0"
+    ],
+    "assertions": [],
+    "position": [
+      2322,
+      2346
+    ]
+  },
+  {
+    "text": "Các ảo giác thực tổn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F06.0"
+    ],
+    "assertions": [],
+    "position": [
+      2525,
+      2552
+    ]
+  },
+  {
+    "text": "Nói lúng búng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F98.6"
+    ],
+    "assertions": [],
+    "position": [
+      2554,
+      2570
+    ]
+  },
+  {
+    "text": "Sảng khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F05.8"
+    ],
+    "assertions": [],
+    "position": [
+      2701,
+      2712
+    ]
+  }
+]

@@ -1,0 +1,291 @@
+[
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      233,
+      265
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      270,
+      279
+    ]
+  },
+  {
+    "text": "tê bì",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      315,
+      322
+    ]
+  },
+  {
+    "text": "đau vùng thượng vị sau ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      402,
+      433
+    ]
+  },
+  {
+    "text": "ngứa nhiều vùng lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      438,
+      464
+    ]
+  },
+  {
+    "text": "gần ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      535,
+      547
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      669,
+      680
+    ]
+  },
+  {
+    "text": "rụng tóc nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      685,
+      703
+    ]
+  },
+  {
+    "text": "Viêm khí quản cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J04.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      786,
+      808
+    ]
+  },
+  {
+    "text": "Viêm xoang hàm mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J32.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      926,
+      953
+    ]
+  },
+  {
+    "text": "Viêm xoang bướm mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J32.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      958,
+      988
+    ]
+  },
+  {
+    "text": "Augmentin",
+    "type": "THUỐC",
+    "candidates": [
+      "48203",
+      "723"
+    ],
+    "assertions": [],
+    "position": [
+      1347,
+      1356
+    ]
+  },
+  {
+    "text": "Tekturna",
+    "type": "THUỐC",
+    "candidates": [
+      "325646"
+    ],
+    "assertions": [],
+    "position": [
+      1404,
+      1412
+    ]
+  },
+  {
+    "text": "*******************************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1503,
+      1534
+    ]
+  },
+  {
+    "text": "xét nghiệm đông máu cơ bản",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1946,
+      1979
+    ]
+  },
+  {
+    "text": "xét nghiệm nước tiểu 24 giờ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1984,
+      2021
+    ]
+  },
+  {
+    "text": "chưa ghi nhận",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2028,
+      2044
+    ]
+  },
+  {
+    "text": "37.8°C",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2100,
+      2106
+    ]
+  },
+  {
+    "text": "xét nghiệm chức năng tuyến giáp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2151,
+      2191
+    ]
+  },
+  {
+    "text": "điện tâm đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2244,
+      2260
+    ]
+  },
+  {
+    "text": "tăng nhẹ men gan so với giới hạn trên",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2341,
+      2386
+    ]
+  },
+  {
+    "text": "26 U/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2412,
+      2418
+    ]
+  },
+  {
+    "text": "lấy máu khô ở gót chân",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2441,
+      2471
+    ]
+  },
+  {
+    "text": "Bệnh của cơ hoành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J98.6"
+    ],
+    "assertions": [],
+    "position": [
+      2585,
+      2607
+    ]
+  },
+  {
+    "text": "Phù phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J81"
+    ],
+    "assertions": [],
+    "position": [
+      2637,
+      2648
+    ]
+  },
+  {
+    "text": "Polyp thân tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N84.0"
+    ],
+    "assertions": [],
+    "position": [
+      3066,
+      3087
+    ]
+  }
+]

@@ -1,0 +1,366 @@
+[
+  {
+    "text": "đau ngực khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      27,
+      48
+    ]
+  },
+  {
+    "text": "hồi hộp đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      50,
+      73
+    ]
+  },
+  {
+    "text": "choáng váng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      75,
+      86
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      88,
+      95
+    ]
+  },
+  {
+    "text": "điện tâm đồ bất thường",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      99,
+      121
+    ]
+  },
+  {
+    "text": "hồi hộp đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      163,
+      186
+    ]
+  },
+  {
+    "text": "khó thở nghiêm trọng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      260,
+      280
+    ]
+  },
+  {
+    "text": "choáng váng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      284,
+      295
+    ]
+  },
+  {
+    "text": "hồi hộp đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      309,
+      332
+    ]
+  },
+  {
+    "text": "cảm giác tức ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      411,
+      428
+    ]
+  },
+  {
+    "text": "Cảm giác tức ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      464,
+      481
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      647,
+      660
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      704,
+      718
+    ]
+  },
+  {
+    "text": "Astelin",
+    "type": "THUỐC",
+    "candidates": [
+      "18603"
+    ],
+    "assertions": [],
+    "position": [
+      811,
+      818
+    ]
+  },
+  {
+    "text": "Evista",
+    "type": "THUỐC",
+    "candidates": [
+      "72143"
+    ],
+    "assertions": [],
+    "position": [
+      837,
+      843
+    ]
+  },
+  {
+    "text": "*********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      866,
+      875
+    ]
+  },
+  {
+    "text": "Diovan",
+    "type": "THUỐC",
+    "candidates": [
+      "69749"
+    ],
+    "assertions": [],
+    "position": [
+      928,
+      934
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      964,
+      977
+    ]
+  },
+  {
+    "text": "đột quỵ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I69.4"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1172,
+      1179
+    ]
+  },
+  {
+    "text": "viêm khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M02"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1206,
+      1215
+    ]
+  },
+  {
+    "text": "160/80",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1509,
+      1515
+    ]
+  },
+  {
+    "text": "18 lần/phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1526,
+      1537
+    ]
+  },
+  {
+    "text": "70 nhịp/phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1548,
+      1560
+    ]
+  },
+  {
+    "text": "22",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1619,
+      1621
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1724,
+      1731
+    ]
+  },
+  {
+    "text": "Điện tâm đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2614,
+      2625
+    ]
+  },
+  {
+    "text": "nhịp xoang bình thường, thay đổi sóng ST và T",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2659,
+      2704
+    ]
+  },
+  {
+    "text": "Hồ sơ lipid",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2706,
+      2717
+    ]
+  },
+  {
+    "text": "đường huyết ngẫu nhiên",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2719,
+      2741
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2743,
+      2746
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2748,
+      2758
+    ]
+  },
+  {
+    "text": "công thức máu toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2760,
+      2783
+    ]
+  },
+  {
+    "text": "chức năng gan (LFTs)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2787,
+      2807
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2812,
+      2823
+    ]
+  }
+]

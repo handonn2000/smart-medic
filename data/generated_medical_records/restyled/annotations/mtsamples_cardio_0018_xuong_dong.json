@@ -1,0 +1,442 @@
+[
+  {
+    "text": "Thuyên tắc phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      8,
+      23
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      119,
+      128
+    ]
+  },
+  {
+    "text": "khó thở nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      146,
+      157
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      166,
+      174
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      182,
+      190
+    ]
+  },
+  {
+    "text": "tiêu chảy nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      197,
+      210
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      279,
+      286
+    ]
+  },
+  {
+    "text": "tím tái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      305,
+      312
+    ]
+  },
+  {
+    "text": "khó thở nhẹ khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      335,
+      359
+    ]
+  },
+  {
+    "text": "cảm thấy khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      391,
+      407
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      439,
+      447
+    ]
+  },
+  {
+    "text": "Thuyên tắc phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      482,
+      497
+    ]
+  },
+  {
+    "text": "Rung nhĩ kịch phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      563,
+      581
+    ]
+  },
+  {
+    "text": "xuất huyết tiêu hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      609,
+      628
+    ]
+  },
+  {
+    "text": "Bệnh động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      632,
+      651
+    ]
+  },
+  {
+    "text": "xuất huyết tiêu hóa dưới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      677,
+      701
+    ]
+  },
+  {
+    "text": "Hở van hai lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I34.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      705,
+      718
+    ]
+  },
+  {
+    "text": "Bệnh trào ngược dạ dày thực quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      722,
+      754
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      758,
+      771
+    ]
+  },
+  {
+    "text": "Rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      775,
+      793
+    ]
+  },
+  {
+    "text": "Phình động mạch chủ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I71.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      797,
+      816
+    ]
+  },
+  {
+    "text": "Bệnh mạch máu ngoại biên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I73"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      842,
+      866
+    ]
+  },
+  {
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      871,
+      879
+    ]
+  },
+  {
+    "text": "Aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      982,
+      989
+    ]
+  },
+  {
+    "text": "Potassium",
+    "type": "THUỐC",
+    "candidates": [
+      "8588"
+    ],
+    "assertions": [],
+    "position": [
+      991,
+      1000
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [],
+    "position": [
+      1002,
+      1007
+    ]
+  },
+  {
+    "text": "Levothyroxine",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      1009,
+      1022
+    ]
+  },
+  {
+    "text": "**********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1024,
+      1034
+    ]
+  },
+  {
+    "text": "********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1036,
+      1044
+    ]
+  },
+  {
+    "text": "Protonix",
+    "type": "THUỐC",
+    "candidates": [
+      "40790"
+    ],
+    "assertions": [],
+    "position": [
+      1046,
+      1054
+    ]
+  },
+  {
+    "text": "Toprol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      1056,
+      1062
+    ]
+  },
+  {
+    "text": "Vitamin B",
+    "type": "THUỐC",
+    "candidates": [
+      "11251"
+    ],
+    "assertions": [],
+    "position": [
+      1064,
+      1073
+    ]
+  },
+  {
+    "text": "Zetia",
+    "type": "THUỐC",
+    "candidates": [
+      "341248"
+    ],
+    "assertions": [],
+    "position": [
+      1075,
+      1080
+    ]
+  },
+  {
+    "text": "Zyrtec",
+    "type": "THUỐC",
+    "candidates": [
+      "20610"
+    ],
+    "assertions": [],
+    "position": [
+      1082,
+      1088
+    ]
+  },
+  {
+    "text": "SULFA",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1099,
+      1104
+    ]
+  },
+  {
+    "text": "ngáy ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1189,
+      1197
+    ]
+  },
+  {
+    "text": "nghẹt thở khi ngủ đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1200,
+      1221
+    ]
+  },
+  {
+    "text": "khô miệng buổi sáng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1224,
+      1243
+    ]
+  }
+]

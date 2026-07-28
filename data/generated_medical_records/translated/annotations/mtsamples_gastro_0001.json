@@ -1,0 +1,648 @@
+[
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      35,
+      43
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      120,
+      127
+    ]
+  },
+  {
+    "text": "đau thượng vị",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      142,
+      155
+    ]
+  },
+  {
+    "text": "CT scan lát cắt mỏng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      179,
+      199
+    ]
+  },
+  {
+    "text": "di căn gan",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      325,
+      335
+    ]
+  },
+  {
+    "text": "giả nang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      372,
+      380
+    ]
+  },
+  {
+    "text": "ERCP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      421,
+      425
+    ]
+  },
+  {
+    "text": "bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      681,
+      690
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      698,
+      708
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      743,
+      751
+    ]
+  },
+  {
+    "text": "Zofran",
+    "type": "THUỐC",
+    "candidates": [
+      "26225"
+    ],
+    "assertions": [],
+    "position": [
+      817,
+      823
+    ]
+  },
+  {
+    "text": "Phenergan",
+    "type": "THUỐC",
+    "candidates": [
+      "8745"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      859,
+      868
+    ]
+  },
+  {
+    "text": "ít buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      935,
+      946
+    ]
+  },
+  {
+    "text": "Phenergan",
+    "type": "THUỐC",
+    "candidates": [
+      "8745"
+    ],
+    "assertions": [],
+    "position": [
+      993,
+      1002
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1029,
+      1032
+    ]
+  },
+  {
+    "text": "9.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1050,
+      1053
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1055,
+      1065
+    ]
+  },
+  {
+    "text": "10.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1066,
+      1070
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1072,
+      1082
+    ]
+  },
+  {
+    "text": "32",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1083,
+      1085
+    ]
+  },
+  {
+    "text": "MCV",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1090,
+      1093
+    ]
+  },
+  {
+    "text": "79",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1097,
+      1099
+    ]
+  },
+  {
+    "text": "585000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1119,
+      1125
+    ]
+  },
+  {
+    "text": "natri",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1135,
+      1140
+    ]
+  },
+  {
+    "text": "132",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1144,
+      1147
+    ]
+  },
+  {
+    "text": "kali",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1149,
+      1153
+    ]
+  },
+  {
+    "text": "4.1",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1154,
+      1157
+    ]
+  },
+  {
+    "text": "clorua",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1159,
+      1165
+    ]
+  },
+  {
+    "text": "95",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1166,
+      1168
+    ]
+  },
+  {
+    "text": "CO2",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1170,
+      1173
+    ]
+  },
+  {
+    "text": "27",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1174,
+      1176
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1178,
+      1181
+    ]
+  },
+  {
+    "text": "8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1185,
+      1186
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1191,
+      1201
+    ]
+  },
+  {
+    "text": "0.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1205,
+      1208
+    ]
+  },
+  {
+    "text": "bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1210,
+      1219
+    ]
+  },
+  {
+    "text": "17.1",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1223,
+      1227
+    ]
+  },
+  {
+    "text": "alk phos",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1229,
+      1237
+    ]
+  },
+  {
+    "text": "273",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1238,
+      1241
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1243,
+      1246
+    ]
+  },
+  {
+    "text": "104",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1247,
+      1250
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1252,
+      1255
+    ]
+  },
+  {
+    "text": "136",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1256,
+      1259
+    ]
+  },
+  {
+    "text": "total protein",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1261,
+      1274
+    ]
+  },
+  {
+    "text": "7.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1275,
+      1278
+    ]
+  },
+  {
+    "text": "albumin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1282,
+      1289
+    ]
+  },
+  {
+    "text": "3.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1293,
+      1296
+    ]
+  },
+  {
+    "text": "đường huyết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1382,
+      1393
+    ]
+  },
+  {
+    "text": "insulin",
+    "type": "THUỐC",
+    "candidates": [
+      "253182"
+    ],
+    "assertions": [],
+    "position": [
+      1482,
+      1489
+    ]
+  },
+  {
+    "text": "insulin",
+    "type": "THUỐC",
+    "candidates": [
+      "253182"
+    ],
+    "assertions": [],
+    "position": [
+      1491,
+      1498
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      1638,
+      1652
+    ]
+  },
+  {
+    "text": "ung thư tuyến tụy di căn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1856,
+      1880
+    ]
+  },
+  {
+    "text": "Phenergan",
+    "type": "THUỐC",
+    "candidates": [
+      "8745"
+    ],
+    "assertions": [],
+    "position": [
+      2009,
+      2018
+    ]
+  },
+  {
+    "text": "Duragesic",
+    "type": "THUỐC",
+    "candidates": [
+      "4337"
+    ],
+    "assertions": [],
+    "position": [
+      2057,
+      2066
+    ]
+  },
+  {
+    "text": "Benadryl",
+    "type": "THUỐC",
+    "candidates": [
+      "3498"
+    ],
+    "assertions": [],
+    "position": [
+      2090,
+      2098
+    ]
+  },
+  {
+    "text": "insulin",
+    "type": "THUỐC",
+    "candidates": [
+      "253182"
+    ],
+    "assertions": [],
+    "position": [
+      2150,
+      2157
+    ]
+  },
+  {
+    "text": "enalapril",
+    "type": "THUỐC",
+    "candidates": [
+      "3827"
+    ],
+    "assertions": [],
+    "position": [
+      2290,
+      2299
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      2309,
+      2322
+    ]
+  },
+  {
+    "text": "ERCP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2416,
+      2420
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2461,
+      2464
+    ]
+  },
+  {
+    "text": "bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2471,
+      2480
+    ]
+  },
+  {
+    "text": "đau nặng hơn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2482,
+      2494
+    ]
+  }
+]

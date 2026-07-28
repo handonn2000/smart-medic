@@ -1,0 +1,602 @@
+[
+  {
+    "text": "bệnh thận giai đoạn cuối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.0"
+    ],
+    "assertions": [],
+    "position": [
+      22,
+      46
+    ]
+  },
+  {
+    "text": "thẩm tách máu mạn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      68,
+      90
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      105,
+      113
+    ]
+  },
+  {
+    "text": "bệnh động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [],
+    "position": [
+      233,
+      252
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      306,
+      314
+    ]
+  },
+  {
+    "text": "nitroglycerin",
+    "type": "THUỐC",
+    "candidates": [
+      "4917"
+    ],
+    "assertions": [],
+    "position": [
+      376,
+      389
+    ]
+  },
+  {
+    "text": "chụp động mạch vành",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      469,
+      488
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      685,
+      693
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      695,
+      702
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      704,
+      712
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      714,
+      721
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      723,
+      731
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      733,
+      742
+    ]
+  },
+  {
+    "text": "tiểu máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      759,
+      767
+    ]
+  },
+  {
+    "text": "tiểu khó",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      769,
+      777
+    ]
+  },
+  {
+    "text": "Bệnh động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      829,
+      848
+    ]
+  },
+  {
+    "text": "Đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      893,
+      907
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      929,
+      942
+    ]
+  },
+  {
+    "text": "Bệnh thận giai đoạn cuối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      947,
+      971
+    ]
+  },
+  {
+    "text": "TIA",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      984,
+      987
+    ]
+  },
+  {
+    "text": "Metoprolol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      1433,
+      1443
+    ]
+  },
+  {
+    "text": "Plavix",
+    "type": "THUỐC",
+    "candidates": [
+      "32968"
+    ],
+    "assertions": [],
+    "position": [
+      1445,
+      1451
+    ]
+  },
+  {
+    "text": "Rocaltrol",
+    "type": "THUỐC",
+    "candidates": [
+      "1894"
+    ],
+    "assertions": [],
+    "position": [
+      1453,
+      1462
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [],
+    "position": [
+      1464,
+      1469
+    ]
+  },
+  {
+    "text": "Norvasc",
+    "type": "THUỐC",
+    "candidates": [
+      "17767"
+    ],
+    "assertions": [],
+    "position": [
+      1471,
+      1478
+    ]
+  },
+  {
+    "text": "Zocor",
+    "type": "THUỐC",
+    "candidates": [
+      "36567"
+    ],
+    "assertions": [],
+    "position": [
+      1480,
+      1485
+    ]
+  },
+  {
+    "text": "hydralazine",
+    "type": "THUỐC",
+    "candidates": [
+      "5470"
+    ],
+    "assertions": [],
+    "position": [
+      1487,
+      1498
+    ]
+  },
+  {
+    "text": "calcium carbonate",
+    "type": "THUỐC",
+    "candidates": [
+      "1897"
+    ],
+    "assertions": [],
+    "position": [
+      1500,
+      1517
+    ]
+  },
+  {
+    "text": "loratadine",
+    "type": "THUỐC",
+    "candidates": [
+      "28889"
+    ],
+    "assertions": [],
+    "position": [
+      1522,
+      1532
+    ]
+  },
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1601,
+      1609
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2081,
+      2091
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2101,
+      2111
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2121,
+      2131
+    ]
+  },
+  {
+    "text": "13",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2132,
+      2134
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2136,
+      2146
+    ]
+  },
+  {
+    "text": "38.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2147,
+      2151
+    ]
+  },
+  {
+    "text": "sodium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2153,
+      2159
+    ]
+  },
+  {
+    "text": "130",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2160,
+      2163
+    ]
+  },
+  {
+    "text": "potassium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2165,
+      2174
+    ]
+  },
+  {
+    "text": "4.2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2175,
+      2178
+    ]
+  },
+  {
+    "text": "chloride",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2180,
+      2188
+    ]
+  },
+  {
+    "text": "96.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2189,
+      2193
+    ]
+  },
+  {
+    "text": "carbonate",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2195,
+      2204
+    ]
+  },
+  {
+    "text": "30",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2205,
+      2207
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2209,
+      2212
+    ]
+  },
+  {
+    "text": "26",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2213,
+      2215
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2217,
+      2227
+    ]
+  },
+  {
+    "text": "6.03",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2228,
+      2232
+    ]
+  },
+  {
+    "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2237,
+      2244
+    ]
+  },
+  {
+    "text": "162",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2245,
+      2248
+    ]
+  },
+  {
+    "text": "Bệnh thận giai đoạn cuối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.0"
+    ],
+    "assertions": [],
+    "position": [
+      2265,
+      2289
+    ]
+  },
+  {
+    "text": "Đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      2326,
+      2340
+    ]
+  },
+  {
+    "text": "Đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2345,
+      2353
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      2390,
+      2403
+    ]
+  }
+]

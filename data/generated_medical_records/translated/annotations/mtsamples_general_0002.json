@@ -1,0 +1,404 @@
+[
+  {
+    "text": "buồn nôn và nôn không kiểm soát được",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      88,
+      124
+    ]
+  },
+  {
+    "text": "nôn ra máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      134,
+      144
+    ]
+  },
+  {
+    "text": "sử dụng rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      364,
+      376
+    ]
+  },
+  {
+    "text": "natri",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      561,
+      566
+    ]
+  },
+  {
+    "text": "kali",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      577,
+      581
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      593,
+      596
+    ]
+  },
+  {
+    "text": "93",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      597,
+      599
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      601,
+      604
+    ]
+  },
+  {
+    "text": "35",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      605,
+      607
+    ]
+  },
+  {
+    "text": "bilirubin toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      609,
+      628
+    ]
+  },
+  {
+    "text": "1.2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      632,
+      635
+    ]
+  },
+  {
+    "text": "Nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      637,
+      646
+    ]
+  },
+  {
+    "text": "ketones",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      650,
+      657
+    ]
+  },
+  {
+    "text": "3+",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      658,
+      660
+    ]
+  },
+  {
+    "text": "protein",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      662,
+      669
+    ]
+  },
+  {
+    "text": "2+",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      670,
+      672
+    ]
+  },
+  {
+    "text": "esterase",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      677,
+      685
+    ]
+  },
+  {
+    "text": "1+",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      686,
+      688
+    ]
+  },
+  {
+    "text": "hồng cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      699,
+      707
+    ]
+  },
+  {
+    "text": "HGB và HCT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      758,
+      768
+    ]
+  },
+  {
+    "text": "14.1 và 48.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      779,
+      791
+    ]
+  },
+  {
+    "text": "Phenergan",
+    "type": "THUỐC",
+    "candidates": [
+      "8745"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      850,
+      859
+    ]
+  },
+  {
+    "text": "Zofran",
+    "type": "THUỐC",
+    "candidates": [
+      "26225"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      863,
+      869
+    ]
+  },
+  {
+    "text": "Rocephin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      939,
+      947
+    ]
+  },
+  {
+    "text": "nhiễm trùng bàng quang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      960,
+      982
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1013,
+      1028
+    ]
+  },
+  {
+    "text": "Maalox",
+    "type": "THUỐC",
+    "candidates": [
+      "612",
+      "6581"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1070,
+      1076
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1170,
+      1173
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1175,
+      1178
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1237,
+      1247
+    ]
+  },
+  {
+    "text": "tăng nôn nghén",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1348,
+      1362
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1404,
+      1407
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1448,
+      1463
+    ]
+  }
+]

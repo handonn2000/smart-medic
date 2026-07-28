@@ -1,0 +1,276 @@
+[
+  {
+    "text": "gần ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      52,
+      60
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      64,
+      71
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      157,
+      164
+    ]
+  },
+  {
+    "text": "sụt cân không rõ nguyên nhân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      193,
+      221
+    ]
+  },
+  {
+    "text": "gần ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      256,
+      264
+    ]
+  },
+  {
+    "text": "ngạt mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      327,
+      335
+    ]
+  },
+  {
+    "text": "ra mồ hôi về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      339,
+      355
+    ]
+  },
+  {
+    "text": "tiểu nhiều lần về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      400,
+      421
+    ]
+  },
+  {
+    "text": "cứng khớp buổi sáng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      434,
+      453
+    ]
+  },
+  {
+    "text": "Levitra",
+    "type": "THUỐC",
+    "candidates": [
+      "306674"
+    ],
+    "assertions": [],
+    "position": [
+      902,
+      909
+    ]
+  },
+  {
+    "text": "Hyoscyamine",
+    "type": "THUỐC",
+    "candidates": [
+      "153970"
+    ],
+    "assertions": [],
+    "position": [
+      911,
+      922
+    ]
+  },
+  {
+    "text": "Ixempra",
+    "type": "THUỐC",
+    "candidates": [
+      "337523"
+    ],
+    "assertions": [],
+    "position": [
+      924,
+      931
+    ]
+  },
+  {
+    "text": "Aldactone",
+    "type": "THUỐC",
+    "candidates": [
+      "9997"
+    ],
+    "assertions": [],
+    "position": [
+      935,
+      944
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1064,
+      1070
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1075,
+      1078
+    ]
+  },
+  {
+    "text": "tăng nhẹ men gan so với giới hạn trên",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1295,
+      1332
+    ]
+  },
+  {
+    "text": "HCT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1342,
+      1345
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1349,
+      1352
+    ]
+  },
+  {
+    "text": "chưa ghi nhận",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1534,
+      1547
+    ]
+  },
+  {
+    "text": "Bệnh van động mạch phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I37"
+    ],
+    "assertions": [],
+    "position": [
+      1564,
+      1587
+    ]
+  },
+  {
+    "text": "Nhồi máu cơ tim cũ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.2"
+    ],
+    "assertions": [],
+    "position": [
+      1592,
+      1610
+    ]
+  },
+  {
+    "text": "Viêm xoang sàng cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J01.2"
+    ],
+    "assertions": [],
+    "position": [
+      1615,
+      1634
+    ]
+  },
+  {
+    "text": "Hội chứng Raynaud",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I73.0"
+    ],
+    "assertions": [],
+    "position": [
+      1639,
+      1656
+    ]
+  },
+  {
+    "text": "Hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      1661,
+      1672
+    ]
+  },
+  {
+    "text": "Ép tĩnh mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I87.1"
+    ],
+    "assertions": [],
+    "position": [
+      1677,
+      1689
+    ]
+  }
+]

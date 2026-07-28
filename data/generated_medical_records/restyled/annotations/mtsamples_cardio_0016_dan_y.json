@@ -1,0 +1,246 @@
+[
+  {
+    "text": "ngáy to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      207,
+      215
+    ]
+  },
+  {
+    "text": "ngưng thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      217,
+      229
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      506,
+      523
+    ]
+  },
+  {
+    "text": "Viêm dạ dày",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      529,
+      543
+    ]
+  },
+  {
+    "text": "Đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      549,
+      558
+    ]
+  },
+  {
+    "text": "Hytrin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      638,
+      644
+    ]
+  },
+  {
+    "text": "Motrin",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      650,
+      656
+    ]
+  },
+  {
+    "text": "Lotensin",
+    "type": "THUỐC",
+    "candidates": [
+      "18867"
+    ],
+    "assertions": [],
+    "position": [
+      662,
+      670
+    ]
+  },
+  {
+    "text": "Zantac",
+    "type": "THUỐC",
+    "candidates": [
+      "9143"
+    ],
+    "assertions": [],
+    "position": [
+      676,
+      682
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      746,
+      763
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1097,
+      1107
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1109,
+      1111
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1113,
+      1123
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1231,
+      1241
+    ]
+  },
+  {
+    "text": "156/90",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1283,
+      1289
+    ]
+  },
+  {
+    "text": "198 lb",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1356,
+      1362
+    ]
+  },
+  {
+    "text": "Hội chứng ngưng thở khi ngủ do tắc nghẽn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1813,
+      1864
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1890,
+      1907
+    ]
+  },
+  {
+    "text": "Béo phì",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.9"
+    ],
+    "assertions": [],
+    "position": [
+      1914,
+      1923
+    ]
+  },
+  {
+    "text": "sử dụng thuốc lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.0"
+    ],
+    "assertions": [],
+    "position": [
+      1942,
+      1964
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2080,
+      2083
+    ]
+  }
+]

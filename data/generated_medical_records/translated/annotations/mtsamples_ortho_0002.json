@@ -1,0 +1,209 @@
+[
+  {
+    "text": "đau khớp háng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      95,
+      108
+    ]
+  },
+  {
+    "text": "đau khớp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      184,
+      192
+    ]
+  },
+  {
+    "text": "Cơn đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      296,
+      303
+    ]
+  },
+  {
+    "text": "trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      620,
+      628
+    ]
+  },
+  {
+    "text": "bệnh trào ngược",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      632,
+      647
+    ]
+  },
+  {
+    "text": "Mổ lấy thai",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O82.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      671,
+      682
+    ]
+  },
+  {
+    "text": "sử dụng ma túy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.2"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      1002,
+      1016
+    ]
+  },
+  {
+    "text": "khó tiêu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1173,
+      1181
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1185,
+      1193
+    ]
+  },
+  {
+    "text": "lo âu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1203,
+      1208
+    ]
+  },
+  {
+    "text": "trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32"
+    ],
+    "assertions": [],
+    "position": [
+      1212,
+      1220
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1868,
+      1878
+    ]
+  },
+  {
+    "text": "X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1881,
+      1888
+    ]
+  },
+  {
+    "text": "hội chứng chèn ép ổ cối-xương đùi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2222,
+      2255
+    ]
+  },
+  {
+    "text": "Đau khớp háng hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2270,
+      2291
+    ]
+  },
+  {
+    "text": "hội chứng chèn ép ổ cối-xương đùi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2334,
+      2367
+    ]
+  },
+  {
+    "text": "rách sụn viền",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2439,
+      2452
+    ]
+  },
+  {
+    "text": "chụp MRI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2541,
+      2549
+    ]
+  },
+  {
+    "text": "MRIs",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2819,
+      2823
+    ]
+  }
+]

@@ -1,0 +1,458 @@
+[
+  {
+    "text": "rung nhĩ kịch phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.0"
+    ],
+    "assertions": [],
+    "position": [
+      57,
+      78
+    ]
+  },
+  {
+    "text": "đau ngực khi hoạt động",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      143,
+      170
+    ]
+  },
+  {
+    "text": "cường giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      350,
+      364
+    ]
+  },
+  {
+    "text": "********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      387,
+      395
+    ]
+  },
+  {
+    "text": "atenolol/chlorthalidone",
+    "type": "THUỐC",
+    "candidates": [
+      "151195"
+    ],
+    "assertions": [],
+    "position": [
+      419,
+      442
+    ]
+  },
+  {
+    "text": "Micro-K",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      469,
+      476
+    ]
+  },
+  {
+    "text": "Lanoxin",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [],
+    "position": [
+      491,
+      498
+    ]
+  },
+  {
+    "text": "spironolactone",
+    "type": "THUỐC",
+    "candidates": [
+      "9997"
+    ],
+    "assertions": [],
+    "position": [
+      515,
+      529
+    ]
+  },
+  {
+    "text": "Crestor",
+    "type": "THUỐC",
+    "candidates": [
+      "301542"
+    ],
+    "assertions": [],
+    "position": [
+      543,
+      550
+    ]
+  },
+  {
+    "text": "famotidine",
+    "type": "THUỐC",
+    "candidates": [
+      "4278"
+    ],
+    "assertions": [],
+    "position": [
+      571,
+      581
+    ]
+  },
+  {
+    "text": "Bayer Aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      589,
+      602
+    ]
+  },
+  {
+    "text": "Vicodin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      616,
+      623
+    ]
+  },
+  {
+    "text": "Nexium",
+    "type": "THUỐC",
+    "candidates": [
+      "283742"
+    ],
+    "assertions": [],
+    "position": [
+      657,
+      663
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      704,
+      724
+    ]
+  },
+  {
+    "text": "chóng mặt nhẹ hay tiền ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      733,
+      768
+    ]
+  },
+  {
+    "text": "phù nhẹ ở chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      778,
+      803
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1118,
+      1131
+    ]
+  },
+  {
+    "text": "điện tâm đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1132,
+      1148
+    ]
+  },
+  {
+    "text": "Điện tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1156,
+      1166
+    ]
+  },
+  {
+    "text": "nhịp xoang chậm với 58 nhịp mỗi phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1178,
+      1223
+    ]
+  },
+  {
+    "text": "Đau ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R07.3"
+    ],
+    "assertions": [],
+    "position": [
+      1300,
+      1310
+    ]
+  },
+  {
+    "text": "EKG",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1319,
+      1322
+    ]
+  },
+  {
+    "text": "siêu âm tim gắng sức",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1365,
+      1391
+    ]
+  },
+  {
+    "text": "trào ngược axit",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1605,
+      1624
+    ]
+  },
+  {
+    "text": "Nexium",
+    "type": "THUỐC",
+    "candidates": [
+      "283742"
+    ],
+    "assertions": [],
+    "position": [
+      1668,
+      1674
+    ]
+  },
+  {
+    "text": "Phù nhẹ ở chi dưới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1679,
+      1704
+    ]
+  },
+  {
+    "text": "chlorthalidone",
+    "type": "THUỐC",
+    "candidates": [
+      "2409"
+    ],
+    "assertions": [],
+    "position": [
+      1794,
+      1808
+    ]
+  },
+  {
+    "text": "Rung nhĩ kịch phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.0"
+    ],
+    "assertions": [],
+    "position": [
+      1813,
+      1834
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1840,
+      1857
+    ]
+  },
+  {
+    "text": "cường giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [],
+    "position": [
+      1859,
+      1873
+    ]
+  },
+  {
+    "text": "hạ kali máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E87.6"
+    ],
+    "assertions": [],
+    "position": [
+      1878,
+      1891
+    ]
+  },
+  {
+    "text": "Cường giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [],
+    "position": [
+      1918,
+      1932
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1935,
+      1938
+    ]
+  },
+  {
+    "text": "Tapazole",
+    "type": "THUỐC",
+    "candidates": [
+      "6835"
+    ],
+    "assertions": [],
+    "position": [
+      1994,
+      2002
+    ]
+  },
+  {
+    "text": "Rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2073,
+      2095
+    ]
+  },
+  {
+    "text": "Crestor",
+    "type": "THUỐC",
+    "candidates": [
+      "301542"
+    ],
+    "assertions": [],
+    "position": [
+      2112,
+      2119
+    ]
+  },
+  {
+    "text": "Phì đại thất trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2124,
+      2146
+    ]
+  },
+  {
+    "text": "Rối loạn kinh nguyệt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2157,
+      2182
+    ]
+  },
+  {
+    "text": "siêu âm tim gắng sức",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2250,
+      2276
+    ]
+  },
+  {
+    "text": "phù ở chi dưới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2328,
+      2348
+    ]
+  },
+  {
+    "text": "Nexium",
+    "type": "THUỐC",
+    "candidates": [
+      "283742"
+    ],
+    "assertions": [],
+    "position": [
+      2374,
+      2380
+    ]
+  }
+]

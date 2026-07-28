@@ -1,0 +1,242 @@
+[
+  {
+    "text": "Plavix",
+    "type": "THUỐC",
+    "candidates": [
+      "32968"
+    ],
+    "assertions": [],
+    "position": [
+      183,
+      189
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      191,
+      198
+    ]
+  },
+  {
+    "text": "levothyroxine",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      200,
+      213
+    ]
+  },
+  {
+    "text": "lisinopril",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [],
+    "position": [
+      215,
+      225
+    ]
+  },
+  {
+    "text": "hydrochlorothiazide",
+    "type": "THUỐC",
+    "candidates": [
+      "5487"
+    ],
+    "assertions": [],
+    "position": [
+      227,
+      246
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [],
+    "position": [
+      248,
+      253
+    ]
+  },
+  {
+    "text": "insulin",
+    "type": "THUỐC",
+    "candidates": [
+      "253182"
+    ],
+    "assertions": [],
+    "position": [
+      255,
+      262
+    ]
+  },
+  {
+    "text": "***********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      266,
+      277
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      384,
+      391
+    ]
+  },
+  {
+    "text": "thiếu năng lượng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      393,
+      409
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      411,
+      425
+    ]
+  },
+  {
+    "text": "suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [],
+    "position": [
+      429,
+      437
+    ]
+  },
+  {
+    "text": "yếu ớt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      459,
+      465
+    ]
+  },
+  {
+    "text": "tê bì",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      467,
+      472
+    ]
+  },
+  {
+    "text": "đau khớp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      476,
+      484
+    ]
+  },
+  {
+    "text": "đau cấp tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R52.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      766,
+      778
+    ]
+  },
+  {
+    "text": "liệt nửa người",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G81"
+    ],
+    "assertions": [],
+    "position": [
+      1384,
+      1398
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      1726,
+      1740
+    ]
+  },
+  {
+    "text": "suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [],
+    "position": [
+      1744,
+      1752
+    ]
+  },
+  {
+    "text": "đường huyết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1790,
+      1801
+    ]
+  },
+  {
+    "text": "cholesterol",
+    "type": "THUỐC",
+    "candidates": [
+      "2438"
+    ],
+    "assertions": [],
+    "position": [
+      1830,
+      1841
+    ]
+  }
+]

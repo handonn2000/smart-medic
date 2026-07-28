@@ -1,0 +1,352 @@
+[
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      81,
+      89
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      93,
+      96
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      152,
+      167
+    ]
+  },
+  {
+    "text": "chuột rút bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      194,
+      212
+    ]
+  },
+  {
+    "text": "đau ngực khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      264,
+      285
+    ]
+  },
+  {
+    "text": "ngạt mũi hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      289,
+      305
+    ]
+  },
+  {
+    "text": "chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      342,
+      353
+    ]
+  },
+  {
+    "text": "ho khan kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      357,
+      372
+    ]
+  },
+  {
+    "text": "Thiếu oxy trong tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "P20"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      508,
+      531
+    ]
+  },
+  {
+    "text": "Bệnh khác của họng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J39.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      570,
+      588
+    ]
+  },
+  {
+    "text": "triisopropanolamine",
+    "type": "THUỐC",
+    "candidates": [
+      "1426368"
+    ],
+    "assertions": [],
+    "position": [
+      828,
+      847
+    ]
+  },
+  {
+    "text": "Heparin",
+    "type": "THUỐC",
+    "candidates": [
+      "5224"
+    ],
+    "assertions": [],
+    "position": [
+      883,
+      890
+    ]
+  },
+  {
+    "text": "Mirapex",
+    "type": "THUỐC",
+    "candidates": [
+      "746741"
+    ],
+    "assertions": [],
+    "position": [
+      951,
+      958
+    ]
+  },
+  {
+    "text": "Paxil",
+    "type": "THUỐC",
+    "candidates": [
+      "32937"
+    ],
+    "assertions": [],
+    "position": [
+      985,
+      990
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1145,
+      1148
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1269,
+      1276
+    ]
+  },
+  {
+    "text": "siêu âm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1322,
+      1329
+    ]
+  },
+  {
+    "text": "monitor holter",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1380,
+      1394
+    ]
+  },
+  {
+    "text": "hở van hai lá mức độ nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1404,
+      1428
+    ]
+  },
+  {
+    "text": "tốc độ máu lắng tăng cao",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1466,
+      1490
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1535,
+      1538
+    ]
+  },
+  {
+    "text": "26 U/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1542,
+      1548
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1564,
+      1575
+    ]
+  },
+  {
+    "text": "sinh thiết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1585,
+      1595
+    ]
+  },
+  {
+    "text": "rối loạn thông khí tắc nghẽn mức độ vừa",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1610,
+      1649
+    ]
+  },
+  {
+    "text": "Thiếu oxy trong tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "P20"
+    ],
+    "assertions": [],
+    "position": [
+      1665,
+      1688
+    ]
+  },
+  {
+    "text": "Nhỏ so với tuổi thai",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "P05.1"
+    ],
+    "assertions": [],
+    "position": [
+      1691,
+      1711
+    ]
+  },
+  {
+    "text": "Bệnh khác của họng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J39.2"
+    ],
+    "assertions": [],
+    "position": [
+      1714,
+      1732
+    ]
+  },
+  {
+    "text": "Chảy máu phổi chu sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "P26"
+    ],
+    "assertions": [],
+    "position": [
+      1735,
+      1757
+    ]
+  },
+  {
+    "text": "Trẻ cực non",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "P07.2"
+    ],
+    "assertions": [],
+    "position": [
+      1760,
+      1771
+    ]
+  },
+  {
+    "text": "Thiếu oxy trong tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "P20"
+    ],
+    "assertions": [],
+    "position": [
+      1874,
+      1897
+    ]
+  },
+  {
+    "text": "nội soi dạ dày tá tràng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1922,
+      1945
+    ]
+  }
+]

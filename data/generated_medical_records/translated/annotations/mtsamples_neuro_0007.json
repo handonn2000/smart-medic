@@ -1,0 +1,480 @@
+[
+  {
+    "text": "Viêm mô tế bào hai chân",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      24,
+      47
+    ]
+  },
+  {
+    "text": "nấm kẽ chân hai bên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      51,
+      70
+    ]
+  },
+  {
+    "text": "Tăng sản tuyến tiền liệt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N40"
+    ],
+    "assertions": [],
+    "position": [
+      75,
+      99
+    ]
+  },
+  {
+    "text": "tắc nghẽn đầu ra bàng quang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.3"
+    ],
+    "assertions": [],
+    "position": [
+      104,
+      131
+    ]
+  },
+  {
+    "text": "Bại não",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G80"
+    ],
+    "assertions": [],
+    "position": [
+      136,
+      143
+    ]
+  },
+  {
+    "text": "Valium",
+    "type": "THUỐC",
+    "candidates": [
+      "3322"
+    ],
+    "assertions": [],
+    "position": [
+      216,
+      222
+    ]
+  },
+  {
+    "text": "co cứng cơ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M62.4"
+    ],
+    "assertions": [],
+    "position": [
+      244,
+      254
+    ]
+  },
+  {
+    "text": "******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      256,
+      262
+    ]
+  },
+  {
+    "text": "cefazolin",
+    "type": "THUỐC",
+    "candidates": [
+      "2180"
+    ],
+    "assertions": [],
+    "position": [
+      280,
+      289
+    ]
+  },
+  {
+    "text": "Lotrimin",
+    "type": "THUỐC",
+    "candidates": [
+      "2623"
+    ],
+    "assertions": [],
+    "position": [
+      321,
+      329
+    ]
+  },
+  {
+    "text": "bại não",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G80"
+    ],
+    "assertions": [],
+    "position": [
+      484,
+      491
+    ]
+  },
+  {
+    "text": "viêm mô tế bào chi dưới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      525,
+      548
+    ]
+  },
+  {
+    "text": "lột da và tổn thương da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      655,
+      678
+    ]
+  },
+  {
+    "text": "nấm kẽ chân",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      738,
+      749
+    ]
+  },
+  {
+    "text": "XÉT NGHIỆM",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      900,
+      910
+    ]
+  },
+  {
+    "text": "số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      937,
+      954
+    ]
+  },
+  {
+    "text": "8200",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      972,
+      976
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1002,
+      1012
+    ]
+  },
+  {
+    "text": "13.6",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1013,
+      1017
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1019,
+      1029
+    ]
+  },
+  {
+    "text": "40.6",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1030,
+      1034
+    ]
+  },
+  {
+    "text": "số lượng tiểu cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1066,
+      1083
+    ]
+  },
+  {
+    "text": "250000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1087,
+      1093
+    ]
+  },
+  {
+    "text": "Hồ sơ chuyển hóa toàn diện",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1095,
+      1121
+    ]
+  },
+  {
+    "text": "đường huyết không đói",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1150,
+      1171
+    ]
+  },
+  {
+    "text": "137",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1172,
+      1175
+    ]
+  },
+  {
+    "text": "axit lactic",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1177,
+      1188
+    ]
+  },
+  {
+    "text": "0.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1192,
+      1195
+    ]
+  },
+  {
+    "text": "Xét nghiệm nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1197,
+      1217
+    ]
+  },
+  {
+    "text": "4-9 hồng cầu trên một trường nhìn lớn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1227,
+      1264
+    ]
+  },
+  {
+    "text": "2+ vi khuẩn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1269,
+      1280
+    ]
+  },
+  {
+    "text": "Cấy máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1282,
+      1289
+    ]
+  },
+  {
+    "text": "cấy vết thương",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1293,
+      1307
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1337,
+      1349
+    ]
+  },
+  {
+    "text": "***********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1477,
+      1488
+    ]
+  },
+  {
+    "text": "Lotrimin",
+    "type": "THUỐC",
+    "candidates": [
+      "2623"
+    ],
+    "assertions": [],
+    "position": [
+      1509,
+      1517
+    ]
+  },
+  {
+    "text": "phù chân và đỏ da chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1554,
+      1580
+    ]
+  },
+  {
+    "text": "tiểu nhiều lần",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1622,
+      1636
+    ]
+  },
+  {
+    "text": "600 cc",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1677,
+      1683
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1684,
+      1693
+    ]
+  },
+  {
+    "text": "500 cc",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1752,
+      1758
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1759,
+      1768
+    ]
+  },
+  {
+    "text": "Flomax",
+    "type": "THUỐC",
+    "candidates": [
+      "77492"
+    ],
+    "assertions": [],
+    "position": [
+      1788,
+      1794
+    ]
+  },
+  {
+    "text": "60 cc",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1885,
+      1890
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1891,
+      1900
+    ]
+  }
+]

@@ -1,0 +1,267 @@
+[
+  {
+    "text": "táo bón",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      214,
+      223
+    ]
+  },
+  {
+    "text": "tiêu chảy nhiều lần trong ngày",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      263,
+      300
+    ]
+  },
+  {
+    "text": "ngạt mũi hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      341,
+      360
+    ]
+  },
+  {
+    "text": "đau đầu vùng thái dương",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      365,
+      394
+    ]
+  },
+  {
+    "text": "tê bì hai bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      446,
+      466
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      471,
+      503
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      537,
+      557
+    ]
+  },
+  {
+    "text": "ra mồ hôi về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      579,
+      601
+    ]
+  },
+  {
+    "text": "ra máu âm đạo bất thường",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      657,
+      689
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      694,
+      699
+    ]
+  },
+  {
+    "text": "Loét dạ dày",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K25"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      753,
+      767
+    ]
+  },
+  {
+    "text": "Trĩ xác định khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K64.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      796,
+      817
+    ]
+  },
+  {
+    "text": "Viêm dạ dày do rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      847,
+      872
+    ]
+  },
+  {
+    "text": "Ropinirole",
+    "type": "THUỐC",
+    "candidates": [
+      "72302"
+    ],
+    "assertions": [],
+    "position": [
+      1171,
+      1181
+    ]
+  },
+  {
+    "text": "Ryvent",
+    "type": "THUỐC",
+    "candidates": [
+      "20220"
+    ],
+    "assertions": [],
+    "position": [
+      1231,
+      1237
+    ]
+  },
+  {
+    "text": "Vicoprofen",
+    "type": "THUỐC",
+    "candidates": [
+      "5489",
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      1280,
+      1290
+    ]
+  },
+  {
+    "text": "són tiểu khi ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1525,
+      1543
+    ]
+  },
+  {
+    "text": "PLT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1634,
+      1637
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1679,
+      1682
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1694,
+      1703
+    ]
+  },
+  {
+    "text": "có dịch tự do trong ổ bụng lượng ít",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1743,
+      1789
+    ]
+  },
+  {
+    "text": "monitor holter điện tâm đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1900,
+      1931
+    ]
+  },
+  {
+    "text": "Thoát vị bụng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K43"
+    ],
+    "assertions": [],
+    "position": [
+      1993,
+      2009
+    ]
+  },
+  {
+    "text": "Trĩ xác định khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K64.8"
+    ],
+    "assertions": [],
+    "position": [
+      2100,
+      2121
+    ]
+  }
+]

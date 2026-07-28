@@ -1,0 +1,395 @@
+[
+  {
+    "text": "mệt mỏi nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      65,
+      78
+    ]
+  },
+  {
+    "text": "đau lưng lan xuống chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      131,
+      154
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      160,
+      175
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      218,
+      226
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      251,
+      257
+    ]
+  },
+  {
+    "text": "ra mồ hôi về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      310,
+      326
+    ]
+  },
+  {
+    "text": "sụt cân không rõ nguyên nhân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      331,
+      359
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      411,
+      418
+    ]
+  },
+  {
+    "text": "chuột rút bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      438,
+      456
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      514,
+      530
+    ]
+  },
+  {
+    "text": "Rung nhĩ dai dẳng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      585,
+      602
+    ]
+  },
+  {
+    "text": "Ngoại tâm thu thất",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I49.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      673,
+      691
+    ]
+  },
+  {
+    "text": "Bệnh tim mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I51.6"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      695,
+      708
+    ]
+  },
+  {
+    "text": "Viêm túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K81"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      751,
+      763
+    ]
+  },
+  {
+    "text": "kinh nguyệt không đều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      864,
+      885
+    ]
+  },
+  {
+    "text": "amoxicillin",
+    "type": "THUỐC",
+    "candidates": [
+      "723"
+    ],
+    "assertions": [],
+    "position": [
+      1006,
+      1017
+    ]
+  },
+  {
+    "text": "cefazolin",
+    "type": "THUỐC",
+    "candidates": [
+      "2180"
+    ],
+    "assertions": [],
+    "position": [
+      1021,
+      1030
+    ]
+  },
+  {
+    "text": "Estrace",
+    "type": "THUỐC",
+    "candidates": [
+      "4083"
+    ],
+    "assertions": [],
+    "position": [
+      1076,
+      1083
+    ]
+  },
+  {
+    "text": "***************************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1127,
+      1154
+    ]
+  },
+  {
+    "text": "***********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1172,
+      1183
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1474,
+      1484
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1544,
+      1547
+    ]
+  },
+  {
+    "text": "HGB",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1589,
+      1592
+    ]
+  },
+  {
+    "text": "X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1655,
+      1662
+    ]
+  },
+  {
+    "text": "giảm mật độ xương mức loãng xương",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1691,
+      1724
+    ]
+  },
+  {
+    "text": "giảm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1778,
+      1782
+    ]
+  },
+  {
+    "text": "Ngoại tâm thu thất",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I49.3"
+    ],
+    "assertions": [],
+    "position": [
+      1800,
+      1818
+    ]
+  },
+  {
+    "text": "Rung nhĩ dai dẳng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.1"
+    ],
+    "assertions": [],
+    "position": [
+      1823,
+      1840
+    ]
+  },
+  {
+    "text": "Hẹp hở van ba lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I07.2"
+    ],
+    "assertions": [],
+    "position": [
+      1845,
+      1861
+    ]
+  },
+  {
+    "text": "Viêm túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K81"
+    ],
+    "assertions": [],
+    "position": [
+      1866,
+      1878
+    ]
+  },
+  {
+    "text": "U ác của hỗng tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C17.1"
+    ],
+    "assertions": [],
+    "position": [
+      1883,
+      1902
+    ]
+  },
+  {
+    "text": "Thấp ảnh hưởng đến tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I01"
+    ],
+    "assertions": [],
+    "position": [
+      1907,
+      1929
+    ]
+  },
+  {
+    "text": "Bệnh động mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [],
+    "position": [
+      1934,
+      1948
+    ]
+  },
+  {
+    "text": "Blốc nhánh phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I45.0"
+    ],
+    "assertions": [],
+    "position": [
+      1953,
+      1968
+    ]
+  },
+  {
+    "text": "Lao đường hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A16"
+    ],
+    "assertions": [],
+    "position": [
+      1973,
+      1989
+    ]
+  }
+]

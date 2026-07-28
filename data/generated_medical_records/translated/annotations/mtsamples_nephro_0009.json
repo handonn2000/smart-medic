@@ -1,0 +1,323 @@
+[
+  {
+    "text": "Thận ứ nước bên phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      20,
+      49
+    ]
+  },
+  {
+    "text": "ung thư tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      109,
+      127
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      129,
+      141
+    ]
+  },
+  {
+    "text": "u trung biểu mô màng phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C45"
+    ],
+    "assertions": [],
+    "position": [
+      143,
+      174
+    ]
+  },
+  {
+    "text": "cắt bỏ vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      224,
+      237
+    ]
+  },
+  {
+    "text": "ung thư vú phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      312,
+      330
+    ]
+  },
+  {
+    "text": "cắt bỏ khối u vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      360,
+      382
+    ]
+  },
+  {
+    "text": "nạo hạch nách",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      387,
+      403
+    ]
+  },
+  {
+    "text": "cắt bỏ vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      474,
+      487
+    ]
+  },
+  {
+    "text": "PET scan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      536,
+      544
+    ]
+  },
+  {
+    "text": "thận ứ nước bên phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      583,
+      612
+    ]
+  },
+  {
+    "text": "đường nối bể thận niệu quản bên phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.2"
+    ],
+    "assertions": [],
+    "position": [
+      663,
+      713
+    ]
+  },
+  {
+    "text": "thận phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      787,
+      799
+    ]
+  },
+  {
+    "text": "Xét nghiệm nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      862,
+      890
+    ]
+  },
+  {
+    "text": "Ung thư tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      970,
+      988
+    ]
+  },
+  {
+    "text": "u trung biểu mô màng phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C45"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      990,
+      1021
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1023,
+      1035
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1037,
+      1056
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1058,
+      1075
+    ]
+  },
+  {
+    "text": "Phẫu thuật cắt bỏ khối u vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1106,
+      1143
+    ]
+  },
+  {
+    "text": "phẫu thuật cắt tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1145,
+      1175
+    ]
+  },
+  {
+    "text": "Diovan HCT",
+    "type": "THUỐC",
+    "candidates": [
+      "5487",
+      "69749"
+    ],
+    "assertions": [],
+    "position": [
+      1198,
+      1208
+    ]
+  },
+  {
+    "text": "metformin",
+    "type": "THUỐC",
+    "candidates": [
+      "6809"
+    ],
+    "assertions": [],
+    "position": [
+      1233,
+      1242
+    ]
+  },
+  {
+    "text": "Thận ứ nước bên phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1763,
+      1792
+    ]
+  },
+  {
+    "text": "chụp CT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1891,
+      1899
+    ]
+  },
+  {
+    "text": "thận bên phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2015,
+      2032
+    ]
+  },
+  {
+    "text": "IVP và chụp thận đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2128,
+      2153
+    ]
+  },
+  {
+    "text": "thận bên phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2219,
+      2236
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2859,
+      2872
+    ]
+  }
+]

@@ -1,0 +1,268 @@
+[
+  {
+    "text": "chuột rút ở chân và tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      114,
+      144
+    ]
+  },
+  {
+    "text": "chuột rút ở chân và tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      198,
+      228
+    ]
+  },
+  {
+    "text": "chuột rút ở chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      250,
+      272
+    ]
+  },
+  {
+    "text": "co thắt cơ ở ngón chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      336,
+      365
+    ]
+  },
+  {
+    "text": "chuột rút",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      514,
+      526
+    ]
+  },
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      563,
+      573
+    ]
+  },
+  {
+    "text": "đau bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      741,
+      756
+    ]
+  },
+  {
+    "text": "chuột rút",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      775,
+      787
+    ]
+  },
+  {
+    "text": "chuột rút ở tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      875,
+      895
+    ]
+  },
+  {
+    "text": "chuột rút",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      976,
+      988
+    ]
+  },
+  {
+    "text": "Bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      1282,
+      1289
+    ]
+  },
+  {
+    "text": "HIV",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1576,
+      1579
+    ]
+  },
+  {
+    "text": "đau dạ dày nghiêm trọng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1739,
+      1766
+    ]
+  },
+  {
+    "text": "326",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1793,
+      1796
+    ]
+  },
+  {
+    "text": "AIDS",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1842,
+      1846
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1950,
+      1969
+    ]
+  },
+  {
+    "text": "viêm gan C",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B17.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      2033,
+      2044
+    ]
+  },
+  {
+    "text": "HIV",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      2049,
+      2052
+    ]
+  },
+  {
+    "text": "insulin",
+    "type": "THUỐC",
+    "candidates": [
+      "253182"
+    ],
+    "assertions": [],
+    "position": [
+      2088,
+      2095
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2100,
+      2107
+    ]
+  },
+  {
+    "text": "sử dụng rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      2332,
+      2350
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      2549,
+      2568
+    ]
+  },
+  {
+    "text": "blood pressure",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2899,
+      2913
+    ]
+  },
+  {
+    "text": "130/70",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2914,
+      2920
+    ]
+  }
+]

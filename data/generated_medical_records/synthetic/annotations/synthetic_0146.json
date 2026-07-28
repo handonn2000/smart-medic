@@ -1,0 +1,328 @@
+[
+  {
+    "text": "mệt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      193,
+      196
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      252,
+      260
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      310,
+      325
+    ]
+  },
+  {
+    "text": "hoa mắt khi thay đổi tư thế",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      373,
+      400
+    ]
+  },
+  {
+    "text": "sốt nhẹ về chiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      419,
+      435
+    ]
+  },
+  {
+    "text": "gầy sút cân nhanh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      439,
+      456
+    ]
+  },
+  {
+    "text": "lo lắng quá mức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      487,
+      502
+    ]
+  },
+  {
+    "text": "co giật toàn thể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      568,
+      584
+    ]
+  },
+  {
+    "text": "Loét dạ dày-tá tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K27"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      684,
+      709
+    ]
+  },
+  {
+    "text": "Viêm gan mạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K73.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      713,
+      725
+    ]
+  },
+  {
+    "text": "Suy gan mãn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K72.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      767,
+      778
+    ]
+  },
+  {
+    "text": "Thoát vị rốn có tắc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K42.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      782,
+      801
+    ]
+  },
+  {
+    "text": "Aldactone",
+    "type": "THUỐC",
+    "candidates": [
+      "9997"
+    ],
+    "assertions": [],
+    "position": [
+      1098,
+      1107
+    ]
+  },
+  {
+    "text": "***********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1109,
+      1120
+    ]
+  },
+  {
+    "text": "Pravachol",
+    "type": "THUỐC",
+    "candidates": [
+      "42463"
+    ],
+    "assertions": [],
+    "position": [
+      1124,
+      1133
+    ]
+  },
+  {
+    "text": "Aluminum Chlorohydrex",
+    "type": "THUỐC",
+    "candidates": [
+      "314490"
+    ],
+    "assertions": [],
+    "position": [
+      1167,
+      1188
+    ]
+  },
+  {
+    "text": "Tiêu răng bệnh lý",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K03.3"
+    ],
+    "assertions": [],
+    "position": [
+      1313,
+      1330
+    ]
+  },
+  {
+    "text": "Vị trí răng bất thường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K07.3"
+    ],
+    "assertions": [],
+    "position": [
+      1334,
+      1356
+    ]
+  },
+  {
+    "text": "HGB",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1541,
+      1544
+    ]
+  },
+  {
+    "text": "CRP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1567,
+      1570
+    ]
+  },
+  {
+    "text": "RBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1574,
+      1577
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1594,
+      1598
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1644,
+      1647
+    ]
+  },
+  {
+    "text": "90-92%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1657,
+      1663
+    ]
+  },
+  {
+    "text": "protein niệu dương tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1809,
+      1832
+    ]
+  },
+  {
+    "text": "Suy gan mãn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K72.1"
+    ],
+    "assertions": [],
+    "position": [
+      1940,
+      1951
+    ]
+  },
+  {
+    "text": "Tiêu răng bệnh lý",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K03.3"
+    ],
+    "assertions": [],
+    "position": [
+      1954,
+      1971
+    ]
+  },
+  {
+    "text": "Vị trí răng bất thường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K07.3"
+    ],
+    "assertions": [],
+    "position": [
+      1974,
+      1996
+    ]
+  },
+  {
+    "text": "Thoát vị rốn có tắc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K42.0"
+    ],
+    "assertions": [],
+    "position": [
+      1999,
+      2018
+    ]
+  }
+]

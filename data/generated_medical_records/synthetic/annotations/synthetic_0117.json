@@ -1,0 +1,292 @@
+[
+  {
+    "text": "sốt cao liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      49,
+      65
+    ]
+  },
+  {
+    "text": "bồn chồn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      161,
+      169
+    ]
+  },
+  {
+    "text": "lo lắng quá mức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      173,
+      188
+    ]
+  },
+  {
+    "text": "sốt cao liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      224,
+      240
+    ]
+  },
+  {
+    "text": "khó tiêu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      250,
+      258
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      262,
+      268
+    ]
+  },
+  {
+    "text": "tiêu chảy nhiều lần trong ngày",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      289,
+      319
+    ]
+  },
+  {
+    "text": "đau tai phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      348,
+      360
+    ]
+  },
+  {
+    "text": "U lành da của môi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D23.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      472,
+      489
+    ]
+  },
+  {
+    "text": "Lao ở mắt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A18.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      560,
+      569
+    ]
+  },
+  {
+    "text": "Các thiếu máu khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D64"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      639,
+      657
+    ]
+  },
+  {
+    "text": "Suy tủy xương bẩm sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D61.0"
+    ],
+    "assertions": [
+      "isFamily",
+      "isNegated"
+    ],
+    "position": [
+      796,
+      818
+    ]
+  },
+  {
+    "text": "Lotrel",
+    "type": "THUỐC",
+    "candidates": [
+      "17767",
+      "18867"
+    ],
+    "assertions": [],
+    "position": [
+      878,
+      884
+    ]
+  },
+  {
+    "text": "doxycycline",
+    "type": "THUỐC",
+    "candidates": [
+      "3640"
+    ],
+    "assertions": [],
+    "position": [
+      956,
+      967
+    ]
+  },
+  {
+    "text": "*************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      971,
+      984
+    ]
+  },
+  {
+    "text": "monitor holter",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1246,
+      1260
+    ]
+  },
+  {
+    "text": "ổn định",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1278,
+      1285
+    ]
+  },
+  {
+    "text": "sinh thiết niêm mạc dạ dày",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1295,
+      1321
+    ]
+  },
+  {
+    "text": "siêu âm tim qua thành ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1360,
+      1386
+    ]
+  },
+  {
+    "text": "chụp cộng hưởng từ sọ não",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1423,
+      1448
+    ]
+  },
+  {
+    "text": "hồng cầu niệu dương tính ít",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1507,
+      1534
+    ]
+  },
+  {
+    "text": "14.99 G/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1584,
+      1593
+    ]
+  },
+  {
+    "text": "U lành ống sọ hầu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D35.3"
+    ],
+    "assertions": [],
+    "position": [
+      1610,
+      1627
+    ]
+  },
+  {
+    "text": "U lành võng mạc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D31.2"
+    ],
+    "assertions": [],
+    "position": [
+      1632,
+      1647
+    ]
+  },
+  {
+    "text": "Nốt ruồi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D22"
+    ],
+    "assertions": [],
+    "position": [
+      1652,
+      1660
+    ]
+  },
+  {
+    "text": "Các thiếu máu khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D64"
+    ],
+    "assertions": [],
+    "position": [
+      1665,
+      1683
+    ]
+  }
+]

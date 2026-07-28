@@ -1,0 +1,311 @@
+[
+  {
+    "text": "gầy sút cân nhanh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      117,
+      134
+    ]
+  },
+  {
+    "text": "mệt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      181,
+      184
+    ]
+  },
+  {
+    "text": "ho khan kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      246,
+      261
+    ]
+  },
+  {
+    "text": "mất cảm giác đầu chi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      274,
+      294
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      329,
+      345
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      349,
+      357
+    ]
+  },
+  {
+    "text": "rụng tóc nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      383,
+      397
+    ]
+  },
+  {
+    "text": "nghe kém tai trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      401,
+      418
+    ]
+  },
+  {
+    "text": "run tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      444,
+      451
+    ]
+  },
+  {
+    "text": "hôi miệng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      472,
+      481
+    ]
+  },
+  {
+    "text": "Bưới giáp không độc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E04.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      521,
+      540
+    ]
+  },
+  {
+    "text": "Teo tuyến giáp (mắc phải)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.4"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      562,
+      587
+    ]
+  },
+  {
+    "text": "Viêm giáp do thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E06.4"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      627,
+      645
+    ]
+  },
+  {
+    "text": "procainamide",
+    "type": "THUỐC",
+    "candidates": [
+      "8700"
+    ],
+    "assertions": [],
+    "position": [
+      876,
+      888
+    ]
+  },
+  {
+    "text": "Rocaltrol",
+    "type": "THUỐC",
+    "candidates": [
+      "1894"
+    ],
+    "assertions": [],
+    "position": [
+      940,
+      949
+    ]
+  },
+  {
+    "text": "Flovent",
+    "type": "THUỐC",
+    "candidates": [
+      "41126"
+    ],
+    "assertions": [],
+    "position": [
+      953,
+      960
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1314,
+      1317
+    ]
+  },
+  {
+    "text": "trong giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1335,
+      1361
+    ]
+  },
+  {
+    "text": "chức năng tâm thu thất trái bảo tồn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1389,
+      1424
+    ]
+  },
+  {
+    "text": "92 g/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1483,
+      1489
+    ]
+  },
+  {
+    "text": "double test",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1496,
+      1507
+    ]
+  },
+  {
+    "text": "chụp cộng hưởng từ sọ não",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1509,
+      1534
+    ]
+  },
+  {
+    "text": "nội soi dạ dày tá tràng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1538,
+      1561
+    ]
+  },
+  {
+    "text": "Teo tuyến giáp (mắc phải)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.4"
+    ],
+    "assertions": [],
+    "position": [
+      1650,
+      1675
+    ]
+  },
+  {
+    "text": "Viêm giáp do thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E06.4"
+    ],
+    "assertions": [],
+    "position": [
+      1679,
+      1697
+    ]
+  },
+  {
+    "text": "Bưới giáp không độc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E04.9"
+    ],
+    "assertions": [],
+    "position": [
+      1700,
+      1719
+    ]
+  },
+  {
+    "text": "Nhiễm kiềm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E87.3"
+    ],
+    "assertions": [],
+    "position": [
+      1722,
+      1732
+    ]
+  },
+  {
+    "text": "Cường năng tinh hoàn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E29.0"
+    ],
+    "assertions": [],
+    "position": [
+      1753,
+      1773
+    ]
+  }
+]

@@ -1,0 +1,387 @@
+[
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      65,
+      72
+    ]
+  },
+  {
+    "text": "tiêu chảy nhiều lần trong ngày",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      82,
+      112
+    ]
+  },
+  {
+    "text": "đầy hơi chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      215,
+      234
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      287,
+      294
+    ]
+  },
+  {
+    "text": "tiêu chảy nhiều lần trong ngày",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      298,
+      328
+    ]
+  },
+  {
+    "text": "chuột rút bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      360,
+      378
+    ]
+  },
+  {
+    "text": "khó ngủ về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      382,
+      396
+    ]
+  },
+  {
+    "text": "chóng mặt khi đứng lên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      448,
+      470
+    ]
+  },
+  {
+    "text": "kinh nguyệt không đều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      516,
+      537
+    ]
+  },
+  {
+    "text": "Loét tá tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K26"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      588,
+      601
+    ]
+  },
+  {
+    "text": "Thoát vị đùi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K41"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      688,
+      700
+    ]
+  },
+  {
+    "text": "Viêm gan mãn hoạt động",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K73.2"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      751,
+      773
+    ]
+  },
+  {
+    "text": "Rò hậu môn trực tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K60.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      777,
+      798
+    ]
+  },
+  {
+    "text": "Colestid",
+    "type": "THUỐC",
+    "candidates": [
+      "2685"
+    ],
+    "assertions": [],
+    "position": [
+      941,
+      949
+    ]
+  },
+  {
+    "text": "Celexa",
+    "type": "THUỐC",
+    "candidates": [
+      "2556"
+    ],
+    "assertions": [],
+    "position": [
+      1025,
+      1031
+    ]
+  },
+  {
+    "text": "doxorubicin",
+    "type": "THUỐC",
+    "candidates": [
+      "3639"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1075,
+      1086
+    ]
+  },
+  {
+    "text": "Applicators",
+    "type": "THUỐC",
+    "candidates": [
+      "62502"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1091,
+      1102
+    ]
+  },
+  {
+    "text": "đau tai phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1232,
+      1244
+    ]
+  },
+  {
+    "text": "loét bàn chân lâu lành",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1249,
+      1271
+    ]
+  },
+  {
+    "text": "siêu âm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1304,
+      1311
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1377,
+      1387
+    ]
+  },
+  {
+    "text": "tăng nhẹ men gan so với giới hạn trên",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1397,
+      1434
+    ]
+  },
+  {
+    "text": "nội soi đại tràng toàn bộ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1444,
+      1469
+    ]
+  },
+  {
+    "text": "không rõ tổn thương",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1479,
+      1498
+    ]
+  },
+  {
+    "text": "chụp x-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1508,
+      1525
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1551,
+      1562
+    ]
+  },
+  {
+    "text": "chụp mạch vành qua da",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1572,
+      1593
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1611,
+      1622
+    ]
+  },
+  {
+    "text": "BCR/ABL âm tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C92.2"
+    ],
+    "assertions": [],
+    "position": [
+      1645,
+      1660
+    ]
+  },
+  {
+    "text": "Loét tá tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K26"
+    ],
+    "assertions": [],
+    "position": [
+      1679,
+      1692
+    ]
+  },
+  {
+    "text": "Thoát vị đùi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K41"
+    ],
+    "assertions": [],
+    "position": [
+      1699,
+      1711
+    ]
+  },
+  {
+    "text": "Nang răng phát triển",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K09.0"
+    ],
+    "assertions": [],
+    "position": [
+      1750,
+      1770
+    ]
+  },
+  {
+    "text": "Viêm lưỡi dạng thoi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K14.2"
+    ],
+    "assertions": [],
+    "position": [
+      1871,
+      1890
+    ]
+  },
+  {
+    "text": "áp xe tuyến nước bọt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K11.3"
+    ],
+    "assertions": [],
+    "position": [
+      1894,
+      1914
+    ]
+  }
+]

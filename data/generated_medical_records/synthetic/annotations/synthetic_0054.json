@@ -1,0 +1,292 @@
+[
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      175,
+      199
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      210,
+      213
+    ]
+  },
+  {
+    "text": "thở khò khè",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      217,
+      228
+    ]
+  },
+  {
+    "text": "chán ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      250,
+      257
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      261,
+      276
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      328,
+      338
+    ]
+  },
+  {
+    "text": "ngứa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      351,
+      355
+    ]
+  },
+  {
+    "text": "run tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      399,
+      406
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      427,
+      433
+    ]
+  },
+  {
+    "text": "Dày thượng bì khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L85"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      487,
+      505
+    ]
+  },
+  {
+    "text": "Phình động mạch chủ bụng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I71.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      529,
+      553
+    ]
+  },
+  {
+    "text": "Nang phổi bẩm sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Q33.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      606,
+      624
+    ]
+  },
+  {
+    "text": "Khe hở vòm miệng cứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Q35.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      661,
+      682
+    ]
+  },
+  {
+    "text": "Sâu răng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K02"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      719,
+      727
+    ]
+  },
+  {
+    "text": "Aciphex",
+    "type": "THUỐC",
+    "candidates": [
+      "114979"
+    ],
+    "assertions": [],
+    "position": [
+      953,
+      960
+    ]
+  },
+  {
+    "text": "Actos",
+    "type": "THUỐC",
+    "candidates": [
+      "33738"
+    ],
+    "assertions": [],
+    "position": [
+      964,
+      969
+    ]
+  },
+  {
+    "text": "Rhinocort",
+    "type": "THUỐC",
+    "candidates": [
+      "19831"
+    ],
+    "assertions": [],
+    "position": [
+      1031,
+      1040
+    ]
+  },
+  {
+    "text": "Clindacin",
+    "type": "THUỐC",
+    "candidates": [
+      "2582"
+    ],
+    "assertions": [],
+    "position": [
+      1074,
+      1083
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1354,
+      1357
+    ]
+  },
+  {
+    "text": "đường huyết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1398,
+      1409
+    ]
+  },
+  {
+    "text": "xét nghiệm HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1413,
+      1429
+    ]
+  },
+  {
+    "text": "dương tính yếu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1522,
+      1536
+    ]
+  },
+  {
+    "text": "có dịch tự do trong ổ bụng lượng ít",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1550,
+      1585
+    ]
+  },
+  {
+    "text": "toan chuyển hoá còn bù",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1610,
+      1632
+    ]
+  },
+  {
+    "text": "không thấy hẹp đáng kể lòng mạch",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1659,
+      1691
+    ]
+  },
+  {
+    "text": "xét nghiệm phân tìm hồng cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1804,
+      1832
+    ]
+  }
+]

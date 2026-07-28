@@ -1,0 +1,472 @@
+[
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      54,
+      62
+    ]
+  },
+  {
+    "text": "khó tiêu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      87,
+      95
+    ]
+  },
+  {
+    "text": "khó tiêu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      178,
+      186
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      188,
+      191
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      195,
+      210
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      233,
+      241
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      291,
+      298
+    ]
+  },
+  {
+    "text": "run tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      352,
+      359
+    ]
+  },
+  {
+    "text": "giảm thị lực mắt phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      364,
+      385
+    ]
+  },
+  {
+    "text": "co giật toàn thể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      427,
+      443
+    ]
+  },
+  {
+    "text": "Vô kinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N91"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      569,
+      576
+    ]
+  },
+  {
+    "text": "Viêm tử cung mạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N71.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      609,
+      625
+    ]
+  },
+  {
+    "text": "Thoát vị đùi hai bên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K41.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      664,
+      684
+    ]
+  },
+  {
+    "text": "Viêm cổ tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N72"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      688,
+      703
+    ]
+  },
+  {
+    "text": "U ác của môi lớn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C51.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      744,
+      760
+    ]
+  },
+  {
+    "text": "Loạn sản âm đạo",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N89.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      824,
+      839
+    ]
+  },
+  {
+    "text": "Polyp âm hộ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N84.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      865,
+      876
+    ]
+  },
+  {
+    "text": "Premarin",
+    "type": "THUỐC",
+    "candidates": [
+      "4099"
+    ],
+    "assertions": [],
+    "position": [
+      1039,
+      1047
+    ]
+  },
+  {
+    "text": "cephalexin",
+    "type": "THUỐC",
+    "candidates": [
+      "2231"
+    ],
+    "assertions": [],
+    "position": [
+      1075,
+      1085
+    ]
+  },
+  {
+    "text": "Micardis",
+    "type": "THUỐC",
+    "candidates": [
+      "73494"
+    ],
+    "assertions": [],
+    "position": [
+      1121,
+      1129
+    ]
+  },
+  {
+    "text": "triisopropanolamine",
+    "type": "THUỐC",
+    "candidates": [
+      "1426368"
+    ],
+    "assertions": [],
+    "position": [
+      1193,
+      1212
+    ]
+  },
+  {
+    "text": "Phryma leptostachya whole extract",
+    "type": "THUỐC",
+    "candidates": [
+      "1945226"
+    ],
+    "assertions": [],
+    "position": [
+      1216,
+      1249
+    ]
+  },
+  {
+    "text": "gầy sút cân nhanh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1376,
+      1393
+    ]
+  },
+  {
+    "text": "U ác của môi lớn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C51.0"
+    ],
+    "assertions": [],
+    "position": [
+      1475,
+      1491
+    ]
+  },
+  {
+    "text": "chọc dò dịch não tuỷ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1527,
+      1547
+    ]
+  },
+  {
+    "text": "sinh thiết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1551,
+      1561
+    ]
+  },
+  {
+    "text": "siêu âm doppler mạch chi dưới",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1588,
+      1617
+    ]
+  },
+  {
+    "text": "nhịp xoang chiếm ưu thế",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1627,
+      1650
+    ]
+  },
+  {
+    "text": "chức năng tâm thu thất trái bảo tồn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1654,
+      1689
+    ]
+  },
+  {
+    "text": "giảm nhẹ số lượng tiểu cầu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1797,
+      1823
+    ]
+  },
+  {
+    "text": "U ác của môi lớn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C51.0"
+    ],
+    "assertions": [],
+    "position": [
+      1842,
+      1858
+    ]
+  },
+  {
+    "text": "Viêm tử cung mạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N71.1"
+    ],
+    "assertions": [],
+    "position": [
+      1864,
+      1880
+    ]
+  },
+  {
+    "text": "Vô kinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N91"
+    ],
+    "assertions": [],
+    "position": [
+      1886,
+      1893
+    ]
+  },
+  {
+    "text": "Thoát vị đùi hai bên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K41.0"
+    ],
+    "assertions": [],
+    "position": [
+      1899,
+      1919
+    ]
+  },
+  {
+    "text": "Viêm cổ tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N72"
+    ],
+    "assertions": [],
+    "position": [
+      1925,
+      1940
+    ]
+  },
+  {
+    "text": "Loạn sản âm đạo",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N89.3"
+    ],
+    "assertions": [],
+    "position": [
+      1946,
+      1961
+    ]
+  },
+  {
+    "text": "Viêm nướu cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K05.0"
+    ],
+    "assertions": [],
+    "position": [
+      1967,
+      1980
+    ]
+  },
+  {
+    "text": "Vỡ bàng quang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N32.4"
+    ],
+    "assertions": [],
+    "position": [
+      1986,
+      1999
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2118,
+      2126
+    ]
+  },
+  {
+    "text": "khó tiêu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2130,
+      2138
+    ]
+  },
+  {
+    "text": "U ác của môi lớn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C51.0"
+    ],
+    "assertions": [],
+    "position": [
+      2240,
+      2256
+    ]
+  }
+]

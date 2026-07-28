@@ -1,0 +1,373 @@
+[
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      64,
+      70
+    ]
+  },
+  {
+    "text": "sốt cao liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      74,
+      90
+    ]
+  },
+  {
+    "text": "sốt cao liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      173,
+      189
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      287,
+      293
+    ]
+  },
+  {
+    "text": "ngứa nhiều vùng lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      297,
+      317
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      380,
+      404
+    ]
+  },
+  {
+    "text": "chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      408,
+      419
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      468,
+      478
+    ]
+  },
+  {
+    "text": "loét bàn chân lâu lành",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      526,
+      548
+    ]
+  },
+  {
+    "text": "Suy giáp sau điều trị",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E89.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      663,
+      684
+    ]
+  },
+  {
+    "text": "Phình động mạch chủ ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I71.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      737,
+      761
+    ]
+  },
+  {
+    "text": "Thiếu men lactase thứ phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E73.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      798,
+      824
+    ]
+  },
+  {
+    "text": "Thừa vitamin A",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E67.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      883,
+      897
+    ]
+  },
+  {
+    "text": "Giảm thể tích",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E86"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      921,
+      934
+    ]
+  },
+  {
+    "text": "Bệnh giun chỉ khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B74.8"
+    ],
+    "assertions": [
+      "isFamily",
+      "isNegated"
+    ],
+    "position": [
+      1036,
+      1054
+    ]
+  },
+  {
+    "text": "Rối loạn chuyển hóa glycosaminoglycan",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E76"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1086,
+      1123
+    ]
+  },
+  {
+    "text": "Protonix",
+    "type": "THUỐC",
+    "candidates": [
+      "40790"
+    ],
+    "assertions": [],
+    "position": [
+      1173,
+      1181
+    ]
+  },
+  {
+    "text": "*********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1185,
+      1194
+    ]
+  },
+  {
+    "text": "************************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1265,
+      1289
+    ]
+  },
+  {
+    "text": "PEG-10 lanolin",
+    "type": "THUỐC",
+    "candidates": [
+      "2288210"
+    ],
+    "assertions": [],
+    "position": [
+      1322,
+      1336
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1450,
+      1457
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1523,
+      1547
+    ]
+  },
+  {
+    "text": "không thấy tổn thương khu trú",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1756,
+      1785
+    ]
+  },
+  {
+    "text": "nipt",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1795,
+      1799
+    ]
+  },
+  {
+    "text": "chưa ghi nhận",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1821,
+      1834
+    ]
+  },
+  {
+    "text": "siêu âm doppler mạch chi dưới",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1872,
+      1901
+    ]
+  },
+  {
+    "text": "khí máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1915,
+      1922
+    ]
+  },
+  {
+    "text": "93%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1947,
+      1950
+    ]
+  },
+  {
+    "text": "điện tâm đồ có sóng T âm ở các chuyển đạo trước tim",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1957,
+      2008
+    ]
+  },
+  {
+    "text": "không có gì đáng chú ý",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2015,
+      2037
+    ]
+  },
+  {
+    "text": "Phình động mạch chủ ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I71.1"
+    ],
+    "assertions": [],
+    "position": [
+      2081,
+      2105
+    ]
+  },
+  {
+    "text": "Suy giáp sau điều trị",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E89.0"
+    ],
+    "assertions": [],
+    "position": [
+      2127,
+      2148
+    ]
+  },
+  {
+    "text": "Bệnh nhiễm gangliosid GM2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E75.0"
+    ],
+    "assertions": [],
+    "position": [
+      2153,
+      2178
+    ]
+  }
+]

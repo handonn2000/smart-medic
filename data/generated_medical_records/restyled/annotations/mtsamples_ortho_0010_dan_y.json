@@ -1,0 +1,241 @@
+[
+  {
+    "text": "đau ở mắt cá chân phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      191,
+      213
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      270,
+      283
+    ]
+  },
+  {
+    "text": "Lexapro",
+    "type": "THUỐC",
+    "candidates": [
+      "321988"
+    ],
+    "assertions": [],
+    "position": [
+      362,
+      369
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      386,
+      397
+    ]
+  },
+  {
+    "text": "sử dụng ma túy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.2"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      534,
+      548
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      710,
+      717
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      740,
+      748
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      786,
+      794
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      802,
+      810
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      822,
+      831
+    ]
+  },
+  {
+    "text": "khó chịu cấp tính",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      876,
+      893
+    ]
+  },
+  {
+    "text": "122/74",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      940,
+      946
+    ]
+  },
+  {
+    "text": "76",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      957,
+      959
+    ]
+  },
+  {
+    "text": "24",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      970,
+      972
+    ]
+  },
+  {
+    "text": "95%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1007,
+      1010
+    ]
+  },
+  {
+    "text": "X-quang mắt cá chân phải",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1432,
+      1456
+    ]
+  },
+  {
+    "text": "Bong gân mắt cá chân phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1558,
+      1583
+    ]
+  },
+  {
+    "text": "Motrin",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      1612,
+      1618
+    ]
+  },
+  {
+    "text": "Tylenol",
+    "type": "THUỐC",
+    "candidates": [
+      "161"
+    ],
+    "assertions": [],
+    "position": [
+      1639,
+      1646
+    ]
+  },
+  {
+    "text": "Vicodin ES",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1735,
+      1745
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1771,
+      1774
+    ]
+  }
+]

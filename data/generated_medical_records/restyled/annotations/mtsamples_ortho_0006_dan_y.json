@@ -1,0 +1,372 @@
+[
+  {
+    "text": "Viêm đa khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      129,
+      144
+    ]
+  },
+  {
+    "text": "Bệnh to đầu chi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      150,
+      169
+    ]
+  },
+  {
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      175,
+      184
+    ]
+  },
+  {
+    "text": "Tăng huyết áp ranh giới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      190,
+      219
+    ]
+  },
+  {
+    "text": "Béo phì",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      225,
+      234
+    ]
+  },
+  {
+    "text": "hội chứng ống cổ tay",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G56.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      357,
+      385
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      605,
+      610
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      625,
+      627
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      689,
+      699
+    ]
+  },
+  {
+    "text": "tiếng thổi tim",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      772,
+      790
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      815,
+      826
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      835,
+      845
+    ]
+  },
+  {
+    "text": "chảy máu tiêu hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.2"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      854,
+      875
+    ]
+  },
+  {
+    "text": "tiểu buốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      903,
+      916
+    ]
+  },
+  {
+    "text": "tiểu ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      925,
+      939
+    ]
+  },
+  {
+    "text": "Depo-Testosterone",
+    "type": "THUỐC",
+    "candidates": [
+      "10379"
+    ],
+    "assertions": [],
+    "position": [
+      1047,
+      1064
+    ]
+  },
+  {
+    "text": "prednisone",
+    "type": "THUỐC",
+    "candidates": [
+      "8640"
+    ],
+    "assertions": [],
+    "position": [
+      1104,
+      1114
+    ]
+  },
+  {
+    "text": "octreotide",
+    "type": "THUỐC",
+    "candidates": [
+      "7617"
+    ],
+    "assertions": [],
+    "position": [
+      1147,
+      1157
+    ]
+  },
+  {
+    "text": "morphine extended release",
+    "type": "THUỐC",
+    "candidates": [
+      "7052"
+    ],
+    "assertions": [],
+    "position": [
+      1188,
+      1213
+    ]
+  },
+  {
+    "text": "Synthroid",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      1254,
+      1263
+    ]
+  },
+  {
+    "text": "desmopressin",
+    "type": "THUỐC",
+    "candidates": [
+      "3251"
+    ],
+    "assertions": [],
+    "position": [
+      1296,
+      1308
+    ]
+  },
+  {
+    "text": "aspirin/oxycodone",
+    "type": "THUỐC",
+    "candidates": [
+      "214256"
+    ],
+    "assertions": [],
+    "position": [
+      1341,
+      1358
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      1363,
+      1370
+    ]
+  },
+  {
+    "text": "IBUPROFEN",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      1413,
+      1422
+    ]
+  },
+  {
+    "text": "TYLENOL",
+    "type": "THUỐC",
+    "candidates": [
+      "161"
+    ],
+    "assertions": [],
+    "position": [
+      1427,
+      1434
+    ]
+  },
+  {
+    "text": "Viêm đa khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2049,
+      2064
+    ]
+  },
+  {
+    "text": "Bệnh to đầu chi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2141,
+      2160
+    ]
+  },
+  {
+    "text": "Tăng huyết áp ranh giới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2222,
+      2251
+    ]
+  },
+  {
+    "text": "Thiếu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D46.4"
+    ],
+    "assertions": [],
+    "position": [
+      2353,
+      2365
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2402,
+      2412
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2417,
+      2427
+    ]
+  }
+]

@@ -1,0 +1,262 @@
+[
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      137,
+      161
+    ]
+  },
+  {
+    "text": "đau vùng thượng vị sau ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      176,
+      201
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      322,
+      328
+    ]
+  },
+  {
+    "text": "thở khò khè",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      364,
+      375
+    ]
+  },
+  {
+    "text": "mất ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      379,
+      386
+    ]
+  },
+  {
+    "text": "ngạt mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      457,
+      465
+    ]
+  },
+  {
+    "text": "đau tai phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      472,
+      484
+    ]
+  },
+  {
+    "text": "Tràn dịch túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K82.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      627,
+      644
+    ]
+  },
+  {
+    "text": "Bệnh virus Chikungunya",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A92.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      710,
+      732
+    ]
+  },
+  {
+    "text": "Dịch hạch thể phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A20.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      736,
+      754
+    ]
+  },
+  {
+    "text": "Seysara",
+    "type": "THUỐC",
+    "candidates": [
+      "2059018"
+    ],
+    "assertions": [],
+    "position": [
+      905,
+      912
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      916,
+      923
+    ]
+  },
+  {
+    "text": "uric acid",
+    "type": "THUỐC",
+    "candidates": [
+      "1427088"
+    ],
+    "assertions": [],
+    "position": [
+      963,
+      972
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1204,
+      1210
+    ]
+  },
+  {
+    "text": "điện tâm đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1319,
+      1330
+    ]
+  },
+  {
+    "text": "xét nghiệm khí máu động mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1385,
+      1413
+    ]
+  },
+  {
+    "text": "toan chuyển hoá còn bù",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1423,
+      1445
+    ]
+  },
+  {
+    "text": "cấy máu âm tính sau bảy ngày",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1512,
+      1540
+    ]
+  },
+  {
+    "text": "Tràn dịch túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K82.1"
+    ],
+    "assertions": [],
+    "position": [
+      1675,
+      1692
+    ]
+  },
+  {
+    "text": "Lao ở mắt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A18.5"
+    ],
+    "assertions": [],
+    "position": [
+      1798,
+      1807
+    ]
+  },
+  {
+    "text": "Bệnh do actinomyces ở bụng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A42.1"
+    ],
+    "assertions": [],
+    "position": [
+      1917,
+      1943
+    ]
+  },
+  {
+    "text": "Tiêu răng bệnh lý",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K03.3"
+    ],
+    "assertions": [],
+    "position": [
+      2009,
+      2026
+    ]
+  },
+  {
+    "text": "Giang mai bẩm sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A50"
+    ],
+    "assertions": [],
+    "position": [
+      2030,
+      2048
+    ]
+  }
+]

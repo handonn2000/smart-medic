@@ -1,0 +1,392 @@
+[
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      134,
+      148
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      285,
+      299
+    ]
+  },
+  {
+    "text": "đường huyết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      606,
+      617
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      632,
+      645
+    ]
+  },
+  {
+    "text": "labetalol",
+    "type": "THUỐC",
+    "candidates": [
+      "6185"
+    ],
+    "assertions": [],
+    "position": [
+      800,
+      809
+    ]
+  },
+  {
+    "text": "Norvasc",
+    "type": "THUỐC",
+    "candidates": [
+      "17767"
+    ],
+    "assertions": [],
+    "position": [
+      826,
+      833
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      837,
+      848
+    ]
+  },
+  {
+    "text": "glucose",
+    "type": "THUỐC",
+    "candidates": [
+      "4850"
+    ],
+    "assertions": [],
+    "position": [
+      874,
+      881
+    ]
+  },
+  {
+    "text": "đường huyết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      902,
+      913
+    ]
+  },
+  {
+    "text": "Đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      961,
+      975
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      977,
+      990
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      1177,
+      1191
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1225,
+      1232
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1938,
+      1948
+    ]
+  },
+  {
+    "text": "CPK",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1965,
+      1968
+    ]
+  },
+  {
+    "text": "troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1970,
+      1978
+    ]
+  },
+  {
+    "text": "CMP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1992,
+      1995
+    ]
+  },
+  {
+    "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2009,
+      2016
+    ]
+  },
+  {
+    "text": "33",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2020,
+      2022
+    ]
+  },
+  {
+    "text": "BMP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2024,
+      2027
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2037,
+      2040
+    ]
+  },
+  {
+    "text": "60",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2044,
+      2046
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2048,
+      2058
+    ]
+  },
+  {
+    "text": "4.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2062,
+      2065
+    ]
+  },
+  {
+    "text": "potassium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2067,
+      2076
+    ]
+  },
+  {
+    "text": "4.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2080,
+      2083
+    ]
+  },
+  {
+    "text": "Tổng phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2085,
+      2109
+    ]
+  },
+  {
+    "text": "10.30",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2131,
+      2136
+    ]
+  },
+  {
+    "text": "CT não",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2138,
+      2144
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2166,
+      2178
+    ]
+  },
+  {
+    "text": "Hạ đường huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2239,
+      2253
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      2283,
+      2296
+    ]
+  },
+  {
+    "text": "Suy thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N17"
+    ],
+    "assertions": [],
+    "position": [
+      2301,
+      2309
+    ]
+  },
+  {
+    "text": "bệnh thận do tiểu đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2335,
+      2358
+    ]
+  },
+  {
+    "text": "glucometer",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2436,
+      2446
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      2501,
+      2515
+    ]
+  }
+]

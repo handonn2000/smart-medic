@@ -1,0 +1,496 @@
+[
+  {
+    "text": "suy giáp do I-131",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [],
+    "position": [
+      42,
+      59
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      105,
+      108
+    ]
+  },
+  {
+    "text": "đau cơ xơ hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M79.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      136,
+      149
+    ]
+  },
+  {
+    "text": "bệnh viêm ruột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      151,
+      165
+    ]
+  },
+  {
+    "text": "bệnh Crohn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K50.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      167,
+      177
+    ]
+  },
+  {
+    "text": "COPD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      179,
+      183
+    ]
+  },
+  {
+    "text": "bệnh đĩa đệm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      185,
+      197
+    ]
+  },
+  {
+    "text": "rối loạn tuyến giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E07.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      199,
+      218
+    ]
+  },
+  {
+    "text": "Norvasc",
+    "type": "THUỐC",
+    "candidates": [
+      "17767"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      229,
+      236
+    ]
+  },
+  {
+    "text": "**********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      240,
+      250
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      263,
+      276
+    ]
+  },
+  {
+    "text": "đổ mồ hôi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      295,
+      304
+    ]
+  },
+  {
+    "text": "Synthroid",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      369,
+      378
+    ]
+  },
+  {
+    "text": "Levothyroxine",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      405,
+      418
+    ]
+  },
+  {
+    "text": "Albuterol",
+    "type": "THUỐC",
+    "candidates": [
+      "435"
+    ],
+    "assertions": [],
+    "position": [
+      442,
+      451
+    ]
+  },
+  {
+    "text": "Asacol",
+    "type": "THUỐC",
+    "candidates": [
+      "52582"
+    ],
+    "assertions": [],
+    "position": [
+      453,
+      459
+    ]
+  },
+  {
+    "text": "Prilosec",
+    "type": "THUỐC",
+    "candidates": [
+      "7646"
+    ],
+    "assertions": [],
+    "position": [
+      463,
+      471
+    ]
+  },
+  {
+    "text": "Amlodipine",
+    "type": "THUỐC",
+    "candidates": [
+      "17767"
+    ],
+    "assertions": [],
+    "position": [
+      477,
+      487
+    ]
+  },
+  {
+    "text": "lisinopril",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [],
+    "position": [
+      491,
+      501
+    ]
+  },
+  {
+    "text": "compazine",
+    "type": "THUỐC",
+    "candidates": [
+      "8704"
+    ],
+    "assertions": [],
+    "position": [
+      556,
+      565
+    ]
+  },
+  {
+    "text": "demerol",
+    "type": "THUỐC",
+    "candidates": [
+      "6754"
+    ],
+    "assertions": [],
+    "position": [
+      567,
+      574
+    ]
+  },
+  {
+    "text": "bệnh Graves",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      735,
+      746
+    ]
+  },
+  {
+    "text": "viêm giáp Hashimoto",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E06"
+    ],
+    "assertions": [],
+    "position": [
+      757,
+      776
+    ]
+  },
+  {
+    "text": "đổ mồ hôi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      813,
+      822
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      853,
+      861
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R00.2"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      866,
+      881
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      904,
+      912
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      929,
+      932
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1250,
+      1253
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1301,
+      1311
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1318,
+      1321
+    ]
+  },
+  {
+    "text": "free T4",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1332,
+      1339
+    ]
+  },
+  {
+    "text": "total T4",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1350,
+      1358
+    ]
+  },
+  {
+    "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1369,
+      1376
+    ]
+  },
+  {
+    "text": "tăng cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1416,
+      1424
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1426,
+      1429
+    ]
+  },
+  {
+    "text": "suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [],
+    "position": [
+      1444,
+      1452
+    ]
+  },
+  {
+    "text": "bệnh Graves",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1482,
+      1493
+    ]
+  },
+  {
+    "text": "nội tiết tự miễn dịch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1509,
+      1530
+    ]
+  },
+  {
+    "text": "levothyroxine",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1622,
+      1635
+    ]
+  },
+  {
+    "text": "Synthroid",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1646,
+      1655
+    ]
+  },
+  {
+    "text": "cường giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [],
+    "position": [
+      1761,
+      1771
+    ]
+  }
+]

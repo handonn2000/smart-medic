@@ -1,0 +1,384 @@
+[
+  {
+    "text": "Viêm đa khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      108,
+      120
+    ]
+  },
+  {
+    "text": "Bệnh to đầu chi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      127,
+      142
+    ]
+  },
+  {
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      149,
+      157
+    ]
+  },
+  {
+    "text": "Tăng huyết áp ranh giới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      164,
+      187
+    ]
+  },
+  {
+    "text": "Béo phì",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      194,
+      201
+    ]
+  },
+  {
+    "text": "hội chứng ống cổ tay",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G56.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      289,
+      309
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      475,
+      478
+    ]
+  },
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      492,
+      500
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      575,
+      577
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      582,
+      589
+    ]
+  },
+  {
+    "text": "tiếng thổi tim",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      662,
+      676
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      699,
+      707
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      715,
+      722
+    ]
+  },
+  {
+    "text": "chảy máu tiêu hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.2"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      741,
+      758
+    ]
+  },
+  {
+    "text": "tiểu buốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      782,
+      791
+    ]
+  },
+  {
+    "text": "tiểu ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      799,
+      810
+    ]
+  },
+  {
+    "text": "Depo-Testosterone",
+    "type": "THUỐC",
+    "candidates": [
+      "10379"
+    ],
+    "assertions": [],
+    "position": [
+      929,
+      946
+    ]
+  },
+  {
+    "text": "prednisone",
+    "type": "THUỐC",
+    "candidates": [
+      "8640"
+    ],
+    "assertions": [],
+    "position": [
+      975,
+      985
+    ]
+  },
+  {
+    "text": "octreotide",
+    "type": "THUỐC",
+    "candidates": [
+      "7617"
+    ],
+    "assertions": [],
+    "position": [
+      1008,
+      1018
+    ]
+  },
+  {
+    "text": "morphine extended release",
+    "type": "THUỐC",
+    "candidates": [
+      "7052"
+    ],
+    "assertions": [],
+    "position": [
+      1039,
+      1064
+    ]
+  },
+  {
+    "text": "Synthroid",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      1094,
+      1103
+    ]
+  },
+  {
+    "text": "desmopressin",
+    "type": "THUỐC",
+    "candidates": [
+      "3251"
+    ],
+    "assertions": [],
+    "position": [
+      1127,
+      1139
+    ]
+  },
+  {
+    "text": "aspirin/oxycodone",
+    "type": "THUỐC",
+    "candidates": [
+      "214256"
+    ],
+    "assertions": [],
+    "position": [
+      1175,
+      1192
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      1216,
+      1223
+    ]
+  },
+  {
+    "text": "IBUPROFEN",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      1258,
+      1267
+    ]
+  },
+  {
+    "text": "TYLENOL",
+    "type": "THUỐC",
+    "candidates": [
+      "161"
+    ],
+    "assertions": [],
+    "position": [
+      1271,
+      1278
+    ]
+  },
+  {
+    "text": "Viêm đa khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1895,
+      1907
+    ]
+  },
+  {
+    "text": "Bệnh to đầu chi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1986,
+      2001
+    ]
+  },
+  {
+    "text": "Tăng huyết áp ranh giới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2055,
+      2078
+    ]
+  },
+  {
+    "text": "Thiếu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D46.4"
+    ],
+    "assertions": [],
+    "position": [
+      2206,
+      2215
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2249,
+      2259
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2263,
+      2273
+    ]
+  }
+]

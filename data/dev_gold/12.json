@@ -26,6 +26,32 @@
     ]
   },
   {
+    "text": "Thở oxy tại nhà",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      102,
+      117
+    ]
+  },
+  {
+    "text": "Hội chứng kháng enzym tổng hợp protein",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M35.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      124,
+      162
+    ]
+  },
+  {
     "text": "béo phì",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -73,6 +99,18 @@
     "position": [
       317,
       343
+    ]
+  },
+  {
+    "text": "Thở oxy tại nhà",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      350,
+      365
     ]
   },
   {
@@ -192,6 +230,16 @@
     ]
   },
   {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1008,
+      1014
+    ]
+  },
+  {
     "text": "bọng nước",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -252,6 +300,50 @@
     ]
   },
   {
+    "text": "Lan đến mông bên phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1479,
+      1500
+    ]
+  },
+  {
+    "text": "dịch giống mủ có màu vàng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1510,
+      1535
+    ]
+  },
+  {
+    "text": "dị tật thiểu sản vành tai",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Q17.2"
+    ],
+    "assertions": [],
+    "position": [
+      1718,
+      1743
+    ]
+  },
+  {
+    "text": "tịt ống tai ngoài bẩm sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Q16.1"
+    ],
+    "assertions": [],
+    "position": [
+      1747,
+      1773
+    ]
+  },
+  {
     "text": "chụp cắt lớp",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
@@ -293,6 +385,19 @@
     "position": [
       2760,
       2792
+    ]
+  },
+  {
+    "text": "Bệnh thủy đậu/Zona (do Varicella Zoster Virus)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B01.9",
+      "B02.9"
+    ],
+    "assertions": [],
+    "position": [
+      2798,
+      2844
     ]
   }
 ]

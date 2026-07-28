@@ -1,5 +1,45 @@
 [
   {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      48,
+      50
+    ]
+  },
+  {
+    "text": "Rối loạn cảm xúc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F39"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      51,
+      67
+    ]
+  },
+  {
+    "text": "trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      69,
+      77
+    ]
+  },
+  {
     "text": "giai đoạn trầm cảm không đặc hiệu",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -25,6 +65,20 @@
     "position": [
       129,
       150
+    ]
+  },
+  {
+    "text": "seroquel",
+    "type": "THUỐC",
+    "candidates": [
+      "83553"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      190,
+      198
     ]
   },
   {
@@ -92,6 +146,26 @@
     ]
   },
   {
+    "text": "Lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      477,
+      483
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      516,
+      525
+    ]
+  },
+  {
     "text": "khó khăn khi nhìn gần",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -99,6 +173,26 @@
     "position": [
       532,
       553
+    ]
+  },
+  {
+    "text": "rối loạn thị giác",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      560,
+      577
+    ]
+  },
+  {
+    "text": "nhìn thấy con cái mình ở góc mắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      579,
+      611
     ]
   },
   {
@@ -122,6 +216,16 @@
     ]
   },
   {
+    "text": "Ảo thanh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      660,
+      668
+    ]
+  },
+  {
     "text": "ảo giác thính giác",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -139,6 +243,16 @@
     "position": [
       726,
       731
+    ]
+  },
+  {
+    "text": "tưởng tượng về cái chết mãn tính",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      761,
+      793
     ]
   },
   {
@@ -182,6 +296,16 @@
     ]
   },
   {
+    "text": "nhìn thấy con cái ở góc mắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      905,
+      932
+    ]
+  },
+  {
     "text": "ảo giác thị giác",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -189,6 +313,16 @@
     "position": [
       939,
       955
+    ]
+  },
+  {
+    "text": "Ảo thanh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      957,
+      965
     ]
   },
   {
@@ -262,6 +396,16 @@
     ]
   },
   {
+    "text": "băng nhóm oligoclonal",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1472,
+      1493
+    ]
+  },
+  {
     "text": "đang chờ kết quả",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
@@ -269,6 +413,18 @@
     "position": [
       1494,
       1510
+    ]
+  },
+  {
+    "text": "tự tử chủ động",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1626,
+      1640
     ]
   },
   {
@@ -322,6 +478,16 @@
     ]
   },
   {
+    "text": "Đột sống thắt lưng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1938,
+      1956
+    ]
+  },
+  {
     "text": "đánh giá thần kinh",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
@@ -339,6 +505,16 @@
     "position": [
       2023,
       2041
+    ]
+  },
+  {
+    "text": "băng nhóm oligoclonal",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2052,
+      2073
     ]
   },
   {
@@ -372,6 +548,18 @@
     ]
   },
   {
+    "text": "hóa mủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2213,
+      2219
+    ]
+  },
+  {
     "text": "Kawasaki",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -381,6 +569,18 @@
     "position": [
       2260,
       2268
+    ]
+  },
+  {
+    "text": "sốt siêu vi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B34.9"
+    ],
+    "assertions": [],
+    "position": [
+      2281,
+      2292
     ]
   },
   {
@@ -466,6 +666,18 @@
     ]
   },
   {
+    "text": "bệnh Kawasaki",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M30.3"
+    ],
+    "assertions": [],
+    "position": [
+      2464,
+      2477
+    ]
+  },
+  {
     "text": "Phình giãn động mạch vành",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -475,6 +687,18 @@
     "position": [
       2565,
       2590
+    ]
+  },
+  {
+    "text": "Hẹp – tắc động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.1"
+    ],
+    "assertions": [],
+    "position": [
+      2594,
+      2618
     ]
   },
   {
@@ -535,6 +759,122 @@
     "position": [
       2779,
       2797
+    ]
+  },
+  {
+    "text": "Tăng men gan",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2801,
+      2813
+    ]
+  },
+  {
+    "text": "Rối loạn tiêu hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K59.9"
+    ],
+    "assertions": [],
+    "position": [
+      2817,
+      2834
+    ]
+  },
+  {
+    "text": "bệnh Kawasaki",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M30.3"
+    ],
+    "assertions": [],
+    "position": [
+      2848,
+      2861
+    ]
+  },
+  {
+    "text": "Sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2885,
+      2888
+    ]
+  },
+  {
+    "text": "Viêm kết mạc 2 bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2921,
+      2939
+    ]
+  },
+  {
+    "text": "ghèn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2946,
+      2950
+    ]
+  },
+  {
+    "text": "Môi – miệng thay đổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2955,
+      2975
+    ]
+  },
+  {
+    "text": "lưỡi dâu tây",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2986,
+      2998
+    ]
+  },
+  {
+    "text": "Tổn thương đầu chi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3004,
+      3022
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3024,
+      3027
+    ]
+  },
+  {
+    "text": "bong da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3033,
+      3040
     ]
   },
   {

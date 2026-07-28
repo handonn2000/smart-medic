@@ -70,6 +70,50 @@
     ]
   },
   {
+    "text": "Viêm quanh răng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K05.3"
+    ],
+    "assertions": [],
+    "position": [
+      613,
+      628
+    ]
+  },
+  {
+    "text": "sưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      669,
+      673
+    ]
+  },
+  {
+    "text": "nhiễm vi khuẩn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A49.9"
+    ],
+    "assertions": [],
+    "position": [
+      677,
+      691
+    ]
+  },
+  {
+    "text": "sang chấn răng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      693,
+      707
+    ]
+  },
+  {
     "text": "Viêm nha chu",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -79,6 +123,18 @@
     "position": [
       712,
       724
+    ]
+  },
+  {
+    "text": "nhiễm trùng lợi nặng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K05.3"
+    ],
+    "assertions": [],
+    "position": [
+      738,
+      758
     ]
   },
   {
@@ -175,6 +231,16 @@
     "position": [
       945,
       964
+    ]
+  },
+  {
+    "text": "bệnh hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      970,
+      981
     ]
   },
   {
@@ -282,6 +348,18 @@
     ]
   },
   {
+    "text": "Tiểu đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [],
+    "position": [
+      1173,
+      1183
+    ]
+  },
+  {
     "text": "Hôi miệng",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -302,6 +380,38 @@
     ]
   },
   {
+    "text": "bệnh tiểu đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [],
+    "position": [
+      1233,
+      1248
+    ]
+  },
+  {
+    "text": "giảm sản xuất insulin",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1278,
+      1299
+    ]
+  },
+  {
+    "text": "suy yếu hệ miễn dịch",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1324,
+      1344
+    ]
+  },
+  {
     "text": "khó đông máu",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -319,6 +429,16 @@
     "position": [
       1414,
       1440
+    ]
+  },
+  {
+    "text": "nồng độ đường trong máu cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1444,
+      1471
     ]
   },
   {
@@ -480,6 +600,28 @@
     ]
   },
   {
+    "text": "Ung thư biểu mô tế bào vảy xâm nhập của dương vật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C60.9"
+    ],
+    "assertions": [],
+    "position": [
+      1969,
+      2018
+    ]
+  },
+  {
+    "text": "biệt hóa kém",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2018,
+      2030
+    ]
+  },
+  {
     "text": "bờ diện cắt dương tính",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
@@ -520,6 +662,16 @@
     ]
   },
   {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2292,
+      2300
+    ]
+  },
+  {
     "text": "chảy máu chân răng",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -547,6 +699,16 @@
     "position": [
       2414,
       2422
+    ]
+  },
+  {
+    "text": "khám răng miệng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2598,
+      2615
     ]
   }
 ]

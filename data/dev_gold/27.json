@@ -1,5 +1,17 @@
 [
   {
+    "text": "viêm phổi hoại tử",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J85.0"
+    ],
+    "assertions": [],
+    "position": [
+      20,
+      37
+    ]
+  },
+  {
     "text": "viêm phổi",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -7,8 +19,8 @@
     ],
     "assertions": [],
     "position": [
-      20,
-      29
+      68,
+      77
     ]
   },
   {
@@ -24,6 +36,30 @@
     ]
   },
   {
+    "text": "VP",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18.9"
+    ],
+    "assertions": [],
+    "position": [
+      135,
+      137
+    ]
+  },
+  {
+    "text": "VPHT",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J85.0"
+    ],
+    "assertions": [],
+    "position": [
+      141,
+      145
+    ]
+  },
+  {
     "text": "Viêm phổi",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -33,6 +69,28 @@
     "position": [
       211,
       220
+    ]
+  },
+  {
+    "text": "viêm phế quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J40"
+    ],
+    "assertions": [],
+    "position": [
+      235,
+      248
+    ]
+  },
+  {
+    "text": "xuất tiết dịch",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      277,
+      291
     ]
   },
   {
@@ -48,6 +106,18 @@
     ]
   },
   {
+    "text": "nhiễm vi khuẩn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A49.9"
+    ],
+    "assertions": [],
+    "position": [
+      445,
+      459
+    ]
+  },
+  {
     "text": "thuốc kháng sinh",
     "type": "THUỐC",
     "candidates": [],
@@ -55,6 +125,66 @@
     "position": [
       466,
       482
+    ]
+  },
+  {
+    "text": "suy giảm miễn dịch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D84.9"
+    ],
+    "assertions": [],
+    "position": [
+      529,
+      547
+    ]
+  },
+  {
+    "text": "hoại tử nhu mô phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J85.0"
+    ],
+    "assertions": [],
+    "position": [
+      551,
+      570
+    ]
+  },
+  {
+    "text": "Viêm phổi hoại tử",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J85.0"
+    ],
+    "assertions": [],
+    "position": [
+      572,
+      589
+    ]
+  },
+  {
+    "text": "áp-xe nhỏ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J85.2"
+    ],
+    "assertions": [],
+    "position": [
+      660,
+      669
+    ]
+  },
+  {
+    "text": "tổn thương màng phổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      718,
+      738
     ]
   },
   {
@@ -67,6 +197,18 @@
     "position": [
       748,
       758
+    ]
+  },
+  {
+    "text": "hoại tử chủ mô phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J85.0"
+    ],
+    "assertions": [],
+    "position": [
+      787,
+      806
     ]
   },
   {
@@ -92,6 +234,46 @@
     ]
   },
   {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1488,
+      1495
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1538,
+      1545
+    ]
+  },
+  {
+    "text": "nhìn mờ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1560,
+      1567
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1621,
+      1628
+    ]
+  },
+  {
     "text": "nhìn mờ",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -112,6 +294,42 @@
     ]
   },
   {
+    "text": "phù gai thị",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H47.1"
+    ],
+    "assertions": [],
+    "position": [
+      1909,
+      1920
+    ]
+  },
+  {
+    "text": "Phù gai thị",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H47.1"
+    ],
+    "assertions": [],
+    "position": [
+      1999,
+      2010
+    ]
+  },
+  {
+    "text": "Tăng nhãn áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H40.9"
+    ],
+    "assertions": [],
+    "position": [
+      2114,
+      2126
+    ]
+  },
+  {
     "text": "chụp cắt lớp vi tính (ct) đầu",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
@@ -119,6 +337,16 @@
     "position": [
       2134,
       2163
+    ]
+  },
+  {
+    "text": "nhiều nang chứa khí hay dịch nhỏ (<2cm)",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2204,
+      2243
     ]
   },
   {

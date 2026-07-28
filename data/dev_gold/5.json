@@ -1,5 +1,31 @@
 [
   {
+    "text": "ung thư biểu mô tế bào mật không thể cắt bỏ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C22.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      238,
+      281
+    ]
+  },
+  {
+    "text": "vô sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N97.9"
+    ],
+    "assertions": [],
+    "position": [
+      356,
+      363
+    ]
+  },
+  {
     "text": "xét nghiệm tinh dịch đồ",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
@@ -82,6 +108,18 @@
     ]
   },
   {
+    "text": "béo phì",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.9"
+    ],
+    "assertions": [],
+    "position": [
+      1031,
+      1038
+    ]
+  },
+  {
     "text": "siêu âm buồng trứng",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
@@ -99,6 +137,18 @@
     "position": [
       1060,
       1073
+    ]
+  },
+  {
+    "text": "vô sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N97.9"
+    ],
+    "assertions": [],
+    "position": [
+      1108,
+      1115
     ]
   },
   {
@@ -121,8 +171,8 @@
       "isNegated"
     ],
     "position": [
-      1174,
-      1177
+      1179,
+      1182
     ]
   },
   {
@@ -212,6 +262,28 @@
     ]
   },
   {
+    "text": "tế bào bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1572,
+      1589
+    ]
+  },
+  {
+    "text": "ung thư biểu mô tuyến",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C22.1"
+    ],
+    "assertions": [],
+    "position": [
+      1605,
+      1626
+    ]
+  },
+  {
     "text": "buồn nôn",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -231,8 +303,8 @@
       "isNegated"
     ],
     "position": [
-      1944,
-      1947
+      1949,
+      1952
     ]
   },
   {
@@ -260,6 +332,16 @@
     ]
   },
   {
+    "text": "đau khi sờ nắn xung quanh vị trí đặt ống dẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2011,
+      2055
+    ]
+  },
+  {
     "text": "buồn nôn",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -279,8 +361,8 @@
       "isNegated"
     ],
     "position": [
-      2371,
-      2374
+      2376,
+      2379
     ]
   },
   {
@@ -370,6 +452,38 @@
     ]
   },
   {
+    "text": "tế bào bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2762,
+      2779
+    ]
+  },
+  {
+    "text": "ung thư biểu mô tuyến",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C22.1"
+    ],
+    "assertions": [],
+    "position": [
+      2798,
+      2819
+    ]
+  },
+  {
+    "text": "đau khi sờ nắn xung quanh vị trí đặt ống dẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3002,
+      3046
+    ]
+  },
+  {
     "text": "lấy mẫu bằng bàn chải",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
@@ -377,6 +491,38 @@
     "position": [
       3106,
       3127
+    ]
+  },
+  {
+    "text": "tế bào bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3137,
+      3154
+    ]
+  },
+  {
+    "text": "tế bào bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3154,
+      3171
+    ]
+  },
+  {
+    "text": "ung thư biểu mô tuyến",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C22.1"
+    ],
+    "assertions": [],
+    "position": [
+      3187,
+      3208
     ]
   },
   {

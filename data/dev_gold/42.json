@@ -68,6 +68,20 @@
     ]
   },
   {
+    "text": "tylenol",
+    "type": "THUỐC",
+    "candidates": [
+      "202433"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      176,
+      183
+    ]
+  },
+  {
     "text": "mucinex d",
     "type": "THUỐC",
     "candidates": [],
@@ -150,6 +164,16 @@
     ]
   },
   {
+    "text": "niêm mạc phù nề, sung huyết đỏ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      534,
+      564
+    ]
+  },
+  {
     "text": "nghệ mật ong",
     "type": "THUỐC",
     "candidates": [],
@@ -167,6 +191,16 @@
     "position": [
       696,
       703
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      710,
+      713
     ]
   },
   {
@@ -212,6 +246,16 @@
     ]
   },
   {
+    "text": "khó thở sau khi đi bộ vài khối",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      912,
+      942
+    ]
+  },
+  {
     "text": "ho đặc như bã",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -231,6 +275,18 @@
     "position": [
       1001,
       1009
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1019,
+      1022
     ]
   },
   {
@@ -306,6 +362,18 @@
     ]
   },
   {
+    "text": "paroxysmal nocturnal dyspnea",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1250,
+      1278
+    ]
+  },
+  {
     "text": "giãn phế quản",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -331,6 +399,20 @@
     "position": [
       1413,
       1425
+    ]
+  },
+  {
+    "text": "tylenol",
+    "type": "THUỐC",
+    "candidates": [
+      "202433"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1449,
+      1456
     ]
   },
   {
@@ -453,6 +535,18 @@
     "position": [
       1894,
       1911
+    ]
+  },
+  {
+    "text": "viêm phổi thùy dưới phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18.1"
+    ],
+    "assertions": [],
+    "position": [
+      1924,
+      1948
     ]
   }
 ]

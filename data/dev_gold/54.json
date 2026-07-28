@@ -1,5 +1,17 @@
 [
   {
+    "text": "************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      136,
+      148
+    ]
+  },
+  {
     "text": "Bệnh bạch cầu dòng tủy mãn tính",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -9,6 +21,18 @@
     "position": [
       301,
       332
+    ]
+  },
+  {
+    "text": "gleevec",
+    "type": "THUỐC",
+    "candidates": [
+      "282386"
+    ],
+    "assertions": [],
+    "position": [
+      343,
+      350
     ]
   },
   {
@@ -96,6 +120,26 @@
     ]
   },
   {
+    "text": "ngã",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      564,
+      567
+    ]
+  },
+  {
+    "text": "Ngã",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      576,
+      579
+    ]
+  },
+  {
     "text": "ảo giác",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -103,6 +147,100 @@
     "position": [
       586,
       593
+    ]
+  },
+  {
+    "text": "gleevec",
+    "type": "THUỐC",
+    "candidates": [
+      "282386"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      625,
+      632
+    ]
+  },
+  {
+    "text": "Toàn trạng suy kiệt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      720,
+      739
+    ]
+  },
+  {
+    "text": "ảo giác",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      767,
+      774
+    ]
+  },
+  {
+    "text": "Lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      790,
+      796
+    ]
+  },
+  {
+    "text": "Cực kỳ yếu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      849,
+      859
+    ]
+  },
+  {
+    "text": "ảo giác",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      905,
+      912
+    ]
+  },
+  {
+    "text": "Lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      937,
+      943
+    ]
+  },
+  {
+    "text": "yếu cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      983,
+      989
+    ]
+  },
+  {
+    "text": "ngã",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      998,
+      1001
     ]
   },
   {
@@ -133,6 +271,18 @@
     "position": [
       1081,
       1087
+    ]
+  },
+  {
+    "text": "dị tật bẩm sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Q89.9"
+    ],
+    "assertions": [],
+    "position": [
+      1208,
+      1223
     ]
   },
   {

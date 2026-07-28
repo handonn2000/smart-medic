@@ -1,5 +1,97 @@
 [
   {
+    "text": "Rối loạn chuyển hóa tinh bột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.9"
+    ],
+    "assertions": [],
+    "position": [
+      29,
+      57
+    ]
+  },
+  {
+    "text": "amyloidosis",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.9"
+    ],
+    "assertions": [],
+    "position": [
+      59,
+      70
+    ]
+  },
+  {
+    "text": "Bệnh thoái hóa tinh bột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.9"
+    ],
+    "assertions": [],
+    "position": [
+      308,
+      331
+    ]
+  },
+  {
+    "text": "bệnh amyloidosis",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.9"
+    ],
+    "assertions": [],
+    "position": [
+      337,
+      353
+    ]
+  },
+  {
+    "text": "suy các cơ quan",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      713,
+      728
+    ]
+  },
+  {
+    "text": "bệnh thoái hóa tinh bột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.9"
+    ],
+    "assertions": [],
+    "position": [
+      806,
+      829
+    ]
+  },
+  {
+    "text": "bệnh thoái hóa tinh bột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.9"
+    ],
+    "assertions": [],
+    "position": [
+      989,
+      1012
+    ]
+  },
+  {
+    "text": "ung thư máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1094,
+      1105
+    ]
+  },
+  {
     "text": "đa u tủy",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -9,6 +101,78 @@
     "position": [
       1110,
       1118
+    ]
+  },
+  {
+    "text": "amyloidosis",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.9"
+    ],
+    "assertions": [],
+    "position": [
+      1134,
+      1145
+    ]
+  },
+  {
+    "text": "Bệnh amyloidosis chuỗi nhẹ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.8"
+    ],
+    "assertions": [],
+    "position": [
+      1190,
+      1216
+    ]
+  },
+  {
+    "text": "Bệnh amyloidosis tự miễn dịch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.3"
+    ],
+    "assertions": [],
+    "position": [
+      1226,
+      1255
+    ]
+  },
+  {
+    "text": "Bệnh amyloidosis di truyền hoặc gia đình",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.2"
+    ],
+    "assertions": [],
+    "position": [
+      1265,
+      1305
+    ]
+  },
+  {
+    "text": "Bệnh thoái hóa tinh bột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.9"
+    ],
+    "assertions": [],
+    "position": [
+      1306,
+      1329
+    ]
+  },
+  {
+    "text": "amyloidosis",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E85.9"
+    ],
+    "assertions": [],
+    "position": [
+      1444,
+      1455
     ]
   },
   {
@@ -127,8 +291,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2003,
-      2006
+      2019,
+      2022
     ]
   },
   {
@@ -161,6 +325,18 @@
     "position": [
       2159,
       2170
+    ]
+  },
+  {
+    "text": "NSAIDs",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      2195,
+      2201
     ]
   },
   {

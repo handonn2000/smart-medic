@@ -1,5 +1,17 @@
 [
   {
+    "text": "mề đay",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L50"
+    ],
+    "assertions": [],
+    "position": [
+      85,
+      91
+    ]
+  },
+  {
     "text": "ngứa",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -7,6 +19,28 @@
     "position": [
       102,
       106
+    ]
+  },
+  {
+    "text": "mề đay",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L50"
+    ],
+    "assertions": [],
+    "position": [
+      161,
+      167
+    ]
+  },
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      176,
+      184
     ]
   },
   {
@@ -20,6 +54,20 @@
     ]
   },
   {
+    "text": "dị ứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "T78.4"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      357,
+      363
+    ]
+  },
+  {
     "text": "Bệnh bạch cầu dòng tủy mãn tính",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -29,6 +77,18 @@
     "position": [
       642,
       673
+    ]
+  },
+  {
+    "text": "gleevec",
+    "type": "THUỐC",
+    "candidates": [
+      "282386"
+    ],
+    "assertions": [],
+    "position": [
+      684,
+      691
     ]
   },
   {
@@ -126,13 +186,13 @@
     ]
   },
   {
-    "text": "ngã",
+    "text": "Ngã",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      905,
-      908
+      917,
+      920
     ]
   },
   {
@@ -146,6 +206,20 @@
     ]
   },
   {
+    "text": "gleevec",
+    "type": "THUỐC",
+    "candidates": [
+      "282386"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      966,
+      973
+    ]
+  },
+  {
     "text": "Toàn trạng suy kiệt",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
@@ -153,6 +227,16 @@
     "position": [
       1061,
       1080
+    ]
+  },
+  {
+    "text": "ảo giác",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1108,
+      1115
     ]
   },
   {
@@ -196,6 +280,36 @@
     ]
   },
   {
+    "text": "mô bệnh học",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1330,
+      1343
+    ]
+  },
+  {
+    "text": "xâm nhập của tế bào một nhân kết hợp với lympho T và đại thực bào",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1371,
+      1448
+    ]
+  },
+  {
+    "text": "kính hiển vi quang học",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1487,
+      1512
+    ]
+  },
+  {
     "text": "kính hiển vi điện tử",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
@@ -203,6 +317,16 @@
     "position": [
       1545,
       1569
+    ]
+  },
+  {
+    "text": "Các tế bào mast tăng số lượng vùng hạ bì",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1571,
+      1619
     ]
   },
   {
@@ -257,6 +381,36 @@
     "position": [
       1969,
       1983
+    ]
+  },
+  {
+    "text": "****************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2307,
+      2323
+    ]
+  },
+  {
+    "text": "****************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2397,
+      2413
+    ]
+  },
+  {
+    "text": "corticoid liều thấp cách ngày hoặc hàng ngày",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2426,
+      2477
     ]
   }
 ]

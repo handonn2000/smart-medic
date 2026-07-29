@@ -1,26 +1,29 @@
 [
   {
-    "text": "buồn nôn và nôn không kiểm soát được",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
+    "text": "Buồn nôn và nôn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R11"
+    ],
     "assertions": [],
     "position": [
-      83,
-      119
+      79,
+      94
     ]
   },
   {
-    "text": "nôn ra máu",
+    "text": "sử dụng rượu",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "K92.0"
+      "Z72.1"
     ],
     "assertions": [
+      "isHistorical",
       "isNegated"
     ],
     "position": [
-      125,
-      135
+      330,
+      342
     ]
   },
   {
@@ -31,18 +34,8 @@
       "isHistorical"
     ],
     "position": [
-      466,
-      476
-    ]
-  },
-  {
-    "text": "natri",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      496,
-      501
+      470,
+      480
     ]
   },
   {
@@ -71,8 +64,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      540,
-      542
+      541,
+      543
     ]
   },
   {
@@ -81,8 +74,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      549,
-      552
+      545,
+      548
     ]
   },
   {
@@ -91,8 +84,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      553,
-      555
+      550,
+      552
     ]
   },
   {
@@ -101,8 +94,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      562,
-      581
+      554,
+      573
     ]
   },
   {
@@ -111,8 +104,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      582,
-      585
+      575,
+      578
     ]
   },
   {
@@ -121,28 +114,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      592,
-      601
+      585,
+      594
     ]
   },
   {
-    "text": "ketones",
+    "text": "ketone",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      603,
-      610
-    ]
-  },
-  {
-    "text": "3+",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      611,
-      613
+      599,
+      605
     ]
   },
   {
@@ -151,18 +134,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      615,
-      622
-    ]
-  },
-  {
-    "text": "2+",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      623,
-      625
+      610,
+      617
     ]
   },
   {
@@ -171,18 +144,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      627,
-      635
-    ]
-  },
-  {
-    "text": "1+",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      636,
-      638
+      622,
+      630
     ]
   },
   {
@@ -191,28 +154,28 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      645,
-      653
+      632,
+      640
     ]
   },
   {
-    "text": "HGB và HCT",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      689,
-      699
-    ]
-  },
-  {
-    "text": "14.1 và 48.7",
+    "text": "14.1",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      708,
-      720
+      684,
+      688
+    ]
+  },
+  {
+    "text": "48.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      690,
+      694
     ]
   },
   {
@@ -223,8 +186,8 @@
     ],
     "assertions": [],
     "position": [
-      744,
-      753
+      734,
+      743
     ]
   },
   {
@@ -235,18 +198,8 @@
     ],
     "assertions": [],
     "position": [
-      757,
-      763
-    ]
-  },
-  {
-    "text": "Rocephin",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      806,
-      814
+      747,
+      753
     ]
   },
   {
@@ -257,18 +210,33 @@
     ],
     "assertions": [],
     "position": [
-      824,
-      846
+      827,
+      849
     ]
   },
   {
-    "text": "buồn nôn và nôn",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
+    "text": "Buồn nôn và nôn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R11"
+    ],
     "assertions": [],
     "position": [
-      873,
-      888
+      856,
+      871
+    ]
+  },
+  {
+    "text": "Maalox",
+    "type": "THUỐC",
+    "candidates": [
+      "612",
+      "6581"
+    ],
+    "assertions": [],
+    "position": [
+      900,
+      906
     ]
   },
   {
@@ -277,8 +245,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      986,
-      989
+      979,
+      982
     ]
   },
   {
@@ -287,28 +255,38 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      991,
-      994
+      984,
+      987
     ]
   },
   {
-    "text": "tăng nôn nghén",
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1034,
+      1044
+    ]
+  },
+  {
+    "text": "hyperemesis gravidarum",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1105,
-      1119
+      1153,
+      1175
     ]
   },
   {
-    "text": "ALT",
-    "type": "TÊN_XÉT_NGHIỆM",
+    "text": "ALT hơi cao",
+    "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1166,
-      1169
+      1183,
+      1194
     ]
   },
   {
@@ -317,8 +295,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1188,
-      1203
+      1198,
+      1213
     ]
   }
 ]

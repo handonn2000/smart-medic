@@ -7,8 +7,8 @@
     ],
     "assertions": [],
     "position": [
-      28,
-      38
+      29,
+      39
     ]
   },
   {
@@ -17,8 +17,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      44,
-      67
+      45,
+      68
     ]
   },
   {
@@ -29,8 +29,8 @@
     ],
     "assertions": [],
     "position": [
-      96,
-      106
+      97,
+      107
     ]
   },
   {
@@ -39,8 +39,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      112,
-      135
+      113,
+      136
     ]
   },
   {
@@ -51,8 +51,8 @@
     ],
     "assertions": [],
     "position": [
-      141,
-      150
+      142,
+      151
     ]
   },
   {
@@ -65,8 +65,8 @@
       "isNegated"
     ],
     "position": [
-      225,
-      234
+      226,
+      235
     ]
   },
   {
@@ -77,40 +77,100 @@
       "isNegated"
     ],
     "position": [
-      239,
-      262
+      240,
+      263
     ]
   },
   {
-    "text": "*********",
+    "text": "nhiễm trùng đường hô hấp trên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      282,
+      311
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      334,
+      336
+    ]
+  },
+  {
+    "text": "tăng công thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      340,
+      353
+    ]
+  },
+  {
+    "text": "điều trị khí dung",
     "type": "THUỐC",
     "candidates": [],
     "assertions": [],
     "position": [
-      399,
-      408
+      387,
+      404
     ]
   },
   {
-    "text": "X-quang",
+    "text": "khí dung albuterol liên tục",
+    "type": "THUỐC",
+    "candidates": [
+      "435"
+    ],
+    "assertions": [],
+    "position": [
+      415,
+      442
+    ]
+  },
+  {
+    "text": "corticosteroid hít vào",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      444,
+      466
+    ]
+  },
+  {
+    "text": "corticosteroid uống",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      470,
+      489
+    ]
+  },
+  {
+    "text": "x-quang",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      432,
-      439
+      495,
+      502
     ]
   },
   {
     "text": "CRP",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      523,
-      526
+      543,
+      546
     ]
   },
   {
@@ -119,8 +179,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      536,
-      539
+      551,
+      554
     ]
   },
   {
@@ -129,18 +189,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      545,
-      548
-    ]
-  },
-  {
-    "text": "9.6",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      571,
-      574
+      556,
+      559
     ]
   },
   {
@@ -149,20 +199,20 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      589,
-      592
+      586,
+      589
     ]
   },
   {
-    "text": "viêm phổi",
+    "text": "viêm phổi do vi khuẩn",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "J18"
+      "J15"
     ],
     "assertions": [],
     "position": [
-      607,
-      616
+      604,
+      625
     ]
   },
   {
@@ -173,8 +223,8 @@
     ],
     "assertions": [],
     "position": [
-      634,
-      645
+      631,
+      642
     ]
   },
   {
@@ -185,42 +235,92 @@
     ],
     "assertions": [],
     "position": [
-      649,
-      658
+      646,
+      655
     ]
   },
   {
-    "text": "khó thở",
+    "text": "khò khè hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      735,
+      750
+    ]
+  },
+  {
+    "text": "thở nhanh",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      975,
-      982
+      758,
+      767
     ]
   },
   {
-    "text": "*******",
-    "type": "THUỐC",
+    "text": "suy hô hấp cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      809,
+      823
+    ]
+  },
+  {
+    "text": "Khò khè hai bên nền",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      1299,
-      1306
+      934,
+      953
     ]
   },
   {
-    "text": "QVAR",
+    "text": "suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      961,
+      971
+    ]
+  },
+  {
+    "text": "Xopenex MDI",
+    "type": "THUỐC",
+    "candidates": [
+      "237159"
+    ],
+    "assertions": [],
+    "position": [
+      1249,
+      1260
+    ]
+  },
+  {
+    "text": "QVAR 40",
     "type": "THUỐC",
     "candidates": [
       "1347"
     ],
     "assertions": [],
     "position": [
-      1363,
-      1367
+      1321,
+      1328
     ]
   },
   {
@@ -231,8 +331,8 @@
     ],
     "assertions": [],
     "position": [
-      1419,
-      1430
+      1379,
+      1390
     ]
   },
   {
@@ -243,8 +343,8 @@
     ],
     "assertions": [],
     "position": [
-      1476,
-      1485
+      1429,
+      1438
     ]
   }
 ]

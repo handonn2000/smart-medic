@@ -1,22 +1,40 @@
 [
   {
-    "text": "Đau bụng",
+    "text": "đau bụng",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
-    "assertions": [],
+    "assertions": [
+      "isHistorical"
+    ],
     "position": [
-      36,
-      44
+      63,
+      71
+    ]
+  },
+  {
+    "text": "sụt 30 pound",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      98,
+      110
     ]
   },
   {
     "text": "vàng da",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "P57.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
     "position": [
-      90,
-      97
+      114,
+      121
     ]
   },
   {
@@ -25,8 +43,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      101,
-      114
+      145,
+      158
+    ]
+  },
+  {
+    "text": "CT-scan lát cắt mỏng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      196,
+      216
     ]
   },
   {
@@ -35,8 +63,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      185,
-      195
+      321,
+      331
     ]
   },
   {
@@ -45,8 +73,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      261,
-      265
+      411,
+      415
     ]
   },
   {
@@ -55,28 +83,28 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      361,
-      370
+      576,
+      585
     ]
   },
   {
-    "text": "xét nghiệm chức năng gan khác",
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      384,
-      413
+      593,
+      603
     ]
   },
   {
-    "text": "Buồn nôn",
+    "text": "buồn nôn",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      463,
-      471
+      630,
+      638
     ]
   },
   {
@@ -87,8 +115,8 @@
     ],
     "assertions": [],
     "position": [
-      481,
-      487
+      653,
+      659
     ]
   },
   {
@@ -97,10 +125,12 @@
     "candidates": [
       "8745"
     ],
-    "assertions": [],
+    "assertions": [
+      "isNegated"
+    ],
     "position": [
-      505,
-      514
+      687,
+      696
     ]
   },
   {
@@ -109,8 +139,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      533,
-      543
+      731,
+      741
+    ]
+  },
+  {
+    "text": "số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      765,
+      782
     ]
   },
   {
@@ -119,8 +159,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      574,
-      577
+      784,
+      787
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      793,
+      803
     ]
   },
   {
@@ -129,8 +179,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      595,
-      599
+      805,
+      809
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      815,
+      825
     ]
   },
   {
@@ -139,8 +199,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      617,
-      619
+      827,
+      829
     ]
   },
   {
@@ -149,8 +209,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      625,
-      628
+      835,
+      838
     ]
   },
   {
@@ -159,8 +219,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      630,
-      632
+      840,
+      842
+    ]
+  },
+  {
+    "text": "số lượng tiểu cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      848,
+      865
     ]
   },
   {
@@ -169,30 +239,68 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      648,
-      654
+      867,
+      873
     ]
   },
   {
-    "text": "Natri",
+    "text": "sodium",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      660,
-      665
+      879,
+      885
     ]
   },
   {
-    "text": "Kali",
-    "type": "THUỐC",
-    "candidates": [
-      "704806"
-    ],
+    "text": "132",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
     "assertions": [],
     "position": [
-      667,
-      671
+      887,
+      890
+    ]
+  },
+  {
+    "text": "potassium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      896,
+      905
+    ]
+  },
+  {
+    "text": "4.1",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      907,
+      910
+    ]
+  },
+  {
+    "text": "chloride",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      916,
+      924
+    ]
+  },
+  {
+    "text": "95",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      926,
+      928
     ]
   },
   {
@@ -201,8 +309,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      681,
-      684
+      934,
+      937
+    ]
+  },
+  {
+    "text": "27",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      939,
+      941
     ]
   },
   {
@@ -211,20 +329,48 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      686,
-      689
+      947,
+      950
     ]
   },
   {
-    "text": "Creatinine",
-    "type": "THUỐC",
-    "candidates": [
-      "2913"
-    ],
+    "text": "8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
     "assertions": [],
     "position": [
-      691,
-      701
+      952,
+      953
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      959,
+      969
+    ]
+  },
+  {
+    "text": "0.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      971,
+      974
+    ]
+  },
+  {
+    "text": "bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      980,
+      989
     ]
   },
   {
@@ -233,8 +379,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      718,
-      722
+      991,
+      995
+    ]
+  },
+  {
+    "text": "alkaline phosphatase",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1001,
+      1021
     ]
   },
   {
@@ -243,8 +399,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      738,
-      741
+      1023,
+      1026
     ]
   },
   {
@@ -253,8 +409,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      747,
-      750
+      1032,
+      1035
     ]
   },
   {
@@ -263,8 +419,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      752,
-      755
+      1037,
+      1040
     ]
   },
   {
@@ -273,8 +429,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      761,
-      764
+      1046,
+      1049
     ]
   },
   {
@@ -283,20 +439,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      766,
-      769
+      1051,
+      1054
     ]
   },
   {
-    "text": "protein",
-    "type": "THUỐC",
-    "candidates": [
-      "8859"
-    ],
+    "text": "protein toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
     "assertions": [],
     "position": [
-      780,
-      787
+      1060,
+      1077
     ]
   },
   {
@@ -305,20 +459,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      789,
-      792
+      1079,
+      1082
     ]
   },
   {
-    "text": "Albumin",
-    "type": "THUỐC",
-    "candidates": [
-      "433"
-    ],
+    "text": "albumin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
     "assertions": [],
     "position": [
-      798,
-      805
+      1088,
+      1095
     ]
   },
   {
@@ -327,30 +479,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      807,
-      810
-    ]
-  },
-  {
-    "text": "đường huyết",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      882,
-      893
-    ]
-  },
-  {
-    "text": "insulin",
-    "type": "THUỐC",
-    "candidates": [
-      "253182"
-    ],
-    "assertions": [],
-    "position": [
-      914,
-      921
+      1097,
+      1100
     ]
   },
   {
@@ -361,18 +491,28 @@
     ],
     "assertions": [],
     "position": [
-      1001,
-      1015
+      1168,
+      1182
     ]
   },
   {
-    "text": "ung thư tụy di căn",
+    "text": "hóa trị",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1291,
+      1298
+    ]
+  },
+  {
+    "text": "ung thư tuyến tụy di căn",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1069,
-      1087
+      1303,
+      1327
     ]
   },
   {
@@ -383,8 +523,8 @@
     ],
     "assertions": [],
     "position": [
-      1151,
-      1160
+      1408,
+      1417
     ]
   },
   {
@@ -395,8 +535,8 @@
     ],
     "assertions": [],
     "position": [
-      1195,
-      1204
+      1457,
+      1466
     ]
   },
   {
@@ -407,8 +547,20 @@
     ],
     "assertions": [],
     "position": [
-      1226,
-      1234
+      1491,
+      1499
+    ]
+  },
+  {
+    "text": "insulin",
+    "type": "THUỐC",
+    "candidates": [
+      "253182"
+    ],
+    "assertions": [],
+    "position": [
+      1553,
+      1560
     ]
   },
   {
@@ -419,18 +571,20 @@
     ],
     "assertions": [],
     "position": [
-      1337,
-      1346
+      1617,
+      1626
     ]
   },
   {
-    "text": "ERCP",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
     "assertions": [],
     "position": [
-      1410,
-      1414
+      1631,
+      1644
     ]
   },
   {
@@ -439,28 +593,28 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1436,
-      1439
+      1735,
+      1738
     ]
   },
   {
-    "text": "bilirubin tăng",
+    "text": "tăng bilirubin",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1441,
-      1455
+      1740,
+      1754
     ]
   },
   {
-    "text": "đau nặng hơn",
+    "text": "đau tăng",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      1457,
-      1469
+      1756,
+      1764
     ]
   }
 ]

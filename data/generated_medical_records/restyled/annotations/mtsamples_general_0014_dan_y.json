@@ -1,0 +1,646 @@
+[
+  {
+    "text": "Ngất",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      28,
+      34
+    ]
+  },
+  {
+    "text": "ngất",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      102,
+      108
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      130,
+      139
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      157,
+      167
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      169,
+      179
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      184,
+      204
+    ]
+  },
+  {
+    "text": "bệnh tim mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I51.6"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      268,
+      284
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      328,
+      345
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      359,
+      378
+    ]
+  },
+  {
+    "text": "Cholesterol",
+    "type": "THUỐC",
+    "candidates": [
+      "2438"
+    ],
+    "assertions": [],
+    "position": [
+      406,
+      417
+    ]
+  },
+  {
+    "text": "bệnh động mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      461,
+      480
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      563,
+      580
+    ]
+  },
+  {
+    "text": "rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      582,
+      604
+    ]
+  },
+  {
+    "text": "bệnh Parkinson",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      635,
+      651
+    ]
+  },
+  {
+    "text": "run",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      659,
+      662
+    ]
+  },
+  {
+    "text": "Thuốc giảm đau",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Y45"
+    ],
+    "assertions": [],
+    "position": [
+      829,
+      846
+    ]
+  },
+  {
+    "text": "Lovastatin",
+    "type": "THUỐC",
+    "candidates": [
+      "6472"
+    ],
+    "assertions": [],
+    "position": [
+      878,
+      888
+    ]
+  },
+  {
+    "text": "Propranolol",
+    "type": "THUỐC",
+    "candidates": [
+      "8787"
+    ],
+    "assertions": [],
+    "position": [
+      913,
+      924
+    ]
+  },
+  {
+    "text": "Protonix",
+    "type": "THUỐC",
+    "candidates": [
+      "40790"
+    ],
+    "assertions": [],
+    "position": [
+      959,
+      967
+    ]
+  },
+  {
+    "text": "Flomax",
+    "type": "THUỐC",
+    "candidates": [
+      "77492"
+    ],
+    "assertions": [],
+    "position": [
+      969,
+      975
+    ]
+  },
+  {
+    "text": "yếu ớt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1169,
+      1179
+    ]
+  },
+  {
+    "text": "mệt mỏi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1181,
+      1191
+    ]
+  },
+  {
+    "text": "suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1277,
+      1297
+    ]
+  },
+  {
+    "text": "rối loạn nhịp tim",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1302,
+      1323
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1361,
+      1373
+    ]
+  },
+  {
+    "text": "sốt do nấm valley",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1378,
+      1399
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1426,
+      1437
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1439,
+      1443
+    ]
+  },
+  {
+    "text": "ói ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1445,
+      1456
+    ]
+  },
+  {
+    "text": "phân đen",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1458,
+      1467
+    ]
+  },
+  {
+    "text": "tiểu rắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1497,
+      1509
+    ]
+  },
+  {
+    "text": "tiểu gấp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1511,
+      1523
+    ]
+  },
+  {
+    "text": "Viêm khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M02"
+    ],
+    "assertions": [],
+    "position": [
+      1551,
+      1563
+    ]
+  },
+  {
+    "text": "yếu cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1565,
+      1574
+    ]
+  },
+  {
+    "text": "TIA",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1650,
+      1653
+    ]
+  },
+  {
+    "text": "đột quỵ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I69.4"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1655,
+      1665
+    ]
+  },
+  {
+    "text": "rối loạn co giật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R56"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1667,
+      1688
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2129,
+      2133
+    ]
+  },
+  {
+    "text": "ngón tay dùi trống",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2153,
+      2175
+    ]
+  },
+  {
+    "text": "tím tái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2184,
+      2193
+    ]
+  },
+  {
+    "text": "run",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2199,
+      2202
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2325,
+      2338
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2362,
+      2365
+    ]
+  },
+  {
+    "text": "14",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2366,
+      2368
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2376,
+      2379
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2381,
+      2391
+    ]
+  },
+  {
+    "text": "Nồng độ amoniac",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2440,
+      2459
+    ]
+  },
+  {
+    "text": "69",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2468,
+      2470
+    ]
+  },
+  {
+    "text": "Chụp CT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2478,
+      2486
+    ]
+  },
+  {
+    "text": "tắc mạch phổi",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2508,
+      2526
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2534,
+      2548
+    ]
+  },
+  {
+    "text": "CT đầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2584,
+      2592
+    ]
+  },
+  {
+    "text": "Men gan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2645,
+      2652
+    ]
+  },
+  {
+    "text": "ngất",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2731,
+      2737
+    ]
+  },
+  {
+    "text": "rối loạn co giật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R56"
+    ],
+    "assertions": [],
+    "position": [
+      2750,
+      2771
+    ]
+  }
+]

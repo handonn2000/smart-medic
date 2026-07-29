@@ -1,82 +1,82 @@
 [
   {
-    "text": "Rối loạn đông máu nội mạch lan tỏa",
+    "text": "Đông máu nội mạch lan tỏa",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      22,
-      65
+      19,
+      44
     ]
   },
   {
-    "text": "Viêm phổi do tụ cầu khuẩn kèm nhiễm trùng huyết",
+    "text": "Viêm phổi do liên cầu khuẩn kèm nhiễm khuẩn huyết",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "A41.9"
+      "J15.3"
     ],
     "assertions": [],
     "position": [
-      71,
-      132
+      50,
+      99
     ]
   },
   {
-    "text": "suy hô hấp",
+    "text": "suy hô hấp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "J96.9"
     ],
     "assertions": [],
     "position": [
-      220,
-      233
+      192,
+      202
     ]
   },
   {
-    "text": "viêm phổi",
+    "text": "viêm phổi",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "J18"
     ],
     "assertions": [],
     "position": [
-      289,
-      301
+      261,
+      270
     ]
   },
   {
-    "text": "nhiễm trùng huyết",
+    "text": "nhiễm khuẩn huyết",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "A41.9"
+      "A49.9"
     ],
     "assertions": [],
     "position": [
-      318,
-      340
+      272,
+      289
     ]
   },
   {
-    "text": "suy hô hấp",
+    "text": "Suy hô hấp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "J96.9"
     ],
     "assertions": [],
     "position": [
-      342,
-      355
+      296,
+      306
     ]
   },
   {
-    "text": "rối loạn đông máu nội mạch lan tỏa",
+    "text": "đông máu nội mạch lan tỏa",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      460,
-      503
+      403,
+      428
     ]
   },
   {
@@ -87,8 +87,8 @@
     ],
     "assertions": [],
     "position": [
-      555,
-      566
+      463,
+      474
     ]
   },
   {
@@ -99,50 +99,64 @@
     ],
     "assertions": [],
     "position": [
-      578,
-      588
+      484,
+      494
     ]
   },
   {
-    "text": "Chảy máu",
+    "text": "Chảy máu",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      671,
-      681
+      558,
+      566
     ]
   },
   {
-    "text": "rối loạn đông máu",
+    "text": "sử dụng ma túy",
     "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      775,
+      789
+    ]
+  },
+  {
+    "text": "Kết mạc xuất huyết",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1135,
+      1153
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      731,
-      753
+      1347,
+      1355
     ]
   },
   {
-    "text": "xuất huyết kết mạc",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1284,
-      1309
-    ]
-  },
-  {
-    "text": "XÉT NGHIỆM",
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1632,
-      1645
+      1494,
+      1504
     ]
   },
   {
@@ -151,8 +165,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1666,
-      1672
+      1530,
+      1536
     ]
   },
   {
@@ -161,20 +175,20 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1678,
-      1681
+      1547,
+      1550
     ]
   },
   {
-    "text": "fibrinogen",
+    "text": "Fibrinogen",
     "type": "THUỐC",
     "candidates": [
       "4385"
     ],
     "assertions": [],
     "position": [
-      1704,
-      1714
+      1577,
+      1587
     ]
   },
   {
@@ -183,8 +197,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1715,
-      1718
+      1589,
+      1592
     ]
   },
   {
@@ -193,42 +207,30 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1728,
-      1730
+      1607,
+      1609
     ]
   },
   {
-    "text": "rối loạn đông máu nội mạch lan tỏa",
+    "text": "Đông máu nội mạch lan tỏa",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1766,
-      1809
+      1647,
+      1672
     ]
   },
   {
-    "text": "nhiễm trùng huyết",
+    "text": "nhiễm khuẩn huyết",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "A41.9"
+      "A49.9"
     ],
     "assertions": [],
     "position": [
-      1813,
-      1835
-    ]
-  },
-  {
-    "text": "viêm phổi do tụ cầu khuẩn",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "J18"
-    ],
-    "assertions": [],
-    "position": [
-      1841,
-      1874
+      1676,
+      1693
     ]
   },
   {
@@ -237,22 +239,22 @@
     "candidates": [
       "5224"
     ],
-    "assertions": [],
-    "position": [
-      1988,
-      1995
-    ]
-  },
-  {
-    "text": "xét nghiệm",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      2043,
-      2056
+      1791,
+      1798
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1860,
+      1870
     ]
   }
 ]

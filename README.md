@@ -34,25 +34,29 @@ smart-medic/
 ├── src/
 │   └── smart_medic/         # Source code (data processing, training, inference)
 ├── models/                  # Trained model weights / checkpoints
+├── tests/                   # Unit tests and integration tests
 ├── scripts/
-│   ├── gen_sample_data.py           # Training-data generator (see below)
-│   └── migrate_to_new_structure.py  # One-off: old data layout → new
+│   └── gen_sample_data.py   # Training-data generator (see below)
 └── data/
     ├── knowledge_base/      # Reference vocabularies (ICD-10, RxNorm)
+    │   ├── ICD10.csv        # ICD-10 disease codes (5.2 MB, 73K+ concepts)
+    │   ├── RXNORM.csv       # RxNorm medication names (73 MB, 1M+ rows)
+    │   ├── RxNorm_full_*/   # Full RxNorm release with RXNREL.RRF for brand→ingredient mapping
+    │   └── brand_to_ingredient.json  # Cached brand→ingredient map (~96k brands)
     ├── external/
     │   └── en_notes/        # mtsamples_filtered.jsonl — 457 English notes, source for `translate`
-    ├── input/               # Input text records (test.zip → input/*.txt)
+    ├── test/                # Competition test set (100 files: 1.txt … 100.txt)
     ├── output/              # Predicted output (output.zip → *.json), one per input record
-    └── generated_medical_records/   # Generated training data
-        ├── synthetic/       # Written by an LLM around code-sampled entities
+    └── generated_medical_records/   # Generated training data (~543 notes total)
+        ├── synthetic/       # 194 notes — Written by an LLM around code-sampled entities
         │   ├── intermediate/    # entity_bundles.jsonl, composed_texts.jsonl, prompts.jsonl
         │   ├── text/            # synthetic_NNNN.txt — clean text
         │   └── annotations/     # synthetic_NNNN.json — NER labels
-        ├── translated/      # Translated from real English mtsamples notes
+        ├── translated/      # 187 notes — Translated from real English mtsamples notes
         │   ├── intermediate/    # translation_process.jsonl, translation_prompts.jsonl
         │   ├── text/            # mtsamples_<specialty>_NNNN.txt
         │   └── annotations/     # mtsamples_<specialty>_NNNN.json
-        └── restyled/        # Translated notes rewritten into test-set genres
+        └── restyled/        # 162 notes — Translated notes rewritten into test-set genres
             ├── intermediate/    # restyle_process.jsonl, restyle_prompts.jsonl
             ├── text/            # mtsamples_<specialty>_NNNN_<genre>.txt
             └── annotations/     # mtsamples_<specialty>_NNNN_<genre>.json
@@ -66,10 +70,10 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Run inference over `data/input/` and write predictions to `data/output/`:
+Run inference over `data/test/` and write predictions to `data/output/`:
 
 ```bash
-python -m smart_medic.infer --input data/input --output data/output
+python -m smart_medic.infer --input data/test --output data/output
 ```
 
 (Adjust the command above once the pipeline entry point is implemented in `src/smart_medic/`.)
@@ -134,9 +138,13 @@ translation quality before committing to a full run.
 
 ## Data
 
-- `data/knowledge_base/ICD10.csv` — ICD-10 disease codes used for diagnosis candidate mapping.
-- `data/input/*.txt` — 100 free-form clinical text records (competition test set).
-- `data/output/*.json` — one prediction file per input record, matching `input/N.txt` → `output/N.json`.
+- `data/knowledge_base/ICD10.csv` — ICD-10 disease codes (5.2 MB, 73K+ concepts) used for diagnosis candidate mapping.
+- `data/knowledge_base/RXNORM.csv` — RxNorm medication names (73 MB, 1M+ rows) used for drug candidate mapping.
+- `data/knowledge_base/RxNorm_full_*/` — Full RxNorm release with RXNREL.RRF for brand→ingredient mapping.
+- `data/knowledge_base/brand_to_ingredient.json` — Cached brand→ingredient map built from RXNREL.RRF (~96k brands).
+- `data/test/*.txt` — 100 free-form clinical text records (competition test set: 1.txt … 100.txt).
+- `data/output/*.json` — one prediction file per input record, matching `test/N.txt` → `output/N.json`.
+- `data/generated_medical_records/` — ~543 generated training notes (194 synthetic + 187 translated + 162 restyled).
 
 ## Submission requirements (Vòng 1)
 

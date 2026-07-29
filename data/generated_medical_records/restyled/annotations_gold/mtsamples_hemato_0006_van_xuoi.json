@@ -1,0 +1,289 @@
+[
+  {
+    "text": "bệnh bạch cầu lympho mạn tính (CLL)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C91.1"
+    ],
+    "assertions": [],
+    "position": [
+      47,
+      82
+    ]
+  },
+  {
+    "text": "thiếu máu tan máu tự miễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D59.1"
+    ],
+    "assertions": [],
+    "position": [
+      93,
+      118
+    ]
+  },
+  {
+    "text": "loét miệng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K12.1"
+    ],
+    "assertions": [],
+    "position": [
+      122,
+      132
+    ]
+  },
+  {
+    "text": "bệnh bạch cầu lympho mạn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C91.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      153,
+      182
+    ]
+  },
+  {
+    "text": "thiếu máu tan máu tự miễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D59.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      257,
+      282
+    ]
+  },
+  {
+    "text": "tan máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D59.1"
+    ],
+    "assertions": [],
+    "position": [
+      341,
+      348
+    ]
+  },
+  {
+    "text": "prednisone 5 mg cách ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "8640"
+    ],
+    "assertions": [],
+    "position": [
+      380,
+      405
+    ]
+  },
+  {
+    "text": "công thức máu toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      451,
+      474
+    ]
+  },
+  {
+    "text": "Prilosec 20 mg hai lần trong ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "7646"
+    ],
+    "assertions": [],
+    "position": [
+      602,
+      635
+    ]
+  },
+  {
+    "text": "levothyroxine 50 mcg mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      637,
+      666
+    ]
+  },
+  {
+    "text": "Lopressor 75 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      668,
+      693
+    ]
+  },
+  {
+    "text": "vitamin C 500 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "1151"
+    ],
+    "assertions": [],
+    "position": [
+      695,
+      711
+    ]
+  },
+  {
+    "text": "multivitamin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      713,
+      725
+    ]
+  },
+  {
+    "text": "simvastatin 20 mg mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "36567"
+    ],
+    "assertions": [],
+    "position": [
+      729,
+      755
+    ]
+  },
+  {
+    "text": "prednisone 5 mg cách ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "8640"
+    ],
+    "assertions": [],
+    "position": [
+      766,
+      791
+    ]
+  },
+  {
+    "text": "Vicodin",
+    "type": "THUỐC",
+    "candidates": [
+      "5489",
+      "161"
+    ],
+    "assertions": [],
+    "position": [
+      813,
+      820
+    ]
+  },
+  {
+    "text": "loét trên lưỡi và môi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      866,
+      887
+    ]
+  },
+  {
+    "text": "Valtrex",
+    "type": "THUỐC",
+    "candidates": [
+      "73645"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      898,
+      905
+    ]
+  },
+  {
+    "text": "khó khăn khi quan sát vào ban đêm với mắt trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      936,
+      982
+    ]
+  },
+  {
+    "text": "đục thủy tinh thể",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H26.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      995,
+      1012
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1035,
+      1038
+    ]
+  },
+  {
+    "text": "rét run",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1040,
+      1047
+    ]
+  },
+  {
+    "text": "đổ mồ hôi đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1052,
+      1065
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1070,
+      1077
+    ]
+  }
+]

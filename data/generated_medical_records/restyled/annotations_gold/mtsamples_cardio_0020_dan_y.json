@@ -1,0 +1,721 @@
+[
+  {
+    "text": "Bệnh cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I42"
+    ],
+    "assertions": [],
+    "position": [
+      24,
+      35
+    ]
+  },
+  {
+    "text": "Hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      41,
+      52
+    ]
+  },
+  {
+    "text": "sa sút trí tuệ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F03"
+    ],
+    "assertions": [],
+    "position": [
+      95,
+      109
+    ]
+  },
+  {
+    "text": "bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.1"
+    ],
+    "assertions": [],
+    "position": [
+      111,
+      125
+    ]
+  },
+  {
+    "text": "chức năng thất trái kém",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      127,
+      150
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      180,
+      189
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      191,
+      202
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      227,
+      236
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      238,
+      249
+    ]
+  },
+  {
+    "text": "suy thận cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N17"
+    ],
+    "assertions": [],
+    "position": [
+      251,
+      263
+    ]
+  },
+  {
+    "text": "Phân suất tống máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      270,
+      288
+    ]
+  },
+  {
+    "text": "30%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      296,
+      299
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      316,
+      324
+    ]
+  },
+  {
+    "text": "tức ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      326,
+      334
+    ]
+  },
+  {
+    "text": "hồi hộp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      336,
+      343
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      345,
+      354
+    ]
+  },
+  {
+    "text": "khó khăn cầm máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      370,
+      386
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      433,
+      436
+    ]
+  },
+  {
+    "text": "rét run",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      438,
+      445
+    ]
+  },
+  {
+    "text": "rối loạn thị giác",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      463,
+      480
+    ]
+  },
+  {
+    "text": "khó nuốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      507,
+      515
+    ]
+  },
+  {
+    "text": "đau thắt ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      538,
+      551
+    ]
+  },
+  {
+    "text": "hồi hộp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      553,
+      560
+    ]
+  },
+  {
+    "text": "tiếng ran rít",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      581,
+      594
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      614,
+      623
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      631,
+      639
+    ]
+  },
+  {
+    "text": "vết loét ở lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      708,
+      723
+    ]
+  },
+  {
+    "text": "Sa sút trí tuệ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      741,
+      755
+    ]
+  },
+  {
+    "text": "Bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      811,
+      825
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      831,
+      844
+    ]
+  },
+  {
+    "text": "Thiếu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D64.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      850,
+      859
+    ]
+  },
+  {
+    "text": "Suy thận mạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      865,
+      877
+    ]
+  },
+  {
+    "text": "Suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      883,
+      901
+    ]
+  },
+  {
+    "text": "EF",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      903,
+      905
+    ]
+  },
+  {
+    "text": "25-30%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      906,
+      912
+    ]
+  },
+  {
+    "text": "Loãng xương",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M81.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      918,
+      929
+    ]
+  },
+  {
+    "text": "Gãy xương nén",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M48.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      935,
+      948
+    ]
+  },
+  {
+    "text": "Đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E14.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      954,
+      968
+    ]
+  },
+  {
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      974,
+      982
+    ]
+  },
+  {
+    "text": "Amoxicillin",
+    "type": "THUỐC",
+    "candidates": [
+      "723"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1154,
+      1165
+    ]
+  },
+  {
+    "text": "Clavulanic acid",
+    "type": "THUỐC",
+    "candidates": [
+      "48203"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1171,
+      1186
+    ]
+  },
+  {
+    "text": "Augmentin mỗi 12 giờ",
+    "type": "THUỐC",
+    "candidates": [
+      "723",
+      "48203"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1192,
+      1212
+    ]
+  },
+  {
+    "text": "Clopidogrel 75 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "32968"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1218,
+      1245
+    ]
+  },
+  {
+    "text": "Simvastatin 20 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "36567"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1251,
+      1278
+    ]
+  },
+  {
+    "text": "Sodium bicarbonate 650 mg hai lần mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "36676"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1284,
+      1326
+    ]
+  },
+  {
+    "text": "Gabapentin 300 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "25480"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1332,
+      1349
+    ]
+  },
+  {
+    "text": "Levothyroxine hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1355,
+      1378
+    ]
+  },
+  {
+    "text": "Digoxin 125 mcg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1384,
+      1409
+    ]
+  },
+  {
+    "text": "Fenofibrate 145 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "8703"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1415,
+      1443
+    ]
+  },
+  {
+    "text": "Aspirin 81 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1449,
+      1472
+    ]
+  },
+  {
+    "text": "Raloxifene hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "72143"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1478,
+      1498
+    ]
+  },
+  {
+    "text": "Calcium carbonate",
+    "type": "THUỐC",
+    "candidates": [
+      "1897"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1504,
+      1521
+    ]
+  },
+  {
+    "text": "alendronate",
+    "type": "THUỐC",
+    "candidates": [
+      "46041"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1525,
+      1536
+    ]
+  },
+  {
+    "text": "Metoprolol 25 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1542,
+      1568
+    ]
+  },
+  {
+    "text": "Brimonidine ophthalmic hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "134615"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1574,
+      1606
+    ]
+  },
+  {
+    "text": "hạ huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.9"
+    ],
+    "assertions": [],
+    "position": [
+      1701,
+      1712
+    ]
+  },
+  {
+    "text": "bệnh cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I42"
+    ],
+    "assertions": [],
+    "position": [
+      1716,
+      1727
+    ]
+  }
+]

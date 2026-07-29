@@ -1,0 +1,313 @@
+[
+  {
+    "text": "Đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      27,
+      35
+    ]
+  },
+  {
+    "text": "cơn ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      47,
+      55
+    ]
+  },
+  {
+    "text": "rối loạn tăng động giảm chú ý (ADD)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F90.9"
+    ],
+    "assertions": [],
+    "position": [
+      122,
+      157
+    ]
+  },
+  {
+    "text": "tinh thần thay đổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      220,
+      238
+    ]
+  },
+  {
+    "text": "ADD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F90.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      273,
+      276
+    ]
+  },
+  {
+    "text": "rối loạn thách thức đối kháng (ODD)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F91.3"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      280,
+      315
+    ]
+  },
+  {
+    "text": "Đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      338,
+      346
+    ]
+  },
+  {
+    "text": "Đau vùng vú trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      395,
+      411
+    ]
+  },
+  {
+    "text": "tê tay trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      413,
+      424
+    ]
+  },
+  {
+    "text": "ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      460,
+      464
+    ]
+  },
+  {
+    "text": "ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated",
+      "isHistorical"
+    ],
+    "position": [
+      487,
+      491
+    ]
+  },
+  {
+    "text": "Sulfa",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      613,
+      618
+    ]
+  },
+  {
+    "text": "Huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      773,
+      781
+    ]
+  },
+  {
+    "text": "130/70",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      783,
+      789
+    ]
+  },
+  {
+    "text": "nhịp tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      791,
+      799
+    ]
+  },
+  {
+    "text": "72",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      800,
+      802
+    ]
+  },
+  {
+    "text": "Cân nặng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      808,
+      816
+    ]
+  },
+  {
+    "text": "206 pounds",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      818,
+      828
+    ]
+  },
+  {
+    "text": "EKG",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      900,
+      903
+    ]
+  },
+  {
+    "text": "Siêu âm tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      907,
+      918
+    ]
+  },
+  {
+    "text": "Nhịp xoang bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      925,
+      947
+    ]
+  },
+  {
+    "text": "điện tâm đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      949,
+      960
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      961,
+      972
+    ]
+  },
+  {
+    "text": "Cơn ngất",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R55"
+    ],
+    "assertions": [],
+    "position": [
+      1030,
+      1038
+    ]
+  },
+  {
+    "text": "hạ huyết áp tư thế đơn giản/vasovagal",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I95.1"
+    ],
+    "assertions": [],
+    "position": [
+      1055,
+      1092
+    ]
+  },
+  {
+    "text": "Đau ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R07.3"
+    ],
+    "assertions": [],
+    "position": [
+      1099,
+      1107
+    ]
+  },
+  {
+    "text": "Flexeril 10 mg mỗi 6 giờ khi cần",
+    "type": "THUỐC",
+    "candidates": [
+      "21949"
+    ],
+    "assertions": [],
+    "position": [
+      1294,
+      1326
+    ]
+  },
+  {
+    "text": "cơn ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1357,
+      1365
+    ]
+  },
+  {
+    "text": "ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1422,
+      1426
+    ]
+  }
+]

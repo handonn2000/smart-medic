@@ -23,6 +23,12 @@ models/*.onnx
 data/output/*.json
 !data/output/.gitkeep
 
+# Generated annotation-QA artifacts
+/remaining.txt
+/scripts/annotation_qa/packets/
+/scripts/annotation_qa/*.pkl
+/scripts/annotation_qa/scd_changes.json
+
 # Environment / secrets
 .env
 .env.*

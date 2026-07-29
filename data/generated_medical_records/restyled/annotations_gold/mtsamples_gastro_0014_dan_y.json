@@ -1,0 +1,632 @@
+[
+  {
+    "text": "Xuất huyết tiêu hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K32"
+    ],
+    "assertions": [],
+    "position": [
+      24,
+      43
+    ]
+  },
+  {
+    "text": "rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      102,
+      110
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      112,
+      125
+    ]
+  },
+  {
+    "text": "thoái hóa khớp gối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M17"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      127,
+      145
+    ]
+  },
+  {
+    "text": "rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      147,
+      165
+    ]
+  },
+  {
+    "text": "đái tháo đường type 2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      167,
+      188
+    ]
+  },
+  {
+    "text": "hen suyễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      190,
+      199
+    ]
+  },
+  {
+    "text": "suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      201,
+      209
+    ]
+  },
+  {
+    "text": "Mệt mỏi gia tăng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      241,
+      257
+    ]
+  },
+  {
+    "text": "Công thức máu toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      270,
+      293
+    ]
+  },
+  {
+    "text": "thiếu máu hồng cầu nhỏ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D50.9"
+    ],
+    "assertions": [],
+    "position": [
+      295,
+      317
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      319,
+      329
+    ]
+  },
+  {
+    "text": "8.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      330,
+      333
+    ]
+  },
+  {
+    "text": "Phân nâu đậm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      340,
+      352
+    ]
+  },
+  {
+    "text": "thử nghiệm OB",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      354,
+      367
+    ]
+  },
+  {
+    "text": "dương tính mạnh",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      368,
+      383
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      396,
+      403
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      411,
+      419
+    ]
+  },
+  {
+    "text": "hạch to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      611,
+      618
+    ]
+  },
+  {
+    "text": "Nhịp không đều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      670,
+      684
+    ]
+  },
+  {
+    "text": "tiếng gallop",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      692,
+      704
+    ]
+  },
+  {
+    "text": "Âm ruột dương tính",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      717,
+      735
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      748,
+      751
+    ]
+  },
+  {
+    "text": "khối",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      759,
+      763
+    ]
+  },
+  {
+    "text": "gan lách to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      769,
+      780
+    ]
+  },
+  {
+    "text": "Phù chi dưới độ 1+ hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      792,
+      818
+    ]
+  },
+  {
+    "text": "viêm dạ dày ăn mòn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.6"
+    ],
+    "assertions": [],
+    "position": [
+      866,
+      884
+    ]
+  },
+  {
+    "text": "bệnh túi thừa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K57.3"
+    ],
+    "assertions": [],
+    "position": [
+      932,
+      945
+    ]
+  },
+  {
+    "text": "polyp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K63.5"
+    ],
+    "assertions": [],
+    "position": [
+      947,
+      952
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      983,
+      993
+    ]
+  },
+  {
+    "text": "10.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1002,
+      1006
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1019,
+      1027
+    ]
+  },
+  {
+    "text": "Xuất huyết tiêu hóa trên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K32.0"
+    ],
+    "assertions": [],
+    "position": [
+      1235,
+      1259
+    ]
+  },
+  {
+    "text": "Thiếu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D64.9"
+    ],
+    "assertions": [],
+    "position": [
+      1266,
+      1275
+    ]
+  },
+  {
+    "text": "Rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48"
+    ],
+    "assertions": [],
+    "position": [
+      1282,
+      1290
+    ]
+  },
+  {
+    "text": "Đái tháo đường type 2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [],
+    "position": [
+      1297,
+      1318
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1325,
+      1338
+    ]
+  },
+  {
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [],
+    "position": [
+      1345,
+      1353
+    ]
+  },
+  {
+    "text": "Hen suyễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [],
+    "position": [
+      1360,
+      1369
+    ]
+  },
+  {
+    "text": "Feosol",
+    "type": "THUỐC",
+    "candidates": [
+      "24947"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1439,
+      1445
+    ]
+  },
+  {
+    "text": "vitamin tổng hợp",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1447,
+      1463
+    ]
+  },
+  {
+    "text": "Protonix",
+    "type": "THUỐC",
+    "candidates": [
+      "40790"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1465,
+      1473
+    ]
+  },
+  {
+    "text": "KCl",
+    "type": "THUỐC",
+    "candidates": [
+      "8591"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1475,
+      1478
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1480,
+      1485
+    ]
+  },
+  {
+    "text": "atenolol",
+    "type": "THUỐC",
+    "candidates": [
+      "1202"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1487,
+      1495
+    ]
+  },
+  {
+    "text": "Synthroid",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1497,
+      1506
+    ]
+  },
+  {
+    "text": "Actos",
+    "type": "THUỐC",
+    "candidates": [
+      "33738"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1508,
+      1513
+    ]
+  },
+  {
+    "text": "Mevacor",
+    "type": "THUỐC",
+    "candidates": [
+      "6472"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1515,
+      1522
+    ]
+  },
+  {
+    "text": "lisinopril",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1524,
+      1534
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [],
+    "position": [
+      1679,
+      1687
+    ]
+  },
+  {
+    "text": "công thức máu toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1722,
+      1745
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1747,
+      1750
+    ]
+  }
+]

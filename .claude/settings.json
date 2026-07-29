@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r \".tool_input.file_path // empty\"); case \"$f\" in */data/test/*|data/test/*) printf \"%s\" \"{\\\"hookSpecificOutput\\\":{\\\"hookEventName\\\":\\\"PreToolUse\\\",\\\"permissionDecision\\\":\\\"deny\\\",\\\"permissionDecisionReason\\\":\\\"data/test/ holds the 100 scored competition inputs. Modifying them invalidates every offset and every measurement. Restore with: git checkout -- data/test/\\\"}}\";; esac",
+            "timeout": 10,
+            "statusMessage": "Guarding data/test/"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r \".tool_input.file_path // .tool_response.filePath // empty\"); case \"$f\" in *\"/src/\"*.py|*\"/tests/\"*.py) r=$(cd \"$(git rev-parse --show-toplevel)\" && python3 -m pytest tests/test_offsets.py -q -k \"not silver\" 2>&1); [ $? -eq 0 ] || printf \"%s\" \"{\\\"decision\\\":\\\"block\\\",\\\"reason\\\":\\\"Offset/schema validator FAILED after this edit:\\n$(printf \"%s\" \"$r\" | tail -20 | sed \"s/\\\"/\\x27/g\" | tr \"\\n\" \"~\" | sed \"s/~/\\\\\\\\n/g\")\\\"}\";; esac",
+            "timeout": 60,
+            "statusMessage": "Validating offsets & schema"
+          }
+        ]
+      }
+    ]
+  }
+}

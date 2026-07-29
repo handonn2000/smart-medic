@@ -349,25 +349,35 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
       </tbody>
     </table>
     </div>
-    <p>Mô phỏng Monte-Carlo trên chính phân bố này (200.000 lượt/điểm):</p>
+    <div class="note warn">
+      <span class="lab">Cập nhật 29/07 — bảng trên là số BẠC, đã có GOLD và nó khác hẳn</span>
+      <code>restyled/annotations_gold/</code> (100 file gán tay, 4.715 entity, 0 lỗi offset/schema)
+      cho phân bố rất khác trên 2.819 entity mang assertion:
+      <b>rỗng chỉ 50,6%</b> (không phải 78,6%) · <code>isNegated</code> <b>23,8%</b> ·
+      <code>isHistorical</code> <b>23,6%</b> · <code>isFamily</code> 1,5%.
+      <b>Assertion phổ biến gấp đôi</b> so với dữ liệu bạc cho thấy.
+    </div>
+    <p>Mô phỏng Monte-Carlo trên phân bố <b>GOLD</b> (150.000 lượt/điểm):</p>
     <div class="tscroll">
     <table>
       <thead><tr><th>Chiến lược assertion</th><th class="num">E[Jaccard]</th><th class="num">Đóng góp vào final (×0.3)</th><th class="num">So với “luôn rỗng”</th></tr></thead>
       <tbody>
-        <tr><td>Luôn trả rỗng</td><td class="num">0,7865</td><td class="num">0,2360</td><td class="num">—</td></tr>
-        <tr><td>Mô hình P=0,85 / R=0,60</td><td class="num">0,8553</td><td class="num">0,2566</td><td class="num" style="color:var(--good)">+0,021</td></tr>
-        <tr><td>Mô hình P=0,90 / R=0,80</td><td class="num">0,9174</td><td class="num">0,2752</td><td class="num" style="color:var(--good)">+0,039</td></tr>
-        <tr><td><b>Mô hình P=0,95 / R=0,90</b></td><td class="num"><b>0,9573</b></td><td class="num"><b>0,2872</b></td><td class="num" style="color:var(--good)"><b>+0,051</b></td></tr>
-        <tr><td>Mô hình recall cao, precision thấp (P=0,70 / R=0,90)</td><td class="num">0,8503</td><td class="num">0,2551</td><td class="num" style="color:var(--good)">+0,019</td></tr>
+        <tr><td>Luôn trả rỗng</td><td class="num">0,5062</td><td class="num">0,1519</td><td class="num">—</td></tr>
+        <tr><td>Mô hình P=0,85 / R=0,60</td><td class="num">0,7634</td><td class="num">0,2290</td><td class="num" style="color:var(--good)">+0,077</td></tr>
+        <tr><td>Mô hình P=0,90 / R=0,80</td><td class="num">0,8709</td><td class="num">0,2613</td><td class="num" style="color:var(--good)">+0,109</td></tr>
+        <tr><td><b>Mô hình P=0,95 / R=0,90</b></td><td class="num"><b>0,9354</b></td><td class="num"><b>0,2806</b></td><td class="num" style="color:var(--good)"><b>+0,129</b></td></tr>
+        <tr><td>Mô hình recall cao, precision thấp (P=0,70 / R=0,90)</td><td class="num">0,8569</td><td class="num">0,2571</td><td class="num" style="color:var(--good)">+0,105</td></tr>
       </tbody>
     </table>
     </div>
     <div class="note good">
-      <b>Kết luận vận hành.</b> Bỏ trống assertions để lại khoảng <b>5,1 điểm phần trăm</b> của
-      <code>final_score</code> trên bàn (0,2872 − 0,2360 ≈ 0,051). Đây <b>không</b> phải mô-đun rẻ tiền
-      để bỏ qua — nó ngang ngửa nhiều cải tiến khó ở nhánh candidates. Nhưng chú ý dòng cuối:
-      <b>recall cao mà precision thấp gần như vô ích</b> (+0,019) so với precision cao
-      (+0,051). Assertion là bài toán <i>precision-first</i>.
+      <b>Kết luận vận hành — con số này đổi hẳn thứ tự ưu tiên của cả dự án.</b>
+      Bỏ trống assertions để lại <b>12,9 điểm</b> trên bàn (28,06 − 15,19), không phải 5,1 như
+      ước lượng trên dữ liệu bạc. <b>Đây là khoảng trống lớn nhất của toàn dự án</b> — lớn hơn
+      <i>toàn bộ</i> trần candidates (9,16 điểm), và gấp năm lần khoảng cách top1→top10 (2,26 điểm).
+      Dòng cuối vẫn đúng về chất (precision cao +12,9 hơn recall cao precision thấp +10,5) nhưng
+      khoảng cách hẹp lại rõ: trên gold, <b>bỏ sót đắt gần bằng bật thừa</b>, vì chỉ 50,6% entity
+      có gold rỗng chứ không phải 79%.
     </div>
   </div>
 

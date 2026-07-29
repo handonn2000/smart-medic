@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Medic — Kế hoạch triển khai &amp; Kiến trúc hệ thống</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f302e; --ink-soft:#42605c; --ink-faint:#7c948f;
+  --paper:#eef1ef; --paper-2:#e6ebe8; --surface:#ffffff;
+  --line:#d5ddd9; --line-strong:#bcc9c4;
+  --primary:#0a6b66; --primary-deep:#074946; --primary-tint:#e2efed;
+  --accent:#d97a2b; --accent-tint:#f8ead9;
+  --good:#3f8a4a; --good-tint:#d7edd6;
+  --warn:#b8443f; --warn-tint:#f7dcd9;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 1px 2px rgba(15,48,46,.05), 0 8px 26px -12px rgba(15,48,46,.18);
+  --shadow-lg:0 24px 60px -28px rgba(15,48,46,.4);
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --body:'Be Vietnam Pro',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --display:'Sora','Be Vietnam Pro',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+body{margin:0;font-family:var(--body);color:var(--ink);
+  background:radial-gradient(120% 90% at 100% -10%, #f4f7f5 0%, transparent 55%), var(--paper);
+  line-height:1.62;-webkit-font-smoothing:antialiased;letter-spacing:.1px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+a{color:var(--primary);text-decoration:none;border-bottom:1px solid rgba(10,107,102,.28)}
+a:hover{border-bottom-color:var(--primary)}
+code{font-family:var(--mono);font-size:.88em;background:var(--paper-2);padding:1px 5px;
+  border-radius:5px;border:1px solid var(--line);overflow-wrap:anywhere}
+
+header{position:sticky;top:0;z-index:50;background:rgba(238,241,239,.9);
+  backdrop-filter:saturate(140%) blur(12px);border-bottom:1px solid var(--line)}
+.hrow{display:flex;align-items:center;gap:18px;padding:13px 0 0}
+.brand{font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:-.3px;white-space:nowrap}
+.brand span{color:var(--primary)}
+.hmeta{margin-left:auto;font-size:11.5px;color:var(--ink-faint);font-family:var(--mono);text-align:right;line-height:1.5}
+nav{display:flex;gap:3px;overflow-x:auto;padding:9px 0 0;scrollbar-width:thin}
+nav::-webkit-scrollbar{height:5px}
+nav::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:4px}
+.tab{font-family:var(--display);font-weight:600;font-size:13px;border:none;background:transparent;
+  color:var(--ink-soft);padding:9px 13px;border-radius:9px 9px 0 0;cursor:pointer;white-space:nowrap;
+  transition:background .18s,color .18s;display:flex;align-items:center;gap:7px;
+  border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab:hover{background:rgba(10,107,102,.06);color:var(--primary-deep)}
+.tab.active{color:var(--primary-deep);border-bottom-color:var(--primary);background:rgba(255,255,255,.6)}
+.tab .n{font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--ink-faint);
+  background:var(--paper-2);padding:1px 5px;border-radius:4px}
+.tab.active .n{background:var(--primary);color:#fff}
+
+.hero{padding:46px 0 30px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--primary);font-weight:600;margin-bottom:12px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.4vw,45px);line-height:1.1;
+  letter-spacing:-1.3px;margin:0 0 16px}
+h1 em{font-style:normal;color:var(--primary)}
+.lede{font-size:16.5px;color:var(--ink-soft);max-width:820px;margin:0}
+
+.panel{display:none;padding:8px 0 80px;animation:fade .28s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px 26px;box-shadow:var(--shadow);margin-bottom:18px}
+h2{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.4px;margin:0;color:var(--ink)}
+h3{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.2px;margin:26px 0 10px}
+h4{font-family:var(--display);font-weight:600;font-size:14.5px;margin:20px 0 8px;color:var(--primary-deep)}
+p{margin:0 0 12px}
+.shead{display:flex;align-items:baseline;gap:13px;margin:34px 0 14px;padding-bottom:11px;
+  border-bottom:1px solid var(--line)}
+.shead .num{font-family:var(--mono);font-size:12px;font-weight:700;color:#fff;background:var(--primary);
+  min-width:26px;height:26px;padding:0 7px;border-radius:7px;display:grid;place-items:center;flex:none}
+.shead .sub{margin-left:auto;font-size:12px;color:var(--ink-faint);font-family:var(--mono)}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0}
+th{text-align:left;font-family:var(--display);font-weight:600;font-size:12px;text-transform:uppercase;
+  letter-spacing:.6px;color:var(--ink-faint);padding:9px 12px;border-bottom:1.5px solid var(--line-strong);
+  vertical-align:bottom}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
+tbody tr:hover{background:rgba(10,107,102,.03)}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.tscroll{overflow-x:auto;margin:14px -4px;padding:0 4px}
+.tscroll table{min-width:600px}
+
+.pill{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;font-weight:500;
+  padding:2.5px 9px;border-radius:20px;border:1px solid var(--line-strong);background:var(--surface);
+  color:var(--ink-soft);white-space:nowrap}
+.pill.p{background:var(--primary-tint);border-color:#9fcbc7;color:var(--primary-deep)}
+.pill.a{background:var(--accent-tint);border-color:#e8c396;color:#8a4a11}
+.pill.g{background:var(--good-tint);border-color:#a4d4a0;color:#2c6634}
+.pill.w{background:var(--warn-tint);border-color:#eaa9a4;color:#8f2f2b}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tag{font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:4px;
+  background:var(--paper-2);border:1px solid var(--line);color:var(--ink-faint)}
+
+.note{border-left:3px solid var(--primary);background:var(--primary-tint);padding:14px 18px;
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:16px 0;font-size:14px}
+.note.warn{border-left-color:var(--warn);background:var(--warn-tint)}
+.note.good{border-left-color:var(--good);background:var(--good-tint)}
+.note.acc{border-left-color:var(--accent);background:var(--accent-tint)}
+.note .lab{font-family:var(--display);font-weight:700;font-size:12px;text-transform:uppercase;
+  letter-spacing:.8px;display:block;margin-bottom:5px;opacity:.72}
+
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid>*{min-width:0}
+@media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:15px 16px}
+.stat .v{font-family:var(--display);font-weight:800;font-size:27px;letter-spacing:-1px;
+  color:var(--primary-deep);line-height:1.1}
+.stat .k{font-size:11.5px;color:var(--ink-faint);margin-top:5px;line-height:1.42}
+.stat.w .v{color:var(--warn)} .stat.a .v{color:var(--accent)} .stat.g .v{color:var(--good)}
+
+pre{font-family:var(--mono);font-size:12.2px;line-height:1.62;background:#0e2523;color:#cfe3e0;
+  padding:16px 18px;border-radius:var(--radius-sm);overflow-x:auto;margin:14px 0;border:1px solid #14332f}
+pre .c{color:#6f8d88} pre .k{color:#7fc4bd} pre .s{color:#e0b07a} pre .h{color:#f0c987;font-weight:700}
+pre.light{background:var(--paper-2);color:var(--ink);border-color:var(--line)}
+pre.light .c{color:var(--ink-faint)} pre.light .k{color:var(--primary)} pre.light .h{color:#8a4a11;font-weight:700}
+
+ul.tight{margin:8px 0 12px;padding-left:20px} ul.tight li{margin-bottom:6px}
+ol.tight{margin:8px 0 12px;padding-left:21px} ol.tight li{margin-bottom:7px}
+
+/* checklist */
+.ck{list-style:none;margin:10px 0;padding:0}
+.ck li{display:flex;gap:10px;align-items:flex-start;padding:7px 10px;border-radius:var(--radius-sm);
+  font-size:13.8px;transition:background .15s}
+.ck li:hover{background:var(--paper-2)}
+.ck input{margin-top:4px;flex:none;width:15px;height:15px;accent-color:var(--primary);cursor:pointer}
+.ck label{cursor:pointer;flex:1}
+.ck li.done label{opacity:.45;text-decoration:line-through}
+.ck .id{font-family:var(--mono);font-size:11px;color:var(--primary);background:var(--primary-tint);
+  padding:1px 6px;border-radius:4px;flex:none;margin-top:2px}
+.prog{height:7px;background:var(--paper-2);border-radius:5px;overflow:hidden;border:1px solid var(--line);margin:8px 0 0}
+.prog i{display:block;height:100%;background:var(--primary);transition:width .3s}
+
+.copybox{position:relative}
+.copybtn{position:absolute;top:10px;right:10px;background:var(--primary);color:#fff;border:none;
+  font-family:var(--display);font-size:11.5px;font-weight:600;padding:6px 13px;border-radius:7px;
+  cursor:pointer;z-index:2}
+.copybtn:hover{background:var(--primary-deep)}
+
+footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;color:var(--ink-faint)}
+.toplink{position:fixed;right:22px;bottom:22px;background:var(--primary);color:#fff;width:40px;height:40px;
+  border-radius:11px;display:grid;place-items:center;box-shadow:var(--shadow-lg);border:none;cursor:pointer;
+  font-size:17px;opacity:0;pointer-events:none;transition:opacity .22s}
+.toplink.show{opacity:1;pointer-events:auto}
+@media(max-width:760px){.wrap{padding:0 16px}.hmeta{display:none}.card{padding:18px 16px}
+  pre{font-size:10.5px;padding:12px 10px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hrow">
+      <div class="brand">Smart Medic · <span>Kế hoạch triển khai</span></div>
+      <div class="hmeta">Viettel AI Race 2026 — Vòng 1<br>Hạn nộp 04/08/2026</div>
+    </div>
+    <nav id="nav" role="tablist">
+      <button class="tab active" data-tab="brief"><span class="n">00</span> Tóm tắt điều hành</button>
+      <button class="tab" data-tab="struct"><span class="n">01</span> Cấu trúc dự án</button>
+      <button class="tab" data-tab="arch"><span class="n">02</span> Kiến trúc hệ thống</button>
+      <button class="tab" data-tab="plan"><span class="n">03</span> Kế hoạch 7 phase</button>
+      <button class="tab" data-tab="risk"><span class="n">04</span> Không làm &amp; Rủi ro</button>
+      <button class="tab" data-tab="kick"><span class="n">05</span> Prompt khởi động</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+<!-- ═════════════ 00 · TÓM TẮT ĐIỀU HÀNH ═════════════ -->
+<div class="panel active" id="p-brief">
+  <div class="hero">
+    <div class="eyebrow">Kế hoạch triển khai · Vòng 1</div>
+    <h1>Một hệ thống hoàn hảo chỉ được <em>69,16/100</em>.<br>Kế hoạch này bám vào chỗ 60 điểm đang nằm.</h1>
+    <p class="lede">
+      Toàn bộ thứ tự ưu tiên dưới đây suy ra từ một phép đo, không phải từ trực giác:
+      cái <code>+1</code> ở mẫu số công thức <code>candidates</code> chặn số hạng đó ở <b>9,16 điểm</b>
+      trong khi danh nghĩa là 40. <code>text</code> và <code>assertions</code> — hai số hạng
+      <i>không bị chặn</i> — chiếm <b>87%</b> số điểm thực sự giành được.
+    </p>
+    <div class="pills">
+      <span class="pill p">≤9B, self-host</span><span class="pill p">không API closed-source</span>
+      <span class="pill p">phải tái lập được</span><span class="pill a">hạn 04/08/2026</span>
+    </div>
+  </div>
+
+  <div class="note acc">
+    <span class="lab">Tài liệu nền</span>
+    Kế hoạch này là bản <b>thực thi</b>. Toàn bộ căn cứ khoa học, ~90 tài liệu tham khảo đã xác minh,
+    và mọi số liệu đo đạc nằm ở <a href="research-directions.html"><b>research-directions.html</b></a> (11 tab).
+    Khi kế hoạch nói “đo được X”, tra số gốc ở đó hoặc chạy lại
+    <code>python docs/reports/measure_data.py</code>.
+  </div>
+
+  <div class="note good">
+    <span class="lab">Cập nhật 29/07 — đã có GOLD SET</span>
+    <code>data/generated_medical_records/restyled/annotations_gold/</code> — <b>100 file gán tay</b>,
+    4.715 entity (47,1/file), <b>0 lỗi offset, 0 lỗi schema</b>. So với <code>annotations/</code>
+    (silver): <b>+40% entity</b>, và <b>41,9% mã đã được sửa chủ động</b>.
+    <br><br>
+    <b>Đây là nguồn dữ liệu chính từ giờ.</b> Mọi số liệu dưới đây đã tính lại trên gold —
+    và chúng khác silver rất nhiều. Bộ ba thư mục dùng cho mọi việc:
+    <code>restyled/text/</code> · <code>restyled/annotations/</code> (silver) ·
+    <code>restyled/annotations_gold/</code> (gold).
+    <br><br>
+    <b>P0.5 (nút thắt gold dev set) coi như đã giải phần lớn.</b> Việc còn lại là chia
+    tune/lock/heldout và đối chiếu phân bố thể loại với tập test thật.
+  </div>
+
+  <div class="shead"><span class="num">A</span><h2>Ngân sách điểm — bảng quyết định mọi thứ</h2>
+    <span class="sub">đo bằng scorer nội bộ trên 98 tài liệu thật</span></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Số hạng</th><th class="num">Trọng số danh nghĩa</th><th class="num">Trần THẬT</th><th>Vì sao</th></tr></thead>
+      <tbody>
+        <tr><td><code>text_score</code></td><td class="num">0,30</td><td class="num" style="color:var(--good);font-weight:700">30,00</td><td>không bị chặn</td></tr>
+        <tr><td><code>assertions_score</code></td><td class="num">0,30</td><td class="num" style="color:var(--good);font-weight:700">30,00</td><td>không bị chặn</td></tr>
+        <tr style="background:var(--warn-tint)"><td><code>candidates_score</code></td><td class="num">0,40</td><td class="num" style="color:var(--warn);font-weight:700">9,16</td><td><code>Σ(len(gt)+1)</code> ở mẫu số ⇒ trần ≈ 0,229</td></tr>
+        <tr><td><b>TỔNG</b></td><td class="num"><b>1,00</b></td><td class="num"><b>69,16</b></td><td></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="grid g3">
+      <div class="stat"><div class="v">69,16</div><div class="k">điểm tối đa lý thuyết<br>(dự đoán hoàn hảo)</div></div>
+      <div class="stat a"><div class="v">50,41</div><div class="k">top 1 bảng xếp hạng<br>= <b>73%</b> của trần</div></div>
+      <div class="stat g"><div class="v">~18,8</div><div class="k">khoảng trống còn lại —<br><b>gần như toàn bộ ở text + assertions</b></div></div>
+    </div>
+    <div class="note good">
+      <span class="lab">Hệ quả điều hành</span>
+      Nếu ai đó đề xuất dành một tuần cho entity linking, hãy cân nó với <b>9 điểm</b>, không phải 40.
+      Phase 4 (candidates) cố ý xếp <b>sau cùng</b> trong kế hoạch này, và không được phép rút người
+      khỏi Phase 2/3.
+    </div>
+    <div class="note warn">
+      <span class="lab">Sự suy biến đã tái hiện được trên dữ liệu thật</span>
+      Xoá <b>30% dự đoán của chính mình</b>: cách đọc <code>matched</code> giữ nguyên <b>68,78</b>,
+      còn <code>penalised</code> rơi xuống <b>48,01</b>. Vì thế
+      <b><code>penalised / greedy_iou</code> là số chính thức nội bộ.</b>
+      Cải thiện <code>matched</code> mà không cải thiện <code>penalised</code> = lách metric, không phải tiến bộ.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">B</span><h2>Ba câu hỏi chặn đường — <span style="color:var(--good)">đã trả lời</span></h2>
+    <span class="sub">chốt 29/07/2026 · ADR trong docs/decisions/</span></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th style="width:30px"></th><th>Câu hỏi</th><th>Nếu đoán sai</th><th>Cách trả lời</th></tr></thead>
+      <tbody>
+        <tr style="background:var(--warn-tint)"><td><span class="tag">Q1</span></td>
+          <td><b><code>tty</code> mã thuốc → <span style="color:var(--warn)">TRANH CHẤP</span></b><br>
+            <span style="font-size:12.5px;color:var(--ink-soft)">
+            <b>Ủng hộ SCD:</b> 4/4 ví dụ gold trong PRD (tài liệu có thẩm quyền của BTC).<br>
+            <b>Ủng hộ IN:</b> gold của đội — <b>615 mã, 100% IN</b>, và <b>41,9% đã sửa chủ động</b>
+            (<code>Imuran</code>→azathioprine, <code>Advair</code>→2 hoạt chất). Quy ước có chủ đích.<br>
+            Nhưng gold do <i>chính đội</i> gán trên dữ liệu <i>của chính đội</i> ⇒ chứng minh quy ước
+            của đội, không chứng minh thứ BTC chấm.</span></td>
+          <td><span class="pill w">PROBE B QUYẾT</span></td>
+          <td><code>ADR 0001</code> · tham số hoá <code>target_tty</code>, đừng hard-code</td></tr>
+        <tr style="background:var(--good-tint)"><td><span class="tag">Q2</span></td>
+          <td><b><code>c_i</code> → hộp đen, BTC không công bố</b><br>
+            <span style="font-size:12.5px;color:var(--ink-soft)">Không cần hỏi. Giữ hai số hạng cố định,
+            đổi một số hạng ⇒ đọc thẳng đóng góp khỏi delta leaderboard.</span></td>
+          <td><span class="pill a">ĐO, KHÔNG HỎI</span></td>
+          <td><code>ADR 0002</code> · <b>P6.1 nâng lên làm sớm</b></td></tr>
+        <tr style="background:var(--good-tint)"><td><span class="tag">Q3</span></td>
+          <td><b>Dữ liệu bạc GPT-4o → HỢP LỆ</b><br>
+            <span style="font-size:12.5px;color:var(--ink-soft)">Ranh giới là <b>build-time vs runtime</b>:
+            API đóng được dùng để sinh dữ liệu; pipeline suy luận vẫn phải ≤9B self-host.</span></td>
+          <td><span class="pill g">HỢP LỆ</span></td>
+          <td><code>ADR 0003</code> · distillation mở lại</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note good">
+      <span class="lab">Ba hệ quả trực tiếp</span>
+      <ol class="tight" style="margin-bottom:0">
+        <li><b>Nhánh thuốc: tham số hoá <code>target_tty</code></b>, chạy được cả IN lẫn SCD bằng một
+          cờ config. <b>Không tinh chỉnh ngưỡng nhánh thuốc</b> trước khi probe B trả lời.
+          Hai quy ước phụ mà gold làm rõ và <i>áp dụng ngay được</i> dù tty ngã về đâu:
+          <b>thuốc phối hợp → nhiều mã</b> (giải thích THUỐC có 8,6% doublet còn CHẨN_ĐOÁN 0%), và
+          <b>ICD được phép trả mã 3 ký tự</b> (<code>Rung nhĩ</code>: I48.0 → <b>I48</b>).</li>
+        <li><b>P6.1 (ba probe) leo lên làm sớm</b>, không phải việc cuối — nó là công cụ duy nhất
+          giải được hộp đen Q2, và scorer phải <i>vĩnh viễn</i> báo cả ba cách đọc.</li>
+        <li><b>Distillation teacher mạnh mở lại.</b> Kho 543 file bạc giữ nguyên. Nhưng canh
+          <b>rò rỉ API vào runtime</b> — thêm test khẳng định <code>pipeline.py</code> không import
+          HTTP client của nhà cung cấp LLM nào.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">C</span><h2>Đã có sẵn trong repo</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Thành phần</th><th>Đường dẫn</th><th>Trạng thái</th></tr></thead>
+      <tbody>
+        <tr><td>Scorer 3 cách đọc + chẩn đoán</td><td><code>src/smart_medic/scoring.py</code></td><td><span class="pill g">xong, 8 self-test</span></td></tr>
+        <tr><td>Validator offset/schema + manifest sha256</td><td><code>tests/test_offsets.py</code></td><td><span class="pill g">xong</span></td></tr>
+        <tr><td>Hook chặn ghi <code>data/test/</code></td><td><code>.claude/settings.json</code></td><td><span class="pill g">đã chứng minh chặn thật</span></td></tr>
+        <tr><td>Hook validator sau mỗi sửa <code>src/</code></td><td><code>.claude/settings.json</code></td><td><span class="pill g">đã chứng minh fire</span></td></tr>
+        <tr><td>Lệnh <code>/score</code></td><td><code>.claude/commands/score.md</code></td><td><span class="pill g">xong</span></td></tr>
+        <tr><td>3 subagent chuyên trách</td><td><code>.claude/agents/</code></td><td><span class="pill g">span-eval · kb-linker · probe-builder</span></td></tr>
+        <tr><td>100 file dự đoán baseline</td><td><code>data/output/</code></td><td><span class="pill g">offset sạch 100/100</span></td></tr>
+        <tr><td>Script tái lập số liệu</td><td><code>docs/reports/measure_data.py</code></td><td><span class="pill g">xong</span></td></tr>
+        <tr><td>Nhãn bạc</td><td><code>data/generated_medical_records/</code></td><td><span class="pill w">543 file · <b>165 vi phạm schema</b></span></td></tr>
+        <tr><td>Pipeline suy luận</td><td><code>src/smart_medic/</code></td><td><span class="pill w">chưa có</span></td></tr>
+        <tr><td>Gold dev set</td><td><code>data/gold/</code></td><td><span class="pill w">chưa có — nút thắt</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">D</span><h2>Mục tiêu</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Số hạng</th><th class="num">Mục tiêu hợp lý</th><th class="num">Quy ra điểm</th></tr></thead>
+      <tbody>
+        <tr><td><code>text_score</code></td><td class="num">0,70 – 0,80</td><td class="num">21,0 – 24,0</td></tr>
+        <tr><td><code>assertions_score</code></td><td class="num">0,90 – 0,95</td><td class="num">27,0 – 28,5</td></tr>
+        <tr><td><code>candidates_score</code></td><td class="num">0,55 – 0,75 của trần</td><td class="num">5,0 – 7,0</td></tr>
+        <tr style="background:var(--good-tint)"><td><b>final</b></td><td class="num"></td><td class="num"><b>53 – 59 / 100</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="margin-bottom:0">
+      Đủ để dẫn đầu bảng hiện tại (top 1 = 50,41). <b>Không</b> đặt mục tiêu theo con số tuyệt đối
+      trước khi có gold dev set — trước đó bạn không đo được mình đang ở đâu.
+    </p>
+  </div>
+</div>
+
+<!-- ═════════════ 01 · CẤU TRÚC DỰ ÁN ═════════════ -->
+<div class="panel" id="p-struct">
+  <div class="hero">
+    <div class="eyebrow">01 · Project structure</div>
+    <h1>Một thư mục <em>sở hữu</em> một số hạng của metric</h1>
+    <p class="lede">
+      Bốn nguyên tắc, mỗi nguyên tắc giải quyết một vấn đề bảo trì cụ thể mà dự án này sẽ gặp.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="grid g2">
+      <div>
+        <h4 style="margin-top:0">1 · Module ánh xạ 1–1 với số hạng metric</h4>
+        <p style="font-size:13.5px">
+          <code>extract/</code> sở hữu 30 điểm, <code>assertion/</code> sở hữu 30 điểm,
+          <code>linking/</code> sở hữu 9 điểm. Khi điểm tụt, bạn chỉ được vào <i>một</i> thư mục.
+          Khi phân công agent, ranh giới sở hữu file là hiển nhiên.
+        </p>
+        <h4>2 · <code>resources/</code> ≠ <code>data/</code></h4>
+        <p style="font-size:13.5px">
+          <code>resources/</code> = thứ <b>người viết tay</b> và review được: từ điển cue phủ định,
+          tiêu đề mục, thuật ngữ dân dã. Chúng là <b>file dữ liệu, không phải code</b> — chỉnh được
+          mà không train lại, và bác sĩ đọc được. <code>data/</code> = thứ máy sinh hoặc tải về,
+          gitignore hết trừ <code>test/</code>.
+        </p>
+      </div>
+      <div>
+        <h4 style="margin-top:0">3 · <code>runs/</code> bất biến</h4>
+        <p style="font-size:13.5px">
+          Mỗi lần chạy sinh một thư mục có timestamp chứa <b>output + manifest + điểm</b>.
+          Không bao giờ ghi đè. Đây là thứ biến “bài nộp này từ commit nào” từ một câu hỏi
+          thành một phép tra cứu — và là điều kiện sống còn ở vòng chấm source code.
+        </p>
+        <h4>4 · <code>docs/decisions/</code> — ADR cho quyết định không thể đảo</h4>
+        <p style="font-size:13.5px">
+          Mức <code>tty</code> của thuốc, cách đọc metric, chính sách thuốc phối hợp.
+          Mỗi cái một file: bối cảnh → phương án → bằng chứng → quyết định.
+          Không có nó, agent thứ ba sẽ hỏi lại đúng câu bạn đã trả lời tuần trước.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">§</span><h2>Cây thư mục</h2></div>
+  <div class="card">
+<pre><span class="h">smart-medic/</span>
+├── README.md                  <span class="c"># cài đặt + chạy + tái lập. BTC đọc file này.</span>
+├── pyproject.toml             <span class="c"># thay requirements.txt — pin chặt mọi phiên bản</span>
+├── Makefile                   <span class="c"># make setup | index | run | score | submit</span>
+│
+├── <span class="k">.claude/</span>                   <span class="c"># ✅ đã có</span>
+│   ├── settings.json          <span class="c">#    2 hook: chặn data/test, validator offset</span>
+│   ├── agents/                <span class="c">#    span-eval · kb-linker · probe-builder</span>
+│   └── commands/score.md      <span class="c">#    /score</span>
+│
+├── <span class="k">configs/</span>                   <span class="c"># ⬜ MỌI tham số chỉnh được, dạng YAML có version</span>
+│   ├── pipeline.yaml          <span class="c">#    ngưỡng, cờ bật/tắt từng stage</span>
+│   ├── models.yaml            <span class="c">#    hf id + revision SHA + tổng tham số (guard ≤9B)</span>
+│   └── metric.yaml            <span class="c">#    alignment / aggregation / cand_formula</span>
+│
+├── <span class="k">resources/</span>                 <span class="c"># ⬜ NGƯỜI viết tay — review được, không train lại</span>
+│   ├── cues_vi.yaml           <span class="c">#    phủ định · người nhà · tiền sử · GIẢ ĐỊNH · kết thúc phạm vi</span>
+│   ├── sections_vi.yaml       <span class="c">#    "Tiền sử bệnh nội khoa:" → isHistorical, v.v.</span>
+│   ├── lay_terms_vi.yaml      <span class="c">#    dân dã → chuẩn ("đi tiêu ra máu" → XHTH dưới)</span>
+│   └── lab_patterns.yaml      <span class="c">#    mẫu TÊN: giá trị, đơn vị, dấu phẩy thập phân</span>
+│
+├── <span class="k">src/smart_medic/</span>
+│   ├── io/                    <span class="c"># ⬜ NỀN MÓNG — mọi thứ khác phụ thuộc</span>
+│   │   ├── document.py        <span class="c">#    Document: raw bất biến + char_map + slice an toàn</span>
+│   │   └── corpus.py          <span class="c">#    nạp data/test, data/gold, silver</span>
+│   ├── layout/                <span class="c"># ⬜ regex, không model</span>
+│   │   ├── lines.py           <span class="c">#    phân loại dòng, thụt lề {0,4,8}</span>
+│   │   ├── outline.py         <span class="c">#    cây mục + đường tổ tiên</span>
+│   │   └── kv.py              <span class="c">#    tách chuỗi TÊN: giá trị trong dòng</span>
+│   ├── extract/               <span class="c"># ⬜ 30 ĐIỂM — workstream lớn nhất</span>
+│   │   ├── gliner.py          ├── globalpointer.py
+│   │   ├── semicrf.py         ├── labvalues.py
+│   │   ├── ensemble.py        <span class="c">#    hợp span, trung vị biên có trọng số</span>
+│   │   └── harmonize.py       <span class="c">#    một type cho mỗi chuỗi bề mặt / tài liệu</span>
+│   ├── assertion/             <span class="c"># ⬜ 30 ĐIỂM</span>
+│   │   ├── lexicon.py         <span class="c">#    nạp resources/cues_vi.yaml</span>
+│   │   ├── context.py         <span class="c">#    ConText: cue → phạm vi → kết thúc</span>
+│   │   ├── veto.py            <span class="c">#    giả định · cơ chế di truyền · cổng thể loại</span>
+│   │   ├── scope.py           <span class="c">#    lan truyền theo mục, chính sách RIÊNG từng cờ</span>
+│   │   └── decode.py          <span class="c">#    softmax 8 chiều + giải mã kỳ vọng Jaccard</span>
+│   ├── linking/               <span class="c"># ⬜ 9 ĐIỂM — làm sau cùng</span>
+│   │   ├── gazetteer.py       ├── aho.py
+│   │   ├── rxnorm.py          <span class="c">#    thang bậc RXNREL, giải quyết tty</span>
+│   │   ├── icd.py             ├── retrieve.py
+│   │   ├── rerank.py          └── redaction.py  <span class="c"># khôi phục *****</span>
+│   ├── decision/              <span class="c"># ⬜ RẺ NHẤT, cộng dồn với mọi thứ</span>
+│   │   ├── calibrate.py       <span class="c">#    Platt trên [top1, gap, entropy, type]</span>
+│   │   └── select.py          <span class="c">#    trả 1 mã hoặc 0; ngưỡng bỏ trống</span>
+│   ├── scoring.py             <span class="c"># ✅ đã có</span>
+│   ├── pipeline.py            <span class="c"># ⬜ orchestrator, đọc configs/pipeline.yaml</span>
+│   └── cli.py                 <span class="c"># ⬜ python -m smart_medic {run,index,submit}</span>
+│
+├── <span class="k">data/</span>                      <span class="c"># gitignore hết trừ test/ và gold/</span>
+│   ├── test/                  <span class="c"># 🔒 BẤT BIẾN — hook chặn ghi, manifest sha256</span>
+│   ├── gold/{tune,lock,heldout}/  <span class="c"># ⬜ NÚT THẮT — bắt đầu gán ngay</span>
+│   ├── knowledge_base/        ├── generated_medical_records/
+│   ├── artifacts/             <span class="c"># ⬜ index đã build, cache — sinh lại được</span>
+│   └── output/                <span class="c"># bài nộp hiện tại</span>
+│
+├── <span class="k">runs/</span>                      <span class="c"># ⬜ BẤT BIẾN, một thư mục một lần chạy</span>
+│   └── 2026-07-29T14-02_a1b2c3/
+│       ├── manifest.json      <span class="c">#    git SHA · config hash · model revision · seed</span>
+│       ├── output/            └── score.json
+│
+├── <span class="k">docs/</span>
+│   ├── PRD.html
+│   ├── decisions/             <span class="c"># ⬜ ADR — quyết định không thể đảo</span>
+│   │   ├── 0001-drug-tty.md   └── 0002-metric-reading.md
+│   ├── guidelines/            <span class="c"># ⬜ hướng dẫn gán nhãn — nuôi CẢ người lẫn prompt</span>
+│   │   └── annotation.md
+│   └── reports/
+│       ├── research-directions.html   <span class="c"># ✅ căn cứ khoa học, 11 tab</span>
+│       ├── plan.html                  <span class="c"># ✅ file này</span>
+│       └── measure_data.py            <span class="c"># ✅ tái lập mọi số liệu</span>
+│
+├── <span class="k">scripts/</span>
+│   ├── gen_sample_data.py     ├── build_indexes.py
+│   ├── make_submission.py     └── annotate_prefill.py
+└── <span class="k">tests/</span>
+    ├── test_offsets.py        <span class="c"># ✅ hook chạy file này</span>
+    ├── test_scoring.py        <span class="c"># ✅</span>
+    ├── test_layout.py         ├── test_assertion_rules.py
+    └── fixtures/              <span class="c">#    ca khó viết tay, dùng làm regression</span></pre>
+
+    <div class="note good">
+      <span class="lab">Ba quy ước làm repo này review được</span>
+      <ol class="tight" style="margin-bottom:0">
+        <li><b>Không có magic number trong code.</b> Mọi ngưỡng nằm ở <code>configs/pipeline.yaml</code>,
+          và hash của config đi kèm mọi bản ghi kết quả.</li>
+        <li><b><code>configs/models.yaml</code> có trường <code>params</code> cho từng model và một
+          assert tổng &lt; 9B</b> ở lúc khởi động. Ràng buộc quy chế trở thành lỗi build, không phải
+          thứ phải nhớ.</li>
+        <li><b>Luật là YAML, không phải Python.</b> Từ điển cue tiếng Việt sẽ được chỉnh hàng chục lần;
+          nếu nó nằm trong code thì mỗi lần chỉnh là một diff phải review.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<!-- ═════════════ 02 · KIẾN TRÚC HỆ THỐNG ═════════════ -->
+<div class="panel" id="p-arch">
+  <div class="hero">
+    <div class="eyebrow">02 · System design</div>
+    <h1>Encoder-first.<br>LLM <em>chọn</em>, không <em>chế</em>.</h1>
+    <p class="lede">
+      Ràng buộc ≤9B đảo ngược kiến trúc: ở quy mô đó, một encoder chuyên dụng 209M–560M
+      trích xuất span tốt hơn model sinh, <b>và cho offset chính xác theo cấu tạo</b>.
+      Model sinh chỉ được giao hai việc có không gian đầu ra nhỏ — chọn mã trong danh sách
+      đã truy hồi, và phân xử assertion.
+    </p>
+  </div>
+
+  <div class="shead"><span class="num">1</span><h2>Yêu cầu &amp; ràng buộc</h2></div>
+  <div class="card">
+    <div class="grid g2">
+      <div>
+        <h4 style="margin-top:0">Chức năng</h4>
+        <ul class="tight" style="font-size:13.5px">
+          <li>Văn bản thô → danh sách khái niệm JSON</li>
+          <li>Mỗi khái niệm: <code>text</code>, <code>position</code>, <code>type</code>,
+            <code>assertions</code>, <code>candidates</code></li>
+          <li><code>position</code> phải index vào <b>byte gốc chưa chuẩn hoá</b></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin-top:0">Phi chức năng</h4>
+        <ul class="tight" style="font-size:13.5px">
+          <li><b>≤9B tham số tổng</b>, self-host, không API closed-source</li>
+          <li>Tái lập bit-identical từ máy sạch</li>
+          <li>100 tài liệu, không có SLA độ trễ ⇒ <b>tối ưu độ chính xác, không tối ưu tốc độ</b></li>
+          <li>Toàn bộ weights + data + code phải đóng gói nộp được</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">
+      <b>Ràng buộc quan trọng nhất mà người ta hay bỏ sót:</b> không có yêu cầu độ trễ.
+      100 tài liệu, chạy một lần. Nghĩa là mọi đánh đổi “nhanh hơn nhưng kém chính xác hơn”
+      đều <b>sai</b> ở đây — ensemble 3 model, chạy 5 lượt lấy đồng thuận, vét cạn thay vì ANN:
+      chọn hết.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">2</span><h2>Sơ đồ khối</h2></div>
+  <div class="card">
+<pre>                         data/test/N.txt  (byte thô, KHÔNG chạm vào)
+                                    │
+╔═══════════════════════════════════▼════════════════════════════════════════╗
+║  io/document.py            <span class="h">NỀN MÓNG — mọi thứ phụ thuộc</span>                    ║
+║  ┌──────────────────────────────────────────────────────────────────────┐  ║
+║  │  Document(raw: str)          raw BẤT BIẾN, đọc newline=""            │  ║
+║  │    .normalized   → NFC/gộp khoảng trắng  ─┐  CHỈ để so khớp          │  ║
+║  │    .char_map     → norm_idx → raw_idx    ─┘  ánh xạ ngược trước emit │  ║
+║  │    .slice(s,e)   → raw[s:e]   ← span cuối cùng LUÔN lấy từ đây       │  ║
+║  └──────────────────────────────────────────────────────────────────────┘  ║
+╚═══════════════════════════════════╤════════════════════════════════════════╝
+                                    │  20/100 file KHÔNG ở dạng NFC.
+                                    │  Chuẩn hoá rồi tính offset ⇒ lệch tới 143 ký tự.
+╔═══════════════════════════════════▼════════════════════════════════════════╗
+║  layout/                   <span class="h">XÁC ĐỊNH · regex · không model</span>                  ║
+║   lines.py   phân loại dòng: NUM_HEADER · COLON_HEADER · KV · BULLET · PROSE║
+║   outline.py ngăn xếp 3 tầng {0,4,8} → cây mục + đường tổ tiên              ║
+║   kv.py      tách "Chol: 4,7 mmol/l, Trigly: 1,9"  ← dấu phẩy thập phân!    ║
+║                                                                            ║
+║   XUẤT RA 3 THỨ, dùng ở khắp nơi phía dưới:                                 ║
+║     ① boundary_priors  vị trí hợp lệ để bắt đầu/kết thúc span              ║
+║     ② section(offset)  mục chứa offset này  → phạm vi assertion            ║
+║     ③ unit(offset)     đơn vị layout        → neo offset + ghép cặp XN     ║
+╚═══════════════════════════════════╤════════════════════════════════════════╝
+                                    │
+        ┌───────────────────────────┼───────────────────────────┐
+        ▼                           ▼                           ▼
+╔═══════════════════╗   ╔═══════════════════╗   ╔═══════════════════════════╗
+║ extract/          ║   ║ assertion/        ║   ║ linking/                  ║
+║ <span class="h">30 ĐIỂM</span>           ║   ║ <span class="h">30 ĐIỂM</span>           ║   ║ <span class="h">9,16 ĐIỂM</span>  ← làm sau  ║
+╠═══════════════════╣   ╠═══════════════════╣   ╠═══════════════════════════╣
+║ GLiNER-multi 209M ║   ║ lexicon (YAML)    ║   ║ aho.py    sàn recall      ║
+║   + XLM-R 560M    ║   ║ context ConText   ║   ║  ├ 42k tên thuốc          ║
+║     GlobalPointer ║   ║ veto:             ║   ║  └ 14,7k tên ICD          ║
+║   + boundary      ║   ║  · GIẢ ĐỊNH 75%!  ║   ║ rxnorm.py thang bậc RXNREL║
+║     smoothing     ║   ║  · cơ chế di truyền║   ║  tradename_of → moiety →  ║
+║   + CNN 3×3 trên  ║   ║  · cổng thể loại  ║   ║  active_ingredient        ║
+║     ma trận điểm  ║   ║ scope: theo MỤC   ║   ║ icd.py  BM25 + dense PHẲNG║
+║ semicrf giải mã   ║   ║  chính sách RIÊNG ║   ║  (45MB, recall 100%,      ║
+║  + đặc trưng      ║   ║  từng cờ ⚠        ║   ║   ĐỪNG xây ANN)           ║
+║    is_in_ICD_trie ║   ║ decode: softmax   ║   ║ rerank  CombMNZ→LambdaMART║
+║ labvalues regex   ║   ║  8 chiều + kỳ     ║   ║ redaction  lọc độ dài NFC ║
+║ ensemble          ║   ║  vọng Jaccard     ║   ║  → đồng tham chiếu → nhóm ║
+║  TRUNG VỊ biên ⚠  ║   ║                   ║   ║  dược lý  (33× thu hẹp)   ║
+║ harmonize type    ║   ║                   ║   ║                           ║
+╚═════════╤═════════╝   ╚═════════╤═════════╝   ╚═════════════╤═════════════╝
+          └───────────────────────┼───────────────────────────┘
+                                  ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  decision/          <span class="h">~300 dòng · không train · cộng dồn với MỌI thứ</span>        ║
+║   calibrate.py  Platt trên [top1, gap top1−top2, entropy, type]           ║
+║   select.py     · candidates: trả ĐÚNG 1 mã hoặc 0                        ║
+║                   bỏ trống khi p₁ &lt; P(gold rỗng) ≈ 0,21 (CĐ: 0,27)        ║
+║                 · assertions: argmax kỳ vọng Jaccard trên 8 tập con       ║
+╚══════════════════════════════════╤═══════════════════════════════════════╝
+                                   ▼
+╔══════════════════════════════════════════════════════════════════════════╗
+║  validate  <span class="h">CỔNG CỨNG — không qua thì không ghi file</span>                       ║
+║   assert raw[start:end] == text          ← trên chuỗi GỐC, byte-exact     ║
+║   type ∈ 5 · assertions ⊆ 3 · rỗng cho 2 loại XN                          ║
+║   candidates rỗng trừ CHẨN_ĐOÁN/THUỐC · mọi mã tồn tại trong KB           ║
+╚══════════════════════════════════╤═══════════════════════════════════════╝
+                                   ▼
+                 runs/&lt;ts&gt;_&lt;sha&gt;/{output/, manifest.json, score.json}
+                                   │
+                    ┌──────────────┴──────────────┐
+                    ▼                             ▼
+            scoring.py (nội bộ)            make_submission.py
+            3 cách đọc × 4 alignment        output.zip → leaderboard
+                                            (5 lần/ngày — con người quyết)</pre>
+  </div>
+
+  <div class="shead"><span class="num">3</span><h2>Hợp đồng giữa các module</h2></div>
+  <div class="card">
+    <p>Giữ các interface này ổn định thì ba agent làm ba module song song mà không đụng nhau.</p>
+<pre class="light"><span class="k">@dataclass(frozen=True)</span>
+<span class="k">class</span> Document:
+    doc_id: str
+    raw: str                      <span class="c"># BẤT BIẾN. Nguồn chân lý duy nhất cho offset.</span>
+    <span class="k">def</span> slice(self, s: int, e: int) -&gt; str: <span class="k">return</span> self.raw[s:e]
+    <span class="k">def</span> to_raw(self, norm_idx: int) -&gt; int: ...   <span class="c"># ánh xạ ngược</span>
+
+<span class="k">@dataclass</span>
+<span class="k">class</span> Span:                     <span class="c"># extract/ sinh ra</span>
+    start: int; end: int; type: str; score: float
+    source: str                   <span class="c"># "gliner" | "xlmr" | "regex" — cần cho ensemble</span>
+
+<span class="k">@dataclass</span>
+<span class="k">class</span> Concept:                  <span class="c"># thứ cuối cùng được tuần tự hoá</span>
+    text: str; position: tuple[int,int]; type: str
+    assertions: list[str]; candidates: list[str]
+
+<span class="c"># Chữ ký các stage — mỗi stage thuần khiết, nhận và trả về, không có state ẩn</span>
+layout.parse(doc)                     -&gt; Layout
+extract.propose(doc, layout)          -&gt; list[Span]        <span class="c"># recall-first, ngưỡng THẤP</span>
+extract.harmonize(spans, doc)         -&gt; list[Span]        <span class="c"># một type / chuỗi bề mặt</span>
+assertion.infer(spans, doc, layout)   -&gt; dict[Span, dist8] <span class="c"># phân phối, KHÔNG phải nhãn</span>
+linking.retrieve(spans, doc)          -&gt; dict[Span, list[Cand]]
+decision.finalize(spans, dist8, cands)-&gt; list[Concept]     <span class="c"># nơi DUY NHẤT ngưỡng được áp</span></pre>
+    <div class="note good">
+      <span class="lab">Bất biến quan trọng nhất của thiết kế</span>
+      <b>Các stage phía trên trả về <i>phân phối</i>, không phải quyết định.</b> Chỉ
+      <code>decision/</code> mới được áp ngưỡng. Nhờ vậy quy tắc quyết định theo kỳ vọng Jaccard
+      áp dụng được cho <i>cả</i> assertions và candidates bằng cùng một đoạn code, và bạn chỉnh
+      điểm vận hành mà không đụng vào bất kỳ model nào.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">4</span><h2>Phân tích đánh đổi</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Quyết định</th><th>Chọn</th><th>Đánh đổi</th><th>Xem lại khi nào</th></tr></thead>
+      <tbody>
+        <tr><td>Bộ trích xuất span</td><td><b>Encoder</b> (GLiNER/XLM-R)</td>
+          <td>Mất khả năng zero-shot cho type mới; đổi lại <b>offset chính xác theo cấu tạo</b> và ≤9B thoải mái</td>
+          <td>Không bao giờ — ràng buộc 9B là cứng</td></tr>
+        <tr><td>Vai trò LLM sinh</td><td><b>Chỉ chọn/phân xử</b></td>
+          <td>Bỏ qua khả năng suy luận mở; đổi lại không hallucinate span, không lệch offset</td>
+          <td>Nếu ràng buộc tham số được nới</td></tr>
+        <tr><td>Chỉ mục ICD</td><td><b>Phẳng vét cạn 45 MB</b></td>
+          <td>O(N·d) mỗi truy vấn — nhưng &lt;1 ms và <b>recall 100%</b>, 0 siêu tham số</td>
+          <td>Nếu KB vượt ~100k mục</td></tr>
+        <tr><td>Chỉ mục thuốc</td><td><b>TF-IDF char-ngram trước</b></td>
+          <td>Không nắm ngữ nghĩa; nhưng đo được là thắng dense 1,4 điểm ở chuẩn hoá thuốc</td>
+          <td>Nếu gold hoá ra ở mức SCD với nhiều biến thể diễn đạt</td></tr>
+        <tr><td>Suy luận toàn cục</td><td><b>Gộp biến + Hungarian theo đơn vị</b></td>
+          <td>Không tối ưu toàn cục tuyệt đối; đổi lại <b>không phụ thuộc solver</b>, vài ms/tài liệu</td>
+          <td>Nếu thêm ràng buộc thật sự xuyên tài liệu</td></tr>
+        <tr><td>Nhất quán theo tài liệu</td><td><b>Cứng cho type/mã, MỀM cho assertion</b></td>
+          <td>0,31%/0,23% vs 3,98% xung đột đo được — chênh ~13×</td>
+          <td>Đo lại trên gold thật, không phải bạc</td></tr>
+        <tr><td>Tái lập</td><td><b>batch=1 + ghim SHA + cache phản hồi</b></td>
+          <td>~20 phút → ~1,5 giờ. Không đáng kể ở quy mô 100 tài liệu</td>
+          <td>Không bao giờ — đây là điều kiện không bị loại</td></tr>
+        <tr><td>Lượng tử hoá</td><td><b>AWQ, không GPTQ</b></td>
+          <td>Ít lựa chọn toolchain hơn; đổi lại <b>không phụ thuộc tập hiệu chuẩn</b> ⇒ bớt một artifact phải ghim</td>
+          <td>Nếu AWQ không hỗ trợ model đã chọn</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">5</span><h2>Chế độ hỏng &amp; phòng thủ</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Chế độ hỏng</th><th class="num">Mức</th><th>Phòng thủ</th><th>Trạng thái</th></tr></thead>
+      <tbody>
+        <tr style="background:var(--warn-tint)"><td><b>Chuẩn hoá NFC trước khi tính offset</b> — lệch tới 143 ký tự, im lặng, 20% tập test</td>
+          <td class="num">chí mạng</td><td><code>Document.raw</code> bất biến + assert byte-exact + bộ kiểm INV dung sai 0</td>
+          <td><span class="pill g">đã có</span></td></tr>
+        <tr style="background:var(--warn-tint)"><td><b>Agent sửa <code>data/test/</code></b></td>
+          <td class="num">chí mạng</td><td>Hook <code>PreToolUse</code> chặn + manifest sha256 làm lớp hai</td>
+          <td><span class="pill g">đã có</span></td></tr>
+        <tr><td>Đoán sai <code>tty</code> thuốc</td><td class="num">cao</td>
+          <td><b>Đã chốt <code>SCD</code></b> (ADR 0001); probe B xác nhận lại</td><td><span class="pill g">đã giải</span></td></tr>
+        <tr><td><b>Rò rỉ API closed-source vào runtime</b> — agent thêm lời gọi API vào <code>pipeline.py</code> vì "tốt hơn"</td>
+          <td class="num">có thể bị loại</td>
+          <td>Test khẳng định đường suy luận không import HTTP client của nhà cung cấp LLM; mọi lời gọi API sống trong <code>scripts/</code></td>
+          <td><span class="pill w">chưa</span></td></tr>
+        <tr><td>Bật cờ assertion ở ngữ cảnh giả định (cue ở 75/100 file)</td><td class="num">cao</td>
+          <td><code>assertion/veto.py</code> + contrast set trong regression</td><td><span class="pill w">chưa</span></td></tr>
+        <tr><td>Hài hoà mã lan một mã sai ra mọi lần lặp</td><td class="num">trung bình</td>
+          <td>Chỉ hài hoà khi độ tin cậy vượt ngưỡng; log mọi lần lan truyền</td><td><span class="pill w">chưa</span></td></tr>
+        <tr><td>Model tổng vượt 9B</td><td class="num">cao</td>
+          <td><code>configs/models.yaml</code> có trường <code>params</code> + assert lúc khởi động</td><td><span class="pill w">chưa</span></td></tr>
+        <tr><td>Bài nộp không tái lập được ở vòng chấm source</td><td class="num">chí mạng</td>
+          <td><code>runs/</code> bất biến + manifest + chạy lại từ máy sạch trước khi nộp</td><td><span class="pill w">chưa</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+<!-- ═════════════ 03 · KẾ HOẠCH 7 PHASE ═════════════ -->
+<div class="panel" id="p-plan">
+  <div class="hero">
+    <div class="eyebrow">03 · Execution plan</div>
+    <h1>Bảy phase, xếp theo <em>điểm trên ngày công</em></h1>
+    <p class="lede">
+      Tick được và lưu vào trình duyệt. Mỗi mục có <b>tiêu chí nghiệm thu</b> — không có tiêu chí
+      thì không tick. Phase 4 (candidates) cố ý xếp sau Phase 2 và 3 vì nó chỉ đáng 9,16 điểm.
+    </p>
+  </div>
+
+  <div class="note warn">
+    <span class="lab">Đường tới hạn</span>
+    <b>P0.5 (gold dev set) là nút thắt thật.</b> Nó chặn mọi phép đo và là thứ duy nhất
+    <b>không song song hoá được bằng agent</b>. Bắt đầu gán nhãn <i>trước</i> khi viết dòng model
+    đầu tiên, và dùng <code>data/output/</code> hiện có làm tiền chú thích để giảm một nửa thời gian.
+  </div>
+
+  <!-- PHASE 0 -->
+  <div class="shead"><span class="num">P0</span><h2>Nền móng — chặn mọi thứ khác</h2>
+    <span class="sub cnt"></span></div>
+  <div class="card">
+    <ul class="ck">
+      <li><input type="checkbox" data-k="p0.1"><span class="id">0.1</span><label>
+        <b>Lớp I/O bảo toàn offset.</b> <code>io/document.py</code>: <code>Document.raw</code> bất biến
+        (đọc <code>newline=""</code>), <code>.normalized</code> + <code>.char_map</code> để so khớp,
+        <code>.to_raw()</code> ánh xạ ngược.
+        <br><span class="tag">nghiệm thu</span> property test round-trip trên cả 100 file test + 543 file bạc; mọi span
+        thoả <code>raw[s:e] == text</code>.</label></li>
+
+      <li><input type="checkbox" data-k="p0.2"><span class="id">0.2</span><label>
+        <b>Scorer nội bộ.</b> <span class="pill g">đã xong</span> — <code>src/smart_medic/scoring.py</code>,
+        3 cách đọc × 4 alignment, 8 self-test.</label></li>
+
+      <li><input type="checkbox" data-k="p0.3"><span class="id">0.3</span><label>
+        <b>Hook + CI gate.</b> <span class="pill g">đã xong</span> — chặn <code>data/test/</code>,
+        validator sau mỗi sửa <code>src/</code>, lệnh <code>/score</code>, 3 subagent.</label></li>
+
+      <li><input type="checkbox" data-k="p0.4a"><span class="id">0.4a</span><label>
+        <b>Q1 — <code>tty</code> mã thuốc: <span style="color:var(--warn)">TRANH CHẤP, probe B quyết</span>.</b>
+        PRD ví dụ ra <b>SCD</b> (4/4); gold của đội ra <b>IN</b> (615/615, 41,9% sửa chủ động).
+        Gold là quy ước <i>của đội</i> nên không tự kết luận được. Xem
+        <code>docs/decisions/0001-drug-tty.md</code>.
+        <br><span class="tag">việc cần làm</span> tham số hoá <code>target_tty</code> trong
+        <code>configs/pipeline.yaml</code>, chạy được cả hai bằng một cờ.
+        <b>Đừng tinh chỉnh ngưỡng nhánh thuốc trước khi probe B trả lời.</b></label></li>
+
+      <li class="done"><input type="checkbox" data-k="p0.4b" checked><span class="id">0.4b</span><label>
+        <b>Q2 — hộp đen, giải bằng đo.</b> ĐÃ CHỐT, xem <code>0002-metric-reading.md</code>.
+        <b>Hệ quả: P6.1 nâng lên làm sớm.</b></label></li>
+
+      <li class="done"><input type="checkbox" data-k="p0.4c" checked><span class="id">0.4c</span><label>
+        <b>Q3 — dữ liệu bạc GPT-4o HỢP LỆ.</b> ĐÃ CHỐT, xem
+        <code>0003-closed-api-for-data-generation.md</code>. Ranh giới build-time/runtime.</label></li>
+
+      <li><input type="checkbox" data-k="p0.4d"><span class="id">0.4d</span><label>
+        <b>Chặn rò rỉ API vào runtime.</b> Viết test khẳng định <code>src/smart_medic/pipeline.py</code>
+        và mọi thứ nó import <b>không</b> phụ thuộc <code>openai</code>/<code>anthropic</code>/HTTP client.
+        Mọi lời gọi API sống trong <code>scripts/</code>.
+        <br><span class="tag">nghiệm thu</span> test fail nếu ai đó thêm import.</label></li>
+
+      <li class="done"><input type="checkbox" data-k="p0.5" checked><span class="id">0.5</span><label>
+        <b>Gold dev set — ĐÃ CÓ.</b> <code>restyled/annotations_gold/</code>: 100 file, 4.715 entity
+        (47,1/file), <b>0 lỗi offset, 0 lỗi schema</b>, 41,9% mã sửa chủ động so với silver.</label></li>
+
+      <li><input type="checkbox" data-k="p0.5b"><span class="id">0.5b</span><label>
+        <b>Chia split + đối chiếu phân bố.</b> Chia <b>50 tune / 30 lock / 20 held-out</b>, seed cố định,
+        ghi <code>data/gold/manifest.json</code>. Rồi <b>so phân bố thể loại với tập test thật</b>:
+        gold hiện là <code>dàn ý 57 · văn xuôi 16 · xuống dòng 12 · phổ biến 10 · hỏi đáp 5</code>,
+        còn test thật đo được <code>45/17/15/14/9</code> — <b>dàn ý bị dư, hỏi đáp bị thiếu</b>.
+        Cân lại trọng số khi chấm, hoặc gán bổ sung thể loại hỏi–đáp.
+        <br><span class="tag">cảnh báo</span> gold là <b>dữ liệu tổng hợp restyled</b>, không phải văn bản
+        thật như tập test. Tương quan gold↔leaderboard phải đo (P6.5), không được giả định.</label></li>
+
+      <li><input type="checkbox" data-k="p0.6"><span class="id">0.6</span><label>
+        <b>Hướng dẫn gán nhãn</b> <code>docs/guidelines/annotation.md</code> — nuôi <i>cả</i> người gán
+        <i>và</i> prompt-LF. Năm quyết định phải viết ra: chính sách ranh giới · entity lồng nhau ·
+        mention lặp · phạm vi assertion · <b>thuốc bị che có phải entity không</b>.</label></li>
+
+      <li><input type="checkbox" data-k="p0.7"><span class="id">0.7</span><label>
+        <b>Khung config.</b> <code>configs/{pipeline,models,metric}.yaml</code> +
+        <b>assert tổng tham số &lt; 9B lúc khởi động</b>. Không magic number trong code.</label></li>
+    </ul>
+    <div class="prog"><i></i></div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="shead"><span class="num">P1</span><h2>Dữ liệu</h2><span class="sub cnt"></span></div>
+  <div class="card">
+    <ul class="ck">
+      <li><input type="checkbox" data-k="p1.1"><span class="id">1.1</span><label>
+        <b>Sửa 165 vi phạm schema trong silver.</b> Entity <code>TÊN_XÉT_NGHIỆM</code> /
+        <code>KẾT_QUẢ_XÉT_NGHIỆM</code> đang mang assertions (translated 93 · restyled 53 · synthetic 19).
+        Sửa bộ sinh, regenerate, không chỉ vá file.
+        <br><span class="tag">nghiệm thu</span> <code>pytest tests/test_offsets.py -q</code> xanh hoàn toàn.
+        <br><span class="tag">lưu ý</span> <code>annotations_gold/</code> <b>đã sạch</b> (0 lỗi) — 165 vi phạm
+        chỉ nằm ở <code>annotations/</code> silver.</label></li>
+
+      <li><input type="checkbox" data-k="p1.2"><span class="id">1.2</span><label>
+        <b>Nguồn nhãn hợp lệ.</b> Bốn nguồn, hợp nhất bằng label model ở <b>mức span</b> (IoU≥0,5):
+        LF ontology (nhiều LF nhỏ, không phải một gazetteer to) ·
+        <b>NER tiếng Anh chiếu qua marker <code>〔 〕</code></b> ·
+        k=6–10 prompt-LF từ model ≤9B local · FlyingSquid hợp nhất.</label></li>
+
+      <li><input type="checkbox" data-k="p1.3"><span class="id">1.3</span><label>
+        <b>Chiếu NER tiếng Anh qua marker.</b> scispaCy <code>en_ner_bc5cdr_md</code> / QuickUMLS chạy trên
+        <b>bản mtsamples gốc</b>, chiếu span qua căn chỉnh <code>〔 〕</code>.
+        Sai số <b>không tương quan</b> với gazetteer lẫn LLM — tính chất quý nhất một LF có thể có.
+        Miễn phí, offline, hợp lệ quy chế.</label></li>
+
+      <li><input type="checkbox" data-k="p1.4"><span class="id">1.4</span><label>
+        <b>Làm sạch:</b> confident learning (cleanlab, mức span) + CrossWeigh <b>fold tách theo entity</b>.
+        <b>Hạ trọng số, đừng xoá</b> — dữ liệu quá ít.</label></li>
+
+      <li><input type="checkbox" data-k="p1.5"><span class="id">1.5</span><label>
+        <b>Xử lý âm tính giả</b> — chế độ nhiễu chủ đạo của gazetteer. Bắt đầu bằng
+        <b>negative sampling</b> (rẻ nhất, gần SOTA); nâng lên PU risk estimator nếu đo được lợi ích.</label></li>
+
+      <li><input type="checkbox" data-k="p1.6"><span class="id">1.6</span><label>
+        <b>Domain-discriminator AUC</b> silver vs 100 file test, trên TF-IDF và embedding.
+        Xem <b>đặc trưng phân biệt mạnh nhất</b> — mỗi cái là một bug sinh dữ liệu sửa được.
+        <br><span class="tag">nghiệm thu</span> AUC giảm rõ rệt sau khi sửa; ghi lại danh sách artifact đã khử.</label></li>
+
+      <li><input type="checkbox" data-k="p1.7"><span class="id">1.7</span><label>
+        <b>TAPT</b> trên 100 file test + corpus y khoa tiếng Việt. <b>0 nhãn, 0 rủi ro nhiễu</b>,
+        đánh thẳng vào lệch thể loại. Làm trước mọi fine-tune khác để mọi ablation sau chạy trên
+        cùng một encoder đã thích nghi.</label></li>
+
+      <li><input type="checkbox" data-k="p1.8"><span class="id">1.8</span><label>
+        <b>Chống sụp đổ mô hình.</b> <code>restyled/</code> phải neo vào <b>bản mtsamples gốc</b>,
+        không phải đầu ra tổng hợp trước đó. Kiểm loại entity hiếm có mỏng đi so với
+        <code>translated/</code> không.</label></li>
+    </ul>
+    <div class="prog"><i></i></div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="shead"><span class="num">P2</span><h2>Trích xuất — 30 điểm · workstream lớn nhất</h2>
+    <span class="sub cnt"></span></div>
+  <div class="card">
+    <ul class="ck">
+      <li><input type="checkbox" data-k="p2.1"><span class="id">2.1</span><label>
+        <b>Layout parser.</b> Phân loại dòng, ngăn xếp 3 tầng <code>{0,4,8}</code> (thụt lề đo được
+        chỉ có 3 giá trị), đường tổ tiên.
+        <br><span class="tag">nghiệm thu</span> phủ ≥97/100 file test; unit test cho từng loại dòng.</label></li>
+
+      <li><input type="checkbox" data-k="p2.2"><span class="id">2.2</span><label>
+        <b>Tách chuỗi <code>TÊN: giá trị</code>.</b> Ba ca thật: <code>;</code> tách vô điều kiện ·
+        <code>,</code> chỉ tách khi theo sau là tên xét nghiệm (vì <code>4,7</code> là <b>dấu phẩy thập phân</b>) ·
+        hai cặp cách nhau chỉ bằng khoảng trắng.</label></li>
+
+      <li><input type="checkbox" data-k="p2.3"><span class="id">2.3</span><label>
+        <b>Boundary priors</b> — vị trí hợp lệ để bắt đầu/kết thúc span (sau dấu bullet, sau
+        <code>: </code>, trước <code>;</code>). Ngăn <b>về mặt cấu trúc</b> việc <code>- </code> hay
+        <code>Chẩn đoán: </code> lọt vào span. <b>Thắng lợi rẻ nhất trên WER.</b></label></li>
+
+      <li><input type="checkbox" data-k="p2.4"><span class="id">2.4</span><label>
+        <b>XLM-R + Efficient GlobalPointer</b>, mức âm tiết, offset ký tự, chặn bề rộng span W=30.
+        Không dùng model <code>-word</code> (tách từ phá offset).</label></li>
+
+      <li><input type="checkbox" data-k="p2.5"><span class="id">2.5</span><label>
+        <b>Boundary smoothing (ε≈0,1–0,2) + CNN 3×3 trên ma trận điểm.</b> ~10 dòng mỗi cái;
+        bộ chính quy hoá <i>duy nhất</i> nhắm đúng chế độ hỏng mà WER phạt.</label></li>
+
+      <li><input type="checkbox" data-k="p2.6"><span class="id">2.6</span><label>
+        <b>Filtered Semi-Markov CRF</b> giải mã, với đặc trưng <b>mức segment</b>:
+        <code>is_in_ICD_trie</code>, <code>is_in_RxNorm_trie</code>, <code>matches_dose_regex</code>,
+        <code>follows_colon</code>. Bất khả biểu diễn trong BIO — và bạn có sẵn 14.678 tên chuẩn.</label></li>
+
+      <li><input type="checkbox" data-k="p2.7"><span class="id">2.7</span><label>
+        <b>Bộ tách dòng xét nghiệm bằng luật</b>, không phải model. Một regex thắng 500 mẫu huấn luyện.</label></li>
+
+      <li><input type="checkbox" data-k="p2.8"><span class="id">2.8</span><label>
+        <b>Ensemble</b> XLM-R-GP + PhoBERT-large-GP + GLiNER-BioMed. Hợp span,
+        <b>lấy TRUNG VỊ có trọng số của ranh giới</b> — chi phí WER tuyến tính (L1) nên ước lượng
+        tối ưu là trung vị, <b>không phải trung bình</b>.</label></li>
+
+      <li><input type="checkbox" data-k="p2.9"><span class="id">2.9</span><label>
+        <b>Hài hoà <code>type</code> theo tài liệu.</b> 0,31% xung đột đo được ⇒ gần như miễn phí,
+        và <code>type</code> sai bị <b>phạt kép</b> (vừa thừa vừa thiếu) trên cả 3 số hạng.</label></li>
+
+      <li><input type="checkbox" data-k="p2.10"><span class="id">2.10</span><label>
+        <b>Ngưỡng phát span suy từ WER</b>, không phải từ F1: phát ⟺ <code>ē_sai &lt; p</code>.
+        Đo <code>ē_sai</code> trên dev; thực tế rơi vào ~0,35–0,45 vì lỗi chủ yếu là <i>trượt gần</i>.</label></li>
+    </ul>
+    <div class="prog"><i></i></div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="shead"><span class="num">P3</span><h2>Assertions — 30 điểm · precision-first</h2>
+    <span class="sub cnt"></span></div>
+  <div class="card">
+    <ul class="ck">
+      <li><input type="checkbox" data-k="p3.1"><span class="id">3.1</span><label>
+        <b>Ràng buộc lược đồ (Nhóm 0).</b> Ép <code>assertions=[]</code> cho hai loại xét nghiệm và
+        <code>candidates=[]</code> cho ba loại không mã, <b>lúc tuần tự hoá</b> — không bao giờ tin
+        model tự nhớ. Cho <b>J=1,0 miễn phí</b> trên ~1/3 số entity.</label></li>
+
+      <li><input type="checkbox" data-k="p3.2"><span class="id">3.2</span><label>
+        <b>Phủ quyết ngữ cảnh giả định.</b> Cue (<code>có thể</code>, <code>nếu</code>,
+        <code>nghi ngờ</code>, <code>biểu hiện như</code>…) xuất hiện ở <b>75/100 file</b> — nhiều hơn
+        cả tiền sử lẫn người nhà — <b>và nó không phải một trong ba nhãn</b>.
+        Rủi ro dương tính giả lớn nhất của cả hệ.</label></li>
+
+      <li><input type="checkbox" data-k="p3.3"><span class="id">3.3</span><label>
+        <b>Phủ quyết cơ chế di truyền.</b> “nhận gen lặn từ bố và/hoặc mẹ” là vai <b>NGUỒN</b>,
+        không phải <b>NGƯỜI TRẢI NGHIỆM</b>. Cách tiếp cận từ khoá thuần sai 100% ở đây.</label></li>
+
+      <li><input type="checkbox" data-k="p3.4"><span class="id">3.4</span><label>
+        <b>Cổng thể loại</b> — gán theo <b>đơn vị layout, không theo tài liệu</b>.
+        Tập test có file ghép kiểu Frankenstein (<code>42.txt</code>: dàn ý lâm sàng → chèn câu hỏi
+        forum giữa chừng → quay lại bullet).</label></li>
+
+      <li><input type="checkbox" data-k="p3.5"><span class="id">3.5</span><label>
+        <b>Section segmentation + lan truyền phạm vi.</b> 60/100 file có mốc “tiền sử”; tiêu đề là
+        <b>chuỗi cố định</b>, không cần model. Kèm bẫy <code>Tiền sử bệnh <i>hiện tại</i></code>.</label></li>
+
+      <li><input type="checkbox" data-k="p3.6"><span class="id">3.6</span><label>
+        <b>Chính sách phạm vi RIÊNG cho từng cờ.</b> Đo được: phạm vi theo cấu trúc <b>giúp</b>
+        <code>isNegated</code> (+0,07 F1) nhưng <b>hại</b> <code>isHistorical</code> (−0,08).
+        <b>Đừng áp một chính sách chung cho cả ba.</b></label></li>
+
+      <li><input type="checkbox" data-k="p3.7"><span class="id">3.7</span><label>
+        <b>Phạm vi phủ định:</b> cổng phụ thuộc cú pháp · lan truyền qua liệt kê song song
+        (“không sốt, ho, khó thở” dạng tỉnh lược) · phạm vi rộng qua dấu hai chấm ·
+        bullet cha phủ định trùm bullet con.</label></li>
+
+      <li><input type="checkbox" data-k="p3.8"><span class="id">3.8</span><label>
+        <b>Softmax 8 chiều trên tập con + giải mã kỳ vọng Jaccard.</b> 3 sigmoid độc lập
+        <b>không biểu diễn được</b> mẫu <code>{isNegated, isHistorical}</code> đồng thời.
+        64 phép tính mỗi entity — đây là MPE chính xác, không cần framework neuro-symbolic nào.</label></li>
+
+      <li><input type="checkbox" data-k="p3.9"><span class="id">3.9</span><label>
+        <b>Semantic loss + temperature scaling.</b> Nhãn bạc vi phạm chính luật của mình;
+        và giải mã theo kỳ vọng <b>đòi hậu nghiệm đã hiệu chỉnh</b> mới đúng.</label></li>
+    </ul>
+    <div class="prog"><i></i></div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="shead"><span class="num">P4</span><h2>Candidates — 9,16 điểm · làm sau cùng</h2>
+    <span class="sub cnt"></span></div>
+  <div class="card">
+    <div class="note warn" style="margin-top:0">
+      <b>Không được rút người khỏi P2/P3 cho phase này.</b> Toàn bộ phase chỉ đáng 9,16 điểm.
+    </div>
+    <ul class="ck">
+      <li><input type="checkbox" data-k="p4.1"><span class="id">4.1</span><label>
+        <b>Thang bậc RXNREL, đích là <code>SCD</code></b> (ADR 0001 — đã chốt).
+        Cascade dùng để <b>đi lên</b> từ biệt dược / dạng đóng gói về SCD, <b>không phải rút về hoạt chất</b>:
+        <code>SBD → SCD</code> qua <code>tradename_of</code>; <code>GPCK/BPCK → SCD</code> qua
+        <code>contains</code>. <b>Lọc bỏ 1,67M cạnh <code>inactive_ingredient</code> trước</b>
+        (gấp 4,7× quan hệ kế tiếp, không mang tín hiệu).
+        <br><span class="tag">quan trọng</span> hàm lượng <b>không</b> cần khớp tuyệt đối — gold ánh xạ về SCD
+        <i>gần nhất</i> (<code>1.5 mg</code> → <code>1 MG</code>). Đừng đòi khớp chính xác rồi trả rỗng.</label></li>
+
+      <li><input type="checkbox" data-k="p4.1b"><span class="id">4.1b</span><label>
+        <b>Bảng mở rộng viết tắt dạng bào chế.</b> <code>xl</code> → <code>24 HR … Extended Release</code>,
+        <code>po</code> → <code>Oral</code>, v.v. Viết tay, bổ trợ bằng dòng <code>tty=AB</code> (28.833)
+        và <code>TMSY</code> (22.529). <b>Chính sách mặc định khi văn bản không nêu dạng bào chế</b> —
+        đề xuất <code>Oral Tablet</code>; ghi lại và đo.</label></li>
+
+      <li><input type="checkbox" data-k="p4.2"><span class="id">4.2</span><label>
+        <b>Bao gồm mã đã rút.</b> <code>360047</code> trong ví dụ PRD <b>không tồn tại</b> trong bản
+        RxNorm hiện tại — chỉ có trong <code>RXNATOMARCHIVE.RRF</code>. Không nạp archive thì
+        vĩnh viễn không sinh được mã gold cho nhóm này.</label></li>
+
+      <li><input type="checkbox" data-k="p4.3"><span class="id">4.3</span><label>
+        <b>Aho–Corasick sàn recall</b> — 42k tên thuốc + 14,7k tên ICD, O(n+z), độc lập model NER,
+        <b>không bao giờ tụt</b>.</label></li>
+
+      <li><input type="checkbox" data-k="p4.4"><span class="id">4.4</span><label>
+        <b>Thuốc: TF-IDF char-ngram TRƯỚC</b>, dense chỉ cho phần dư. Đo được TF-IDF thuần
+        thắng dense 1,4 điểm ở chuẩn hoá thuốc. Mở rộng viết tắt bằng chính các dòng
+        <code>tty=AB</code> (28.833) và <code>TMSY</code> (22.529).</label></li>
+
+      <li><input type="checkbox" data-k="p4.5"><span class="id">4.5</span><label>
+        <b>ICD: BM25 + dense PHẲNG vét cạn.</b> 14.678 × 768 × 4B = <b>45 MB</b>, một phép GEMM,
+        &lt;1 ms, <b>recall 100%</b>. <b>Đừng xây ANN</b> — công sức thuần đổi lấy lợi ích âm.</label></li>
+
+      <li><input type="checkbox" data-k="p4.6"><span class="id">4.6</span><label>
+        <b>Gazetteer ICD làm giàu:</b> tên Việt + tách ngoặc + bỏ dấu + <b>5.460 nhãn tiếng Anh
+        join theo mã</b> (41,4% mã có) + nhãn khối <code>Nhóm bệnh</code>.</label></li>
+
+      <li><input type="checkbox" data-k="p4.7"><span class="id">4.7</span><label>
+        <b>SapBERT self-alignment trên chính bảng ICD tiếng Việt.</b> ~50k cặp positive miễn phí
+        (12k mã có &gt;1 tên), <b>hard-negative = mã anh em cùng mục 3 ký tự</b>,
+        rổ negative vừa = cùng <code>Nhóm bệnh</code> (302 rổ).</label></li>
+
+      <li><input type="checkbox" data-k="p4.8"><span class="id">4.8</span><label>
+        <b>doc2query bí danh dân dã</b> cho 13k mã, offline một lần, validate bằng round-trip retrieval.
+        Toàn bộ chi phí trả lúc index; truy vấn vẫn BM25 thuần.</label></li>
+
+      <li><input type="checkbox" data-k="p4.9"><span class="id">4.9</span><label>
+        <b>Rerank:</b> cross-encoder + thẻ biên <code>[Ms]/[Me]</code> → <b>CombMNZ</b> (dùng độ lớn
+        điểm, khác RRF) → <b>LambdaMART</b> (~20 đặc trưng, vài giây huấn luyện, micro-giây chấm,
+        xác định — tốt hơn LLM rerank ở mọi mặt tại đây).</label></li>
+
+      <li><input type="checkbox" data-k="p4.10"><span class="id">4.10</span><label>
+        <b>Khôi phục thuốc bị che.</b> Lọc độ dài NFC (33× thu hẹp; 6 xác nhận độc lập:
+        <code>*******</code>=<code>aspirin</code>, <code>**********</code>=<code>phenacetin</code>,
+        <code>*********************</code>=<code>Globulin miễn dịch IV</code>) → đồng tham chiếu nội
+        tài liệu → nhóm dược lý từ ngữ cảnh → chỉ định.
+        <b>Kiểm giả thuyết độ dài trên gold trước khi biến thành lọc cứng.</b></label></li>
+    </ul>
+    <div class="prog"><i></i></div>
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="shead"><span class="num">P5</span><h2>Lớp quyết định — rẻ nhất, cộng dồn với mọi thứ</h2>
+    <span class="sub cnt"></span></div>
+  <div class="card">
+    <ul class="ck">
+      <li><input type="checkbox" data-k="p5.1"><span class="id">5.1</span><label>
+        <b>Hiệu chỉnh Platt</b> trên đặc trưng [điểm top1, <b>gap top1−top2</b>, entropy top-k, loại entity].
+        Platt (2 tham số) thắng isotonic khi ít dữ liệu — đừng dùng isotonic dưới ~300 mẫu.
+        <br><span class="tag">nghiệm thu</span> ECE + reliability diagram, đo ở <b>dải 0,3–0,6</b> vì mọi ngưỡng nằm ở đó.</label></li>
+
+      <li><input type="checkbox" data-k="p5.2"><span class="id">5.2</span><label>
+        <b>Chọn tập mã theo kỳ vọng Jaccard.</b> Đo lại trên gold:
+        <code>P(doublet | có mã) = 3,4%</code> ⇒ ngưỡng gap <b>0,035</b> (silver cho 0,018).
+        Nhưng <b>tách theo loại</b>: CHẨN_ĐOÁN <b>0% doublet</b> ⇒ luôn trả đúng 1 mã;
+        THUỐC <b>8,6% doublet</b> ⇒ trả nhiều mã <i>khi và chỉ khi</i> là <b>thuốc phối hợp</b>
+        (<code>Advair</code> → fluticasone + salmeterol). Đây là luật xác định từ KB, không phải ngưỡng.</label></li>
+
+      <li><input type="checkbox" data-k="p5.3"><span class="id">5.3</span><label>
+        <b>Ngưỡng bỏ trống — đo lại trên GOLD, thay đổi lớn.</b> <code>P(gold rỗng)</code> chỉ
+        <b>0,046</b> (CHẨN_ĐOÁN <b>0,019</b> · THUỐC 0,091), không phải 0,21 như silver cho thấy.
+        <b>⇒ Gần như KHÔNG BAO GIỜ nên bỏ trống.</b> Đây là đảo chiều so với khuyến nghị trước.
+        Ngoại lệ vẫn giữ: thuốc bị che không suy được tên.
+        <br><span class="tag">nghiệm thu</span> quét ngưỡng, vẽ đường cong E[J], tìm <b>cực trị thực nghiệm</b> —
+        đừng tin điểm lý thuyết một cách mù quáng.</label></li>
+
+      <li><input type="checkbox" data-k="p5.4"><span class="id">5.4</span><label>
+        <b>Confusion-network consensus cho span.</b> Gộp N mẫu ở mức <b>từ</b>, giữ token có hậu nghiệm
+        &gt;0,5. Sinh ra được đầu ra <i>không có trong bất kỳ mẫu nào</i> — mạnh hơn MBR chọn-từ-bể.</label></li>
+    </ul>
+    <div class="prog"><i></i></div>
+  </div>
+
+  <!-- PHASE 6 -->
+  <div class="shead"><span class="num">P6</span><h2>Đo lường &amp; nộp bài</h2><span class="sub cnt"></span></div>
+  <div class="card">
+    <ul class="ck">
+      <li><input type="checkbox" data-k="p6.1"><span class="id">6.1</span><label>
+        <b>Ba probe.</b> <span class="pill a">NÂNG LÊN LÀM SỚM — không đợi hệ hoàn chỉnh</span><br> <b>A</b> span+type, rỗng hết → <code>text_score</code> + sàn thật.
+        <b>B</b> A + mã thuốc khớp chính xác → <code>0.4·ΔC</code>, giải Q1 và Q2.
+        <b>C</b> A + assertions từ luật → <code>0.3·ΔA</code>.
+        3/30 lần nộp, xong trong một ngày.</label></li>
+
+      <li><input type="checkbox" data-k="p6.2"><span class="id">6.2</span><label>
+        <b>Lát cắt bắt buộc:</b> thể loại × loại entity × NFC/không × có <code>*****</code>/không ×
+        tercile độ dài. Báo cáo <b>từng lát</b>, không chỉ trung bình — trung bình che mất một thể loại
+        đang 0,4 điểm.</label></li>
+
+      <li><input type="checkbox" data-k="p6.3"><span class="id">6.3</span><label>
+        <b>Paired bootstrap</b> B=10.000 + khoảng tin cậy + hiệu chỉnh FDR khi báo nhiều lát.
+        <b>Sàn hiệu ứng 0,010</b> — dưới đó là khớp nhiễu, không phải cải tiến.</label></li>
+
+      <li><input type="checkbox" data-k="p6.4"><span class="id">6.4</span><label>
+        <b>Bộ bất biến (CheckList INV):</b> NFC/NFD <b>dung sai 0</b> · xuống dòng · viết tắt ·
+        dân dã↔chuyên môn · bỏ dấu · <b>contrast set lật assertion</b> (cách duy nhất kiểm được
+        <code>isFamily</code> ở tần suất 0,9%).</label></li>
+
+      <li><input type="checkbox" data-k="p6.5"><span class="id">6.5</span><label>
+        <b>Tương quan silver↔gold.</b> Chấm k≥8 biến thể trên cả hai, báo Spearman + tỷ lệ đảo hạng.
+        <b>Phải có ≥1 biến thể không phải OpenAI</b> để phát hiện thiên lệch chung nguồn.
+        ρ&lt;0,6 ⇒ bạc đang đo bộ sinh, ngừng dùng để chọn model.</label></li>
+
+      <li><input type="checkbox" data-k="p6.6"><span class="id">6.6</span><label>
+        <b><code>runs/</code> bất biến.</b> Mỗi lần chạy: <code>manifest.json</code> (git SHA ·
+        config hash · model revision SHA · seed · phiên bản thư viện) + <code>output/</code> +
+        <code>score.json</code>. Không bao giờ ghi đè.</label></li>
+
+      <li><input type="checkbox" data-k="p6.7"><span class="id">6.7</span><label>
+        <b>Đóng gói nộp bài.</b> Đúng 100 file <code>1.json…100.json</code>, không file phụ trong zip,
+        <code>ensure_ascii=False</code>, UTF-8 không BOM, cấu trúc <code>output/</code> nằm trong archive.
+        <b>Liệt kê nội dung archive để chứng minh.</b></label></li>
+
+      <li><input type="checkbox" data-k="p6.8"><span class="id">6.8</span><label>
+        <b>Diễn tập vòng chấm source code.</b> Máy sạch → <code>pip install</code> từ hash đã ghim →
+        khôi phục weights → chạy → <b>diff với <code>output.zip</code> đã nộp</b>.
+        Đây đúng là việc BTC sẽ làm. Làm trước họ.</label></li>
+    </ul>
+    <div class="prog"><i></i></div>
+  </div>
+</div>
+
+<!-- ═════════════ 04 · KHÔNG LÀM & RỦI RO ═════════════ -->
+<div class="panel" id="p-risk">
+  <div class="hero">
+    <div class="eyebrow">04 · Scope discipline</div>
+    <h1>Danh sách <em>không làm</em> quan trọng<br>ngang danh sách phải làm</h1>
+    <p class="lede">
+      Mỗi mục dưới đây đã được cân nhắc nghiêm túc trong phần nghiên cứu và <b>bị loại có lý do</b>.
+      Nếu một agent đề xuất lại, hãy chỉ vào bảng này thay vì tranh luận lại từ đầu.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Bị loại</th><th>Lý do</th><th>Mở lại khi nào</th></tr></thead>
+      <tbody>
+        <tr><td><b>Nhúng hyperbolic / GNN trên ontology</b></td>
+          <td>Chỉ tái xếp hạng, phải chứng minh thắng mốc tầm thường “ghép vector mã cha” (vốn thắng 96,2% số lần),
+            hàng tuần công — cho một số hạng chỉ đáng <b>9 điểm</b></td>
+          <td>Nếu probe B cho thấy trần candidates cao hơn nhiều so với ước lượng</td></tr>
+        <tr><td><b>Vòng agentic / multi-agent debate</b></td>
+          <td>Ở ≤9B, self-critique thường làm tệ đi; groupthink đã được báo cáo trong nghiên cứu lâm sàng;
+            baseline trung thực (self-consistency) rẻ hơn nhiều</td>
+          <td>Chỉ khi A3 thắng A1 ở <b>cùng ngân sách token</b></td></tr>
+        <tr><td><b>LLM sinh làm bộ trích xuất span chính</b></td>
+          <td>GLiNER 209M thắng ChatGPT zero-shot trên NER; ở 9B càng đúng. Và nó không cho offset chính xác</td>
+          <td>Không bao giờ, dưới ràng buộc 9B</td></tr>
+        <tr><td><b>SPLADE / uniCOIL học được</b></td>
+          <td>Không có checkpoint y khoa tiếng Việt ⇒ phải tự train nhiều tuần. doc2query đạt 80% lợi ích ở index-time</td>
+          <td>Nếu còn dư nhiều thời gian sau P6</td></tr>
+        <tr><td><b>ColBERT / PLAID late interaction</b></td>
+          <td>Thừa thãi cho chuỗi 21–58 ký tự; trả 30× dung lượng cho một MaxSim suy biến</td>
+          <td>Không</td></tr>
+        <tr><td><b>DiskANN / ScaNN</b></td>
+          <td>DiskANN thiết kế cho 10⁹ vector — quá quy mô ~1000×. ScaNN phụ thuộc AVX-512, cài offline trên ARM rất khổ</td>
+          <td>Không</td></tr>
+        <tr><td><b>PLM-ICD và họ extreme-multi-label</b></td>
+          <td>Cần corpus lớn có nhãn, <b>và không sinh ra offset</b> — sai công cụ cho bài toán này</td>
+          <td>Không</td></tr>
+        <tr><td><b>Box / order embeddings</b></td>
+          <td>Lợi thế của chúng nằm ở DAG đa kế thừa; ICD-10 là cây <b>đơn kế thừa</b>, Poincaré đã đơn giản hơn mà vẫn thừa</td>
+          <td>Không</td></tr>
+        <tr><td><b>DeepProbLog / LTN làm hạ tầng</b></td>
+          <td>Ở |Y|=8, toàn bộ bộ máy suy luận neuro-symbolic thu về một vòng <code>for</code>.
+            <b>Lấy ý tưởng, không lấy framework.</b></td>
+          <td>Chỉ nếu thêm ràng buộc thật sự xuyên tài liệu</td></tr>
+        <tr><td><b>Longformer / BigBird</b></td>
+          <td>Trung vị tài liệu 1.845 ký tự, max 4.481 — vừa thoải mái trong 512–1024 token có stride</td>
+          <td>Không</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">§</span><h2>Rủi ro dự án</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Rủi ro</th><th class="num">Mức</th><th>Giảm thiểu</th></tr></thead>
+      <tbody>
+        <tr style="background:var(--warn-tint)"><td><b>Dữ liệu bạc GPT-4o không hợp lệ theo quy chế</b></td>
+          <td class="num">có thể bị loại</td>
+          <td>Hỏi BTC <b>hôm nay</b> (P0.4c). Chuẩn bị sẵn nhánh P1.2/P1.3 không đụng LLM đóng.</td></tr>
+        <tr style="background:var(--warn-tint)"><td><b>Đoán sai <code>tty</code> mã thuốc</b></td>
+          <td class="num">mất toàn bộ nhánh thuốc</td>
+          <td>P0.4a trước mọi việc ở P4. Ghi ADR.</td></tr>
+        <tr><td>Tổng tham số vượt 9B khi ghép ensemble</td><td class="num">cao</td>
+          <td><code>configs/models.yaml</code> + assert lúc khởi động. Ràng buộc quy chế thành lỗi build.</td></tr>
+        <tr><td>Gold dev set chậm ⇒ mọi phép đo bị chặn</td><td class="num">cao</td>
+          <td>Bắt đầu gán <b>trước</b> khi code model. Tiền chú thích bằng output hiện có.</td></tr>
+        <tr><td>Overfit dev set nhỏ</td><td class="num">trung bình</td>
+          <td>Chia tune/lock/heldout. Chạm <code>lock</code> tối đa 1 lần/tuần, ghi log. Sàn hiệu ứng 0,010.</td></tr>
+        <tr><td>Tiền chú thích neo người gán về phía model</td><td class="num">trung bình</td>
+          <td>Một người gán 15 file <b>không</b> tiền chú thích làm đối chứng; so recall hai nhánh.</td></tr>
+        <tr><td>Agent song song đụng file nhau</td><td class="num">trung bình</td>
+          <td>Sở hữu file theo module (cấu trúc tab 01) + worktree riêng cho mỗi agent.</td></tr>
+        <tr><td>Hết 5 lần nộp/ngày vào việc vô ích</td><td class="num">thấp</td>
+          <td>Mỗi lần nộp phải là <b>quyết định của con người</b> và phải trả lời một câu hỏi cụ thể.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+<!-- ═════════════ 05 · PROMPT KHỞI ĐỘNG ═════════════ -->
+<div class="panel" id="p-kick">
+  <div class="hero">
+    <div class="eyebrow">05 · Kickoff &amp; per-phase prompts</div>
+    <h1>Chín prompt.<br>Một cho định hướng, <em>một cho mỗi phase</em>.</h1>
+    <p class="lede">
+      Mỗi prompt tự chứa và copy được riêng. Chúng đều nêu ràng buộc cứng, chỉ chỗ đọc, và —
+      phần quan trọng nhất — liệt kê <b>cái bẫy cụ thể của phase đó</b>, vì đó là chỗ một agent
+      mới sẽ đi sai.
+    </p>
+    <div class="pills">
+      <span class="pill p">① Định hướng</span><span class="pill a">② Scaffold</span>
+      <span class="pill">P0 Nền móng</span><span class="pill">P1 Dữ liệu</span>
+      <span class="pill">P2 Trích xuất</span><span class="pill">P3 Assertion</span>
+      <span class="pill">P4 Candidates</span><span class="pill">P5 Quyết định</span>
+      <span class="pill">P6 Đo &amp; nộp</span>
+    </div>
+  </div>
+
+  <div class="note">
+    <span class="lab">Cách dùng</span>
+    Prompt <b>① Định hướng</b> dùng một lần cho agent chính. Các prompt phase dùng khi giao một
+    phase cho agent/session mới — chúng giả định agent <i>chưa</i> biết gì và sẽ tự đọc tài liệu.
+    Mỗi prompt kết thúc bằng một <b>điểm dừng</b>: báo cáo rồi chờ xác nhận, để bạn không mất
+    kiểm soát khi chạy nhiều agent song song.
+  </div>
+
+  <div class="shead"><span class="num">①</span><h2>Định hướng — dùng một lần, cho agent chính</h2></div>
+  <div class="card copybox">
+    <button class="copybtn">copy</button>
+<pre>Bạn tiếp quản dự án **smart-medic** — hệ trích xuất và chuẩn hoá khái niệm y khoa
+tiếng Việt cho Viettel AI Race 2026, Vòng 1. Hạn nộp 04/08/2026.
+
+## Đọc trước khi làm bất cứ việc gì
+
+1. `docs/reports/plan.html`            — kế hoạch bạn đang thực thi. Tab 03 là checklist.
+2. `docs/reports/research-directions.html` — căn cứ khoa học, 11 tab, ~90 tài liệu đã xác minh.
+                                         Tra ở đây trước khi đề xuất một hướng "mới".
+3. `docs/PRD.html`                     — đề bài gốc của BTC.
+4. `python docs/reports/measure_data.py` — tái lập mọi số liệu đo đạc. Chạy nó.
+
+## Bài toán
+
+Văn bản y khoa tiếng Việt tự do  →  danh sách khái niệm JSON, mỗi khái niệm gồm
+`text`, `position` [start,end], `type` (1 trong 5), `assertions` (tập con của 3),
+`candidates` (mã ICD-10 cho chẩn đoán, RxNorm cho thuốc).
+
+  final = 0.3·text_score + 0.3·assertions_score + 0.4·candidates_score
+
+## SỰ THẬT QUAN TRỌNG NHẤT — đọc kỹ, nó định hình mọi ưu tiên
+
+Mẫu số của candidates chứa một `+1`:  Σ_k (len(gold(k)) + 1)
+
+Đo bằng scorer nội bộ trên 98 tài liệu thật: một dự đoán **hoàn hảo** chỉ đạt
+**69.16/100**, phân rã:
+
+    text        30.00   (không bị chặn)
+    assertions  30.00   (không bị chặn)
+    candidates   9.16   (danh nghĩa 40, bị +1 chặn ở ~0.229)
+
+Top 1 bảng xếp hạng công khai = 50.41, tức 73% của trần này.
+
+=> text + assertions là **87%** số điểm thực sự giành được.
+=> Đừng bao giờ ưu tiên theo trọng số danh nghĩa 0.4 của candidates.
+=> Phase 4 (candidates) cố ý xếp SAU Phase 2 và 3.
+
+## Ràng buộc CỨNG — vi phạm là hỏng bài
+
+- **≤ 9B tham số, self-host.** KHÔNG được dùng API model closed-source
+  (không GPT, không Claude, không Gemini) trong lời giải.
+  Thiết kế để **tổng** tham số mọi model được đóng gói dưới 9B.
+- **Phải tái lập được.** Top ~15 đội phải nộp source + data + weights + README,
+  và BTC sẽ chạy lại trên private test. Cài không được thì bị loại.
+- **`position` luôn index vào byte GỐC, chưa chuẩn hoá.**
+  20/100 file test không ở dạng Unicode NFC. Chuẩn hoá rồi mới tính offset sẽ
+  làm lệch mọi span phía sau tới **143 ký tự**, hoàn toàn im lặng.
+  Chuẩn hoá CHỈ để so khớp; luôn ánh xạ ngược trước khi ghi JSON.
+- **Không bao giờ sửa `data/test/`.** Một hook sẽ chặn bạn; manifest sha256 là lớp hai.
+
+## Đã có sẵn — dùng, đừng viết lại
+
+- `src/smart_medic/scoring.py`   scorer 3 cách đọc metric + chẩn đoán, 8 self-test
+- `tests/test_offsets.py`        validator offset/schema + manifest bất biến của tập test
+- `.claude/settings.json`        2 hook: chặn data/test, chạy validator sau mỗi sửa src/
+- `.claude/commands/score.md`    lệnh `/score`
+- `.claude/agents/`              3 subagent: span-eval, kb-linker, probe-builder — DÙNG CHÚNG
+- `data/output/`                 100 file dự đoán baseline, offset đã sạch 100/100
+- `docs/reports/measure_data.py` tái lập mọi số liệu
+
+Chạy `python -m pytest tests/ -q` ngay để thấy trạng thái hiện tại.
+Nó sẽ FAIL ở `test_silver_offsets` với 165 vi phạm — đó là một lỗi thật trong dữ
+liệu bạc (entity xét nghiệm đang mang assertions, mà đề bài cấm), không phải test hỏng.
+
+## Ba quyết định đã chốt — đọc ADR, ĐỪNG mở lại
+
+Q1  **`tty` mã thuốc = `SCD`.**  `docs/decisions/0001-drug-tty.md`
+    4/4 ví dụ gold trong PRD đều là SCD (308135 = "amlodipine 10 MG Oral Tablet").
+    Tuyên bố `IN` trong README dựa trên "20 dev-gold files" KHÔNG tồn tại trong repo.
+    Hệ quả: không gian 37.980 RxCUI · cascade RXNREL ĐI LÊN tới SCD (không rút về hoạt
+    chất) · hàm lượng KHÔNG cần khớp tuyệt đối (`1.5 mg` → gold `1 MG`) · phải mở rộng
+    viết tắt dạng bào chế (`xl` → `24 HR ... Extended Release`).
+
+Q2  **`c_i` là hộp đen — BTC không công bố.**  `docs/decisions/0002-metric-reading.md`
+    Không cần hỏi: giữ hai số hạng cố định, đổi một số hạng ⇒ đọc thẳng đóng góp khỏi
+    delta leaderboard. Scorer phải VĨNH VIỄN báo cả ba cách đọc.
+    Hệ quả: **P6.1 (ba probe) nâng lên làm sớm, không phải việc cuối.**
+
+Q3  **Dữ liệu bạc GPT-4o HỢP LỆ.**  `docs/decisions/0003-closed-api-for-data-generation.md`
+    Ranh giới là **build-time vs runtime**: API đóng được dùng để SINH DỮ LIỆU;
+    pipeline SUY LUẬN vẫn phải ≤9B self-host, không một lời gọi API nào.
+    ⚠ Rủi ro chính giờ là **rò rỉ API vào runtime** — đừng bao giờ thêm lời gọi API
+    vào `src/smart_medic/pipeline.py` hay bất cứ thứ gì nó import.
+
+## Việc đầu tiên của bạn
+
+Theo thứ tự, không đảo:
+
+1. Đọc 4 tài liệu ở trên, chạy `pytest tests/ -q` và `measure_data.py`.
+2. Báo cáo lại cho tôi: bạn hiểu gì về ngân sách điểm, và ba câu hỏi chặn đường
+   đang ở trạng thái nào. **Dừng ở đây, chờ tôi xác nhận.**
+3. Sau khi tôi xác nhận: P0.1 (lớp I/O bảo toàn offset) + P0.5 (khởi động gán gold
+   dev set, dùng `data/output/` làm tiền chú thích). Hai việc này song song được.
+
+## Cách làm việc tôi mong đợi
+
+- **Đo, đừng đoán.** Mọi khẳng định về số phải chạy ra được. Đừng bao giờ ước lượng điểm.
+- **`penalised / greedy_iou` là số chính thức.** Cách đọc `matched` suy biến: xoá 30% dự
+  đoán của chính mình làm nó đứng yên ở 68.78 trong khi `penalised` rơi xuống 48.01.
+  Cải thiện `matched` mà không cải thiện `penalised` = lách metric, hãy nói thẳng ra.
+- **Sàn nhiễu 0.010.** Dưới mức đó đừng gọi là cải tiến.
+- **Mọi module agent sinh ra phải kèm test chạy trên dữ liệu THẬT của repo**, không phải
+  fixture tự nghĩ. Code chạy đẹp trên ví dụ bịa rồi vỡ ở `19.txt` là kịch bản mặc định.
+- **Một agent một module.** Ranh giới sở hữu file theo cấu trúc ở tab 01 của plan.
+- **Không magic number trong code.** Ngưỡng nằm ở `configs/pipeline.yaml`.
+- **Luật là YAML, không phải Python** (`resources/cues_vi.yaml` v.v.) — chúng sẽ được chỉnh
+  hàng chục lần và cần review được bởi người không đọc code.
+- Khi một quyết định không đảo được, ghi ADR vào `docs/decisions/`.
+
+## Những thứ ĐỪNG làm — đã cân nhắc và loại, xem tab 04 của plan
+
+- Đừng dùng LLM sinh làm bộ trích xuất span chính (encoder 209M thắng nó, và cho offset chính xác).
+- Đừng xây chỉ mục ANN cho ICD — 14.678 chuỗi là ma trận phẳng 45 MB, recall 100%, nhanh hơn.
+- Đừng dùng RRF; dùng CombMNZ rồi LambdaMART (RRF vứt bỏ độ lớn điểm).
+- Đừng huấn luyện nhúng hyperbolic/GNN cho một số hạng chỉ đáng 9 điểm.
+- Đừng ép nhất quán assertions theo tài liệu (3.98% xung đột) — chỉ ép type và mã (0.31%/0.23%).
+- Đừng chuẩn hoá Unicode trước khi tính offset. Đây là lỗi tốn kém nhất bạn có thể mắc.
+
+Bắt đầu bằng bước 1 và 2. Đừng viết code trước khi báo cáo cho tôi.</pre>
+  </div>
+
+  <div class="note acc">
+    <span class="lab">Header chung — mọi prompt phase dưới đây đều mở đầu bằng khối này</span>
+    Nó lặp lại có chủ đích: agent mới không có bối cảnh, và bốn ràng buộc này là thứ vi phạm
+    <b>âm thầm</b> chứ không báo lỗi.
+  </div>
+
+  <!-- ② SCAFFOLD -->
+  <div class="shead"><span class="num">②</span><h2>Scaffold — ~30 phút, làm trước P0</h2></div>
+  <div class="card copybox">
+    <button class="copybtn">copy</button>
+<pre>Dự án smart-medic (Viettel AI Race 2026, Vòng 1). Đọc `docs/reports/plan.html` tab 01
+để biết cấu trúc đích, tab 00 để biết ngân sách điểm.
+
+## Việc: dựng khung thư mục, KHÔNG di chuyển code đang chạy
+
+Repo hiện chỉ có 2 file Python thật: `scripts/gen_sample_data.py` (2014 dòng, ĐANG CHẠY
+sinh dữ liệu — TUYỆT ĐỐI không đụng) và `src/smart_medic/scoring.py` (đã đúng chỗ).
+Mọi thứ khác là greenfield. Đây là dựng khung, không phải tái cấu trúc.
+
+## Tạo
+
+1. Thư mục rỗng kèm `__init__.py` hoặc `.gitkeep`:
+   src/smart_medic/{io,layout,extract,assertion,linking,decision}/
+   configs/  resources/  runs/  data/{gold/{tune,lock,heldout},artifacts}/
+   docs/{decisions,guidelines}/
+
+2. `configs/models.yaml` — mỗi model một entry: `hf_id`, `revision` (SHA, không phải tag),
+   `params` (số nguyên), `license`, `role`. Kèm `budget: {max_total_params: 9_000_000_000}`.
+
+3. `src/smart_medic/config.py` — nạp YAML và **assert tổng `params` dưới 9e9 lúc khởi động**,
+   ném lỗi rõ ràng nếu vượt. Ràng buộc quy chế phải là lỗi build, không phải thứ phải nhớ.
+
+4. `configs/pipeline.yaml` — mọi ngưỡng, khởi tạo bằng giá trị mặc định có chú thích nguồn.
+   `configs/metric.yaml` — alignment/aggregation/cand_formula, mặc định greedy_iou/penalised/official.
+
+5. `resources/` — file YAML rỗng có schema + comment: `cues_vi.yaml`, `sections_vi.yaml`,
+   `lay_terms_vi.yaml`, `lab_patterns.yaml`. Chỉ khung, chưa cần nội dung.
+
+6. `docs/decisions/0000-template.md` — ADR template: Bối cảnh / Phương án / Bằng chứng /
+   Quyết định / Hệ quả. Cộng hai stub `0001-drug-tty.md`, `0002-metric-reading.md` với
+   trạng thái "CHƯA QUYẾT".
+
+7. **`pyproject.toml` thay `requirements.txt`** — ghim CHẶT mọi phiên bản kèm hash.
+   Đây là hạng mục gấp: `requirements.txt` hiện chỉ có comment, mà tái lập được là
+   điều kiện không bị loại ở vòng chấm source code.
+
+8. `Makefile`: `setup` `index` `run` `score` `submit` `test`. Mỗi target một dòng gọi.
+
+## KHÔNG làm
+
+- Không di chuyển `scripts/gen_sample_data.py`. Nó đang chạy. Ghi vào
+  `docs/decisions/` như một mục nợ kỹ thuật để dọn SAU Vòng 1.
+- Không viết logic nào. Đây là khung rỗng — mục đích là để ba agent song song không
+  tự nghĩ ra ba bố cục khác nhau.
+- Không đụng `data/test/` (có hook chặn) và `.claude/` (đã cấu hình xong).
+
+## Nghiệm thu
+
+`python -c "import smart_medic.config as c; c.load()"` chạy được và in tổng tham số.
+`make test` chạy được. `git status` chỉ có file mới, không có file bị move.
+
+Xong thì liệt kê cây thư mục đã tạo và dừng.</pre>
+  </div>
+
+  <!-- P0 -->
+  <div class="shead"><span class="num">P0</span><h2>Nền móng — chặn mọi thứ khác</h2></div>
+  <div class="card copybox">
+    <button class="copybtn">copy</button>
+<pre>Dự án smart-medic (Viettel AI Race 2026, Vòng 1). Bạn làm **Phase 0**.
+Đọc: `docs/reports/plan.html` (tab 03 → P0) · `docs/reports/research-directions.html` (tab 09).
+
+RÀNG BUỘC CỨNG — vi phạm âm thầm, không báo lỗi:
+· ≤9B tham số TỔNG, self-host, KHÔNG API closed-source
+· `position` index vào byte GỐC chưa chuẩn hoá — 20/100 file test không ở dạng NFC,
+  chuẩn hoá trước khi tính offset làm lệch tới 143 ký tự
+· Không sửa `data/test/` (có hook chặn)
+· `penalised / greedy_iou` là số chính thức, không phải `matched`
+
+## P0.1 — Lớp I/O bảo toàn offset  (ưu tiên 1)
+
+Viết `src/smart_medic/io/document.py`:
+
+    @dataclass(frozen=True)
+    class Document:
+        doc_id: str
+        raw: str                    # BẤT BIẾN, đọc bằng newline="" để CRLF không bị viết lại
+        def slice(s, e) -.. str     # raw[s:e] — span cuối cùng LUÔN lấy từ đây
+        @cached_property normalized # NFC + gộp khoảng trắng, CHỈ để so khớp
+        @cached_property char_map   # norm_idx -.. raw_idx
+        def to_raw(norm_idx) -.. int
+
+Nghiệm thu: property test round-trip trên cả 100 file test và 543 file bạc —
+với mọi span, `doc.slice(s,e) == text`. Thêm test cho file CRLF và file không-NFC.
+
+## P0.4 — Ba quyết định ĐÃ CHỐT, đọc ADR trong `docs/decisions/`
+
+Q1 `tty` mã thuốc = **SCD** (0001). Q2 `c_i` = hộp đen, giải bằng probe (0002).
+Q3 Dữ liệu bạc GPT-4o **hợp lệ** (0003) — nhưng chỉ ở build-time.
+**Đừng mở lại các quyết định này.** Việc còn lại của bạn ở đây là:
+
+P0.4d — **chặn rò rỉ API vào runtime.** Viết test khẳng định `src/smart_medic/pipeline.py`
+và toàn bộ cây import của nó KHÔNG phụ thuộc `openai` / `anthropic` / HTTP client nào.
+Mọi lời gọi API sống trong `scripts/`. Đây giờ là rủi ro bị loại lớn nhất còn lại.
+
+## P0.5 — Gold dev set  (NÚT THẮT — khởi động SỚM, chạy song song với P0.1)
+
+150–200 file, phân tầng theo thể loại (45/17/15/14/9), **ép hạn ngạch ≥20% file không-NFC
+và ≥30% file có `*****`** — nếu không, dev set bỏ sót đúng hai rủi ro lớn nhất.
+Dùng `data/output/` hiện có làm TIỀN CHÚ THÍCH (sửa nhanh gấp đôi tạo mới).
+Chia 100 tune / 60 lock / 40 held-out, seed cố định, ghi `data/gold/manifest.json`.
+
+Viết `scripts/annotate_prefill.py` sinh file nháp cho người gán.
+Nghiệm thu: pairwise F1 giữa 2 người strict ≥0.75 · relaxed ≥0.90 trên lô thử
+**trước khi** gán sản xuất. Chưa đạt thì sửa hướng dẫn rồi thử lại.
+
+## P0.6 — `docs/guidelines/annotation.md`
+
+Nuôi CẢ người gán lẫn prompt-LF. Năm quyết định bắt buộc viết ra:
+chính sách ranh giới · entity lồng nhau · mention lặp · phạm vi assertion ·
+**thuốc bị che `*****` có phải entity không, và candidates của nó là gì**.
+
+## Cái bẫy của phase này
+
+Ai cũng muốn nhảy vào model. Nhưng không có P0.1 thì mọi offset có thể sai âm thầm,
+và không có P0.5 thì mọi phép đo về sau vô nghĩa. **Đừng để P0.5 chậm.**
+
+Xong P0.1 thì báo cáo kết quả test round-trip và dừng.</pre>
+  </div>
+
+  <!-- P1 -->
+  <div class="shead"><span class="num">P1</span><h2>Dữ liệu</h2></div>
+  <div class="card copybox">
+    <button class="copybtn">copy</button>
+<pre>Dự án smart-medic (Viettel AI Race 2026, Vòng 1). Bạn làm **Phase 1 — Dữ liệu**.
+Đọc: `docs/reports/plan.html` (tab 03 → P1) · `research-directions.html` (tab 07 Giám sát yếu).
+
+RÀNG BUỘC CỨNG: ≤9B tổng, self-host, KHÔNG API closed-source · offset trên byte gốc ·
+không sửa `data/test/` · `penalised/greedy_iou` là số chính.
+
+## P1.1 — Sửa 165 vi phạm schema  (làm trước tiên)
+
+`pytest tests/test_offsets.py -q` đang FAIL: 165 entity `TÊN_XÉT_NGHIỆM` /
+`KẾT_QUẢ_XÉT_NGHIỆM` mang assertions, mà đề bài cấm hai loại này có assertion.
+Phân bố: translated 93 · restyled 53 · synthetic 19.
+**Sửa bộ sinh trong `scripts/gen_sample_data.py`, regenerate — đừng vá file JSON.**
+Nghiệm thu: `pytest tests/ -q` xanh hoàn toàn.
+
+## P1.2–1.3 — Nguồn nhãn hợp lệ
+
+Bốn nguồn, hợp nhất bằng label model ở **mức span** (bỏ phiếu khi IoU ≥ 0.5):
+ a) LF ontology từ ICD-10/RxNorm — **nhiều LF nhỏ, không phải một gazetteer to**.
+    Label model cần bất đồng để ước lượng độ chính xác từng nguồn.
+ b) **Chiếu NER tiếng Anh qua marker 〔 〕** ← ưu tiên cao, chưa ai dùng.
+    (Lý do KHÔNG phải là "tránh LLM" — ADR 0003 cho phép LLM. Lý do là sai số của nó
+     KHÔNG TƯƠNG QUAN với gazetteer lẫn LLM, và đó là tài nguyên khan hiếm nhất
+     trong một label model.)
+    Kho `translated/` có bản mtsamples tiếng Anh căn chỉnh với bản Việt, offset chính xác
+    nhờ marker. Chạy scispaCy `en_ner_bc5cdr_md` / QuickUMLS trên BẢN GỐC TIẾNG ANH rồi
+    chiếu span qua. Sai số KHÔNG tương quan với gazetteer lẫn LLM — tính chất quý nhất
+    một LF có thể có. Miễn phí, offline, hợp lệ quy chế.
+ c) k = 6–10 prompt-LF. **Được dùng model API mạnh ở đây** — ADR 0003 xác nhận khâu
+    sinh dữ liệu là build-time nên hợp lệ. Chéo 3 trục: model / cách prompt / định dạng
+    đầu ra (marker 〔 〕 vs JSON). Mỗi LF PHẢI được bỏ phiếu trắng.
+    ⚠ Chỉ ở `scripts/`. KHÔNG BAO GIỜ trong `src/smart_medic/` đường suy luận.
+ d) FlyingSquid hợp nhất (nghiệm dạng đóng, không SGD, không siêu tham số).
+    Nếu 2 LF cùng model gốc thì sai số tương quan — gộp chúng trước khi hợp nhất.
+
+## P1.4–1.5 — Làm sạch
+
+Confident learning (cleanlab, mức SPAN không phải token) + CrossWeigh với
+**fold tách biệt theo entity** (nếu không, cùng một mention ở hai fold sẽ bị học thuộc).
+**Hạ trọng số, ĐỪNG xoá** — dữ liệu quá ít.
+Âm tính giả là chế độ nhiễu chủ đạo của gazetteer: bắt đầu bằng negative sampling.
+
+## P1.6 — Domain-discriminator AUC
+
+Bộ phân loại nhị phân silver vs 100 file test, trên TF-IDF và embedding.
+Quan trọng không phải con số AUC mà là **top đặc trưng phân biệt** — mỗi cái là một
+bug sinh dữ liệu sửa được (dấu câu quá sạch, không lỗi chính tả, câu đều, không viết tắt,
+không mất dấu). Báo cáo danh sách đó.
+
+## P1.7 — TAPT
+
+Tiếp tục masked-LM trên 100 file test + corpus y khoa tiếng Việt. 0 nhãn, 0 rủi ro nhiễu,
+đánh thẳng vào lệch thể loại. **Làm trước mọi fine-tune khác** để mọi ablation sau chạy
+trên cùng một encoder đã thích nghi.
+
+## Cái bẫy của phase này
+
+`restyled/` được sinh TỪ dữ liệu đã sinh — hai thế hệ tổng hợp. Đuôi phân phối
+(entity hiếm, mã hiếm) biến mất không hồi phục. Neo mọi bước restyle vào **bản mtsamples gốc**,
+không phải đầu ra tổng hợp trước đó. Kiểm coverage entity hiếm của `restyled/` so `translated/`.
+
+Xong P1.1 thì báo cáo và dừng.</pre>
+  </div>
+
+  <!-- P2 -->
+  <div class="shead"><span class="num">P2</span><h2>Trích xuất — 30 điểm, workstream lớn nhất</h2></div>
+  <div class="card copybox">
+    <button class="copybtn">copy</button>
+<pre>Dự án smart-medic (Viettel AI Race 2026, Vòng 1). Bạn làm **Phase 2 — Trích xuất span + type**.
+Đọc: `plan.html` (tab 03 → P2, tab 02 kiến trúc) · `research-directions.html` (tab 05, tab 03).
+
+RÀNG BUỘC CỨNG: ≤9B tổng · offset trên byte GỐC · không sửa `data/test/` ·
+`penalised/greedy_iou` là số chính · sàn nhiễu 0.010.
+
+## Vì sao phase này quan trọng nhất
+
+`text` đáng 30 điểm và KHÔNG bị chặn, trong khi `candidates` bị `+1` ở mẫu số chặn ở 9.16.
+Một dự đoán hoàn hảo chỉ được 69.16/100. Phase này + Phase 3 là 87% số điểm giành được.
+
+## P2.1–2.3 — Layout parser  (regex, KHÔNG model)
+
+Thụt lề trong tập test chỉ có 3 giá trị `{0,4,8}` — dùng ngăn xếp 3 tầng, đừng viết
+parser cây tổng quát. 97/100 file có bullet, 94/100 có dòng `TÊN: giá trị`.
+
+Tách chuỗi KV trong dòng, ba ca thật:
+  `Bili toàn phần: 43 mmol/l; trực tiếp: 27`  → tách theo `;` vô điều kiện
+  `Chol: 4,7 mmol/l, Trigly: 1,9`             → `,` CHỈ tách khi theo sau là tên xét nghiệm,
+                                                 vì `4,7` là dấu phẩy thập phân
+  `HGB (Hemoglobin): 92 g/L PT - INR: 1.05`   → hai cặp cách nhau CHỈ bằng khoảng trắng
+
+**Xuất ra 3 thứ dùng ở khắp nơi**: boundary_priors · section(offset) · unit(offset).
+boundary_priors là thắng lợi rẻ nhất trên WER — nó ngăn VỀ MẶT CẤU TRÚC việc `- ` hay
+`Chẩn đoán: ` lọt vào span.
+
+## P2.4–2.6 — Mô hình span
+
+XLM-R (mức âm tiết, `return_offsets_mapping=True`) + **Efficient GlobalPointer**, chặn
+bề rộng span W=30. KHÔNG dùng model `-word` — tách từ phá offset.
+
+Hai bổ sung nhỏ, bắt buộc, ~10 dòng mỗi cái:
+· **boundary smoothing** ε≈0.1–0.2 rải sang span cách Hamming ≤1
+· **CNN 3×3 trên chính ma trận điểm** để span (i,j) "thấy" (i,j±1), (i±1,j)
+Đây là hai thứ duy nhất trong văn liệu nhắm ĐÚNG chế độ hỏng mà WER phạt.
+
+Giải mã bằng **Filtered Semi-Markov CRF** với đặc trưng MỨC SEGMENT:
+`is_in_ICD_trie` (bạn có sẵn 14.678 tên chuẩn!), `is_in_RxNorm_trie`,
+`matches_dose_regex`, `segment_syllable_count`, `follows_colon`.
+Đặc trưng mức segment là thứ BIO không biểu diễn được.
+
+## P2.7–2.9 — Hậu xử lý
+
+· Tách dòng xét nghiệm bằng LUẬT, không model. Một regex thắng 500 mẫu huấn luyện.
+· Ensemble: hợp span, lấy **TRUNG VỊ CÓ TRỌNG SỐ của ranh giới, KHÔNG lấy trung bình**.
+  Chi phí WER tuyến tính (L1) nên ước lượng tối ưu là trung vị. Đây là lỗi dễ mắc.
+· Hài hoà `type` theo tài liệu: chỉ 0.31% xung đột đo được ⇒ gần như miễn phí.
+  Và `type` sai bị PHẠT KÉP (vừa thừa vừa thiếu) trên cả 3 số hạng.
+
+## P2.10 — Ngưỡng phát span, suy từ WER chứ không phải F1
+
+Phát span ⟺ `ē_sai .. p` với ē_sai = word-error-rate kỳ vọng khi phát nhầm.
+Vì lỗi NER y khoa chủ yếu là "trượt gần" (đúng vùng, sai mép), ē_sai ≈ 0.4–0.6
+và ngưỡng tối ưu rơi vào ~0.35–0.45, KHÔNG phải 0.5.
+**Đo ē_sai trên dev rồi suy ra ngưỡng.** Đội chỉnh theo F1 sẽ để lại 1–3 điểm.
+
+## Nghiệm thu
+
+Gọi subagent `span-eval` chấm. Báo `penalised/greedy_iou` và histogram lỗi biên.
+Một mode lệch có hệ thống (vd `+2 right-extended`) là một dòng hậu xử lý — tìm nó.
+
+Xong P2.1–2.3 thì báo cáo và dừng.</pre>
+  </div>
+
+  <!-- P3 -->
+  <div class="shead"><span class="num">P3</span><h2>Assertions — 30 điểm, precision-first</h2></div>
+  <div class="card copybox">
+    <button class="copybtn">copy</button>
+<pre>Dự án smart-medic (Viettel AI Race 2026, Vòng 1). Bạn làm **Phase 3 — Assertions**.
+Đọc: `plan.html` (tab 03 → P3) · `research-directions.html` (tab 04 Neuro-symbolic).
+
+RÀNG BUỘC CỨNG: ≤9B tổng · offset trên byte gốc · không sửa `data/test/` ·
+`penalised/greedy_iou` là số chính.
+
+## Cấu trúc mất mát — đọc kỹ, nó quyết định mọi thiết kế
+
+Jaccard trên tập assertion, quy ước J(∅,∅)=1 và J(∅, khác rỗng)=0.
+· gold ∅, đoán ∅        → 1.0   ← 78.6% số entity rơi vào đây
+· gold ∅, đoán {N}      → 0.0   ← MẤT TRỌN ĐIỂM. Đây là rủi ro chính.
+· gold {N}, đoán {N,H}  → 0.5   ← chỉ mất NỬA điểm
+Cái giá của một cờ thừa PHỤ THUỘC vào những cờ khác đã bật ⇒ ngưỡng tối ưu
+không phải 0.5 và không phải hằng số. Đây là bài toán **precision-first**.
+
+## P3.1 — Ràng buộc lược đồ  (miễn phí, làm ngay)
+
+Ép `assertions=[]` cho `TÊN_XÉT_NGHIỆM`/`KẾT_QUẢ_XÉT_NGHIỆM` và `candidates=[]` cho
+ba loại không mã — **lúc tuần tự hoá**, không bao giờ tin model tự nhớ.
+Cho J=1.0 miễn phí trên ~1/3 số entity.
+
+## P3.2–3.4 — Ba phủ quyết  (rủi ro dương tính giả lớn nhất của cả hệ)
+
+a) **NGỮ CẢNH GIẢ ĐỊNH** — cue (`có thể`, `nếu`, `khi`, `nghi ngờ`, `khả năng`,
+   `biểu hiện như`, `thường gặp`, `bao gồm`) xuất hiện ở **75/100 file** — nhiều hơn
+   cả tiền sử lẫn người nhà — **VÀ NÓ KHÔNG PHẢI MỘT TRONG BA NHÃN**.
+   "bệnh có thể khởi phát với: sốt cao, vàng da" → assertions phải RỖNG.
+   Mẫu liệt kê sau dấu hai chấm: mọi thành viên thừa hưởng trạng thái của đầu danh sách.
+
+b) **CƠ CHẾ DI TRUYỀN** — "nhận gen lặn bất thường từ bố và/hoặc mẹ" mô tả cơ chế
+   di truyền, KHÔNG phải người thân đang mắc bệnh. Phân biệt là vai nghĩa:
+   "từ bố mẹ" là vai NGUỒN, không phải NGƯỜI TRẢI NGHIỆM.
+   Cách tiếp cận từ khoá thuần (`bố`/`mẹ` ⇒ isFamily) **sai 100%** ở đây.
+   27/100 file có từ chỉ người nhà, phần lớn thuộc dạng này.
+
+c) **CỔNG THỂ LOẠI** — gán theo ĐƠN VỊ LAYOUT, không theo tài liệu.
+   `data/test/42.txt` chạy dàn ý lâm sàng → chèn câu hỏi forum giữa danh sách bullet
+   → quay lại bullet. Phân loại thể loại ở mức tài liệu đơn giản là SAI ở đây.
+
+## P3.5–3.6 — Phạm vi, chính sách RIÊNG cho từng cờ
+
+⚠ Kết quả ablation đã đo, đi ngược trực giác:
+   phạm vi theo cấu trúc **GIÚP** isNegated (+0.07 F1) nhưng **HẠI** isHistorical (−0.08 F1).
+   Phủ định là hiện tượng cục bộ trong mệnh đề; tính tiền sử do trigger ngay cạnh mention.
+   **ĐỪNG áp một chính sách phạm vi chung cho cả ba cờ.**
+
+Bẫy tiếng Việt: mục `Tiền sử bệnh HIỆN TẠI` chứa đúng chữ "tiền sử" nhưng chỉ tình trạng
+hiện tại. 60/100 file có mốc "tiền sử"; tiêu đề mục là CHUỖI CỐ ĐỊNH, không cần model.
+
+Phạm vi phủ định: cổng phụ thuộc cú pháp · lan truyền qua liệt kê song song
+("không sốt, ho, khó thở" dạng tỉnh lược) · phạm vi rộng qua dấu hai chấm ·
+bullet cha phủ định trùm bullet con (96/100 file là danh sách!).
+
+## P3.7–3.8 — Giải mã
+
+**Softmax 8 chiều trên các tập con**, KHÔNG phải 3 sigmoid độc lập — 3 sigmoid không
+biểu diễn được mẫu {isNegated, isHistorical} đồng thời (0.9% dữ liệu).
+Rồi giải mã theo **kỳ vọng Jaccard**: duyệt 8 tập con, chọn argmax của
+Σ P(G)·J(G,P). 64 phép tính mỗi entity — đây là MPE chính xác.
+KHÔNG cần DeepProbLog hay bất kỳ framework neuro-symbolic nào; ở |Y|=8 toàn bộ bộ máy đó
+thu về một vòng `for`. **Lấy ý tưởng, không lấy framework.**
+
+Luật viết trong `resources/cues_vi.yaml`, KHÔNG hard-code trong Python — chúng sẽ được
+chỉnh hàng chục lần và cần review được bởi người không đọc code.
+
+## Nghiệm thu
+
+Per-label P/R/F1 trên cặp đã khớp + ma trận nhầm lẫn. Nếu `fp .. fn` thì luật đang
+bắn ở ngữ cảnh giả định — siết phủ quyết, đừng chỉnh model.
+Xây contrast set (~80 cặp sửa tối thiểu để LẬT nhãn) — cách duy nhất kiểm được
+isFamily ở tần suất 0.9%.
+
+Xong P3.1 + P3.2 thì báo cáo và dừng.</pre>
+  </div>
+
+  <!-- P4 -->
+  <div class="shead"><span class="num">P4</span><h2>Candidates — 9,16 điểm, làm sau cùng</h2></div>
+  <div class="card copybox">
+    <button class="copybtn">copy</button>
+<pre>Dự án smart-medic (Viettel AI Race 2026, Vòng 1). Bạn làm **Phase 4 — Chuẩn hoá mã**.
+Đọc: `plan.html` (tab 03 → P4) · `research-directions.html` (tab 02, tab 06).
+Gọi subagent `kb-linker` — nó đã nạp sẵn toàn bộ số liệu KB.
+
+RÀNG BUỘC CỨNG: ≤9B tổng · offset trên byte gốc · không sửa `data/test/`.
+
+## Đọc trước: phase này chỉ đáng 9,16 điểm
+
+Mẫu số công thức candidates chứa `+1` ⇒ dự đoán HOÀN HẢO cũng chỉ đạt 0.229 trên số hạng
+này, tức 9.16/40 điểm. **Đừng rút người từ P2/P3 sang đây.** Làm cho tốt trong ngân sách
+của nó, không hơn.
+
+## P4.1 — `tty` ĐÃ CHỐT: **SCD**  (đọc `docs/decisions/0001-drug-tty.md`, đừng mở lại)
+
+Đích là `tty=SCD`, `sab=RXNORM` — **37.980 RxCUI**. Ba hệ quả bắt buộc tuân thủ:
+
+1. Cascade RXNREL dùng để **ĐI LÊN tới SCD**, không phải rút về hoạt chất:
+   `SBD → SCD` qua `tradename_of` · `GPCK/BPCK → SCD` qua `contains`.
+2. **Hàm lượng KHÔNG cần khớp tuyệt đối.** Văn bản `clonazepam 1.5 mg` → gold
+   `clonazepam 1 MG Oral Tablet`. Gold ánh xạ về SCD *gần nhất*. Đừng đòi khớp chính xác
+   rồi trả rỗng — đó là cách mất điểm phổ biến nhất ở nhánh này.
+3. **Phải mở rộng viết tắt dạng bào chế:** `xl` → `24 HR ... Extended Release`,
+   `po` → `Oral`. Bảng viết tay, bổ trợ bằng dòng `tty=AB` (28.833) và `TMSY` (22.529).
+   Cần **chính sách mặc định** khi văn bản không nêu dạng bào chế — đề xuất `Oral Tablet`,
+   ghi lại và đo.
+
+Lưu ý: 360047 (Chlorpheniramine trong ví dụ PRD) KHÔNG tồn tại trong bản RxNorm hiện tại —
+chỉ có trong `RXNATOMARCHIVE.RRF`. Không nạp archive thì vĩnh viễn không sinh được mã
+gold cho nhóm này.
+
+## P4.2–4.3 — Cascade + sàn recall
+
+Kiểm chứng đích bằng `RXNSTY`.
+**LỌC BỎ 1.673.734 cạnh `inactive_ingredient` TRƯỚC** — lớn gấp 4.7× quan hệ kế tiếp
+và không mang tín hiệu; mọi phương pháp đồ thị nạp RXNREL ngây thơ sẽ bị nó nhấn chìm.
+
+Aho–Corasick trên 42k tên hoạt chất/biệt dược + 14.7k tên ICD → sàn recall O(n+z),
+độc lập model NER, không bao giờ tụt.
+
+## P4.4–4.6 — Truy hồi
+
+· **Thuốc: TF-IDF char-ngram TRƯỚC**, dense chỉ cho phần dư. Đo được TF-IDF thuần
+  thắng dense 1.4 điểm ở chuẩn hoá thuốc — tên thuốc là chuỗi hình thái đều đặn.
+  Mở rộng viết tắt bằng chính dòng `tty=AB` (28.833) và `TMSY` (22.529) trong CSV.
+· **ICD: dense PHẲNG VÉT CẠN, ĐỪNG xây ANN.** 14.678 × 768 × 4B = 45 MB, một phép GEMM,
+  dưới 1 ms, recall 100%, không siêu tham số. HNSW ở đây là công sức đổi lấy lợi ích ÂM.
+· Gazetteer ICD làm giàu: tên Việt + tách ngoặc + bỏ dấu + **5.460 nhãn tiếng Anh join
+  theo mã** (`icd10cm-codes-2027.txt`, 41.4% mã có) + nhãn khối `Nhóm bệnh`.
+
+## P4.7–4.9 — Nâng cao (chỉ khi 4.1–4.6 đã đo được)
+
+· SapBERT self-alignment trên chính bảng ICD tiếng Việt: ~50k cặp positive miễn phí
+  (12k mã có .. 1 tên), **hard-negative = mã anh em cùng mục 3 ký tự** (K21.0 ↔ K21.9),
+  negative vừa = cùng `Nhóm bệnh` (302 rổ).
+· doc2query: sinh 3–5 cách nói dân dã cho mỗi mã, OFFLINE một lần, validate bằng
+  round-trip retrieval. Chi phí trả lúc index; truy vấn vẫn BM25 thuần.
+· Rerank: cross-encoder + thẻ biên `[Ms]/[Me]` → **CombMNZ** (dùng độ lớn điểm, khác RRF
+  vốn vứt bỏ nó) → **LambdaMART** (`LGBMRanker(objective="lambdarank")`, ~20 đặc trưng,
+  vài giây train, micro-giây chấm, xác định). Tốt hơn LLM rerank ở mọi mặt tại đây.
+
+## P4.10 — Thuốc bị che `*****`  (30/100 file, 99 chuỗi)
+
+Việc che **bảo toàn độ dài ký tự NFC** — 6 xác nhận độc lập:
+  `*******`(7)=aspirin · `**********`(10)=phenacetin · `***********`(11)=chloroquine
+  `*********************`(21)="Globulin miễn dịch IV" · `****`(4)=IVIG
+Lọc theo độ dài NFC thu hẹp 29.604 tên hoạt chất → ~895 ứng viên (**33×**).
+Rồi: đồng tham chiếu nội tài liệu (cùng thuốc lộ tên ở câu khác) → nhóm dược lý từ ngữ
+cảnh trái → nhất quán chỉ định với chẩn đoán của tài liệu.
+**Kiểm giả thuyết độ dài trên gold trước khi biến thành lọc CỨNG.** ≥95% thì cứng;
+70–95% thì hạ xuống làm đặc trưng chấm điểm có trọng số cao.
+Không suy được → **trả rỗng**, đừng đoán bừa (Jaccard phạt mã sai bằng mã thiếu).
+
+Xong P4.1b (bảng mở rộng viết tắt + chính sách dạng bào chế mặc định) thì báo cáo và dừng.</pre>
+  </div>
+
+  <!-- P5 -->
+  <div class="shead"><span class="num">P5</span><h2>Lớp quyết định — rẻ nhất, cộng dồn với mọi thứ</h2></div>
+  <div class="card copybox">
+    <button class="copybtn">copy</button>
+<pre>Dự án smart-medic (Viettel AI Race 2026, Vòng 1). Bạn làm **Phase 5 — Lớp quyết định**.
+Đọc: `plan.html` (tab 03 → P5) · `research-directions.html` (tab 01 Quyết định theo metric).
+
+RÀNG BUỘC CỨNG: ≤9B tổng · offset trên byte gốc · `penalised/greedy_iou` là số chính.
+
+## Vì sao phase này đáng làm sớm hơn vị trí của nó
+
+~300 dòng Python, không huấn luyện gì, chạy trên CPU, và **cộng dồn với MỌI cải tiến
+model khác**. Đây là tỷ lệ điểm-trên-ngày-công cao nhất trong cả kế hoạch.
+
+## Nguyên tắc kiến trúc
+
+Các stage phía trên (extract/assertion/linking) trả về **phân phối**, không phải quyết định.
+**Chỉ `decision/` mới được áp ngưỡng.** Nhờ vậy cùng một đoạn code phục vụ cả assertions
+lẫn candidates, và bạn chỉnh điểm vận hành mà không đụng model nào.
+
+## P5.1 — Hiệu chỉnh
+
+Platt scaling (2 tham số) trên đặc trưng [điểm top1, **gap top1−top2**, entropy top-k,
+loại entity]. Đừng dùng isotonic dưới ~300 mẫu — nó sẽ overfit.
+Nghiệm thu: ECE + reliability diagram, và **đo riêng ở dải 0.3–0.6** vì mọi ngưỡng
+quyết định nằm ở đó, không phải ở hai đầu.
+
+## P5.2 — Chọn tập mã theo kỳ vọng Jaccard
+
+Quy tắc dạng đóng, đã kiểm chứng bằng vét cạn (0/2000 sai lệch):
+    nộp mã thứ hai ⟺ p_d/(1−p_d) .. p₁ − p₂
+với p_d = P(gold có 2 mã). Đo được p_d ≈ 1.73% ⇒ ngưỡng gap = **0.018**, tức
+**gần như không bao giờ trả 2 mã**. Chính sách: **đúng 1 mã, hoặc 0**.
+(Điều này NGƯỢC với khuyến nghị "trả 1–2 mã" trong PRD — dựa trên đo đạc, không phải trực giác.)
+
+Lưu ý mô hình xác suất: giả định độc lập có điều kiện (chuẩn trong văn liệu) ngầm cho rằng
+42% mention có 2 mã, trong khi đo được 1.7%. **Dùng mô hình có điều kiện theo cỡ tập**:
+ước lượng trực tiếp q_m = P(|G| = m) cho m = 0,1,2,3, TÁCH THEO LOẠI. Bốn con số này là
+thứ giá trị nhất mà gold dev set mua được.
+
+## P5.3 — Ngưỡng bỏ trống
+
+Định lý trội của im lặng, đúng với MỌI phân phối (không cần giả định độc lập):
+    E[J(S)] ≤ 1 − q₀ với mọi S khác rỗng,  trong khi  E[J(∅)] = q₀
+    ⟹ nếu q₀ = P(gold rỗng) ≥ ½ thì **nộp rỗng là tối ưu, bất kể xác suất các mã**.
+Đo được q₀ = 0.209 tổng thể, **0.272 cho CHẨN_ĐOÁN**, 0.117 cho THUỐC.
+⟹ mention chẩn đoán mà retriever chỉ đạt p₁ .. 0.27 thì **nộp rỗng có lợi hơn**.
+Áp thẳng cho ca thuốc bị che không suy được tên.
+
+Hệ quả kiến trúc: mô hình đáng đầu tư nhất ở nhánh candidates là một **bộ phân loại nhị
+phân "khái niệm này có mã hay không"**, và ngưỡng tối ưu của nó là ĐÚNG 0.5.
+
+Nghiệm thu: quét ngưỡng, vẽ đường cong E[J], tìm **cực trị thực nghiệm**. Nếu cực trị
+lệch xa điểm lý thuyết thì đó là phép đo trực tiếp của mức hiệu chỉnh kém — quay lại P5.1.
+
+## P5.4 — Consensus cho span
+
+Confusion network: gộp N mẫu ở mức **TỪ** (không phải mức span), giữ token có hậu nghiệm
+.. 0.5. Sinh ra được đầu ra KHÔNG có trong bất kỳ mẫu nào — mạnh hơn MBR chọn-từ-bể.
+Với trường `text` chấm bằng WER, ngưỡng đúng là **0.5 phẳng**, không coupling —
+vì mẫu số WER là độ dài gold, không phụ thuộc dự đoán. Đừng dùng lại ngưỡng của
+candidates/assertions ở đây; chúng là Jaccard và ngưỡng thấp hơn.
+
+Xong P5.1 + P5.2 thì báo cáo delta trên dev và dừng.</pre>
+  </div>
+
+  <!-- P6 -->
+  <div class="shead"><span class="num">P6</span><h2>Đo lường &amp; nộp bài</h2></div>
+  <div class="card copybox">
+    <button class="copybtn">copy</button>
+<pre>Dự án smart-medic (Viettel AI Race 2026, Vòng 1). Bạn làm **Phase 6 — Đo lường & nộp bài**.
+Đọc: `plan.html` (tab 03 → P6) · `research-directions.html` (tab 09 Benchmark).
+Gọi subagent `probe-builder` để dựng biến thể, `span-eval` để chấm.
+
+RÀNG BUỘC CỨNG: ≤9B tổng · offset trên byte gốc · không sửa `data/test/` ·
+**5 lần nộp/ngày — mỗi lần nộp là quyết định của CON NGƯỜI, không tự động hoá.**
+
+## P6.1 — Ba probe  ⚠ ĐÃ NÂNG LÊN ƯU TIÊN CAO (ADR 0002)
+
+`c_i` ở mẫu số là **hộp đen — BTC không công bố**. Probe là công cụ DUY NHẤT giải được nó,
+nên đừng đợi hệ hoàn chỉnh mới làm.
+
+Không có gold labels nhưng có ~30 phép đo trực tiếp trên hàm chấm thật. Vì
+final = 0.3·T + 0.3·A + 0.4·C, giữ hai số hạng cố định và đổi một số hạng đọc thẳng
+ra đóng góp của nó:
+  A  span + type, `assertions=[]` và `candidates=[]` toàn bộ  → text_score + sàn thật
+  B  A + mã SCD cho THUỐC (khớp chuỗi chính xác, tin cậy cao) → 0.4·ΔC, xác nhận ADR 0001
+     và giải hộp đen `c_i`
+  C  A + assertions từ luật                                    → 0.3·ΔA
+3/30 lần nộp, xong trong một ngày, và nó chốt câu hỏi "`c_i` đếm entity nào" mà
+không đọc được từ đề bài.
+
+## P6.2–6.3 — Đo cho đúng
+
+Báo cáo **cả ba cách đọc** (matched / penalised / docbag) trên mọi lần chạy:
+· `penalised` là số chính
+· cải thiện `matched` mà không cải thiện `penalised` = **lách metric**, nói thẳng ra
+  (đã tái hiện: xoá 30% dự đoán làm matched đứng yên 68.78, penalised rơi 48.01)
+· cải thiện `penalised` mà hại `docbag` = đang sinh thừa
+
+Lát cắt BẮT BUỘC: thể loại × loại entity × NFC/không × có `*****`/không × tercile độ dài.
+Trung bình che mất một thể loại đang 0.4 điểm.
+
+Paired bootstrap B=10.000 + khoảng tin cậy + hiệu chỉnh FDR khi báo nhiều lát.
+**Sàn hiệu ứng 0.010** — dưới đó đừng gọi là cải tiến, kể cả khi p .. 0.05.
+
+## P6.4 — Bộ bất biến (CheckList INV)
+
+NFC/NFD round-trip — **dung sai 0, phải đúng 1.000** · bẻ dòng 40/60/80 cột ·
+CRLF↔LF · viết tắt (`HA`↔`huyết áp`) · dân dã↔chuyên môn · bỏ dấu ·
+**contrast set lật assertion** (~80 cặp sửa tối thiểu) — cách duy nhất kiểm được
+isFamily ở tần suất 0.9%.
+Bộ nào dưới 0.95 nhất quán là **bug, không phải khoảng trống mô hình**.
+
+## P6.5 — Silver có dự báo được gold không?
+
+Chấm k ≥ 8 biến thể THẬT SỰ khác nhau trên cả silver và gold. Báo Spearman ρ,
+Kendall τ, và **tỷ lệ đảo hạng** trên C(k,2) cặp. Tính riêng theo loại entity.
+ρ ≥ 0.8 và đảo hạng ≤ 15% ⇒ dùng silver dò thô, gold xác nhận.
+ρ .. 0.6 ⇒ silver đang đo BỘ SINH của bạn, không phải bài toán — ngừng dùng để chọn model.
+⚠ Silver sinh bằng GPT-4o. Nếu chấm một extractor dựa trên GPT-4o trên silver do GPT-4o
+sinh, tương quan bị THỔI PHỒNG bởi thiên lệch chung nguồn. **Phải có ≥1 biến thể không
+phải OpenAI trong k hệ thống.**
+
+## P6.6–6.7 — Đóng gói
+
+`runs/YYYY-MM-DDTHH-MM_<sha>/` bất biến: `manifest.json` (git SHA · config hash ·
+model revision SHA · seed · phiên bản mọi thư viện · GPU) + `output/` + `score.json`.
+Không bao giờ ghi đè.
+
+Zip: đúng 100 file `1.json…100.json`, KHÔNG file phụ trong archive
+(`run_manifest.json`, `metric_*.json` phải bị loại), `ensure_ascii=False`, UTF-8 không BOM,
+thư mục `output/` NẰM TRONG archive. **Liệt kê nội dung archive để chứng minh cấu trúc.**
+
+## P6.8 — Diễn tập vòng chấm source code
+
+Máy sạch (hoặc container mới) → `pip install` từ hash đã ghim → khôi phục weights →
+chạy → **diff với `output.zip` đã nộp**. Đây đúng là việc BTC sẽ làm; làm trước họ.
+Nếu không bit-identical: cố định batch size = 1, ghim revision SHA (không phải tag),
+và đóng gói response cache.
+
+Xong P6.1 (dựng probe A) thì báo cáo và **chờ tôi quyết có nộp hay không**.</pre>
+  </div>
+
+  <div class="shead"><span class="num">§</span><h2>Giao việc cho subagent</h2></div>
+  <div class="card">
+    <p>Ba subagent đã nạp sẵn bối cảnh dự án. Gọi chúng thay vì diễn giải lại từ đầu:</p>
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Agent</th><th>Giao việc gì</th><th>Đã nạp sẵn</th></tr></thead>
+      <tbody>
+        <tr><td><code>span-eval</code><br><span class="pill">read-only</span></td>
+          <td>Chấm một lần chạy, so hai lần chạy, tìm chỗ mất điểm, phân tích lỗi biên/type/assertion</td>
+          <td>Ngân sách điểm 69,16 · quy tắc <code>penalised</code> là số chính · sàn nhiễu 0,010</td></tr>
+        <tr><td><code>kb-linker</code></td>
+          <td>Gazetteer, truy hồi ứng viên, thang bậc RXNREL, giải Q1, mọi thứ chạm <code>data/knowledge_base/</code></td>
+          <td>Toàn bộ số liệu KB đã đo · đếm cạnh RXNREL · mâu thuẫn tty · thứ tự ưu tiên</td></tr>
+        <tr><td><code>probe-builder</code></td>
+          <td>Dựng và kiểm tra một biến thể bài nộp, đóng gói <code>output.zip</code></td>
+          <td>Thiết kế 3 probe · checklist 7 mục trước khi nộp · <b>không bao giờ tự nộp</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note">
+      <span class="lab">Kỷ luật song song</span>
+      Mỗi agent một module theo cấu trúc ở tab 01, hoặc mỗi agent một <b>worktree</b> riêng.
+      Hai agent sửa chung một file là cách nhanh nhất mất nửa ngày.
+      Và <b>đừng tự động hoá việc nộp bài</b> — 5 lần/ngày là tài nguyên khan hiếm,
+      mỗi lần nộp phải là quyết định của con người và phải trả lời một câu hỏi cụ thể.
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Kế hoạch triển khai <b>Smart Medic</b> — Viettel AI Race 2026, Vòng 1.
+    Căn cứ nghiên cứu và toàn bộ số liệu đo đạc: xem
+    <a href="research-directions.html"><b>research-directions.html</b></a> (11 tab, ~90 tài liệu tham khảo đã xác minh).
+    Tái lập số liệu: <code>python docs/reports/measure_data.py</code>.
+  </div>
+</footer>
+
+<button class="toplink" id="top" aria-label="Lên đầu trang">↑</button>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  function show(id,push){
+    tabs.forEach(function(t){t.classList.toggle('active',t.dataset.tab===id)});
+    panels.forEach(function(p){p.classList.toggle('active',p.id==='p-'+id)});
+    if(push) history.replaceState(null,'','#'+id);
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.dataset.tab,true)})});
+  var h=location.hash.replace('#','');
+  if(h&&document.getElementById('p-'+h)) show(h,false);
+
+  var top=document.getElementById('top');
+  addEventListener('scroll',function(){top.classList.toggle('show',scrollY>620)});
+  top.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'})});
+
+  document.addEventListener('keydown',function(e){
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.metaKey||e.ctrlKey||e.altKey) return;
+    var i=tabs.findIndex(function(t){return t.classList.contains('active')});
+    if(e.key==='ArrowRight'&&i<tabs.length-1) show(tabs[i+1].dataset.tab,true);
+    if(e.key==='ArrowLeft'&&i>0) show(tabs[i-1].dataset.tab,true);
+  });
+
+  // ---- persistent checklists ----
+  var KEY='smart-medic-plan-v3';
+  var state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
+  // Items shipped pre-ticked (decisions already made) seed the store on first load,
+  // so paint() doesn't clear them. After that, user state always wins.
+  document.querySelectorAll('.ck input[type=checkbox]').forEach(function(b){
+    if(b.defaultChecked && !(b.dataset.k in state)) state[b.dataset.k]=true;
+  });
+  localStorage.setItem(KEY,JSON.stringify(state));
+  function paint(){
+    document.querySelectorAll('.ck').forEach(function(list){
+      var boxes=list.querySelectorAll('input[type=checkbox]');
+      var done=0;
+      boxes.forEach(function(b){
+        b.checked=!!state[b.dataset.k];
+        b.closest('li').classList.toggle('done',b.checked);
+        if(b.checked) done++;
+      });
+      var bar=list.parentNode.querySelector('.prog i');
+      if(bar) bar.style.width=(boxes.length?100*done/boxes.length:0)+'%';
+      var cnt=list.parentNode.querySelector('.cnt');
+      if(cnt) cnt.textContent=done+'/'+boxes.length;
+    });
+  }
+  document.addEventListener('change',function(e){
+    if(e.target.matches('.ck input[type=checkbox]')){
+      state[e.target.dataset.k]=e.target.checked;
+      localStorage.setItem(KEY,JSON.stringify(state));
+      paint();
+    }
+  });
+  paint();
+
+  // ---- copy buttons ----
+  document.querySelectorAll('.copybtn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var pre=b.parentNode.querySelector('pre');
+      navigator.clipboard.writeText(pre.innerText).then(function(){
+        var old=b.textContent; b.textContent='đã copy ✓';
+        setTimeout(function(){b.textContent=old},1600);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

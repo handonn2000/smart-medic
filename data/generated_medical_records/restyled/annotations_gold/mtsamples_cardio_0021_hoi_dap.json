@@ -1,0 +1,408 @@
+[
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      130,
+      139
+    ]
+  },
+  {
+    "text": "khó thở khi nằm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      169,
+      184
+    ]
+  },
+  {
+    "text": "khó thở kịch phát về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      210,
+      234
+    ]
+  },
+  {
+    "text": "ho ra đờm xanh lè",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      240,
+      257
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      306,
+      313
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      336,
+      344
+    ]
+  },
+  {
+    "text": "rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48"
+    ],
+    "assertions": [],
+    "position": [
+      442,
+      450
+    ]
+  },
+  {
+    "text": "bệnh tim thiếu máu cục bộ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      477,
+      502
+    ]
+  },
+  {
+    "text": "rối loạn chức năng tâm thu thất trái giai đoạn cuối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      506,
+      557
+    ]
+  },
+  {
+    "text": "ICD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z95.0"
+    ],
+    "assertions": [],
+    "position": [
+      566,
+      569
+    ]
+  },
+  {
+    "text": "đường huyết lúc đói",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      598,
+      617
+    ]
+  },
+  {
+    "text": "130",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      633,
+      636
+    ]
+  },
+  {
+    "text": "Ambien",
+    "type": "THUỐC",
+    "candidates": [
+      "39993"
+    ],
+    "assertions": [],
+    "position": [
+      820,
+      826
+    ]
+  },
+  {
+    "text": "Diovan",
+    "type": "THUỐC",
+    "candidates": [
+      "69749"
+    ],
+    "assertions": [],
+    "position": [
+      841,
+      847
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [],
+    "position": [
+      851,
+      856
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      943,
+      951
+    ]
+  },
+  {
+    "text": "120/60",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      972,
+      978
+    ]
+  },
+  {
+    "text": "nhịp thở",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      980,
+      988
+    ]
+  },
+  {
+    "text": "18 lần/phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      989,
+      1000
+    ]
+  },
+  {
+    "text": "nhịp tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1005,
+      1013
+    ]
+  },
+  {
+    "text": "75-85 nhịp/phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1037,
+      1052
+    ]
+  },
+  {
+    "text": "cân nặng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1054,
+      1062
+    ]
+  },
+  {
+    "text": "207 pounds",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1069,
+      1079
+    ]
+  },
+  {
+    "text": "thiếu máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1131,
+      1140
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1145,
+      1152
+    ]
+  },
+  {
+    "text": "rít hít vào và thở ra",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1228,
+      1249
+    ]
+  },
+  {
+    "text": "ran nhỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1256,
+      1263
+    ]
+  },
+  {
+    "text": "tiếng thổi tâm thu II/VI",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1282,
+      1306
+    ]
+  },
+  {
+    "text": "bệnh động mạch vành do xơ vữa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1359,
+      1388
+    ]
+  },
+  {
+    "text": "nhồi máu cơ tim cũ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1393,
+      1411
+    ]
+  },
+  {
+    "text": "rối loạn chức năng tâm thu thất trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1413,
+      1449
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E14"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1460,
+      1474
+    ]
+  },
+  {
+    "text": "bệnh thận do đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E14.2†"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1476,
+      1503
+    ]
+  },
+  {
+    "text": "suy thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N19"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1507,
+      1515
+    ]
+  },
+  {
+    "text": "rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48"
+    ],
+    "assertions": [],
+    "position": [
+      1605,
+      1613
+    ]
+  }
+]

@@ -1,0 +1,457 @@
+[
+  {
+    "text": "Nhiễm trùng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B99"
+    ],
+    "assertions": [],
+    "position": [
+      24,
+      35
+    ]
+  },
+  {
+    "text": "Đau vùng chậu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      41,
+      54
+    ]
+  },
+  {
+    "text": "Thay đổi tâm trạng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      60,
+      78
+    ]
+  },
+  {
+    "text": "Đau khi quan hệ tình dục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      84,
+      108
+    ]
+  },
+  {
+    "text": "Sưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      180,
+      184
+    ]
+  },
+  {
+    "text": "nhiễm trùng ở đùi trong",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L08.9"
+    ],
+    "assertions": [],
+    "position": [
+      188,
+      211
+    ]
+  },
+  {
+    "text": "viêm nang lông",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L73.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      221,
+      235
+    ]
+  },
+  {
+    "text": "bầm tím",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      285,
+      292
+    ]
+  },
+  {
+    "text": "kích ứng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      296,
+      304
+    ]
+  },
+  {
+    "text": "đau vùng chậu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      313,
+      326
+    ]
+  },
+  {
+    "text": "thay đổi tâm trạng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      369,
+      387
+    ]
+  },
+  {
+    "text": "cơn giận bùng nổ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      404,
+      420
+    ]
+  },
+  {
+    "text": "Đau khi quan hệ tình dục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      495,
+      519
+    ]
+  },
+  {
+    "text": "Sứt môi hở hàm ếch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Q37"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      553,
+      571
+    ]
+  },
+  {
+    "text": "Lortab",
+    "type": "THUỐC",
+    "candidates": [
+      "161",
+      "5489"
+    ],
+    "assertions": [],
+    "position": [
+      600,
+      606
+    ]
+  },
+  {
+    "text": "Suy nghĩ tự tử",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      679,
+      693
+    ]
+  },
+  {
+    "text": "ý định tự tử",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      717,
+      729
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      763,
+      771
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      777,
+      784
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      809,
+      817
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      823,
+      830
+    ]
+  },
+  {
+    "text": "tê bì",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      853,
+      858
+    ]
+  },
+  {
+    "text": "yếu cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      860,
+      866
+    ]
+  },
+  {
+    "text": "châm chích",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      872,
+      882
+    ]
+  },
+  {
+    "text": "Cân nặng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      984,
+      992
+    ]
+  },
+  {
+    "text": "160 pounds",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      993,
+      1003
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1005,
+      1013
+    ]
+  },
+  {
+    "text": "100/60",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1014,
+      1020
+    ]
+  },
+  {
+    "text": "nhịp tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1022,
+      1030
+    ]
+  },
+  {
+    "text": "62",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1031,
+      1033
+    ]
+  },
+  {
+    "text": "viêm nang lông",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1130,
+      1144
+    ]
+  },
+  {
+    "text": "áp-xe nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1148,
+      1157
+    ]
+  },
+  {
+    "text": "Viêm nang lông",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L73.9"
+    ],
+    "assertions": [],
+    "position": [
+      1178,
+      1192
+    ]
+  },
+  {
+    "text": "Đau vùng chậu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1198,
+      1211
+    ]
+  },
+  {
+    "text": "Thay đổi tâm trạng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1217,
+      1235
+    ]
+  },
+  {
+    "text": "Đau khi quan hệ tình dục",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1241,
+      1265
+    ]
+  },
+  {
+    "text": "CBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1295,
+      1298
+    ]
+  },
+  {
+    "text": "chem-12",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1300,
+      1307
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1309,
+      1312
+    ]
+  },
+  {
+    "text": "UA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1314,
+      1316
+    ]
+  },
+  {
+    "text": "cephalexin 500 mg ba lần/ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "2231"
+    ],
+    "assertions": [],
+    "position": [
+      1327,
+      1356
+    ]
+  },
+  {
+    "text": "đau vùng chậu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1384,
+      1397
+    ]
+  }
+]

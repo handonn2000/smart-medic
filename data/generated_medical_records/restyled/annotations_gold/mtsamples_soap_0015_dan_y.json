@@ -1,0 +1,302 @@
+[
+  {
+    "text": "nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      78,
+      95
+    ]
+  },
+  {
+    "text": "sỏi thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      99,
+      107
+    ]
+  },
+  {
+    "text": "sỏi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      181,
+      184
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "82122"
+    ],
+    "assertions": [],
+    "position": [
+      327,
+      335
+    ]
+  },
+  {
+    "text": "không khỏe",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      405,
+      415
+    ]
+  },
+  {
+    "text": "hơi ốm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      417,
+      423
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "82122"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      544,
+      552
+    ]
+  },
+  {
+    "text": "Prinivil 20 mg mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      559,
+      582
+    ]
+  },
+  {
+    "text": "Bumex 0.5 mg mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "1808"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      589,
+      610
+    ]
+  },
+  {
+    "text": "Levsinex 0.375 mg mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "153970"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      617,
+      643
+    ]
+  },
+  {
+    "text": "cimetidine 400 mg mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "2541"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      650,
+      676
+    ]
+  },
+  {
+    "text": "potassium chloride 8 mEq mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "8591"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      683,
+      716
+    ]
+  },
+  {
+    "text": "atenolol 25 mg mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "1202"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      723,
+      746
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      803,
+      806
+    ]
+  },
+  {
+    "text": "ớn lạnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      808,
+      815
+    ]
+  },
+  {
+    "text": "mồ hôi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      817,
+      823
+    ]
+  },
+  {
+    "text": "hơi không vững",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      884,
+      898
+    ]
+  },
+  {
+    "text": "Huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      924,
+      932
+    ]
+  },
+  {
+    "text": "120/70",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      933,
+      939
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1040,
+      1043
+    ]
+  },
+  {
+    "text": "Tăng huyết áp đã kiểm soát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1065,
+      1091
+    ]
+  },
+  {
+    "text": "Sỏi thận sau tán sỏi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.0"
+    ],
+    "assertions": [],
+    "position": [
+      1098,
+      1118
+    ]
+  },
+  {
+    "text": "Tiểu không kiểm soát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R32"
+    ],
+    "assertions": [],
+    "position": [
+      1153,
+      1173
+    ]
+  },
+  {
+    "text": "Nhiễm trùng huyết gần đây",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1180,
+      1205
+    ]
+  }
+]

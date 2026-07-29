@@ -1,0 +1,405 @@
+[
+  {
+    "text": "đột quỵ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I64"
+    ],
+    "assertions": [],
+    "position": [
+      112,
+      122
+    ]
+  },
+  {
+    "text": "có gì đó trong cổ họng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      174,
+      202
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      208,
+      220
+    ]
+  },
+  {
+    "text": "tay trái và hàm trái bị tê",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      222,
+      254
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      291,
+      303
+    ]
+  },
+  {
+    "text": "ngã",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      316,
+      320
+    ]
+  },
+  {
+    "text": "Antivert",
+    "type": "THUỐC",
+    "candidates": [
+      "6676"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      364,
+      372
+    ]
+  },
+  {
+    "text": "tay trái, mặt, cổ bên trái lại bị tê",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      452,
+      498
+    ]
+  },
+  {
+    "text": "đau tai",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      541,
+      548
+    ]
+  },
+  {
+    "text": "cảm lạnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      572,
+      582
+    ]
+  },
+  {
+    "text": "dị ứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "T78.4"
+    ],
+    "assertions": [],
+    "position": [
+      605,
+      614
+    ]
+  },
+  {
+    "text": "Demerol",
+    "type": "THUỐC",
+    "candidates": [
+      "6754"
+    ],
+    "assertions": [],
+    "position": [
+      621,
+      628
+    ]
+  },
+  {
+    "text": "codeine",
+    "type": "THUỐC",
+    "candidates": [
+      "2670"
+    ],
+    "assertions": [],
+    "position": [
+      633,
+      640
+    ]
+  },
+  {
+    "text": "Lotensin",
+    "type": "THUỐC",
+    "candidates": [
+      "18867"
+    ],
+    "assertions": [],
+    "position": [
+      683,
+      691
+    ]
+  },
+  {
+    "text": "Lopid",
+    "type": "THUỐC",
+    "candidates": [
+      "4719"
+    ],
+    "assertions": [],
+    "position": [
+      693,
+      698
+    ]
+  },
+  {
+    "text": "metoprolol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      700,
+      710
+    ]
+  },
+  {
+    "text": "Darvocet",
+    "type": "THUỐC",
+    "candidates": [
+      "161",
+      "8785"
+    ],
+    "assertions": [],
+    "position": [
+      715,
+      723
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      757,
+      768
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      777,
+      787
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      792,
+      802
+    ]
+  },
+  {
+    "text": "có gì đó trong cổ họng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      824,
+      852
+    ]
+  },
+  {
+    "text": "nước rò rỉ từ miệng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      945,
+      973
+    ]
+  },
+  {
+    "text": "tay trái tôi bị tê",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      985,
+      1007
+    ]
+  },
+  {
+    "text": "đột quỵ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I64"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1239,
+      1249
+    ]
+  },
+  {
+    "text": "EKG",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1292,
+      1295
+    ]
+  },
+  {
+    "text": "một số thay đổi",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1311,
+      1332
+    ]
+  },
+  {
+    "text": "không có gì cấp tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1341,
+      1367
+    ]
+  },
+  {
+    "text": "Liệt Bell",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G51.0"
+    ],
+    "assertions": [],
+    "position": [
+      1406,
+      1417
+    ]
+  },
+  {
+    "text": "xệ mặt bên trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1457,
+      1478
+    ]
+  },
+  {
+    "text": "tổn thương thần kinh mặt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G51.9"
+    ],
+    "assertions": [],
+    "position": [
+      1496,
+      1528
+    ]
+  },
+  {
+    "text": "Valtrex 1 g x 3 lần/ngày trong bảy ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "73645"
+    ],
+    "assertions": [],
+    "position": [
+      1593,
+      1637
+    ]
+  },
+  {
+    "text": "xệ mặt bên trái trở nặng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1691,
+      1725
+    ]
+  },
+  {
+    "text": "đột quỵ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I64"
+    ],
+    "assertions": [],
+    "position": [
+      1798,
+      1808
+    ]
+  },
+  {
+    "text": "Synthroid",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      1855,
+      1864
+    ]
+  },
+  {
+    "text": "Zocor",
+    "type": "THUỐC",
+    "candidates": [
+      "36567"
+    ],
+    "assertions": [],
+    "position": [
+      1869,
+      1874
+    ]
+  }
+]

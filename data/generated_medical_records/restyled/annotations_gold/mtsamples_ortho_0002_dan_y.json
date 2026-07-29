@@ -1,0 +1,362 @@
+[
+  {
+    "text": "đau khớp háng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      82,
+      95
+    ]
+  },
+  {
+    "text": "Cơn đau ngoài và phía trước vùng bẹn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      140,
+      176
+    ]
+  },
+  {
+    "text": "kêu bật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      213,
+      220
+    ]
+  },
+  {
+    "text": "kêu lách cách ở khớp háng phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      222,
+      252
+    ]
+  },
+  {
+    "text": "Trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      322,
+      330
+    ]
+  },
+  {
+    "text": "Bệnh trào ngược",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K21.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      336,
+      351
+    ]
+  },
+  {
+    "text": "dị ứng thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z88.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      492,
+      504
+    ]
+  },
+  {
+    "text": "khó tiêu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      768,
+      776
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      778,
+      786
+    ]
+  },
+  {
+    "text": "lo âu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      788,
+      793
+    ]
+  },
+  {
+    "text": "Trầm cảm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      800,
+      808
+    ]
+  },
+  {
+    "text": "Chiều cao",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      867,
+      876
+    ]
+  },
+  {
+    "text": "5'2\"",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      878,
+      882
+    ]
+  },
+  {
+    "text": "cân nặng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      884,
+      892
+    ]
+  },
+  {
+    "text": "155 lbs",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      894,
+      901
+    ]
+  },
+  {
+    "text": "Đi lại",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      908,
+      914
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      915,
+      926
+    ]
+  },
+  {
+    "text": "Khớp háng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      951,
+      960
+    ]
+  },
+  {
+    "text": "hình dạng bình thường, đối xứng tốt",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      962,
+      997
+    ]
+  },
+  {
+    "text": "Nâng thẳng chân chủ động",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1004,
+      1028
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1029,
+      1040
+    ]
+  },
+  {
+    "text": "đau ở bẹn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1042,
+      1051
+    ]
+  },
+  {
+    "text": "tiếng kêu lạo xạo ở khớp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1067,
+      1091
+    ]
+  },
+  {
+    "text": "khiếm khuyết thần kinh chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1099,
+      1130
+    ]
+  },
+  {
+    "text": "X-quang khung chậu và khớp háng phải",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1162,
+      1198
+    ]
+  },
+  {
+    "text": "Không có phát hiện cấp tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1205,
+      1232
+    ]
+  },
+  {
+    "text": "Thoái hóa tối thiểu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1239,
+      1258
+    ]
+  },
+  {
+    "text": "gai xương trên cổ xương đùi trên",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1260,
+      1292
+    ]
+  },
+  {
+    "text": "hội chứng chèn ép ổ cối-xương đùi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1309,
+      1342
+    ]
+  },
+  {
+    "text": "Đau khớp háng hai bên, phải nặng hơn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M25.5"
+    ],
+    "assertions": [],
+    "position": [
+      1366,
+      1402
+    ]
+  },
+  {
+    "text": "hội chứng chèn ép ổ cối-xương đùi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1416,
+      1449
+    ]
+  },
+  {
+    "text": "rách sụn viền",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S73.1"
+    ],
+    "assertions": [],
+    "position": [
+      1458,
+      1471
+    ]
+  },
+  {
+    "text": "MRI artherogram khớp háng hai bên",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1508,
+      1541
+    ]
+  },
+  {
+    "text": "MRIs",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1680,
+      1684
+    ]
+  }
+]

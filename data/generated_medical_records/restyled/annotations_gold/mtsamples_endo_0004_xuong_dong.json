@@ -1,0 +1,478 @@
+[
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      19,
+      33
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      40,
+      48
+    ]
+  },
+  {
+    "text": "Micronase",
+    "type": "THUỐC",
+    "candidates": [
+      "4815"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      53,
+      62
+    ]
+  },
+  {
+    "text": "cholesterol cao",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      143,
+      158
+    ]
+  },
+  {
+    "text": "ASHD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.1"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      169,
+      173
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      175,
+      188
+    ]
+  },
+  {
+    "text": "PVD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I73.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      192,
+      195
+    ]
+  },
+  {
+    "text": "hen",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      214,
+      217
+    ]
+  },
+  {
+    "text": "nhiễm tr",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A49.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      219,
+      227
+    ]
+  },
+  {
+    "text": "loét \n  DTT",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K26"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      296,
+      307
+    ]
+  },
+  {
+    "text": "rối loạn tiết niệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N39.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      324,
+      342
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      384,
+      398
+    ]
+  },
+  {
+    "text": "dị ứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "T78.4"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      446,
+      452
+    ]
+  },
+  {
+    "text": "phát ban",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      454,
+      462
+    ]
+  },
+  {
+    "text": "Micronase 2.5mg sáng #30",
+    "type": "THUỐC",
+    "candidates": [
+      "4815"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      483,
+      507
+    ]
+  },
+  {
+    "text": "Bactrim 400/80, 2l/ngày #30",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      510,
+      537
+    ]
+  },
+  {
+    "text": "Chiều cao",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      658,
+      667
+    ]
+  },
+  {
+    "text": "72 inch",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      668,
+      675
+    ]
+  },
+  {
+    "text": "nặng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      677,
+      681
+    ]
+  },
+  {
+    "text": "184 lbs",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      682,
+      689
+    ]
+  },
+  {
+    "text": "HA đứng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      692,
+      699
+    ]
+  },
+  {
+    "text": "120/80",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      700,
+      706
+    ]
+  },
+  {
+    "text": "mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      708,
+      712
+    ]
+  },
+  {
+    "text": "80",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      713,
+      715
+    ]
+  },
+  {
+    "text": "thở",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      717,
+      720
+    ]
+  },
+  {
+    "text": "12",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      721,
+      723
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      731,
+      734
+    ]
+  },
+  {
+    "text": "giãn TM cảnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      754,
+      766
+    ]
+  },
+  {
+    "text": "âm thg tim",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      873,
+      883
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      933,
+      936
+    ]
+  },
+  {
+    "text": "thoát vị",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K46.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      965,
+      973
+    ]
+  },
+  {
+    "text": "ngón dùi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      985,
+      993
+    ]
+  },
+  {
+    "text": "xanh tím",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      995,
+      1003
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1005,
+      1011
+    ]
+  },
+  {
+    "text": "Đái tháo đường type II không kiểm soát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [],
+    "position": [
+      1027,
+      1065
+    ]
+  },
+  {
+    "text": "Viêm bàng quang cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N30.0"
+    ],
+    "assertions": [],
+    "position": [
+      1068,
+      1087
+    ]
+  },
+  {
+    "text": "công thức máu toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1126,
+      1149
+    ]
+  },
+  {
+    "text": "Micronase 2.5mg #30",
+    "type": "THUỐC",
+    "candidates": [
+      "4815"
+    ],
+    "assertions": [],
+    "position": [
+      1156,
+      1175
+    ]
+  },
+  {
+    "text": "Bactrim 400/80 2l/ngày #30",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      1179,
+      1205
+    ]
+  }
+]

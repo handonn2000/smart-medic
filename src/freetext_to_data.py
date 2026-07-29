@@ -1,7 +1,5 @@
 import argparse
-import random
 import os
-import re
 from underthesea import word_tokenize
 
 # Keyword sources (Vietnamese clinical / NER literature & common hospital vocab):
@@ -250,55 +248,6 @@ def label_words(words, patterns=None):
     return labels
 
 
-def generate_synthetic_samples(n=50):
-    """Sinh data tổng hợp từ keywords trong load_keywords()."""
-    kws = load_keywords()
-    gioi = [w for w in kws["BENH_NHAN"] if w in ("nam", "nữ", "nam giới", "nữ giới")]
-    trieu = kws["TRIEU_CHUNG"]
-    benh = kws["BENH"]
-    thuoc = kws["THUOC"]
-    xet = kws["XET_NGHIEM"]
-    phau_thuat = kws["PHAU_THUAT"]
-    doses = ["250mg", "500mg", "400mg", "20mg", "40mg", "10mg", "5mg", "1g"]
-    results = ["bình thường", "tăng nhẹ", "giảm nhẹ", "bất thường", "âm tính", "dương tính"]
-
-    templates = [
-        (
-            "Bệnh nhân {gioi} {age} tuổi, bị {trieu}, chẩn đoán {benh}. "
-            "Xét nghiệm {xet} kết quả {result}. Kê đơn {thuoc} {dose}."
-        ),
-        (
-            "Bệnh nhân {gioi} {age} tuổi có triệu chứng {trieu} và {trieu2}. "
-            "Chẩn đoán {benh}. Chỉ định {xet}, điều trị bằng {thuoc}."
-        ),
-        (
-            "Bệnh nhân {age} tuổi, giới tính {gioi}, tiền sử {benh}. "
-            "Hiện tại bị {trieu}. Xét nghiệm {xet} {result}. Đề nghị {phau_thuat}."
-        ),
-        (
-            "Trẻ {gioi} {age} tuổi nhập viện vì {trieu}. "
-            "Chẩn đoán {benh}, làm {xet}, dùng {thuoc} {dose}."
-        ),
-    ]
-
-    samples = []
-    for _ in range(n):
-        sentence = random.choice(templates).format(
-            gioi=random.choice(gioi),
-            age=random.randint(1, 90),
-            trieu=random.choice(trieu),
-            trieu2=random.choice(trieu),
-            benh=random.choice(benh),
-            thuoc=random.choice(thuoc),
-            dose=random.choice(doses),
-            xet=random.choice(xet),
-            result=random.choice(results),
-            phau_thuat=random.choice(phau_thuat),
-        )
-        samples.append(sentence)
-    return samples
-
-
 def convert_to_train_format(text_list, output_file="data/train.txt"):
     os.makedirs(os.path.dirname(output_file) or ".", exist_ok=True)
     patterns = _build_keyword_patterns()
@@ -313,25 +262,40 @@ def convert_to_train_format(text_list, output_file="data/train.txt"):
 
             f.write("\n")  # separator giữa các mẫu
 
-    print(f"✅ Đã tạo file train.txt với {len(text_list)} mẫu tại {output_file}")
+    print(f"✅ Đã tạo file train với {len(text_list)} mẫu tại {output_file}")
 
 
-def load_text_from_file(path):
-    """Đọc free-text từ file và tách thành các đoạn."""
-    with open(path, "r", encoding="utf-8") as f:
-        free_text = f.read()
-    return [p for p in re.split(r"\n\s*\n", free_text) if p.strip()]
+def load_texts_from_folder(folder):
+    """Đọc toàn bộ file .txt trong folder; mỗi file là một mẫu free-text."""
+    if not os.path.isdir(folder):
+        raise NotADirectoryError(f"Input path is not a folder: {folder}")
+
+    txt_files = sorted(
+        os.path.join(folder, name)
+        for name in os.listdir(folder)
+        if name.lower().endswith(".txt") and os.path.isfile(os.path.join(folder, name))
+    )
+    if not txt_files:
+        raise FileNotFoundError(f"No .txt files found in folder: {folder}")
+
+    samples = []
+    for path in txt_files:
+        with open(path, "r", encoding="utf-8") as f:
+            text = f.read().strip()
+        if text:
+            samples.append(text)
+    return samples, txt_files
 
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Sinh dữ liệu NER y tế từ free-text và/hoặc mẫu synthetic."
+        description="Chuyển free-text y tế trong folder thành dữ liệu NER dạng train."
     )
     parser.add_argument(
         "-f",
-        "--file",
+        "--folder",
         required=True,
-        help="Đường dẫn file input chứa free-text y tế.",
+        help="Đường dẫn folder chứa các file .txt free-text y tế.",
     )
     parser.add_argument(
         "-o",
@@ -339,24 +303,14 @@ def parse_args():
         default="data/train.txt",
         help="Đường dẫn file output (mặc định: data/train.txt).",
     )
-    parser.add_argument(
-        "-n",
-        "--num-synthetic",
-        type=int,
-        default=60,
-        help="Số mẫu synthetic cần sinh (mặc định: 60). Đặt 0 để bỏ qua.",
-    )
     return parser.parse_args()
 
 
 # ====================== MAIN ======================
-# python src/gen_test_samples.py -f data/training/input1.txt -o data/training1.txt -n 72
+# python src/freetext_to_data.py -f data/generated_medical_records/translated/text -o data/training1.txt
 if __name__ == "__main__":
     args = parse_args()
 
-    free_samples = load_text_from_file(args.file)
-    synthetic = generate_synthetic_samples(args.num_synthetic) if args.num_synthetic > 0 else []
-    all_samples = synthetic + free_samples
-
-    convert_to_train_format(all_samples, args.output)
-    print(f"Hoàn thành! Tổng số mẫu: {len(all_samples)} (synthetic={len(synthetic)}, free-text={len(free_samples)})")
+    samples, txt_files = load_texts_from_folder(args.folder)
+    convert_to_train_format(samples, args.output)
+    print(f"Hoàn thành! Đã xử lý {len(txt_files)} file .txt → {len(samples)} mẫu.")

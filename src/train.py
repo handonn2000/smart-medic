@@ -8,9 +8,11 @@ from transformers import AutoTokenizer, get_linear_schedule_with_warmup
 try:
     from src.model import PhoBERT_CRF
     from src.dataset import MedicalNERDataset
+    from src.labels import LABELS, LABEL2ID
 except ImportError:
     from model import PhoBERT_CRF
     from dataset import MedicalNERDataset
+    from labels import LABELS, LABEL2ID
 
 # Resolve paths relative to the project root so the script works from any CWD.
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -25,16 +27,6 @@ MAX_LEN = 256
 BATCH_SIZE = 16
 DEFAULT_EPOCHS = 4
 LR = 2e-5
-
-# Labels (must match src/inference.py get_labels())
-labels = ["O",
-          "B-THUOC", "I-THUOC",
-          "B-TRIEU_CHUNG", "I-TRIEU_CHUNG",
-          "B-BENH", "I-BENH",
-          "B-XET_NGHIEM", "I-XET_NGHIEM",
-          "B-BENH_NHAN", "I-BENH_NHAN"]
-label2id = {label: i for i, label in enumerate(labels)}
-id2label = {i: label for label, i in label2id.items()}
 
 
 def get_device():
@@ -56,17 +48,43 @@ def parse_args():
         default=DEFAULT_EPOCHS,
         help=f"Number of training epochs (default: {DEFAULT_EPOCHS}).",
     )
+    parser.add_argument(
+        "--from-scratch",
+        action="store_true",
+        help="Ignore existing checkpoint and train a new model.",
+    )
+    parser.add_argument(
+        "--checkpoint",
+        default=MODEL_PATH,
+        help=f"Checkpoint to resume from if it exists (default: {MODEL_PATH}).",
+    )
     return parser.parse_args()
+
+
+def load_checkpoint(model, checkpoint_path, device):
+    """Load fine-tuned weights if the checkpoint file exists."""
+    if not os.path.isfile(checkpoint_path):
+        print(f"No checkpoint found at {checkpoint_path}; starting from PhoBERT base.")
+        return False
+
+    state = torch.load(checkpoint_path, map_location=device)
+    model.load_state_dict(state)
+    print(f"Loaded checkpoint: {checkpoint_path}")
+    return True
 
 
 def main():
     args = parse_args()
     epochs = args.epochs
+    device = torch.device(get_device())
 
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-    model = PhoBERT_CRF(num_labels=len(labels))
+    model = PhoBERT_CRF(num_labels=len(LABELS))
 
-    train_dataset = MedicalNERDataset(TRAIN_FILE, tokenizer, label2id, MAX_LEN)
+    if not args.from_scratch:
+        load_checkpoint(model, args.checkpoint, device)
+
+    train_dataset = MedicalNERDataset(TRAIN_FILE, tokenizer, LABEL2ID, MAX_LEN)
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 
     optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
@@ -76,7 +94,6 @@ def main():
         num_training_steps=len(train_loader) * epochs,
     )
 
-    device = torch.device(get_device())
     print(f"Using device: {device}")
     print(f"Training for {epochs} epoch(s)")
     model.to(device)
@@ -103,6 +120,6 @@ def main():
     torch.save(model.state_dict(), MODEL_PATH)
     print(f"Saved model to: {MODEL_PATH}")
 
-
+# Run: python src/train.py -e 5 --checkpoint models/pho_bert_crf_medical.pth
 if __name__ == "__main__":
     main()

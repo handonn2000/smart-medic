@@ -63,6 +63,6 @@ def main():
     result = extractor.extract(text)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
-
+# Usage: python src/test.py -f data/test/1.txt --model models/pho_bert_crf_medical.pth
 if __name__ == "__main__":
     main()

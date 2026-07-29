@@ -7,8 +7,10 @@ from transformers import AutoTokenizer
 
 try:
     from src.model import PhoBERT_CRF
+    from src.labels import LABELS, ID2LABEL, ENTITY_TYPE_MAP
 except ImportError:
     from model import PhoBERT_CRF
+    from labels import LABELS, ID2LABEL, ENTITY_TYPE_MAP
 
 from normalizer import MedicalNormalizer
 
@@ -24,54 +26,49 @@ def get_device():
 
 
 class MedicalExtractor:
+    MODEL_NAME = "vinai/phobert-base-v2"
+    MAX_LEN = 256  # PhoBERT position embeddings only support up to 256
+
     def __init__(self, model_path="pho_bert_crf_medical.pth", device=None):
         self.device = device or get_device()
-        self.tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
-        self.model = PhoBERT_CRF(num_labels=len(self.get_labels()))
-        self.model.load_state_dict(torch.load(model_path, map_location=self.device))
+        self.tokenizer = AutoTokenizer.from_pretrained(self.MODEL_NAME)
+        self.model = PhoBERT_CRF(num_labels=len(LABELS), model_name=self.MODEL_NAME)
+        state = torch.load(model_path, map_location=self.device)
+        self.model.load_state_dict(state)
         self.model.to(self.device)
         self.model.eval()
-        self.id2label = {v: k for k, v in self.get_label2id().items()}
+        self.id2label = ID2LABEL
         self.normalizer = MedicalNormalizer()
 
-    def get_labels(self):
-        return ["O",
-                "B-THUOC", "I-THUOC",
-                "B-TRIEU_CHUNG", "I-TRIEU_CHUNG",
-                "B-BENH", "I-BENH",
-                "B-XET_NGHIEM", "I-XET_NGHIEM",
-                "B-BENH_NHAN", "I-BENH_NHAN"]
-
-    def get_label2id(self):
-        return {label: i for i, label in enumerate(self.get_labels())}
-
     def extract(self, text: str):
-        # Word segmentation
+        # Word segmentation (PhoBERT expects pre-segmented Vietnamese text)
         segmented = word_tokenize(text, format="text")
-        
+
         encoding = self.tokenizer(
             segmented,
             return_tensors="pt",
             truncation=True,
-            max_length=512,
-            padding="max_length"
+            max_length=self.MAX_LEN,
+            padding=True,
         ).to(self.device)
 
         with torch.no_grad():
             outputs = self.model(encoding["input_ids"], encoding["attention_mask"])
-            predictions = outputs["predictions"][0]  # list of label ids
+            predictions = outputs["predictions"][0]  # label ids for non-padded tokens
 
-        tokens = self.tokenizer.convert_ids_to_tokens(encoding["input_ids"][0])
-        
+        # Align tokens with CRF decode length (mask length, not padded length)
+        seq_len = len(predictions)
+        tokens = self.tokenizer.convert_ids_to_tokens(encoding["input_ids"][0][:seq_len])
+
         entities = []
         current_tokens = None
         current_label = None
 
-        for i, (token, pred_id) in enumerate(zip(tokens, predictions)):
+        for token, pred_id in zip(tokens, predictions):
             if token in ["<s>", "</s>", "<pad>"]:
                 continue
 
-            label = self.id2label[pred_id]
+            label = self.id2label.get(pred_id, "O")
 
             if label.startswith("B-"):
                 if current_tokens:
@@ -114,14 +111,7 @@ class MedicalExtractor:
         }
 
     def _get_type(self, label):
-        type_map = {
-            "B-THUOC": "THUỐC",
-            "B-TRIEU_CHUNG": "TRIỆU_CHỨNG",
-            "B-BENH": "BENH",
-            "B-XET_NGHIEM": "XET_NGHIEM",
-            "B-BENH_NHAN": "BENH_NHAN",
-        }
-        return type_map.get(label, "UNKNOWN")
+        return ENTITY_TYPE_MAP.get(label, "UNKNOWN")
 
     def _post_process(self, entities, text):
         """Thêm normalization và assertions"""

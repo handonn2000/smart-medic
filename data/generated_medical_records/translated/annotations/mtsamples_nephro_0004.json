@@ -1,56 +1,46 @@
 [
   {
-    "text": "bệnh thận giai đoạn cuối",
+    "text": "bệnh thận giai đoạn cuối",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "N18.0"
     ],
     "assertions": [],
     "position": [
-      22,
-      46
+      31,
+      62
     ]
   },
   {
-    "text": "thẩm tách máu mạn tính",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      68,
-      90
-    ]
-  },
-  {
-    "text": "đau ngực",
+    "text": "đau ngực",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      105,
-      113
+      136,
+      146
     ]
   },
   {
-    "text": "bệnh động mạch vành",
+    "text": "bệnh động mạch vành",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I79"
     ],
     "assertions": [],
     "position": [
-      233,
-      252
+      290,
+      315
     ]
   },
   {
-    "text": "đau ngực",
+    "text": "cảm giác tức ngực",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      306,
-      314
+      352,
+      375
     ]
   },
   {
@@ -61,112 +51,124 @@
     ],
     "assertions": [],
     "position": [
-      376,
-      389
+      453,
+      466
     ]
   },
   {
-    "text": "chụp động mạch vành",
+    "text": "chụp mạch vành",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      469,
-      488
+      588,
+      605
     ]
   },
   {
-    "text": "đau ngực",
+    "text": "đau ngực",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      685,
-      693
+      863,
+      873
     ]
   },
   {
-    "text": "khó thở",
+    "text": "khó thở",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      695,
-      702
+      875,
+      885
     ]
   },
   {
-    "text": "buồn nôn",
+    "text": "buồn nôn",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      704,
-      712
+      887,
+      898
     ]
   },
   {
-    "text": "nôn mửa",
+    "text": "nôn mửa",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      714,
-      721
+      900,
+      910
     ]
   },
   {
-    "text": "đau bụng",
+    "text": "đau bụng",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      723,
-      731
+      912,
+      921
     ]
   },
   {
-    "text": "tiêu chảy",
+    "text": "tiêu chảy",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      733,
-      742
+      923,
+      934
     ]
   },
   {
-    "text": "tiểu máu",
+    "text": "tiểu máu",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      759,
-      767
+      952,
+      963
     ]
   },
   {
-    "text": "tiểu khó",
+    "text": "tiểu khó",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      769,
-      777
+      965,
+      976
     ]
   },
   {
-    "text": "Bệnh động mạch vành",
+    "text": "máu tươi qua trực tràng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      985,
+      1014
+    ]
+  },
+  {
+    "text": "Bệnh động mạch vành",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I79"
@@ -175,12 +177,12 @@
       "isHistorical"
     ],
     "position": [
-      829,
-      848
+      1040,
+      1065
     ]
   },
   {
-    "text": "Đái tháo đường",
+    "text": "Đái tháo đường",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "O24.0"
@@ -189,12 +191,12 @@
       "isHistorical"
     ],
     "position": [
-      893,
-      907
+      1105,
+      1124
     ]
   },
   {
-    "text": "Tăng huyết áp",
+    "text": "Tăng huyết áp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I10"
@@ -203,12 +205,12 @@
       "isHistorical"
     ],
     "position": [
-      929,
-      942
+      1147,
+      1164
     ]
   },
   {
-    "text": "Bệnh thận giai đoạn cuối",
+    "text": "Bệnh thận giai đoạn cuối",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "N18.0"
@@ -217,8 +219,8 @@
       "isHistorical"
     ],
     "position": [
-      947,
-      971
+      1169,
+      1200
     ]
   },
   {
@@ -229,8 +231,22 @@
       "isHistorical"
     ],
     "position": [
-      984,
-      987
+      1221,
+      1224
+    ]
+  },
+  {
+    "text": "sử dụng rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1589,
+      1607
     ]
   },
   {
@@ -241,68 +257,68 @@
     ],
     "assertions": [],
     "position": [
-      1433,
-      1443
+      1749,
+      1759
     ]
   },
   {
     "text": "Plavix",
     "type": "THUỐC",
     "candidates": [
-      "32968"
+      "174742"
     ],
     "assertions": [],
     "position": [
-      1445,
-      1451
+      1761,
+      1767
     ]
   },
   {
     "text": "Rocaltrol",
     "type": "THUỐC",
     "candidates": [
-      "1894"
+      "152323"
     ],
     "assertions": [],
     "position": [
-      1453,
-      1462
+      1769,
+      1778
     ]
   },
   {
     "text": "Lasix",
     "type": "THUỐC",
     "candidates": [
-      "4603"
+      "202991"
     ],
     "assertions": [],
     "position": [
-      1464,
-      1469
+      1780,
+      1785
     ]
   },
   {
     "text": "Norvasc",
     "type": "THUỐC",
     "candidates": [
-      "17767"
+      "58927"
     ],
     "assertions": [],
     "position": [
-      1471,
-      1478
+      1787,
+      1794
     ]
   },
   {
     "text": "Zocor",
     "type": "THUỐC",
     "candidates": [
-      "36567"
+      "196503"
     ],
     "assertions": [],
     "position": [
-      1480,
-      1485
+      1796,
+      1801
     ]
   },
   {
@@ -313,8 +329,8 @@
     ],
     "assertions": [],
     "position": [
-      1487,
-      1498
+      1803,
+      1814
     ]
   },
   {
@@ -325,8 +341,8 @@
     ],
     "assertions": [],
     "position": [
-      1500,
-      1517
+      1816,
+      1833
     ]
   },
   {
@@ -337,40 +353,28 @@
     ],
     "assertions": [],
     "position": [
-      1522,
-      1532
+      1838,
+      1848
     ]
   },
   {
-    "text": "khó chịu",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1601,
-      1609
-    ]
-  },
-  {
-    "text": "xét nghiệm",
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2081,
-      2091
+      2594,
+      2607
     ]
   },
   {
-    "text": "xét nghiệm",
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2101,
-      2111
+      2620,
+      2633
     ]
   },
   {
@@ -379,8 +383,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2121,
-      2131
+      2645,
+      2655
     ]
   },
   {
@@ -389,8 +393,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2132,
-      2134
+      2656,
+      2658
     ]
   },
   {
@@ -399,8 +403,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2136,
-      2146
+      2660,
+      2670
     ]
   },
   {
@@ -409,8 +413,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2147,
-      2151
+      2671,
+      2675
     ]
   },
   {
@@ -419,8 +423,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2153,
-      2159
+      2677,
+      2683
     ]
   },
   {
@@ -429,8 +433,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2160,
-      2163
+      2684,
+      2687
     ]
   },
   {
@@ -439,8 +443,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2165,
-      2174
+      2689,
+      2698
     ]
   },
   {
@@ -449,8 +453,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2175,
-      2178
+      2699,
+      2702
     ]
   },
   {
@@ -459,8 +463,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2180,
-      2188
+      2704,
+      2712
     ]
   },
   {
@@ -469,8 +473,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2189,
-      2193
+      2713,
+      2717
     ]
   },
   {
@@ -479,8 +483,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2195,
-      2204
+      2719,
+      2728
     ]
   },
   {
@@ -489,8 +493,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2205,
-      2207
+      2729,
+      2731
     ]
   },
   {
@@ -499,8 +503,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2209,
-      2212
+      2733,
+      2736
     ]
   },
   {
@@ -509,8 +513,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2213,
-      2215
+      2737,
+      2739
     ]
   },
   {
@@ -519,8 +523,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2217,
-      2227
+      2741,
+      2751
     ]
   },
   {
@@ -529,8 +533,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2228,
-      2232
+      2752,
+      2756
     ]
   },
   {
@@ -539,8 +543,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2237,
-      2244
+      2762,
+      2769
     ]
   },
   {
@@ -549,54 +553,54 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2245,
-      2248
+      2770,
+      2773
     ]
   },
   {
-    "text": "Bệnh thận giai đoạn cuối",
+    "text": "Bệnh thận giai đoạn cuối",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "N18.0"
     ],
     "assertions": [],
     "position": [
-      2265,
-      2289
+      2793,
+      2824
     ]
   },
   {
-    "text": "Đái tháo đường",
+    "text": "Đái tháo đường",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "O24.0"
     ],
     "assertions": [],
     "position": [
-      2326,
-      2340
+      2864,
+      2883
     ]
   },
   {
-    "text": "Đau ngực",
+    "text": "Đau ngực",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      2345,
-      2353
+      2888,
+      2898
     ]
   },
   {
-    "text": "Tăng huyết áp",
+    "text": "Tăng huyết áp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I10"
     ],
     "assertions": [],
     "position": [
-      2390,
-      2403
+      2943,
+      2960
     ]
   }
 ]

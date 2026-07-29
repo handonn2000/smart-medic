@@ -1,0 +1,403 @@
+[
+  {
+    "text": "Ung thư đường mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C24.0"
+    ],
+    "assertions": [],
+    "position": [
+      21,
+      38
+    ]
+  },
+  {
+    "text": "chức năng gan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      99,
+      112
+    ]
+  },
+  {
+    "text": "Siêu âm bụng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      130,
+      142
+    ]
+  },
+  {
+    "text": "bùn túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      153,
+      164
+    ]
+  },
+  {
+    "text": "adenomyomatosis",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      175,
+      190
+    ]
+  },
+  {
+    "text": "CT scan bụng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      216,
+      228
+    ]
+  },
+  {
+    "text": "giãn ống dẫn gan",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      237,
+      253
+    ]
+  },
+  {
+    "text": "MRI MRCP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      281,
+      289
+    ]
+  },
+  {
+    "text": "hẹp ống mật chủ xa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K83.1"
+    ],
+    "assertions": [],
+    "position": [
+      291,
+      309
+    ]
+  },
+  {
+    "text": "ERCP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      316,
+      320
+    ]
+  },
+  {
+    "text": "ung thư đường mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C24.0"
+    ],
+    "assertions": [],
+    "position": [
+      362,
+      379
+    ]
+  },
+  {
+    "text": "CA99",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      410,
+      414
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      415,
+      419
+    ]
+  },
+  {
+    "text": "xét nghiệm máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      426,
+      440
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      489,
+      502
+    ]
+  },
+  {
+    "text": "rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      504,
+      522
+    ]
+  },
+  {
+    "text": "Diovan 80/12.5 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "69749",
+      "5487"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      602,
+      619
+    ]
+  },
+  {
+    "text": "Lutein 20 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "11359"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      636,
+      648
+    ]
+  },
+  {
+    "text": "axit folic 0.8 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "4511"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      650,
+      667
+    ]
+  },
+  {
+    "text": "vitamin tổng hợp",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      669,
+      685
+    ]
+  },
+  {
+    "text": "Bệnh tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I51.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      760,
+      768
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      799,
+      812
+    ]
+  },
+  {
+    "text": "đau thắt ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I20"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      926,
+      939
+    ]
+  },
+  {
+    "text": "sa sút trí tuệ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F03"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      960,
+      974
+    ]
+  },
+  {
+    "text": "giảm cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1165,
+      1173
+    ]
+  },
+  {
+    "text": "Mệt mỏi nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1201,
+      1212
+    ]
+  },
+  {
+    "text": "Phosphatase kiềm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1254,
+      1270
+    ]
+  },
+  {
+    "text": "bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1272,
+      1281
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1283,
+      1286
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1288,
+      1291
+    ]
+  },
+  {
+    "text": "bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1292,
+      1302
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1352,
+      1355
+    ]
+  },
+  {
+    "text": "ớn lạnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1357,
+      1364
+    ]
+  },
+  {
+    "text": "đổ mồ hôi ban đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1366,
+      1383
+    ]
+  },
+  {
+    "text": "Phân lỏng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1390,
+      1399
+    ]
+  }
+]

@@ -1,262 +1,88 @@
 [
   {
-    "text": "Buồn nôn và đau bụng",
-    "type": "TRIỆU_CHỨNG",
+    "text": "Nội soi",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      16,
-      36
+      11,
+      18
     ]
   },
   {
-    "text": "nước tiểu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      170,
-      179
-    ]
-  },
-  {
-    "text": "buồn nôn",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      225,
-      233
-    ]
-  },
-  {
-    "text": "siêu âm ổ bụng",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      396,
-      410
-    ]
-  },
-  {
-    "text": "sỏi túi mật",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      424,
-      435
-    ]
-  },
-  {
-    "text": "xét nghiệm",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      475,
-      485
-    ]
-  },
-  {
-    "text": "bilirubin toàn phần",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      523,
-      542
-    ]
-  },
-  {
-    "text": "WBC",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      551,
-      554
-    ]
-  },
-  {
-    "text": "Xét nghiệm",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      628,
-      638
-    ]
-  },
-  {
-    "text": "nội soi",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      639,
-      646
-    ]
-  },
-  {
-    "text": "đau vùng chậu/dính",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      660,
-      678
-    ]
-  },
-  {
-    "text": "sử dụng rượu",
+    "text": "khó nuốt",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "Z72.1"
+      "R13"
     ],
-    "assertions": [
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      933,
-      945
+      112,
+      120
     ]
   },
   {
-    "text": "sử dụng ma túy",
-    "type": "CHẨN_ĐOÁN",
+    "text": "Coumadin",
+    "type": "THUỐC",
     "candidates": [
-      "Z72.2"
+      "202421"
     ],
-    "assertions": [
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      962,
-      976
+      405,
+      413
     ]
   },
   {
-    "text": "đau thắt ngực",
-    "type": "TRIỆU_CHỨNG",
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      1216,
-      1229
+      417,
+      420
     ]
   },
   {
-    "text": "khó thở",
+    "text": "2.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      431,
+      434
+    ]
+  },
+  {
+    "text": "chảy máu",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      1303,
-      1310
+      542,
+      550
     ]
   },
   {
-    "text": "mù thoáng qua",
-    "type": "CHẨN_ĐOÁN",
+    "text": "Versed",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      811,
+      817
+    ]
+  },
+  {
+    "text": "fentanyl",
+    "type": "THUỐC",
     "candidates": [
-      "G45.3"
+      "4337"
     ],
     "assertions": [],
     "position": [
-      1330,
-      1343
-    ]
-  },
-  {
-    "text": "ho",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1362,
-      1364
-    ]
-  },
-  {
-    "text": "thở khò khè",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R06.2"
-    ],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1376,
-      1387
-    ]
-  },
-  {
-    "text": "khó thở",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1389,
-      1396
-    ]
-  },
-  {
-    "text": "co giật và mất điều hòa",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1501,
-      1524
-    ]
-  },
-  {
-    "text": "Bệnh túi mật",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2375,
-      2387
-    ]
-  },
-  {
-    "text": "Đau bụng",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2389,
-      2397
+      826,
+      834
     ]
   },
   {
@@ -265,8 +91,20 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2462,
-      2469
+      847,
+      854
+    ]
+  },
+  {
+    "text": "propofol",
+    "type": "THUỐC",
+    "candidates": [
+      "8782"
+    ],
+    "assertions": [],
+    "position": [
+      1211,
+      1219
     ]
   },
   {
@@ -275,8 +113,86 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2645,
-      2652
+      1225,
+      1232
+    ]
+  },
+  {
+    "text": "propofol",
+    "type": "THUỐC",
+    "candidates": [
+      "8782"
+    ],
+    "assertions": [],
+    "position": [
+      1280,
+      1288
+    ]
+  },
+  {
+    "text": "nội soi",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1599,
+      1606
+    ]
+  },
+  {
+    "text": "********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1781,
+      1789
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1802,
+      1810
+    ]
+  },
+  {
+    "text": "IV Protonix",
+    "type": "THUỐC",
+    "candidates": [
+      "261624"
+    ],
+    "assertions": [],
+    "position": [
+      2059,
+      2070
+    ]
+  },
+  {
+    "text": "nội soi",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2188,
+      2195
+    ]
+  },
+  {
+    "text": "Prevacid SoluTab",
+    "type": "THUỐC",
+    "candidates": [
+      "83156"
+    ],
+    "assertions": [],
+    "position": [
+      2263,
+      2279
     ]
   }
 ]

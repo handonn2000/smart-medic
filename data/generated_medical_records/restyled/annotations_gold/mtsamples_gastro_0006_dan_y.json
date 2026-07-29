@@ -1,0 +1,825 @@
+[
+  {
+    "text": "Chảy máu trực tràng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      28,
+      52
+    ]
+  },
+  {
+    "text": "thoát vị hai bên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K46.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      119,
+      138
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      154,
+      165
+    ]
+  },
+  {
+    "text": "chảy máu trực tràng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      176,
+      200
+    ]
+  },
+  {
+    "text": "Đau dạ dày",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      207,
+      219
+    ]
+  },
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      234,
+      243
+    ]
+  },
+  {
+    "text": "thoát vị",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K46.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      263,
+      273
+    ]
+  },
+  {
+    "text": "chảy máu trực tràng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      297,
+      321
+    ]
+  },
+  {
+    "text": "nội soi đại tràng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      323,
+      344
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      361,
+      376
+    ]
+  },
+  {
+    "text": "tiểu buốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      394,
+      407
+    ]
+  },
+  {
+    "text": "nôn ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      409,
+      421
+    ]
+  },
+  {
+    "text": "đau ngực kiểu màng phổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      427,
+      457
+    ]
+  },
+  {
+    "text": "ho ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      466,
+      476
+    ]
+  },
+  {
+    "text": "thoát vị hai bên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K46.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      522,
+      541
+    ]
+  },
+  {
+    "text": "chảy máu trực tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      588,
+      612
+    ]
+  },
+  {
+    "text": "Cipro",
+    "type": "THUỐC",
+    "candidates": [
+      "2551"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      675,
+      680
+    ]
+  },
+  {
+    "text": "Lomotil",
+    "type": "THUỐC",
+    "candidates": [
+      "1223",
+      "3500"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      687,
+      694
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      987,
+      992
+    ]
+  },
+  {
+    "text": "mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      994,
+      999
+    ]
+  },
+  {
+    "text": "117",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1000,
+      1003
+    ]
+  },
+  {
+    "text": "nhịp thở",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1005,
+      1016
+    ]
+  },
+  {
+    "text": "18",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1017,
+      1019
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1021,
+      1032
+    ]
+  },
+  {
+    "text": "117/55",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1033,
+      1039
+    ]
+  },
+  {
+    "text": "độ bão hòa oxy",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1041,
+      1059
+    ]
+  },
+  {
+    "text": "98%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1060,
+      1063
+    ]
+  },
+  {
+    "text": "xuất tiết",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1185,
+      1198
+    ]
+  },
+  {
+    "text": "giáp to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1230,
+      1238
+    ]
+  },
+  {
+    "text": "tĩnh mạch cổ nổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1247,
+      1269
+    ]
+  },
+  {
+    "text": "Nhịp tim nhanh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1281,
+      1296
+    ]
+  },
+  {
+    "text": "tiếng thổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1318,
+      1332
+    ]
+  },
+  {
+    "text": "đau khi ấn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1408,
+      1420
+    ]
+  },
+  {
+    "text": "đề kháng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1429,
+      1440
+    ]
+  },
+  {
+    "text": "ngón tay dùi trống",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1459,
+      1481
+    ]
+  },
+  {
+    "text": "tím tái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1483,
+      1492
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1494,
+      1498
+    ]
+  },
+  {
+    "text": "Natri",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1592,
+      1597
+    ]
+  },
+  {
+    "text": "131",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1598,
+      1601
+    ]
+  },
+  {
+    "text": "kali",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1603,
+      1607
+    ]
+  },
+  {
+    "text": "3.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1608,
+      1611
+    ]
+  },
+  {
+    "text": "clorua",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1613,
+      1619
+    ]
+  },
+  {
+    "text": "94",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1620,
+      1622
+    ]
+  },
+  {
+    "text": "CO2",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1630,
+      1633
+    ]
+  },
+  {
+    "text": "25",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1634,
+      1636
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1638,
+      1641
+    ]
+  },
+  {
+    "text": "15",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1642,
+      1644
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1646,
+      1656
+    ]
+  },
+  {
+    "text": "0.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1657,
+      1660
+    ]
+  },
+  {
+    "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1668,
+      1675
+    ]
+  },
+  {
+    "text": "124",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1676,
+      1679
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1681,
+      1684
+    ]
+  },
+  {
+    "text": "1.2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1685,
+      1688
+    ]
+  },
+  {
+    "text": "troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1690,
+      1698
+    ]
+  },
+  {
+    "text": "0.04",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1701,
+      1705
+    ]
+  },
+  {
+    "text": "số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1713,
+      1738
+    ]
+  },
+  {
+    "text": "17.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1739,
+      1743
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1745,
+      1755
+    ]
+  },
+  {
+    "text": "12.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1756,
+      1760
+    ]
+  },
+  {
+    "text": "số lượng tiểu cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1768,
+      1794
+    ]
+  },
+  {
+    "text": "278",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1795,
+      1798
+    ]
+  },
+  {
+    "text": "91%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1800,
+      1803
+    ]
+  },
+  {
+    "text": "neutrophils",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1804,
+      1815
+    ]
+  },
+  {
+    "text": "EKG",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1823,
+      1826
+    ]
+  },
+  {
+    "text": "nhịp xoang nhanh",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1828,
+      1845
+    ]
+  },
+  {
+    "text": "Viêm đại tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K52.9"
+    ],
+    "assertions": [],
+    "position": [
+      1881,
+      1898
+    ]
+  },
+  {
+    "text": "Nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      1906,
+      1928
+    ]
+  },
+  {
+    "text": "Chảy máu trực tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1936,
+      1960
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "82122"
+    ],
+    "assertions": [],
+    "position": [
+      2059,
+      2067
+    ]
+  },
+  {
+    "text": "Flagyl",
+    "type": "THUỐC",
+    "candidates": [
+      "6922"
+    ],
+    "assertions": [],
+    "position": [
+      2072,
+      2078
+    ]
+  },
+  {
+    "text": "bạch cầu trong phân",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2125,
+      2148
+    ]
+  },
+  {
+    "text": "O&P",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2150,
+      2153
+    ]
+  },
+  {
+    "text": "C. diff",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2155,
+      2162
+    ]
+  },
+  {
+    "text": "Chụp CT bụng và chậu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2170,
+      2195
+    ]
+  },
+  {
+    "text": "PPI",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2214,
+      2217
+    ]
+  },
+  {
+    "text": "loét dạ dày tá tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K27"
+    ],
+    "assertions": [],
+    "position": [
+      2230,
+      2255
+    ]
+  }
+]

@@ -1,0 +1,790 @@
+[
+  {
+    "text": "nhiễm trùng BCT",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L08.9"
+    ],
+    "assertions": [],
+    "position": [
+      18,
+      33
+    ]
+  },
+  {
+    "text": "đau ở lòng bàn chân trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      110,
+      134
+    ]
+  },
+  {
+    "text": "đốm màu tối",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      145,
+      156
+    ]
+  },
+  {
+    "text": "Sưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      255,
+      259
+    ]
+  },
+  {
+    "text": "Keflex",
+    "type": "THUỐC",
+    "candidates": [
+      "2231"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      316,
+      322
+    ]
+  },
+  {
+    "text": "dị vật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M79.5"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      333,
+      339
+    ]
+  },
+  {
+    "text": "Xquang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      355,
+      361
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      362,
+      369
+    ]
+  },
+  {
+    "text": "mủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      386,
+      388
+    ]
+  },
+  {
+    "text": "Cipro",
+    "type": "THUỐC",
+    "candidates": [
+      "2551"
+    ],
+    "assertions": [],
+    "position": [
+      445,
+      450
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      454,
+      457
+    ]
+  },
+  {
+    "text": "ớn lạnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      459,
+      466
+    ]
+  },
+  {
+    "text": "vệt đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      468,
+      474
+    ]
+  },
+  {
+    "text": "viêm LAD",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      476,
+      484
+    ]
+  },
+  {
+    "text": "hen suyễn ở tuổi thơ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      512,
+      532
+    ]
+  },
+  {
+    "text": "ACCUTANE",
+    "type": "THUỐC",
+    "candidates": [
+      "6064"
+    ],
+    "assertions": [],
+    "position": [
+      573,
+      581
+    ]
+  },
+  {
+    "text": "C.nặng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      666,
+      672
+    ]
+  },
+  {
+    "text": "190 lb",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      673,
+      679
+    ]
+  },
+  {
+    "text": "C.cao",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      681,
+      686
+    ]
+  },
+  {
+    "text": "69 in",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      687,
+      692
+    ]
+  },
+  {
+    "text": "T°",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      695,
+      697
+    ]
+  },
+  {
+    "text": "98",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      698,
+      700
+    ]
+  },
+  {
+    "text": "NT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      702,
+      704
+    ]
+  },
+  {
+    "text": "20",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      705,
+      707
+    ]
+  },
+  {
+    "text": "M",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      709,
+      710
+    ]
+  },
+  {
+    "text": "78",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      711,
+      713
+    ]
+  },
+  {
+    "text": "HA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      715,
+      717
+    ]
+  },
+  {
+    "text": "143/63",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      718,
+      724
+    ]
+  },
+  {
+    "text": "SaO2",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      725,
+      729
+    ]
+  },
+  {
+    "text": "98%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      730,
+      733
+    ]
+  },
+  {
+    "text": "TTT",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      822,
+      825
+    ]
+  },
+  {
+    "text": "vết thương hở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      889,
+      902
+    ]
+  },
+  {
+    "text": "dịch mủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      913,
+      920
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      929,
+      935
+    ]
+  },
+  {
+    "text": "Vết phồng máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      936,
+      949
+    ]
+  },
+  {
+    "text": "nhạy\ncảm khi chạm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      962,
+      979
+    ]
+  },
+  {
+    "text": "phù nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1002,
+      1009
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1011,
+      1017
+    ]
+  },
+  {
+    "text": "Phát ban",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1021,
+      1029
+    ]
+  },
+  {
+    "text": "hạch bẹn/đùi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1080,
+      1092
+    ]
+  },
+  {
+    "text": "SLBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1110,
+      1114
+    ]
+  },
+  {
+    "text": "6300",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1115,
+      1119
+    ]
+  },
+  {
+    "text": "Hb",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1120,
+      1122
+    ]
+  },
+  {
+    "text": "13.6",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1123,
+      1127
+    ]
+  },
+  {
+    "text": "TC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1129,
+      1131
+    ]
+  },
+  {
+    "text": "80",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1145,
+      1147
+    ]
+  },
+  {
+    "text": "monos",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1148,
+      1153
+    ]
+  },
+  {
+    "text": "17",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1155,
+      1157
+    ]
+  },
+  {
+    "text": "eos",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1158,
+      1161
+    ]
+  },
+  {
+    "text": "Cr",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1171,
+      1173
+    ]
+  },
+  {
+    "text": "1.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1174,
+      1177
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1179,
+      1182
+    ]
+  },
+  {
+    "text": "16",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1183,
+      1185
+    ]
+  },
+  {
+    "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1187,
+      1194
+    ]
+  },
+  {
+    "text": "110",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1195,
+      1198
+    ]
+  },
+  {
+    "text": "Calci",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1199,
+      1204
+    ]
+  },
+  {
+    "text": "ferritin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1206,
+      1214
+    ]
+  },
+  {
+    "text": "albumin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1216,
+      1223
+    ]
+  },
+  {
+    "text": "bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1225,
+      1234
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1235,
+      1238
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1240,
+      1243
+    ]
+  },
+  {
+    "text": "phosphatase kiềm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1245,
+      1261
+    ]
+  },
+  {
+    "text": "normal",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1262,
+      1268
+    ]
+  },
+  {
+    "text": "PT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1269,
+      1271
+    ]
+  },
+  {
+    "text": "PTT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1273,
+      1276
+    ]
+  },
+  {
+    "text": "normal",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1277,
+      1283
+    ]
+  },
+  {
+    "text": "ESR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1285,
+      1288
+    ]
+  },
+  {
+    "text": "35 mm/h",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1289,
+      1296
+    ]
+  },
+  {
+    "text": "áp xe ở bàn chân trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L02.4"
+    ],
+    "assertions": [],
+    "position": [
+      1311,
+      1332
+    ]
+  },
+  {
+    "text": "dị vật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M79.5"
+    ],
+    "assertions": [],
+    "position": [
+      1366,
+      1372
+    ]
+  },
+  {
+    "text": "Mẫu cấy",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1417,
+      1424
+    ]
+  },
+  {
+    "text": "nhuộm Gram",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1426,
+      1436
+    ]
+  },
+  {
+    "text": "cấy nấm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1438,
+      1445
+    ]
+  },
+  {
+    "text": "vancomycin",
+    "type": "THUỐC",
+    "candidates": [
+      "11124"
+    ],
+    "assertions": [],
+    "position": [
+      1477,
+      1487
+    ]
+  },
+  {
+    "text": "Maxipime",
+    "type": "THUỐC",
+    "candidates": [
+      "20481"
+    ],
+    "assertions": [],
+    "position": [
+      1490,
+      1498
+    ]
+  }
+]

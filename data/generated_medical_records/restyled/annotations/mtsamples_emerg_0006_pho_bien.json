@@ -1,0 +1,179 @@
+[
+  {
+    "text": "Bệnh hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J98.9"
+    ],
+    "assertions": [],
+    "position": [
+      0,
+      11
+    ]
+  },
+  {
+    "text": "Bệnh hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J98.9"
+    ],
+    "assertions": [],
+    "position": [
+      29,
+      40
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      266,
+      268
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      453,
+      460
+    ]
+  },
+  {
+    "text": "rùng mình",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      491,
+      500
+    ]
+  },
+  {
+    "text": "đau đầu dữ dội",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      551,
+      565
+    ]
+  },
+  {
+    "text": "đau họng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      570,
+      578
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      599,
+      607
+    ]
+  },
+  {
+    "text": "nôn ói",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      609,
+      615
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      621,
+      630
+    ]
+  },
+  {
+    "text": "nhiễm khuẩn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A49.9"
+    ],
+    "assertions": [],
+    "position": [
+      924,
+      935
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [],
+    "position": [
+      978,
+      986
+    ]
+  },
+  {
+    "text": "chảy máu nghiêm trọng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1092,
+      1113
+    ]
+  },
+  {
+    "text": "Tussionex Pennkinetic",
+    "type": "THUỐC",
+    "candidates": [
+      "2400",
+      "5489"
+    ],
+    "assertions": [],
+    "position": [
+      1167,
+      1188
+    ]
+  },
+  {
+    "text": "Bệnh hô hấp do virus",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J98.9"
+    ],
+    "assertions": [],
+    "position": [
+      1351,
+      1371
+    ]
+  }
+]

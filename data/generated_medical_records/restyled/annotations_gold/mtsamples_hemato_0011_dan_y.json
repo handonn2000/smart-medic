@@ -1,0 +1,237 @@
+[
+  {
+    "text": "Ung thư phổi tế bào nhỏ giai đoạn rộng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C34.9"
+    ],
+    "assertions": [],
+    "position": [
+      24,
+      62
+    ]
+  },
+  {
+    "text": "carboplatin",
+    "type": "THUỐC",
+    "candidates": [
+      "40048"
+    ],
+    "assertions": [],
+    "position": [
+      106,
+      117
+    ]
+  },
+  {
+    "text": "etoposide",
+    "type": "THUỐC",
+    "candidates": [
+      "4179"
+    ],
+    "assertions": [],
+    "position": [
+      121,
+      130
+    ]
+  },
+  {
+    "text": "Đau vai trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      136,
+      148
+    ]
+  },
+  {
+    "text": "chụp CT ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      153,
+      165
+    ]
+  },
+  {
+    "text": "ung thư phổi tế bào nhỏ giai đoạn rộng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C34.9"
+    ],
+    "assertions": [],
+    "position": [
+      206,
+      244
+    ]
+  },
+  {
+    "text": "carboplatin",
+    "type": "THUỐC",
+    "candidates": [
+      "40048"
+    ],
+    "assertions": [],
+    "position": [
+      269,
+      280
+    ]
+  },
+  {
+    "text": "etoposide",
+    "type": "THUỐC",
+    "candidates": [
+      "4179"
+    ],
+    "assertions": [],
+    "position": [
+      284,
+      293
+    ]
+  },
+  {
+    "text": "đau lưng liên tục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      374,
+      391
+    ]
+  },
+  {
+    "text": "chụp CT ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      396,
+      408
+    ]
+  },
+  {
+    "text": "Levothyroxine 88 mcg mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      483,
+      512
+    ]
+  },
+  {
+    "text": "Soriatane 25 mg mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "16818"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      518,
+      542
+    ]
+  },
+  {
+    "text": "Vicodin 5/500 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "5489",
+      "161"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      594,
+      610
+    ]
+  },
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      737,
+      745
+    ]
+  },
+  {
+    "text": "sốt nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      814,
+      821
+    ]
+  },
+  {
+    "text": "rét run",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      836,
+      843
+    ]
+  },
+  {
+    "text": "đổ mồ hôi đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      845,
+      858
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      860,
+      868
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      870,
+      877
+    ]
+  },
+  {
+    "text": "ung thư phổi tế bào nhỏ giai đoạn rộng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C34.9"
+    ],
+    "assertions": [],
+    "position": [
+      997,
+      1035
+    ]
+  }
+]

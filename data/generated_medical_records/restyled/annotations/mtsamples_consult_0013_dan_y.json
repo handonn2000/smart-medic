@@ -1,0 +1,720 @@
+[
+  {
+    "text": "ung thư phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      108,
+      120
+    ]
+  },
+  {
+    "text": "viêm phổi tái phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      152,
+      170
+    ]
+  },
+  {
+    "text": "ung thư phổi đã di căn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      177,
+      199
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      227,
+      235
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      237,
+      252
+    ]
+  },
+  {
+    "text": "tràn dịch màng tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      268,
+      286
+    ]
+  },
+  {
+    "text": "Siêu âm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      327,
+      334
+    ]
+  },
+  {
+    "text": "tràn dịch màng tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      340,
+      358
+    ]
+  },
+  {
+    "text": "dấu hiệu ép tim sớm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      375,
+      394
+    ]
+  },
+  {
+    "text": "Khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      401,
+      408
+    ]
+  },
+  {
+    "text": "COPD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      416,
+      420
+    ]
+  },
+  {
+    "text": "khí phế thũng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      422,
+      435
+    ]
+  },
+  {
+    "text": "ho mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      440,
+      451
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      467,
+      476
+    ]
+  },
+  {
+    "text": "bệnh động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      523,
+      542
+    ]
+  },
+  {
+    "text": "Hydromorphone",
+    "type": "THUỐC",
+    "candidates": [
+      "3423"
+    ],
+    "assertions": [],
+    "position": [
+      610,
+      623
+    ]
+  },
+  {
+    "text": "erythromycin",
+    "type": "THUỐC",
+    "candidates": [
+      "4053"
+    ],
+    "assertions": [],
+    "position": [
+      633,
+      645
+    ]
+  },
+  {
+    "text": "ceftriaxone",
+    "type": "THUỐC",
+    "candidates": [
+      "2193"
+    ],
+    "assertions": [],
+    "position": [
+      647,
+      658
+    ]
+  },
+  {
+    "text": "calcium carbonate",
+    "type": "THUỐC",
+    "candidates": [
+      "1897"
+    ],
+    "assertions": [],
+    "position": [
+      660,
+      677
+    ]
+  },
+  {
+    "text": "Ambien",
+    "type": "THUỐC",
+    "candidates": [
+      "39993"
+    ],
+    "assertions": [],
+    "position": [
+      679,
+      685
+    ]
+  },
+  {
+    "text": "COPD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      743,
+      747
+    ]
+  },
+  {
+    "text": "khí phế thũng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      749,
+      762
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      764,
+      773
+    ]
+  },
+  {
+    "text": "ung thư phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      775,
+      787
+    ]
+  },
+  {
+    "text": "ung thư phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      842,
+      854
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1046,
+      1053
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1055,
+      1057
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1059,
+      1067
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1069,
+      1072
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1074,
+      1083
+    ]
+  },
+  {
+    "text": "EKG",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1571,
+      1574
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1615,
+      1625
+    ]
+  },
+  {
+    "text": "Số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1633,
+      1650
+    ]
+  },
+  {
+    "text": "7.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1652,
+      1655
+    ]
+  },
+  {
+    "text": "12.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1674,
+      1678
+    ]
+  },
+  {
+    "text": "38.1",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1697,
+      1701
+    ]
+  },
+  {
+    "text": "322000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1718,
+      1724
+    ]
+  },
+  {
+    "text": "Natri",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1731,
+      1736
+    ]
+  },
+  {
+    "text": "135",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1738,
+      1741
+    ]
+  },
+  {
+    "text": "Kali",
+    "type": "THUỐC",
+    "candidates": [
+      "704806"
+    ],
+    "assertions": [],
+    "position": [
+      1748,
+      1752
+    ]
+  },
+  {
+    "text": "5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1754,
+      1755
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1762,
+      1765
+    ]
+  },
+  {
+    "text": "6",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1767,
+      1768
+    ]
+  },
+  {
+    "text": "Creatinine",
+    "type": "THUỐC",
+    "candidates": [
+      "2913"
+    ],
+    "assertions": [],
+    "position": [
+      1775,
+      1785
+    ]
+  },
+  {
+    "text": "1.2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1787,
+      1790
+    ]
+  },
+  {
+    "text": "Glucose",
+    "type": "THUỐC",
+    "candidates": [
+      "4850"
+    ],
+    "assertions": [],
+    "position": [
+      1797,
+      1804
+    ]
+  },
+  {
+    "text": "71",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1806,
+      1808
+    ]
+  },
+  {
+    "text": "263",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1837,
+      1840
+    ]
+  },
+  {
+    "text": "protein",
+    "type": "THUỐC",
+    "candidates": [
+      "8859"
+    ],
+    "assertions": [],
+    "position": [
+      1852,
+      1859
+    ]
+  },
+  {
+    "text": "5.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1861,
+      1864
+    ]
+  },
+  {
+    "text": "Lipase",
+    "type": "THUỐC",
+    "candidates": [
+      "6406"
+    ],
+    "assertions": [],
+    "position": [
+      1871,
+      1877
+    ]
+  },
+  {
+    "text": "414",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1879,
+      1882
+    ]
+  },
+  {
+    "text": "Amylase",
+    "type": "THUỐC",
+    "candidates": [
+      "743"
+    ],
+    "assertions": [],
+    "position": [
+      1889,
+      1896
+    ]
+  },
+  {
+    "text": "57",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1898,
+      1900
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1932,
+      1944
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1965,
+      1974
+    ]
+  },
+  {
+    "text": "CT bụng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1982,
+      1989
+    ]
+  },
+  {
+    "text": "di căn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1991,
+      1997
+    ]
+  },
+  {
+    "text": "gan to",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1999,
+      2005
+    ]
+  },
+  {
+    "text": "cổ trướng quanh gan",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2007,
+      2026
+    ]
+  },
+  {
+    "text": "tràn dịch màng tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2028,
+      2046
+    ]
+  },
+  {
+    "text": "túi thừa sigma bên trái nhỏ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2059,
+      2086
+    ]
+  },
+  {
+    "text": "Tràn dịch màng ngoại biên ở mức độ vừa với dấu hiệu ép tim sớm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2110,
+      2172
+    ]
+  },
+  {
+    "text": "ung thư phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2177,
+      2189
+    ]
+  },
+  {
+    "text": "Ung thư phổi đã di căn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2197,
+      2219
+    ]
+  },
+  {
+    "text": "Viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      2227,
+      2236
+    ]
+  },
+  {
+    "text": "COPD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2244,
+      2248
+    ]
+  }
+]

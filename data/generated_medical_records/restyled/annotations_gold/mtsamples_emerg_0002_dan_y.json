@@ -1,0 +1,622 @@
+[
+  {
+    "text": "PT/INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      24,
+      30
+    ]
+  },
+  {
+    "text": "rất cao",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      31,
+      38
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      96,
+      105
+    ]
+  },
+  {
+    "text": "suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      109,
+      127
+    ]
+  },
+  {
+    "text": "rung nhĩ mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.2"
+    ],
+    "assertions": [],
+    "position": [
+      144,
+      161
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      188,
+      196
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      228,
+      231
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      243,
+      246
+    ]
+  },
+  {
+    "text": "12",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      251,
+      253
+    ]
+  },
+  {
+    "text": "vitamin K",
+    "type": "THUỐC",
+    "candidates": [
+      "11258"
+    ],
+    "assertions": [],
+    "position": [
+      284,
+      293
+    ]
+  },
+  {
+    "text": "Suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      319,
+      337
+    ]
+  },
+  {
+    "text": "Suy thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N19"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      344,
+      352
+    ]
+  },
+  {
+    "text": "Bệnh mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      359,
+      373
+    ]
+  },
+  {
+    "text": "Rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      380,
+      388
+    ]
+  },
+  {
+    "text": "COPD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J44.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      395,
+      399
+    ]
+  },
+  {
+    "text": "Viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      406,
+      415
+    ]
+  },
+  {
+    "text": "Ung thư bàng quang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C67"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      430,
+      448
+    ]
+  },
+  {
+    "text": "vỡ đại tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K63.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      463,
+      475
+    ]
+  },
+  {
+    "text": "Nhồi máu cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      482,
+      497
+    ]
+  },
+  {
+    "text": "thoát vị",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K46"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      514,
+      522
+    ]
+  },
+  {
+    "text": "hội chứng ống cổ tay",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G56.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      565,
+      585
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      634,
+      642
+    ]
+  },
+  {
+    "text": "Simvastatin",
+    "type": "THUỐC",
+    "candidates": [
+      "36567"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      648,
+      659
+    ]
+  },
+  {
+    "text": "Nitrofurantoin",
+    "type": "THUỐC",
+    "candidates": [
+      "7454"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      665,
+      679
+    ]
+  },
+  {
+    "text": "Celebrex",
+    "type": "THUỐC",
+    "candidates": [
+      "140587"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      685,
+      693
+    ]
+  },
+  {
+    "text": "Digoxin",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      699,
+      706
+    ]
+  },
+  {
+    "text": "Levothyroxine",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      712,
+      725
+    ]
+  },
+  {
+    "text": "Vicodin",
+    "type": "THUỐC",
+    "candidates": [
+      "5489",
+      "161"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      731,
+      738
+    ]
+  },
+  {
+    "text": "Triamterene và hydrochlorothiazide",
+    "type": "THUỐC",
+    "candidates": [
+      "10763",
+      "5487"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      744,
+      778
+    ]
+  },
+  {
+    "text": "Carvedilol",
+    "type": "THUỐC",
+    "candidates": [
+      "20352"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      784,
+      794
+    ]
+  },
+  {
+    "text": "đau đớn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      900,
+      907
+    ]
+  },
+  {
+    "text": "Huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      933,
+      941
+    ]
+  },
+  {
+    "text": "100/46",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      942,
+      948
+    ]
+  },
+  {
+    "text": "mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      950,
+      954
+    ]
+  },
+  {
+    "text": "75",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      955,
+      957
+    ]
+  },
+  {
+    "text": "nhịp thở",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      959,
+      967
+    ]
+  },
+  {
+    "text": "12",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      968,
+      970
+    ]
+  },
+  {
+    "text": "nhiệt độ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      972,
+      980
+    ]
+  },
+  {
+    "text": "98.2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      981,
+      985
+    ]
+  },
+  {
+    "text": "S3",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1088,
+      1090
+    ]
+  },
+  {
+    "text": "S4",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1092,
+      1094
+    ]
+  },
+  {
+    "text": "tiếng thổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1096,
+      1106
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1145,
+      1148
+    ]
+  },
+  {
+    "text": "Rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48"
+    ],
+    "assertions": [],
+    "position": [
+      1171,
+      1179
+    ]
+  },
+  {
+    "text": "Chứng rối loạn đông máu do Coumadin",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D68.3"
+    ],
+    "assertions": [],
+    "position": [
+      1186,
+      1221
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1247,
+      1250
+    ]
+  },
+  {
+    "text": "12",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1269,
+      1271
+    ]
+  },
+  {
+    "text": "vitamin K 10 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "11258"
+    ],
+    "assertions": [],
+    "position": [
+      1314,
+      1329
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      1344,
+      1351
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1361,
+      1369
+    ]
+  }
+]

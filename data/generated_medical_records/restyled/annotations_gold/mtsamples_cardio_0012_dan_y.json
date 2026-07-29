@@ -1,0 +1,400 @@
+[
+  {
+    "text": "Suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      29,
+      39
+    ]
+  },
+  {
+    "text": "Bệnh đường thở phản ứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45.9"
+    ],
+    "assertions": [],
+    "position": [
+      45,
+      68
+    ]
+  },
+  {
+    "text": "Suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      97,
+      107
+    ]
+  },
+  {
+    "text": "Bệnh đường thở phản ứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45.9"
+    ],
+    "assertions": [],
+    "position": [
+      113,
+      136
+    ]
+  },
+  {
+    "text": "Viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      142,
+      151
+    ]
+  },
+  {
+    "text": "hen suyễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [
+      "isNegated",
+      "isHistorical"
+    ],
+    "position": [
+      226,
+      235
+    ]
+  },
+  {
+    "text": "bệnh đường thở phản ứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45.9"
+    ],
+    "assertions": [
+      "isNegated",
+      "isHistorical"
+    ],
+    "position": [
+      240,
+      263
+    ]
+  },
+  {
+    "text": "nhiễm trùng đường hô hấp trên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J06.9"
+    ],
+    "assertions": [],
+    "position": [
+      282,
+      311
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      334,
+      336
+    ]
+  },
+  {
+    "text": "tăng công thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      340,
+      353
+    ]
+  },
+  {
+    "text": "khí dung albuterol liên tục",
+    "type": "THUỐC",
+    "candidates": [
+      "435"
+    ],
+    "assertions": [],
+    "position": [
+      415,
+      442
+    ]
+  },
+  {
+    "text": "corticosteroid hít vào",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      444,
+      466
+    ]
+  },
+  {
+    "text": "corticosteroid uống",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      470,
+      489
+    ]
+  },
+  {
+    "text": "x-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      495,
+      502
+    ]
+  },
+  {
+    "text": "thâm nhiễm thùy trên phải",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      512,
+      537
+    ]
+  },
+  {
+    "text": "CRP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      543,
+      546
+    ]
+  },
+  {
+    "text": "6.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      551,
+      554
+    ]
+  },
+  {
+    "text": "CBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      556,
+      559
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      560,
+      571
+    ]
+  },
+  {
+    "text": "bạch cầu non",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      573,
+      585
+    ]
+  },
+  {
+    "text": "84%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      586,
+      589
+    ]
+  },
+  {
+    "text": "viêm phổi do vi khuẩn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J15"
+    ],
+    "assertions": [],
+    "position": [
+      604,
+      625
+    ]
+  },
+  {
+    "text": "amoxicillin",
+    "type": "THUỐC",
+    "candidates": [
+      "723"
+    ],
+    "assertions": [],
+    "position": [
+      631,
+      642
+    ]
+  },
+  {
+    "text": "Zithromax",
+    "type": "THUỐC",
+    "candidates": [
+      "18631"
+    ],
+    "assertions": [],
+    "position": [
+      646,
+      655
+    ]
+  },
+  {
+    "text": "khò khè hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      735,
+      750
+    ]
+  },
+  {
+    "text": "thở nhanh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      758,
+      767
+    ]
+  },
+  {
+    "text": "suy hô hấp cấp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      809,
+      823
+    ]
+  },
+  {
+    "text": "phì đại tuyến giáp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      904,
+      922
+    ]
+  },
+  {
+    "text": "Khò khè hai bên nền",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      934,
+      953
+    ]
+  },
+  {
+    "text": "suy hô hấp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      961,
+      971
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1053,
+      1056
+    ]
+  },
+  {
+    "text": "Xopenex MDI 2 lần xịt mỗi 4 giờ",
+    "type": "THUỐC",
+    "candidates": [
+      "237159"
+    ],
+    "assertions": [],
+    "position": [
+      1249,
+      1280
+    ]
+  },
+  {
+    "text": "QVAR 40, 2 lần xịt 2 lần/ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "1347"
+    ],
+    "assertions": [],
+    "position": [
+      1321,
+      1350
+    ]
+  },
+  {
+    "text": "Amoxicillin 550 mg p.o. 2 lần/ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "723"
+    ],
+    "assertions": [],
+    "position": [
+      1379,
+      1413
+    ]
+  },
+  {
+    "text": "Zithromax 150 mg p.o. ngày 1",
+    "type": "THUỐC",
+    "candidates": [
+      "18631"
+    ],
+    "assertions": [],
+    "position": [
+      1429,
+      1457
+    ]
+  }
+]

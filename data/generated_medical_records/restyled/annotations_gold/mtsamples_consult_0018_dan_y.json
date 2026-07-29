@@ -1,0 +1,244 @@
+[
+  {
+    "text": "lo âu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F41.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      154,
+      159
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      251,
+      264
+    ]
+  },
+  {
+    "text": "đột quỵ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I64"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      268,
+      275
+    ]
+  },
+  {
+    "text": "Toprol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      312,
+      318
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      339,
+      352
+    ]
+  },
+  {
+    "text": "lo âu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F41.9"
+    ],
+    "assertions": [],
+    "position": [
+      356,
+      361
+    ]
+  },
+  {
+    "text": "Mệt mỏi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      389,
+      396
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      455,
+      469
+    ]
+  },
+  {
+    "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      487,
+      494
+    ]
+  },
+  {
+    "text": "hồ sơ lipid",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      496,
+      507
+    ]
+  },
+  {
+    "text": "Hemoccult",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      509,
+      518
+    ]
+  },
+  {
+    "text": "mammogram",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      523,
+      532
+    ]
+  },
+  {
+    "text": "khó chịu cấp tính",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      686,
+      703
+    ]
+  },
+  {
+    "text": "hạch to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      763,
+      770
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1061,
+      1064
+    ]
+  },
+  {
+    "text": "hạch to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1159,
+      1166
+    ]
+  },
+  {
+    "text": "Lo âu toàn thể hóa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F41.1"
+    ],
+    "assertions": [],
+    "position": [
+      1187,
+      1205
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1209,
+      1222
+    ]
+  },
+  {
+    "text": "hồ sơ lipid",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1301,
+      1312
+    ]
+  },
+  {
+    "text": "mammogram sàng lọc",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1349,
+      1367
+    ]
+  },
+  {
+    "text": "nội soi đại tràng sigma",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1391,
+      1414
+    ]
+  }
+]

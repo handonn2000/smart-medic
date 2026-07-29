@@ -1,0 +1,184 @@
+[
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      70,
+      82
+    ]
+  },
+  {
+    "text": "kháng sinh tĩnh mạch",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      112,
+      135
+    ]
+  },
+  {
+    "text": "kháng sinh uống",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      140,
+      158
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      215,
+      224
+    ]
+  },
+  {
+    "text": "nhiễm liên cầu khuẩn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B95.0"
+    ],
+    "assertions": [],
+    "position": [
+      305,
+      332
+    ]
+  },
+  {
+    "text": "penicillin",
+    "type": "THUỐC",
+    "candidates": [
+      "7986"
+    ],
+    "assertions": [],
+    "position": [
+      352,
+      362
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      398,
+      408
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      435,
+      444
+    ]
+  },
+  {
+    "text": "chọc dò tủy sống",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      523,
+      544
+    ]
+  },
+  {
+    "text": "co giật do sốt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R56.0"
+    ],
+    "assertions": [],
+    "position": [
+      787,
+      805
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      816,
+      829
+    ]
+  },
+  {
+    "text": "chọc dò tủy sống",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      835,
+      856
+    ]
+  },
+  {
+    "text": "cấy máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      861,
+      871
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      914,
+      923
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      942,
+      951
+    ]
+  },
+  {
+    "text": "nhiệt độ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1020,
+      1032
+    ]
+  },
+  {
+    "text": "số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1058,
+      1083
+    ]
+  }
+]

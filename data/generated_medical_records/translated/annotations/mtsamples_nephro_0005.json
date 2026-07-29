@@ -12,13 +12,15 @@
     ]
   },
   {
-    "text": "bệnh mạch vành",
+    "text": "bệnh động mạch vành",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": [
+      "I79"
+    ],
     "assertions": [],
     "position": [
-      88,
-      102
+      89,
+      108
     ]
   },
   {
@@ -27,8 +29,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      104,
-      108
+      110,
+      114
     ]
   },
   {
@@ -39,18 +41,8 @@
     ],
     "assertions": [],
     "position": [
-      110,
-      128
-    ]
-  },
-  {
-    "text": "20%-25%",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      136,
-      143
+      116,
+      134
     ]
   },
   {
@@ -61,8 +53,8 @@
     ],
     "assertions": [],
     "position": [
-      145,
-      158
+      151,
+      164
     ]
   },
   {
@@ -73,8 +65,8 @@
     ],
     "assertions": [],
     "position": [
-      160,
-      168
+      166,
+      174
     ]
   },
   {
@@ -83,8 +75,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      180,
-      201
+      187,
+      208
     ]
   },
   {
@@ -93,8 +85,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      224,
-      231
+      232,
+      239
     ]
   },
   {
@@ -103,8 +95,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      235,
-      244
+      243,
+      252
     ]
   },
   {
@@ -115,20 +107,20 @@
       "isNegated"
     ],
     "position": [
-      265,
-      273
+      280,
+      288
     ]
   },
   {
-    "text": "hồi hộp đánh trống ngực",
+    "text": "đánh trống ngực",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      275,
-      298
+      290,
+      305
     ]
   },
   {
@@ -137,8 +129,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      300,
-      304
+      307,
+      311
     ]
   },
   {
@@ -147,8 +139,42 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      311,
-      314
+      317,
+      320
+    ]
+  },
+  {
+    "text": "rối loạn tiết niệu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      338,
+      356
+    ]
+  },
+  {
+    "text": "khó tiểu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      358,
+      366
+    ]
+  },
+  {
+    "text": "tiểu buốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      368,
+      377
     ]
   },
   {
@@ -157,8 +183,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      381,
-      389
+      379,
+      387
     ]
   },
   {
@@ -167,8 +193,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      395,
-      403
+      393,
+      401
     ]
   },
   {
@@ -179,8 +205,8 @@
     ],
     "assertions": [],
     "position": [
-      426,
-      434
+      443,
+      451
     ]
   },
   {
@@ -193,8 +219,8 @@
       "isHistorical"
     ],
     "position": [
-      518,
-      531
+      540,
+      553
     ]
   },
   {
@@ -207,20 +233,8 @@
       "isHistorical"
     ],
     "position": [
-      533,
-      551
-    ]
-  },
-  {
-    "text": "20%-25%",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      575,
-      582
+      555,
+      573
     ]
   },
   {
@@ -231,20 +245,22 @@
       "isHistorical"
     ],
     "position": [
-      606,
-      610
+      628,
+      632
     ]
   },
   {
-    "text": "bệnh mạch vành nhẹ lan toả",
+    "text": "bệnh động mạch vành nhẹ và lan tỏa",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": [
+      "I79"
+    ],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      612,
-      638
+      634,
+      668
     ]
   },
   {
@@ -257,20 +273,18 @@
       "isHistorical"
     ],
     "position": [
-      643,
-      651
+      673,
+      681
     ]
   },
   {
-    "text": "Clonidine",
+    "text": "*********",
     "type": "THUỐC",
-    "candidates": [
-      "2599"
-    ],
+    "candidates": [],
     "assertions": [],
     "position": [
-      715,
-      724
+      742,
+      751
     ]
   },
   {
@@ -281,8 +295,8 @@
     ],
     "assertions": [],
     "position": [
-      739,
-      746
+      766,
+      773
     ]
   },
   {
@@ -293,32 +307,30 @@
     ],
     "assertions": [],
     "position": [
-      762,
-      773
+      788,
+      799
     ]
   },
   {
-    "text": "Lipitor",
+    "text": "*******",
     "type": "THUỐC",
-    "candidates": [
-      "83367"
-    ],
+    "candidates": [],
     "assertions": [],
     "position": [
-      783,
-      790
+      809,
+      816
     ]
   },
   {
     "text": "Toprol",
     "type": "THUỐC",
     "candidates": [
-      "6918"
+      "865575"
     ],
     "assertions": [],
     "position": [
-      809,
-      815
+      833,
+      839
     ]
   },
   {
@@ -332,58 +344,8 @@
       "isNegated"
     ],
     "position": [
-      911,
-      923
-    ]
-  },
-  {
-    "text": "180/110",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1037,
-      1044
-    ]
-  },
-  {
-    "text": "98.1",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1055,
-      1059
-    ]
-  },
-  {
-    "text": "60",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1071,
-      1073
-    ]
-  },
-  {
-    "text": "23",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1084,
-      1086
-    ]
-  },
-  {
-    "text": "95%",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1102,
-      1105
+      933,
+      945
     ]
   },
   {
@@ -394,8 +356,76 @@
       "isNegated"
     ],
     "position": [
-      1289,
-      1296
+      1328,
+      1335
+    ]
+  },
+  {
+    "text": "tĩnh mạch cảnh nổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1348,
+      1366
+    ]
+  },
+  {
+    "text": "hạch to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1385,
+      1392
+    ]
+  },
+  {
+    "text": "tiếng gallop",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1468,
+      1480
+    ]
+  },
+  {
+    "text": "tím",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1623,
+      1626
+    ]
+  },
+  {
+    "text": "ngón tay dùi trống",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1628,
+      1646
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1653,
+      1656
     ]
   },
   {
@@ -404,8 +434,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1669,
-      1679
+      1713,
+      1723
     ]
   },
   {
@@ -414,8 +444,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1681,
-      1684
+      1725,
+      1728
     ]
   },
   {
@@ -424,28 +454,38 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1685,
-      1686
+      1729,
+      1730
     ]
   },
   {
-    "text": "H và H",
+    "text": "HGB",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1688,
-      1694
+      1732,
+      1735
     ]
   },
   {
-    "text": "13 và 40",
+    "text": "HCT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1739,
+      1742
+    ]
+  },
+  {
+    "text": "13 and 40",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1695,
-      1703
+      1743,
+      1752
     ]
   },
   {
@@ -454,8 +494,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1705,
-      1713
+      1754,
+      1762
     ]
   },
   {
@@ -464,8 +504,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1714,
-      1717
+      1763,
+      1766
     ]
   },
   {
@@ -474,8 +514,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1719,
-      1721
+      1768,
+      1770
     ]
   },
   {
@@ -484,8 +524,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1722,
-      1724
+      1771,
+      1773
     ]
   },
   {
@@ -494,8 +534,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1726,
-      1729
+      1775,
+      1778
     ]
   },
   {
@@ -504,92 +544,12 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1730,
-      1732
-    ]
-  },
-  {
-    "text": "CO2",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1734,
-      1737
-    ]
-  },
-  {
-    "text": "20",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1738,
-      1740
-    ]
-  },
-  {
-    "text": "BUN",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1742,
-      1745
-    ]
-  },
-  {
-    "text": "27",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1746,
-      1748
-    ]
-  },
-  {
-    "text": "creatinine",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1750,
-      1760
-    ]
-  },
-  {
-    "text": "3.1",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1761,
-      1764
-    ]
-  },
-  {
-    "text": "cholesterol",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1766,
-      1777
-    ]
-  },
-  {
-    "text": "174",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1778,
+      1779,
       1781
     ]
   },
   {
-    "text": "BNP",
+    "text": "CO2",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
@@ -599,33 +559,33 @@
     ]
   },
   {
-    "text": "973",
+    "text": "20",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
       1787,
-      1790
+      1789
     ]
   },
   {
-    "text": "troponin",
+    "text": "BUN",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1792,
-      1800
+      1791,
+      1794
     ]
   },
   {
-    "text": "0.18",
+    "text": "27",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1801,
-      1805
+      1795,
+      1797
     ]
   },
   {
@@ -634,8 +594,88 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1811,
-      1821
+      1799,
+      1809
+    ]
+  },
+  {
+    "text": "3.1",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1810,
+      1813
+    ]
+  },
+  {
+    "text": "cholesterol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1815,
+      1826
+    ]
+  },
+  {
+    "text": "174",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1827,
+      1830
+    ]
+  },
+  {
+    "text": "BNP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1832,
+      1835
+    ]
+  },
+  {
+    "text": "973",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1836,
+      1839
+    ]
+  },
+  {
+    "text": "troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1841,
+      1849
+    ]
+  },
+  {
+    "text": "0.18",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1850,
+      1854
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1860,
+      1870
     ]
   },
   {
@@ -644,50 +684,40 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1835,
-      1838
+      1883,
+      1886
     ]
   },
   {
-    "text": "Xét nghiệm",
+    "text": "Sàng lọc thuốc trong nước tiểu",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1853,
-      1863
-    ]
-  },
-  {
-    "text": "nước tiểu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1871,
-      1880
+      1901,
+      1931
     ]
   },
   {
     "text": "cocaine",
-    "type": "THUỐC",
-    "candidates": [
-      "2653"
-    ],
-    "assertions": [],
-    "position": [
-      1896,
-      1903
-    ]
-  },
-  {
-    "text": "bệnh mạch vành",
-    "type": "CHẨN_ĐOÁN",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1969,
-      1983
+      1947,
+      1954
+    ]
+  },
+  {
+    "text": "bệnh động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [],
+    "position": [
+      2020,
+      2039
     ]
   },
   {
@@ -698,8 +728,8 @@
     ],
     "assertions": [],
     "position": [
-      1985,
-      2003
+      2041,
+      2059
     ]
   },
   {
@@ -708,8 +738,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2005,
-      2009
+      2061,
+      2065
     ]
   },
   {
@@ -720,8 +750,8 @@
     ],
     "assertions": [],
     "position": [
-      2011,
-      2024
+      2067,
+      2080
     ]
   },
   {
@@ -732,8 +762,8 @@
     ],
     "assertions": [],
     "position": [
-      2028,
-      2036
+      2085,
+      2093
     ]
   },
   {
@@ -742,52 +772,42 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2045,
-      2066
+      2102,
+      2123
     ]
   },
   {
-    "text": "Suy thận cấp trên nền mãn",
+    "text": "Suy thận cấp trên nền mãn tính",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "N17"
     ],
     "assertions": [],
     "position": [
-      2071,
-      2096
+      2128,
+      2158
     ]
   },
   {
-    "text": "Xét nghiệm ma túy nước tiểu",
-    "type": "TÊN_XÉT_NGHIỆM",
+    "text": "Sàng lọc thuốc trong nước tiểu dương tính",
+    "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2101,
-      2128
+      2163,
+      2204
     ]
   },
   {
-    "text": "suy tim sung huyết",
+    "text": "Nghi ngờ đợt cấp suy tim sinh lý hoặc COPD",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "I50.0"
+      "I50"
     ],
     "assertions": [],
     "position": [
-      2167,
-      2185
-    ]
-  },
-  {
-    "text": "COPD",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2193,
-      2197
+      2209,
+      2251
     ]
   },
   {
@@ -798,42 +818,60 @@
     ],
     "assertions": [],
     "position": [
-      2229,
-      2237
+      2287,
+      2295
     ]
   },
   {
-    "text": "cocaine",
-    "type": "THUỐC",
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "2653"
+      "I10"
     ],
     "assertions": [],
     "position": [
-      2336,
-      2343
+      2328,
+      2341
     ]
   },
   {
-    "text": "Tăng huyết áp cấp cứu",
+    "text": "lạm dụng cocaine",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2364,
+      2380
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2418,
+      2426
+    ]
+  },
+  {
+    "text": "tăng huyết áp cấp cứu",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2416,
-      2437
+      2463,
+      2484
     ]
   },
   {
-    "text": "cocaine",
-    "type": "THUỐC",
-    "candidates": [
-      "2653"
-    ],
+    "text": "lạm dụng thuốc cocaine",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
-      2485,
-      2492
+      2511,
+      2533
     ]
   }
 ]

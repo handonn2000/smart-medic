@@ -1,94 +1,94 @@
 [
   {
-    "text": "nói lắp bắp",
+    "text": "nói khó",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      84,
-      95
-    ]
-  },
-  {
-    "text": "tê vùng má trái",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      99,
+      105,
       114
     ]
   },
   {
-    "text": "cơn thiếu máu não thoáng qua",
+    "text": "tê bì má trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      119,
+      136
+    ]
+  },
+  {
+    "text": "cơn thiếu máu não thoáng qua (TIAs)",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      168,
-      196
+      207,
+      248
     ]
   },
   {
-    "text": "xệ mặt",
+    "text": "rủ mặt",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      259,
-      265
+      343,
+      352
     ]
   },
   {
-    "text": "mơ màng về tinh thần",
+    "text": "rối loạn ý thức",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      278,
-      298
+      368,
+      389
     ]
   },
   {
-    "text": "mờ mắt",
+    "text": "nhìn mờ",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      323,
-      329
+      430,
+      440
     ]
   },
   {
-    "text": "tiếng thổi ở động mạch cảnh trái",
+    "text": "tiếng thổi động mạch cảnh trái",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      413,
-      445
+      548,
+      587
     ]
   },
   {
-    "text": "cơn thiếu máu não thoáng qua",
+    "text": "TIA",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      464,
-      492
+      617,
+      620
     ]
   },
   {
     "text": "Lanoxin",
     "type": "THUỐC",
     "candidates": [
-      "3407"
+      "202988"
     ],
     "assertions": [],
     "position": [
-      541,
-      548
+      678,
+      685
     ]
   },
   {
@@ -99,62 +99,84 @@
     ],
     "assertions": [],
     "position": [
-      550,
-      561
+      687,
+      698
     ]
   },
   {
-    "text": "********",
+    "text": "Cardizem",
     "type": "THUỐC",
-    "candidates": [],
+    "candidates": [
+      "203494"
+    ],
     "assertions": [],
     "position": [
-      574,
-      582
+      711,
+      719
     ]
   },
   {
     "text": "Lasix",
     "type": "THUỐC",
     "candidates": [
-      "4603"
+      "202991"
     ],
     "assertions": [],
     "position": [
-      584,
-      589
+      721,
+      726
     ]
   },
   {
-    "text": "xét nghiệm",
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      685,
-      695
+      850,
+      863
     ]
   },
   {
-    "text": "CT scan đầu",
+    "text": "CT sọ não",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      697,
-      708
+      865,
+      876
     ]
   },
   {
-    "text": "Công thức máu toàn phần",
+    "text": "xương bướm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      960,
+      975
+    ]
+  },
+  {
+    "text": "u lành tính osteochondroma",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      991,
+      1019
+    ]
+  },
+  {
+    "text": "Công thức máu toàn phần (CBC)",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      862,
-      885
+      1066,
+      1102
     ]
   },
   {
@@ -163,8 +185,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      909,
-      919
+      1126,
+      1136
     ]
   },
   {
@@ -173,8 +195,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      920,
-      924
+      1137,
+      1141
     ]
   },
   {
@@ -183,20 +205,20 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      926,
-      929
+      1143,
+      1146
     ]
   },
   {
-    "text": "rung nhĩ",
+    "text": "rung nhĩ",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I48.0"
     ],
     "assertions": [],
     "position": [
-      939,
-      947
+      1158,
+      1167
     ]
   },
   {
@@ -205,8 +227,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      949,
-      952
+      1169,
+      1172
     ]
   },
   {
@@ -215,8 +237,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      953,
-      955
+      1173,
+      1175
     ]
   },
   {
@@ -225,8 +247,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      957,
-      967
+      1177,
+      1187
     ]
   },
   {
@@ -235,8 +257,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      981,
-      984
+      1205,
+      1208
     ]
   },
   {
@@ -245,194 +267,214 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      998,
-      1005
+      1226,
+      1233
     ]
   },
   {
-    "text": "điện giải",
+    "text": "điện giải",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1023,
-      1032
+      1251,
+      1263
     ]
   },
   {
-    "text": "loạn ngôn",
+    "text": "suy giảm trí nhớ gần",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1394,
+      1420
+    ]
+  },
+  {
+    "text": "mất ngôn ngữ",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      1168,
-      1177
+      1437,
+      1454
     ]
   },
   {
-    "text": "khó làm động tác phức tạp",
+    "text": "mất động tác theo ý muốn",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
-    "position": [
-      1183,
-      1208
-    ]
-  },
-  {
-    "text": "Giọng nói",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1210,
-      1219
-    ]
-  },
-  {
-    "text": "tiếng thổi động mạch cảnh trái",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1322,
-      1352
-    ]
-  },
-  {
-    "text": "làm phẳng nếp gấp mũi má trái",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
     "position": [
       1459,
-      1488
+      1491
     ]
   },
   {
-    "text": "rung",
+    "text": "Lời nói bình thường và rõ ràng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1493,
+      1533
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1541,
+      1556
+    ]
+  },
+  {
+    "text": "mềm dẻo",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1563,
+      1573
+    ]
+  },
+  {
+    "text": "tiếng thổi động mạch cảnh trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1609,
+      1648
+    ]
+  },
+  {
+    "text": "làm phẳng nếp mũi má trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1758,
+      1791
+    ]
+  },
+  {
+    "text": "rơi cánh tay",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      1561,
-      1565
+      1846,
+      1860
     ]
   },
   {
-    "text": "đưa tay quá vị trí",
+    "text": "run rẩy",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      1570,
-      1588
+      1873,
+      1882
     ]
   },
   {
-    "text": "gập lòng bàn chân hai bên",
+    "text": "chỉ sai",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1887,
+      1895
+    ]
+  },
+  {
+    "text": "suy giảm trí nhớ gần nhẹ",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      1791,
-      1816
+      2471,
+      2502
     ]
   },
   {
-    "text": "suy giảm nhẹ trí nhớ gần đây",
+    "text": "làm phẳng nếp mũi má trái",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      2037,
-      2065
+      2504,
+      2537
     ]
   },
   {
-    "text": "làm phẳng nếp gấp mũi má trái",
+    "text": "tiếng thổi động mạch cảnh trái",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      2067,
-      2096
+      2543,
+      2582
     ]
   },
   {
-    "text": "tiếng thổi động mạch cảnh trái",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2100,
-      2130
-    ]
-  },
-  {
-    "text": "rung nhĩ",
+    "text": "rung nhĩ",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I48.0"
     ],
     "assertions": [],
     "position": [
-      2143,
-      2151
+      2598,
+      2607
     ]
   },
   {
-    "text": "rung nhĩ mãn tính",
+    "text": "rung nhĩ mãn tính",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I48.2"
     ],
     "assertions": [],
     "position": [
-      2215,
-      2232
+      2702,
+      2722
     ]
   },
   {
-    "text": "cơn thiếu máu não thoáng qua",
+    "text": "TIA",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2326,
-      2354
+      2859,
+      2862
     ]
   },
   {
     "text": "Coumadin",
     "type": "THUỐC",
     "candidates": [
-      "11289"
+      "202421"
     ],
     "assertions": [],
     "position": [
-      2650,
-      2658
-    ]
-  },
-  {
-    "text": "chống đông máu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "Y44.2"
-    ],
-    "assertions": [],
-    "position": [
-      2659,
-      2673
+      3305,
+      3313
     ]
   }
 ]

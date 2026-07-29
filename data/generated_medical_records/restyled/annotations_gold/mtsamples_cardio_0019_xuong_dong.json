@@ -1,0 +1,532 @@
+[
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      25,
+      38
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      42,
+      50
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      52,
+      59
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      61,
+      64
+    ]
+  },
+  {
+    "text": "Premarin 0.625 mg/ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "4099"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      128,
+      150
+    ]
+  },
+  {
+    "text": "calcium + vitamin D 2-3 viên/ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "1895",
+      "11253"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      151,
+      184
+    ]
+  },
+  {
+    "text": "multivitamin mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      185,
+      206
+    ]
+  },
+  {
+    "text": "aspirin khi cần",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      207,
+      222
+    ]
+  },
+  {
+    "text": "TriViFlor 25 mg 2 viên/ngày",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      223,
+      250
+    ]
+  },
+  {
+    "text": "Elocon 0.1%",
+    "type": "THUỐC",
+    "candidates": [
+      "108118"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      251,
+      262
+    ]
+  },
+  {
+    "text": "Synalar 0.01% dùng khi cần",
+    "type": "THUỐC",
+    "candidates": [
+      "25126"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      264,
+      290
+    ]
+  },
+  {
+    "text": "Benadryl",
+    "type": "THUỐC",
+    "candidates": [
+      "3498"
+    ],
+    "assertions": [],
+    "position": [
+      300,
+      308
+    ]
+  },
+  {
+    "text": "phenobarbitone",
+    "type": "THUỐC",
+    "candidates": [
+      "8134"
+    ],
+    "assertions": [],
+    "position": [
+      310,
+      324
+    ]
+  },
+  {
+    "text": "morphine",
+    "type": "THUỐC",
+    "candidates": [
+      "7052"
+    ],
+    "assertions": [],
+    "position": [
+      326,
+      334
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [],
+    "position": [
+      336,
+      341
+    ]
+  },
+  {
+    "text": "suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [
+      "isFamily",
+      "isHistorical"
+    ],
+    "position": [
+      373,
+      391
+    ]
+  },
+  {
+    "text": "nhồi máu cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I21"
+    ],
+    "assertions": [
+      "isFamily",
+      "isHistorical"
+    ],
+    "position": [
+      400,
+      415
+    ]
+  },
+  {
+    "text": "bệnh tim thiếu máu cục bộ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I25.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      436,
+      461
+    ]
+  },
+  {
+    "text": "lymphoma",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C85.9"
+    ],
+    "assertions": [
+      "isFamily",
+      "isHistorical"
+    ],
+    "position": [
+      478,
+      486
+    ]
+  },
+  {
+    "text": "hen suyễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      538,
+      547
+    ]
+  },
+  {
+    "text": "đau lưng dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      597,
+      610
+    ]
+  },
+  {
+    "text": "Chụp mạch cộng hưởng từ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      691,
+      714
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      716,
+      727
+    ]
+  },
+  {
+    "text": "Dẫn truyền thần kinh",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      728,
+      748
+    ]
+  },
+  {
+    "text": "bệnh đa dây thần kinh ngoại biên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G62.9"
+    ],
+    "assertions": [],
+    "position": [
+      750,
+      782
+    ]
+  },
+  {
+    "text": "myelogram",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      787,
+      796
+    ]
+  },
+  {
+    "text": "tiểu đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      877,
+      885
+    ]
+  },
+  {
+    "text": "Cân",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      902,
+      905
+    ]
+  },
+  {
+    "text": "227.2 lbs",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      907,
+      916
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      921,
+      929
+    ]
+  },
+  {
+    "text": "144/72",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      930,
+      936
+    ]
+  },
+  {
+    "text": "M",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      937,
+      938
+    ]
+  },
+  {
+    "text": "80",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      940,
+      942
+    ]
+  },
+  {
+    "text": "Nhiệt",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      943,
+      948
+    ]
+  },
+  {
+    "text": "97.5 độ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      950,
+      957
+    ]
+  },
+  {
+    "text": "phì giáp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1028,
+      1036
+    ]
+  },
+  {
+    "text": "tiếng ngựa phi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1079,
+      1093
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1112,
+      1115
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1124,
+      1127
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1143,
+      1156
+    ]
+  },
+  {
+    "text": "Ngất",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R55"
+    ],
+    "assertions": [],
+    "position": [
+      1181,
+      1185
+    ]
+  },
+  {
+    "text": "ngất",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R55"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1196,
+      1200
+    ]
+  },
+  {
+    "text": "rối loạn nhịp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I49.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1230,
+      1243
+    ]
+  },
+  {
+    "text": "Hẹp ống sống",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M48.0"
+    ],
+    "assertions": [],
+    "position": [
+      1247,
+      1259
+    ]
+  }
+]

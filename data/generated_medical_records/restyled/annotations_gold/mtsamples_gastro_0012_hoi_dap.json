@@ -1,0 +1,242 @@
+[
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      130,
+      138
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      142,
+      150
+    ]
+  },
+  {
+    "text": "Nước tiểu em có lúc màu sẫm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      156,
+      183
+    ]
+  },
+  {
+    "text": "hơi lạnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      200,
+      208
+    ]
+  },
+  {
+    "text": "sốt nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      215,
+      222
+    ]
+  },
+  {
+    "text": "sỏi túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K80.2"
+    ],
+    "assertions": [],
+    "position": [
+      360,
+      371
+    ]
+  },
+  {
+    "text": "siêu âm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      373,
+      380
+    ]
+  },
+  {
+    "text": "tắc ống mật chủ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K83.1"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      390,
+      405
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      441,
+      445
+    ]
+  },
+  {
+    "text": "bilirubin toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      446,
+      465
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      469,
+      473
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      474,
+      477
+    ]
+  },
+  {
+    "text": "đau vùng chậu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      568,
+      581
+    ]
+  },
+  {
+    "text": "dính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N73.6"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      582,
+      586
+    ]
+  },
+  {
+    "text": "bệnh túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K82.9"
+    ],
+    "assertions": [],
+    "position": [
+      852,
+      864
+    ]
+  },
+  {
+    "text": "sỏi túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K80.2"
+    ],
+    "assertions": [],
+    "position": [
+      1066,
+      1077
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1101,
+      1109
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1113,
+      1121
+    ]
+  },
+  {
+    "text": "nước tiểu màu sẫm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1123,
+      1140
+    ]
+  },
+  {
+    "text": "cảm giác ớn lạnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1144,
+      1160
+    ]
+  },
+  {
+    "text": "chụp lại đường mật",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1354,
+      1372
+    ]
+  },
+  {
+    "text": "tắc nghẽn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K83.1"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1399,
+      1408
+    ]
+  }
+]

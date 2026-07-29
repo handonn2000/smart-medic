@@ -5,18 +5,30 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      35,
-      43
+      34,
+      42
     ]
   },
   {
-    "text": "vàng da",
+    "text": "sụt 30 pound",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      120,
-      127
+      73,
+      85
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "P57.9"
+    ],
+    "assertions": [],
+    "position": [
+      105,
+      112
     ]
   },
   {
@@ -25,18 +37,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      142,
-      155
+      126,
+      139
     ]
   },
   {
-    "text": "CT scan lát cắt mỏng",
+    "text": "CT-scan lát cắt mỏng",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      179,
-      199
+      162,
+      182
     ]
   },
   {
@@ -45,18 +57,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      325,
-      335
-    ]
-  },
-  {
-    "text": "giả nang",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      372,
-      380
+      323,
+      333
     ]
   },
   {
@@ -75,8 +77,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      681,
-      690
+      665,
+      674
     ]
   },
   {
@@ -85,8 +87,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      698,
-      708
+      681,
+      691
     ]
   },
   {
@@ -95,66 +97,66 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      743,
-      751
+      724,
+      732
     ]
   },
   {
     "text": "Zofran",
     "type": "THUỐC",
     "candidates": [
-      "26225"
+      "66981"
     ],
     "assertions": [],
     "position": [
-      817,
-      823
+      795,
+      801
     ]
   },
   {
     "text": "Phenergan",
     "type": "THUỐC",
     "candidates": [
-      "8745"
+      "152218"
     ],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      859,
-      868
+      845,
+      854
     ]
   },
   {
-    "text": "ít buồn nôn",
+    "text": "buồn nôn",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      935,
-      946
+      919,
+      927
     ]
   },
   {
     "text": "Phenergan",
     "type": "THUỐC",
     "candidates": [
-      "8745"
+      "152218"
     ],
     "assertions": [],
     "position": [
-      993,
-      1002
+      964,
+      973
     ]
   },
   {
-    "text": "WBC",
+    "text": "số lượng bạch cầu",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1029,
-      1032
+      990,
+      1007
     ]
   },
   {
@@ -163,8 +165,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1050,
-      1053
+      1024,
+      1027
     ]
   },
   {
@@ -173,8 +175,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1055,
-      1065
+      1029,
+      1039
     ]
   },
   {
@@ -183,8 +185,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1066,
-      1070
+      1040,
+      1044
     ]
   },
   {
@@ -193,8 +195,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1072,
-      1082
+      1046,
+      1056
     ]
   },
   {
@@ -203,8 +205,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1083,
-      1085
+      1057,
+      1059
     ]
   },
   {
@@ -213,8 +215,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1090,
-      1093
+      1064,
+      1067
     ]
   },
   {
@@ -223,8 +225,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1097,
-      1099
+      1067,
+      1069
+    ]
+  },
+  {
+    "text": "số lượng tiểu cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1071,
+      1088
     ]
   },
   {
@@ -233,18 +245,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1119,
-      1125
+      1088,
+      1094
     ]
   },
   {
-    "text": "natri",
+    "text": "sodium",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1135,
-      1140
+      1104,
+      1110
     ]
   },
   {
@@ -253,18 +265,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1144,
-      1147
+      1114,
+      1117
     ]
   },
   {
-    "text": "kali",
+    "text": "potassium",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1149,
-      1153
+      1119,
+      1128
     ]
   },
   {
@@ -273,18 +285,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1154,
-      1157
+      1129,
+      1132
     ]
   },
   {
-    "text": "clorua",
+    "text": "chloride",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1159,
-      1165
+      1134,
+      1142
     ]
   },
   {
@@ -293,8 +305,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1166,
-      1168
+      1143,
+      1145
     ]
   },
   {
@@ -303,8 +315,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1170,
-      1173
+      1147,
+      1150
     ]
   },
   {
@@ -313,8 +325,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1174,
-      1176
+      1151,
+      1153
     ]
   },
   {
@@ -323,8 +335,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1178,
-      1181
+      1155,
+      1158
     ]
   },
   {
@@ -333,8 +345,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1185,
-      1186
+      1162,
+      1163
     ]
   },
   {
@@ -343,8 +355,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1191,
-      1201
+      1168,
+      1178
     ]
   },
   {
@@ -353,8 +365,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1205,
-      1208
+      1179,
+      1182
     ]
   },
   {
@@ -363,8 +375,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1210,
-      1219
+      1188,
+      1197
     ]
   },
   {
@@ -373,18 +385,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1223,
-      1227
+      1201,
+      1205
     ]
   },
   {
-    "text": "alk phos",
+    "text": "alkaline phosphatase",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1229,
-      1237
+      1207,
+      1227
     ]
   },
   {
@@ -393,8 +405,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1238,
-      1241
+      1228,
+      1231
     ]
   },
   {
@@ -403,8 +415,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1243,
-      1246
+      1233,
+      1236
     ]
   },
   {
@@ -413,8 +425,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1247,
-      1250
+      1237,
+      1240
     ]
   },
   {
@@ -423,8 +435,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1252,
-      1255
+      1242,
+      1245
     ]
   },
   {
@@ -433,18 +445,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1256,
-      1259
+      1246,
+      1249
     ]
   },
   {
-    "text": "total protein",
+    "text": "protein toàn phần",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1261,
-      1274
+      1251,
+      1268
     ]
   },
   {
@@ -453,8 +465,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1275,
-      1278
+      1269,
+      1272
     ]
   },
   {
@@ -463,8 +475,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1282,
-      1289
+      1276,
+      1283
     ]
   },
   {
@@ -473,8 +485,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1293,
-      1296
+      1287,
+      1290
     ]
   },
   {
@@ -483,8 +495,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1382,
-      1393
+      1370,
+      1381
     ]
   },
   {
@@ -495,20 +507,8 @@
     ],
     "assertions": [],
     "position": [
-      1482,
-      1489
-    ]
-  },
-  {
-    "text": "insulin",
-    "type": "THUỐC",
-    "candidates": [
-      "253182"
-    ],
-    "assertions": [],
-    "position": [
-      1491,
-      1498
+      1481,
+      1488
     ]
   },
   {
@@ -519,8 +519,18 @@
     ],
     "assertions": [],
     "position": [
-      1638,
-      1652
+      1623,
+      1637
+    ]
+  },
+  {
+    "text": "hóa trị",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1822,
+      1829
     ]
   },
   {
@@ -529,44 +539,44 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1856,
-      1880
+      1835,
+      1859
     ]
   },
   {
     "text": "Phenergan",
     "type": "THUỐC",
     "candidates": [
-      "8745"
+      "152218"
     ],
     "assertions": [],
     "position": [
-      2009,
-      2018
+      1994,
+      2003
     ]
   },
   {
     "text": "Duragesic",
     "type": "THUỐC",
     "candidates": [
-      "4337"
+      "151678"
     ],
     "assertions": [],
     "position": [
-      2057,
-      2066
+      2042,
+      2051
     ]
   },
   {
     "text": "Benadryl",
     "type": "THUỐC",
     "candidates": [
-      "3498"
+      "203457"
     ],
     "assertions": [],
     "position": [
-      2090,
-      2098
+      2075,
+      2083
     ]
   },
   {
@@ -577,8 +587,8 @@
     ],
     "assertions": [],
     "position": [
-      2150,
-      2157
+      2142,
+      2149
     ]
   },
   {
@@ -589,20 +599,20 @@
     ],
     "assertions": [],
     "position": [
-      2290,
-      2299
+      2279,
+      2288
     ]
   },
   {
-    "text": "tăng huyết áp",
+    "text": "Tăng huyết áp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I10"
     ],
     "assertions": [],
     "position": [
-      2309,
-      2322
+      2298,
+      2311
     ]
   },
   {
@@ -611,8 +621,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2416,
-      2420
+      2407,
+      2411
     ]
   },
   {
@@ -621,28 +631,28 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2461,
-      2464
+      2440,
+      2443
     ]
   },
   {
-    "text": "bilirubin",
+    "text": "tăng bilirubin",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2471,
-      2480
+      2444,
+      2458
     ]
   },
   {
-    "text": "đau nặng hơn",
+    "text": "đau tăng",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      2482,
-      2494
+      2459,
+      2467
     ]
   }
 ]

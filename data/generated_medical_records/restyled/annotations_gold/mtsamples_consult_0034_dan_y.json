@@ -1,0 +1,459 @@
+[
+  {
+    "text": "Viêm mô tế bào vùng mu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L03.3"
+    ],
+    "assertions": [],
+    "position": [
+      18,
+      40
+    ]
+  },
+  {
+    "text": "sưng vùng dương vật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      86,
+      105
+    ]
+  },
+  {
+    "text": "dính da",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N48.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      227,
+      234
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      269,
+      272
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      299,
+      305
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      309,
+      315
+    ]
+  },
+  {
+    "text": "Nhiệt độ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      348,
+      356
+    ]
+  },
+  {
+    "text": "102-103°F",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      360,
+      369
+    ]
+  },
+  {
+    "text": "Tylenol với codeine",
+    "type": "THUỐC",
+    "candidates": [
+      "161",
+      "2670"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      385,
+      404
+    ]
+  },
+  {
+    "text": "kháng sinh bôi",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      406,
+      420
+    ]
+  },
+  {
+    "text": "sổ mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      495,
+      501
+    ]
+  },
+  {
+    "text": "tiết dịch",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      518,
+      527
+    ]
+  },
+  {
+    "text": "tím tái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      570,
+      577
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      585,
+      591
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      611,
+      613
+    ]
+  },
+  {
+    "text": "khò khè",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      621,
+      628
+    ]
+  },
+  {
+    "text": "táo bón",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      644,
+      651
+    ]
+  },
+  {
+    "text": "tiểu đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      702,
+      710
+    ]
+  },
+  {
+    "text": "tiết dịch dương vật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      712,
+      731
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      765,
+      771
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      779,
+      786
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      813,
+      816
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      824,
+      830
+    ]
+  },
+  {
+    "text": "ban đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      840,
+      846
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      850,
+      856
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      915,
+      918
+    ]
+  },
+  {
+    "text": "15.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      920,
+      924
+    ]
+  },
+  {
+    "text": "H&H",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      926,
+      929
+    ]
+  },
+  {
+    "text": "12.0",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      931,
+      935
+    ]
+  },
+  {
+    "text": "36",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      939,
+      941
+    ]
+  },
+  {
+    "text": "Cấy máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      947,
+      954
+    ]
+  },
+  {
+    "text": "Rocephin",
+    "type": "THUỐC",
+    "candidates": [
+      "2193"
+    ],
+    "assertions": [],
+    "position": [
+      980,
+      988
+    ]
+  },
+  {
+    "text": "Cleocin",
+    "type": "THUỐC",
+    "candidates": [
+      "2582"
+    ],
+    "assertions": [],
+    "position": [
+      990,
+      997
+    ]
+  },
+  {
+    "text": "clindamycin",
+    "type": "THUỐC",
+    "candidates": [
+      "2582"
+    ],
+    "assertions": [],
+    "position": [
+      1012,
+      1023
+    ]
+  },
+  {
+    "text": "nhiễm trùng đường hô hấp trên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J06.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1340,
+      1369
+    ]
+  },
+  {
+    "text": "Nhiệt độ tối đa",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1430,
+      1445
+    ]
+  },
+  {
+    "text": "102",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1446,
+      1449
+    ]
+  },
+  {
+    "text": "Nhịp tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1455,
+      1463
+    ]
+  },
+  {
+    "text": "153",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1464,
+      1467
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1662,
+      1665
+    ]
+  },
+  {
+    "text": "cấy máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1749,
+      1756
+    ]
+  }
+]

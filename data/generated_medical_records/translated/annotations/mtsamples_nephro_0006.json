@@ -1,12 +1,22 @@
 [
   {
+    "text": "khó tiểu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      191,
+      199
+    ]
+  },
+  {
     "text": "táo bón",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      190,
-      197
+      203,
+      210
     ]
   },
   {
@@ -15,30 +25,42 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      199,
-      212
+      212,
+      225
     ]
   },
   {
     "text": "Levaquin",
     "type": "THUỐC",
     "candidates": [
-      "82122"
+      "217992"
     ],
     "assertions": [],
     "position": [
-      291,
-      299
+      311,
+      319
     ]
   },
   {
-    "text": "tiểu máu",
+    "text": "tiểu ra máu",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      368,
-      376
+      384,
+      395
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      453,
+      456
     ]
   },
   {
@@ -49,8 +71,20 @@
       "isNegated"
     ],
     "position": [
-      439,
-      447
+      458,
+      466
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      468,
+      471
     ]
   },
   {
@@ -59,8 +93,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      457,
-      466
+      477,
+      486
     ]
   },
   {
@@ -69,8 +103,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      556,
-      564
+      566,
+      574
     ]
   },
   {
@@ -79,48 +113,68 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      568,
-      571
+      578,
+      581
     ]
   },
   {
-    "text": "H và H",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      573,
-      579
-    ]
-  },
-  {
-    "text": "10.8 và 38.7",
+    "text": "10.8",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      583,
-      595
+      593,
+      597
     ]
   },
   {
-    "text": "BUN và creatinine",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      600,
-      617
-    ]
-  },
-  {
-    "text": "27 và 1.9",
+    "text": "38.7",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      621,
-      630
+      601,
+      605
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      610,
+      613
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      617,
+      627
+    ]
+  },
+  {
+    "text": "27",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      631,
+      633
+    ]
+  },
+  {
+    "text": "1.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      637,
+      640
     ]
   },
   {
@@ -129,8 +183,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      632,
-      645
+      642,
+      655
     ]
   },
   {
@@ -139,8 +193,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      664,
-      676
+      674,
+      686
+    ]
+  },
+  {
+    "text": "Phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      705,
+      724
     ]
   },
   {
@@ -149,28 +213,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      695,
-      704
-    ]
-  },
-  {
-    "text": "xét nghiệm",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      717,
-      727
-    ]
-  },
-  {
-    "text": "Nước tiểu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      804,
-      813
+      809,
+      818
     ]
   },
   {
@@ -183,20 +227,20 @@
       "isHistorical"
     ],
     "position": [
-      851,
-      864
+      857,
+      870
     ]
   },
   {
-    "text": "Rối loạn lipid máu",
+    "text": "Cholesterol cao",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      871,
-      889
+      877,
+      892
     ]
   },
   {
@@ -209,8 +253,8 @@
       "isHistorical"
     ],
     "position": [
-      896,
-      914
+      899,
+      917
     ]
   },
   {
@@ -223,12 +267,12 @@
       "isHistorical"
     ],
     "position": [
-      960,
-      977
+      958,
+      975
     ]
   },
   {
-    "text": "Phì đại tuyến tiền liệt",
+    "text": "Tuyến tiền liệt phì đại",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "D29.1"
@@ -237,8 +281,8 @@
       "isHistorical"
     ],
     "position": [
-      984,
-      1007
+      982,
+      1005
     ]
   },
   {
@@ -249,20 +293,20 @@
     ],
     "assertions": [],
     "position": [
-      1054,
-      1062
+      1048,
+      1056
     ]
   },
   {
     "text": "Cardura",
     "type": "THUỐC",
     "candidates": [
-      "49276"
+      "196468"
     ],
     "assertions": [],
     "position": [
-      1069,
-      1076
+      1063,
+      1070
     ]
   },
   {
@@ -271,44 +315,44 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1083,
-      1090
+      1077,
+      1084
     ]
   },
   {
     "text": "Flomax",
     "type": "THUỐC",
     "candidates": [
-      "77492"
+      "190283"
     ],
     "assertions": [],
     "position": [
-      1097,
-      1103
+      1091,
+      1097
     ]
   },
   {
     "text": "Levaquin",
     "type": "THUỐC",
     "candidates": [
-      "82122"
+      "217992"
     ],
     "assertions": [],
     "position": [
-      1110,
-      1118
+      1104,
+      1112
     ]
   },
   {
     "text": "Proscar",
     "type": "THUỐC",
     "candidates": [
-      "25025"
+      "196476"
     ],
     "assertions": [],
     "position": [
-      1125,
-      1132
+      1119,
+      1126
     ]
   },
   {
@@ -317,8 +361,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1139,
-      1146
+      1133,
+      1140
     ]
   },
   {
@@ -329,56 +373,56 @@
     ],
     "assertions": [],
     "position": [
-      1153,
-      1161
+      1147,
+      1155
     ]
   },
   {
     "text": "Phenergan",
     "type": "THUỐC",
     "candidates": [
-      "8745"
+      "152218"
     ],
     "assertions": [],
     "position": [
-      1168,
-      1177
+      1162,
+      1171
     ]
   },
   {
     "text": "Ativan",
     "type": "THUỐC",
     "candidates": [
-      "6470"
+      "202479"
     ],
     "assertions": [],
     "position": [
-      1185,
-      1191
+      1179,
+      1185
     ]
   },
   {
     "text": "Zocor",
     "type": "THUỐC",
     "candidates": [
-      "36567"
+      "196503"
     ],
     "assertions": [],
     "position": [
-      1199,
-      1204
+      1193,
+      1198
     ]
   },
   {
     "text": "Prinivil",
     "type": "THUỐC",
     "candidates": [
-      "29046"
+      "203644"
     ],
     "assertions": [],
     "position": [
-      1212,
-      1220
+      1206,
+      1214
     ]
   },
   {
@@ -389,8 +433,8 @@
     ],
     "assertions": [],
     "position": [
-      1228,
-      1247
+      1222,
+      1241
     ]
   },
   {
@@ -401,8 +445,8 @@
     ],
     "assertions": [],
     "position": [
-      1255,
-      1265
+      1249,
+      1259
     ]
   },
   {
@@ -413,8 +457,8 @@
     ],
     "assertions": [],
     "position": [
-      1273,
-      1280
+      1267,
+      1274
     ]
   },
   {
@@ -425,8 +469,28 @@
     ],
     "assertions": [],
     "position": [
-      1288,
-      1299
+      1282,
+      1293
+    ]
+  },
+  {
+    "text": "162/60",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1619,
+      1625
+    ]
+  },
+  {
+    "text": "98%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1644,
+      1647
     ]
   },
   {
@@ -435,8 +499,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1919,
-      1928
+      1909,
+      1918
     ]
   },
   {
@@ -445,18 +509,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1955,
-      1965
+      1935,
+      1945
     ]
   },
   {
-    "text": "Tiểu máu",
+    "text": "Tiểu ra máu",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2000,
-      2008
+      1978,
+      1989
     ]
   }
 ]

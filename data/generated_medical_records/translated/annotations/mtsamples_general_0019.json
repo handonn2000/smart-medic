@@ -1,0 +1,304 @@
+[
+  {
+    "text": "Đau vùng hông trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      14,
+      32
+    ]
+  },
+  {
+    "text": "sỏi niệu quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.1"
+    ],
+    "assertions": [],
+    "position": [
+      34,
+      47
+    ]
+  },
+  {
+    "text": "đau vùng hông trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      123,
+      141
+    ]
+  },
+  {
+    "text": "sỏi niệu quản trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.1"
+    ],
+    "assertions": [],
+    "position": [
+      184,
+      202
+    ]
+  },
+  {
+    "text": "đau bụng và đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      242,
+      262
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      315,
+      330
+    ]
+  },
+  {
+    "text": "tiểu máu, tiểu khó, nóng rát hay đau khi tiểu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      405,
+      450
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      471,
+      474
+    ]
+  },
+  {
+    "text": "rối loạn co giật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R56"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      683,
+      699
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      701,
+      709
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      720,
+      727
+    ]
+  },
+  {
+    "text": "tiểu khó, nóng rát hay đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      738,
+      764
+    ]
+  },
+  {
+    "text": "buồn nôn hay nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      775,
+      791
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      832,
+      847
+    ]
+  },
+  {
+    "text": "đau vùng hông trái và đau bụng dưới bên trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1009,
+      1053
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1110,
+      1120
+    ]
+  },
+  {
+    "text": "White count",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1124,
+      1135
+    ]
+  },
+  {
+    "text": "7.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1136,
+      1139
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1141,
+      1151
+    ]
+  },
+  {
+    "text": "13.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1152,
+      1156
+    ]
+  },
+  {
+    "text": "platelets",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1161,
+      1170
+    ]
+  },
+  {
+    "text": "234000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1171,
+      1177
+    ]
+  },
+  {
+    "text": "Creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1179,
+      1189
+    ]
+  },
+  {
+    "text": "0.92",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1204,
+      1208
+    ]
+  },
+  {
+    "text": "Đau vùng hông trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1227,
+      1245
+    ]
+  },
+  {
+    "text": "Sỏi niệu quản trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.1"
+    ],
+    "assertions": [],
+    "position": [
+      1252,
+      1270
+    ]
+  },
+  {
+    "text": "Buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1277,
+      1292
+    ]
+  },
+  {
+    "text": "phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1967,
+      1986
+    ]
+  }
+]

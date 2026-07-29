@@ -1,0 +1,366 @@
+[
+  {
+    "text": "Sỏi mật có triệu chứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K80"
+    ],
+    "assertions": [],
+    "position": [
+      21,
+      43
+    ]
+  },
+  {
+    "text": "Sỏi mật có triệu chứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K80"
+    ],
+    "assertions": [],
+    "position": [
+      67,
+      89
+    ]
+  },
+  {
+    "text": "sỏi mật có triệu chứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K80"
+    ],
+    "assertions": [],
+    "position": [
+      202,
+      224
+    ]
+  },
+  {
+    "text": "thuốc giảm đau",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Y45"
+    ],
+    "assertions": [],
+    "position": [
+      429,
+      443
+    ]
+  },
+  {
+    "text": "nhiễm trùng tiểu mạn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      645,
+      670
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      685,
+      695
+    ]
+  },
+  {
+    "text": "phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      696,
+      715
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      723,
+      732
+    ]
+  },
+  {
+    "text": "ciprofloxacin",
+    "type": "THUỐC",
+    "candidates": [
+      "2551"
+    ],
+    "assertions": [],
+    "position": [
+      768,
+      781
+    ]
+  },
+  {
+    "text": "omeprazole",
+    "type": "THUỐC",
+    "candidates": [
+      "7646"
+    ],
+    "assertions": [],
+    "position": [
+      841,
+      851
+    ]
+  },
+  {
+    "text": "Colace",
+    "type": "THUỐC",
+    "candidates": [
+      "82000"
+    ],
+    "assertions": [],
+    "position": [
+      855,
+      861
+    ]
+  },
+  {
+    "text": "Percocet",
+    "type": "THUỐC",
+    "candidates": [
+      "42844"
+    ],
+    "assertions": [],
+    "position": [
+      934,
+      942
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      964,
+      974
+    ]
+  },
+  {
+    "text": "số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1025,
+      1042
+    ]
+  },
+  {
+    "text": "tăng bạch cầu phản ứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1083,
+      1105
+    ]
+  },
+  {
+    "text": "nhiễm trùng đường tiểu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1140,
+      1162
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1195,
+      1205
+    ]
+  },
+  {
+    "text": "bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1209,
+      1218
+    ]
+  },
+  {
+    "text": "LFTs",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1262,
+      1266
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1359,
+      1362
+    ]
+  },
+  {
+    "text": "51",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1366,
+      1368
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1372,
+      1375
+    ]
+  },
+  {
+    "text": "83",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1379,
+      1381
+    ]
+  },
+  {
+    "text": "thuốc giảm đau",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Y45"
+    ],
+    "assertions": [],
+    "position": [
+      1735,
+      1749
+    ]
+  },
+  {
+    "text": "phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1964,
+      1983
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1991,
+      2000
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2102,
+      2109
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2111,
+      2118
+    ]
+  },
+  {
+    "text": "101.5°F",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2124,
+      2131
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2133,
+      2141
+    ]
+  },
+  {
+    "text": "buồn nôn không kiểm soát được",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2143,
+      2172
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2174,
+      2177
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2182,
+      2190
+    ]
+  },
+  {
+    "text": "đỏ, sưng hoặc chảy dịch có mùi hôi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2222,
+      2256
+    ]
+  }
+]

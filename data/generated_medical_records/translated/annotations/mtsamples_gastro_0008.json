@@ -1,126 +1,48 @@
 [
   {
-    "text": "Ung thư đường mật",
-    "type": "CHẨN_ĐOÁN",
+    "text": "Buồn nôn",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      16,
-      33
+      20,
+      31
     ]
   },
   {
-    "text": "xét nghiệm chức năng gan",
-    "type": "TÊN_XÉT_NGHIỆM",
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      126,
-      150
+      266,
+      277
     ]
   },
   {
-    "text": "xét nghiệm máu",
-    "type": "TÊN_XÉT_NGHIỆM",
+    "text": "đau vùng hạ sườn phải",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      157,
-      171
+      282,
+      309
     ]
   },
   {
-    "text": "Siêu âm",
-    "type": "TÊN_XÉT_NGHIỆM",
+    "text": "ớn lạnh",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
-    "assertions": [],
+    "assertions": [
+      "isNegated"
+    ],
     "position": [
-      206,
-      213
+      680,
+      690
     ]
   },
   {
-    "text": "adenomyomatosis",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      279,
-      294
-    ]
-  },
-  {
-    "text": "siêu âm",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      347,
-      354
-    ]
-  },
-  {
-    "text": "chụp CT",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      382,
-      389
-    ]
-  },
-  {
-    "text": "chụp MRI",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      506,
-      514
-    ]
-  },
-  {
-    "text": "nội soi",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      674,
-      681
-    ]
-  },
-  {
-    "text": "ung thư đường mật",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      790,
-      807
-    ]
-  },
-  {
-    "text": "Xét nghiệm máu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      856,
-      870
-    ]
-  },
-  {
-    "text": "CA99",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      950,
-      954
-    ]
-  },
-  {
-    "text": "tăng huyết áp",
+    "text": "tăng huyết áp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I10"
@@ -129,122 +51,178 @@
       "isHistorical"
     ],
     "position": [
-      1157,
-      1170
+      752,
+      769
     ]
   },
   {
-    "text": "rối loạn lipid máu",
+    "text": "béo phì bệnh lý",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": [
+      "E66.9"
+    ],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      1174,
-      1192
+      774,
+      794
     ]
   },
   {
-    "text": "Diovan",
+    "text": "Multivitamins",
     "type": "THUỐC",
     "candidates": [
-      "69749"
+      "89905"
     ],
     "assertions": [],
     "position": [
-      1347,
-      1353
+      923,
+      936
     ]
   },
   {
-    "text": "*******",
+    "text": "calcium",
     "type": "THUỐC",
-    "candidates": [],
+    "candidates": [
+      "1895"
+    ],
     "assertions": [],
     "position": [
-      1376,
-      1383
+      941,
+      948
     ]
   },
   {
-    "text": "tăng huyết áp",
+    "text": "đái tháo đường",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "I10"
+      "O24.0"
     ],
     "assertions": [
       "isFamily"
     ],
     "position": [
-      1689,
-      1702
+      1027,
+      1046
     ]
   },
   {
-    "text": "đau thắt ngực",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isFamily"
-    ],
-    "position": [
-      1910,
-      1923
-    ]
-  },
-  {
-    "text": "sa sút trí tuệ",
+    "text": "sử dụng thuốc lá",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "F01.9"
+      "Z72.0"
     ],
     "assertions": [
-      "isFamily"
+      "isNegated"
     ],
     "position": [
-      1950,
-      1964
+      1130,
+      1152
     ]
   },
   {
-    "text": "giảm cân",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
+    "text": "thoát vị bụng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K43"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
     "position": [
-      2307,
-      2315
+      1960,
+      1976
     ]
   },
   {
-    "text": "mệt mỏi nhẹ",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2381,
-      2392
-    ]
-  },
-  {
-    "text": "phosphatase kiềm",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2495,
-      2511
-    ]
-  },
-  {
-    "text": "bilirubin toàn phần",
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2515,
-      2534
+      2140,
+      2153
+    ]
+  },
+  {
+    "text": "Số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2155,
+      2180
+    ]
+  },
+  {
+    "text": "8.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2181,
+      2184
+    ]
+  },
+  {
+    "text": "79 segs",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2191,
+      2198
+    ]
+  },
+  {
+    "text": "Hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2200,
+      2210
+    ]
+  },
+  {
+    "text": "41",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2211,
+      2213
+    ]
+  },
+  {
+    "text": "điện giải",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2220,
+      2232
+    ]
+  },
+  {
+    "text": "Bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2250,
+      2259
+    ]
+  },
+  {
+    "text": "2.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2260,
+      2263
     ]
   },
   {
@@ -253,8 +231,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2547,
-      2550
+      2265,
+      2268
+    ]
+  },
+  {
+    "text": "349",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2269,
+      2272
     ]
   },
   {
@@ -263,30 +251,112 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2554,
-      2557
+      2274,
+      2277
     ]
   },
   {
-    "text": "ớn lạnh",
-    "type": "TRIỆU_CHỨNG",
+    "text": "186",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2278,
+      2281
+    ]
+  },
+  {
+    "text": "alk-phos",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2283,
+      2291
+    ]
+  },
+  {
+    "text": "138",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2292,
+      2295
+    ]
+  },
+  {
+    "text": "lipase",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2300,
+      2306
+    ]
+  },
+  {
+    "text": "239",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2327,
+      2330
+    ]
+  },
+  {
+    "text": "Sỏi đường mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2347,
+      2366
+    ]
+  },
+  {
+    "text": "viêm túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K81"
+    ],
+    "assertions": [],
+    "position": [
+      2370,
+      2386
+    ]
+  },
+  {
+    "text": "kháng sinh đường tiêm tĩnh mạch",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2461,
+      2499
+    ]
+  },
+  {
+    "text": "siêu âm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2531,
+      2540
+    ]
+  },
+  {
+    "text": "nội soi",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      2707,
-      2714
-    ]
-  },
-  {
-    "text": "đại tiện lỏng",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2755,
-      2768
+      2835,
+      2844
     ]
   }
 ]

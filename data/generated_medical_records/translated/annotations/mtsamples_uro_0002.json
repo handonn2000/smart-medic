@@ -1,0 +1,350 @@
+[
+  {
+    "text": "tuyến tiền liệt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D29.1"
+    ],
+    "assertions": [],
+    "position": [
+      99,
+      114
+    ]
+  },
+  {
+    "text": "ung thư biểu mô tuyến Gleason 8 tái phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      118,
+      158
+    ]
+  },
+  {
+    "text": "đau quặn bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      289,
+      302
+    ]
+  },
+  {
+    "text": "đau họng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      317,
+      325
+    ]
+  },
+  {
+    "text": "triệu chứng trĩ kích thích",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      514,
+      540
+    ]
+  },
+  {
+    "text": "đi ngoài ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      568,
+      583
+    ]
+  },
+  {
+    "text": "PSA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      585,
+      588
+    ]
+  },
+  {
+    "text": "1.2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      649,
+      652
+    ]
+  },
+  {
+    "text": "Đau quặn bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      670,
+      683
+    ]
+  },
+  {
+    "text": "100",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      776,
+      779
+    ]
+  },
+  {
+    "text": "Thèm ăn giảm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      844,
+      856
+    ]
+  },
+  {
+    "text": "Timolol",
+    "type": "THUỐC",
+    "candidates": [
+      "10600"
+    ],
+    "assertions": [],
+    "position": [
+      1120,
+      1127
+    ]
+  },
+  {
+    "text": "Aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      1140,
+      1147
+    ]
+  },
+  {
+    "text": "Advil",
+    "type": "THUỐC",
+    "candidates": [
+      "153010"
+    ],
+    "assertions": [],
+    "position": [
+      1152,
+      1157
+    ]
+  },
+  {
+    "text": "cơn đau cấp tính",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1240,
+      1256
+    ]
+  },
+  {
+    "text": "197 pound",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1267,
+      1276
+    ]
+  },
+  {
+    "text": "viêm họng nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1411,
+      1424
+    ]
+  },
+  {
+    "text": "hạch to sờ thấy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1454,
+      1469
+    ]
+  },
+  {
+    "text": "đau xương khu trú",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1492,
+      1509
+    ]
+  },
+  {
+    "text": "Âm phổi rõ cả hai bên khi nghe",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1519,
+      1549
+    ]
+  },
+  {
+    "text": "Nhịp tim đều, không có nhịp bất thường",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1563,
+      1601
+    ]
+  },
+  {
+    "text": "khối u sờ thấy hoặc gan lách to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1641,
+      1672
+    ]
+  },
+  {
+    "text": "trĩ ngoại",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1696,
+      1705
+    ]
+  },
+  {
+    "text": "tuyến tiền liệt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D29.1"
+    ],
+    "assertions": [],
+    "position": [
+      1715,
+      1730
+    ]
+  },
+  {
+    "text": "máu trên găng khám",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1775,
+      1793
+    ]
+  },
+  {
+    "text": "ngón tay dùi trống",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1811,
+      1829
+    ]
+  },
+  {
+    "text": "tím tái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1831,
+      1838
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1843,
+      1849
+    ]
+  },
+  {
+    "text": "thiếu sót khu trú thần kinh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1873,
+      1900
+    ]
+  },
+  {
+    "text": "PSA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1933,
+      1936
+    ]
+  },
+  {
+    "text": "ung thư còn sót lại",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2058,
+      2077
+    ]
+  },
+  {
+    "text": "PSA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2303,
+      2306
+    ]
+  }
+]

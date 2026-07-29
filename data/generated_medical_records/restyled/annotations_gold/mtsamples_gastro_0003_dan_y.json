@@ -1,0 +1,928 @@
+[
+  {
+    "text": "nôn khan",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      88,
+      97
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      160,
+      170
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      179,
+      184
+    ]
+  },
+  {
+    "text": "táo bón",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      203,
+      212
+    ]
+  },
+  {
+    "text": "chảy máu trực tràng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      263,
+      287
+    ]
+  },
+  {
+    "text": "phân lỏng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      299,
+      310
+    ]
+  },
+  {
+    "text": "mất nước",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      348,
+      361
+    ]
+  },
+  {
+    "text": "Chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      400,
+      410
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      486,
+      503
+    ]
+  },
+  {
+    "text": "nội soi dạ dày",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      529,
+      547
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      562,
+      572
+    ]
+  },
+  {
+    "text": "Hội chứng PEHO",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G31.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      603,
+      621
+    ]
+  },
+  {
+    "text": "co thắt trẻ sơ sinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G40.4"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      628,
+      651
+    ]
+  },
+  {
+    "text": "chậm phát triển",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R62.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      704,
+      724
+    ]
+  },
+  {
+    "text": "PediaSure 120 ml",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      967,
+      983
+    ]
+  },
+  {
+    "text": "albuterol",
+    "type": "THUỐC",
+    "candidates": [
+      "435"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1068,
+      1077
+    ]
+  },
+  {
+    "text": "Pulmicort",
+    "type": "THUỐC",
+    "candidates": [
+      "19831"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1079,
+      1088
+    ]
+  },
+  {
+    "text": "MiraLax 17 g mỗi tuần",
+    "type": "THUỐC",
+    "candidates": [
+      "221147"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1090,
+      1115
+    ]
+  },
+  {
+    "text": "carnitine",
+    "type": "THUỐC",
+    "candidates": [
+      "2106"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1122,
+      1131
+    ]
+  },
+  {
+    "text": "phenobarbital",
+    "type": "THUỐC",
+    "candidates": [
+      "8134"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1133,
+      1146
+    ]
+  },
+  {
+    "text": "Depakene",
+    "type": "THUỐC",
+    "candidates": [
+      "40254"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1148,
+      1156
+    ]
+  },
+  {
+    "text": "Reglan",
+    "type": "THUỐC",
+    "candidates": [
+      "6915"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1158,
+      1164
+    ]
+  },
+  {
+    "text": "ung thư",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C80"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1214,
+      1222
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1299,
+      1302
+    ]
+  },
+  {
+    "text": "9.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1303,
+      1306
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1314,
+      1324
+    ]
+  },
+  {
+    "text": "7.6",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1325,
+      1328
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1336,
+      1346
+    ]
+  },
+  {
+    "text": "22.1",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1347,
+      1351
+    ]
+  },
+  {
+    "text": "platelet",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1359,
+      1367
+    ]
+  },
+  {
+    "text": "132000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1368,
+      1374
+    ]
+  },
+  {
+    "text": "KUB",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1382,
+      1385
+    ]
+  },
+  {
+    "text": "Sodium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1446,
+      1452
+    ]
+  },
+  {
+    "text": "140",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1453,
+      1456
+    ]
+  },
+  {
+    "text": "potassium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1458,
+      1467
+    ]
+  },
+  {
+    "text": "4.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1468,
+      1471
+    ]
+  },
+  {
+    "text": "chloride",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1479,
+      1487
+    ]
+  },
+  {
+    "text": "89",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1488,
+      1490
+    ]
+  },
+  {
+    "text": "CO2",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1492,
+      1495
+    ]
+  },
+  {
+    "text": "21",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1496,
+      1498
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1506,
+      1509
+    ]
+  },
+  {
+    "text": "61",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1510,
+      1512
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1514,
+      1524
+    ]
+  },
+  {
+    "text": "2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1525,
+      1526
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1534,
+      1537
+    ]
+  },
+  {
+    "text": "92 tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1538,
+      1546
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1548,
+      1551
+    ]
+  },
+  {
+    "text": "62 tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1552,
+      1560
+    ]
+  },
+  {
+    "text": "albumin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1568,
+      1575
+    ]
+  },
+  {
+    "text": "5.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1576,
+      1579
+    ]
+  },
+  {
+    "text": "total bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1581,
+      1596
+    ]
+  },
+  {
+    "text": "0.1",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1597,
+      1600
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1624,
+      1634
+    ]
+  },
+  {
+    "text": "14.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1635,
+      1639
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1641,
+      1651
+    ]
+  },
+  {
+    "text": "41.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1652,
+      1656
+    ]
+  },
+  {
+    "text": "platelets",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1664,
+      1673
+    ]
+  },
+  {
+    "text": "491000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1674,
+      1680
+    ]
+  },
+  {
+    "text": "PT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1688,
+      1690
+    ]
+  },
+  {
+    "text": "58 tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1691,
+      1699
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1701,
+      1704
+    ]
+  },
+  {
+    "text": "6.6 tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1705,
+      1714
+    ]
+  },
+  {
+    "text": "PTT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1722,
+      1725
+    ]
+  },
+  {
+    "text": "75.9 tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1726,
+      1736
+    ]
+  },
+  {
+    "text": "Nhiệt độ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1798,
+      1810
+    ]
+  },
+  {
+    "text": "99 độ F",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1811,
+      1820
+    ]
+  },
+  {
+    "text": "Mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1828,
+      1833
+    ]
+  },
+  {
+    "text": "142 lần/phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1834,
+      1849
+    ]
+  },
+  {
+    "text": "Nhịp thở",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1857,
+      1868
+    ]
+  },
+  {
+    "text": "34 lần/phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1869,
+      1883
+    ]
+  },
+  {
+    "text": "Cân nặng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1891,
+      1902
+    ]
+  },
+  {
+    "text": "8.6 kg",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1903,
+      1909
+    ]
+  },
+  {
+    "text": "chấn thương",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1988,
+      2003
+    ]
+  },
+  {
+    "text": "ran",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2075,
+      2078
+    ]
+  },
+  {
+    "text": "khò khè",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2087,
+      2096
+    ]
+  },
+  {
+    "text": "Chướng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2110,
+      2119
+    ]
+  },
+  {
+    "text": "giảm nhu động ruột",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2121,
+      2144
+    ]
+  },
+  {
+    "text": "Chảy máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2282,
+      2292
+    ]
+  },
+  {
+    "text": "rối loạn đông máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D68.9"
+    ],
+    "assertions": [],
+    "position": [
+      2325,
+      2347
+    ]
+  },
+  {
+    "text": "chậm phát triển",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R62.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      2390,
+      2410
+    ]
+  },
+  {
+    "text": "hội chứng PEHO",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G31.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      2412,
+      2430
+    ]
+  },
+  {
+    "text": "Bệnh lý thần kinh tiến triển thị giác teo",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2438,
+      2490
+    ]
+  },
+  {
+    "text": "vitamin K",
+    "type": "THUỐC",
+    "candidates": [
+      "11258"
+    ],
+    "assertions": [],
+    "position": [
+      2532,
+      2541
+    ]
+  },
+  {
+    "text": "FFP",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2543,
+      2546
+    ]
+  },
+  {
+    "text": "nội soi dạ dày trên",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2578,
+      2602
+    ]
+  }
+]

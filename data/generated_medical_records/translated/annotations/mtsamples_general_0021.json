@@ -1,0 +1,379 @@
+[
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      51,
+      53
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      136,
+      143
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      164,
+      167
+    ]
+  },
+  {
+    "text": "rét run",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      173,
+      180
+    ]
+  },
+  {
+    "text": "đau đầu dữ dội",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      227,
+      241
+    ]
+  },
+  {
+    "text": "đau họng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      247,
+      255
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      302,
+      310
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      312,
+      315
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      322,
+      331
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "202421"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      371,
+      379
+    ]
+  },
+  {
+    "text": "rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      431,
+      439
+    ]
+  },
+  {
+    "text": "Pacerone",
+    "type": "THUỐC",
+    "candidates": [
+      "219038"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      526,
+      534
+    ]
+  },
+  {
+    "text": "Zaroxolyn",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      536,
+      545
+    ]
+  },
+  {
+    "text": "albuterol inhaler",
+    "type": "THUỐC",
+    "candidates": [
+      "435"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      547,
+      564
+    ]
+  },
+  {
+    "text": "Neurontin",
+    "type": "THUỐC",
+    "candidates": [
+      "196498"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      566,
+      575
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "202991"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      577,
+      582
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      652,
+      666
+    ]
+  },
+  {
+    "text": "COPD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      756,
+      760
+    ]
+  },
+  {
+    "text": "khí phế thũng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      766,
+      779
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      897,
+      904
+    ]
+  },
+  {
+    "text": "Hội chứng virus",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1373,
+      1388
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "202421"
+    ],
+    "assertions": [],
+    "position": [
+      1697,
+      1705
+    ]
+  },
+  {
+    "text": "********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1875,
+      1883
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1896,
+      1904
+    ]
+  },
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1978,
+      1986
+    ]
+  },
+  {
+    "text": "syrup",
+    "type": "THUỐC",
+    "candidates": [
+      "316981"
+    ],
+    "assertions": [],
+    "position": [
+      2033,
+      2038
+    ]
+  },
+  {
+    "text": "Tussionex Pennkinetic",
+    "type": "THUỐC",
+    "candidates": [
+      "544165"
+    ],
+    "assertions": [],
+    "position": [
+      2099,
+      2120
+    ]
+  },
+  {
+    "text": "syrup",
+    "type": "THUỐC",
+    "candidates": [
+      "316981"
+    ],
+    "assertions": [],
+    "position": [
+      2131,
+      2136
+    ]
+  },
+  {
+    "text": "hydrocodone",
+    "type": "THUỐC",
+    "candidates": [
+      "5489"
+    ],
+    "assertions": [],
+    "position": [
+      2166,
+      2177
+    ]
+  },
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2542,
+      2550
+    ]
+  },
+  {
+    "text": "Bệnh hô hấp do virus",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J98.9"
+    ],
+    "assertions": [],
+    "position": [
+      2716,
+      2736
+    ]
+  }
+]

@@ -1,0 +1,598 @@
+[
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      53,
+      61
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      63,
+      66
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      68,
+      77
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      82,
+      85
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      117,
+      126
+    ]
+  },
+  {
+    "text": "ceftriaxone",
+    "type": "THUỐC",
+    "candidates": [
+      "2193"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      132,
+      143
+    ]
+  },
+  {
+    "text": "clindamycin",
+    "type": "THUỐC",
+    "candidates": [
+      "2582"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      147,
+      158
+    ]
+  },
+  {
+    "text": "lú lẫn nặng hơn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      238,
+      253
+    ]
+  },
+  {
+    "text": "tiêu chảy không kiểm soát",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      255,
+      280
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      284,
+      287
+    ]
+  },
+  {
+    "text": "23,500",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      400,
+      406
+    ]
+  },
+  {
+    "text": "bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      407,
+      415
+    ]
+  },
+  {
+    "text": "kali",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      423,
+      427
+    ]
+  },
+  {
+    "text": "2.6",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      434,
+      437
+    ]
+  },
+  {
+    "text": "hạ kali máu trầm trọng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E87.6"
+    ],
+    "assertions": [],
+    "position": [
+      476,
+      498
+    ]
+  },
+  {
+    "text": "mất nước",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E86"
+    ],
+    "assertions": [],
+    "position": [
+      500,
+      508
+    ]
+  },
+  {
+    "text": "tiêu chảy không kiểm soát",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      512,
+      537
+    ]
+  },
+  {
+    "text": "bệnh trạng sốt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R50.9"
+    ],
+    "assertions": [],
+    "position": [
+      547,
+      561
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      598,
+      607
+    ]
+  },
+  {
+    "text": "nhiễm trùng huyết đường niệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      609,
+      637
+    ]
+  },
+  {
+    "text": "sa sút trí tuệ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F03"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      639,
+      653
+    ]
+  },
+  {
+    "text": "loãng xương",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M81.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      676,
+      687
+    ]
+  },
+  {
+    "text": "suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      692,
+      700
+    ]
+  },
+  {
+    "text": "Synthroid",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      731,
+      740
+    ]
+  },
+  {
+    "text": "clindamycin",
+    "type": "THUỐC",
+    "candidates": [
+      "2582"
+    ],
+    "assertions": [],
+    "position": [
+      742,
+      753
+    ]
+  },
+  {
+    "text": "ceftriaxone",
+    "type": "THUỐC",
+    "candidates": [
+      "2193"
+    ],
+    "assertions": [],
+    "position": [
+      755,
+      766
+    ]
+  },
+  {
+    "text": "Remeron",
+    "type": "THUỐC",
+    "candidates": [
+      "15996"
+    ],
+    "assertions": [],
+    "position": [
+      768,
+      775
+    ]
+  },
+  {
+    "text": "Actonel",
+    "type": "THUỐC",
+    "candidates": [
+      "73056"
+    ],
+    "assertions": [],
+    "position": [
+      777,
+      784
+    ]
+  },
+  {
+    "text": "Zanaflex",
+    "type": "THUỐC",
+    "candidates": [
+      "57258"
+    ],
+    "assertions": [],
+    "position": [
+      786,
+      794
+    ]
+  },
+  {
+    "text": "hydrocodone",
+    "type": "THUỐC",
+    "candidates": [
+      "5489"
+    ],
+    "assertions": [],
+    "position": [
+      799,
+      810
+    ]
+  },
+  {
+    "text": "yếu mệt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      904,
+      911
+    ]
+  },
+  {
+    "text": "đau đớn cấp tính",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      942,
+      958
+    ]
+  },
+  {
+    "text": "giảm âm phế bào",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1011,
+      1026
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1063,
+      1066
+    ]
+  },
+  {
+    "text": "gan lách to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1079,
+      1090
+    ]
+  },
+  {
+    "text": "số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1229,
+      1246
+    ]
+  },
+  {
+    "text": "cao",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1247,
+      1250
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1252,
+      1262
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1264,
+      1274
+    ]
+  },
+  {
+    "text": "tiểu cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1278,
+      1286
+    ]
+  },
+  {
+    "text": "trong giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1287,
+      1313
+    ]
+  },
+  {
+    "text": "kali",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1319,
+      1323
+    ]
+  },
+  {
+    "text": "thấp",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1324,
+      1328
+    ]
+  },
+  {
+    "text": "canxi",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1339,
+      1344
+    ]
+  },
+  {
+    "text": "albumin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1348,
+      1355
+    ]
+  },
+  {
+    "text": "hạ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1356,
+      1358
+    ]
+  },
+  {
+    "text": "tăng bạch cầu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D72.8"
+    ],
+    "assertions": [],
+    "position": [
+      1416,
+      1429
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      1464,
+      1473
+    ]
+  },
+  {
+    "text": "nhiễm Clostridium difficile",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A04.7"
+    ],
+    "assertions": [],
+    "position": [
+      1492,
+      1519
+    ]
+  },
+  {
+    "text": "tiêu chảy không kiểm soát",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1524,
+      1549
+    ]
+  },
+  {
+    "text": "viêm đại tràng màng giả",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A04.7"
+    ],
+    "assertions": [],
+    "position": [
+      1563,
+      1586
+    ]
+  },
+  {
+    "text": "hạ kali máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E87.6"
+    ],
+    "assertions": [],
+    "position": [
+      1597,
+      1608
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1612,
+      1621
+    ]
+  }
+]

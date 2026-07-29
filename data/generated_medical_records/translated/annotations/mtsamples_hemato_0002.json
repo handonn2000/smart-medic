@@ -1,24 +1,24 @@
 [
   {
-    "text": "Rối loạn đông máu nội mạch lan tỏa",
+    "text": "Đông máu nội mạch lan tỏa",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
       14,
-      48
+      39
     ]
   },
   {
-    "text": "Viêm phổi do tụ cầu khuẩn kèm nhiễm trùng huyết",
+    "text": "Viêm phổi do liên cầu khuẩn kèm nhiễm khuẩn huyết",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "A41.9"
+      "J15.3"
     ],
     "assertions": [],
     "position": [
-      53,
-      100
+      44,
+      93
     ]
   },
   {
@@ -29,8 +29,8 @@
     ],
     "assertions": [],
     "position": [
-      182,
-      192
+      169,
+      179
     ]
   },
   {
@@ -41,20 +41,20 @@
     ],
     "assertions": [],
     "position": [
-      247,
-      256
+      242,
+      251
     ]
   },
   {
-    "text": "nhiễm trùng huyết",
+    "text": "nhiễm khuẩn huyết",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "A41.9"
+      "A49.9"
     ],
     "assertions": [],
     "position": [
-      289,
-      306
+      278,
+      295
     ]
   },
   {
@@ -65,18 +65,18 @@
     ],
     "assertions": [],
     "position": [
-      310,
-      320
+      305,
+      315
     ]
   },
   {
-    "text": "rối loạn đông máu nội mạch lan tỏa",
+    "text": "đông máu nội mạch lan tỏa",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      463,
-      497
+      451,
+      476
     ]
   },
   {
@@ -87,8 +87,8 @@
     ],
     "assertions": [],
     "position": [
-      556,
-      567
+      525,
+      536
     ]
   },
   {
@@ -99,8 +99,8 @@
     ],
     "assertions": [],
     "position": [
-      577,
-      587
+      546,
+      556
     ]
   },
   {
@@ -109,20 +109,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      755,
-      763
-    ]
-  },
-  {
-    "text": "rối loạn đông máu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      913,
-      930
+      751,
+      759
     ]
   },
   {
@@ -133,18 +121,28 @@
     ],
     "assertions": [],
     "position": [
-      1039,
-      1053
+      1061,
+      1075
     ]
   },
   {
-    "text": "xuất huyết kết mạc",
+    "text": "Kết mạc xuất huyết",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      1534,
-      1552
+      1545,
+      1563
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1828,
+      1836
     ]
   },
   {
@@ -153,8 +151,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2033,
-      2043
+      2063,
+      2073
     ]
   },
   {
@@ -163,8 +161,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2091,
-      2097
+      2119,
+      2125
     ]
   },
   {
@@ -173,8 +171,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2103,
-      2106
+      2131,
+      2134
     ]
   },
   {
@@ -185,8 +183,8 @@
     ],
     "assertions": [],
     "position": [
-      2143,
-      2153
+      2162,
+      2172
     ]
   },
   {
@@ -195,8 +193,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2154,
-      2157
+      2173,
+      2176
     ]
   },
   {
@@ -205,52 +203,30 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2170,
-      2172
+      2189,
+      2191
     ]
   },
   {
-    "text": "rối loạn đông máu nội mạch lan tỏa",
+    "text": "đông máu nội mạch lan tỏa",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2198,
-      2232
+      2217,
+      2242
     ]
   },
   {
-    "text": "nhiễm trùng huyết",
+    "text": "nhiễm khuẩn huyết",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "A41.9"
+      "A49.9"
     ],
     "assertions": [],
     "position": [
-      2236,
-      2253
-    ]
-  },
-  {
-    "text": "viêm phổi do tụ cầu khuẩn",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "J18"
-    ],
-    "assertions": [],
-    "position": [
-      2262,
-      2287
-    ]
-  },
-  {
-    "text": "rối loạn đông máu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2524,
-      2541
+      2246,
+      2263
     ]
   },
   {
@@ -259,10 +235,12 @@
     "candidates": [
       "4385"
     ],
-    "assertions": [],
+    "assertions": [
+      "isNegated"
+    ],
     "position": [
-      2611,
-      2621
+      2678,
+      2688
     ]
   },
   {
@@ -273,8 +251,8 @@
     ],
     "assertions": [],
     "position": [
-      2681,
-      2688
+      2771,
+      2778
     ]
   },
   {
@@ -283,8 +261,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2826,
-      2836
+      2912,
+      2922
     ]
   }
 ]

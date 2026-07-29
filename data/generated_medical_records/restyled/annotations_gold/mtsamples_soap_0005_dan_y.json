@@ -1,0 +1,384 @@
+[
+  {
+    "text": "Chiều cao",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      71,
+      80
+    ]
+  },
+  {
+    "text": "5 feet 3 inch",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      81,
+      94
+    ]
+  },
+  {
+    "text": "cân nặng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      96,
+      104
+    ]
+  },
+  {
+    "text": "197 pound",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      105,
+      114
+    ]
+  },
+  {
+    "text": "đái tháo đường type 2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [],
+    "position": [
+      131,
+      152
+    ]
+  },
+  {
+    "text": "dị ứng thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z88.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      174,
+      186
+    ]
+  },
+  {
+    "text": "Humulin",
+    "type": "THUỐC",
+    "candidates": [
+      "1605101",
+      "253182"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      207,
+      214
+    ]
+  },
+  {
+    "text": "Metformin 500 mg vào bữa tối",
+    "type": "THUỐC",
+    "candidates": [
+      "6809"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      266,
+      294
+    ]
+  },
+  {
+    "text": "verapamil",
+    "type": "THUỐC",
+    "candidates": [
+      "11170"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      313,
+      322
+    ]
+  },
+  {
+    "text": "Benicar",
+    "type": "THUỐC",
+    "candidates": [
+      "321064"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      324,
+      331
+    ]
+  },
+  {
+    "text": "Toprol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      333,
+      339
+    ]
+  },
+  {
+    "text": "clonidine",
+    "type": "THUỐC",
+    "candidates": [
+      "2599"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      341,
+      350
+    ]
+  },
+  {
+    "text": "hydrochlorothiazide",
+    "type": "THUỐC",
+    "candidates": [
+      "5487"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      352,
+      371
+    ]
+  },
+  {
+    "text": "đường huyết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      386,
+      397
+    ]
+  },
+  {
+    "text": "127",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      409,
+      412
+    ]
+  },
+  {
+    "text": "80",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      414,
+      416
+    ]
+  },
+  {
+    "text": "80",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      418,
+      420
+    ]
+  },
+  {
+    "text": "105",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      446,
+      449
+    ]
+  },
+  {
+    "text": "88",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      475,
+      477
+    ]
+  },
+  {
+    "text": "73",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      502,
+      504
+    ]
+  },
+  {
+    "text": "63",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      506,
+      508
+    ]
+  },
+  {
+    "text": "84",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      535,
+      537
+    ]
+  },
+  {
+    "text": "109",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      567,
+      570
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [],
+    "position": [
+      624,
+      638
+    ]
+  },
+  {
+    "text": "bàn chân bẹt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      708,
+      720
+    ]
+  },
+  {
+    "text": "nốt chai lớn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      722,
+      734
+    ]
+  },
+  {
+    "text": "ngón chân chồng nhau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      736,
+      756
+    ]
+  },
+  {
+    "text": "độ nhạy cảm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      758,
+      769
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      770,
+      777
+    ]
+  },
+  {
+    "text": "Đường huyết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      918,
+      929
+    ]
+  },
+  {
+    "text": "trong giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      930,
+      956
+    ]
+  },
+  {
+    "text": "thấp",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      966,
+      970
+    ]
+  },
+  {
+    "text": "hạ đường huyết không nhận biết được",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E16.2"
+    ],
+    "assertions": [],
+    "position": [
+      991,
+      1026
+    ]
+  },
+  {
+    "text": "insulin",
+    "type": "THUỐC",
+    "candidates": [
+      "1605101",
+      "253182"
+    ],
+    "assertions": [],
+    "position": [
+      1074,
+      1081
+    ]
+  }
+]

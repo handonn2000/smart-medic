@@ -1,0 +1,394 @@
+[
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      109,
+      124
+    ]
+  },
+  {
+    "text": "buồn nôn và nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      275,
+      290
+    ]
+  },
+  {
+    "text": "vã mồ hôi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      326,
+      335
+    ]
+  },
+  {
+    "text": "tiêu chảy nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      393,
+      406
+    ]
+  },
+  {
+    "text": "đau họng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      435,
+      443
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      448,
+      450
+    ]
+  },
+  {
+    "text": "fluoxetine",
+    "type": "THUỐC",
+    "candidates": [
+      "4493"
+    ],
+    "assertions": [],
+    "position": [
+      607,
+      617
+    ]
+  },
+  {
+    "text": "trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32"
+    ],
+    "assertions": [],
+    "position": [
+      630,
+      638
+    ]
+  },
+  {
+    "text": "Zyrtec",
+    "type": "THUỐC",
+    "candidates": [
+      "20610"
+    ],
+    "assertions": [],
+    "position": [
+      642,
+      648
+    ]
+  },
+  {
+    "text": "dị ứng môi trường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      653,
+      670
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      789,
+      792
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      817,
+      819
+    ]
+  },
+  {
+    "text": "đỏ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1222,
+      1224
+    ]
+  },
+  {
+    "text": "phản ứng bảo vệ bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1476,
+      1496
+    ]
+  },
+  {
+    "text": "phát ban",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1517,
+      1525
+    ]
+  },
+  {
+    "text": "tím tái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1554,
+      1561
+    ]
+  },
+  {
+    "text": "ngón tay dùi trống",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1576,
+      1594
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1614,
+      1620
+    ]
+  },
+  {
+    "text": "Xét nghiệm máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1623,
+      1637
+    ]
+  },
+  {
+    "text": "12.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1663,
+      1667
+    ]
+  },
+  {
+    "text": "Hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1708,
+      1718
+    ]
+  },
+  {
+    "text": "33.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1722,
+      1726
+    ]
+  },
+  {
+    "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1744,
+      1751
+    ]
+  },
+  {
+    "text": "147",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1777,
+      1780
+    ]
+  },
+  {
+    "text": "LFTs",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1807,
+      1811
+    ]
+  },
+  {
+    "text": "Serum alcohol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1815,
+      1828
+    ]
+  },
+  {
+    "text": "saline",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1900,
+      1906
+    ]
+  },
+  {
+    "text": "Compazine",
+    "type": "THUỐC",
+    "candidates": [
+      "8704"
+    ],
+    "assertions": [],
+    "position": [
+      1928,
+      1937
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1972,
+      1980
+    ]
+  },
+  {
+    "text": "Imodium",
+    "type": "THUỐC",
+    "candidates": [
+      "6468"
+    ],
+    "assertions": [],
+    "position": [
+      1999,
+      2006
+    ]
+  },
+  {
+    "text": "viêm dạ dày ruột do virus",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.7"
+    ],
+    "assertions": [],
+    "position": [
+      2122,
+      2147
+    ]
+  },
+  {
+    "text": "Compazine",
+    "type": "THUỐC",
+    "candidates": [
+      "8704"
+    ],
+    "assertions": [],
+    "position": [
+      2175,
+      2184
+    ]
+  },
+  {
+    "text": "buồn nôn tái phát",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2222,
+      2239
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2302,
+      2310
+    ]
+  },
+  {
+    "text": "Imodium",
+    "type": "THUỐC",
+    "candidates": [
+      "6468"
+    ],
+    "assertions": [],
+    "position": [
+      2389,
+      2396
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2444,
+      2453
+    ]
+  }
+]

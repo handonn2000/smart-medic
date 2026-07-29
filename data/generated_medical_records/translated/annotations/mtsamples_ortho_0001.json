@@ -37,12 +37,12 @@
     "text": "Mirapex",
     "type": "THUỐC",
     "candidates": [
-      "746741"
+      "218402"
     ],
     "assertions": [],
     "position": [
-      403,
-      410
+      424,
+      431
     ]
   },
   {
@@ -53,32 +53,52 @@
     ],
     "assertions": [],
     "position": [
-      412,
-      421
+      433,
+      442
     ]
   },
   {
     "text": "Ambien",
     "type": "THUỐC",
     "candidates": [
-      "39993"
+      "131725"
     ],
     "assertions": [],
     "position": [
-      425,
-      431
+      446,
+      452
     ]
   },
   {
-    "text": "penicillin",
+    "text": "PENICILLIN",
     "type": "THUỐC",
     "candidates": [
       "7986"
     ],
     "assertions": [],
     "position": [
-      449,
-      459
+      474,
+      484
+    ]
+  },
+  {
+    "text": "thay khớp gối toàn phần bên phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      929,
+      961
+    ]
+  },
+  {
+    "text": "huyết khối tĩnh mạch sâu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1106,
+      1130
     ]
   },
   {
@@ -89,55 +109,64 @@
     ],
     "assertions": [],
     "position": [
-      1440,
-      1454
+      1390,
+      1404
     ]
   },
   {
     "text": "Percocet",
     "type": "THUỐC",
     "candidates": [
-      "161",
-      "7804"
+      "42844"
     ],
     "assertions": [],
     "position": [
-      1753,
-      1761
+      1680,
+      1688
     ]
   },
   {
     "text": "Coumadin",
     "type": "THUỐC",
     "candidates": [
-      "11289"
+      "202421"
     ],
     "assertions": [],
     "position": [
-      1765,
-      1773
+      1692,
+      1700
     ]
   },
   {
-    "text": "INR",
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1833,
-      1836
+      1761,
+      1771
+    ]
+  },
+  {
+    "text": "PT và INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1772,
+      1781
     ]
   },
   {
     "text": "Coumadin",
     "type": "THUỐC",
     "candidates": [
-      "11289"
+      "202421"
     ],
     "assertions": [],
     "position": [
-      1864,
-      1872
+      1809,
+      1817
     ]
   }
 ]

@@ -1,36 +1,34 @@
 [
   {
-    "text": "Tràn dịch màng phổi",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "J90"
-    ],
-    "assertions": [],
-    "position": [
-      24,
-      43
-    ]
-  },
-  {
     "text": "ung thư phổi",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
+    "assertions": [],
     "position": [
-      114,
-      126
+      121,
+      133
     ]
   },
   {
-    "text": "ung thư phổi di căn",
+    "text": "viêm phổi tái phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      183,
+      201
+    ]
+  },
+  {
+    "text": "ung thư phổi với di căn",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      195,
-      214
+      219,
+      242
     ]
   },
   {
@@ -39,38 +37,38 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      234,
-      242
+      262,
+      270
     ]
   },
   {
-    "text": "buồn nôn",
+    "text": "buồn nôn và nôn",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      244,
-      252
+      272,
+      287
     ]
   },
   {
-    "text": "nôn mửa",
-    "type": "TRIỆU_CHỨNG",
+    "text": "Chụp CT",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      254,
-      261
+      294,
+      301
     ]
   },
   {
-    "text": "tràn dịch màng ngoài tim mức độ vừa",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "text": "tràn dịch màng tim",
+    "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      285,
-      320
+      308,
+      326
     ]
   },
   {
@@ -79,80 +77,120 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      344,
-      351
+      371,
+      378
     ]
   },
   {
-    "text": "chèn ép tim sớm",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "text": "tràn dịch màng tim",
+    "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      394,
-      409
+      384,
+      402
+    ]
+  },
+  {
+    "text": "ép tim sớm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      424,
+      434
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      451,
+      458
     ]
   },
   {
     "text": "COPD",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
+    "assertions": [],
     "position": [
-      425,
-      429
+      462,
+      466
     ]
   },
   {
-    "text": "khí thũng",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "T79.7"
-    ],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      431,
-      440
-    ]
-  },
-  {
-    "text": "ho mạn tính",
+    "text": "khí phế thũng",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
+    "assertions": [],
     "position": [
-      442,
-      453
+      468,
+      481
     ]
   },
   {
-    "text": "hồi hộp đánh trống ngực",
+    "text": "ho mãn tính",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      485,
+      496
+    ]
+  },
+  {
+    "text": "chóng mặt",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
-      "isHistorical"
+      "isNegated"
     ],
     "position": [
-      515,
-      538
+      512,
+      521
     ]
   },
   {
-    "text": "hydromorphone",
+    "text": "đánh trống ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R00.2"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      540,
+      555
+    ]
+  },
+  {
+    "text": "mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Y52.3"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      584,
+      593
+    ]
+  },
+  {
+    "text": "Hydromorphone",
     "type": "THUỐC",
     "candidates": [
       "3423"
     ],
     "assertions": [],
     "position": [
-      649,
-      662
+      679,
+      692
     ]
   },
   {
@@ -163,8 +201,8 @@
     ],
     "assertions": [],
     "position": [
-      671,
-      683
+      702,
+      714
     ]
   },
   {
@@ -175,8 +213,8 @@
     ],
     "assertions": [],
     "position": [
-      685,
-      696
+      716,
+      727
     ]
   },
   {
@@ -187,8 +225,8 @@
     ],
     "assertions": [],
     "position": [
-      698,
-      715
+      729,
+      746
     ]
   },
   {
@@ -199,8 +237,8 @@
     ],
     "assertions": [],
     "position": [
-      717,
-      723
+      748,
+      754
     ]
   },
   {
@@ -211,22 +249,20 @@
       "isHistorical"
     ],
     "position": [
-      782,
-      786
+      815,
+      819
     ]
   },
   {
-    "text": "khí thũng",
+    "text": "khí phế thũng",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "T79.7"
-    ],
+    "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      788,
-      797
+      821,
+      834
     ]
   },
   {
@@ -239,8 +275,8 @@
       "isHistorical"
     ],
     "position": [
-      799,
-      808
+      836,
+      845
     ]
   },
   {
@@ -251,8 +287,8 @@
       "isHistorical"
     ],
     "position": [
-      810,
-      822
+      847,
+      859
     ]
   },
   {
@@ -261,10 +297,12 @@
     "candidates": [
       "R00.2"
     ],
-    "assertions": [],
+    "assertions": [
+      "isNegated"
+    ],
     "position": [
-      1123,
-      1138
+      1116,
+      1131
     ]
   },
   {
@@ -273,8 +311,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1140,
-      1147
+      1133,
+      1140
     ]
   },
   {
@@ -283,8 +321,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1153,
-      1161
+      1146,
+      1154
     ]
   },
   {
@@ -293,8 +331,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1177,
-      1186
+      1161,
+      1170
     ]
   },
   {
@@ -303,8 +341,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1881,
-      1891
+      1758,
+      1768
     ]
   },
   {
@@ -313,8 +351,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1899,
-      1907
+      1776,
+      1784
     ]
   },
   {
@@ -323,8 +361,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1908,
-      1911
+      1785,
+      1788
     ]
   },
   {
@@ -333,8 +371,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1913,
-      1923
+      1795,
+      1805
     ]
   },
   {
@@ -343,8 +381,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1924,
-      1928
+      1806,
+      1810
     ]
   },
   {
@@ -353,8 +391,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1930,
-      1940
+      1817,
+      1827
     ]
   },
   {
@@ -363,8 +401,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1941,
-      1945
+      1828,
+      1832
     ]
   },
   {
@@ -373,8 +411,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1947,
-      1955
+      1839,
+      1847
     ]
   },
   {
@@ -383,8 +421,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1956,
-      1962
+      1848,
+      1854
     ]
   },
   {
@@ -393,8 +431,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1970,
-      1975
+      1861,
+      1866
     ]
   },
   {
@@ -403,8 +441,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1976,
-      1979
+      1867,
+      1870
     ]
   },
   {
@@ -413,8 +451,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1981,
-      1985
+      1877,
+      1881
     ]
   },
   {
@@ -423,8 +461,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1986,
-      1987
+      1882,
+      1883
     ]
   },
   {
@@ -433,8 +471,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1989,
-      1992
+      1890,
+      1893
     ]
   },
   {
@@ -443,8 +481,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1993,
-      1994
+      1894,
+      1895
     ]
   },
   {
@@ -453,8 +491,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1996,
-      2006
+      1902,
+      1912
     ]
   },
   {
@@ -463,12 +501,92 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2007,
-      2010
+      1913,
+      1916
     ]
   },
   {
     "text": "glucose",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1923,
+      1930
+    ]
+  },
+  {
+    "text": "71",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1931,
+      1933
+    ]
+  },
+  {
+    "text": "phosphatase kiềm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1940,
+      1956
+    ]
+  },
+  {
+    "text": "263",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1957,
+      1960
+    ]
+  },
+  {
+    "text": "protein toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1967,
+      1984
+    ]
+  },
+  {
+    "text": "5.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1985,
+      1988
+    ]
+  },
+  {
+    "text": "lipase",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1995,
+      2001
+    ]
+  },
+  {
+    "text": "414",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2002,
+      2005
+    ]
+  },
+  {
+    "text": "amylase",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
@@ -478,7 +596,7 @@
     ]
   },
   {
-    "text": "71",
+    "text": "57",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
@@ -488,173 +606,47 @@
     ]
   },
   {
-    "text": "alkaline phosphatase",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2030,
-      2050
-    ]
-  },
-  {
-    "text": "263",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2051,
-      2054
-    ]
-  },
-  {
-    "text": "tổng protein",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2056,
-      2068
-    ]
-  },
-  {
-    "text": "5.3",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2069,
-      2072
-    ]
-  },
-  {
-    "text": "lipase",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2074,
-      2080
-    ]
-  },
-  {
-    "text": "414",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2081,
-      2084
-    ]
-  },
-  {
-    "text": "amylase",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2086,
-      2093
-    ]
-  },
-  {
-    "text": "57",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2094,
-      2096
-    ]
-  },
-  {
     "text": "X-quang ngực",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2131,
-      2143
+      2054,
+      2066
     ]
   },
   {
     "text": "viêm phổi",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
     "position": [
-      2187,
-      2196
+      2111,
+      2120
     ]
   },
   {
-    "text": "CT bụng",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2204,
-      2211
-    ]
-  },
-  {
-    "text": "di căn",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2234,
-      2240
-    ]
-  },
-  {
-    "text": "gan to",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2242,
-      2248
-    ]
-  },
-  {
-    "text": "cổ trướng quanh gan",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2250,
-      2269
-    ]
-  },
-  {
-    "text": "tràn dịch màng ngoài tim vừa",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2271,
-      2299
-    ]
-  },
-  {
-    "text": "túi thừa sigma nhỏ bên trái",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2301,
-      2328
-    ]
-  },
-  {
-    "text": "Tràn dịch màng ngoài tim vừa với chèn ép tim sớm",
+    "text": "tràn dịch màng tim",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2352,
-      2400
+      2191,
+      2209
+    ]
+  },
+  {
+    "text": "Tràn dịch màng ngoài tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2266,
+      2290
     ]
   },
   {
@@ -663,18 +655,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2412,
-      2424
+      2334,
+      2346
     ]
   },
   {
-    "text": "Ung thư phổi di căn",
+    "text": "Ung thư phổi với di căn",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2432,
-      2451
+      2355,
+      2378
     ]
   },
   {
@@ -685,8 +677,8 @@
     ],
     "assertions": [],
     "position": [
-      2475,
-      2484
+      2400,
+      2409
     ]
   },
   {
@@ -695,8 +687,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2492,
-      2496
+      2418,
+      2422
     ]
   }
 ]

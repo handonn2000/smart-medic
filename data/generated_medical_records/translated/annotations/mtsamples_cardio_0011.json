@@ -1,152 +1,407 @@
 [
   {
-    "text": "tràn dịch màng phổi",
+    "text": "tăng huyết áp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "J90"
+      "I10"
     ],
     "assertions": [],
     "position": [
-      52,
-      71
+      166,
+      179
     ]
   },
   {
-    "text": "rung nhĩ mãn tính",
+    "text": "ngáy to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      226,
+      233
+    ]
+  },
+  {
+    "text": "ngưng thở khi ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      245,
+      262
+    ]
+  },
+  {
+    "text": "thở hổn hển",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      339,
+      350
+    ]
+  },
+  {
+    "text": "nghẹt thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      352,
+      361
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      368,
+      370
+    ]
+  },
+  {
+    "text": "tiểu đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      553,
+      561
+    ]
+  },
+  {
+    "text": "buồn ngủ ban ngày nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      641,
+      662
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "I48.2"
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      736,
+      749
+    ]
+  },
+  {
+    "text": "viêm dạ dày",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      751,
+      762
+    ]
+  },
+  {
+    "text": "đau lưng dưới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M54"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      767,
+      780
+    ]
+  },
+  {
+    "text": "TURP",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      803,
+      807
+    ]
+  },
+  {
+    "text": "Hytrin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      827,
+      833
+    ]
+  },
+  {
+    "text": "Motrin",
+    "type": "THUỐC",
+    "candidates": [
+      "202488"
     ],
     "assertions": [],
     "position": [
-      146,
-      163
+      835,
+      841
+    ]
+  },
+  {
+    "text": "Lotensin",
+    "type": "THUỐC",
+    "candidates": [
+      "218088"
+    ],
+    "assertions": [],
+    "position": [
+      843,
+      851
+    ]
+  },
+  {
+    "text": "******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      856,
+      862
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      902,
+      915
+    ]
+  },
+  {
+    "text": "ethanol",
+    "type": "THUỐC",
+    "candidates": [
+      "448"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      1007,
+      1014
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1257,
+      1265
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1267,
+      1269
     ]
   },
   {
     "text": "khó thở",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
-    "assertions": [],
-    "position": [
-      337,
-      344
-    ]
-  },
-  {
-    "text": "rung nhĩ mãn tính",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I48.2"
-    ],
     "assertions": [
-      "isHistorical"
+      "isNegated"
     ],
     "position": [
-      452,
-      469
+      1276,
+      1283
     ]
   },
   {
-    "text": "Cardizem",
-    "type": "THUỐC",
-    "candidates": [
-      "3443"
-    ],
-    "assertions": [],
-    "position": [
-      494,
-      502
-    ]
-  },
-  {
-    "text": "Digoxin",
-    "type": "THUỐC",
-    "candidates": [
-      "3407"
-    ],
-    "assertions": [],
-    "position": [
-      557,
-      564
-    ]
-  },
-  {
-    "text": "Coumadin",
-    "type": "THUỐC",
-    "candidates": [
-      "11289"
-    ],
-    "assertions": [],
-    "position": [
-      589,
-      597
-    ]
-  },
-  {
-    "text": "Clindamycin",
-    "type": "THUỐC",
-    "candidates": [
-      "2582"
-    ],
-    "assertions": [],
-    "position": [
-      621,
-      632
-    ]
-  },
-  {
-    "text": "Rối loạn phổi với khối u phổi",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      814,
-      843
-    ]
-  },
-  {
-    "text": "Tràn dịch màng phổi",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "J90"
-    ],
-    "assertions": [],
-    "position": [
-      850,
-      869
-    ]
-  },
-  {
-    "text": "Rung nhĩ mãn tính không kiểm soát thứ cấp do rối loạn phổi",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I48.2"
-    ],
-    "assertions": [],
-    "position": [
-      876,
-      934
-    ]
-  },
-  {
-    "text": "INR",
+    "text": "chụp X-quang ngực",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1025,
-      1028
+      1293,
+      1310
     ]
   },
   {
-    "text": "2.09",
+    "text": "căng thẳng hô hấp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1441,
+      1458
+    ]
+  },
+  {
+    "text": "156/90",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1029,
-      1033
+      1514,
+      1520
+    ]
+  },
+  {
+    "text": "97%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1537,
+      1540
+    ]
+  },
+  {
+    "text": "tĩnh mạch cổ nổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1718,
+      1734
+    ]
+  },
+  {
+    "text": "tím tái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1867,
+      1874
+    ]
+  },
+  {
+    "text": "clubbing",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1876,
+      1884
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1891,
+      1897
+    ]
+  },
+  {
+    "text": "hội chứng ngưng thở khi ngủ tắc nghẽn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1958,
+      1995
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      2000,
+      2013
+    ]
+  },
+  {
+    "text": "Béo phì",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.9"
+    ],
+    "assertions": [],
+    "position": [
+      2018,
+      2025
+    ]
+  },
+  {
+    "text": "sử dụng thuốc lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.0"
+    ],
+    "assertions": [],
+    "position": [
+      2038,
+      2054
+    ]
+  },
+  {
+    "text": "hội chứng ngưng thở khi ngủ tắc nghẽn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2141,
+      2178
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2218,
+      2221
     ]
   }
 ]

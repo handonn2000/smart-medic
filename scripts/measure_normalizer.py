@@ -36,7 +36,7 @@ from rapidfuzz import fuzz, process  # noqa: E402
 
 from labels import CODEABLE_TYPES  # noqa: E402
 from normalizer import (DEFAULT_TOP_K, DISEASE_CUTOFF, DRUG_CUTOFF,  # noqa: E402
-                        MedicalNormalizer)
+                        MedicalNormalizer, normalize_drug_string)
 
 DEFAULT_GOLD = REPO / "data" / "generated_medical_records" / "restyled" / "annotations_gold"
 
@@ -92,28 +92,54 @@ class Table:
         return [(self.codes[index], score) for _, score, index in found]
 
 
-def emitted(ranked: list[tuple[str, float]], top_k: int, cutoff: int) -> set[str]:
-    """Đúng thứ normalizer.py trả về: cắt top_k trước, rồi lọc theo ngưỡng."""
-    return {code for code, score in ranked[:top_k] if score > cutoff}
+def query_of(text: str, concept_type: str) -> str:
+    """Cùng chuỗi mà normalizer.py đưa vào fuzzy — thuốc thì bỏ route/tần suất trước."""
+    if concept_type == "THUỐC":
+        return normalize_drug_string(text) or text.lower().strip()
+    return text
 
 
-def check_matches_production(normalizer, table: Table, spans, concept_type: str) -> None:
+def map_ranked(ranked: list[tuple[str, float]], resolve) -> list[tuple[str, float]]:
+    """Áp BN/SCD → IN lên danh sách xếp hạng, giữ điểm của lần khớp đầu."""
+    if resolve is None:
+        return ranked
+    out, seen = [], set()
+    for code, score in ranked:
+        mapped = resolve(code)
+        if mapped not in seen:
+            seen.add(mapped)
+            out.append((mapped, score))
+    return out
+
+
+def emitted(ranked: list[tuple[str, float]], top_k: int, cutoff: int,
+            resolve=None) -> set[str]:
+    """Đúng thứ normalizer.py trả về: cắt top_k trước, lọc ngưỡng, rồi (thuốc) → IN."""
+    return {code for code, score in map_ranked(ranked, resolve)[:top_k]
+            if score > cutoff}
+
+
+def check_matches_production(normalizer, table: Table, spans, concept_type: str,
+                             resolve=None) -> None:
     """Xác nhận cách tính lại ở đây trùng với chính hàm trong normalizer.py."""
     call = (normalizer.normalize_disease if concept_type == "CHẨN_ĐOÁN"
             else normalizer.normalize_drug)
     for ann in spans[:40]:
-        mine = emitted(table.ranked(ann["text"]), DEFAULT_TOP_K, CUTOFF[concept_type])
+        mine = emitted(table.ranked(query_of(ann["text"], concept_type)),
+                       DEFAULT_TOP_K, CUTOFF[concept_type], resolve=resolve)
         if set(call(ann["text"])) != mine:
             sys.exit(f"đo lệch với normalizer.py tại {ann['text']!r}: "
                      f"{sorted(call(ann['text']))} vs {sorted(mine)}")
 
 
-def report(concept_type: str, spans, table: Table) -> None:
+def report(concept_type: str, spans, table: Table, resolve=None) -> None:
     cutoff = CUTOFF[concept_type]
+    # Keep the raw fuzzy ranking; resolve BN/SCD → IN lazily. Pre-mapping the top-10 for
+    # every unique drug string would mean thousands of RxNav calls on a cold cache.
     ranked = {}
     for ann in spans:
         if ann["text"] not in ranked:
-            ranked[ann["text"]] = table.ranked(ann["text"])
+            ranked[ann["text"]] = table.ranked(query_of(ann["text"], concept_type))
 
     with_code = [a for a in spans if a["candidates"]]
     print(f"\n{'=' * 78}")
@@ -133,11 +159,14 @@ def report(concept_type: str, spans, table: Table) -> None:
     score_of = []
     for ann in with_code:
         gold = set(ann["candidates"])
-        hit = next((i for i, (code, _) in enumerate(ranked[ann["text"]], 1) if code in gold),
-                   None)
+        hit = None
+        for i, (code, score) in enumerate(ranked[ann["text"]], 1):
+            mapped = resolve(code) if resolve else code
+            if mapped in gold:
+                hit = i
+                score_of.append(score)
+                break
         rank_of[hit] += 1
-        if hit is not None:
-            score_of.append(ranked[ann["text"]][hit - 1][1])
 
     inside = sum(count for hit, count in rank_of.items() if hit is not None)
     print(f"\n  mã đáp án nằm trong {DEPTH} hạng đầu: {inside}/{len(with_code)} "
@@ -163,7 +192,7 @@ def report(concept_type: str, spans, table: Table) -> None:
     for sweep_cutoff in SWEEP_CUTOFFS:
         cells = []
         for top_k in SWEEP_TOPK:
-            mean = sum(jaccard(emitted(ranked[a["text"]], top_k, sweep_cutoff),
+            mean = sum(jaccard(emitted(ranked[a["text"]], top_k, sweep_cutoff, resolve),
                                set(a["candidates"])) for a in spans) / len(spans)
             cells.append(mean)
             if mean > best[0]:
@@ -175,7 +204,8 @@ def report(concept_type: str, spans, table: Table) -> None:
     print(f"    (* = cấu hình hiện tại)   tốt nhất: {best[0]:.3f} tại "
           f"top_k={best[1][0]}, ngưỡng {best[1][1]}")
 
-    oracle = sum(jaccard(set(a["candidates"]) & {c for c, _ in ranked[a["text"]]},
+    resolved_top = {text: map_ranked(rows, resolve) for text, rows in ranked.items()}
+    oracle = sum(jaccard(set(a["candidates"]) & {c for c, _ in resolved_top[a["text"]]},
                          set(a["candidates"])) for a in spans) / len(spans)
     print(f"    trần nếu chọn đúng mã trong {DEPTH} hạng đầu: {oracle:.3f}")
 
@@ -184,7 +214,7 @@ def report(concept_type: str, spans, table: Table) -> None:
     for ann in with_code:
         if len(seen) >= 6:
             break
-        top = ranked[ann["text"]]
+        top = resolved_top[ann["text"]]
         if ann["text"] in seen or set(ann["candidates"]) & {c for c, _ in top}:
             continue
         seen.add(ann["text"])
@@ -218,9 +248,11 @@ def main() -> int:
         if not spans[concept_type]:
             print(f"\n  {concept_type}: không có span nào")
             continue
+        resolve = normalizer.to_ingredient if concept_type == "THUỐC" else None
         check_matches_production(normalizer, tables[concept_type],
-                                 spans[concept_type], concept_type)
-        report(concept_type, spans[concept_type], tables[concept_type])
+                                 spans[concept_type], concept_type, resolve=resolve)
+        report(concept_type, spans[concept_type], tables[concept_type], resolve=resolve)
+        normalizer.flush_ingredient_cache()
     return 0
 
 

@@ -13,34 +13,24 @@ Chiến thuật bám metric:
   * Triệu chứng: candidates rỗng.
 
 Phụ thuộc (phần dense): pip install transformers torch faiss-cpu requests
+
+NOTE: production inference still goes through `src/normalizer.py`. Drug string cleanup
+lives there (`normalize_drug_string`); this module keeps the SapBERT / RxNav sketch for
+the denser path once it is wired in.
 """
-import re
-import requests
 from typing import List, Dict, Optional
+
+import requests
+
+try:
+    from normalizer import normalize_drug_string
+except ImportError:  # running as a script from repo root
+    from src.normalizer import normalize_drug_string  # type: ignore
+
 
 # ==========================================================================
 # 1. RxNorm cho THUỐC
 # ==========================================================================
-_ROUTE = {"po", "iv", "im", "sc", "sq", "sl", "pr", "top", "inh", "ng",
-          "pv", "id", "neb", "ophth", "otic", "nasal", "buccal", "rectal"}
-_FREQ = {"daily", "bid", "tid", "qid", "qd", "qod", "qhs", "qam", "qpm",
-         "prn", "once", "weekly", "monthly", "hs", "ac", "pc", "stat"}
-_FREQ_RE = re.compile(r"^q\d+h$")           # q6h, q8h, q12h...
-
-
-def normalize_drug_string(text: str) -> str:
-    """Bỏ route/tần suất, giữ 'ingredient strength form' để khớp SCD của RxNorm.
-    RxNorm SCD KHÔNG mã hoá đường dùng/tần suất, nên đây là nhiễu cần loại."""
-    out = []
-    for tok in text.lower().split():
-        tok = tok.split(":")[0]             # 'q6h:prn' -> 'q6h'
-        if not tok:
-            continue
-        if tok in _ROUTE or tok in _FREQ or _FREQ_RE.match(tok):
-            continue
-        out.append(tok)
-    return " ".join(out).strip()
-
 
 def rxnorm_link(text: str, base="https://rxnav.nlm.nih.gov/REST") -> Optional[str]:
     """Trả về RxCUI (str) hoặc None. Online — dùng khi môi trường chấm có internet.
@@ -122,7 +112,8 @@ class IcdLinker:
         seen, merged = set(), []
         for c in dense + lex:
             if c not in seen:
-                seen.add(c); merged.append(c)
+                seen.add(c)
+                merged.append(c)
         return merged
 
     def link(self, mention: str) -> Optional[str]:

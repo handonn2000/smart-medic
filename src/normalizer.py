@@ -1,4 +1,6 @@
 import csv
+import json
+import re
 
 import pandas as pd
 from rapidfuzz import process, fuzz
@@ -10,6 +12,10 @@ _ROOT_DIR = Path(__file__).resolve().parent.parent
 _KB_DIR = _ROOT_DIR / "data" / "knowledge_base"
 _RXNORM_PATH = _KB_DIR / "RXNORM.csv"
 _ICD10_PATH = _KB_DIR / "ICD10_VN.csv"
+# BN/SBD/SCD → IN lookups are remote; cache on disk so the second run (and measure)
+# does not re-hit RxNav for every brand.
+_RXNORM_TO_IN_CACHE = _KB_DIR / "rxnorm_to_in.json"
+_RXNAV_BASE = "https://rxnav.nlm.nih.gov/REST"
 
 # Tên cột mã bệnh / tên bệnh, thử theo đúng thứ tự này và so khớp CHÍNH XÁC.
 #
@@ -21,8 +27,21 @@ _ICD10_PATH = _KB_DIR / "ICD10_VN.csv"
 _ICD10_CODE_COLUMNS = ("mã bệnh", "mã", "ma", "code")
 _ICD10_NAME_COLUMNS = ("tên bệnh", "ten benh", "name")
 
-# Prefer ingredient / brand rows to keep fuzzy search tractable.
+# Prefer ingredient / brand / clinical-drug rows to keep fuzzy search tractable.
 _RXNORM_TTYS = {"IN", "BN", "PIN", "MIN", "SCD", "SBD"}
+# Gold on the generated set is ingredient CUIs for every coded drug (896/896). Brand and
+# product matches therefore have to be walked down to IN before they can score.
+_TTY_NEEDS_IN = {"BN", "SBD", "SBDG", "SBDC", "SCD", "SCDG", "SCDC", "SCDF", "GPCK", "BPCK"}
+
+_ROUTE = {
+    "po", "iv", "im", "sc", "sq", "sl", "pr", "top", "inh", "ng",
+    "pv", "id", "neb", "ophth", "otic", "nasal", "buccal", "rectal",
+}
+_FREQ = {
+    "daily", "bid", "tid", "qid", "qd", "qod", "qhs", "qam", "qpm",
+    "prn", "once", "weekly", "monthly", "hs", "ac", "pc", "stat",
+}
+_FREQ_RE = re.compile(r"^q\d+h$")  # q6h, q8h, q12h…
 
 # Số mã trả về và ngưỡng fuzzy, đo bằng scripts/measure_normalizer.py trên 1.456 mã
 # CHẨN_ĐOÁN + 980 mã THUỐC của annotations_gold:
@@ -31,12 +50,29 @@ _RXNORM_TTYS = {"IN", "BN", "PIN", "MIN", "SCD", "SBD"}
 #     (1.456/1.536 CHẨN_ĐOÁN, 814/952 THUỐC). candidates chấm bằng J = |giao|/|hợp|, nên
 #     ba mã mà đúng một thì J tối đa còn 1/3 — thêm mã là tự hạ điểm chính mình.
 #   * Ngưỡng cũ (65 và 70) loại mất 41,6% và 23,2% số mã ĐÚNG mà tra cứu đã tìm ra.
+#   * Brand/product → ingredient: gold is IN for every coded drug; leaving a BN CUI
+#     (Lasix 202991 vs furosemide 4603) scores 0 even when the name match is perfect.
 #
-# J trung bình mỗi span: CHẨN_ĐOÁN 0,146 -> 0,196; THUỐC 0,287 -> 0,312. Sửa ở đây thì
-# chạy lại script đo, nó tự lấy ba hằng số này nên không lệch nhau được.
+# J trung bình mỗi span (trước bước brand→IN): CHẨN_ĐOÁN ~0.18; THUỐC ~0.31.
 DEFAULT_TOP_K = 1
 DISEASE_CUTOFF = 60
 DRUG_CUTOFF = 55
+
+
+def normalize_drug_string(text: str) -> str:
+    """Drop route/frequency tokens; RxNorm SCD/IN names do not encode them.
+
+    Shared with the entity_linker sketch — keep the token tables in sync if either grows.
+    """
+    out = []
+    for tok in text.lower().split():
+        tok = tok.split(":")[0]  # 'q6h:prn' → 'q6h'
+        if not tok:
+            continue
+        if tok in _ROUTE or tok in _FREQ or _FREQ_RE.match(tok):
+            continue
+        out.append(tok)
+    return " ".join(out).strip()
 
 
 def _column_of(header, wanted) -> int | None:
@@ -87,12 +123,38 @@ class MedicalNormalizer:
         self.icd_df = pd.DataFrame()
         self.rxnorm_dict = {}
         self.icd_dict = {}
+        self.rxnorm_tty = {}  # rxcui → tty of the row we matched
+        self._to_in = self._load_to_in_cache()
+        self._to_in_dirty = False
         self.load_dictionaries()
+        import atexit
+        atexit.register(self.flush_ingredient_cache)
 
     def load_dictionaries(self):
         """Tải dictionary mapping từ knowledge base."""
         self._load_rxnorm()
         self._load_icd10()
+
+    @staticmethod
+    def _load_to_in_cache() -> dict[str, str]:
+        if not _RXNORM_TO_IN_CACHE.is_file():
+            return {}
+        try:
+            data = json.loads(_RXNORM_TO_IN_CACHE.read_text(encoding="utf-8"))
+            return {str(k): str(v) for k, v in data.items() if v}
+        except (OSError, json.JSONDecodeError) as exc:
+            print(f"[WARN] Could not read {_RXNORM_TO_IN_CACHE.name}: {exc}")
+            return {}
+
+    def _save_to_in_cache(self) -> None:
+        try:
+            _RXNORM_TO_IN_CACHE.parent.mkdir(parents=True, exist_ok=True)
+            _RXNORM_TO_IN_CACHE.write_text(
+                json.dumps(self._to_in, ensure_ascii=False, indent=0, sort_keys=True),
+                encoding="utf-8",
+            )
+        except OSError as exc:
+            print(f"[WARN] Could not write {_RXNORM_TO_IN_CACHE.name}: {exc}")
 
     def _load_rxnorm(self):
         if not _RXNORM_PATH.is_file():
@@ -109,6 +171,7 @@ class MedicalNormalizer:
             df = df.dropna(subset=["rxcui", "str"])
             df["str"] = df["str"].str.strip()
             df["rxcui"] = df["rxcui"].str.strip()
+            df["tty"] = df["tty"].fillna("").str.strip().str.upper()
             df = df[df["str"] != ""]
 
             if "lat" in df.columns:
@@ -118,16 +181,68 @@ class MedicalNormalizer:
                 if not filtered.empty:
                     df = filtered
 
-            df = df.drop_duplicates(subset=["str"], keep="first")
-            df = df.rename(columns={"str": "name"})
+            # Prefer IN over brand/product when the same surface string appears twice
+            # (e.g. case variants already collapsed by drop_duplicates on str).
+            tty_rank = {t: i for i, t in enumerate(["IN", "PIN", "MIN", "SCD", "SBD", "BN"])}
+            df = df.assign(_rank=df["tty"].map(lambda t: tty_rank.get(t, 99)))
+            df = df.sort_values("_rank").drop_duplicates(subset=["str"], keep="first")
+            df = df.drop(columns=["_rank"]).rename(columns={"str": "name"})
 
             self.rxnorm_df = df.reset_index(drop=True)
             self.rxnorm_dict = dict(
                 zip(self.rxnorm_df["name"].str.lower(), self.rxnorm_df["rxcui"])
             )
+            self.rxnorm_tty = dict(
+                zip(self.rxnorm_df["rxcui"].astype(str), self.rxnorm_df["tty"])
+            )
             print(f"[OK] Loaded RxNorm: {len(self.rxnorm_df)} entries from {_RXNORM_PATH.name}")
         except Exception as exc:
             print(f"[WARN] Failed to load RxNorm ({_RXNORM_PATH.name}): {exc}")
+
+    def to_ingredient(self, rxcui: str) -> str:
+        """Walk a brand/product CUI down to its ingredient; identity for IN / unknowns."""
+        rxcui = str(rxcui).strip()
+        if not rxcui:
+            return rxcui
+        if rxcui in self._to_in:
+            return self._to_in[rxcui]
+
+        tty = self.rxnorm_tty.get(rxcui, "")
+        if tty == "IN" or tty not in _TTY_NEEDS_IN:
+            self._to_in[rxcui] = rxcui
+            return rxcui
+
+        resolved = self._fetch_ingredient(rxcui) or rxcui
+        self._to_in[rxcui] = resolved
+        # Defer disk writes: measure/inference resolve hundreds of CUIs; flushing each
+        # one dominates runtime. Call flush_ingredient_cache() when the burst is done.
+        self._to_in_dirty = True
+        return resolved
+
+    def flush_ingredient_cache(self) -> None:
+        if getattr(self, "_to_in_dirty", False):
+            self._save_to_in_cache()
+            self._to_in_dirty = False
+
+    def _fetch_ingredient(self, rxcui: str) -> str | None:
+        """RxNav related?tty=IN — one call per unseen brand/product CUI."""
+        try:
+            resp = requests.get(
+                f"{_RXNAV_BASE}/rxcui/{rxcui}/related.json",
+                params={"tty": "IN"},
+                timeout=5,
+            )
+            if resp.status_code != 200:
+                return None
+            for group in resp.json().get("relatedGroup", {}).get("conceptGroup", []):
+                if group.get("tty") != "IN":
+                    continue
+                props = group.get("conceptProperties") or []
+                if props:
+                    return str(props[0]["rxcui"])
+        except (requests.RequestException, KeyError, ValueError, TypeError):
+            return None
+        return None
 
     def _load_icd10(self):
         if not _ICD10_PATH.is_file():
@@ -150,50 +265,50 @@ class MedicalNormalizer:
                   f" — mọi CHẨN_ĐOÁN sẽ không có mã nào")
 
     def normalize_drug(self, drug_text: str, top_k=DEFAULT_TOP_K):
-        """Trả về list candidates RxNorm"""
+        """Trả về list candidates RxNorm (ingredient CUIs)."""
         if not drug_text or drug_text.strip() == "":
             return []
 
-        text_lower = drug_text.lower().strip()
+        text_lower = normalize_drug_string(drug_text)
+        if not text_lower:
+            return []
 
-        # Exact match
+        raw_codes: list[str] = []
+
+        # Exact match on the cleaned string
         if text_lower in self.rxnorm_dict:
-            return [self.rxnorm_dict[text_lower]]
-
-        # Fuzzy matching
-        if not self.rxnorm_df.empty:
+            raw_codes = [self.rxnorm_dict[text_lower]]
+        elif not self.rxnorm_df.empty:
             choices = self.rxnorm_df["name"].tolist()
             matches = process.extract(
                 text_lower, choices, scorer=fuzz.token_sort_ratio, limit=top_k
             )
-            candidates = []
             for match, score, idx in matches:
                 if score > DRUG_CUTOFF:
-                    rxcui = str(self.rxnorm_df.iloc[idx]["rxcui"])
-                    candidates.append(rxcui)
-            return candidates[:top_k]
+                    raw_codes.append(str(self.rxnorm_df.iloc[idx]["rxcui"]))
+        else:
+            # Fallback: RxNav approximate search when the local table did not load
+            try:
+                resp = requests.get(
+                    f"{_RXNAV_BASE}/rxcui.json",
+                    params={"name": text_lower, "search": 2},
+                    timeout=5,
+                )
+                if resp.status_code == 200:
+                    ids = resp.json().get("idGroup", {}).get("rxnormId") or []
+                    raw_codes = [str(i) for i in ids[:top_k]]
+            except requests.RequestException:
+                pass
 
-        # Fallback: RxNav API (NLM)
-        try:
-            resp = requests.get(
-                f"https://rxnav.nlm.nih.gov/REST/drugs.json?name={drug_text}",
-                timeout=5,
-            )
-            if resp.status_code == 200:
-                data = resp.json()
-                if "drugGroup" in data and "conceptGroup" in data["drugGroup"]:
-                    return [
-                        c["rxcui"]
-                        for c in data["drugGroup"]["conceptGroup"][0].get(
-                            "conceptProperties", []
-                        )
-                    ][:top_k]
-        except Exception:
-            pass
-
-        # No guess beats a wrong guess: candidates are scored by Jaccard, so a code
-        # that cannot possibly be right only enlarges the union and pushes J down.
-        return []
+        # Deduplicate after BN/SCD → IN so two product forms of the same drug collapse.
+        out: list[str] = []
+        seen: set[str] = set()
+        for code in raw_codes[:top_k]:
+            ingredient = self.to_ingredient(code)
+            if ingredient not in seen:
+                seen.add(ingredient)
+                out.append(ingredient)
+        return out[:top_k]
 
     def normalize_disease(self, disease_text: str, top_k=DEFAULT_TOP_K):
         """Trả về ICD-10 code"""

@@ -164,6 +164,10 @@ CÀI KHÔNG ĐƯỢC ⇒ BỊ LOẠI, bất kể điểm bao nhiêu.
 3. unzip -l output.zip đúng 100 file trong thư mục output/
 Ba việc đó KHÔNG cho thêm điểm nào, nhưng bỏ một trong ba là mất TOÀN BỘ 70,00.
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE
 scripts/submit/ · runs/ · pyproject.toml · README.md (mục cài đặt/chạy)
 KHÔNG đụng: bất kỳ file nào trong src/smart_medic/ — P7 KHÔNG sửa code pipeline.

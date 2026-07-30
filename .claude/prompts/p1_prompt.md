@@ -146,6 +146,10 @@ nhưng là một bài nộp hợp lệ không bao giờ hỏng.
 [ ] IN mật độ entity/file — nó là đầu vào của emit_threshold ở P6
 [ ] 0 span lồng nhau trong output
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE
 extract/{aho,labvalues,kvspan}.py · resources/lab_patterns.yaml · decision/emit.py ·
 data/artifacts/ (gazetteer)

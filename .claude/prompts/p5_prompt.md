@@ -194,6 +194,10 @@ Doublet của THUỐC gần như luôn là THUỐC PHỐI HỢP ⇒ quyết đ�
 - Whitelist đang loại >2 mã gold ⇒ chuyển sang loại-theo-T200 NGAY, đừng debug whitelist.
 - ***** sinh dương tính giả ⇒ trả rỗng cho ca đó.
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE
 src/smart_medic/linking/ · resources/lay_terms_vi.yaml · data/artifacts/ (gazetteer)
 KHÔNG đụng: extract/ · assertion/ · decision/ · configs/*.yaml

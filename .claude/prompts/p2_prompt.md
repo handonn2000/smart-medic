@@ -173,6 +173,10 @@ Probe B  → ΔB ≈ +3,9 ⇒ IN đúng, chốt ADR 0001
     Δ=−2,856 SE=0,123 · bỏ 10% entity Δ=−7,043 SE=0,287 · seedA vs seedB SE=0,415
 [ ] Hai ADR đã cập nhật
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE
 eval/{probe,slices,bootstrap}.py · tests/test_alignment_parity.py · runs/ ·
 docs/decisions/000{1,2}-*.md (chỉ THÊM mục cập nhật, không sửa thân)

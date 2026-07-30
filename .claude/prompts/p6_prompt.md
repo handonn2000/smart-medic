@@ -177,6 +177,10 @@ NHẮM: +2 đến +10 điểm. ~300 dòng, KHÔNG TRAIN GÌ, và cộng dồn v�
 [ ] xung đột type sau hài hoà ≤ 0,31%; overlap_type KHÔNG giảm
 [ ] báo CẢ BA cách đọc (matched/penalised/docbag) mỗi lần chạy
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE
 src/smart_medic/decision/ · extract/harmonize.py
 ⚠ configs/pipeline.yaml do NGƯỜI sở hữu. Cần đổi một ngưỡng thì ĐỀ XUẤT giá trị kèm số

@@ -184,6 +184,10 @@ Không hạng mục nào khác trong dự án ở cùng bậc độ lớn.
   hoàn vốn nếu đổi được ≥1,2% thừa cho mỗi 1% recall mất.
 - Model không hội tụ trong MỘT lần train ⇒ KHÔNG train lần hai. Báo cáo.
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE
 extract/{globalpointer,gliner,overlap_graph,boundary}.py · scripts/train_span.py
 KHÔNG đụng: io/ · layout/ · validate/ · extract/{aho,labvalues,kvspan}.py (P1 sở hữu) ·

@@ -720,6 +720,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
 │   ├── leverage_map.json           <span class="c">✅ MỚI · bản đồ đòn bẩy đã ghim</span>
 │   └── 2026-07-30T14-02_a1b2c3d/   <span class="c">⬜ manifest.json · output/ · output.zip · score.json</span>
 │
+├── <span class="k">notebooks/</span>                     <span class="c">✅ MỚI</span>
+│   └── runbook.ipynb               <span class="c">✅ 8 ô — đường thẳng repo sạch → output.zip</span>
+│                                   <span class="c">   ô 8 TỰ KIỂM: chạy lại sau MỖI phase</span>
 ├── <span class="k">models/</span>                        <span class="c">✅ weights — gitignore nhị phân</span>
 ├── <span class="k">docs/</span>                          <span class="c">✅ README.md ✅</span>
 │   ├── PRD.html                    <span class="c">✅ đề bài gốc</span>
@@ -2307,6 +2310,55 @@ layout/lines.py ─► boundary_priors ─► CẢ HAI làn span   [P1, P3] ─�
   <p>Bước nhảy lớn nhất là <b>D3 → D4 (+16,5 điểm)</b>: nó gộp cả recall 0,65→0,80 và việc bật nhánh mã.
   Nếu D4 chỉ đạt recall 0,75 thì điểm là ~46,9 — <b>vẫn dưới Top 1 (50,41)</b>, tức vượt Top 1 đòi
   recall ≥0,80.</p>
+  <div class="shead"><span class="num">G</span><h2>Runbook — một notebook chạy thẳng ra output</h2>
+    <span class="sub">notebooks/runbook.ipynb · 8 ô · chạy được ngay hôm nay</span></div>
+  <p>Tám phase mô tả <b>vì sao</b> và <b>theo thứ tự nào</b>. Nhưng đến lúc cần dựng lại bài nộp —
+  hoặc khi ban tổ chức chạy lại ở vòng chấm source — thứ cần là <b>một đường thẳng</b>: lệnh nào,
+  thứ tự nào, ra cái gì. Đó là
+  <a href="../../notebooks/runbook.ipynb"><code>notebooks/runbook.ipynb</code></a>.</p>
+  <div class="tscroll"><table>
+    <thead><tr><th class="num">Ô</th><th>Bước</th><th>Phase</th><th>Trạng thái hôm nay</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td>Môi trường — gốc repo, <code>PYTHONPATH</code>, git SHA, số file bẩn</td>
+          <td>—</td><td><span class="pill g">chạy được</span></td></tr>
+      <tr style="background:var(--warn-tint)"><td class="num">2</td>
+          <td><b>Cổng toàn vẹn</b> — <code>pytest tests/</code>, chỉ chấp nhận
+              <code>test_silver_offsets</code> fail</td><td class="num">P0</td>
+          <td><span class="pill g">chạy được</span></td></tr>
+      <tr><td class="num">3</td><td>Dựng chỉ mục KB qua <code>scripts/kb_sources.py</code></td>
+          <td class="num">P1 · P5</td><td><span class="pill g">chạy được</span></td></tr>
+      <tr><td class="num">4</td><td>Chạy trên <b>gold</b> → chấm điểm — đây là ô <b>ĐO</b></td>
+          <td class="num">P0–P6</td><td><span class="pill">chờ pipeline</span></td></tr>
+      <tr><td class="num">5</td><td>Chạy trên <b><code>data/test/</code></b> → <code>data/output/</code> — ô <b>NỘP</b></td>
+          <td class="num">P0–P6</td><td><span class="pill">chờ pipeline</span></td></tr>
+      <tr><td class="num">6</td><td>Đóng gói <code>output.zip</code> + <code>unzip -l</code></td>
+          <td class="num">P0 · P7</td><td><span class="pill">chờ P0</span></td></tr>
+      <tr><td class="num">7</td><td>Diễn tập tái lập trên container sạch</td><td class="num">P7</td>
+          <td><span class="pill g">có lệnh</span></td></tr>
+      <tr style="background:var(--good-tint)"><td class="num">8</td>
+          <td><b>TỰ KIỂM</b> — notebook còn khớp repo không</td><td>—</td>
+          <td><span class="pill g">chạy được</span></td></tr>
+    </tbody></table></div>
+  <div class="note warn">
+    <span class="lab">Ô 8 là lý do notebook này không mục nát — và nó là một mục nghiệm thu</span>
+    Runbook <b>nhân bản</b> lệnh của repo, nên nó <b>trôi được</b>: một phase thêm file mới, đổi
+    một cờ dòng lệnh, và notebook lặng lẽ sai. Một notebook sai còn <b>tệ hơn không có notebook</b>
+    — nó khiến người ta tin vào một lệnh đã hỏng.<br>
+    Ô 8 tự bắt chỗ trôi: mọi đường dẫn nó nhắc tới phải tồn tại (hoặc nằm trong danh sách
+    <i>chưa có, thuộc phase X</i>), và <b>mọi cờ dòng lệnh nó dùng phải thật sự có trong
+    <code>--help</code></b>. Việc này đã bắt được lỗi thật ngay khi viết: notebook dùng
+    <code>--alignment</code>, mà <code>scoring.py</code> không có cờ đó — nó in cả bốn chế độ căn
+    chỉnh trong một lần chạy.<br>
+    ⇒ <b>Sau mỗi phase: chạy lại notebook từ đầu. Phase chỉ được coi là XONG khi ô 8 xanh.</b>
+    Mục này đã được thêm vào tiêu chí nghiệm thu của cả tám prompt phase.
+  </div>
+  <div class="note">
+    <span class="lab">Hai tập chạy, đừng lẫn</span>
+    <b>gold</b> có nhãn ⇒ chấm được, đó là ô đo. <b><code>data/test/</code></b> không có nhãn ⇒ nó là
+    bài nộp. Chấm <code>data/output/</code> với gold cho <code>no overlapping record ids</code> vì hai
+    tập dùng hệ tên khác nhau — đó không phải lỗi, đó là hai việc khác nhau.
+  </div>
+
   <div class="note">
     <span class="lab">Ba việc không được bỏ dù hết thời gian</span>
     <code>pytest tests/test_offsets.py</code> sạch · ba test chống rò rỉ API xanh ·
@@ -3019,6 +3071,10 @@ Nếu một trong ba không thoả: BÁO CÁO và DỪNG. Đừng tự sửa c�
 [ ] 3 test chống rò API xanh; test_param_budget xanh; test_layer_boundaries xanh
 [ ] grep không tìm được ngưỡng số nào trong src/ — chúng ở configs/pipeline.yaml
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE (chỉ ghi vào đây)
 src/smart_medic/{io,layout,validate}/ · configs/*.yaml · scripts/submit/ ·
 tests/test_{document,no_api_in_runtime,layer_boundaries}.py · pyproject.toml · Makefile
@@ -3082,6 +3138,10 @@ nhưng là một bài nộp hợp lệ không bao giờ hỏng.
     raw[s:e] == text trên chuỗi GỐC; (iii) ràng buộc lược đồ; (iv) NFC/NFD round-trip
 [ ] IN mật độ entity/file — nó là đầu vào của emit_threshold ở P6
 [ ] 0 span lồng nhau trong output
+
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
 
 ## SỞ HỮU FILE
 extract/{aho,labvalues,kvspan}.py · resources/lab_patterns.yaml · decision/emit.py ·
@@ -3174,6 +3234,10 @@ Probe B  → ΔB ≈ +3,9 ⇒ IN đúng, chốt ADR 0001
 [ ] bootstrap tái lập được 4 ca hiệu chuẩn: isFamily Δ=−0,261 SE=0,052 · sai 30% mã
     Δ=−2,856 SE=0,123 · bỏ 10% entity Δ=−7,043 SE=0,287 · seedA vs seedB SE=0,415
 [ ] Hai ADR đã cập nhật
+
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
 
 ## SỞ HỮU FILE
 eval/{probe,slices,bootstrap}.py · tests/test_alignment_parity.py · runs/ ·
@@ -3278,6 +3342,10 @@ Không hạng mục nào khác trong dự án ở cùng bậc độ lớn.
   hoàn vốn nếu đổi được ≥1,2% thừa cho mỗi 1% recall mất.
 - Model không hội tụ trong MỘT lần train ⇒ KHÔNG train lần hai. Báo cáo.
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE
 extract/{globalpointer,gliner,overlap_graph,boundary}.py · scripts/train_span.py
 KHÔNG đụng: io/ · layout/ · validate/ · extract/{aho,labvalues,kvspan}.py (P1 sở hữu) ·
@@ -3376,6 +3444,10 @@ rỗng 50,7% · isNegated 24,1% · isHistorical 22,5% · cả hai 1,2% · isFami
 - Chưa xong hoặc ΔC &lt; +4 ⇒ trả assertions=[] TOÀN BỘ. Mất 8,19 nhưng KHÔNG BAO GIỜ HỎNG.
   Mô phỏng r0,85 sp0,12 → 47,1.
 - KHÔNG mở rộng sang isFamily trong mọi trường hợp. Giữ 3 dòng cue và dừng.
+
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
 
 ## SỞ HỮU FILE
 src/smart_medic/assertion/ · resources/{cues_vi,sections_vi}.yaml · tests/fixtures/
@@ -3489,6 +3561,10 @@ Doublet của THUỐC gần như luôn là THUỐC PHỐI HỢP ⇒ quyết đ�
 - Whitelist đang loại &gt;2 mã gold ⇒ chuyển sang loại-theo-T200 NGAY, đừng debug whitelist.
 - ***** sinh dương tính giả ⇒ trả rỗng cho ca đó.
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE
 src/smart_medic/linking/ · resources/lay_terms_vi.yaml · data/artifacts/ (gazetteer)
 KHÔNG đụng: extract/ · assertion/ · decision/ · configs/*.yaml
@@ -3584,6 +3660,10 @@ NHẮM: +2 đến +10 điểm. ~300 dòng, KHÔNG TRAIN GÌ, và cộng dồn v�
 [ ] xung đột type sau hài hoà ≤ 0,31%; overlap_type KHÔNG giảm
 [ ] báo CẢ BA cách đọc (matched/penalised/docbag) mỗi lần chạy
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE
 src/smart_medic/decision/ · extract/harmonize.py
 ⚠ configs/pipeline.yaml do NGƯỜI sở hữu. Cần đổi một ngưỡng thì ĐỀ XUẤT giá trị kèm số
@@ -3665,6 +3745,10 @@ CÀI KHÔNG ĐƯỢC ⇒ BỊ LOẠI, bất kể điểm bao nhiêu.
 2. ba test chống rò rỉ API xanh
 3. unzip -l output.zip đúng 100 file trong thư mục output/
 Ba việc đó KHÔNG cho thêm điểm nào, nhưng bỏ một trong ba là mất TOÀN BỘ 70,00.
+
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
 
 ## SỞ HỮU FILE
 scripts/submit/ · runs/ · pyproject.toml · README.md (mục cài đặt/chạy)

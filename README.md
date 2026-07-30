@@ -62,6 +62,8 @@ smart-medic/
 │   ├── annotation_qa/       #   gold-annotation quality checks
 │   ├── analysis/            #   measure_data.py — reproduces every measured number
 │   └── submit/              #   package_submission.py
+├── notebooks/
+│   └── runbook.ipynb    # the linear path from a clean repo to output.zip (8 cells)
 ├── runs/                    # immutable run records: manifest + output + score
 ├── models/                  # trained model weights / checkpoints
 ├── tests/                   # offsets, scorer, API-leak guards, layer boundaries
@@ -113,6 +115,11 @@ python -m smart_medic.cli run --input data/test --output data/output
 
 (The pipeline entry point is not implemented yet — see
 [`docs/reports/plan-v4.html`](docs/reports/plan-v4.html) tab 04 for the phase plan.)
+
+**Or run the whole thing end to end:** [`notebooks/runbook.ipynb`](notebooks/runbook.ipynb) is
+the linear path from a clean checkout to `output.zip` — integrity gate, KB indexes, inference,
+scoring, packaging, reproducibility rehearsal. Its last cell self-checks that the notebook still
+matches the repo, and it is re-run after every phase.
 
 Score predictions against a gold directory:
 

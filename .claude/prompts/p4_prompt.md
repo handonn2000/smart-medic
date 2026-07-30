@@ -180,6 +180,10 @@ rỗng 50,7% · isNegated 24,1% · isHistorical 22,5% · cả hai 1,2% · isFami
   Mô phỏng r0,85 sp0,12 → 47,1.
 - KHÔNG mở rộng sang isFamily trong mọi trường hợp. Giữ 3 dòng cue và dừng.
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE
 src/smart_medic/assertion/ · resources/{cues_vi,sections_vi}.yaml · tests/fixtures/
 KHÔNG đụng: extract/ · linking/ · decision/ · configs/*.yaml

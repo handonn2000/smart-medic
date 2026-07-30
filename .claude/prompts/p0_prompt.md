@@ -169,6 +169,10 @@ Nếu một trong ba không thoả: BÁO CÁO và DỪNG. Đừng tự sửa c�
 [ ] 3 test chống rò API xanh; test_param_budget xanh; test_layer_boundaries xanh
 [ ] grep không tìm được ngưỡng số nào trong src/ — chúng ở configs/pipeline.yaml
 
+[ ] notebooks/runbook.ipynb chạy lại từ đầu, Ô 8 (TỰ KIỂM) XANH.
+    Phase thêm file mới hoặc đổi cờ dòng lệnh ⇒ PHẢI cập nhật notebook. Một notebook
+    sai còn tệ hơn không có notebook.
+
 ## SỞ HỮU FILE (chỉ ghi vào đây)
 src/smart_medic/{io,layout,validate}/ · configs/*.yaml · scripts/submit/ ·
 tests/test_{document,no_api_in_runtime,layer_boundaries}.py · pyproject.toml · Makefile

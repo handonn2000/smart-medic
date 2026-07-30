@@ -48,6 +48,31 @@ P1_BRANCH = "<0.50"
 _RANGE = re.compile(r"^(?P<op><|>|<=|>=)?\s*(?P<a>[\d.]+)(?:\s*-\s*(?P<b>[\d.]+))?$")
 
 
+def _pick_codes(
+    codes: tuple[str, ...], etype: str, caps: dict, order: str
+) -> tuple[str, ...]:
+    """The codes that leave this layer for one entity. Deterministic, always.
+
+    A type absent from `caps` gets none, which is what keeps the three
+    non-codeable types empty without a second rule to remember: the schema
+    constraint below and this table cannot disagree.
+    """
+    cap = int(caps.get(etype, 0))
+    if cap <= 0 or not codes:
+        return ()
+    if order == "shortest_first":
+        ranked = sorted(codes, key=lambda c: (len(c), c))
+    elif order == "ascending":
+        ranked = sorted(codes)
+    else:
+        raise ConfigError(
+            f"decision.code_order is {order!r}; expected 'shortest_first' or "
+            f"'ascending'. A silent fallback here would make two builds of the "
+            f"same commit emit different codes."
+        )
+    return tuple(ranked[:cap])
+
+
 @dataclass(frozen=True)
 class Concept:
     """The record that gets serialised. `validate/` is what actually writes it."""
@@ -179,19 +204,29 @@ def finalize(
 ) -> list[dict]:
     """Apply the gate, pick the type, and produce submission records.
 
-    P1 emits no assertions and no candidates:
-
     * `assertions` is P4. An empty list is the correct answer for the two lab
       types (worth 11.59 points) and a Jaccard of 0 elsewhere — the same 0 a wrong
       flag would score, so guessing here buys nothing.
-    * `candidates` is P5. The whole term is capped at 10.00 of the 70.00 ceiling
-      because the official denominator carries a `+1`, and 67% of entities belong
-      to types that can never carry a code. Emitting 1/4/9 junk codes on every
-      entity was measured at exactly 0.00.
+    * `candidates` comes from `Span.codes`, which `extract/aho.py` already carries
+      off the gazetteer: 799 of 971 codeable spans (82.3%) arrive here with a code
+      attached. This function used to discard all of them, on the reading that the
+      `+1` in the official denominator capped the whole term at 10.00 of a 70.00
+      ceiling. **That reading was wrong** — the `+1` is a per-document weight, not
+      a denominator, the ceiling is 100.00, and dropping the codes was costing
+      5.11 points measured (CI95 [+4.51; +5.73]). See ADR 0002, "Đặc tả CHÍNH
+      THỨC", and `configs/pipeline.yaml: decision.max_candidates_per_type` for the
+      cardinality table.
+
+      Still true, and still the reason not to pad the list: an extra code on an
+      entity whose gold carries one shrinks that entity's Jaccard from 1.0 to 0.5.
+      Cardinality is a measured rule, not a hedge.
 
     `type` is argmax with no hedging: emitting two types for one span costs 1.29
     points under *both* alignment readings.
     """
+    caps = require(load_pipeline(), "decision.max_candidates_per_type")
+    order = require(load_pipeline(), "decision.code_order")
+
     out: list[dict] = []
     for span in sorted(spans, key=lambda s: (s.start, s.end)):
         if span.score < threshold.p:
@@ -202,7 +237,7 @@ def finalize(
             position=(span.start, span.end),
             type=etype,
             assertions=(),
-            candidates=(),
+            candidates=_pick_codes(span.codes, etype, caps, order),
         )
         if etype in LAB_TYPES:
             assert not concept.assertions  # the 11.59-point constraint

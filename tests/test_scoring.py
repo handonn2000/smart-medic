@@ -21,6 +21,7 @@ from smart_medic.eval.scoring import (  # noqa: E402
     MetricConfig,
     align,
     jaccard,
+    load_dir,
     score_corpus,
     wer,
 )
@@ -80,15 +81,105 @@ def test_identity_is_perfect_on_text_and_assertions():
     assert r["missing"] == 0 and r["spurious"] == 0
 
 
-def test_official_plus_one_caps_candidates_below_one():
-    """A *perfect* prediction still cannot reach 1.0 on candidates."""
-    docs = _load_real()
-    official = score_corpus(docs, MetricConfig(cand_formula="official"))
-    plain = score_corpus(docs, MetricConfig(cand_formula="plain"))
-    assert plain["candidates_score"] == pytest.approx(1.0)
-    assert official["candidates_score"] < 0.75, (
-        "the +1 in the official denominator should cap a perfect prediction "
-        f"well below 1.0; got {official['candidates_score']:.4f}"
+def test_plus_one_is_a_weight_and_caps_nothing():
+    """A perfect prediction reaches 1.0 on candidates. The `+1` weights, not caps.
+
+    This test replaces `test_official_plus_one_caps_candidates_below_one`, which
+    asserted the opposite and was wrong. The published spec puts the `+1` only in
+    the per-document weight `W_i = Σ_k(len(gt(k))+1)`:
+
+        candidates_score = Σ_i J_cand(i)·W_i / Σ_i W_i
+
+    It never enters `J`, so it cannot bound the term. Under the old reading a
+    submission carrying no codes scored exactly 0.00 on candidates — an
+    intersection with the empty set — while the organisers scored the same
+    submission 11.03. See ADR 0002, "Đặc tả CHÍNH THỨC".
+
+    Run on the gold corpus, not `data/output`: today's predictions carry no codes
+    at all, so they cannot tell a weighted average from an unweighted one.
+    """
+    gold = load_dir(ROOT / "data/generated_medical_records/restyled/annotations_gold")
+    if not gold:
+        pytest.skip("gold corpus not present")
+    docs = [(k, v, v) for k, v in sorted(gold.items())]
+
+    for cand in ("official", "plain"):
+        r = score_corpus(docs, MetricConfig(cand_formula=cand))
+        assert r["candidates_score"] == pytest.approx(1.0), (
+            f"cand_formula={cand}: a perfect prediction must score 1.0, got "
+            f"{r['candidates_score']:.4f}"
+        )
+        assert r["leaderboard"] == pytest.approx(100.0, abs=1e-6)
+
+    # And the weighting is live: strip every code and the two formulas diverge,
+    # because documents rich in gold codes now carry more of the average.
+    stripped = [
+        (k, v, [{**e, "candidates": []} for e in v]) for k, v in sorted(gold.items())
+    ]
+    w = score_corpus(stripped, MetricConfig(cand_formula="official"))
+    u = score_corpus(stripped, MetricConfig(cand_formula="plain"))
+    assert w["candidates_score"] != pytest.approx(u["candidates_score"], abs=1e-6), (
+        "weighted and unweighted candidates came out identical — W_i is not "
+        "reaching the corpus average"
+    )
+    assert 0.0 < w["candidates_score"] < 1.0
+
+
+def test_empty_prediction_still_scores_candidates():
+    """The regression that cost 16.53 points of measurement error.
+
+    Predicting no codes at all must NOT score 0: every concept whose gold also
+    has no codes is a correct empty, worth 1 by the spec's own convention.
+    """
+    gold = load_dir(ROOT / "data/generated_medical_records/restyled/annotations_gold")
+    if not gold:
+        pytest.skip("gold corpus not present")
+    docs = [
+        (k, v, [{**e, "candidates": []} for e in v]) for k, v in sorted(gold.items())
+    ]
+    r = score_corpus(docs, MetricConfig())
+    assert r["candidates_score"] > 0.5, (
+        f"candidates collapsed to {r['candidates_score']:.4f} on a prediction that "
+        f"is perfect apart from carrying no codes — the `+1` is being used as a "
+        f"denominator again"
+    )
+
+
+def test_type_error_is_punished_twice():
+    """Spec closing note: right text, wrong type ⇒ counted twice, 0 each time.
+
+    This is why `overlap_type` is the default alignment and `greedy_iou` is only
+    a diagnostic — `greedy_iou` never compares `type`, so it reports 0.00 cost.
+    """
+    gold = load_dir(ROOT / "data/generated_medical_records/restyled/annotations_gold")
+    if not gold:
+        pytest.skip("gold corpus not present")
+    keys = sorted(gold)
+    rng = random.Random(3)
+    types = ["TRIỆU_CHỨNG", "TÊN_XÉT_NGHIỆM", "KẾT_QUẢ_XÉT_NGHIỆM", "CHẨN_ĐOÁN", "THUỐC"]
+    wrong = []
+    for k in keys:
+        out = []
+        for e in gold[k]:
+            e = dict(e)
+            if rng.random() < 0.10:
+                others = [t for t in types if t != e["type"]]
+                e["type"] = others[rng.randrange(len(others))]
+            out.append(e)
+        wrong.append((k, gold[k], out))
+
+    official = score_corpus(wrong, MetricConfig())
+    blind = score_corpus(wrong, MetricConfig(alignment="greedy_iou"))
+    assert official["leaderboard"] < 90.0, (
+        f"10% type errors cost only {100 - official['leaderboard']:.2f} points "
+        f"under the official alignment — type is not being compared"
+    )
+    assert blind["leaderboard"] == pytest.approx(100.0, abs=1e-6), (
+        "greedy_iou is supposed to be blind to type; it moved"
+    )
+    assert official["missing"] == official["spurious"] > 0, (
+        "a type error must produce one unmatched gold AND one unmatched "
+        "prediction — the 'counted twice' rule"
     )
 
 

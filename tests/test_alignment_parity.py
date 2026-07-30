@@ -24,7 +24,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from smart_medic.eval.bootstrap import doc_points  # noqa: E402
+from smart_medic.eval.bootstrap import corpus_score, doc_terms  # noqa: E402
 from smart_medic.eval.probe import variant_a, variant_a_prime  # noqa: E402
 from smart_medic.eval.scoring import (  # noqa: E402
     TYPES,
@@ -222,18 +222,36 @@ def test_exact_column_has_not_collapsed(gold):
     )
 
 
-def test_doc_points_reproduce_score_corpus(gold):
-    """Pins the bootstrap shortcut: mean(doc_points) IS the leaderboard.
+def test_doc_terms_reproduce_score_corpus(gold):
+    """Pins the bootstrap shortcut: `corpus_score(doc_terms(...))` IS the leaderboard.
 
-    `paired_bootstrap` resamples one scalar per document instead of re-scoring.
-    That is exact only because macro aggregation is linear. If this ever drifts,
-    every CI in the project is wrong and silently so.
+    `paired_bootstrap` resamples four precomputed per-document arrays instead of
+    re-scoring. Text and assertions are plain means, but candidates is weighted
+    by W_i — a ratio of sums, not a mean. An earlier version resampled it as if
+    it were a mean; if this identity ever drifts again, every CI in the project
+    is wrong and silently so.
     """
     keys = sorted(gold, key=sort_key)
     docs = [(k, gold[k], drop(gold, 0.15, seed=5)[k]) for k in keys]
     for alignment in ("greedy_iou", "overlap_type", "exact"):
-        cfg = MetricConfig(alignment=alignment)
-        pts = doc_points(docs, cfg)
-        assert sum(pts) / len(pts) == pytest.approx(
-            score_corpus(docs, cfg)["leaderboard"], abs=1e-9
-        )
+        for cand in ("official", "plain"):
+            cfg = MetricConfig(alignment=alignment, cand_formula=cand)
+            assert corpus_score(doc_terms(docs, cfg)) == pytest.approx(
+                score_corpus(docs, cfg)["leaderboard"], abs=1e-9
+            ), f"{alignment}/{cand}: bootstrap shortcut no longer exact"
+
+
+def test_candidate_weight_is_gold_only(gold):
+    """W_i must not depend on the prediction, or the paired bootstrap is invalid.
+
+    `paired_bootstrap` shares one weight array between both systems. That is
+    only legitimate because W_i = Σ_k(len(gold_codes(k))+1) reads gold alone.
+    """
+    keys = sorted(gold, key=sort_key)
+    cfg = MetricConfig()
+    perfect = doc_terms([(k, gold[k], gold[k]) for k in keys], cfg)
+    stripped = doc_terms(
+        [(k, gold[k], [{**e, "candidates": []} for e in gold[k]]) for k in keys], cfg
+    )
+    assert [t[3] for t in perfect] == [t[3] for t in stripped]
+    assert any(t[3] > 1.0 for t in perfect), "no document carries any gold code"

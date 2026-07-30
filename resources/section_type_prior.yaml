@@ -1,0 +1,88 @@
+# L0 · resources/section_type_prior.yaml — P(type | section header)
+#
+# Read at RUNTIME by `extract/aho.py`. Sibling of `resources/lab_patterns.yaml`
+# in every respect: a rule file, no thresholds, no Python literals.
+#
+# ── WHAT PROBLEM THIS SOLVES ──────────────────────────────────────────────────
+# The gazetteer types a surface form context-free, and TRIỆU_CHỨNG vs CHẨN_ĐOÁN
+# is not a property of the surface form. `đau lưng` is a symptom under "Khám các
+# cơ quan" and a diagnosis under "Chẩn đoán"; `đau ngực` goes the other way. The
+# ICD chapter prior in `gazetteer_vi.yaml` cannot express this — it is keyed on
+# the code, which does not change between the two occurrences.
+#
+# Measured on the run of 2026-07-30 (162 gold files, official alignment): this
+# pair was 226 of the 363 remaining type confusions — 62%, and the largest single
+# bucket left after `usage_overrides_vocabulary` removed the lab/drug collision.
+#
+# ── WHY THE NUMBERS COME FROM SILVER, NOT GOLD ────────────────────────────────
+# Fitting the prior on `restyled/annotations_gold` and then scoring on those same
+# 162 files would make the reported gain partly memorisation of the answer key —
+# the exact leak `scripts/build_gazetteer.py` excludes `restyled/annotations` to
+# avoid. So every number below is counted on
+# `data/generated_medical_records/{synthetic,translated}` (381 files), whose texts
+# are disjoint from the gold-annotated documents.
+#
+# Cross-checked against gold AFTER fitting, as a transfer test, never as a source:
+#   17 of 18 sections agree with gold on which type is the majority
+#    0 of the 9 sections with silver purity ≥ 0.90 disagree with gold
+#   the single disagreement is `hô hấp` (silver 64% symptom, gold 0% on n=2) —
+#   noise on the gold side, and its prior is weak enough to be self-limiting.
+#
+# ── HOW IT IS APPLIED (extract/aho.py::_apply_section_prior) ──────────────────
+# Bayes multiply, then renormalise, RESTRICTED to the prior's own support:
+#
+#     m          = Σ_{t ∈ support} dist[t]            (mass already in the pair)
+#     dist'[t]   = m · dist[t]·prior[t] / Σ_{u ∈ support} dist[u]·prior[u]
+#
+# Types outside the support keep their mass untouched, so this can never move a
+# span towards or away from a lab type — it only redistributes probability that
+# the gazetteer had already placed between symptom and diagnosis. A span with no
+# mass in the support is left exactly as it was.
+#
+# Consequence worth stating: a weak prior does almost nothing and a strong prior
+# flips a confident gazetteer entry. That is deliberate — it means `min_support`
+# is the only cutoff in this file, and no purity threshold has to be invented.
+#
+# `smoothing: add_one` — Laplace, so a section observed 31/0 yields 0.9697/0.0303
+# rather than 1.0/0.0. A zero would make the prior a veto instead of evidence.
+
+version: 1
+source: "data/generated_medical_records/{synthetic,translated}"
+source_files: 381
+measured_utc: "2026-07-30"
+
+#: Sections with fewer observations than this are omitted entirely — the sample
+#: cannot distinguish a real skew from noise, and an omitted section leaves the
+#: gazetteer distribution untouched, which is the correct default.
+min_support: 25
+smoothing: add_one
+
+#: Title match is on the DEEPEST section containing the span's start offset,
+#: normalised NFC + whitespace-collapsed + lowercased + stripped. NFC matters:
+#: 41/162 gold files are not in NFC, and without it `khám thực thể` appears as
+#: two distinct titles and neither reaches `min_support`.
+match: deepest_enclosing_section
+
+support: ["TRIỆU_CHỨNG", "CHẨN_ĐOÁN"]
+
+#: Add-one smoothed P(type | section), counted on silver. Trailing comment on
+#: each row is the raw count it came from: n, then TRIỆU_CHỨNG/CHẨN_ĐOÁN.
+prior:
+  "bệnh sử":                     {TRIỆU_CHỨNG: 0.8518, CHẨN_ĐOÁN: 0.1482}   # n=2319, 1976/343
+  "tiền sử bệnh":                {TRIỆU_CHỨNG: 0.0285, CHẨN_ĐOÁN: 0.9715}   # n=736, 20/716
+  "chẩn đoán":                   {TRIỆU_CHỨNG: 0.0668, CHẨN_ĐOÁN: 0.9332}   # n=657, 43/614
+  "lý do vào viện":              {TRIỆU_CHỨNG: 0.9135, CHẨN_ĐOÁN: 0.0865}   # n=368, 337/31
+  "khám thực thể":               {TRIỆU_CHỨNG: 0.8958, CHẨN_ĐOÁN: 0.1042}   # n=305, 274/31
+  "khám các cơ quan":            {TRIỆU_CHỨNG: 0.8972, CHẨN_ĐOÁN: 0.1028}   # n=280, 252/28
+  "tiền sử gia đình":            {TRIỆU_CHỨNG: 0.0549, CHẨN_ĐOÁN: 0.9451}   # n=89, 4/85
+  "tiêu hóa":                    {TRIỆU_CHỨNG: 0.8750, CHẨN_ĐOÁN: 0.1250}   # n=38, 34/4
+  "chẩn đoán và hướng điều trị": {TRIỆU_CHỨNG: 0.2632, CHẨN_ĐOÁN: 0.7368}   # n=36, 9/27
+  "chi":                         {TRIỆU_CHỨNG: 0.9444, CHẨN_ĐOÁN: 0.0556}   # n=34, 33/1
+  "tim mạch":                    {TRIỆU_CHỨNG: 0.5294, CHẨN_ĐOÁN: 0.4706}   # n=32, 17/15
+  "hướng điều trị":              {TRIỆU_CHỨNG: 0.3824, CHẨN_ĐOÁN: 0.6176}   # n=32, 12/20
+  "kết quả xét nghiệm":          {TRIỆU_CHỨNG: 0.0909, CHẨN_ĐOÁN: 0.9091}   # n=31, 2/29
+  "hô hấp":                      {TRIỆU_CHỨNG: 0.6364, CHẨN_ĐOÁN: 0.3636}   # n=31, 20/11
+  "tiền sử xã hội":              {TRIỆU_CHỨNG: 0.0303, CHẨN_ĐOÁN: 0.9697}   # n=31, 0/31
+  "lý do hội chẩn":              {TRIỆU_CHỨNG: 0.4516, CHẨN_ĐOÁN: 0.5484}   # n=29, 13/16
+  "thuốc đang dùng":             {TRIỆU_CHỨNG: 0.3333, CHẨN_ĐOÁN: 0.6667}   # n=28, 9/19
+  "yếu tố nguy cơ mạch vành":    {TRIỆU_CHỨNG: 0.0333, CHẨN_ĐOÁN: 0.9667}   # n=28, 0/28

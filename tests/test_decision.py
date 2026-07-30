@@ -13,7 +13,7 @@ import pytest
 from smart_medic.decision import emit
 from smart_medic.extract import recall_floor
 from smart_medic.extract.spans import Span
-from smart_medic.io.config import load_pipeline, repo_root, require
+from smart_medic.io.config import ConfigError, load_pipeline, repo_root, require
 from smart_medic.io.corpus import load_test
 from smart_medic.io.labels import CODEABLE_TYPES, LAB_TYPES
 
@@ -110,24 +110,61 @@ def test_gate_drops_below_and_keeps_at_threshold():
 
 
 def test_emitted_records_are_schema_legal():
-    """P1 emits no assertions and no candidates, and that is the right answer.
+    """No assertions yet (P4); candidates now flow through, under a measured cap.
 
     Empty `assertions` is REQUIRED for the two lab types — 11.59 points. Elsewhere
     it scores the same 0 a wrong flag would, so guessing buys nothing before P4.
+
+    `candidates` used to be asserted empty here. That assertion encoded a reading
+    of the metric that has since been disproven: the `+1` in the official
+    denominator is a per-document WEIGHT, not a cap, and discarding the gazetteer
+    codes was costing 5.11 points (ADR 0002, "Đặc tả CHÍNH THỨC"). What the test
+    pins now is the contract that replaced it — cardinality per type comes from
+    `configs/pipeline.yaml`, never from this module.
     """
+    caps = require(load_pipeline(), "decision.max_candidates_per_type")
     doc = load_test()[0]
     choice = emit.select_threshold(10.0)
     spans = recall_floor(doc)
     records = emit.finalize(doc, spans, choice)
     assert records, "no records emitted for the first test document"
+    coded = 0
     for r in records:
         assert doc.raw[r["position"][0] : r["position"][1]] == r["text"]
         assert r["assertions"] == []
-        assert r["candidates"] == []
         if r["type"] in LAB_TYPES:
             assert not r["assertions"]
         if r["type"] not in CODEABLE_TYPES:
-            assert not r["candidates"]
+            assert not r["candidates"], (
+                f"{r['type']} is not codeable but carries {r['candidates']} — the "
+                f"cap table and the schema constraint have diverged"
+            )
+        assert len(r["candidates"]) <= int(caps.get(r["type"], 0))
+        assert len(set(r["candidates"])) == len(r["candidates"]), "duplicate code"
+        coded += bool(r["candidates"])
+    assert coded, (
+        "not one record carried a code, on a document where the gazetteer has "
+        "hits — decision/emit.py is discarding Span.codes again"
+    )
+
+
+def test_code_pick_is_deterministic_and_shortest_first():
+    """Two builds of one commit must emit the same codes (ADR 0005).
+
+    `shortest_first` prefers the 3-character ICD block (I48.0 → I48), which the
+    task permits and which measured +0.033 against a plain ascending sort.
+    """
+    caps = {"CHẨN_ĐOÁN": 1, "THUỐC": 2}
+    codes = ("I48.0", "I48", "I48.1")
+    first = emit._pick_codes(codes, "CHẨN_ĐOÁN", caps, "shortest_first")
+    assert first == ("I48",)
+    for _ in range(10):
+        assert emit._pick_codes(codes, "CHẨN_ĐOÁN", caps, "shortest_first") == first
+    assert emit._pick_codes(codes, "THUỐC", caps, "shortest_first") == ("I48", "I48.0")
+    assert emit._pick_codes(codes, "TRIỆU_CHỨNG", caps, "shortest_first") == ()
+    assert emit._pick_codes((), "CHẨN_ĐOÁN", caps, "shortest_first") == ()
+    with pytest.raises(ConfigError):
+        emit._pick_codes(codes, "CHẨN_ĐOÁN", caps, "whatever")
 
 
 def test_type_is_argmax_never_hedged():

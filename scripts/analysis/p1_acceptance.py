@@ -7,7 +7,8 @@ Not on the path to `output.zip`. It exists so the phase gate is a command rather
 than a claim: every line prints PASS/FAIL next to the measured value, and a
 criterion that is missed prints the real figure rather than a rounded one.
 
-The gate that is hard: `penalised/greedy_iou` >= 14.5 on gold. Below that, P2 and
+The gate that is hard: `penalised/overlap_type` >= 14.5 on gold — the official
+reading since 2026-07-30 (ADR 0002). Below that, P2 and
 P3 do not start.
 """
 from __future__ import annotations
@@ -76,8 +77,12 @@ def main(argv=None) -> int:
         triples.append((doc, list(doc.entities), pred))
 
     scored = [(d.doc_id, g, pr) for d, g, pr in triples]
+    # MetricConfig() defaults ARE the published spec since 2026-07-30: alignment
+    # `overlap_type`, no clamp on 1−WER, `+1` as a document weight (ADR 0002).
+    # `greedy_iou` is now the diagnostic, not the official number — it compares no
+    # `type` at all, so it cannot show what a type fix is worth.
     primary = score_corpus(scored, MetricConfig())
-    blocking = score_corpus(scored, MetricConfig(alignment="overlap_type"))
+    type_blind = score_corpus(scored, MetricConfig(alignment="greedy_iou"))
     exact = score_corpus(scored, MetricConfig(alignment="exact"))
     ceiling = score_corpus(scored, MetricConfig(aggregation="matched"))
     n_pred = sum(len(pr) for _, _, pr in scored)
@@ -85,9 +90,10 @@ def main(argv=None) -> int:
 
     print(f"\nlane R  : {report.summary()}")
     print(f"gate    : p={p}\n")
-    print("── THREE ALIGNMENTS ──────────────────────────────────────────────")
-    print(f"  greedy_iou   (OFFICIAL)   {primary['leaderboard']:>7.2f}/100")
-    print(f"  overlap_type (BLOCKING)   {blocking['leaderboard']:>7.2f}/100")
+    print("── FOUR READINGS ─────────────────────────────────────────────────")
+    print(f"  overlap_type (OFFICIAL)   {primary['leaderboard']:>7.2f}/100")
+    print(f"  greedy_iou   (type-blind) {type_blind['leaderboard']:>7.2f}/100"
+          f"   → type costs {type_blind['leaderboard'] - primary['leaderboard']:+.2f}")
     print(f"  exact        (OFFSET BUG) {exact['leaderboard']:>7.2f}/100")
     print(f"  matched      (ceiling)    {ceiling['leaderboard']:>7.2f}/100")
     print(
@@ -132,7 +138,7 @@ def main(argv=None) -> int:
     # 3 · the hard gate
     ok &= gate(
         primary["leaderboard"] >= 14.5,
-        "gold penalised/greedy_iou >= 14.5   << HARD GATE",
+        "gold penalised/overlap_type >= 14.5   << HARD GATE",
         f"{primary['leaderboard']:.2f}",
     )
 

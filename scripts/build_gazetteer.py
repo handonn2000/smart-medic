@@ -316,6 +316,9 @@ def merge(
 ) -> tuple[list[dict], Counter, Counter]:
     """Returns (entries, winning_source_counts, dropped_dominant_type_counts).
 
+    `winning_source_counts["_usage_overrides_vocabulary"]` counts the keys where
+    `usage_overrides_vocabulary` suppressed the vocabulary source's type vote.
+
     `dropped_dominant_type_counts` is keyed by the type that got an entry
     dropped, e.g. `{"KẾT_QUẢ_XÉT_NGHIỆM": 181}` — see `drop_dominant_types`
     in resources/gazetteer_vi.yaml. Computed on the BLENDED distribution
@@ -327,24 +330,46 @@ def merge(
     drop_types = set(cfg.get("drop_dominant_types", ()))
     by_source = {"icd_vi": icd, "rxnorm": rxnorm, "silver": silver}
 
+    # `usage_overrides_vocabulary`: see resources/gazetteer_vi.yaml for the
+    # measurement. A drug vocabulary listing `creatinine` is not evidence that
+    # `creatinine` is a drug in a clinical note; an annotated corpus saying it is
+    # a lab name IS. Suppresses the vocabulary source's TYPE vote only — its
+    # codes still merge.
+    uov = cfg.get("usage_overrides_vocabulary") or {}
+    uov_vocab = uov.get("vocabulary_source")
+    uov_usage = uov.get("usage_source")
+    uov_types = set(uov.get("usage_dominant_in", ()))
+
     all_keys = set(icd) | set(rxnorm) | set(silver)
     entries = []
     winning_source_counts: Counter = Counter()
     dropped_dominant_type: Counter = Counter()
+    usage_overrides = 0
 
     for key in sorted(all_keys):
         blended: Counter = Counter()
         codes: set = set()
         contributing = []
+
+        usage_wins = False
+        if uov_vocab and uov_usage:
+            vocab_e = by_source[uov_vocab].get(key)
+            usage_e = by_source[uov_usage].get(key)
+            if vocab_e is not None and usage_e is not None and usage_e["type_dist"]:
+                usage_wins = argmax_type(usage_e["type_dist"]) in uov_types
+                usage_overrides += usage_wins
+
         for src in ("icd_vi", "rxnorm", "silver"):
             e = by_source[src].get(key)
             if e is None:
                 continue
             contributing.append(src)
+            codes |= e["codes"]          # codes merge regardless of the override
+            if usage_wins and src == uov_vocab:
+                continue                 # TYPE vote suppressed, nothing else
             w = weights[src]
             for t, p in e["type_dist"].items():
                 blended[t] += w * p
-            codes |= e["codes"]
 
         dist = round_dist(dict(blended))
         if dist and argmax_type(dist) in drop_types:
@@ -364,6 +389,7 @@ def merge(
         )
 
     entries.sort(key=lambda e: e["k"])
+    winning_source_counts["_usage_overrides_vocabulary"] = usage_overrides
     return entries, winning_source_counts, dropped_dominant_type
 
 
@@ -431,6 +457,12 @@ def main() -> None:
     )
     print(f"{'TOTAL':<12}{'':>12}{'':>18}{len(entries):>10}")
     print()
+    print(
+        "usage_overrides_vocabulary: type vote of "
+        f"{cfg['usage_overrides_vocabulary']['vocabulary_source']} suppressed on "
+        f"{winning['_usage_overrides_vocabulary']} key(s) where "
+        f"{cfg['usage_overrides_vocabulary']['usage_source']} says lab"
+    )
     print("stoplist drops (key-level, pre-merge):", dict(flt.dropped))
     for reason, examples in flt.examples.items():
         if examples:

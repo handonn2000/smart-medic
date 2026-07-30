@@ -33,19 +33,35 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from collections import deque
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 
-from ..io.config import ConfigError, load_pipeline, repo_root, require
+from ..io.config import ConfigError, load_pipeline, load_yaml, repo_root, require
 from ..io.document import Document
 from ..io.labels import TYPES
+from ..layout.lines import split_lines
+from ..layout.outline import SectionNode, build_outline
 from .spans import Span, TokenView, tokenize, tokenize_key
 
-__all__ = ["Gazetteer", "GazetteerEntry", "load_gazetteer", "spans", "SOURCE"]
+__all__ = [
+    "Gazetteer",
+    "GazetteerEntry",
+    "load_gazetteer",
+    "load_section_prior",
+    "section_titles",
+    "spans",
+    "SOURCE",
+]
 
 SOURCE = "aho"
+
+#: `resources/section_type_prior.yaml` — P(type | section header), measured on
+#: silver. Read here rather than in `configs/pipeline.yaml` because it is a RULE
+#: table, not a threshold (see that file's header for the leakage argument).
+_SECTION_PRIOR = "section_type_prior.yaml"
 
 #: How many entries to name in a "gazetteer looks wrong" message. Not a threshold.
 _MAX_LISTED = 5
@@ -245,6 +261,79 @@ def _blend(a: dict[str, float], b: dict[str, float]) -> dict[str, float]:
     return {k: out[k] / total for k in sorted(out)}
 
 
+# ─────────────────────────── section-conditioned prior ───────────────────────
+_WS = re.compile(r"\s+")
+
+
+def _norm_title(title: str) -> str:
+    """The prior's lookup key. NFC first: 41/162 gold files are not in NFC, and
+    without this `khám thực thể` splits into two titles that each fall under
+    `min_support` and neither fires."""
+    return _WS.sub(" ", unicodedata.normalize("NFC", title)).strip().lower()
+
+
+@lru_cache(maxsize=1)
+def load_section_prior(path: str | None = None) -> tuple[dict[str, dict[str, float]], tuple[str, ...]]:
+    """Returns (title -> P(type|title), support). Empty when the file is absent.
+
+    Absent is a legitimate state, unlike a missing gazetteer: with no prior every
+    span keeps the gazetteer's context-free distribution, which is exactly the
+    behaviour before this table existed. So this degrades, and says so, instead
+    of raising.
+    """
+    p = Path(path) if path else repo_root() / "resources" / _SECTION_PRIOR
+    if not p.exists():
+        return {}, ()
+    cfg = load_yaml(p)
+    support = tuple(cfg.get("support") or ())
+    table = {
+        _norm_title(title): {t: float(v) for t, v in dist.items() if t in support}
+        for title, dist in (cfg.get("prior") or {}).items()
+    }
+    return {k: v for k, v in table.items() if v}, support
+
+
+def section_titles(doc: Document, lines=None) -> list[tuple[int, int, str]]:
+    """(start, end, normalised title) for every section, deepest last.
+
+    Deepest last is what lets the lookup take the LAST match for an offset and
+    get the innermost enclosing section without sorting by level again.
+    """
+    root = build_outline(lines if lines is not None else split_lines(doc), len(doc.raw))
+    nodes: list[SectionNode] = sorted(root.walk(), key=lambda n: n.level)
+    return [(n.start, n.end, _norm_title(n.title)) for n in nodes]
+
+
+def _apply_section_prior(
+    dist: dict[str, float],
+    title: str,
+    table: dict[str, dict[str, float]],
+    support: tuple[str, ...],
+) -> dict[str, float]:
+    """Bayes multiply, renormalised WITHIN the prior's support only.
+
+    Mass outside `support` is untouched, so this can never push a span towards or
+    away from a lab type — it only redistributes the probability the gazetteer
+    had already split between symptom and diagnosis. A span with no mass in the
+    support comes back unchanged, and so does one in an unlisted section.
+    """
+    prior = table.get(title)
+    if not prior:
+        return dist
+    inside = {t: dist[t] for t in support if t in dist}
+    mass = sum(inside.values())
+    if mass <= 0.0:
+        return dist
+    weighted = {t: p * prior.get(t, 0.0) for t, p in inside.items()}
+    total = sum(weighted.values())
+    if total <= 0.0:
+        return dist
+    out = dict(dist)
+    for t, w in weighted.items():
+        out[t] = mass * w / total
+    return out
+
+
 # ────────────────────────────────── matching ──────────────────────────────────
 @lru_cache(maxsize=1)
 def _filler() -> re.Pattern:
@@ -271,15 +360,22 @@ def spans(
     doc: Document,
     view: TokenView | None = None,
     gazetteer: Gazetteer | None = None,
+    lines=None,
 ) -> list[Span]:
     """Every gazetteer hit in `doc`, leftmost-longest, non-overlapping.
 
     Returns spans on `doc.raw`. Applies no threshold — `decision/emit.py` does.
+
+    `lines` is passed through to the section prior only, so a caller that already
+    split the document does not pay for it twice. The outline is rebuilt here when
+    it is omitted, which keeps this callable with `(doc, view)` as before.
     """
     view = view if view is not None else tokenize(doc)
     gaz = gazetteer if gazetteer is not None else load_gazetteer()
     cfg = _rules()
     filler = _filler()
+    prior_table, prior_support = load_section_prior()
+    sections = section_titles(doc, lines) if prior_table else []
 
     # ── collect candidates ────────────────────────────────────────────────────
     candidates: list[tuple[int, int, GazetteerEntry]] = []
@@ -306,11 +402,20 @@ def spans(
         if start_i < next_free:
             continue
         start, end = view.raw_span(start_i, end_i)
+        dist = dict(entry.type_dist)
+        if prior_table:
+            # deepest enclosing section: `sections` is level-sorted, so the last
+            # one containing `start` is the innermost
+            title = ""
+            for s_start, s_end, s_title in sections:
+                if s_start <= start < s_end:
+                    title = s_title
+            dist = _apply_section_prior(dist, title, prior_table, prior_support)
         out.append(
             Span(
                 start=start,
                 end=end,
-                type_dist=dict(entry.type_dist),
+                type_dist=dist,
                 score=_score(entry, cfg),
                 source=SOURCE,
                 codes=entry.codes,

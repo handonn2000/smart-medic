@@ -236,3 +236,32 @@ source_weight:
 # and should keep their identity even when silver also mined the same string;
 # silver only wins `s` when neither curated source produced that key.
 source_priority: ["icd_vi", "rxnorm", "silver"]
+
+# ── usage beats vocabulary, for TYPE only ────────────────────────────────────
+# RxNorm is a drug VOCABULARY: it contains `creatinine` because creatinine is a
+# dispensable substance, not because a clinical note that says "Creatinine: 1,8"
+# means a drug. Silver is mined from ANNOTATED records — it is evidence of how
+# the string is USED. When the two disagree and usage says "this is a lab", usage
+# is right, and `source_weight` alone cannot express that: rxnorm 1.0 vs silver
+# 0.5 blends `creatinine` to THUỐC 0.69 / TÊN_XÉT_NGHIỆM 0.31, so argmax picks
+# the drug reading on every occurrence.
+#
+# Measured 2026-07-30 on 162 gold files:
+#   254 keys are contributed by BOTH rxnorm and silver
+#    12 of those have a silver dominant type in `usage_dominant_in`
+#     0 of those 12 are also in icd_vi, so no curated disease name is touched
+#   Those 12 keys cover 148 gold entities:
+#       TÊN_XÉT_NGHIỆM 145 (98.0%)   ·   THUỐC 3 (2.0%)
+#   Largest: creatinine 61 · cholesterol 23 · glucose 22 · potassium 17 ·
+#            sodium 15 · calcium 4 · amylase 2 · lipase 2
+#   Before this rule these 148 spans were the single largest type confusion in
+#   the run: `gold TÊN_XÉT_NGHIỆM → pred THUỐC`, 126 of 475 (27%).
+#
+# TYPE only. The RxCUI codes stay on the entry — they are still the correct codes
+# for the substance, and `validate/schema.py` clears candidates on a non-codeable
+# type at serialisation anyway, so keeping them costs nothing and loses no
+# information if a later phase re-types the key.
+usage_overrides_vocabulary:
+  vocabulary_source: "rxnorm"
+  usage_source: "silver"
+  usage_dominant_in: ["TÊN_XÉT_NGHIỆM", "KẾT_QUẢ_XÉT_NGHIỆM"]

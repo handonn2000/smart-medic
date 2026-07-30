@@ -35,7 +35,7 @@ import json
 import sys
 from pathlib import Path
 
-from .bootstrap import doc_points, paired_bootstrap
+from .bootstrap import doc_terms, paired_bootstrap
 from .scoring import TYPES, MetricConfig, load_dir, score_corpus, sort_key
 
 #: Where the build-time gazetteer lands. Already filtered to tty ∈ {IN,PIN,MIN}
@@ -216,10 +216,10 @@ def expected(gold_dir: Path, pred_dir: Path | None, *, max_codes: int = MAX_CODE
             rows[v][al] = score_corpus(docs, MetricConfig(alignment=al))["leaderboard"]
 
     cfg = MetricConfig()
-    a_pts = doc_points([(k, gold[k], built["A"][k]) for k in keys], cfg)
+    a_terms = doc_terms([(k, gold[k], built["A"][k]) for k in keys], cfg)
     for v in ("A'", "B"):
         d = paired_bootstrap(
-            a_pts, doc_points([(k, gold[k], built[v][k]) for k in keys], cfg)
+            a_terms, doc_terms([(k, gold[k], built[v][k]) for k in keys], cfg)
         )
         rows[v]["bootstrap_vs_A"] = {
             "delta": d.delta, "se": d.se, "ci95": [d.ci_lo, d.ci_hi],

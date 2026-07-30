@@ -2,29 +2,54 @@
 
     final = 0.3·text_score + 0.3·assertions_score + 0.4·candidates_score
 
-The official statement leaves three things undefined. This module makes each an
-explicit, switchable axis instead of an assumption, and reports every
-combination so you can see when a change only "wins" under one reading.
+The organisers have now published the full formula, so this module implements it
+rather than guessing at it. Rewritten 2026-07-30 (see ADR 0002, "Đặc tả CHÍNH
+THỨC"); the three switchable axes are kept, but the defaults are no longer a
+choice — they are what the spec says.
 
-1. ENTITY ALIGNMENT — how a predicted entity is paired with a gold one before
-   per-entity scores are computed. The spec gives no rule.
-       greedy_iou (default) · overlap · overlap_type · exact
+    text_score       = Σ_i (1 − WER(i)) / len(test)
+    assertions_score = Σ_i J_assertions(i) / len(test)
+    candidates_score = Σ_i J_candidates(i)·W_i / Σ_i W_i
+                       with  W_i = Σ_{k∈i} (len(ground_truth(k)) + 1)
 
-2. AGGREGATION — what happens to unmatched entities.
-       A "matched"   score only aligned pairs. The literal reading, and
-                     DEGENERATE: dropping low-confidence predictions raises it.
-                     Keep as a ceiling; never optimise against it.
-       B "penalised" unmatched gold and unmatched predictions each score 0.
-                     The only reading that penalises over- and under-generation
-                     monotonically. >>> Use this as the primary number. <<<
-       C "docbag"    no alignment: one WER over the concatenated texts, one
-                     Jaccard over the pooled assertion/code multisets.
+`i` is a **sample (document)**, `k` a concept inside it. `J_X(i)` is the mean
+per-concept Jaccard on field X, with the spec's empty conventions: 1 when gold
+and prediction are both empty, 0 when gold is empty and the prediction is not.
 
-3. CANDIDATES FORMULA — the official denominator carries a `+1`:
-       Σ_k |gt(k) ∩ pred(k)|  /  Σ_k (len(gt(k)) + 1)
-   which caps the term well below 1 (≈0.45 on our measured cardinality mix).
-   `--cand-formula plain` swaps in an ordinary mean Jaccard so you can see how
-   much of your score the `+1` is eating.
+Three corrections that cost 16.53 points of measurement error before this
+rewrite, each one now pinned by a test:
+
+1. **The `+1` is a per-DOCUMENT WEIGHT, not a denominator.** It never enters
+   `J`, so it caps nothing: a perfect prediction scores 1.0 on candidates, not
+   0.2501. The previous reading (`Σ|gt∩pred| / Σ(len(gt)+1)`) returned exactly
+   0.00 whenever the prediction carried no codes — an intersection with the
+   empty set — which is how a submission that really scored 41.68 on candidates
+   was being reported as 0.00.
+
+2. **Alignment compares `type`.** Spec: predicting the right text with the wrong
+   type "counts twice, and scores 0 each time on all three metrics". So a type
+   error costs double — the unmatched gold and the spurious prediction. That is
+   `overlap_type` + `penalised`, and it is the DEFAULT. `greedy_iou` is kept
+   only as a diagnostic: it ignores `type` entirely, so it can never show you
+   what a type fix is worth.
+
+3. **`1 − WER(i)` is NOT clamped at 0.** The spec has no `max(0, ·)`. WER is
+   unbounded above, so a short gold span against a long prediction can push a
+   document negative. `clamp_text=True` is available to quantify the difference;
+   it is not the official reading.
+
+The axes that remain genuinely switchable:
+
+  ALIGNMENT     overlap_type (default, official) · greedy_iou · overlap · exact
+  AGGREGATION   penalised (default, official) — unmatched gold and unmatched
+                predictions each score 0 on all three fields.
+                matched — scores aligned pairs only. DEGENERATE: dropping
+                low-confidence predictions raises it. A ceiling, never a target.
+                docbag — no alignment at all; one WER over concatenated text and
+                one Jaccard over pooled multisets. A sanity check on
+                over-generation.
+  CAND_FORMULA  official (default, weighted by W_i) · plain (unweighted mean of
+                the per-document J, to show how much the weighting moves)
 
 Usage
 -----
@@ -84,10 +109,11 @@ def iou(a: Sequence[int], b: Sequence[int]) -> float:
 
 @dataclass(frozen=True)
 class MetricConfig:
-    alignment: str = "greedy_iou"
+    #: Defaults ARE the published spec. Changing one makes the number unofficial.
+    alignment: str = "overlap_type"
     aggregation: str = "penalised"
     cand_formula: str = "official"
-    clamp_text: bool = True
+    clamp_text: bool = False
     doc_aggregation: str = "macro"
 
     def hash(self) -> str:
@@ -158,40 +184,39 @@ def score_document(gold: list[dict], pred: list[dict], cfg: MetricConfig) -> dic
 
     pairs, miss, spur = align(gold, pred, cfg.alignment)
 
-    texts, asserts = [], []
-    cand_num = 0.0
-    cand_den = 0.0
+    texts, asserts, cands = [], [], []
 
     for i, j in pairs:
         g, p = gold[i], pred[j]
         w = wer(g["text"], p["text"])
         texts.append(max(0.0, 1 - w) if cfg.clamp_text else 1 - w)
         asserts.append(jaccard(g.get("assertions", []), p.get("assertions", [])))
-        gc, pc = set(g.get("candidates", [])), set(p.get("candidates", []))
-        if cfg.cand_formula == "official":
-            cand_num += len(gc & pc)
-            cand_den += len(gc) + 1
-        else:
-            cand_num += jaccard(gc, pc)
-            cand_den += 1
+        cands.append(jaccard(g.get("candidates", []), p.get("candidates", [])))
 
     if cfg.aggregation == "penalised":
-        for i in miss:
+        # Spec, closing note: a right-text/wrong-type concept "counts twice and
+        # scores 0 each time on all three metrics". One zero for the gold concept
+        # nobody matched, one for the prediction that matched nothing.
+        for _ in range(len(miss) + len(spur)):
             texts.append(0.0)
             asserts.append(0.0)
-            if cfg.cand_formula == "official":
-                cand_den += len(set(gold[i].get("candidates", []))) + 1
-            else:
-                cand_den += 1
-        for _ in spur:
-            texts.append(0.0)
-            asserts.append(0.0)
-            cand_den += 1
+            cands.append(0.0)
+
+    # W_i = Σ_{k∈i}(len(ground_truth(k)) + 1). A per-document weight for the
+    # corpus average — it is NOT inside J and caps nothing. Computed from GOLD
+    # alone, so it is identical for every system scored against this gold, which
+    # is what lets a paired bootstrap share it across both sides.
+    weight = (
+        float(sum(len(set(e.get("candidates") or [])) + 1 for e in gold))
+        if cfg.cand_formula == "official"
+        else 1.0
+    )
 
     return {
         "text": statistics.mean(texts) if texts else 1.0,
         "assertions": statistics.mean(asserts) if asserts else 1.0,
-        "candidates": (cand_num / cand_den) if cand_den else 1.0,
+        "candidates": statistics.mean(cands) if cands else 1.0,
+        "cand_weight": weight,
         "n_pairs": len(pairs),
         "n_missing": len(miss),
         "n_spurious": len(spur),
@@ -204,7 +229,15 @@ def score_corpus(docs: list[tuple[str, list, list]], cfg: MetricConfig) -> dict:
         return {}
     t = statistics.mean(d["text"] for d in per)
     a = statistics.mean(d["assertions"] for d in per)
-    c = statistics.mean(d["candidates"] for d in per)
+    # text and assertions are plain means over documents; candidates is a
+    # WEIGHTED mean, which is the one place the corpus score stops being linear
+    # in the per-document values. eval/bootstrap.py resamples the weight too.
+    wsum = sum(d.get("cand_weight", 1.0) for d in per)
+    c = (
+        sum(d["candidates"] * d.get("cand_weight", 1.0) for d in per) / wsum
+        if wsum
+        else 1.0
+    )
     return {
         "text_score": t,
         "assertions_score": a,
@@ -398,12 +431,18 @@ def main(argv=None) -> int:
     print(f"{'aggregation':<14}{'align':<14}{'text':>8}{'assert':>9}"
           f"{'cand':>8}{'final':>9}{'/100':>8}")
     for agg in ("matched", "penalised", "docbag"):
-        for al in (("greedy_iou",) if agg == "docbag" else ("greedy_iou", "overlap_type")):
+        for al in (("overlap_type",) if agg == "docbag"
+                   else ("overlap_type", "greedy_iou", "exact")):
             cfg = MetricConfig(alignment=al, aggregation=agg,
                                cand_formula=args.cand_formula)
             r = score_corpus(docs, cfg)
             results[f"{agg}/{al}"] = {k: v for k, v in r.items() if k != "per_doc"}
-            flag = "  <<< primary" if (agg == "penalised" and al == "greedy_iou") else ""
+            flag = (
+                "  <<< OFFICIAL" if (agg == "penalised" and al == "overlap_type")
+                else "  (ignores type)" if al == "greedy_iou"
+                else "  (offset alarm)" if al == "exact"
+                else ""
+            )
             print(f"{agg:<14}{al:<14}{r['text_score']:>8.4f}"
                   f"{r['assertions_score']:>9.4f}{r['candidates_score']:>8.4f}"
                   f"{r['final_score']:>9.4f}{r['leaderboard']:>8.2f}{flag}")
@@ -414,9 +453,16 @@ def main(argv=None) -> int:
           f"missing={r['missing']}  spurious={r['spurious']}")
     if args.cand_formula == "official":
         alt = score_corpus(docs, MetricConfig(cand_formula="plain"))
-        print(f"  candidates under 'plain' Jaccard (no +1): "
-              f"{alt['candidates_score']:.4f}  "
-              f"→ the +1 costs {alt['candidates_score']-r['candidates_score']:+.4f}")
+        print(f"  candidates unweighted ('plain'): {alt['candidates_score']:.4f}  "
+              f"→ the W_i weighting moves it "
+              f"{r['candidates_score']-alt['candidates_score']:+.4f}")
+    if not primary.clamp_text:
+        clamped = score_corpus(docs, MetricConfig(cand_formula=args.cand_formula,
+                                                 clamp_text=True))
+        gap = clamped["text_score"] - r["text_score"]
+        print(f"  text with 1−WER clamped at 0: {clamped['text_score']:.4f}  "
+              f"→ documents pushed negative by unbounded WER cost {gap:+.4f}"
+              + ("  (spec does NOT clamp)" if gap else ""))
 
     d = diagnostics(docs)
     print("\n── DIAGNOSTICS ──")

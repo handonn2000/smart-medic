@@ -223,6 +223,28 @@ decision:
   top1_top2_margin:
     THUỐC: 0.1007                   # reference marker only; KB rules decide
 
+  # How many codes leave `decision/` per entity. Measured 2026-07-30 on 162 gold
+  # under the PUBLISHED metric (ADR 0002, "Đặc tả CHÍNH THỨC"):
+  #   0 codes        candidates 44.97  score 51.61   ← what shipped before this
+  #   CĐ 1 · THUỐC 1 candidates 56.89  score 56.37   +4.77
+  #   CĐ 1 · THUỐC 2 candidates 57.74  score 56.71   +5.11  ← this row
+  #   CĐ 2 · THUỐC 2 candidates 57.74  score 56.71   Δ −0.002, under the noise floor
+  # A second diagnosis code buys nothing, which is `diagnosis_always_single_code`
+  # above confirmed end-to-end: gold carries exactly one code on all 1456
+  # diagnosis mentions, so a second one can only shrink the Jaccard. THUỐC gets
+  # two because 8.4% of drug mentions are combination products with two
+  # ingredient codes.
+  max_candidates_per_type:
+    CHẨN_ĐOÁN: 1
+    THUỐC: 2
+  # Tie-break when a surface form carries several codes (347 of 2650 codeable
+  # spans do). Shortest-first prefers the 3-character block code, which the task
+  # permits (I48.0 → I48) and which is the safer bet when nothing disambiguates.
+  # Measured against plain ascending sort: +0.033 (bar 0.025); longest-first is
+  # −0.038, i.e. actively worse. `code_order` must stay deterministic — two builds
+  # of one commit have to produce the same archive (ADR 0005).
+  code_order: 'shortest_first'      # shortest_first | ascending
+
 # ─────────────────────────────────────────────────────────────────────────────
 # L6 · validate/ — the hard gate. 11.59 points live here.
 # ─────────────────────────────────────────────────────────────────────────────

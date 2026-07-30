@@ -37,7 +37,7 @@ from dataclasses import dataclass
 from math import sqrt
 from pathlib import Path
 
-from .bootstrap import FLOOR, doc_points, paired_bootstrap
+from .bootstrap import FLOOR, corpus_score, doc_terms, paired_bootstrap
 from .scoring import TYPES, MetricConfig, load_dir, sort_key
 
 #: Corpus genres, read off the filename suffix. Order is the plan's order.
@@ -102,8 +102,7 @@ def measure(
         "n_pred": sum(len(p) for _, _, p in docs),
     }
     for al in alignments:
-        pts = doc_points(docs, MetricConfig(alignment=al))
-        row[al] = sum(pts) / len(pts) if pts else 0.0
+        row[al] = corpus_score(doc_terms(docs, MetricConfig(alignment=al)))
     row["_docs"] = docs
     return row
 
@@ -128,7 +127,7 @@ def reference_se(gold: dict[str, list], keys: list[str], *, reps: int = REF_REPS
         )
         for k in keys
     ]
-    return paired_bootstrap(doc_points(base, cfg), doc_points(dropped, cfg), reps=reps).se
+    return paired_bootstrap(doc_terms(base, cfg), doc_terms(dropped, cfg), reps=reps).se
 
 
 def mde_ref(se_full: float, n_full: int, n: int) -> float:
@@ -221,7 +220,7 @@ def main(argv=None) -> int:
                           for k in sl.keys]
                 cfg = MetricConfig()
                 mde = paired_bootstrap(
-                    doc_points(docs_b, cfg), doc_points(row["_docs"], cfg), reps=REF_REPS
+                    doc_terms(docs_b, cfg), doc_terms(row["_docs"], cfg), reps=REF_REPS
                 ).mde
             else:
                 mde = mde_ref(se_full, len(keys), row["n_docs"])

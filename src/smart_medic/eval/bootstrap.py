@@ -7,21 +7,29 @@ Two systems that miss entities in *different places* are indistinguishable below
 floor is only valid for a highly-correlated pair — same pipeline, one changed
 post-processing step. This module is what tells the two cases apart.
 
-Why it is fast
---------------
-`score_corpus` aggregates **macro over documents**, and the corpus score is a
-*linear* function of the per-document component means:
+Why it is fast, and why it is still exact
+-----------------------------------------
+Each document is scored **once**; the 10.000 replicates then resample four
+precomputed per-document arrays. No re-scoring, and no approximation:
 
-    leaderboard = 100 · mean_i(0.3·text_i + 0.3·assert_i + 0.4·cand_i)
+    leaderboard = 100 · [ 0.3·mean_i(text_i) + 0.3·mean_i(assert_i)
+                        + 0.4·(Σ_i cand_i·W_i / Σ_i W_i) ]
 
-so a document resample is a resample of one scalar per document. The bootstrap
-never re-scores anything: it scores each document once, then resamples 10.000
-times over the scalars. `test_doc_points_reproduce_score_corpus` pins the
-identity, so this stays a shortcut and never becomes an approximation.
+Text and assertions are plain means, so their replicate deltas are means of the
+per-document differences. Candidates is a **weighted** mean (the official W_i =
+Σ_k(len(gt(k))+1)), so it is a ratio of sums and does *not* collapse that way —
+an earlier version of this module treated it as if it did, and was wrong by
+whatever the weight/score correlation happened to be.
 
-Paired means one index sample per replicate, applied to *both* systems. Because
-the pairing is on the same documents, the replicate delta collapses to the mean
-of the per-document differences — which is why only `diff` is resampled.
+What rescues it: **W_i depends on gold alone**, so the two systems in a paired
+comparison share it exactly. The candidates delta is therefore still a single
+ratio over the resampled documents:
+
+    Δcand = Σ_i (cand_b,i − cand_a,i)·W_i / Σ_i W_i
+
+Four sums per replicate, all exact. `test_doc_terms_reproduce_score_corpus`
+pins the identity against `score_corpus` so this can never drift into being an
+approximation unnoticed.
 
 Usage
 -----
@@ -58,16 +66,32 @@ SEED = 20260730
 FLOOR = 0.010
 
 
-# ─────────────────────────── per-document scalars ───────────────────────────
-def doc_points(docs: list[tuple[str, list, list]], cfg: MetricConfig) -> list[float]:
-    """One leaderboard-scale scalar per document. `mean(...)` is the corpus score."""
-    out = []
+# ─────────────────────────── per-document terms ───────────────────────────
+#: (text, assertions, candidates, candidate weight) for one document.
+Terms = tuple[float, float, float, float]
+
+
+def doc_terms(docs: list[tuple[str, list, list]], cfg: MetricConfig) -> list[Terms]:
+    """Score every document once. `corpus_score(...)` reassembles the total."""
+    out: list[Terms] = []
     for _, gold, pred in docs:
         d = score_document(gold, pred, cfg)
         out.append(
-            100 * (W_TEXT * d["text"] + W_ASSERT * d["assertions"] + W_CAND * d["candidates"])
+            (d["text"], d["assertions"], d["candidates"], d.get("cand_weight", 1.0))
         )
     return out
+
+
+def corpus_score(terms: list[Terms]) -> float:
+    """Leaderboard-scale total. Identical to `score_corpus(...)['leaderboard']`."""
+    n = len(terms)
+    if not n:
+        return 0.0
+    t = fsum(x[0] for x in terms) / n
+    a = fsum(x[1] for x in terms) / n
+    wsum = fsum(x[3] for x in terms)
+    c = (fsum(x[2] * x[3] for x in terms) / wsum) if wsum else 1.0
+    return 100 * (W_TEXT * t + W_ASSERT * a + W_CAND * c)
 
 
 # ────────────────────────────────── result ──────────────────────────────────
@@ -101,32 +125,50 @@ class Delta:
 
 
 def paired_bootstrap(
-    a_points: list[float],
-    b_points: list[float],
+    a_terms: list[Terms],
+    b_terms: list[Terms],
     *,
     reps: int = REPS,
     seed: int = SEED,
     floor: float = FLOOR,
 ) -> Delta:
     """Resample documents with replacement; B − A on every replicate."""
-    if len(a_points) != len(b_points):
+    if len(a_terms) != len(b_terms):
         raise ValueError(
             f"paired bootstrap needs the same documents on both sides: "
-            f"{len(a_points)} vs {len(b_points)}"
+            f"{len(a_terms)} vs {len(b_terms)}"
         )
-    n = len(a_points)
+    n = len(a_terms)
     if n < 2:
         raise ValueError("need at least 2 documents to bootstrap")
 
-    diff = [b - a for a, b in zip(a_points, b_points)]
-    observed = fsum(diff) / n
+    # W_i is a function of gold only, so both sides must agree on it. If they do
+    # not, the two `docs` lists were built against different gold — the delta
+    # would be meaningless and the ratio below silently wrong.
+    for k, (a, b) in enumerate(zip(a_terms, b_terms)):
+        if a[3] != b[3]:
+            raise ValueError(
+                f"document {k}: candidate weight differs between the two sides "
+                f"({a[3]} vs {b[3]}) — they are not scored against the same gold"
+            )
+
+    d_text = [b[0] - a[0] for a, b in zip(a_terms, b_terms)]
+    d_assert = [b[1] - a[1] for a, b in zip(a_terms, b_terms)]
+    weight = [a[3] for a in a_terms]
+    d_cand_w = [(b[2] - a[2]) * a[3] for a, b in zip(a_terms, b_terms)]
+
+    def delta_over(idx) -> float:
+        t = fsum(d_text[i] for i in idx) / len(idx)
+        a = fsum(d_assert[i] for i in idx) / len(idx)
+        wsum = fsum(weight[i] for i in idx)
+        c = (fsum(d_cand_w[i] for i in idx) / wsum) if wsum else 0.0
+        return 100 * (W_TEXT * t + W_ASSERT * a + W_CAND * c)
+
+    observed = delta_over(range(n))
 
     rng = random.Random(seed)
     pool = range(n)
-    reps_vals = []
-    for _ in range(reps):
-        idx = rng.choices(pool, k=n)
-        reps_vals.append(fsum(diff[i] for i in idx) / n)
+    reps_vals = [delta_over(rng.choices(pool, k=n)) for _ in range(reps)]
     reps_vals.sort()
 
     se = statistics.stdev(reps_vals)
@@ -137,8 +179,8 @@ def paired_bootstrap(
     return Delta(
         n_docs=n,
         reps=reps,
-        mean_a=fsum(a_points) / n,
-        mean_b=fsum(b_points) / n,
+        mean_a=corpus_score(a_terms),
+        mean_b=corpus_score(b_terms),
         delta=observed,
         se=se,
         ci_lo=lo,
@@ -167,20 +209,37 @@ def compare_dirs(
     docs_a = [(k, gold[k], a[k]) for k in common]
     docs_b = [(k, gold[k], b[k]) for k in common]
     return paired_bootstrap(
-        doc_points(docs_a, cfg), doc_points(docs_b, cfg), reps=reps, seed=seed
+        doc_terms(docs_a, cfg), doc_terms(docs_b, cfg), reps=reps, seed=seed
     )
 
 
 # ───────────────────────────── calibration cases ─────────────────────────────
 # Four mutations, reimplemented here because eval/ may not import scripts/ (see
 # tests/test_layer_boundaries.py). scripts/analysis/leverage_map.py holds the
-# authoritative versions; `--calibrate` printing the plan's published Δ next to
-# the measured Δ is what catches drift between the two copies.
-CALIBRATION = {  # name -> (Δ, SE) published in plan-v4 tab 05 §A.4
-    "bỏ cờ isFamily": (-0.261, 0.052),
-    "sai 30% mã": (-2.856, 0.123),
-    "bỏ 10% entity": (-7.043, 0.287),
-    "bỏ 10%: seedA vs seedB": (-0.105, 0.415),
+# authoritative versions; `--calibrate` printing the reference Δ next to the
+# measured Δ is what catches drift between the two copies.
+#
+# RE-BASELINED 2026-07-30, after scoring.py was corrected to the published spec.
+# The plan-v4 tab 05 §A.4 figures were measured while candidates scored 0.00 for
+# any prediction carrying no codes, so three of the four were understated: a
+# missed entity now also costs its candidates, and a wrong code costs a real
+# Jaccard instead of nothing. `bỏ cờ isFamily` is unchanged because it touches
+# assertions only — which is exactly why it is the one row that validates the
+# re-baseline rather than being invalidated by it.
+#
+#   row                       plan-v4 (obsolete)     corrected
+#   bỏ cờ isFamily            −0.261  SE 0.052       −0.261  SE 0.053
+#   sai 30% mã                −2.856  SE 0.123       −3.922  SE 0.196
+#   bỏ 10% entity             −7.043  SE 0.287      −10.164  SE 0.378
+#   bỏ 10%: seedA vs seedB    −0.105  SE 0.415       −0.067  SE 0.531
+#
+# The last row is the operational number: the noise floor between two systems
+# that miss entities in DIFFERENT places is now ~1.04 points, not ~0.84.
+CALIBRATION = {  # name -> (Δ, SE), measured under the corrected spec
+    "bỏ cờ isFamily": (-0.261, 0.053),
+    "sai 30% mã": (-3.922, 0.196),
+    "bỏ 10% entity": (-10.164, 0.378),
+    "bỏ 10%: seedA vs seedB": (-0.067, 0.531),
 }
 
 
@@ -222,7 +281,7 @@ def calibrate(gold_dir: Path, *, reps: int = REPS, seed: int = SEED) -> dict:
     cfg = MetricConfig()
 
     def points(pred_docs):
-        return doc_points([(k, gold[k], p) for k, p in pred_docs], cfg)
+        return doc_terms([(k, gold[k], p) for k, p in pred_docs], cfg)
 
     perfect = points(base)
     cases = {

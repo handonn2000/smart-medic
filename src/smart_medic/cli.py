@@ -47,6 +47,7 @@ def run(
     numbered: bool = True,
     check_codes: bool = True,
     quiet: bool = False,
+    enforce_rate_band: bool = True,
 ) -> tuple[RecallFloorReport, emit_json.EmitReport, emit.ThresholdChoice]:
     """Extract, decide, validate, write. Returns the three reports.
 
@@ -99,11 +100,20 @@ def run(
         f"isNegated {sum(1 for r in flat if 'isNegated' in r['assertions'])} · "
         f"isHistorical {sum(1 for r in flat if 'isHistorical' in r['assertions'])}"
     )
-    # A rate outside the band means we are spending points we already hold, so it
-    # stops the run rather than warning into a log nobody reads before submitting.
+    # A rate outside the band means we are spending points we already hold, so on
+    # the submission path it stops the run rather than warning into a log nobody
+    # reads. The band is calibrated to the TEST set (~13% of matched entities);
+    # the synthetic gold corpus flags 28.7% of its own entities, so a scoring run
+    # against it is expected to sit above the band and must not be blocked by it.
     rate_warning = emit.assertion_rate_check(flat)
     if rate_warning:
-        raise ValueError(rate_warning)
+        if enforce_rate_band:
+            raise ValueError(rate_warning)
+        say(rate_warning)
+        say(
+            "  (not enforced: --any-name implies a gold-corpus run, and gold is "
+            "annotated at a different rate than the test set)"
+        )
 
     # ── validate + write ──────────────────────────────────────────────────────
     codes = schema.load_code_index() if check_codes else None
@@ -151,6 +161,10 @@ def main(argv: list[str] | None = None) -> int:
             numbered=not args.any_name,
             check_codes=not args.no_kb_check,
             quiet=args.quiet,
+            # `--any-name` is the gold-corpus path (`make score`). That corpus
+            # annotates assertions at 28.7%, well above the band the test set
+            # implies, so enforcing there would block every measurement run.
+            enforce_rate_band=not args.any_name,
         )
     except Exception as exc:  # noqa: BLE001 — a CLI reports, it does not traceback
         print(f"\n✗ {type(exc).__name__}: {exc}", file=sys.stderr)

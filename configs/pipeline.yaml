@@ -176,11 +176,74 @@ extract:
         'thuốc trước khi nhập viện': {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
         'dị ứng':           {THUỐC: 0.70, TRIỆU_CHỨNG: 0.30}
 
+    lexicon:
+      # resources/lexicon_vi.yaml — the vocabulary a KB-derived gazetteer cannot
+      # hold: drug CLASSES ("thuốc lợi tiểu" has no RxNorm ingredient row), lay
+      # vitamin names ("B12", not "cyanocobalamin"), and the short symptom words
+      # a patient actually writes ("ngứa", "mề đay", "hồi hộp").
+      #
+      # Why it exists: 47/100 test documents are patient-facing Q&A, and against
+      # 20 hand-annotated test documents the pre-lexicon run missed 33 THUỐC (14
+      # of them class or lay names, 4 vitamins) and 134 TRIỆU_CHỨNG (73 of two
+      # words or fewer). Recall pays three times over — under `penalised` a
+      # missed entity scores zero in text, assertions AND candidates.
+      enabled: true
+      # Below every gazetteer source_score (0.30–0.55) on purpose: this lane
+      # knows a type but no code, so where both fire the gazetteer should win.
+      # Still above emit_threshold 0.25, or the lane would be a no-op.
+      score: 0.28
+      # Same filler as aho: whitespace and hyphens may sit inside a phrase, a
+      # comma or sentence end may not.
+      phrase_filler: '[\s\-–—]*'
+      bullet_score: 0.30
+      bullets_inherit_header: true
+      strip_trailing: '.,;:)]'
+      # Section label -> type distribution. Longest prefix wins.
+      label_types:
+        'chẩn đoán':        {CHẨN_ĐOÁN: 0.90, TRIỆU_CHỨNG: 0.10}
+        'chẩn đoán chính':  {CHẨN_ĐOÁN: 0.92, TRIỆU_CHỨNG: 0.08}
+        'chẩn đoán vào viện': {CHẨN_ĐOÁN: 0.92, TRIỆU_CHỨNG: 0.08}
+        'chẩn đoán ra viện':  {CHẨN_ĐOÁN: 0.92, TRIỆU_CHỨNG: 0.08}
+        'bệnh chính':       {CHẨN_ĐOÁN: 0.90, TRIỆU_CHỨNG: 0.10}
+        'tiền sử bệnh':     {CHẨN_ĐOÁN: 0.75, TRIỆU_CHỨNG: 0.25}
+        'tiền sử bệnh lý':  {CHẨN_ĐOÁN: 0.75, TRIỆU_CHỨNG: 0.25}
+        'ts bệnh':          {CHẨN_ĐOÁN: 0.75, TRIỆU_CHỨNG: 0.25}
+        # Measured on the leverage map: isFamily is worth 0.26 points, so the
+        # family-history section is typed like any other history section and no
+        # effort goes into the flag itself.
+        'tiền sử gia đình': {CHẨN_ĐOÁN: 0.70, TRIỆU_CHỨNG: 0.30}
+        # Generic fallbacks. Matching is longest-prefix-first, so the specific
+        # rows above still win; these only catch labels none of them covers.
+        # Added from the TEST corpus, where 90/100 files carry a `label: value`
+        # line but almost none of them is a lab measurement — `Lý do nhập viện:
+        # Nôn ra máu`, `Bệnh lý mãn tính: hội chứng ruột kích thích`. ⚠ GOLD
+        # CANNOT MEASURE THIS: it is synthetic `restyled/` prose with almost no
+        # such lines, so these rows are justified by the input distribution, not
+        # by a score delta. Do not read a gold-neutral result as "no effect".
+        'tiền sử':          {CHẨN_ĐOÁN: 0.70, TRIỆU_CHỨNG: 0.30}
+        'lý do':            {TRIỆU_CHỨNG: 0.65, CHẨN_ĐOÁN: 0.35}
+        'lý do vào viện':   {TRIỆU_CHỨNG: 0.65, CHẨN_ĐOÁN: 0.35}
+        'lý do khám':       {TRIỆU_CHỨNG: 0.65, CHẨN_ĐOÁN: 0.35}
+        'lý do nhập viện':  {TRIỆU_CHỨNG: 0.65, CHẨN_ĐOÁN: 0.35}
+        'bệnh lý mãn tính': {CHẨN_ĐOÁN: 0.85, TRIỆU_CHỨNG: 0.15}
+        'bệnh lý':          {CHẨN_ĐOÁN: 0.85, TRIỆU_CHỨNG: 0.15}
+        'triệu chứng':      {TRIỆU_CHỨNG: 0.88, CHẨN_ĐOÁN: 0.12}
+        'triệu chứng hiện tại': {TRIỆU_CHỨNG: 0.88, CHẨN_ĐOÁN: 0.12}
+        'thuốc':            {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
+        'thuốc dùng':       {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
+        'thuốc đang dùng':  {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
+        'thuốc điều trị':   {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
+        'thuốc trước khi nhập viện': {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
+        'dị ứng':           {THUỐC: 0.70, TRIỆU_CHỨNG: 0.30}
+
     # Source priority when two lanes propose overlapping spans. The lab lanes win
     # on the two lab types because they read the line structure the gazetteer
     # cannot see. Full graph-based merging with weighted-median boundaries is P3
     # (`overlap_graph.py` + `boundary.py`); this is the P1 stand-in.
-    merge_priority: ['labvalues', 'aho', 'kvspan']
+    # `lexicon` is last: it proposes a type with no code behind it, so any other
+    # lane claiming the same span should win the tie. Length still outranks
+    # priority (see extract/__init__._merge).
+    merge_priority: ['labvalues', 'aho', 'kvspan', 'lexicon']
 
   harmonize:
     # Measured: THUỐC↔TÊN_XÉT_NGHIỆM confuse each other and harmonising helps.

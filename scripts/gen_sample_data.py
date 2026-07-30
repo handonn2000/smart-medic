@@ -4,7 +4,7 @@
 Khác bản ở nhánh feature: script này KHÔNG phụ thuộc gì ngoài thư viện chuẩn và
 hai bảng ban tổ chức đã có sẵn trên master:
 
-    data/knowledge_base/ICD10.csv     (36.689 mã, cột "Mã" + "Tên bệnh")
+    data/knowledge_base/ICD10_VN.csv  (12.218 mã, cột "MÃ BỆNH" + "TÊN BỆNH")
     data/knowledge_base/RXNORM.csv    (637.977 dòng, lọc tty IN/BN)
 
 Không cần data/kb/, không cần src/smart_medic/, không cần tải dữ liệu ngoài.
@@ -66,6 +66,13 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 KB = REPO / "data" / "knowledge_base"
 EXT = REPO / "data" / "external"
+
+#: Bảng ICD-10 2020 của Bộ Y tế. Tên cột khớp CHÍNH XÁC theo thứ tự ưu tiên này: bản VN
+#: có năm cột bắt đầu bằng "MÃ" (MÃ CHƯƠNG, MÃ NHÓM CHÍNH, MÃ NHÓM PHỤ 1/2, MÃ LOẠI)
+#: trước khi tới MÃ BỆNH, lấy nhầm cột nhóm thì gazetteer chỉ còn tên chương bệnh.
+ICD10_NAME = "ICD10_VN.csv"
+ICD10_CODE_COLUMNS = ("mã bệnh", "mã", "ma", "code")
+ICD10_NAME_COLUMNS = ("tên bệnh", "ten benh", "name")
 
 #: Cây thư mục đầu ra. Một gốc duy nhất, tách theo NGUỒN (tự sinh / dịch từ
 #: mtsamples) rồi mới tách theo VAI TRÒ (trung gian / văn bản / nhãn) — cách cũ
@@ -384,26 +391,41 @@ QUY TẮC:
 # --------------------------------------------------------------- đọc bảng BTC
 
 def load_icd(min_words: int = 2, max_words: int = 5) -> list[dict]:
-    """Đọc data/knowledge_base/ICD10.csv -> [{code, alias}].
+    """Đọc data/knowledge_base/ICD10_VN.csv -> [{code, alias}].
 
-    File có 5 dòng tiêu đề trang trước header thật (dòng bắt đầu bằng "STT,Mã"),
-    và mã hoá lẫn lộn nên đọc với errors="replace".
+    Số dòng tiêu đề trước header khác nhau giữa hai bản bảng ICD (bản BTC 4 dòng, bản
+    2020 của Bộ Y tế 2 dòng) nên dò header theo tên cột chứ không đếm dòng; mã hoá lẫn
+    lộn nên đọc với errors="replace".
 
     Lọc alias 2-5 từ: span CHẨN_ĐOÁN của gold dài TB 4,05 từ, tên ICD một từ thì
     quá chung ("Sốc", "Ngất") còn trên 5 từ thì gần như không xuất hiện nguyên văn
     trong bệnh án thật.
     """
-    path = KB / "ICD10.csv"
+    path = KB / ICD10_NAME
     if not path.exists():
-        sys.exit(f"thiếu {path.relative_to(REPO)} — bảng ICD của ban tổ chức")
+        sys.exit(f"thiếu {path.relative_to(REPO)} — bảng ICD-10")
     lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
-    head = next((i for i, l in enumerate(lines) if l.startswith("STT,Mã")), 0)
-    rows = csv.DictReader(lines[head:])
+    reader = csv.reader(lines)
+    head, code_at, name_at = None, None, None
+    for row in reader:
+        lowered = [cell.strip().lower() for cell in row]
+        code_at = next((lowered.index(n) for n in ICD10_CODE_COLUMNS if n in lowered), None)
+        name_at = next((lowered.index(n) for n in ICD10_NAME_COLUMNS if n in lowered), None)
+        if code_at is not None and name_at is not None:
+            head = row
+            break
+    if head is None:
+        sys.exit(f"{path.name}: không thấy cột mã bệnh / tên bệnh")
+    live_at = next((i for i, c in enumerate(head) if c.strip().lower() == "hiệu lực"), None)
+
     out, seen = [], set()
-    for row in rows:
-        code = (row.get("Mã") or "").strip()
-        name = (row.get("Tên bệnh ") or row.get("Tên bệnh") or "").strip()
-        if not code or not name or (row.get("Hiệu lực") or "").strip() == "Không":
+    for row in reader:
+        if len(row) <= max(code_at, name_at):
+            continue
+        code, name = row[code_at].strip(), row[name_at].strip()
+        # Cột "Hiệu lực" chỉ có ở bản cũ (ICD10.csv); bản 2020 không có mã hết hiệu lực.
+        retired = live_at is not None and len(row) > live_at and row[live_at].strip() == "Không"
+        if not code or not name or retired:
             continue
         # Tên nhiều mảnh ngăn bằng dấu phẩy. Mảnh ĐẦU gần như luôn là tên bệnh
         # ("Tabes sống lưng"), mảnh SAU thì 5.796/5.918 là bổ ngữ chứ không phải
@@ -1005,7 +1027,7 @@ def build_term_mapping(icd_list: list[dict], rx_list: list[dict]
     """Dựng hai gazetteer tra mã, từ CHÍNH bảng của ban tổ chức.
 
     Không cần bảng ánh xạ Anh-Việt riêng như bản nháp của kế hoạch dự tính: bảng
-    ICD10.csv của ban tổ chức đã là tiếng Việt sẵn (cột "Tên bệnh"), nên tra thẳng
+    ICD10_VN.csv đã là tiếng Việt sẵn (cột "TÊN BỆNH"), nên tra thẳng
     trên bản dịch được. Còn tên thuốc thì prompt bắt giữ nguyên tiếng Anh, đúng
     dạng alias RxNorm — cũng tra thẳng được. Một bảng ánh xạ tự dựng thêm chỉ tạo
     ra tầng sai số thứ hai giữa hai bảng đã có.

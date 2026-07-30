@@ -868,7 +868,7 @@
         <li><b>Bất đối xứng ngôn ngữ giữa hai kho mã</b> — điểm mấu chốt ít người để ý (xem callout).</li>
         <li><b>Bắt buộc reproducible</b> — khuyến khích mạnh giải pháp có model offline/nhẹ, hơn là phụ thuộc hoàn toàn API LLM đóng.</li>
       </ul>
-      <div class="callout note"><b>Bất đối xứng ngôn ngữ:</b> tên bệnh trong <code>ICD10.csv</code> là <b>tiếng Việt</b> → ánh xạ Việt–Việt; còn cột <code>str</code> trong RxNorm là <b>tiếng Anh</b> và tên thuốc trong hồ sơ thường đã ở dạng hoạt chất tiếng Anh (<code>amlodipine 10 mg</code>) → ánh xạ Anh–Anh. ⇒ Nên dùng <b>model khác nhau cho hai nhánh</b>.</div>
+      <div class="callout note"><b>Bất đối xứng ngôn ngữ:</b> tên bệnh trong <code>ICD10_VN.csv</code> là <b>tiếng Việt</b> → ánh xạ Việt–Việt; còn cột <code>str</code> trong RxNorm là <b>tiếng Anh</b> và tên thuốc trong hồ sơ thường đã ở dạng hoạt chất tiếng Anh (<code>amlodipine 10 mg</code>) → ánh xạ Anh–Anh. ⇒ Nên dùng <b>model khác nhau cho hai nhánh</b>.</div>
     </div>
   </section>
 
@@ -1132,7 +1132,7 @@
 
     <div class="card">
       <div class="wk-head"><span class="tag fail">Điểm yếu 2</span><h4>Chuẩn hóa ICD cần <b>ngữ nghĩa</b>, không phải khớp chữ</h4><span class="sev hi">nghiêm trọng</span></div>
-      <p>Tên bệnh trong văn bản là cách nói <b>rút gọn/dân dã</b>, khác xa tên chuẩn dài trong <code>ICD10.csv</code>:</p>
+      <p>Tên bệnh trong văn bản là cách nói <b>rút gọn/dân dã</b>, khác xa tên chuẩn dài trong <code>ICD10_VN.csv</code>:</p>
       <table class="def">
         <thead><tr><th>Mention trong file</th><th>Tên ICD-10 chuẩn (tiếng Việt)</th><th>Fuzzy?</th></tr></thead>
         <tbody>
@@ -1168,7 +1168,7 @@
 
     <div class="card">
       <div class="wk-head"><span class="tag pass">Điểm mạnh giữ nguyên</span><h4>Khung tổng thể &amp; nhánh Việt–Việt cho ICD</h4><span class="sev md" style="background:#dcefe0;color:#1f6b3a">tích cực</span></div>
-      <p>Vì <code>ICD10.csv</code> là <b>tiếng Việt</b>, nhánh CHẨN_ĐOÁN→ICD là ánh xạ <b>Việt–Việt</b> — model đa ngữ làm được mà không cần dịch. Chiến lược "distill LLM → encoder nhỏ" và "mặc định assertion rỗng" vẫn là nền đúng cho chính các file này.</p>
+      <p>Vì <code>ICD10_VN.csv</code> là <b>tiếng Việt</b>, nhánh CHẨN_ĐOÁN→ICD là ánh xạ <b>Việt–Việt</b> — model đa ngữ làm được mà không cần dịch. Chiến lược "distill LLM → encoder nhỏ" và "mặc định assertion rỗng" vẫn là nền đúng cho chính các file này.</p>
     </div>
 
     <h3><span class="lead">7.3</span>Điều chỉnh đề xuất cho input tiếng Việt thực tế</h3>

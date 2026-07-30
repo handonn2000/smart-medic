@@ -54,6 +54,11 @@ MARKED_DIR = DEV_DIR / "marked"
 GOLD_DIR = DEV_DIR / "gold"
 KB_DIR = REPO / "data" / "knowledge_base"
 
+#: Bảng ICD-10 2020 của Bộ Y tế. Đổi ở đây thì src/normalizer.py và
+#: scripts/gen_sample_data.py cũng phải đổi theo — ba script đọc bảng này riêng.
+ICD10_NAME = "ICD10_VN.csv"
+ICD10_CODE_COLUMNS = ("mã bệnh", "mã", "ma", "code")
+
 SEED = 20260730
 
 ENTITY_TYPES = ("CHẨN_ĐOÁN", "TRIỆU_CHỨNG", "THUỐC",
@@ -228,15 +233,25 @@ def diff_report(clean: str, original: str) -> str | None:
 def load_codes() -> tuple[set[str], set[str]]:
     """Mã ICD-10 và RxNorm để soát mã gõ sai. Trả về tập rỗng nếu thiếu bảng."""
     icd: set[str] = set()
-    path = KB_DIR / "ICD10.csv"
+    path = KB_DIR / ICD10_NAME
     if path.is_file():
         with path.open(encoding="utf-8-sig", newline="") as fh:
-            for _ in range(4):             # 4 dòng tiêu đề trước header thật
-                next(fh, None)
-            for row in csv.DictReader(fh):
-                code = (row.get("Mã") or "").strip()
-                if code:
-                    icd.add(code)
+            rows = list(csv.reader(fh))
+        # Dò dòng header thay vì đếm dòng tiêu đề: ICD10_VN.csv có 2 dòng tiêu đề còn
+        # ICD10.csv có 4. Tên cột khớp CHÍNH XÁC, vì bản VN có MÃ CHƯƠNG, MÃ NHÓM CHÍNH,
+        # MÃ NHÓM PHỤ 1/2 và MÃ LOẠI đứng trước MÃ BỆNH.
+        at = None
+        for header_at, row in enumerate(rows):
+            lowered = [cell.strip().lower() for cell in row]
+            at = next((lowered.index(name) for name in ICD10_CODE_COLUMNS
+                       if name in lowered), None)
+            if at is not None:
+                for data in rows[header_at + 1:]:
+                    if len(data) > at and data[at].strip():
+                        icd.add(data[at].strip())
+                break
+        if at is None:
+            print(f"  [!] {path.name}: không thấy cột mã bệnh — bỏ qua bước soát mã ICD")
 
     rx: set[str] = set()
     path = KB_DIR / "RXNORM.csv"
@@ -368,7 +383,7 @@ def main() -> int:
 
     c = sub.add_parser("compile", help="nháp có dấu 〔 〕 -> data/dev/gold/*.json")
     c.add_argument("--skip-code-check", action="store_true",
-                   help="bỏ bước tra mã trong ICD10.csv / RXNORM.csv")
+                   help=f"bỏ bước tra mã trong {ICD10_NAME} / RXNORM.csv")
 
     sub.add_parser("status", help="xem đã gán tới đâu")
 

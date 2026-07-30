@@ -1,4 +1,5 @@
 import json
+import unicodedata as ud
 
 import torch
 from underthesea import word_tokenize
@@ -51,7 +52,12 @@ class MedicalExtractor:
         # Encode one word at a time, exactly as MedicalNERDataset does at training time,
         # so the model sees the same input_ids and so every subword is traceable back to
         # the word — and therefore to the character span — it came from.
-        subwords = [self.tokenizer.encode(surface, add_special_tokens=False)
+        #
+        # NFC because PhoBERT's vocabulary is NFC, while a fifth of the test files are
+        # NFD: feeding those through as-is turns their words into unknown tokens. Offsets
+        # stay on the raw text, so normalising here changes nothing about `position`.
+        subwords = [self.tokenizer.encode(ud.normalize("NFC", surface),
+                                          add_special_tokens=False)
                     or [self.tokenizer.unk_token_id]
                     for surface, _, _ in words]
         sizes = [len(ids) for ids in subwords]

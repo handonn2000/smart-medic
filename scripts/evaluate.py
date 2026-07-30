@@ -524,6 +524,7 @@ def main() -> int:
     print()
     return 0
 
-
+# Usage:
+#  python scripts/evaluate.py --pred data/holdout/pred --gold data/holdout/gold --text-dir data/holdout/text
 if __name__ == "__main__":
     sys.exit(main())

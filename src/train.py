@@ -58,6 +58,12 @@ def parse_args():
         default=MODEL_PATH,
         help=f"Checkpoint to resume from if it exists (default: {MODEL_PATH}).",
     )
+    parser.add_argument(
+        "--data",
+        default=TRAIN_FILE,
+        help=f"BIO training file (default: {TRAIN_FILE}). "
+             f"Build one with scripts/prepare_training_data.py.",
+    )
     return parser.parse_args()
 
 
@@ -68,7 +74,16 @@ def load_checkpoint(model, checkpoint_path, device):
         return False
 
     state = torch.load(checkpoint_path, map_location=device)
-    model.load_state_dict(state)
+    try:
+        model.load_state_dict(state)
+    except RuntimeError as err:
+        # The classifier and CRF are sized by len(LABELS), so adding a label makes every
+        # older checkpoint unloadable. Say so plainly instead of re-printing shape lists.
+        raise SystemExit(
+            f"Checkpoint {checkpoint_path} was trained with a different label set than "
+            f"src/labels.py defines now ({len(LABELS)} labels). Train with "
+            f"--from-scratch, or point --checkpoint at a matching file.\n  {err}"
+        ) from err
     print(f"Loaded checkpoint: {checkpoint_path}")
     return True
 
@@ -84,8 +99,9 @@ def main():
     if not args.from_scratch:
         load_checkpoint(model, args.checkpoint, device)
 
-    train_dataset = MedicalNERDataset(TRAIN_FILE, tokenizer, LABEL2ID, MAX_LEN)
+    train_dataset = MedicalNERDataset(args.data, tokenizer, LABEL2ID, MAX_LEN)
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+    print(f"Training data: {args.data} ({len(train_dataset)} blocks)")
 
     optimizer = torch.optim.AdamW(model.parameters(), lr=LR)
     scheduler = get_linear_schedule_with_warmup(
@@ -120,6 +136,8 @@ def main():
     torch.save(model.state_dict(), MODEL_PATH)
     print(f"Saved model to: {MODEL_PATH}")
 
-# Run: python src/train.py -e 16 --checkpoint models/pho_bert_crf_medical.pth
+# Usage: 
+# python src/train.py --data data/train_generated.txt --from-scratch -e 6
+# python src/train.py -e 4 --data data/train_generated.txt --checkpoint models/pho_bert_crf_medical.pth
 if __name__ == "__main__":
     main()

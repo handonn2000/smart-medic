@@ -44,8 +44,10 @@ smart-medic/
 ├── models/                  # Trained model weights / checkpoints
 ├── scripts/
 │   ├── gen_sample_data.py           # Training-data generator (see below)
+│   ├── prepare_training_data.py     # Annotation JSON → BIO file for train.py
 │   ├── annotate.py                  # Hand-annotation workflow for the dev set
 │   ├── evaluate.py                  # Internal scorer: WER + Jaccard (competition metric)
+│   ├── measure_normalizer.py        # Diagnoses the code-assignment half of the score
 │   └── migrate_to_new_structure.py  # One-off: old data layout → new
 └── data/
     ├── knowledge_base/      # Reference vocabularies (ICD-10, RxNorm)
@@ -66,9 +68,10 @@ smart-medic/
         │   ├── text/            # mtsamples_<specialty>_NNNN.txt
         │   └── annotations/     # mtsamples_<specialty>_NNNN.json
         └── restyled/        # Translated notes rewritten into test-set genres
-            ├── intermediate/    # restyle_process.jsonl, restyle_prompts.jsonl
-            ├── text/            # mtsamples_<specialty>_NNNN_<genre>.txt
-            └── annotations/     # mtsamples_<specialty>_NNNN_<genre>.json
+            ├── intermediate/     # restyle_process.jsonl, restyle_prompts.jsonl
+            ├── text/             # mtsamples_<specialty>_NNNN_<genre>.txt
+            ├── annotations/      # mtsamples_<specialty>_NNNN_<genre>.json
+            └── annotations_gold/ # Reviewed labels — the set worth training on
 ```
 
 ## Getting started
@@ -138,9 +141,7 @@ python -c "import torch; print(torch.cuda.is_available())"
 
 ## Training
 
-Train the PhoBERT + CRF sequence labeler on the annotated data in `data/train.txt`.
-
-**Data format (`data/train.txt`):** CoNLL / BIO style — one token per line as `token<space>label`, with a **blank line between samples**. Tokens must not contain spaces. Labels use the BIO scheme (`B-XXX`, `I-XXX`, `O`) over these types: `THUOC`, `TRIEU_CHUNG`, `BENH`, `XET_NGHIEM`, `BENH_NHAN`. Example:
+**Data format:** CoNLL / BIO style — one token per line as `token<space>label`, with a **blank line between samples**. The label is taken from the end of the line, so a token may itself contain spaces (`tê bì B-TRIEU_CHUNG`), which is what word segmentation produces for Vietnamese compounds. Labels use the BIO scheme (`B-XXX`, `I-XXX`, `O`) over the types listed in `src/labels.py`. Example:
 
 ```text
 đau B-TRIEU_CHUNG
@@ -151,11 +152,79 @@ Celecoxib B-THUOC
 400mg I-THUOC
 ```
 
-Run training (works from the project root or from `src/` — paths are resolved automatically):
+### Building the BIO file from annotations
+
+`scripts/prepare_training_data.py` turns generated records (`text/*.txt` plus
+competition-format `annotations_gold/*.json`) into that format. It segments with the same
+`segment_document` that `src/inference.py` uses, so training and prediction cut words
+identically, and it normalises tokens to NFC because PhoBERT's vocabulary is NFC while a
+quarter of the corpus is NFD on purpose.
 
 ```bash
-python src/train.py
+# 162 gold-annotated restyled records → data/train_generated.txt
+python scripts/prepare_training_data.py
+
+# Hold out 24 records so there is something honest to score against later
+python scripts/prepare_training_data.py --holdout 24
+
+# Also fold in the small hand-written set (its unscored labels become O, reported)
+python scripts/prepare_training_data.py --append data/train.txt
 ```
+
+BIO over words can only give each word one label, so where the segmenter glues two
+adjacent concepts into a single word — most often a test name running into its result,
+`...nước tiểu dương tính` — the word goes to whichever concept overlaps it more and the
+other is dropped. On the restyled gold that costs 76 of 7,435 concepts, and 217 more grow
+by a few characters. `--audit-out` writes what a model that fit the data perfectly would
+predict, so that ceiling can be measured rather than assumed:
+
+```bash
+python scripts/prepare_training_data.py --audit-out data/audit_ceiling
+python scripts/evaluate.py --pred data/audit_ceiling \
+    --gold data/generated_medical_records/restyled/annotations_gold \
+    --text-dir data/generated_medical_records/restyled/text
+```
+
+That currently reports 99% concept recall with no wrong-type predictions and
+`text_score` 0.972 — the upper bound this training set allows. Ignore its
+`candidates_score`: the audit emits no codes because the normalizer is not involved.
+
+### Running the training
+
+```bash
+python src/train.py --data data/train_generated.txt --from-scratch -e 6
+```
+
+`--from-scratch` is required the first time after `KẾT_QUẢ_XÉT_NGHIỆM` was added to
+`src/labels.py`: the classifier and CRF are sized by the label count, so older checkpoints
+no longer load. Training without `--data` still uses `data/train.txt`.
+
+### Measuring what the training produced
+
+Train on everything and there is no number to compare against — `--holdout N` exists so
+that changes can be judged instead of guessed at. It reserves N annotated records, keeps
+them out of the BIO file, and writes them as a ready-to-score split in `data/holdout/`
+(`text/` and `gold/`), so the whole loop is four commands:
+
+```bash
+python scripts/prepare_training_data.py --holdout 24
+python src/train.py --data data/train_generated.txt --from-scratch -e 6
+python src/test.py -d data/holdout/text -o data/holdout/pred
+python scripts/evaluate.py --pred data/holdout/pred --gold data/holdout/gold \
+    --text-dir data/holdout/text
+```
+
+The split is stratified by presentation style rather than drawn uniformly, because
+`hoi_dap` is only 12 of the 175 generated records while it is 42% of `data/test` — a
+uniform draw of 24 would usually contain none of it and still report a healthy-looking
+average. Two records of a style is thin, so read the per-style rows as indicative and the
+overall score as the real number. Re-running with a different `--holdout` or `--seed`
+clears records left behind by the previous split; without that, the scorer would quietly
+grade files that had just been trained on.
+
+Sanity checks worth knowing: scoring `data/holdout/gold` against itself returns exactly
+1.0000 on all three components, and no word unique to a held-out record appears anywhere in
+the BIO file.
 
 On completion it prints the checkpoint location and writes weights to:
 
@@ -167,7 +236,7 @@ Key hyperparameters (edit at the top of `src/train.py`): `MODEL_NAME`, `MAX_LEN`
 
 ## Testing / Inference
 
-`src/test.py` runs the trained model on a single input and prints the predicted concepts as JSON.
+`src/test.py` runs the trained model on a single input and prints the predicted concepts as JSON, or on a whole folder of records and writes one JSON file per record.
 
 ```bash
 # Inline text
@@ -175,13 +244,20 @@ python src/test.py -t "Bệnh nhân nam 55 tuổi, bị đau khớp gối phải
 
 # From a file
 python src/test.py -f data/training/input1.txt --model models/pho_bert_crf_medical.pth
+
+# Every record in a folder: data/test/7.txt → data/output/7.json
+python src/test.py -d data/test -o data/output --model models/pho_bert_crf_medical.pth
 ```
 
 Arguments:
 
-- `-t <input_text>` — pass the input text directly (mutually exclusive with `-f`).
+- `-t <input_text>` — pass the input text directly (mutually exclusive with `-f` and `-d`).
 - `-f <input_file>` — read the input text from a file.
+- `-d <input_dir>` — predict every `.txt` in the folder, writing `<stem>.json` per record instead of printing.
+- `-o <output_dir>` — where `-d` writes (default: `data/output`, the layout `output.zip` expects).
 - `--model <path>` — path to the trained weights (default: `pho_bert_crf_medical.pth` in the current directory, so pass `models/pho_bert_crf_medical.pth` after training).
+
+Folder mode loads the model once, keeps going when a single record fails (exiting non-zero afterwards), and warns about two things that quietly ruin a submission: a concept whose `text` is not the slice sitting at its own `position`, and leftover `.json` files in the output folder that no longer correspond to any input record.
 
 Example output:
 
@@ -233,7 +309,7 @@ anything that names an assertion is read as one, everything else as a code.
 `compile` only writes a gold file when the marker-stripped text is character-identical
 to the original `data/test/N.txt`, so an accidental edit to the prose can never silently
 shift offsets. It also rejects unknown type names, misspelled assertions, codes on types
-that gold leaves empty, and codes absent from `ICD10.csv` / `RXNORM.csv`. The likeliest
+that gold leaves empty, and codes absent from `ICD10_VN.csv` / `RXNORM.csv`. The likeliest
 confusing failure has its own message: 20 of the 100 test files are in Unicode NFD form,
 and an editor that saves them back as NFC changes the string length and shifts every
 offset in the file.
@@ -287,6 +363,49 @@ ranging over all concepts rather than only codeable ones) are documented in the 
 docstring; `--candidates-scope codeable` shows how sensitive the score is to the latter.
 Treat the numbers as a **relative** indicator for comparing model versions on a fixed gold
 set, not as the organizers' score.
+
+### Measuring the code assignment
+
+`candidates` carries 0.4 of the final score and is currently the weakest part of the
+pipeline, so it has its own diagnostic. `scripts/measure_normalizer.py` runs
+`MedicalNormalizer` over every gold span that has a code and separates the failure modes,
+because they need different fixes:
+
+```bash
+python scripts/measure_normalizer.py
+python scripts/measure_normalizer.py --gold data/dev/gold
+```
+
+For each coded type it reports whether the gold code is in the loaded table at all, what rank
+the fuzzy search gives it, whether the cutoff then throws it away, a sweep of mean Jaccard
+over `top_k` × cutoff, the ceiling reachable by re-ranking alone, and examples of spans whose
+gold code never surfaces. It drives the real methods and asserts that its own replication of
+them agrees, so it cannot quietly measure something other than what ships.
+
+What it found on the generated gold (1,456 diagnosis codes, 980 drug codes) — this is where
+the constants at the top of `src/normalizer.py` come from:
+
+- **One code beats three.** Gold carries exactly one code for 1,456/1,536 diagnoses and
+  814/952 drugs, and Jaccard divides by the union, so three codes containing the right one
+  still scores 1/3. Hence `DEFAULT_TOP_K = 1`.
+- **The old cutoffs discarded correct answers.** 41.6% of the correct ICD codes and 23.2% of
+  the correct RxNorm codes that the search did surface scored under the old `> 65` / `> 70`
+  gates. Now 60 and 55. With `top_k`, that moves diagnoses 0.146 → 0.196 and drugs
+  0.287 → 0.312.
+- **Drugs fail on hierarchy, not on text.** The median score of a correct drug code is 100,
+  an exact name match. Gold maps a brand to its ingredient (Lasix → `4603` furosemide) while
+  the lookup returns the brand it matched (`202991`). Resolving brand and product rows to
+  their ingredient is the biggest remaining lever — but the PRD sample uses dose-specific SCD
+  codes instead, so settle which granularity the real gold wants before building it.
+- **Diagnoses fail on retrieval.** `token_sort_ratio` compares whole strings, so a short span
+  sitting inside a long official name loses on length alone: "Rung nhĩ" against `I48` "Rung
+  nhĩ và cuồng nhĩ" loses to `K03.1` "Mòn răng". The gold code reaches the top 10 for only
+  30.1% of spans and perfect re-ranking of those ten would still cap at 0.337, so the scorer
+  itself has to change — containment-aware matching, abbreviation expansion (`HA` → huyết
+  áp), and collapsing the newlines that appear in spans crossing a line break.
+
+The gold used here is the generated corpus, whose codes an LLM chose rather than a coder, so
+trust the comparisons between configurations more than the absolute values.
 
 ## Generating training data
 
@@ -348,7 +467,12 @@ translation quality before committing to a full run.
 
 ## Data
 
-- `data/knowledge_base/ICD10.csv` — ICD-10 disease codes used for diagnosis candidate mapping.
+- `data/knowledge_base/ICD10_VN.csv` — ICD-10 disease codes used for diagnosis candidate
+  mapping: the Ministry of Health 2020 list, 12,218 leaf codes in `MÃ BỆNH` with Vietnamese
+  names in `TÊN BỆNH`. Its `DISEASE NAME` (English) column is locally misaligned — `I10`
+  carries `I09.8`'s English text — so nothing reads it. The older `ICD10.csv` is still in
+  the folder and all three readers still parse it, since they detect the header row and
+  match column names rather than counting title rows.
 - `data/input/*.txt` — 100 free-form clinical text records (competition test set).
 - `data/output/*.json` — one prediction file per input record, matching `input/N.txt` → `output/N.json`.
 

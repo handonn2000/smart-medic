@@ -1,0 +1,516 @@
+{
+  "gold_docs": 162,
+  "gold_entities": 7435,
+  "entities_per_file": 45.9,
+  "ceiling": 70.0,
+  "config": "penalised/official",
+  "seeds": 6,
+  "modes": {
+    "perfect (trần)": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 70.0,
+        "overlap_type": 70.0,
+        "exact": 70.0
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 0.0
+    },
+    "bỏ 5% entity": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 66.5,
+        "overlap_type": 66.5,
+        "exact": 66.5
+      },
+      "sd": {
+        "greedy_iou": 0.23,
+        "overlap_type": 0.23,
+        "exact": 0.23
+      },
+      "loss_vs_ceiling": 3.5
+    },
+    "bỏ 10% entity": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 63.11,
+        "overlap_type": 63.11,
+        "exact": 63.11
+      },
+      "sd": {
+        "greedy_iou": 0.2,
+        "overlap_type": 0.2,
+        "exact": 0.2
+      },
+      "loss_vs_ceiling": 6.9
+    },
+    "bỏ 20% entity": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 56.35,
+        "overlap_type": 56.35,
+        "exact": 56.35
+      },
+      "sd": {
+        "greedy_iou": 0.27,
+        "overlap_type": 0.27,
+        "exact": 0.27
+      },
+      "loss_vs_ceiling": 13.65
+    },
+    "bỏ 30% entity": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 49.29,
+        "overlap_type": 49.29,
+        "exact": 49.29
+      },
+      "sd": {
+        "greedy_iou": 0.31,
+        "overlap_type": 0.31,
+        "exact": 0.31
+      },
+      "loss_vs_ceiling": 20.72
+    },
+    "bỏ 50% entity": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 35.05,
+        "overlap_type": 35.05,
+        "exact": 35.05
+      },
+      "sd": {
+        "greedy_iou": 0.32,
+        "overlap_type": 0.32,
+        "exact": 0.32
+      },
+      "loss_vs_ceiling": 34.96
+    },
+    "bỏ 60% entity": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 28.08,
+        "overlap_type": 28.08,
+        "exact": 28.08
+      },
+      "sd": {
+        "greedy_iou": 0.37,
+        "overlap_type": 0.37,
+        "exact": 0.37
+      },
+      "loss_vs_ceiling": 41.92
+    },
+    "bỏ 65% entity": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 24.47,
+        "overlap_type": 24.47,
+        "exact": 24.47
+      },
+      "sd": {
+        "greedy_iou": 0.3,
+        "overlap_type": 0.3,
+        "exact": 0.3
+      },
+      "loss_vs_ceiling": 45.53
+    },
+    "bỏ 70% entity": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 21.05,
+        "overlap_type": 21.05,
+        "exact": 21.05
+      },
+      "sd": {
+        "greedy_iou": 0.17,
+        "overlap_type": 0.17,
+        "exact": 0.17
+      },
+      "loss_vs_ceiling": 48.95
+    },
+    "thêm 5% span rác": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 66.83,
+        "overlap_type": 66.83,
+        "exact": 66.83
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 3.18
+    },
+    "thêm 10% span rác": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 63.9,
+        "overlap_type": 63.9,
+        "exact": 63.9
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 6.1
+    },
+    "thêm 20% span rác": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 58.76,
+        "overlap_type": 58.76,
+        "exact": 58.76
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 11.25
+    },
+    "thêm 30% span rác": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 54.4,
+        "overlap_type": 54.4,
+        "exact": 54.4
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 15.61
+    },
+    "sai 10% mã": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 69.04,
+        "overlap_type": 69.04,
+        "exact": 69.04
+      },
+      "sd": {
+        "greedy_iou": 0.06,
+        "overlap_type": 0.06,
+        "exact": 0.06
+      },
+      "loss_vs_ceiling": 0.96
+    },
+    "sai 20% mã": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 68.04,
+        "overlap_type": 68.04,
+        "exact": 68.04
+      },
+      "sd": {
+        "greedy_iou": 0.11,
+        "overlap_type": 0.11,
+        "exact": 0.11
+      },
+      "loss_vs_ceiling": 1.96
+    },
+    "sai 30% mã": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 67.04,
+        "overlap_type": 67.04,
+        "exact": 67.04
+      },
+      "sd": {
+        "greedy_iou": 0.1,
+        "overlap_type": 0.1,
+        "exact": 0.1
+      },
+      "loss_vs_ceiling": 2.96
+    },
+    "sai 50% mã": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 65.02,
+        "overlap_type": 65.02,
+        "exact": 65.02
+      },
+      "sd": {
+        "greedy_iou": 0.12,
+        "overlap_type": 0.12,
+        "exact": 0.12
+      },
+      "loss_vs_ceiling": 4.98
+    },
+    "sai type 2%": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 70.0,
+        "overlap_type": 67.21,
+        "exact": 67.21
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.26,
+        "exact": 0.26
+      },
+      "loss_vs_ceiling": 0.0
+    },
+    "sai type 5%": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 70.0,
+        "overlap_type": 63.38,
+        "exact": 63.38
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.37,
+        "exact": 0.37
+      },
+      "loss_vs_ceiling": 0.0
+    },
+    "sai type 10%": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 70.0,
+        "overlap_type": 57.65,
+        "exact": 57.65
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.82,
+        "exact": 0.82
+      },
+      "loss_vs_ceiling": 0.0
+    },
+    "sai type 20%": {
+      "random": true,
+      "scores": {
+        "greedy_iou": 70.0,
+        "overlap_type": 47.17,
+        "exact": 47.17
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.4,
+        "exact": 0.4
+      },
+      "loss_vs_ceiling": 0.0
+    },
+    "candidates rỗng hết": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 60.0,
+        "overlap_type": 60.0,
+        "exact": 60.0
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 10.0
+    },
+    "assertions rỗng hết": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 61.82,
+        "overlap_type": 61.82,
+        "exact": 61.82
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 8.19
+    },
+    "bỏ cờ isNegated": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 66.02,
+        "overlap_type": 66.02,
+        "exact": 66.02
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 3.98
+    },
+    "bỏ cờ isHistorical": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 66.06,
+        "overlap_type": 66.06,
+        "exact": 66.06
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 3.94
+    },
+    "bỏ cờ isFamily": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 69.74,
+        "overlap_type": 69.74,
+        "exact": 69.74
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 0.26
+    },
+    "rò isNegated sang 2 loại XN": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 58.41,
+        "overlap_type": 58.41,
+        "exact": 58.41
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 11.59
+    },
+    "cắt 1 từ cuối mọi span": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 63.05,
+        "overlap_type": 63.05,
+        "exact": 15.31
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 6.95
+    },
+    "lệch span 1 ký tự": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 69.63,
+        "overlap_type": 69.63,
+        "exact": 0.0
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 0.37
+    },
+    "nới span phải 1 ký tự": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 70.0,
+        "overlap_type": 70.0,
+        "exact": 0.0
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 0.0
+    },
+    "thêm 1 mã rác/entity": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 70.0,
+        "overlap_type": 70.0,
+        "exact": 70.0
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 0.0
+    },
+    "thêm 4 mã rác/entity": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 70.0,
+        "overlap_type": 70.0,
+        "exact": 70.0
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 0.0
+    },
+    "thêm 9 mã rác/entity": {
+      "random": false,
+      "scores": {
+        "greedy_iou": 70.0,
+        "overlap_type": 70.0,
+        "exact": 70.0
+      },
+      "sd": {
+        "greedy_iou": 0.0,
+        "overlap_type": 0.0,
+        "exact": 0.0
+      },
+      "loss_vs_ceiling": 0.0
+    }
+  },
+  "extras": {
+    "probe_a": {
+      "points": [
+        [
+          1.0,
+          51.81,
+          51.81
+        ],
+        [
+          0.85,
+          43.9,
+          51.65
+        ],
+        [
+          0.7,
+          36.27,
+          51.82
+        ],
+        [
+          0.55,
+          28.34,
+          51.53
+        ],
+        [
+          0.4,
+          20.54,
+          51.36
+        ],
+        [
+          0.25,
+          12.78,
+          51.11
+        ]
+      ],
+      "coefficient": 51.55,
+      "sd": 0.28
+    },
+    "recall_at_any_cost": {
+      "drop30+spur0": 49.0,
+      "drop30+spur20": 44.49,
+      "drop30+spur30": 42.57,
+      "drop40+spur0": 42.08
+    }
+  }
+}

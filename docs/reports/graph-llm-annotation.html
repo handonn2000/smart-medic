@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Medic — Graph/LLM Annotation &amp; Synthesis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#0f302e; --ink-soft:#42605c; --ink-faint:#7c948f;
+  --paper:#eef1ef; --paper-2:#e6ebe8; --surface:#ffffff;
+  --line:#d5ddd9; --line-strong:#bcc9c4;
+  --primary:#0a6b66; --primary-deep:#074946; --primary-tint:#e2efed;
+  --accent:#d97a2b; --accent-tint:#f8ead9;
+  --good:#3f8a4a; --good-tint:#d7edd6;
+  --warn:#b8443f; --warn-tint:#f7dcd9;
+  --tc:#c98a12; --tc-bg:#fbe9c4; --tc-line:#e9c477;
+  --xn:#1f7f9c; --xn-bg:#d3ecf3; --xn-line:#8ecfe0;
+  --kq:#6c53b0; --kq-bg:#e6ddf6; --kq-line:#c3b1ea;
+  --cd:#b8443f; --cd-bg:#f7dcd9; --cd-line:#eaa9a4;
+  --th:#3f8a4a; --th-bg:#d7edd6; --th-line:#a4d4a0;
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 1px 2px rgba(15,48,46,.05), 0 8px 26px -12px rgba(15,48,46,.18);
+  --shadow-lg:0 24px 60px -28px rgba(15,48,46,.4);
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --body:'Be Vietnam Pro',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --display:'Sora','Be Vietnam Pro',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:var(--body); color:var(--ink);
+  background:radial-gradient(120% 90% at 100% -10%, #f4f7f5 0%, transparent 55%), var(--paper);
+  line-height:1.62; -webkit-font-smoothing:antialiased; letter-spacing:.1px;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+a{color:var(--primary);text-decoration:none;border-bottom:1px solid rgba(10,107,102,.28)}
+a:hover{border-bottom-color:var(--primary)}
+code{font-family:var(--mono);font-size:.88em;background:var(--paper-2);
+  padding:1px 5px;border-radius:5px;border:1px solid var(--line)}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(238,241,239,.9);
+  backdrop-filter:saturate(140%) blur(12px);border-bottom:1px solid var(--line)}
+.hrow{display:flex;align-items:center;gap:18px;padding:13px 0 0}
+.brand{font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:-.3px;white-space:nowrap}
+.brand span{color:var(--primary)}
+.hmeta{margin-left:auto;font-size:11.5px;color:var(--ink-faint);font-family:var(--mono);text-align:right;line-height:1.5}
+nav{display:flex;gap:3px;overflow-x:auto;padding:9px 0 0;scrollbar-width:thin}
+nav::-webkit-scrollbar{height:5px}
+nav::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:4px}
+.tab{font-family:var(--display);font-weight:600;font-size:13px;border:none;background:transparent;
+  color:var(--ink-soft);padding:9px 13px;border-radius:9px 9px 0 0;cursor:pointer;white-space:nowrap;
+  transition:background .18s,color .18s;display:flex;align-items:center;gap:7px;
+  border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab:hover{background:rgba(10,107,102,.06);color:var(--primary-deep)}
+.tab.active{color:var(--primary-deep);border-bottom-color:var(--primary);background:rgba(255,255,255,.6)}
+.tab .n{font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--ink-faint);
+  background:var(--paper-2);padding:1px 5px;border-radius:4px}
+.tab.active .n{background:var(--primary);color:#fff}
+
+/* ---------- hero ---------- */
+.hero{padding:46px 0 30px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--primary);font-weight:600;margin-bottom:12px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.4vw,45px);line-height:1.1;
+  letter-spacing:-1.3px;margin:0 0 16px}
+h1 em{font-style:normal;color:var(--primary)}
+.lede{font-size:16.5px;color:var(--ink-soft);max-width:800px;margin:0}
+
+/* ---------- panels ---------- */
+.panel{display:none;padding:8px 0 80px;animation:fade .28s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+section{margin:0 0 22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px 26px;box-shadow:var(--shadow);margin-bottom:18px}
+.card.flush{padding:0;overflow:hidden}
+h2{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.4px;margin:0;color:var(--ink)}
+h3{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.2px;margin:26px 0 10px;color:var(--ink)}
+h4{font-family:var(--display);font-weight:600;font-size:14.5px;margin:20px 0 8px;color:var(--primary-deep)}
+p{margin:0 0 12px}
+.shead{display:flex;align-items:baseline;gap:13px;margin:34px 0 14px;padding-bottom:11px;
+  border-bottom:1px solid var(--line)}
+.shead .num{font-family:var(--mono);font-size:12px;font-weight:700;color:#fff;background:var(--primary);
+  width:26px;height:26px;border-radius:7px;display:grid;place-items:center;flex:none}
+.shead .sub{margin-left:auto;font-size:12px;color:var(--ink-faint);font-family:var(--mono)}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0}
+th{text-align:left;font-family:var(--display);font-weight:600;font-size:12px;text-transform:uppercase;
+  letter-spacing:.6px;color:var(--ink-faint);padding:9px 12px;border-bottom:1.5px solid var(--line-strong);
+  vertical-align:bottom}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:hover{background:rgba(10,107,102,.03)}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.tscroll{overflow-x:auto;margin:14px -4px;padding:0 4px}
+.tscroll table{min-width:640px}
+
+/* ---------- pills, badges ---------- */
+.pill{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;font-weight:500;
+  padding:2.5px 9px;border-radius:20px;border:1px solid var(--line-strong);background:var(--surface);
+  color:var(--ink-soft);white-space:nowrap}
+.pill.p{background:var(--primary-tint);border-color:#9fcbc7;color:var(--primary-deep)}
+.pill.a{background:var(--accent-tint);border-color:#e8c396;color:#8a4a11}
+.pill.g{background:var(--good-tint);border-color:var(--th-line);color:#2c6634}
+.pill.w{background:var(--warn-tint);border-color:var(--cd-line);color:#8f2f2b}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tag{font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:4px;
+  background:var(--paper-2);border:1px solid var(--line);color:var(--ink-faint)}
+
+/* ---------- callouts ---------- */
+.note{border-left:3px solid var(--primary);background:var(--primary-tint);padding:14px 18px;
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:16px 0;font-size:14px}
+.note.warn{border-left-color:var(--warn);background:var(--warn-tint)}
+.note.good{border-left-color:var(--good);background:var(--good-tint)}
+.note.acc{border-left-color:var(--accent);background:var(--accent-tint)}
+.note b{font-weight:700}
+.note .lab{font-family:var(--display);font-weight:700;font-size:12px;text-transform:uppercase;
+  letter-spacing:.8px;display:block;margin-bottom:5px;opacity:.72}
+
+/* ---------- grids ---------- */
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* stat tiles */
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:15px 16px}
+.stat .v{font-family:var(--display);font-weight:800;font-size:27px;letter-spacing:-1px;color:var(--primary-deep);
+  line-height:1.1}
+.stat .k{font-size:11.5px;color:var(--ink-faint);margin-top:5px;line-height:1.42}
+.stat.w .v{color:var(--warn)} .stat.a .v{color:var(--accent)} .stat.g .v{color:var(--good)}
+
+/* pro / con lists */
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+@media(max-width:820px){.pc{grid-template-columns:1fr}}
+.pc>div{border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;background:var(--surface)}
+.pc .h{font-family:var(--display);font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.7px;
+  margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.pc .pro{border-color:var(--th-line);background:linear-gradient(180deg,rgba(215,237,214,.42),var(--surface) 62%)}
+.pc .con{border-color:var(--cd-line);background:linear-gradient(180deg,rgba(247,220,217,.42),var(--surface) 62%)}
+.pc .pro .h{color:#2c6634} .pc .con .h{color:#8f2f2b}
+.pc ul{margin:0;padding-left:19px} .pc li{margin-bottom:6px;font-size:13.5px}
+
+ul.tight{margin:8px 0 12px;padding-left:20px} ul.tight li{margin-bottom:6px}
+ol.tight{margin:8px 0 12px;padding-left:21px} ol.tight li{margin-bottom:7px}
+
+/* code blocks */
+pre{font-family:var(--mono);font-size:12.2px;line-height:1.62;background:#0e2523;color:#cfe3e0;
+  padding:16px 18px;border-radius:var(--radius-sm);overflow-x:auto;margin:14px 0;
+  border:1px solid #14332f}
+pre .c{color:#6f8d88} pre .k{color:#7fc4bd} pre .s{color:#e0b07a} pre .n{color:#b9a3e3}
+pre.light{background:var(--paper-2);color:var(--ink);border-color:var(--line)}
+pre.light .c{color:var(--ink-faint)} pre.light .k{color:var(--primary)} pre.light .s{color:#8a4a11}
+
+/* formula */
+.fx{font-family:var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:14px 18px;margin:14px 0;font-size:13.5px;overflow-x:auto;text-align:center;color:var(--primary-deep)}
+.fx b{color:var(--accent);font-weight:700}
+
+/* pipeline flow */
+.flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin:16px 0}
+.flow .st{flex:1;min-width:132px;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius-sm);padding:11px 13px;font-size:12.3px;position:relative}
+.flow .st b{display:block;font-family:var(--display);font-size:12.5px;color:var(--primary-deep);margin-bottom:3px}
+.flow .st .t{font-family:var(--mono);font-size:10px;color:var(--ink-faint);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.flow .ar{align-self:center;color:var(--line-strong);font-size:17px;flex:none}
+@media(max-width:820px){.flow .ar{display:none}}
+
+/* reference entries */
+.ref{border-bottom:1px solid var(--line);padding:11px 0;font-size:13.4px;display:flex;gap:12px}
+.ref:last-child{border-bottom:none}
+.ref .id{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--primary);flex:none;
+  background:var(--primary-tint);padding:2px 7px;border-radius:5px;height:fit-content;min-width:46px;text-align:center}
+.ref .b{flex:1}
+.ref .ti{font-weight:600;color:var(--ink)}
+.ref .me{font-size:12px;color:var(--ink-faint);font-family:var(--mono);margin-top:2px}
+.ref .de{font-size:12.8px;color:var(--ink-soft);margin-top:4px}
+
+/* score bar */
+.bar{height:9px;background:var(--paper-2);border-radius:5px;overflow:hidden;border:1px solid var(--line);min-width:80px}
+.bar i{display:block;height:100%;background:var(--primary);border-radius:5px}
+.bar i.a{background:var(--accent)} .bar i.w{background:var(--warn)} .bar i.g{background:var(--good)}
+
+/* effort meter */
+.meter{display:inline-flex;gap:2.5px;vertical-align:middle}
+.meter i{width:7px;height:7px;border-radius:2px;background:var(--line-strong);display:block}
+.meter i.on{background:var(--accent)}
+.meter.p i.on{background:var(--primary)}
+
+/* ---------- narrow-width hardening ---------- */
+html,body{max-width:100%;overflow-x:hidden}
+.grid>*,.pc>*,.flow>*{min-width:0}
+code{overflow-wrap:anywhere}
+.fx{overflow-wrap:anywhere;white-space:normal}
+td,th{overflow-wrap:anywhere}
+.ref{flex-wrap:wrap}
+.ref .b{min-width:0;overflow-wrap:anywhere}
+.ref .me,.ref .ti,.ref .de{overflow-wrap:anywhere}
+.ref a{word-break:break-word}
+.ref .de .pill{white-space:normal;text-align:left}
+img,svg{max-width:100%}
+@media(max-width:760px){
+  .wrap{padding:0 16px}
+  .hmeta{display:none}
+  .flow .st{min-width:100%}
+  .card{padding:18px 16px}
+  .fx{font-size:12px;padding:12px 10px}
+  pre{font-size:11px;padding:12px 12px}
+}
+footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;color:var(--ink-faint)}
+.toplink{position:fixed;right:22px;bottom:22px;background:var(--primary);color:#fff;width:40px;height:40px;
+  border-radius:11px;display:grid;place-items:center;box-shadow:var(--shadow-lg);border:none;cursor:pointer;
+  font-size:17px;opacity:0;pointer-events:none;transition:opacity .22s}
+.toplink.show{opacity:1;pointer-events:auto}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hrow">
+      <div class="brand">Smart Medic · <span>Graph/LLM Annotation &amp; Synthesis</span></div>
+      <div class="hmeta">Viettel AI Race 2026 — Vòng 1<br>Báo cáo nghiên cứu · 29/07/2026</div>
+    </div>
+    <nav id="nav" role="tablist">
+      <button class="tab active" data-tab="ov"><span class="n">00</span> Vùng trống &amp; Đo đạc</button>
+      <button class="tab" data-tab="gen"><span class="n">A</span> KG→Text · sinh dữ liệu</button>
+      <button class="tab" data-tab="dg"><span class="n">B</span> Text→Graph · đồ thị tài liệu</button>
+      <button class="tab" data-tab="agg"><span class="n">C</span> Hợp nhất nhãn</button>
+      <button class="tab" data-tab="ver"><span class="n">D</span> Đồ thị kiểm chứng</button>
+      <button class="tab" data-tab="qua"><span class="n">E</span> Chất lượng &amp; độ phủ</button>
+      <button class="tab" data-tab="sol"><span class="n">★</span> Năm giải pháp</button>
+      <button class="tab" data-tab="ref"><span class="n">§</span> Tham khảo</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ═════════════════════ 00 · VÙNG TRỐNG ═════════════════════ -->
+<div class="panel active" id="p-ov">
+  <div class="hero">
+    <div class="eyebrow">Nghiên cứu hướng mới · Graph/LLM annotation and synthesis</div>
+    <h1>Đồ thị không chỉ để <em>tra mã</em>.<br>Nó còn để <em>sinh nhãn</em>, <em>hợp nhất nhãn</em><br>và <em>bác bỏ nhãn</em>.</h1>
+    <p class="lede">
+      Báo cáo <code>docs/reports/research-directions.html</code> đã dùng đồ thị ontology cho
+      <b>truy hồi</b> (tab 02), giám sát yếu với <b>phiếu bầu phẳng</b> (tab 07) và agentic ở
+      <b>lúc suy luận</b> (tab 08). Tài liệu này lấp năm vùng còn trống nằm ở phía
+      <b>sản xuất và kiểm định nhãn</b>. Mỗi nhánh có thư mục tham khảo riêng đã xác minh
+      định danh, và mỗi con số “đo được” dưới đây được tính lại trực tiếp trên repo trong phiên này.
+    </p>
+    <div class="pills">
+      <span class="pill p">79 tài liệu · 78 fetched</span>
+      <span class="pill p">5 nhánh khảo cứu song song</span>
+      <span class="pill g">5 giải pháp khả thi</span>
+      <span class="pill a">3 kết luận âm tính có trọng lượng</span>
+    </div>
+  </div>
+
+  <div class="note acc">
+    <span class="lab">Quan hệ với hai tài liệu đã có</span>
+    Tài liệu này <b>không lặp lại</b> tab “Hướng tiếp cận” trong <code>docs/PRD.html</code>
+    (SapBERT · BioLORD · BM25+RRF · ConText · distill XLM-R) và <b>không lặp lại</b> 10 hướng trong
+    <code>docs/reports/research-directions.html</code>. Chỉ <b>3/79</b> tài liệu chồng lấn thư mục
+    cũ (<code>AGT-15</code> grammar-constrained decoding, <code>WSP-1.3</code> FlyingSquid) — và ở cả
+    hai chỗ, nhánh liên quan đã tự khai báo phần trùng rồi chỉ giữ lại phần bổ sung. Xem cột
+    <i>Chồng lấn</i> ở tab <b>§ Tham khảo</b>.
+  </div>
+
+  <div class="shead"><span class="num">A</span><h2>Năm vùng trống, phát biểu chính xác</h2>
+    <span class="sub">đối chiếu với tab 02 · 07 · 08 của báo cáo cũ</span></div>
+
+  <div class="card">
+    <p>
+      Điểm chung của cả năm: chúng coi đồ thị là <b>một đối tượng có cạnh mang ngữ nghĩa</b> chứ không
+      phải một bảng tra phẳng, và chúng đặt đồ thị ở những chỗ mà hai tài liệu trước để trống.
+    </p>
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Nhánh</th><th>Đồ thị đóng vai gì</th><th>Đã có ở đâu</th><th>Vùng trống thật sự</th><th>Nhắm</th></tr></thead>
+      <tbody>
+        <tr><td><b>A · KG→Text</b></td><td>Bộ <b>sinh</b> — đi theo cạnh để chọn nội dung trước, viết văn bản sau</td>
+            <td>Tab 02 dùng cạnh làm <i>negative</i> cho contrastive</td>
+            <td>Cùng cạnh đó cung cấp <b>positive</b>: tài liệu có hai mã anh em thật sự cùng xuất hiện</td>
+            <td><span class="pill p">candidates 0.4</span></td></tr>
+        <tr><td><b>B · Text→Graph</b></td><td>Biểu diễn <b>trung gian</b> của tài liệu — node là span, cạnh là scope/coref</td>
+            <td>Tab 04 gán assertion <i>trên từng entity</i></td>
+            <td>Một cue sinh <b>một cạnh 1→n</b>, nên phủ định trải nhiều concept là cùng một cấu trúc</td>
+            <td><span class="pill p">assertions 0.3</span></td></tr>
+        <tr><td><b>C · Hợp nhất nhãn</b></td><td>Cấu trúc <b>hợp nhất</b> — chồng lấn span là đồ thị, không phải ngưỡng</td>
+            <td>Tab 07 có ma trận phiếu phẳng, khớp cặp bằng IoU ≥ 0,5</td>
+            <td>Chỗ hỏng nằm <b>trước</b> label model: ngưỡng cứng loại phần lớn phiếu span ngắn</td>
+            <td><span class="pill p">text 0.3</span></td></tr>
+        <tr><td><b>D · Đồ thị kiểm chứng</b></td><td>Hàm quyết định <b>nhị phân xác định</b> đọc trên cạnh, chạy sau khi đã chọn mã</td>
+            <td>Tab 02 dùng cạnh làm điểm <i>liên tục</i>; tab 08 xác minh bằng LLM lúc chạy</td>
+            <td>Kiểm chứng bằng <b>truy vấn bảng</b> — bit-identical mỗi lần, điều kiện cần để BTC chạy lại</td>
+            <td><span class="pill p">candidates 0.4</span></td></tr>
+        <tr><td><b>E · Chất lượng &amp; độ phủ</b></td><td>Hệ toạ độ để <b>đo dữ liệu</b> trước khi huấn luyện</td>
+            <td>Tab 07 nêu rủi ro model collapse</td>
+            <td>Đo <b>độ phủ trên cây</b> và <b>co ngót đệ quy</b> bằng số thật của repo</td>
+            <td><span class="pill a">hạ tầng dữ liệu</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">B</span><h2>Sáu phát hiện mới, đo trên repo trong phiên này</h2>
+    <span class="sub">data/test · data/knowledge_base · data/generated_medical_records</span></div>
+
+  <div class="note warn">
+    <span class="lab">Phát hiện 1 — giải quyết được xung đột SCD vs IN của báo cáo cũ</span>
+    Báo cáo trước để mở câu hỏi <b>“target_tty bằng gì?”</b> và gọi đó là hạng mục phải làm rõ
+    trước mọi việc khác. Tra ngược toàn bộ mã thuốc trong 162 file gold trên
+    <code>rrf/RXNCONSO.RRF</code> (SAB=RXNORM) cho câu trả lời dứt khoát:
+    <b>220/220 RxCUI gold đều ở mức <code>IN</code></b> (164 chỉ IN, 41 IN+TMSY, 13 IN+SY, 2 IN+SY+TMSY);
+    không một mã nào ở mức SCD. Ví dụ trong PRD dùng SCD, nhưng <i>gold của đội</i> thì ở mức hoạt chất.
+    Không gian tra thu hẹp từ <b>229.134</b> RxCUI xuống <b>22.132</b> ở mức IN/PIN/MIN — hệ số
+    <b>10,4×</b>.
+  </div>
+
+  <div class="grid g3" style="margin:18px 0">
+    <div class="stat w"><div class="v">12×</div>
+      <div class="k"><b>Phát hiện 2.</b> Thiếu hụt cặp <b>mã anh em</b>: trong các cặp mã CHẨN_ĐOÁN
+      đồng xuất hiện, tỷ lệ cùng mục 3 ký tự là <b>0,93%</b> ở <code>synthetic/</code> (5.691 cặp)
+      so với <b>11,24%</b> ở gold (8.075 cặp). Tài liệu có ≥1 cặp anh em: 24,0% vs <b>85,7%</b>.</div></div>
+    <div class="stat a"><div class="v">54,2%</div>
+      <div class="k"><b>Phát hiện 3.</b> Biến thể ranh giới hợp lý <b>bị ngưỡng IoU ≥ 0,5 loại</b> khỏi
+      phiếu bầu. Span 1 từ mất <b>85,7%</b>, span 2 từ 61,1%, span ≥5 từ chỉ 12,2% — mà
+      <b>64,8%</b> span gold dài ≤ 2 từ.</div></div>
+    <div class="stat g"><div class="v">9–11<span style="font-size:16px;color:var(--ink-faint)">/30</span></div>
+      <div class="k"><b>Phát hiện 4.</b> File có thuốc bị che <code>*****</code> mà một tên hoạt chất
+      <b>lộ rõ và khớp ĐÚNG độ dài</b> một dãy dấu sao (khoảng vì con số phụ thuộc từ điển và cách so
+      khớp biên từ). <b>20/30</b> file có tên lộ ở bất kỳ đâu. <code>len(mask) == len(name)</code> cắt
+      không gian ứng viên, nhưng <b>phải kiểm precision</b>.</div></div>
+  </div>
+
+  <div class="grid g3" style="margin:18px 0">
+    <div class="stat w"><div class="v">63,5%</div>
+      <div class="k"><b>Phát hiện 5.</b> Tỷ lệ chuỗi bề mặt của <code>translated/</code> còn tồn tại
+      trong <code>restyled/</code> (trung vị 68,4%), trên 161 cặp khớp. Mã chẩn đoán duy nhất
+      158→136, RxCUI 288→223. <b>Co ngót đệ quy đã xảy ra</b>, không còn là rủi ro giả định.</div></div>
+    <div class="stat a"><div class="v">15,2%</div>
+      <div class="k"><b>Phát hiện 6.</b> Chỉ <b>225/1.484</b> mục ICD 3 ký tự có ≥2 mã con trong toàn
+      corpus. Gold có <code>K21</code> và <code>K21.9</code> nhưng <b>không có <code>K21.0</code></b>,
+      và 543 file bạc <b>không có mã K21 nào</b> — chính ví dụ mà PRD nêu.</div></div>
+    <div class="stat"><div class="v">14,6%</div>
+      <div class="k"><b>Phát hiện 7.</b> Lượt gán mã thuốc trên corpus bạc nằm ở mức <b>brand</b>
+      (<code>tty=BN</code>, 396/2.712) — lệch quy ước gold. Duyệt cạnh
+      <code>tradename_of</code> sửa được <b>396/396 = 100%</b>.</div></div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Phát hiện 3 nói kỹ hơn: chỗ hỏng của tab 07 nằm <i>trước</i> label model</h3>
+    <p>
+      Tab 07 đề xuất ma trận phiếu mức span: mỗi hàm gán nhãn bỏ phiếu cho một span nếu
+      <b>IoU ≥ 0,5</b>, rồi khử nhiễu bằng FlyingSquid. Điểm yếu mà tab 07 tự nhận là
+      <i>label model giả định các nguồn độc lập có điều kiện</i>. Nhưng đo trên span gold thật thì
+      vấn đề lớn hơn nằm ở bước <b>khớp cặp trước đó</b>:
+    </p>
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Độ dài span gold</th><th class="num">Tỷ lệ trong gold</th><th class="num">Biến thể ranh giới bị IoU 0,5 loại</th><th>Phân bố</th></tr></thead>
+      <tbody>
+        <tr><td>1 từ</td><td class="num">37,8%</td><td class="num"><b>85,7%</b></td><td><div class="bar"><i class="w" style="width:85.7%"></i></div></td></tr>
+        <tr><td>2 từ</td><td class="num">27,0%</td><td class="num">61,1%</td><td><div class="bar"><i class="w" style="width:61.1%"></i></div></td></tr>
+        <tr><td>≥5 từ</td><td class="num">—</td><td class="num">12,2%</td><td><div class="bar"><i style="width:12.2%"></i></div></td></tr>
+        <tr><td><b>Toàn bộ</b></td><td class="num">100%</td><td class="num"><b>54,2%</b></td><td><div class="bar"><i class="a" style="width:54.2%"></i></div></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note warn">
+      Cụ thể: prompt A trả <code>"đau"</code>, prompt B trả <code>"đau ngực trái"</code> → IoU = 0,33 →
+      <b>hai nguồn không bỏ phiếu cho nhau</b>, label model coi đây là hai entity riêng biệt. Vì
+      <code>text_score</code> là WER <i>theo từ</i>, đúng chỗ này là chỗ mất điểm. Ngưỡng cứng đang
+      bịt miệng phiếu bầu ở phần lớn dữ liệu — và không một label model nào sửa được sai sót xảy ra
+      trước khi nó nhìn thấy ma trận phiếu.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Điều chỉnh một khuyến nghị của báo cáo cũ</h3>
+    <p>
+      Tab 03 kết luận: ép cứng “một type và một tập mã cho mỗi chuỗi bề mặt trong mỗi tài liệu”
+      tốn nhiều nhất 0,31% và 0,23%, tức <i>gần như miễn phí</i>. Con số đó đo trên <b>corpus bạc</b>.
+      Đo lại trên <b>gold</b> thì chi phí cao hơn khoảng <b>3×</b>:
+    </p>
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Trường</th><th class="num">Bạc · 543 file</th><th class="num">Gold · 162 file</th><th class="num">Tỷ số</th><th>Kết luận</th></tr></thead>
+      <tbody>
+        <tr><td><code>candidates</code></td><td class="num">0,23%</td><td class="num">0,69%</td><td class="num">3,0×</td><td><span class="pill g">vẫn nên ép</span></td></tr>
+        <tr><td><code>type</code></td><td class="num">0,31%</td><td class="num">0,98%</td><td class="num">3,1×</td><td><span class="pill g">vẫn nên ép</span></td></tr>
+        <tr><td><code>assertions</code></td><td class="num">3,98%</td><td class="num">2,45%</td><td class="num">0,6×</td><td><span class="pill w">tuyệt đối không ép</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note good">
+      <span class="lab">Kết luận vẫn giữ, nhưng biên an toàn hẹp hơn</span>
+      Hướng thì đúng — ép <code>candidates</code> và <code>type</code> vẫn lời, không ép
+      <code>assertions</code>. Nhưng chi phí thật trên gold là <b>0,69%</b> chứ không phải 0,23%, nên
+      đừng gọi nó là “miễn phí”. Và lý do <i>vì sao</i> assertions khác biệt trở nên rõ ràng khi nhìn
+      bằng đồ thị: <code>candidates</code> đến từ cạnh <b>cùng chuỗi bề mặt</b> (phụ thuộc chuỗi), còn
+      <code>assertions</code> đến từ cạnh <b>phạm vi</b> (phụ thuộc vị trí). Hai loại cạnh khác nhau
+      thì hành vi lan truyền khác nhau — điều mà biểu diễn “túi span phẳng” không nói ra được.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">C</span><h2>Thứ tự đề xuất</h2></div>
+  <div class="flow">
+    <div class="st"><div class="t">1 · ~4 ngày</div><b>D1 · Kiểm chứng cạnh</b>chốt tty=IN, sửa mã đã rút, abstain có căn cứ</div>
+    <div class="ar">→</div>
+    <div class="st"><div class="t">2 · ~3 ngày</div><b>C1 · Bỏ ngưỡng IoU</b>hợp nhất trên đồ thị chồng lấn span</div>
+    <div class="ar">→</div>
+    <div class="st"><div class="t">3 · ~5 ngày</div><b>B1 · Scope Graph</b>assertion theo phạm vi, cue 1→n</div>
+    <div class="ar">→</div>
+    <div class="st"><div class="t">4 · ~5 ngày</div><b>A1 · Graph-walk sampler</b>lấp lát cắt mã anh em</div>
+    <div class="ar">→</div>
+    <div class="st"><div class="t">5 · ~3 ngày</div><b>E1 · Thẻ độ phủ</b>đo trước khi sinh thêm</div>
+  </div>
+  <div class="note">
+    Thứ tự này theo <b>tỷ lệ lợi ích trên công sức</b>, không theo độ hấp dẫn khoa học. D1 đi trước vì
+    nó trả lời một câu hỏi đang chặn đường (mức tty) và vì nó không cần nhãn, không cần GPU, chạy trên
+    CPU trong vài mili-giây. E1 đứng cuối trong danh sách nhưng nên <b>làm song song ngay từ đầu</b>:
+    nó là dụng cụ đo, và không đo được thì bốn việc kia không biết mình có tiến bộ hay không.
+  </div>
+</div>
+
+<!-- ═════════════════════ A · KG→TEXT ═════════════════════ -->
+<div class="panel" id="p-gen">
+  <div class="hero">
+    <div class="eyebrow">Nhánh A · Label-by-construction</div>
+    <h1>Chọn <em>nút</em> trước, viết <em>chữ</em> sau.<br>Nhãn khi đó đúng theo cấu tạo.</h1>
+    <p class="lede">
+      Đội đã có mẹo này cho <b>offset</b>: LLM bọc entity trong <code>〔 〕</code>, offset tính đúng thời
+      điểm bóc marker, nên vị trí không thể lệch. Điều chưa khai thác: cùng nguyên tắc đó áp được cho
+      <b>candidates</b>. Nếu ta chọn <i>nút trong đồ thị</i> trước rồi mới render chuỗi bề mặt, thì mã
+      chuẩn cũng đúng theo cấu tạo — kể cả ở đúng mức <code>tty</code>.
+    </p>
+    <div class="pills">
+      <span class="pill p">SynthIE · sinh ngược</span><span class="pill p">MedSyn · KG làm nguồn nội dung</span>
+      <span class="pill p">cycle training</span><span class="pill a">candidates 0.4</span>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">1</span><h2>Luận điểm: LLM giải xuôi kém, sinh ngược tốt</h2></div>
+  <div class="card">
+    <p>
+      <b>KG2T-2 (SynthIE)</b> phát biểu bất đối xứng này sạch nhất: với bài toán đầu ra có cấu trúc, LLM
+      làm nhiệm vụ <i>xuôi</i> (văn bản → cấu trúc) kém, nhưng làm nhiệm vụ <i>ngược</i> (cấu trúc →
+      văn bản) tốt. Vậy thì hãy chọn cấu trúc đích trước, nhờ LLM viết một input hợp lý, và <b>nhãn
+      chính là cấu trúc ta đã chọn</b> — không phải thứ ta phải đi trích xuất lại. Với 1,8 triệu mẫu
+      sinh theo cách này, model 220M–770M vượt SOTA cùng cỡ <b>+57 điểm micro-F1</b> và
+      <b>+79 điểm macro-F1</b>.
+    </p>
+    <div class="flow">
+      <div class="st"><div class="t">bước 1</div><b>Đi cạnh đồ thị</b>chọn tập nút: mã ICD + RxCUI</div>
+      <div class="ar">→</div>
+      <div class="st"><div class="t">bước 2</div><b>Render bề mặt</b>tên chuẩn hoặc tên dân dã, có thể che <code>*****</code></div>
+      <div class="ar">→</div>
+      <div class="st"><div class="t">bước 3</div><b>LLM viết note</b>bọc entity bằng <code>〔 〕</code></div>
+      <div class="ar">→</div>
+      <div class="st"><div class="t">bước 4</div><b>Bóc marker</b>offset + candidates đúng theo cấu tạo</div>
+    </div>
+    <div class="note good">
+      <span class="lab">Vì sao điều này quan trọng với mức tty đang tranh chấp</span>
+      Vì nút được chọn <i>trước</i>, sampler ghi lại cả nút đã chọn và mức <code>tty</code> của nó vào
+      <code>intermediate/</code>. Nếu về sau phải đổi mục tiêu từ IN sang SCD (hoặc ngược lại), việc đó
+      là <b>một lần re-render</b>, không phải sinh lại toàn bộ corpus.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">2</span><h2>Nhưng đừng tin văn bản LLM sinh là trung thực</h2></div>
+  <div class="card">
+    <div class="note warn">
+      <span class="lab">Kết quả âm tính then chốt</span>
+      <b>KG2T-9</b> đo trên Llama 2 / Mistral / Zephyr: văn bản sinh từ dữ liệu có cấu trúc rất trôi
+      chảy, song <b>hơn 80% output chứa ít nhất một lỗi ngữ nghĩa</b> — xác nhận bởi cả người gán và
+      metric không cần reference. <b>KG2T-14</b> nói cùng điều từ phía khác: model không học tuân thủ
+      ràng buộc một cách đáng tin cậy dù được giám sát nhiều.
+    </div>
+    <p>
+      Hệ quả thiết kế là dứt khoát: mọi bảo đảm phải <b>cơ học</b>, không phải “prompt đã yêu cầu”.
+      Cụ thể là một cổng đối chiếu ngược sau khi bóc marker:
+    </p>
+    <ul class="tight">
+      <li>Mọi entity trong bundle phải có <b>đúng một</b> span trong note → bắt <i>omission</i>.</li>
+      <li>Mọi span trong note phải truy về <b>một nút</b> trong bundle → bắt <i>hallucination</i>.</li>
+      <li>Note vi phạm thì loại hoặc sinh lại. Đây là kiểm tra chuỗi, gần như miễn phí.</li>
+      <li>Thêm một tầng NLI hai chiều (<b>KG2T-8</b>) trên bản EN đã căn chỉnh của <code>translated/</code>
+          để bắt lỗi ngữ nghĩa mà đối chiếu chuỗi không thấy — ví dụ note viết “không dùng aspirin” khi
+          bundle không hề có phủ định.</li>
+    </ul>
+  </div>
+
+  <div class="shead"><span class="num">3</span><h2>Đo trên repo: giả thiết ban đầu sai, chỗ hỏng nằm ở tầng khác</h2></div>
+  <div class="card">
+    <p>
+      Giả thiết khi bắt đầu là “bundle lấy theo phân bố biên thì rời rạc về mặt lâm sàng”. Đo lại trên
+      <code>synthetic/intermediate/entity_bundles.jsonl</code> (200 bundle) so với 162 file gold thì
+      giả thiết đó <b>không đúng ở mức chương</b> — và điều này tiết kiệm cho ta vài ngày công:
+    </p>
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Chỉ số trên cặp mã CHẨN_ĐOÁN đồng xuất hiện</th><th class="num">synthetic · 5.691 cặp</th><th class="num">gold · 8.075 cặp</th><th>Đọc thế nào</th></tr></thead>
+      <tbody>
+        <tr><td>Cùng chương ICD</td><td class="num">52,1%</td><td class="num">27,4%</td>
+            <td><span class="pill g">syn tập trung HƠN gold</span> → không phải chỗ hỏng</td></tr>
+        <tr><td>Số chương / tài liệu</td><td class="num">2,94</td><td class="num">3,83</td>
+            <td>gần nhau → không phải chỗ hỏng</td></tr>
+        <tr><td><b>Cùng mục 3 ký tự (mã anh em)</b></td><td class="num"><b>0,93%</b></td><td class="num"><b>11,24%</b></td>
+            <td><span class="pill w">thiếu hụt 12×</span> → đây là chỗ hỏng</td></tr>
+        <tr><td>Tài liệu có ≥1 cặp mã anh em</td><td class="num">24,0%</td><td class="num"><b>85,7%</b></td>
+            <td><span class="pill w">chênh 3,6×</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note warn">
+      <span class="lab">Nguyên nhân cụ thể, đọc được từ dữ liệu</span>
+      Sampler biên thậm chí kéo cả cụm mã chu sinh vào một bundle: <code>synthetic_0000</code> có
+      P05.1, P20, P29.0, P07.2, P35, P26 — sáu mã chu sinh nằm cạnh “Vicoprofen” và
+      “triisopropanolamine”, mà thứ sau là một <b>tá dược</b>, không phải thuốc điều trị. Đây chính là
+      dấu hiệu quan hệ <code>inactive_ingredient_of</code> (1.673.734 cạnh) đang rò rỉ vào dữ liệu.
+    </div>
+    <p>
+      Vì <code>candidates_score</code> là Jaccard <b>khớp tuyệt đối</b>, mã cha 3 ký tự bị tính sai
+      hoàn toàn. Nghĩa là quyết định “K21.0 hay K21.9” là ca khó nhất của cấu phần 0,4 điểm — và
+      corpus bạc hiện <b>gần như không dạy</b> model quyết định đó.
+    </p>
+  </div>
+
+  <div class="shead"><span class="num">4</span><h2>Giải pháp A1 · Graph-walk bundle sampler</h2></div>
+  <div class="card">
+    <pre class="light"><span class="c"># thay sampler phân bố biên bằng bộ đi cạnh</span>
+<span class="k">def</span> sample_bundle():
+    seed  = pick_icd_code()                            <span class="c"># mã hạt giống</span>
+    sibs  = siblings_same_stem(seed, p=P_SIB)          <span class="c"># hiệu chỉnh P_SIB → ~11% cặp anh em</span>
+    comor = same_block(seed, col=<span class="s">'Nhóm bệnh'</span>)         <span class="c"># đồng bệnh cùng khối, nhãn tiếng Việt sẵn có</span>
+    drugs = treats(seed | sibs | comor)
+    drugs|= walk(drugs, [<span class="s">'tradename_of'</span>,          <span class="c"># 118.543 cạnh — brand ↔ hoạt chất</span>
+                         <span class="s">'has_active_moiety'</span>,     <span class="c"># 266.440 cạnh — muối ↔ gốc</span>
+                         <span class="s">'consists_of'</span>])          <span class="c"># 116.818 cạnh — phối hợp ↔ thành phần</span>
+    <span class="c"># KHÔNG BAO GIỜ: inactive_ingredient_of (1.673.734 cạnh) — nguồn của 'triisopropanolamine'</span>
+    <span class="k">assert</span> all(tui(c) != <span class="s">'T200'</span> <span class="k">for</span> c <span class="k">in</span> drugs)      <span class="c"># RXNSTY: loại mức sản phẩm</span>
+    <span class="k">return</span> {<span class="s">'icd'</span>: seed|sibs|comor, <span class="s">'rx'</span>: drugs, <span class="s">'tty'</span>: {c: tty(c) <span class="k">for</span> c <span class="k">in</span> drugs}}</pre>
+    <div class="pc">
+      <div class="pro"><div class="h">✓ Ưu điểm</div><ul>
+        <li>Nhãn <code>candidates</code> <b>đúng theo cấu tạo</b>, ở đúng mức tty đã chọn</li>
+        <li>Tái dùng toàn bộ hạ tầng <code>synthetic/</code> sẵn có — chỉ đổi bộ sampler</li>
+        <li>Sinh chủ động được <b>ca khó</b>: mã anh em, thuốc bị che <code>*****</code>, thuốc phối hợp</li>
+        <li>Đổi mục tiêu SCD ↔ IN chỉ là một lần re-render</li>
+        <li>Cấp <b>positive</b> cho bi-encoder sibling-contrastive ở tab 02 — hai hướng bổ trợ nhau</li>
+      </ul></div>
+      <div class="con"><div class="h">✗ Nhược điểm &amp; rủi ro</div><ul>
+        <li>Note có thể <b>phi lâm sàng</b> nếu walk đi quá xa khỏi mã hạt giống</li>
+        <li>Không chặn được &gt;80% lỗi ngữ nghĩa của LLM (KG2T-9) — phải có cổng đối chiếu</li>
+        <li>Cần nạp <code>RXNREL.RRF</code> 528 MB, lọc <code>inactive_ingredient_of</code> trước</li>
+        <li>Hiệu chỉnh <code>P_SIB</code> là một tham số phải dò trên dev</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Ablation quyết định &amp; tiêu chí bỏ</h3>
+    <p>Giữ nguyên số file sinh và prompt; <b>chỉ đổi sampler</b>. Đo trên 162 file gold:</p>
+    <ul class="tight">
+      <li>Báo <code>candidates_score</code> <b>tách riêng</b> nhóm mã có anh em và nhóm không — trung
+          bình toàn cục sẽ pha loãng đúng thứ ta quan tâm.</li>
+      <li><b>Baseline tầm thường phải vượt:</b> chỉ upsample mã anh em vào bundle biên, không dùng cạnh
+          thuốc. Nếu sampler cạnh không vượt baseline này thì phần đồ thị RxNorm không đáng công.</li>
+      <li><b>Bỏ nếu:</b> (a) <code>candidates_score</code> trên nhóm mã có anh em không tăng ≥2 điểm
+          tuyệt đối, hoặc (b) &gt;30% note bị NLI hai chiều đánh là không trung thực, hoặc (c) người rà
+          đánh &gt;40% note là phi lâm sàng.</li>
+    </ul>
+    <div class="note">
+      <span class="lab">Về mention bề mặt tiếng Việt</span>
+      Đây là <b>paraphrase có ràng buộc</b>, không phải sinh tự do. <b>KG2T-15</b> cho khuôn đặt trước
+      ba mức (tương đồng nghĩa · đa dạng từ vựng · đa dạng cú pháp); <b>KG2T-16</b> (MELM) cho phương án
+      không cần LLM và diệt lệch token–nhãn tận gốc. Cảnh báo thực tế: từ dân dã tiếng Việt cho bệnh là
+      <b>ánh xạ nhiều–một mất thông tin bậc</b> — “đau dạ dày” phủ cả K25–K31 — nên chỉ sinh mention dân
+      dã cho mã mà tên dân dã <i>xác định được</i> mục 3 ký tự; còn lại giữ tên chuẩn trong
+      <code>ICD10.csv</code>.
+    </div>
+    <div class="note good">
+      <span class="lab">Trần kỳ vọng, đặt thấp một cách có căn cứ</span>
+      <b>KG2T-3 (MedSyn)</b>: mã ICD khó/quan trọng tăng tới <b>17,8%</b> nhờ dữ liệu tổng hợp neo trên
+      Medical KG (41k mẫu / 219 mã). <b>KG2T-4 (ClinGen)</b>: <b>+7,7–8,7%</b> trung bình trên 8 tác vụ /
+      18 bộ dữ liệu khi tách hai trục — <i>chủ đề lấy từ KG, văn phong lấy từ LLM</i>. Kiến trúc hai trục
+      đó chính là quan hệ <code>synthetic/</code> (nội dung) với <code>restyled/</code> (thể loại) đang
+      có trong repo; điều repo còn thiếu là trục nội dung chưa đi theo cạnh. Nhưng <b>KG2T-5</b> (EHR
+      tiếng Pháp) và <b>KG2T-6</b> (GPTNERMED tiếng Đức) đều kết luận: dữ liệu tổng hợp <i>giúp</i>
+      nhưng không thay thế dữ liệu thật.
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════ B · TEXT→GRAPH ═════════════════════ -->
+<div class="panel" id="p-dg">
+  <div class="hero">
+    <div class="eyebrow">Nhánh B · Document Scope Graph</div>
+    <h1>Một cue phủ định,<br><em>sáu</em> khái niệm.<br>Đó là một <em>cạnh 1→n</em>, không phải sáu nhãn.</h1>
+    <p class="lede">
+      Tab 04 gán assertion <b>trên từng entity</b> bằng ConText/NegEx hoặc classifier per-entity. Cách đó
+      phải quyết định phạm vi phủ định bằng cửa sổ n token hoặc cắt ở dấu phẩy. Đo trên tập test:
+      <b>46/100 file</b> có danh sách liệt kê ngay sau chữ “không”, và <code>18.txt</code> có
+      <b>một cue phủ sáu khái niệm</b>. Nếu cue là một đỉnh và phạm vi là cạnh, cấu trúc đó không hỏng.
+    </p>
+    <div class="pills">
+      <span class="pill p">scope as graph parsing</span><span class="pill p">SecTag · header bằng luật</span>
+      <span class="pill p">DyGIE++ · cạnh coref</span><span class="pill a">assertions 0.3</span>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">1</span><h2>Lược đồ đồ thị tài liệu</h2></div>
+  <div class="card">
+    <p>
+      Node là <b>span ứng viên</b> có offset chính xác (nhờ token-pointer hoặc marker <code>〔 〕</code>).
+      Năm loại cạnh, mỗi loại có nguồn sinh riêng và sinh ra một phần khác nhau của output:
+    </p>
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Cạnh</th><th>Do ai sinh</th><th>Bằng chứng trên tập test</th><th>Sinh ra gì</th></tr></thead>
+      <tbody>
+        <tr><td><code>SECTION_SCOPE</code><br>mục → span</td><td><span class="pill g">luật</span> từ điển ~40 header</td>
+            <td><b>97/100</b> file có dòng dạng <code>Nhãn:</code>; 504/3.060 dòng là header</td>
+            <td><code>isHistorical</code> theo <b>phạm vi</b></td></tr>
+        <tr><td><code>NEGATION_SCOPE</code><br>cue → n span</td><td><span class="pill g">luật</span> 1→n, cắt ở dấu chấm hoặc cue đảo hướng</td>
+            <td><b>46/100</b> file có liệt kê sau “không”; <b>45,4%</b> entity <code>isNegated</code> chia sẻ cue với entity khác</td>
+            <td><code>isNegated</code></td></tr>
+        <tr><td><code>COREF</code> / <code>SAME_MASK</code><br>mask ↔ tên lộ</td><td><span class="pill p">luật + LLM chọn</span></td>
+            <td>99 dãy <code>*</code> trong 30 file; <b>54/99</b> nằm trong nhóm cùng độ dài; <b>20/30</b> file có tên lộ, <b>9–11/30</b> khớp đúng độ dài</td>
+            <td><code>candidates</code> cho thuốc bị che</td></tr>
+        <tr><td><code>HAS_VALUE</code><br>tên XN → kết quả</td><td><span class="pill g">luật</span> số + đơn vị</td>
+            <td>43–52/100 file có cặp số+đơn vị</td>
+            <td>ranh giới hai span → <code>text</code></td></tr>
+        <tr><td><code>SAME_SURFACE</code><br>span ↔ span</td><td><span class="pill g">luật</span> so chuỗi trong cùng file</td>
+            <td>10,0% nhóm bề mặt lặp lại; xung đột <code>candidates</code> chỉ 0,69%</td>
+            <td>lan truyền <code>candidates</code> + <code>type</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note good">
+      <span class="lab">Vì sao thiết kế này tự động tôn trọng ranh giới cấm của tab 03</span>
+      Tab 03 cảnh báo: ép nhất quán <code>candidates</code> thì lời, ép <code>assertions</code> thì hại
+      gấp ~20×. Trong biểu diễn đồ thị, điều đó <b>tự đúng mà không cần thêm luật</b>:
+      <code>candidates</code> đến từ cạnh <code>SAME_SURFACE</code> (phụ thuộc <i>chuỗi</i>), còn
+      <code>assertions</code> đến từ cạnh <code>*_SCOPE</code> (phụ thuộc <i>vị trí</i>). Hai loại cạnh
+      khác nhau nên không có đường nào để assertion lan truyền qua chuỗi bề mặt.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">2</span><h2>Cạnh phạm vi có tiền lệ, và header không cần LLM</h2></div>
+  <div class="card">
+    <p>
+      <b>T2G-8</b> mô hình hoá giải phạm vi phủ định như <b>phân tích đồ thị</b> — cue là đỉnh, phạm vi
+      là cạnh — thay vì gán nhãn BIO trên token. <b>T2G-9</b> bổ sung mảnh còn thiếu: một phương pháp
+      <i>chuyển tự động</i> nhãn cue–scope thành nhãn assertion trên corpus lâm sàng NUBes. Nghĩa là
+      “gán phạm vi một lần rồi dẫn xuất assertion” là pipeline <b>đã được đo</b>, không phải ý tưởng mới.
+    </p>
+    <div class="note good">
+      <span class="lab">Header lâm sàng: luật đủ tốt, đã có số</span>
+      <b>T2G-10 (SecTag)</b> được 11 bác sĩ đánh giá trên 319 note: nhận diện 16.036 section /
+      7.858 major section, <b>15.329 xác nhận đúng</b>, chỉ <b>160 bị bỏ sót</b> — chỉ bằng luật + từ vựng
+      + chấm Bayes. Không có lý do gì tiêu token LLM cho việc này. Trên tập test, vựng tập header còn nhỏ
+      và lặp lại: <code>lý do nhập viện</code> 44 lần · <code>câu trả lời của bác sĩ</code> 36 ·
+      <code>câu hỏi từ người dùng</code> 35 · <code>thời điểm khởi phát triệu chứng</code> 24 ·
+      <code>kết quả chẩn đoán hình ảnh</code> 13 · <code>thuốc trước khi nhập viện</code> 10. Một từ điển
+      ~40 header phủ gần hết.
+    </div>
+    <p>Cạnh <code>SECTION_SCOPE</code> có tín hiệu thật, đo trên 4.337 entity gold mang assertion:</p>
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Vị trí span</th><th class="num">n</th><th class="num">isHistorical</th><th class="num">isFamily</th><th class="num">không cờ</th></tr></thead>
+      <tbody>
+        <tr><td>Trong mục tiền sử / gia đình</td><td class="num">560</td><td class="num"><b>42,1%</b></td><td class="num">2,7%</td><td class="num">55,2%</td></tr>
+        <tr><td>Nơi khác hoặc không có mục</td><td class="num">3.777</td><td class="num">21,2%</td><td class="num">1,0%</td><td class="num">77,8%</td></tr>
+        <tr><td><b>Hệ số nâng</b></td><td class="num">—</td><td class="num"><b>1,99×</b></td><td class="num">2,7×</td><td class="num">—</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note warn">
+      <span class="lab">Đọc bảng này một cách trung thực</span>
+      Cạnh mục <b>gấp đôi</b> xác suất <code>isHistorical</code> — tín hiệu thật, nhưng <b>không phải
+      tín hiệu đủ</b>: 55,2% span nằm trong mục tiền sử vẫn không mang cờ nào. Điều này khớp chính xác
+      với kết luận của chính tác giả ConText (đã trích ở tab 04): phân biệt <i>historical</i> với
+      <i>recent</i> cần tri thức vượt xa cue bề mặt. Cạnh mục là một <b>đặc trưng mạnh</b>, không phải
+      một luật quyết định.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">3</span><h2>Giải pháp B2 · Khôi phục thuốc bị che bằng ràng buộc độ dài</h2></div>
+  <div class="card">
+    <div class="note acc">
+      <span class="lab">Phát hiện rẻ nhất của cả báo cáo</span>
+      Dãy dấu sao <b>giữ nguyên độ dài</b> của tên bị che. Đối chiếu tên thuốc một từ ở mức
+      IN/PIN/MIN/BN trong <code>RXNCONSO.RRF</code> (~13,0–13,8 nghìn chuỗi, tuỳ bộ lọc) với 30 file có
+      <code>*****</code>: <b>20/30</b> file có ít nhất một tên hoạt chất lộ rõ trong cùng văn bản, và
+      <b>9–11/30</b> file có tên lộ mà <b>độ dài khớp chính xác</b> một dãy sao —
+      <code>100.txt</code>: <code>aspirin</code> = 7 ký tự, file có 2 dãy 7 ký tự;
+      <code>25.txt</code>: <code>cephalexin</code> = 10; <code>30.txt</code>: <code>methadone</code> = 9;
+      <code>4.txt</code>: <code>levothyroxine</code> = 13. <code>len(mask) == len(name)</code> cắt mạnh
+      không gian ứng viên, thường xuống 1–2 mã.
+    </div>
+    <div class="flow">
+      <div class="st"><div class="t">1 · luật</div><b>Node MASK</b>mỗi dãy <code>*</code>, thuộc tính = độ dài</div>
+      <div class="ar">→</div>
+      <div class="st"><div class="t">2 · luật</div><b>SAME_MASK</b>cùng độ dài trong cùng file → phủ 54/99 dãy</div>
+      <div class="ar">→</div>
+      <div class="st"><div class="t">3 · luật</div><b>COREF khớp độ dài</b>tên lộ trong file → 9–11/30 file</div>
+      <div class="ar">→</div>
+      <div class="st"><div class="t">4 · LLM</div><b>Chọn từ ứng viên</b>prompt CÓ BƠM từ điển, không để tự nhớ</div>
+    </div>
+    <div class="note warn">
+      <span class="lab">Hai cạm bẫy đã đo</span>
+      <b>17/30 file có nhiều hơn một độ dài dãy khác nhau</b> ⇒ trong một file thường có ≥2 thuốc khác
+      nhau bị che, <b>không được gộp tất cả</b> vào một mã. Và <b>khớp độ dài sinh dương tính giả</b>:
+      trong các file khớp được, <code>1.txt</code> khớp <code>glucose</code> và <code>18.txt</code> khớp
+      <code>lipase</code> — cả hai là chất/enzyme trong văn bản, <b>không phải</b> thuốc bị che. Vì vậy
+      ràng buộc độ dài chỉ được dùng để <b>cắt danh sách ứng viên</b>, không bao giờ để tự động gán mã;
+      bước 4 (LLM chọn, có bơm từ điển) là bắt buộc, và tiêu chí bỏ dưới đây đo đúng precision đó. Và <b>T2G-16</b> (CRAFT, 4 kiểu prompt, so
+      với SpanBERT) cho biết LLM làm coref y sinh mạnh ở bề mặt và mạnh <b>nhất</b> khi prompt được bơm
+      từ điển entity và viết tắt, còn yếu khi ngữ cảnh xa và mention mơ hồ ⇒ bước 4 <b>phải</b> đưa danh
+      sách ứng viên vào prompt, không bao giờ để LLM tự truy xuất tên thuốc từ trí nhớ.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">4</span><h2>Ba kết luận âm tính</h2></div>
+  <div class="pc">
+    <div class="con"><div class="h">✗ Không huấn luyện span-graph phân biệt</div><ul>
+      <li>DyGIE / DyGIE++ (<b>T2G-6</b>, <b>T2G-7</b>) cần nhãn <b>CẠNH</b></li>
+      <li>162 file gold / 7.435 entity chỉ có nhãn <b>NODE</b></li>
+      <li>Sinh cạnh giả để huấn luyện = đưa nhiễu vào chỗ tốn 6–10 ngày-người + GPU</li>
+      <li>Giữ lại từ T2G-7 chỉ một điều: ablation của họ cho thấy embedding ngữ cảnh <i>đủ</i> cho quan hệ
+          cùng câu, nhưng quan hệ <b>xuyên câu xa</b> cần cập nhật đồ thị span động — đó là biện minh
+          cho cạnh COREF của ca <code>*****</code></li>
+    </ul></div>
+    <div class="con"><div class="h">✗ Không tách pha, không gộp pha</div><ul>
+      <li><b>T2G-13</b>: ép sinh theo format chuẩn làm <b>giảm rõ</b> năng lực suy luận, càng ngặt càng tệ</li>
+      <li>⇒ không gộp “suy luận phạm vi” và “serialize đồ thị” vào một lượt gọi có grammar chặt</li>
+      <li>Cảnh báo này <b>chưa có</b> ở tab 08, nơi đề xuất grammar chép-bắt-buộc</li>
+      <li><b>T2G-5 (GraphRAG)</b>: node là entity đã chuẩn hoá mức <i>corpus</i>, <b>không giữ offset ký
+          tự</b> ⇒ vô dụng cho output cần <code>position</code>. Chỉ giữ ý niệm, không giữ code</li>
+    </ul></div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Ablation quyết định cho B1 (Scope Graph)</h3>
+    <p>Bốn nhánh luỹ tiến, đo <code>assertions_score</code> trên 4.337 entity mang assertion của 162 file gold:</p>
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Nhánh</th><th>Mô tả</th><th>Kiểm soát điều gì</th></tr></thead>
+      <tbody>
+        <tr><td><b>a</b></td><td>Luôn trả rỗng</td><td>baseline tuyệt đối — E[Jaccard] ≈ <b>0,507</b> trên phân bố gold</td></tr>
+        <tr><td><b>b</b></td><td>ConText / NegEx mức câu</td><td>mốc phải vượt — đây là chuẩn mực đã có ở tab 04. <b>T2G-11</b> chỉ ra hệ luật tốn công tạo pattern và <b>bỏ sót loại assertion ít gặp</b>, khớp với <code>isFamily</code> 1,1% của ta</td></tr>
+        <tr><td><b>c</b></td><td>Scope graph, cạnh 1→n</td><td>giả thuyết trung tâm của nhánh này</td></tr>
+        <tr><td><b>d</b></td><td>c + LLM phán xử ca xung đột</td><td>giá trị của việc leo thang, cô lập</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note">
+      <b>Tiêu chí bỏ:</b> nếu (c) không vượt (b) ít nhất <b>3 điểm Jaccard tuyệt đối</b> thì cạnh phạm vi
+      không đáng độ phức tạp — quay về ConText của tab 04 và chuyển ngân sách sang nhánh D.
+      Vì assertions là khoảng trống lớn nhất của dự án (báo cáo cũ ước lượng <b>12,9 điểm</b> đang bỏ
+      trên bàn), đây là ablation có đòn bẩy cao nhất trong cả tài liệu này.
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════ C · HỢP NHẤT NHÃN ═════════════════════ -->
+<div class="panel" id="p-agg">
+  <div class="hero">
+    <div class="eyebrow">Nhánh C · Graph-structured label aggregation</div>
+    <h1>Sửa <em>ngưỡng IoU</em> đáng giá gấp <em>mười lần</em><br>sửa label model.</h1>
+    <p class="lede">
+      Tab 07 lo đúng chỗ nhưng chưa lo đủ sâu. Nó tự nhận rủi ro “label model giả định các nguồn độc lập
+      có điều kiện, mà nhiều prompt cùng họ model vi phạm nặng”. Mô phỏng ở đúng quy mô 5 nguồn cho thấy
+      rủi ro đó <b>là thật nhưng nhỏ</b>, còn một chỗ hỏng <b>lớn hơn nhiều</b> nằm ở bước trước nó:
+      ngưỡng khớp cặp <code>IoU ≥ 0,5</code>.
+    </p>
+    <div class="pills">
+      <span class="pill p">Leiden · community detection</span><span class="pill p">Dawid–Skene có pooling</span>
+      <span class="pill p">CAPA · tương quan lỗi</span><span class="pill a">text 0.3</span>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">1</span><h2>Định lượng: hai chỗ hỏng, hai bậc độ lớn</h2></div>
+  <div class="card">
+    <p>
+      Dựng lại tình huống của tab 07 — 5 nguồn = 3 prompt họ A + 2 prompt họ B, độ chính xác 0,78/0,72,
+      5 lớp, 4.000 item; ρ là xác suất một prompt cùng họ lặp lại <b>đúng</b> nhãn sai của prompt kia;
+      trung bình 12 lần chạy:
+    </p>
+    <div class="tscroll">
+    <table>
+      <thead><tr><th class="num">ρ</th><th class="num">Majority vote</th><th class="num">DS giả định độc lập</th><th class="num">DS nhận thức phụ thuộc</th><th>Đọc</th></tr></thead>
+      <tbody>
+        <tr><td class="num">0,4</td><td class="num">0,922</td><td class="num">0,920</td><td class="num">0,923</td><td>ba cái như nhau</td></tr>
+        <tr><td class="num">0,7</td><td class="num">0,860</td><td class="num">0,851</td><td class="num">0,860</td><td>label model bắt đầu thua MV</td></tr>
+        <tr><td class="num">0,9</td><td class="num"><b>0,810</b></td><td class="num"><b>0,787</b></td><td class="num">0,794</td><td><span class="pill w">DS-độc-lập TỆ HƠN MV 2,3 điểm</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note good">
+      <span class="lab">Cách chữa đúng không phải cái ta nghĩ</span>
+      Mô hình hoá phụ thuộc chỉ lấy lại <b>+0,7 đến +0,9 điểm</b> và vẫn không vượt majority vote. Nhưng
+      giữ nguyên ρ = 0,7 mà đổi sang <b>5 họ model khác nhau</b> thì majority vote nhảy từ 0,860 lên
+      <b>0,953</b>. Nghĩa là <b>một ngày-người tìm thêm một họ model đáng hơn ba ngày-người mô hình hoá
+      cấu trúc phụ thuộc</b>. Văn liệu cũng đồng thuận: <b>AGG-8</b> báo mức vượt lớn nhất là +4,64 F1,
+      nhưng bản gốc cùng ý tưởng <b>AGG-7</b> chỉ +1,5 F1 trung bình — và giá trị chính của AGG-7 là
+      <i>rẻ</i> (nhanh hơn 100×), không phải <i>chính xác hơn</i>.
+    </div>
+    <div class="note warn">
+      <span class="lab">Nhưng đa dạng hoá phải ĐO, không phải giả định</span>
+      <b>AGG-13</b>: lỗi của các model ngày càng <b>giống nhau</b> khi năng lực tăng. Nên chỉ số cần báo
+      cho mỗi cặp nguồn là <b>CAPA</b> — agreement trùng-lỗi đã hiệu chỉnh cho ngẫu nhiên. Nếu CAPA trung
+      bình cặp của mọi ứng viên đều &gt; 0,8 thì không có đa dạng để khai thác: dừng và báo kết quả âm tính.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">2</span><h2>Giải pháp C1 · Đồ thị chồng lấn span thay ngưỡng cứng</h2></div>
+  <div class="card">
+    <div class="flow">
+      <div class="st"><div class="t">1</div><b>Node</b>= (nguồn, span) — mọi span do bất kỳ nguồn đề xuất</div>
+      <div class="ar">→</div>
+      <div class="st"><div class="t">2</div><b>Cạnh</b>= IoU token <b>liên tục</b>, không ngưỡng, nhân trọng số nguồn</div>
+      <div class="ar">→</div>
+      <div class="st"><div class="t">3</div><b>Leiden</b>mỗi community = một entity</div>
+      <div class="ar">→</div>
+      <div class="st"><div class="t">4</div><b>Ranh giới</b>đoạn token liên tục cực đại tổng phiếu</div>
+      <div class="ar">→</div>
+      <div class="st"><div class="t">5</div><b>Lan truyền</b>type + mã qua cạnh cùng bề mặt</div>
+    </div>
+    <div class="note warn">
+      <span class="lab">Hai chi tiết triển khai không được sai</span>
+      <b>Dùng Leiden, không dùng Louvain</b> (<b>AGG-16</b>): Louvain có thể sinh community <i>rời rạc nội
+      bộ</i>, tức trộn hai entity không liên thông thành một — Leiden đảm bảo community liên thông.
+      Và ràng buộc cứng <b>không span lồng nhau</b>: hợp lệ vì đo được <b>0/7.435</b> span gold lồng nhau,
+      gold là một phân hoạch phẳng.
+    </div>
+    <div class="pc">
+      <div class="pro"><div class="h">✓ Ưu điểm</div><ul>
+        <li>Xoá bỏ tham số ngưỡng — chỗ đang loại <b>54,2%</b> biến thể ranh giới</li>
+        <li>Xử lý được đúng nơi dữ liệu tập trung: span ≤ 2 từ chiếm <b>64,8%</b></li>
+        <li>Ranh giới là <b>kết quả suy luận</b>, không phải hệ quả của một ngưỡng chọn tay</li>
+        <li>Cắm được vào <code>scripts/annotation_qa/make_packets.py</code> đang có, xuất packet kèm
+            <b>độ bất định mức token</b> để người rà chỉ đọc chỗ mô hình lưỡng lự</li>
+        <li>Không cần gold để chạy; 162 file gold chỉ dùng để <b>kiểm chứng</b></li>
+      </ul></div>
+      <div class="con"><div class="h">✗ Nhược điểm &amp; rủi ro</div><ul>
+        <li>Phải chọn tham số <i>resolution</i> của Leiden — đổi một tham số lấy một tham số</li>
+        <li>Cần token hoá thống nhất giữa các nguồn</li>
+        <li>Trần lợi ích có hạn: thay label model bằng mô hình đồ thị chặt hơn (CHMM,
+            Neural-Hidden-CRF) chỉ được <b>~2–3 F1</b> (<b>AGG-12</b>) và cần GPU</li>
+        <li><b>AGG-6</b>: khảo sát lại 17 thuật toán suy luận chân trị trên 5 tập thật — chúng
+            <b>không ổn định</b> giữa các tập và <b>không có cái nào thắng nhất quán</b></li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Ablation quyết định &amp; trần đầu tư</h3>
+    <p>Bốn hệ, cùng bộ nguồn, đo trên 162 file gold bằng <code>src/smart_medic/scoring.py</code> — không dùng F1:</p>
+    <ul class="tight">
+      <li><b>(i)</b> MV mức span, <code>IoU ≥ 0,5</code> — <i>hiện trạng theo tab 07</i></li>
+      <li><b>(ii)</b> MV mức token, không ngưỡng — <b>baseline tầm thường phải vượt</b></li>
+      <li><b>(iii)</b> Leiden + phiếu token có trọng số</li>
+      <li><b>(iv)</b> (iii) + lan truyền cùng bề mặt</li>
+    </ul>
+    <p>Báo <code>final</code> <b>và</b> riêng <code>text_score</code>, kèm bootstrap ghép cặp theo file.</p>
+    <div class="note">
+      <b>Tiêu chí bỏ:</b> nếu (iii) không hơn (ii) ít nhất <b>+0,010 text_score</b> với khoảng tin cậy
+      bootstrap không chứa 0, thì bỏ toàn bộ nhánh trọng số/label model và <b>chỉ giữ bước bỏ ngưỡng
+      IoU</b> — bước đó rẻ, độc lập, và có lý do đo được để làm.
+    </div>
+    <div class="note acc">
+      <span class="lab">Trần đầu tư: biết khi nào nên dừng</span>
+      <b>AGG-15</b> đo agreement giữa <b>người</b> ở mức <b>88,4 F1</b>; BERT/Llama3 tinh chỉnh đạt
+      88,0–88,2 — <b>ngang trần người</b> — còn GPT-4 in-context <b>kém nhất</b> ở cả hai nhiệm vụ.
+      <b>AGG-14</b> trên MTSamples (chính là nguồn của
+      <code>data/external/en_notes/mtsamples_filtered.jsonl</code>): relaxed F1 0,634 GPT-3.5 / 0,804
+      GPT-4 với prompt cơ sở, lên 0,794 / 0,861 khi đủ 4 thành phần prompt — <b>vẫn dưới</b>
+      BioClinicalBERT 0,901. Hai kết quả này nói cùng một điều: encoder tinh chỉnh vẫn thắng LLM
+      in-context ở trích xuất span, và trần chất lượng nằm quanh mức agreement giữa người.
+    </div>
+    <div class="note warn">
+      <span class="lab">Ngân sách neo bằng gold: chắc ở toàn cục, mỏng ở từng type</span>
+      Với 7.435 entity, sai số chuẩn khi đo độ chính xác một nguồn ở mức 0,8 là <b>±0,46 điểm phần trăm</b>
+      (CI95 ±0,91) — rất chắc. Nhưng cắt theo type thì mỏng: CHẨN_ĐOÁN 1.536 entity → CI95 <b>±2,00</b>;
+      THUỐC 952 entity → CI95 <b>±2,54</b>. Nghĩa là <b>không đủ để phân biệt hai nguồn chênh dưới
+      2,5 điểm trên riêng nhánh THUỐC</b> — đúng chỗ có xung đột mức tty. Theo <b>AGG-2</b>, ở chế độ ít
+      nguồn phải dùng mô hình có <b>pooling tham số</b>, đừng cho mỗi nguồn một ma trận nhầm lẫn K×K tự do.
+    </div>
+  </div>
+
+  <div class="note good">
+    <span class="lab">Nhánh này cố tình KHÔNG nhắm assertions</span>
+    Mức không nhất quán nội tài liệu của <code>assertions</code> (2,45% trên gold, 3,98% trên bạc) cho
+    thấy assertion phụ thuộc <b>vị trí và mục</b>, nên nó phải được giải bằng cạnh phạm vi (nhánh B) hoặc
+    classifier ngữ cảnh (tab 04) — không phải bằng hợp nhất phiếu bầu giữa các nguồn.
+  </div>
+</div>
+
+<!-- ═════════════════════ D · KIỂM CHỨNG ═════════════════════ -->
+<div class="panel" id="p-ver">
+  <div class="hero">
+    <div class="eyebrow">Nhánh D · Graph-grounded verification</div>
+    <h1>Đồ thị làm <em>hàm quyết định nhị phân</em>,<br>chạy <em>sau</em> khi mã đã được chọn.</h1>
+    <p class="lede">
+      Tab 02 dùng cạnh làm <b>điểm liên tục</b> trước khi chọn. Tab 08 xác minh bằng <b>LLM lúc chạy</b> —
+      mà temperature 0 không cho tính xác định. Vùng trống là một tầng <b>hậu kiểm xác định</b>: mọi mã do
+      bất kỳ thành phần nào đề xuất phải thoả một tập ràng buộc đọc trực tiếp từ
+      <code>RXNCONSO</code>/<code>RXNREL</code>/<code>RXNSTY</code>/<code>RXNCUI</code> và cây ICD-10.
+      Vi phạm thì <b>sửa xác định</b> nếu có đường sửa, ngược lại <b>abstain</b>.
+    </p>
+    <div class="pills">
+      <span class="pill p">6 luật · 6 bit vi phạm</span><span class="pill p">MERGED_TO_RXCUI</span>
+      <span class="pill p">semantic type filter</span><span class="pill g">bit-identical mỗi lần chạy</span>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">1</span><h2>Vì sao tầng này đáng làm: LLM sinh mã sai rất nhiều</h2></div>
+  <div class="card">
+    <div class="note warn">
+      <span class="lab">Số đo trên dữ liệu EHR thật</span>
+      <b>VER-12</b> (NEJM AI) trên 7.697 mã ICD-9-CM / 15.950 ICD-10-CM / 3.673 CPT trích từ EHR:
+      GPT-4 tốt nhất chỉ đạt exact match <b>45,9% / 33,9% / 49,8%</b> — <b>mọi mô hình dưới 50%</b>.
+      Quan trọng hơn cho ta: GPT-3.5 sinh nhiều mã <b>“đúng nhưng tổng quát hơn”</b> nhất —
+      <b>29,9%</b> ICD-9-CM và <b>18,5%</b> ICD-10-CM.
+    </div>
+    <p>
+      Dưới Jaccard <b>khớp tuyệt đối</b>, những mã “tổng quát hơn nhưng đúng” đó được <b>0 điểm</b> y như
+      mã bịa — và còn <b>bị phạt như mã thừa</b>. Đây là chỗ ngược với khuyến nghị thường gặp “lùi lên mã
+      cha khi lưỡng lự”: tab 09 đề xuất LCA-F làm chỉ số chẩn đoán để thấy “trượt gần”, nhưng khi <i>nộp
+      bài</i> thì mã cha đáng bị <b>loại</b>, không đáng được giữ.
+    </p>
+    <div class="note good">
+      <span class="lab">Và vi phạm là tín hiệu tác động được, không chỉ để chẩn đoán</span>
+      <b>VER-11 (KG-Guard)</b>: F1 phát hiện hallucination 82,0 / 87,4 / 84,3, và khi đưa nút bị gắn cờ
+      <b>ngược lại</b> hệ thống trả lời thì được <b>+13,0–14,5 F1</b> và <b>+16,9–17,6 EM</b>, với số tham
+      số ít hơn ~305×. Cùng chiều, <b>VER-14 (MedType)</b>: chèn module dự đoán semantic type để cắt ứng
+      viên sai loại cải thiện entity linking y sinh trên <b>cả 5 toolkit và cả 4 benchmark</b>, thường vài
+      điểm phần trăm F1 — chính là cơ chế ràng buộc <code>RXNSTY</code> ở luật 3 dưới đây.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">2</span><h2>Sáu luật, mỗi luật đã đo trên 162 file gold</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Luật</th><th>Đo trên gold</th><th>Hành động khi vi phạm</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td><b>Tồn tại</b> trong KB</td>
+            <td><b>0/220</b> RxCUI thiếu trong <code>RXNCONSO.RRF</code>; <b>0/323</b> mã ICD thiếu trong <code>ICD10.csv</code></td>
+            <td><span class="pill g">remap → X</span> qua <code>MERGED_TO_RXCUI</code></td></tr>
+        <tr><td class="num">2</td><td><b>Đúng mức tty</b></td>
+            <td><b>220/220</b> RxCUI gold ở mức <code>IN</code>; không gian thu hẹp 229.134 → <b>22.132</b> (10,4×)</td>
+            <td><span class="pill g">lift → IN</span> qua <code>has_active_ingredient</code></td></tr>
+        <tr><td class="num">3</td><td><b>Semantic type</b> hợp lệ</td>
+            <td><b>218/220</b> (99,1%) có T109 hoặc T121 — hai ngoại lệ quan trọng, xem dưới</td>
+            <td><span class="pill w">drop</span> nếu là T200 (mức sản phẩm)</td></tr>
+        <tr><td class="num">4</td><td><b>Hoạt chất khớp</b> chuỗi bề mặt</td>
+            <td>đối chiếu qua <code>has_active_ingredient</code> 288.367 cạnh</td>
+            <td><span class="pill w">abstain</span></td></tr>
+        <tr><td class="num">5</td><td><b>Chương ICD</b> tương thích ngữ cảnh</td>
+            <td>302 nhãn <code>Nhóm bệnh</code> tiếng Việt phủ 13.189 mã; chương O có 501 mã</td>
+            <td><span class="pill w">abstain</span></td></tr>
+        <tr><td class="num">6</td><td><b>Thuốc phối hợp</b> đủ thành phần</td>
+            <td>80 entity THUỐC có 2 mã, 2 entity có 3 mã ⇒ <b>8,6%</b> mang &gt;1 mã ⇒ gold trả <b>các thành phần</b></td>
+            <td><span class="pill g">bổ sung thành phần</span> qua <code>consists_of</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note warn">
+      <span class="lab">Luật T109/T121 như báo cáo cũ nêu sẽ loại SAI hai thuốc thật</span>
+      Hai ngoại lệ trong 220 RxCUI gold là <b>9863 sodium chloride</b> (chỉ có T197) và
+      <b>11124 vancomycin</b> (T116, T195). Nếu cài <code>RXNSTY</code> làm <b>whitelist</b> T109/T121 như
+      gợi ý ở tab 02, ta mất chính hai mã đó (−0,9% recall thuốc). Luật đúng là dùng
+      <code>RXNSTY</code> để <b>loại T200</b> (Clinical Drug, 249.563 dòng — mức sản phẩm), <b>không</b>
+      để lọc trắng.
+    </div>
+    <div class="note good">
+      <span class="lab">Phát hiện 2 của báo cáo cũ nay có đường sửa xác định</span>
+      Báo cáo trước ghi: mã <code>360047</code> mà PRD gán cho “Chlorpheniramine 0.4 MG/ML” <b>không tồn
+      tại</b> trong bản RxNorm hiện có, chỉ xuất hiện trong <code>RXNATOMARCHIVE.RRF</code>. Cột
+      <code>MERGED_TO_RXCUI</code> của chính bảng đó cho biết nó đã được gộp vào <b>2178097</b> — một mã
+      <b>tồn tại</b> trong <code>RXNCONSO</code> với cùng tty=SCD và cùng chuỗi bề mặt. Bảng có
+      <b>373.484</b> dòng <code>MERGED_TO_RXCUI</code> khác rỗng và <b>104.399</b> RxCUI chỉ có ở archive;
+      thêm <code>RXNCUI.RRF</code> (30.269 dòng, <b>22.330</b> dòng cui-vào ≠ cui-ra) làm bảng remap thứ hai.
+      ⇒ Vi phạm “không tồn tại” phải được <b>sửa</b> trước, chỉ abstain khi không có đích gộp.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">3</span><h2>Abstain là một lớp tường minh, không phải một ngưỡng cắt</h2></div>
+  <div class="card">
+    <p>
+      <b>VER-16</b> cho thấy sự có mặt của cả hai loại NIL (<i>Missing Entity</i> và <i>Non-Entity
+      Phrase</i>) trong dữ liệu huấn luyện ảnh hưởng đáng kể tới độ chính xác dự đoán NIL. Trên repo,
+      abstain <b>là hành vi có thật trong gold</b>, không phải một quy ước ta tự đặt ra:
+    </p>
+    <div class="grid g3" style="margin:16px 0">
+      <div class="stat"><div class="v">5,2%</div><div class="k">entity <b>CHẨN_ĐOÁN</b> gold có
+        <code>candidates</code> rỗng (80/1.536)</div></div>
+      <div class="stat"><div class="v">5,9%</div><div class="k">entity <b>THUỐC</b> gold có
+        <code>candidates</code> rỗng (56/952)</div></div>
+      <div class="stat a"><div class="v">12%</div><div class="k"><b>Ngưỡng dừng:</b> nếu tỷ lệ abstain của
+        hệ vượt mức này — gấp đôi mức gold — thì bộ luật <b>quá chặt</b>, phải nới</div></div>
+    </div>
+    <div class="note">
+      Vì Jaccard phạt mã thừa <b>đúng bằng</b> mã thiếu, abstain có giá trị đo được: trả rỗng cho một
+      mention không xác định được là <b>0 điểm</b>, nhưng trả một mã sai cũng là <b>0 điểm</b> và còn kéo
+      Jaccard của cả tập mã xuống nếu gold có nhiều mã. Bộ kiểm chứng cấp cho khung
+      expected-Jaccard của tab 01 một <b>đặc trưng nhị phân cứng</b> mà tab 01 hiện chưa có.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">4</span><h2>Hai kết luận âm tính dứt khoát</h2></div>
+  <div class="pc">
+    <div class="con"><div class="h">✗ Bỏ GraphRAG</div><ul>
+      <li><b>VER-2</b>: GraphRAG <b>thường kém hơn</b> vanilla RAG trên nhiều tác vụ thực</li>
+      <li><b>VER-3</b>: sau khi loại hai lỗi đánh giá, mức tăng của 3 phương pháp tiêu biểu “ôn hoà hơn
+          nhiều so với báo cáo trước”</li>
+      <li><b>VER-4</b> (2026): agentic search thu hẹp khoảng cách; GraphRAG chỉ còn lợi thế ở suy luận
+          đa bước phức tạp</li>
+      <li>Truy vấn của smart-medic <b>hoàn toàn cục bộ</b>: một mention → một mã. Không có câu hỏi toàn cục
+          nào cần community summary. Chi phí index bằng LLM còn là rủi ro tái lập</li>
+    </ul></div>
+    <div class="con"><div class="h">✗ Không ép ràng buộc lúc sinh cho nhánh assertions</div><ul>
+      <li><b>VER-10</b>: với input-dependent grammar, LLM bị ràng buộc <b>vượt trội</b> LLM không ràng buộc
+          — có khi hơn cả model fine-tune riêng (đã có ở tab 08 dưới mã AGT-15)</li>
+      <li>Nhưng <b>VER-9</b>: ép định dạng làm <b>suy giảm đáng kể</b> năng lực suy luận, càng ngặt càng tệ</li>
+      <li><b>VER-8</b>: lệch từ vựng <b>subword</b> làm giảm độ chính xác; căn đúng (DOMINO) thì gần như
+          không overhead, có ca nhanh ~2×</li>
+      <li>⇒ Ép ở nhánh <b>candidates</b> (không gian hữu hạn, liệt kê được). <b>Không</b> ép ở nhánh
+          <b>assertions</b> (cần suy luận)</li>
+      <li>Cũng bỏ bộ phân loại vi phạm <i>học được</i> kiểu KG-Guard: cần nhãn đúng/sai ở mức nút, ta chỉ
+          có 162 file gold ⇒ rủi ro overfit cao hơn lợi ích so với bộ luật xác định 3–5 ngày-người</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- ═════════════════════ E · CHẤT LƯỢNG ═════════════════════ -->
+<div class="panel" id="p-qua">
+  <div class="hero">
+    <div class="eyebrow">Nhánh E · Độ phủ đo trên đồ thị ontology</div>
+    <h1>Co ngót đệ quy <em>đã xảy ra</em>.<br>Đây là số đo, không phải cảnh báo.</h1>
+    <p class="lede">
+      Tab 07 nêu rủi ro model collapse cho kho <code>restyled/</code> — được sinh từ
+      <code>translated/</code>, tức hai thế hệ tổng hợp. Nhánh này đo xem điều đó <b>đã xảy ra chưa</b>,
+      và câu trả lời là <b>rồi</b>: trên 161 cặp khớp được theo tên gốc, chỉ <b>63,5%</b> chuỗi bề mặt của
+      bản dịch còn tồn tại trong bản restyled.
+    </p>
+    <div class="pills">
+      <span class="pill p">accumulate ≠ replace</span><span class="pill p">DSIR · chọn tập con</span>
+      <span class="pill p">Vendi score</span><span class="pill a">hạ tầng dữ liệu</span>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">1</span><h2>Bằng chứng co ngót, đo trên 161 cặp</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Chỉ số</th><th class="num">translated/</th><th class="num">restyled/</th><th class="num">Mất</th><th class="num">Thêm</th></tr></thead>
+      <tbody>
+        <tr><td>Mã chẩn đoán duy nhất</td><td class="num">158</td><td class="num">136</td><td class="num"><b>27</b></td><td class="num">5</td></tr>
+        <tr><td>RxCUI duy nhất</td><td class="num">288</td><td class="num">223</td><td class="num"><b>117</b></td><td class="num">52</td></tr>
+        <tr><td>Mật độ entity / file</td><td class="num">36,98</td><td class="num">32,10</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><td>Lượt entity biến mất</td><td class="num" colspan="2">842 / 5.980</td><td class="num" colspan="2"><b>14,1%</b></td></tr>
+        <tr><td>Retention chuỗi bề mặt</td><td class="num" colspan="2">trung bình <b>63,5%</b> · trung vị 68,4%</td><td class="num" colspan="2">—</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note warn">
+      <span class="lab">Co ngót không đối xứng — nghiêng về phía thuốc</span>
+      Mất <b>40,6%</b> RxCUI so với chỉ <b>17,1%</b> mã chẩn đoán. Đây đúng là hiện tượng mà
+      <b>QUA-4</b> mô tả (collapse như thay đổi luật tỷ lệ kèm “un-learning” kỹ năng, cơ chế là
+      <b>đuôi bị cắt</b>) và <b>QUA-8</b> (ACL 2026) áp cho công nghệ dịch: vòng tự tiêu làm mất dạng thức
+      ngôn ngữ và sắc thái <b>xác suất thấp</b> — đúng chuỗi
+      <code>mtsamples EN → translated VI → restyled</code> của repo.
+    </div>
+    <div class="note good">
+      <span class="lab">Nhưng collapse tránh được, có điều kiện</span>
+      <b>QUA-1</b> pretraining chuỗi LM và cho thấy: <b>THAY THẾ</b> dữ liệu thật bằng synthetic mỗi thế hệ
+      thì suy thoái, còn <b>TÍCH LUỸ</b> synthetic bên cạnh dữ liệu gốc thì test loss <b>không phân kỳ</b> —
+      giữ nguyên qua nhiều kích cỡ và kiến trúc. <b>QUA-2</b> tái lập kết luận này trên ba workflow và ba
+      lớp bài toán, gồm cả fine-tuning. Quy tắc cứng suy ra: <b><code>restyled/</code> chỉ được dùng CÙNG
+      <code>translated/</code>, không bao giờ thay thế; và thế hệ ba (restyle của restyle) bị cấm.</b>
+    </div>
+    <div class="note warn">
+      <span class="lab">Đừng trích một con số ngưỡng — nó không tồn tại</span>
+      <b>QUA-3</b> nói rõ điều kiện ổn định: mô hình khởi đầu phải xấp xỉ phân phối đủ tốt <b>và</b> tỷ trọng
+      dữ liệu sạch phải đủ lớn. Ba bài QUA-1/2/3 <b>không</b> đưa ra ngưỡng phần trăm phổ quát — ngưỡng là
+      một hàm của khoảng cách xấp xỉ ban đầu. Cách dùng được duy nhất là chạy ablation tỷ lệ trên chính
+      corpus của mình. Và “loss không phân kỳ” <b>không</b> là chứng nhận vô hại: <b>QUA-16</b> cho thấy
+      thiên lệch bị khuếch đại <b>đơn điệu</b> và tồn tại NGAY CẢ KHI collapse đã bị kiểm soát bằng
+      Overfitting/Preservation/Accumulation. <b>QUA-5</b> còn cực hơn: trong hồi quy có giám sát, chỉ
+      <b>1%</b> dữ liệu synthetic đã đủ làm mất scaling, và model lớn hơn <b>khuếch đại</b> hiệu ứng.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">2</span><h2>Độ phủ trên cây ICD và đồ thị RxNorm</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Mức</th><th class="num">Gold · 162 file</th><th class="num">Bạc · 543 file</th><th class="num">Hợp nhất</th><th class="num">Tổng KB</th><th>Phân bố hợp nhất</th></tr></thead>
+      <tbody>
+        <tr><td>Chương ICD</td><td class="num">20</td><td class="num">22</td><td class="num">22</td><td class="num">22</td><td><div class="bar"><i class="g" style="width:100%"></i></div></td></tr>
+        <tr><td>Khối (<code>Nhóm bệnh</code>)</td><td class="num">141</td><td class="num">197</td><td class="num">219</td><td class="num">302</td><td><div class="bar"><i style="width:72.5%"></i></div></td></tr>
+        <tr><td>Mục 3 ký tự</td><td class="num">237</td><td class="num">529</td><td class="num">628</td><td class="num">2.053</td><td><div class="bar"><i class="a" style="width:30.6%"></i></div></td></tr>
+        <tr><td>Mã ICD lá</td><td class="num">323</td><td class="num">900</td><td class="num">1.113</td><td class="num">13.189</td><td><div class="bar"><i class="w" style="width:8.44%"></i></div></td></tr>
+        <tr><td>RxCUI mức IN/PIN/MIN</td><td class="num">220</td><td class="num">596</td><td class="num">611</td><td class="num">22.132</td><td><div class="bar"><i class="w" style="width:2.76%"></i></div></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note">
+      <span class="lab">Nhưng đừng đọc bảng này thành “phải lấp hết vùng trắng”</span>
+      <b>QUA-15</b> đã thử đúng việc đó: sinh <b>90.000</b> giấy xuất viện tổng hợp neo trên mã ICD hiếm
+      (dùng đồng xuất hiện thực + mô tả + từ đồng nghĩa + taxonomy), phủ <b>7.902</b> mã, rồi fine-tune
+      PLM-ICD và GKI-ICD. Kết quả: macro-F1 tăng <b>khiêm tốn</b>, micro-F1 <b>giữ nguyên</b>, và chính tác
+      giả nhận lợi ích nhỏ so với chi phí. Ở quy mô 543 tài liệu / 100 file test thì việc lấp toàn bộ đuôi
+      <b>không hoàn vốn</b>.
+    </div>
+    <div class="note warn">
+      <span class="lab">Chỗ đáng nhắm là một lát cắt hẹp, không phải cả cái đuôi</span>
+      Đếm số mục ICD 3 ký tự mà corpus có ≥2 mã thập phân khác nhau — tức có ca <b>buộc phân biệt</b>:
+      hợp bạc+gold <b>225/1.484 = 15,2%</b>; riêng gold 47 = 3,2%; <code>synthetic/</code> 157 = 10,6%;
+      <code>translated/</code> chỉ 14 = <b>0,94%</b>; <code>restyled/</code> 12 = 0,81%. Và đúng ví dụ mà
+      PRD nêu: gold có <code>K21</code> và <code>K21.9</code> nhưng <b>không có <code>K21.0</code></b>, còn
+      toàn bộ 543 file bạc <b>không có mã K21 nào</b>. Mô hình chưa từng thấy một ca buộc chọn giữa
+      K21.0 và K21.9 sẽ mặc định đoán <code>.9</code> hoặc mã cha — cả hai đều cho J = 0 khi gold là
+      <code>.0</code>.
+    </div>
+    <p>
+      Đuôi cũng rất mỏng ở ngay phần đã phủ: <b>34,7%</b> mã trong gold (112/323) chỉ xuất hiện
+      <b>một lần</b>; ở bạc là <b>49,6%</b> (446/900); và 20 mã phổ biến nhất chiếm <b>38,0%</b> lượt gold.
+      Đây là lý do thẻ độ phủ phải báo <b>số lượt</b> bên cạnh số mã — để tách “đã chạm một lần” khỏi
+      “đã học được”.
+    </p>
+  </div>
+
+  <div class="shead"><span class="num">3</span><h2>Vùng trắng thể loại — nhắm thẳng vào assertions</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Đặc trưng bề mặt</th><th class="num">data/test</th><th class="num">synthetic/</th><th class="num">translated/</th><th class="num">restyled/</th><th>Hệ quả</th></tr></thead>
+      <tbody>
+        <tr><td>File có dấu hỏi (Q&amp;A)</td><td class="num">35%</td><td class="num"><b>0%</b></td><td class="num">1,1%</td><td class="num">10,5%</td>
+            <td><span class="pill w">thiếu nghiêm trọng</span></td></tr>
+        <tr><td>File có bullet / số thứ tự</td><td class="num">97%</td><td class="num" colspan="3">58,8–68,6%</td>
+            <td><span class="pill a">thiếu</span></td></tr>
+        <tr><td>Số lần khớp “tiền sử / tiền căn” (trung vị)</td><td class="num">1</td><td class="num"><b>4</b></td><td class="num" colspan="2">—</td>
+            <td><span class="pill w">thừa 4×</span></td></tr>
+        <tr><td>Từ chỉ người nhà (trung vị)</td><td class="num">0</td><td class="num"><b>3</b></td><td class="num" colspan="2">—</td>
+            <td><span class="pill w">thừa</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note warn">
+      <span class="lab">Đây là lý do phân bố assertion của bạc lệch khỏi gold</span>
+      Corpus bạc <b>thừa</b> tín hiệu tiền sử và người nhà so với tập test. Điều đó bơm phồng lớp
+      <code>isHistorical</code> và <code>isFamily</code> trong nhãn bạc, và giải thích vì sao phân bố
+      assertion của bạc (rỗng 78,6%) khác hẳn gold (rỗng <b>50,7%</b> · isNegated 24,1% ·
+      isHistorical 22,5% · cả hai 1,2% · isFamily 1,1% trên 4.337 entity). Nghĩa là vùng trắng thể loại
+      không chỉ ảnh hưởng <code>candidates</code> — nó nhắm thẳng vào <b>assertions 0.3</b>. Trong 162 file
+      <code>restyled/</code>, phân bố style là <code>dan_y</code> 94 · <code>van_xuoi</code> 27 ·
+      <code>xuong_dong</code> 17 · <code>pho_bien</code> 12 · <code>hoi_dap</code> <b>12</b> — chỉ 12 file
+      hỏi–đáp cho một tập test có 35% file mang dấu hỏi.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">4</span><h2>Chỉ số nào đáng tin</h2></div>
+  <div class="card">
+    <div class="pc">
+      <div class="pro"><div class="h">✓ Nên dùng làm mục tiêu</div><ul>
+        <li><b>Đếm được trên đồ thị</b>: số mục 3 ký tự đã chạm, số cặp anh em <i>tồn tại</i>, số IN/PIN/MIN
+            đã chạm, kèm số lượt. Bất biến với encoder, <b>truy nguyên được</b> tới từng nút trắng</li>
+        <li><b>AUC bộ phân loại</b> bạc-vs-test trên TF-IDF: rẻ, và đặc trưng phân biệt mạnh nhất chính là
+            danh sách việc cần sửa</li>
+        <li><b>DSIR</b> (<b>QUA-14</b>): importance weight n-gram băm, dùng trực tiếp 100 file test
+            <i>không nhãn</i>, không cần GPU</li>
+      </ul></div>
+      <div class="con"><div class="h">✗ Chỉ dùng làm chỉ báo phụ</div><ul>
+        <li><b>QUA-10</b>: <b>mọi</b> chỉ số fidelity/diversity hiện hành đều <b>hỏng ở ≥1 chế độ</b></li>
+        <li><b>MAUVE</b> (<b>QUA-12</b>) và <b>Vendi</b> (<b>QUA-11</b>): báo cáo thì được, đừng tối ưu theo</li>
+        <li><b>QUA-9</b> là chỉ số <i>duy nhất</i> có bằng chứng tương quan trực tiếp với hiệu năng
+            downstream (350M và 1.4B, ảnh hưởng SFT mạnh hơn pretraining) — nhưng nó cần <b>LLM chấm
+            điểm</b>, nên chấp nhận được để báo cáo một lần, <b>không</b> đưa vào pipeline nộp bài</li>
+        <li><b>SemDeDup</b> (<b>QUA-13</b>) loại 50% LAION gần như không mất hiệu năng — nhưng đó là công cụ
+            <b>CẮT</b> dữ liệu ở quy mô web. Với 543 file, cắt là <b>mất</b>. Chỉ dùng phần chẩn đoán
+            (đếm cặp gần trùng trong <code>restyled/</code>), không dùng để loại file</li>
+      </ul></div>
+    </div>
+    <div class="note good">
+      <span class="lab">Cũng cần đo riêng precision và recall</span>
+      <b>QUA-6</b> tách hai trục: khi thiếu dữ liệu thật mới thì <i>precision HOẶC recall</i> giảm — không
+      phải cả hai cùng lúc. Nên báo hai số riêng thay vì một điểm F tổng hợp, nếu không sẽ không biết
+      corpus đang hẹp lại hay đang nhiễu lên.
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════ ★ · NĂM GIẢI PHÁP ═════════════════════ -->
+<div class="panel" id="p-sol">
+  <div class="hero">
+    <div class="eyebrow">Tổng hợp · Đề xuất triển khai</div>
+    <h1>Năm giải pháp,<br>xếp theo <em>lợi ích trên công sức</em>.</h1>
+    <p class="lede">
+      Mười đề xuất từ năm nhánh, sau khi loại phần trùng với báo cáo cũ và loại những gì văn liệu cho thấy
+      không đáng làm ở quy mô 543 tài liệu / 100 file test, còn lại năm giải pháp. Mỗi giải pháp có
+      <b>ablation quyết định</b>, <b>baseline tầm thường phải vượt</b>, và <b>tiêu chí bỏ</b> — vì một đề
+      xuất không nói trước khi nào mình sai thì không phải một đề xuất khoa học.
+    </p>
+  </div>
+
+  <div class="shead"><span class="num">0</span><h2>Bảng tổng hợp</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Giải pháp</th><th>Nhắm</th><th class="num">Ngày-người</th><th>Nhãn / GPU</th><th>Rủi ro chính</th></tr></thead>
+      <tbody>
+        <tr><td class="num"><b>1</b></td><td><b>Tầng kiểm chứng cạnh + abstain</b></td>
+            <td><span class="pill p">candidates 0.4</span></td><td class="num">3–5</td>
+            <td><span class="pill g">không / không</span></td>
+            <td>Luật quá chặt cắt cả mã đúng</td></tr>
+        <tr><td class="num"><b>2</b></td><td><b>Hợp nhất trên đồ thị chồng lấn span</b></td>
+            <td><span class="pill p">text 0.3</span></td><td class="num">3–4</td>
+            <td><span class="pill g">không / không</span></td>
+            <td>Trần lợi ích chỉ ~2–3 điểm; đổi tham số lấy tham số</td></tr>
+        <tr><td class="num"><b>3</b></td><td><b>Document Scope Graph</b></td>
+            <td><span class="pill p">assertions 0.3</span></td><td class="num">4–6</td>
+            <td><span class="pill g">không / không lúc chạy</span></td>
+            <td>Cạnh mục là đặc trưng mạnh, không phải luật quyết định</td></tr>
+        <tr><td class="num"><b>4</b></td><td><b>Graph-walk bundle sampler</b></td>
+            <td><span class="pill p">candidates 0.4</span></td><td class="num">4–6</td>
+            <td><span class="pill a">không / tuỳ chọn</span></td>
+            <td>&gt;80% output LLM có lỗi ngữ nghĩa; note phi lâm sàng</td></tr>
+        <tr><td class="num"><b>5</b></td><td><b>Thẻ độ phủ + hợp đồng accumulate</b></td>
+            <td><span class="pill a">hạ tầng dữ liệu</span></td><td class="num">3–4</td>
+            <td><span class="pill g">không / không</span></td>
+            <td>Tối ưu chỉ số mà mất điểm</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note acc">
+      <span class="lab">Hai việc phụ trợ, rẻ, làm kèm</span>
+      <b>(a) Soát lỗi nhãn 543 file bạc</b> bằng đúng bộ luật của giải pháp 1 ở chế độ <i>audit</i>
+      (2–4 ngày-người) — đo được ngay: <b>14,6%</b> lượt gán mã thuốc trên bạc đang ở mức brand và duyệt
+      cạnh sửa được <b>100%</b>. <b>(b) Chọn nguồn bằng CAPA</b> thay vì mô hình hoá cấu trúc phụ thuộc
+      (1,5–2 ngày-người) — mô phỏng cho thấy đa dạng hoá nguồn đáng <b>~+9 điểm</b> còn mô hình hoá phụ
+      thuộc chỉ <b>~+0,9 điểm</b>.
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">1</span><h2>Tầng kiểm chứng cạnh + abstain</h2>
+    <span class="sub">nhánh D · 3–5 ngày-người · làm trước tiên</span></div>
+  <div class="card">
+    <p>
+      Một module thuần Python đọc <code>RXNCONSO.RRF</code>, <code>RXNSTY.RRF</code>,
+      <code>RXNREL.RRF</code>, <code>RXNATOMARCHIVE.RRF</code>, <code>RXNCUI.RRF</code> và
+      <code>ICD10.csv</code>, dựng 6 chỉ mục trong RAM (&lt; 2 GB), rồi trả cho <b>mỗi mã do bất kỳ thành
+      phần nào đề xuất</b> một vector 6 bit vi phạm kèm hành động:
+      <code>keep</code> / <code>remap→X</code> / <code>lift→IN</code> / <code>drop</code> /
+      <code>abstain</code>.
+    </p>
+    <div class="fx">vi_pham(mã) → [tồn_tại · đúng_tty · TUI_hợp_lệ · hoạt_chất_khớp · chương_ICD · phối_hợp_đủ] → hành_động</div>
+    <p><b>Vì sao đi trước:</b> nó trả lời một câu hỏi <b>đang chặn đường</b> mà báo cáo cũ để mở —
+      <code>target_tty</code> bằng gì — và câu trả lời đo được là <b>IN</b> (220/220 RxCUI gold). Nó cũng
+      không cần nhãn, không cần GPU, chạy trên CPU, và <b>bit-identical mỗi lần chạy</b> — điều kiện cần
+      để BTC chạy lại được.</p>
+    <ul class="tight">
+      <li><b>Ablation:</b> bốn nhánh luỹ tiến trên 162 file gold — (a) không kiểm chứng · (b) tồn tại +
+          remap · (c) + tty/TUI · (d) + chương ICD + phối hợp.</li>
+      <li><b>Baseline phải vượt:</b> giữ nguyên mọi mã upstream; và abstain toàn bộ mã có điểm dưới trung vị.</li>
+      <li><b>Tiêu chí bỏ:</b> (d) không hơn (a) ≥ <b>0,015 candidates_score</b> ⇒ chỉ giữ luật 1+2. Tỷ lệ
+          abstain vượt <b>12%</b> (gấp đôi mức gold 5,2–5,9%) ⇒ luật quá chặt, phải nới.</li>
+    </ul>
+  </div>
+
+  <div class="shead"><span class="num">2</span><h2>Hợp nhất trên đồ thị chồng lấn span</h2>
+    <span class="sub">nhánh C · 3–4 ngày-người</span></div>
+  <div class="card">
+    <p>
+      Bỏ hẳn khớp cặp theo ngưỡng <code>IoU ≥ 0,5</code> — chỗ đang loại <b>54,2%</b> biến thể ranh giới và
+      <b>85,7%</b> với span một từ. Thay bằng: đồ thị chồng lấn có trọng số → Leiden → phiếu token có trọng
+      số → đoạn token liên tục cực đại tổng phiếu, ràng buộc không lồng nhau → type bằng phiếu có trọng số
+      → lan truyền type và tập mã qua cạnh cùng bề mặt <i>trong tài liệu</i>.
+    </p>
+    <ul class="tight">
+      <li><b>Ablation:</b> (i) MV mức span IoU≥0,5 <i>hiện trạng</i> · (ii) MV mức token không ngưỡng ·
+          (iii) Leiden + phiếu có trọng số · (iv) (iii) + lan truyền. Báo <code>final</code> và riêng
+          <code>text_score</code>, bootstrap ghép cặp theo file.</li>
+      <li><b>Baseline phải vượt:</b> <b>(ii)</b> — MV mức token, mọi nguồn trọng số bằng nhau, không label
+          model. Mô phỏng cho thấy MV thắng DS-độc-lập khi phụ thuộc mạnh, và <b>AGG-6</b> nói không thuật
+          toán nào thắng nhất quán.</li>
+      <li><b>Tiêu chí bỏ:</b> (iii) không hơn (ii) ≥ <b>+0,010 text_score</b> với CI bootstrap không chứa 0
+          ⇒ bỏ nhánh trọng số/label model, <b>chỉ giữ bước bỏ ngưỡng IoU</b>.</li>
+      <li><b>Trần đầu tư:</b> agreement giữa người là <b>88,4 F1</b> và encoder tinh chỉnh đã đạt 88,0–88,2
+          (<b>AGG-15</b>). Đừng đầu tư quá mốc đó.</li>
+    </ul>
+  </div>
+
+  <div class="shead"><span class="num">3</span><h2>Document Scope Graph</h2>
+    <span class="sub">nhánh B · 4–6 ngày-người · đòn bẩy cao nhất</span></div>
+  <div class="card">
+    <div class="note acc">
+      <span class="lab">Vì sao đây là đòn bẩy cao nhất dù không đứng đầu bảng</span>
+      Báo cáo cũ tính được: bỏ trống <code>assertions</code> để lại <b>12,9 điểm</b> trên bàn — lớn hơn cả
+      trần <code>candidates</code> (9,16 điểm). Giải pháp này là cách tấn công vào con số đó bằng một cấu
+      trúc mà tab 04 không có: <b>một cue sinh một cạnh 1→n</b>.
+    </div>
+    <p>
+      Luật dựng phần lớn đồ thị, LLM chỉ phán xử ca mơ hồ: (1) tách mục bằng từ điển ~40 header, sinh cạnh
+      <code>SECTION_SCOPE</code> — theo tinh thần <b>SecTag</b>, luật là đủ (15.329 đúng / 160 bỏ sót trên
+      319 note); (2) sinh cạnh <code>NEGATION_SCOPE</code> dạng <b>1→n</b>: cue nối tới <b>toàn bộ</b> span
+      trong cụm liệt kê, cắt ở dấu chấm hoặc cue đảo hướng (<i>nhưng · tuy nhiên · ngoại trừ</i>),
+      <b>không cắt ở dấu phẩy</b>; (3) chỉ span có hai cạnh <b>xung đột</b> hoặc <b>không có cạnh nào</b>
+      mới đưa cho LLM, dùng marker <code>〔 〕</code> để giữ offset.
+    </p>
+    <ul class="tight">
+      <li><b>Ablation:</b> (a) luôn rỗng · (b) ConText/NegEx mức câu · (c) scope graph 1→n · (d) c + LLM
+          phán xử. Đo trên 4.337 entity mang assertion.</li>
+      <li><b>Baseline phải vượt:</b> E[Jaccard] ≈ <b>0,507</b> của “luôn rỗng”, <i>và</i> ConText/NegEx mức
+          câu — chuẩn mực đã cài ở tab 04. Phải đo lại mốc này trên chính 4.337 entity gold, đừng lấy số
+          công bố của NegEx trên corpus tiếng Anh làm mốc.</li>
+      <li><b>Tiêu chí bỏ:</b> (c) không vượt (b) ≥ <b>3 điểm Jaccard tuyệt đối</b> ⇒ quay về tab 04.</li>
+      <li><b>Kèm theo, độc lập:</b> cạnh <code>COREF</code>/<code>SAME_MASK</code> khôi phục thuốc bị che
+          (2–3 ngày-người). Baseline phải vượt là <b>trả rỗng cho mọi mask</b> — vì Jaccard phạt mã thừa
+          bằng mã thiếu nên trả rỗng cho 99 token là an toàn. Bỏ nhánh truy hồi nếu precision mã trên nhóm
+          mask tụt dưới ~0,7.</li>
+    </ul>
+  </div>
+
+  <div class="shead"><span class="num">4</span><h2>Graph-walk bundle sampler</h2>
+    <span class="sub">nhánh A · 4–6 ngày-người</span></div>
+  <div class="card">
+    <p>
+      Thay sampler phân bố biên bằng bộ đi cạnh, để nhãn <code>candidates</code> đúng theo cấu tạo ở đúng
+      mức tty, và để lấp <b>lát cắt mã anh em</b> đang thiếu hụt <b>12×</b>. Kèm cổng đối chiếu ngược
+      bundle→note (2–3 ngày-người) vì không được tin văn bản LLM sinh là trung thực.
+    </p>
+    <ul class="tight">
+      <li><b>Ablation:</b> giữ nguyên số file và prompt, chỉ đổi sampler. Đo <code>candidates_score</code>
+          <b>tách riêng</b> nhóm mã có anh em — trung bình toàn cục sẽ pha loãng hiệu ứng.</li>
+      <li><b>Baseline phải vượt:</b> chỉ upsample mã anh em vào bundle biên, không dùng cạnh thuốc. Nếu
+          không vượt thì phần đồ thị RxNorm không đáng công.</li>
+      <li><b>Tiêu chí bỏ:</b> <code>candidates_score</code> trên nhóm mã có anh em không tăng ≥ <b>2 điểm
+          tuyệt đối</b>; hoặc &gt;30% note bị NLI hai chiều đánh không trung thực; hoặc người rà đánh
+          &gt;40% note phi lâm sàng.</li>
+      <li><b>Bổ trợ tab 02:</b> tab 02 cần <i>negative</i> là mã anh em; giải pháp này cấp <i>positive</i>.
+          Nếu chỉ làm tab 02, bi-encoder sibling-contrastive sẽ học trên phân bố đồng xuất hiện sai.</li>
+    </ul>
+  </div>
+
+  <div class="shead"><span class="num">5</span><h2>Thẻ độ phủ + hợp đồng “accumulate, không replace”</h2>
+    <span class="sub">nhánh E · 3–4 ngày-người · làm song song từ đầu</span></div>
+  <div class="card">
+    <p>
+      Một script tất định xuất độ phủ 5 mức trên cây ICD (chương / khối / mục 3 ký tự / mã lá / <b>cặp anh
+      em cùng mục</b>) và 2 mức trên RxNorm, <b>kèm số lượt</b> để tách “chạm một lần” khỏi “học được”.
+      Kèm hai quy tắc cứng: <code>restyled/</code> chỉ dùng <b>cùng</b> <code>translated/</code>, không bao
+      giờ thay thế; thế hệ ba bị cấm.
+    </p>
+    <ul class="tight">
+      <li><b>Ablation:</b> huấn luyện linker trên (i) 543 file hiện có · (ii) 543 + N file sinh riêng cho
+          lát cắt anh em. Đo <code>candidates_score</code> <b>chỉ trên</b> 103 mã thập phân thuộc 47 nhóm
+          anh em trong gold.</li>
+      <li><b>Baseline phải vượt:</b> “luôn trả mã <code>.9</code> hoặc mã 3 ký tự của mục dự đoán”.</li>
+      <li><b>Tiêu chí bỏ:</b> không nâng Jaccard trên lát cắt anh em ≥ <b>0,05 tuyệt đối</b> ⇒ dừng.
+          <b>QUA-15</b> đã cho thấy chi phí lấp đuôi thường không hoàn vốn.</li>
+      <li><b>Kèm theo:</b> DSIR chọn tập con khớp 100 file test <i>không nhãn</i> + AUC bộ phân loại
+          bạc-vs-test (2–3 ngày-người). Nếu 4 nhánh corpus nằm trong CI 95% của nhau ⇒ chốt “accumulate
+          không lọc” và <b>chuyển ngân sách sang assertions</b>.</li>
+    </ul>
+  </div>
+
+  <div class="shead"><span class="num">6</span><h2>Những gì tài liệu này khuyên KHÔNG làm</h2></div>
+  <div class="card">
+    <div class="tscroll">
+    <table>
+      <thead><tr><th>Hướng</th><th>Vì sao bỏ</th><th>Nguồn</th></tr></thead>
+      <tbody>
+        <tr><td><b>GraphRAG</b> / graph index mức corpus</td>
+            <td>Thường kém hơn vanilla RAG; mức tăng “ôn hoà hơn nhiều” sau khi loại lỗi đánh giá; agentic
+            search đã hấp thụ phần lớn giá trị. Truy vấn của ta hoàn toàn cục bộ. Node chuẩn hoá mức corpus
+            còn <b>không giữ offset ký tự</b></td><td>VER-2 · VER-3 · VER-4 · T2G-5</td></tr>
+        <tr><td><b>Span-graph phân biệt</b> (DyGIE / DyGIE++)</td>
+            <td>Cần nhãn <b>CẠNH</b>; 162 file gold chỉ có nhãn <b>NODE</b>. Sinh cạnh giả = nhiễu ở chỗ tốn
+            6–10 ngày-người + GPU</td><td>T2G-6 · T2G-7</td></tr>
+        <tr><td><b>Học cấu trúc phụ thuộc</b> giữa hàm gán nhãn</td>
+            <td>Ta <b>đã biết</b> prompt nào chạy trên họ model nào. Lợi ích văn liệu là trong bối cảnh
+            <i>không biết</i>; mô phỏng ở 5 nguồn cho ~<b>+0,9 điểm</b> so với 2–4 ngày-người</td>
+            <td>AGG-7 · AGG-8</td></tr>
+        <tr><td><b>CHMM / Neural-Hidden-CRF</b> cho hợp nhất</td>
+            <td>Trần ~<b>2–3 F1</b>, cần GPU cho bước hợp nhất, làm phức tạp yêu cầu tái lập bắt buộc</td>
+            <td>AGG-11 · AGG-12</td></tr>
+        <tr><td><b>Constrained decoding cho assertions</b></td>
+            <td>Ép định dạng làm <b>suy giảm đáng kể</b> năng lực suy luận, càng ngặt càng tệ; lệch subword
+            còn làm giảm độ chính xác. Chỉ ép ở không gian mã hữu hạn</td><td>VER-8 · VER-9 · T2G-13</td></tr>
+        <tr><td><b>Bộ phân loại vi phạm học được</b> (KG-Guard)</td>
+            <td>Cần nhãn đúng/sai ở mức nút; chỉ có 162 file gold ⇒ rủi ro overfit &gt; lợi ích so với bộ
+            luật xác định</td><td>VER-11</td></tr>
+        <tr><td><b>Lấp toàn bộ vùng trắng ICD</b></td>
+            <td>90.000 note phủ 7.902 mã hiếm chỉ cho macro-F1 tăng khiêm tốn, micro-F1 <b>không đổi</b>;
+            chính tác giả nhận lợi ích nhỏ so với chi phí</td><td>QUA-15</td></tr>
+        <tr><td><b>Dedup ngữ nghĩa</b> (SemDeDup) để loại file</td>
+            <td>Là công cụ <b>CẮT</b> dữ liệu ở quy mô web; với 543 file thì cắt là <b>mất</b>. Chỉ dùng
+            phần chẩn đoán</td><td>QUA-13</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">7</span><h2>Ba câu hỏi chặn đường</h2></div>
+  <div class="card">
+    <div class="note warn">
+      <span class="lab">1 · Mức tty của gold — nay đã có câu trả lời, nhưng phải xác nhận lại</span>
+      Đo được <b>220/220</b> RxCUI trong 162 file gold ở mức <code>IN</code>. Nhưng gold là do <b>đội tự
+      gán</b>, còn ví dụ trong PRD dùng <code>SCD</code>. Nếu gold của đội gán sai mức thì toàn bộ nhánh
+      thuốc bằng 0 bất kể pipeline tốt đến đâu. <b>Phải đối chiếu với công bố chính thức của BTC trước khi
+      tối ưu theo mức IN.</b> Giảm nhẹ rủi ro: sampler ở giải pháp 4 lưu cả nút và mức tty, nên đổi mục
+      tiêu là một lần re-render.
+    </div>
+    <div class="note warn">
+      <span class="lab">2 · Bộ chấm có cho điểm một phần cho mã “gần đúng” không?</span>
+      Câu hỏi này báo cáo cũ đã nêu và vẫn chưa có câu trả lời. Nếu <code>candidates_score</code> là Jaccard
+      khớp tuyệt đối thì mã cha 3 ký tự là một đáp án <b>sai</b>, và <b>VER-12</b> cho biết 18,5–29,9% lỗi
+      của LLM chính là loại “đúng nhưng tổng quát hơn” — tức đáng bị <b>loại</b>, không đáng được giữ.
+      Năm giải pháp ở trên đều sống sót dưới chế độ khớp tuyệt đối (chúng nâng độ chính xác top-1, không
+      dựa vào điểm một phần), nhưng hãy chốt câu hỏi này trước khi thêm bất kỳ chiến lược back-off nào.
+    </div>
+    <div class="note">
+      <span class="lab">3 · Corpus gold đang lớn lên — mọi con số ở đây là ảnh chụp</span>
+      Tài liệu này đo <b>162 file / 7.435 entity</b> gold tại ngày 29/07/2026, trong khi
+      <code>research-directions.html</code> ghi 100 file / 4.715 entity. Việc gán tay vẫn đang chạy, nên
+      hãy <b>chạy lại phép đo</b> thay vì trích số cứng từ đây. Các con số phía <b>tập test</b> và phía
+      <b>knowledge base</b> thì ổn định.
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════ § · THAM KHẢO ═════════════════════ -->
+<div class="panel" id="p-ref">
+  <div class="hero">
+    <div class="eyebrow">Thư mục tham khảo</div>
+    <h1><em>79</em> tài liệu, và mức độ đã xác minh của từng mục</h1>
+    <p class="lede">
+      Mỗi mục dưới đây được truy vấn qua API thật (arXiv · Crossref · PubMed E-utilities · OpenAlex) trong
+      quá trình nghiên cứu, không lấy từ trí nhớ. <b>78/79 mục</b> lấy được metadata trực tiếp
+      (<i>fetched</i>); <b>1 mục</b> xác nhận qua nguồn chỉ mục (<i>indexed</i>); <b>không có mục nào chưa
+      xác minh</b>. Đây là danh sách <b>bổ sung</b>, không thay thế 17 tài liệu trong
+      <code>docs/PRD.html</code> và ~87 mục trong <code>docs/reports/research-directions.html</code>.
+    </p>
+    <div class="pills">
+      <span class="pill p">fetched — lấy metadata trực tiếp từ API</span>
+      <span class="pill a">indexed — xác nhận qua nguồn chỉ mục</span>
+      <span class="pill g">3/79 chồng lấn thư mục cũ, đã ghi rõ</span>
+    </div>
+  </div>
+
+  <div class="shead"><span class="num">A</span><h2>KG→Text · sinh dữ liệu có nhãn từ đồ thị</h2><span class="sub">16 mục</span></div>
+  <div class="card">
+    <div class="ref"><span class="id">KG2T-1</span><div class="b"><span class="ti">Knowledge Graph Based Synthetic Corpus Generation for Knowledge-Enhanced Language Model Pre-training</span>
+      <div class="me">Agarwal và cs. · NAACL-HLT 2021 · <a href="https://arxiv.org/abs/2010.12688">arXiv:2010.12688</a> · <a href="https://aclanthology.org/2021.naacl-main.278/">ACL 2021.naacl-main.278</a> · <a href="https://doi.org/10.18653/v1/2021.naacl-main.278">doi:10.18653/v1/2021.naacl-main.278</a></div>
+      <div class="de">KELM: verbalize TOÀN BỘ Wikidata thành văn bản tự nhiên bằng pipeline sinh có kiểm soát entity, rồi dùng corpus đó pre-train. Cho ta khuôn mẫu chuẩn của &#x27;đi theo cạnh đồ thị → sinh câu&#x27;: tác giả sample subgraph liền kề (entity subgraph) thay vì triple rời, và báo cáo rằng chính bước gộp nhiều triple liền kề mới tạo được câu tự nhiên. Đây là cơ sở trực tiếp cho việc thay marginal sampling bằng graph-walk trong synthetic/. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-10</span><div class="b"><span class="ti">Faithful Low-Resource Data-to-Text Generation through Cycle Training</span>
+      <div class="me">Wang và cs. · ACL 2023 · <a href="https://arxiv.org/abs/2305.14793">arXiv:2305.14793</a> · <a href="https://aclanthology.org/2023.acl-long.160/">ACL 2023.acl-long.160</a> · <a href="https://doi.org/10.18653/v1/2023.acl-long.160">doi:10.18653/v1/2023.acl-long.160</a></div>
+      <div class="de">Cycle training: hai model nghịch đảo (data→text và text→data) tự kiểm nhau. Khởi tạo với chỉ 100 mẫu có giám sát đã đạt gần bằng fully-supervised trên WebNLG/E2E/WTQ/WSQL. Con số 100 mẫu rất khớp quy mô của ta; và chiều text→data chính là bộ trích xuất ta đang huấn luyện, nên vòng lặp gần như miễn phí. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-11</span><div class="b"><span class="ti">Neural Pipeline for Zero-Shot Data-to-Text Generation</span>
+      <div class="me">Kasner và Dušek · ACL 2022 · <a href="https://arxiv.org/abs/2203.16279">arXiv:2203.16279</a> · <a href="https://aclanthology.org/2022.acl-long.271/">ACL 2022.acl-long.271</a> · <a href="https://doi.org/10.18653/v1/2022.acl-long.271">doi:10.18653/v1/2022.acl-long.271</a></div>
+      <div class="de">Thay vì fine-tune trên bộ D2T, họ verbalize từng triple bằng template rồi dùng các module học trên văn bản phổ thông (ordering, aggregation, compression) để ghép thành đoạn. Ưu điểm cho ta: nội dung do template quyết định (trung thực tuyệt đối), LLM chỉ làm mượt — giảm hẳn rủi ro hallucination so với sinh tự do. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-12</span><div class="b"><span class="ti">Handling Divergent Reference Texts when Evaluating Table-to-Text Generation</span>
+      <div class="me">Dhingra và cs. · ACL 2019 · <a href="https://arxiv.org/abs/1906.01081">arXiv:1906.01081</a> · <a href="https://aclanthology.org/P19-1483/">ACL P19-1483</a> · <a href="https://doi.org/10.18653/v1/p19-1483">doi:10.18653/v1/p19-1483</a></div>
+      <div class="de">Metric PARENT: chấm điểm văn bản sinh có trọng số theo entity/giá trị thực SỰ có trong bảng nguồn, nên bắt được cả omission lẫn hallucination mà BLEU bỏ qua. Dùng làm chỉ số nội bộ đo độ phủ bundle của note sinh ra (bao nhiêu % entity trong bundle thực sự xuất hiện). <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-13</span><div class="b"><span class="ti">Lexically Constrained Decoding for Sequence Generation Using Grid Beam Search</span>
+      <div class="me">Hokamp và Liu · ACL 2017 · <a href="https://arxiv.org/abs/1704.07138">arXiv:1704.07138</a> · <a href="https://aclanthology.org/P17-1141/">ACL P17-1141</a> · <a href="https://doi.org/10.18653/v1/P17-1141">doi:10.18653/v1/P17-1141</a></div>
+      <div class="de">Cơ chế gốc buộc chuỗi cho trước PHẢI xuất hiện trong output: mở rộng beam search theo số ràng buộc đã thoả. Đây là cách cứng để đảm bảo mọi mention trong bundle có mặt trong note — nếu decode được kiểm soát. Nhược điểm: chi phí beam tăng theo số ràng buộc, và không dùng được với API LLM chỉ trả text. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-14</span><div class="b"><span class="ti">NeuroLogic Decoding: (Un)supervised Neural Text Generation with Predicate Logic Constraints</span>
+      <div class="me">Lu và cs. · NAACL-HLT 2021 · <a href="https://arxiv.org/abs/2010.12884">arXiv:2010.12884</a> · <a href="https://aclanthology.org/2021.naacl-main.339/">ACL 2021.naacl-main.339</a> · <a href="https://doi.org/10.18653/v1/2021.naacl-main.339">doi:10.18653/v1/2021.naacl-main.339</a></div>
+      <div class="de">Tổng quát hoá ràng buộc từ vựng thành công thức logic vị từ dạng CNF (cho phép cả ràng buộc PHỦ ĐỊNH: chuỗi X không được xuất hiện). Bài ghi rõ model không tự học tuân thủ ràng buộc một cách đáng tin cậy dù được giám sát nhiều — nên ràng buộc phải áp ở decode, không phải ở prompt. Với ta: ép &#x27;không được nhắc tên thuốc thật ở câu bị che *****&#x27;. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-15</span><div class="b"><span class="ti">Quality Controlled Paraphrase Generation</span>
+      <div class="me">Bandel và cs. · ACL 2022 · <a href="https://arxiv.org/abs/2203.10940">arXiv:2203.10940</a> · <a href="https://aclanthology.org/2022.acl-long.45/">ACL 2022.acl-long.45</a> · <a href="https://doi.org/10.18653/v1/2022.acl-long.45">doi:10.18653/v1/2022.acl-long.45</a></div>
+      <div class="de">Sinh paraphrase với BỘ ĐIỀU KHIỂN chất lượng ba chiều (tương đồng nghĩa, đa dạng từ vựng, đa dạng cú pháp) đặt trước, thay vì kiểm sau. Trực tiếp áp cho việc sinh mention bề mặt dân dã tiếng Việt cho một node ICD/RxNorm: ta cần đa dạng cao nhưng nghĩa phải giữ nguyên, và bài cho khuôn để đặt ngưỡng thay vì đoán. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-16</span><div class="b"><span class="ti">MELM: Data Augmentation with Masked Entity Language Modeling for Low-Resource NER</span>
+      <div class="me">Zhou và cs. · ACL 2022 · <a href="https://arxiv.org/abs/2108.13655">arXiv:2108.13655</a> · <a href="https://aclanthology.org/2022.acl-long.160/">ACL 2022.acl-long.160</a> · <a href="https://doi.org/10.18653/v1/2022.acl-long.160">doi:10.18653/v1/2022.acl-long.160</a></div>
+      <div class="de">Giải quyết đúng chế độ hỏng của augmentation cho NER: token–label misalignment. Cách làm là chèn thẳng nhãn NER vào ngữ cảnh câu rồi cho model điền token entity có điều kiện trên nhãn, nên entity mới sinh ra vẫn giữ đúng nhãn. Là phương án thay thế rẻ (không LLM) cho việc đa dạng hoá mention bề mặt trong 543 file bạc. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-2</span><div class="b"><span class="ti">Exploiting Asymmetry for Synthetic Training Data Generation: SynthIE and the Case of Information Extraction</span>
+      <div class="me">Josifoski và cs. · EMNLP 2023 · <a href="https://arxiv.org/abs/2303.04132">arXiv:2303.04132</a> · <a href="https://aclanthology.org/2023.emnlp-main.96/">ACL 2023.emnlp-main.96</a> · <a href="https://doi.org/10.18653/v1/2023.emnlp-main.96">doi:10.18653/v1/2023.emnlp-main.96</a></div>
+      <div class="de">Luận điểm &#x27;bất đối xứng&#x27;: với bài toán output có cấu trúc, hãy sinh NGƯỢC — chọn structure đích trước rồi nhờ LLM viết văn bản input hợp lý. Nhãn do đó đúng theo cấu tạo. Sinh 1,8 triệu điểm dữ liệu, fine-tune model 220M/770M vượt SOTA cùng cỡ +57 điểm micro-F1 và +79 điểm macro-F1. Đây là bằng chứng mạnh nhất cho label-by-construction ở quy mô nhỏ. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-3</span><div class="b"><span class="ti">MedSyn: LLM-based Synthetic Medical Text Generation Framework</span>
+      <div class="me">Kumichev và cs. · ECML PKDD 2024 · <a href="https://arxiv.org/abs/2408.02056">arXiv:2408.02056</a></div>
+      <div class="de">Dùng Medical Knowledge Graph để sample thông tin y khoa tiên nghiệm đưa vào prompt, sinh ghi chú lâm sàng tổng hợp bằng GPT-4 và LLaMA fine-tuned. Đo lợi ích qua tác vụ dự đoán mã ICD: độ chính xác các mã khó/quan trọng tăng tới 17,8% so với không có dữ liệu tổng hợp. Bộ dữ liệu 41k mẫu / 219 mã ICD-10 (tiếng Nga) — đúng cấu hình &#x27;KG sample → LLM verbalize&#x27; ta muốn dựng. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-4</span><div class="b"><span class="ti">Knowledge-Infused Prompting: Assessing and Advancing Clinical Text Data Generation with Large Language Models</span>
+      <div class="me">Xu và cs. · Findings of ACL 2024 · <a href="https://aclanthology.org/2024.findings-acl.916/">ACL 2024.findings-acl.916</a> · <a href="https://doi.org/10.18653/v1/2024.findings-acl.916">doi:10.18653/v1/2024.findings-acl.916</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/41766793/">PMID 41766793</a></div>
+      <div class="de">ClinGen: rút chủ đề lâm sàng từ knowledge graph chuyên ngành VÀ rút văn phong (writing style) từ LLM, hai thứ này cùng điều kiện hoá việc sinh. Khảo sát 8 tác vụ clinical NLP / 18 bộ dữ liệu, cải thiện trung bình 7,7–8,7%, đồng thời làm phân bố dữ liệu sinh khớp hơn với dữ liệu thật và tăng đa dạng. Chính là kiến trúc hai trục (nội dung từ KG + thể loại từ tập test) mà restyled/ đang cần. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-5</span><div class="b"><span class="ti">Can Synthetic Text Help Clinical Named Entity Recognition? A Study of Electronic Health Records in French</span>
+      <div class="me">Hiebel và cs. · EACL 2023 · <a href="https://aclanthology.org/2023.eacl-main.170/">ACL 2023.eacl-main.170</a> · <a href="https://doi.org/10.18653/v1/2023.eacl-main.170">doi:10.18653/v1/2023.eacl-main.170</a></div>
+      <div class="de">Nghiên cứu NGOÀI TIẾNG ANH gần nhất với cấu hình của ta: sinh EHR tổng hợp cho NER lâm sàng tiếng Pháp. Kết quả có tính cảnh báo — văn bản tổng hợp giúp được nhưng KHÔNG thay thế được dữ liệu thật; dùng làm neo cho kỳ vọng về mức tăng khi ta chỉ có 543 tài liệu bạc. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-6</span><div class="b"><span class="ti">Annotated dataset creation through large language models for non-english medical NLP</span>
+      <div class="me">Frei và Kramer · Journal of Biomedical Informatics · <a href="https://doi.org/10.1016/j.jbi.2023.104478">doi:10.1016/j.jbi.2023.104478</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/37625508/">PMID 37625508</a></div>
+      <div class="de">GPTNERMED: sinh toàn bộ tập huấn luyện NER y khoa TIẾNG ĐỨC bằng LLM rồi huấn luyện model nhỏ, không dùng dữ liệu thật có nhãn. Chứng minh con đường &#x27;LLM chỉ là phụ thuộc lúc build, model chạy là model nhỏ&#x27; — đúng ràng buộc reproducible của cuộc thi. Dùng lexicon thuốc/chất làm hạt giống cho prompt, tức là đã neo vào từ điển thay vì tự do. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-7</span><div class="b"><span class="ti">Creating Ontology-annotated Corpora from Wikipedia for Medical Named-entity Recognition</span>
+      <div class="me">Frei và Kramer · BioNLP Workshop, ACL 2024 · <a href="https://aclanthology.org/2024.bionlp-1.47/">ACL 2024.bionlp-1.47</a> · <a href="https://doi.org/10.18653/v1/2024.bionlp-1.47">doi:10.18653/v1/2024.bionlp-1.47</a></div>
+      <div class="de">Xây corpus có nhãn ONTOLOGY (không chỉ nhãn type) một cách tự động: nhãn khái niệm đi kèm span ngay từ lúc dựng corpus. Đây chính là dạng nhãn ta cần cho candidates (mã ICD/RxCUI, không chỉ 5 type) — và là bằng chứng cách làm này khả thi mà không cần gán tay. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-8</span><div class="b"><span class="ti">Evaluating Semantic Accuracy of Data-to-Text Generation with Natural Language Inference</span>
+      <div class="me">Dušek và Kasner · INLG 2020 · <a href="https://arxiv.org/abs/2011.10819">arXiv:2011.10819</a> · <a href="https://aclanthology.org/2020.inlg-1.19/">ACL 2020.inlg-1.19</a> · <a href="https://doi.org/10.18653/v1/2020.inlg-1.19">doi:10.18653/v1/2020.inlg-1.19</a></div>
+      <div class="de">Cách ĐO faithfulness không cần reference: dùng model NLI hai chiều giữa dữ liệu nguồn (verbalize thành tiền đề) và văn bản sinh — omission phát hiện bằng chiều text→data, hallucination bằng chiều data→text. Đây là cơ chế kiểm chứng rẻ ta có thể chạy trên 543 file mà không cần người đọc. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">KG2T-9</span><div class="b"><span class="ti">Beyond Traditional Benchmarks: Analyzing Behaviors of Open LLMs on Data-to-Text Generation</span>
+      <div class="me">Kasner và Dušek · ACL 2024 · <a href="https://arxiv.org/abs/2401.10186">arXiv:2401.10186</a> · <a href="https://aclanthology.org/2024.acl-long.651/">ACL 2024.acl-long.651</a> · <a href="https://doi.org/10.18653/v1/2024.acl-long.651">doi:10.18653/v1/2024.acl-long.651</a></div>
+      <div class="de">KẾT QUẢ ÂM TÍNH quan trọng nhất cho nhánh này: LLM mở (Llama 2, Mistral, Zephyr) sinh văn bản trôi chảy từ dữ liệu có cấu trúc, NHƯNG &gt;80% output chứa ít nhất một lỗi ngữ nghĩa — theo cả người gán và metric không-reference dựa GPT-4. Nghĩa là không được tin văn bản sinh là trung thực với bundle; phải kiểm bằng cơ chế cơ học (marker 〔 〕 + đối chiếu ngược). <span class="pill p">fetched</span></div></div></div>
+  </div>
+  <div class="shead"><span class="num">B</span><h2>Text→Graph · đồ thị tài liệu làm biểu diễn trung gian</h2><span class="sub">16 mục</span></div>
+  <div class="card">
+    <div class="ref"><span class="id">T2G-1</span><div class="b"><span class="ti">iText2KG: Incremental Knowledge Graphs Construction Using Large Language Models</span>
+      <div class="me">Lairgi và cs. · WISE 2024 (Int. Conf. on Web Information Systems Engineering) · <a href="https://arxiv.org/abs/2409.03284">arXiv:2409.03284</a></div>
+      <div class="de">Dựng KG TĂNG DẦN theo 4 module (Document Distiller → Incremental Entity Extractor → Incremental Relation Extractor → Graph Integrator), zero-shot, không cần hậu xử lý gộp trùng. Đây là khuôn mẫu trực tiếp cho việc dựng document graph theo từng mục của bệnh án: mỗi mục là một lượt gọi, node đã có được đưa vào lượt sau làm ràng buộc nên không sinh entity trùng nghĩa. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-10</span><div class="b"><span class="ti">Evaluation of a method to identify and categorize section headers in clinical documents (SecTag)</span>
+      <div class="me">Denny và cs. · J Am Med Inform Assoc 16(6), 2009 · <a href="https://doi.org/10.1197/jamia.M3037">doi:10.1197/jamia.M3037</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/19717800/">PMID 19717800</a></div>
+      <div class="de">Nhận diện cả header CÓ NHÃN và header NGẦM trong ghi chú lâm sàng, đánh giá bởi 11 bác sĩ trên 319 note: 16.036 section, trong đó 7.858 major section; 15.329 được xác nhận đúng, chỉ 160 bị bỏ sót ⇒ recall header rất cao bằng luật + từ vựng, KHÔNG cần LLM. Biện minh cho việc dựng cạnh SECTION_SCOPE bằng luật rẻ tiền rồi chỉ dùng LLM cho mục mơ hồ. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-11</span><div class="b"><span class="ti">Assertion Detection in Clinical Natural Language Processing Using Large Language Models</span>
+      <div class="me">Ji và cs. · IEEE ICHI 2024 · <a href="https://doi.org/10.1109/ICHI61247.2024.00039">doi:10.1109/ICHI61247.2024.00039</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/40092287/">PMID 40092287</a></div>
+      <div class="de">Định nghĩa assertion đúng ba trục mà smart-medic dùng: certainty (positive/negated/possible/hypothetical), temporality (hiện tại vs tiền sử) và experiencer (bệnh nhân vs người nhà) — tức isNegated/isHistorical/isFamily. Chỉ ra hệ luật và hệ học sâu tốn công tạo pattern và bỏ sót loại assertion ít gặp (khớp với isFamily 1,1% của ta). <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-12</span><div class="b"><span class="ti">Grammar-Constrained Decoding for Structured NLP Tasks without Finetuning</span>
+      <div class="me">Geng và cs. · EMNLP 2023 (Main) · <a href="https://arxiv.org/abs/2305.13971">arXiv:2305.13971</a></div>
+      <div class="de">Ngữ pháp hình thức mô tả được không gian đầu ra của nhiều tác vụ NLP có cấu trúc; đưa ra &#x27;input-dependent grammar&#x27; — ngữ pháp SINH TỪ CHÍNH INPUT. Đây là cách ép LLM chỉ được phát ra ID node có thật và tên cạnh có trong lược đồ: dựng grammar từ danh sách token-pointer của tài liệu đang xử lý ⇒ bịa cạnh trở thành bất khả thi về mặt cú pháp, không phải chuyện hậu kiểm. <span class="pill p">fetched</span> <span class="pill w">trùng <code>AGT-15</code> của báo cáo cũ</span></div></div></div>
+    <div class="ref"><span class="id">T2G-13</span><div class="b"><span class="ti">Let Me Speak Freely? A Study on the Impact of Format Restrictions on Performance of Large Language Models</span>
+      <div class="me">Tam và cs. · EMNLP 2024 (Industry Track) · <a href="https://arxiv.org/abs/2408.02442">arXiv:2408.02442</a></div>
+      <div class="de">Kết quả ÂM TÍNH cần thiết: ép sinh theo format chuẩn (JSON/XML) làm giảm rõ năng lực suy luận của LLM, và ràng buộc càng ngặt thì suy giảm càng lớn. Cảnh báo trực tiếp cho ý &#x27;ép grammar chặt để dựng đồ thị&#x27;: phải tách pha SUY LUẬN tự do (văn xuôi ngắn) khỏi pha SERIALIZE có grammar, chứ không gộp một lượt. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-14</span><div class="b"><span class="ti">Learning to Extract Structured Entities Using Language Models</span>
+      <div class="me">Wu và cs. · EMNLP 2024 · <a href="https://arxiv.org/abs/2402.04437">arXiv:2402.04437</a></div>
+      <div class="de">Chuyển bài toán IE từ TRIPLET-CENTRIC sang ENTITY-CENTRIC, đề xuất metric AESOP (Approximate Entity Set OverlaP) và mô hình MuSEE trích xuất NHIỀU PHA. Bằng chứng gần nhất trong văn liệu cho câu hỏi &#x27;đồ thị/thực thể so với list phẳng ở cùng ngân sách&#x27;: tách thành nhiều pha vừa hiệu quả hơn vừa nhanh hơn baseline sinh một lượt. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-15</span><div class="b"><span class="ti">Autoregressive Structured Prediction with Language Models</span>
+      <div class="me">Liu và cs. · Findings of EMNLP 2022 · <a href="https://arxiv.org/abs/2210.14698">arXiv:2210.14698</a></div>
+      <div class="de">Chỉ rõ tổn thất của việc DÀN PHẲNG cấu trúc thành chuỗi: mất phụ thuộc trong cấu trúc và kém hơn mô hình phân biệt cổ điển; giải pháp là sinh cấu trúc dưới dạng CHUỖI HÀNH ĐỘNG (action) tự hồi quy. Báo cáo SOTA đồng thời trên NER, end-to-end relation extraction và coreference — ba thứ đúng bằng ba loại cạnh của ta. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-16</span><div class="b"><span class="ti">BioCoref: Benchmarking Biomedical Coreference Resolution with LLMs</span>
+      <div class="me">Sadeeq và cs. · arXiv preprint, 2025 · <a href="https://arxiv.org/abs/2510.25087">arXiv:2510.25087</a></div>
+      <div class="de">Đánh giá LLM sinh cho coreference y sinh trên corpus CRAFT, 4 kiểu prompt (local / giàu ngữ cảnh / gợi ý theo miền như viết tắt và từ điển entity) so với SpanBERT phân biệt. Kết luận dùng được: LLM mạnh ở coref BỀ MẶT và mạnh nhất khi prompt được BƠM TỪ ĐIỂN ENTITY, nhưng yếu khi ngữ cảnh xa và mention mơ hồ — khớp với việc ta phải bơm danh sách tên thuốc RxNorm vào prompt coref cho ca *****. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-2</span><div class="b"><span class="ti">Text2KGBench: A Benchmark for Ontology-Driven Knowledge Graph Generation from Text</span>
+      <div class="me">Mihindukulasooriya và cs. · ISWC 2023 (Resources Track) · <a href="https://arxiv.org/abs/2308.02357">arXiv:2308.02357</a></div>
+      <div class="de">Định nghĩa 7 metric tách rời cho sinh KG từ text: chất lượng trích xuất fact, ĐỘ TUÂN THỦ LƯỢC ĐỒ (concept/relation/domain-range) và ĐO BỊA (hallucination) riêng biệt. Quy mô: 10 ontology/13.474 câu (Wikidata-TekGen) và 19 ontology/4.860 câu (DBpedia-WebNLG). Cho ta bộ metric để chấm cạnh của document graph mà không lẫn lỗi span với lỗi cạnh. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-3</span><div class="b"><span class="ti">Extract, Define, Canonicalize: An LLM-based Framework for Knowledge Graph Construction</span>
+      <div class="me">Zhang và Soh · EMNLP 2024 · <a href="https://arxiv.org/abs/2404.03868">arXiv:2404.03868</a></div>
+      <div class="de">Chỉ ra thất bại chính của KG construction bằng LLM: nhồi cả lược đồ vào prompt sẽ vượt context khi lược đồ lớn. Giải pháp 3 pha open-IE → định nghĩa lược đồ → canonical hoá hậu kiểm, cộng một bộ retrieve phần tử lược đồ liên quan. Với smart-medic, lược đồ chỉ có 5 type + 5 loại cạnh nên pha Define là không cần — nhưng ý &#x27;canonical hoá HẬU KIỂM thay vì ràng buộc lúc sinh&#x27; dùng được để hợp nhất node cùng chuỗi bề mặt. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-4</span><div class="b"><span class="ti">Structured Prompt Interrogation and Recursive Extraction of Semantics (SPIRES): a method for populating knowledge bases using zero-shot learning</span>
+      <div class="me">Caufield và cs. · Bioinformatics 40(3), 2024 · <a href="https://doi.org/10.1093/bioinformatics/btae104">doi:10.1093/bioinformatics/btae104</a></div>
+      <div class="de">Trích xuất zero-shot có lược đồ khai báo (LinkML) và ĐỆ QUY theo cấu trúc lược đồ, kết quả được nối vào ontology sinh học chuẩn. Đây chính là mô hình &#x27;schema khai báo + gọi LLM theo từng slot&#x27; mà smart-medic cần cho 5 loại cạnh: mỗi loại cạnh là một slot, LLM không được phát ra loại cạnh ngoài danh sách. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-5</span><div class="b"><span class="ti">From Local to Global: A Graph RAG Approach to Query-Focused Summarization</span>
+      <div class="me">Edge và cs. · arXiv preprint (Microsoft Research), 2024 · <a href="https://arxiv.org/abs/2404.16130">arXiv:2404.16130</a></div>
+      <div class="de">Pha indexing dựng entity KG rồi tổng hợp community summary trên corpus cỡ 1 triệu token. Bài học NGƯỢC cho ta: graph index của GraphRAG là graph MỨC CORPUS, node là entity đã chuẩn hoá và KHÔNG giữ offset ký tự — không dùng lại được cho bài toán cần position [start,end], chỉ dùng lại được ý tưởng &#x27;LLM dựng graph rồi mới suy luận trên graph&#x27;. <span class="pill p">fetched</span> <span class="pill g">cũng ở nhánh D:VER-1</span></div></div></div>
+    <div class="ref"><span class="id">T2G-6</span><div class="b"><span class="ti">A General Framework for Information Extraction using Dynamic Span Graphs</span>
+      <div class="me">Luan và cs. · NAACL-HLT 2019 · <a href="https://arxiv.org/abs/1904.03296">arXiv:1904.03296</a></div>
+      <div class="de">Đồ thị span ĐỘNG: chọn span tin cậy nhất làm node, nối bằng cạnh quan hệ và cạnh coreference có trọng số tin cậy, rồi LAN TRUYỀN biểu diễn qua cạnh để tinh chỉnh lặp. Đúng cơ chế ta cần cho ***** → tên thuốc lộ: lan truyền qua cạnh coref để định danh mention mờ. Báo cáo cải thiện F1 rõ trên ACE nhờ span enumeration bắt được span lồng nhau. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-7</span><div class="b"><span class="ti">Entity, Relation, and Event Extraction with Contextualized Span Representations (DyGIE++)</span>
+      <div class="me">Wadden và cs. · EMNLP-IJCNLP 2019 · <a href="https://arxiv.org/abs/1909.03546">arXiv:1909.03546</a> · <a href="https://aclanthology.org/D19-1585/">ACL D19-1585</a> · <a href="https://doi.org/10.18653/v1/D19-1585">doi:10.18653/v1/D19-1585</a></div>
+      <div class="de">Một khung span-graph chung cho NER + relation + event, code công khai. Kết luận ablation quan trọng: embedding ngữ cảnh (BERT) đủ cho quan hệ trong cùng câu hoặc câu kề, nhưng cập nhật đồ thị span ĐỘNG mới bắt được quan hệ xuyên câu xa — chính xác chế độ của smart-medic, nơi tên thuốc lộ ở câu khác với ***** (30/100 file). <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-8</span><div class="b"><span class="ti">End-to-End Negation Resolution as Graph Parsing</span>
+      <div class="me">Kurtz, Oepen, Kuhlmann · IWPT 2020 (16th Int. Conf. on Parsing Technologies) · <a href="https://aclanthology.org/2020.iwpt-1.3/">ACL 2020.iwpt-1.3</a> · <a href="https://doi.org/10.18653/v1/2020.iwpt-1.3">doi:10.18653/v1/2020.iwpt-1.3</a></div>
+      <div class="de">Công trình then chốt cho nhánh này: mô hình hoá phạm vi phủ định như bài toán PHÂN TÍCH ĐỒ THỊ (cue là đỉnh, scope là các cạnh trỏ tới token/span bị bao phủ) thay vì gán nhãn BIO trên token, huấn luyện end-to-end. Cho ta tiền lệ trong văn liệu để coi NEGATION_SCOPE là CẠNH — nền tảng lý luận cho đề xuất chính. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">T2G-9</span><div class="b"><span class="ti">Negation and speculation processing: A study on cue-scope labelling and assertion classification in Spanish clinical text</span>
+      <div class="me">Perez và cs. · Artificial Intelligence in Medicine 144:102682, 2023 · <a href="https://doi.org/10.1016/j.artmed.2023.102682">doi:10.1016/j.artmed.2023.102682</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/37925211/">PMID 37925211</a></div>
+      <div class="de">Đề xuất phương pháp CHUYỂN TỰ ĐỘNG nhãn cue-scope thành nhãn assertion (corpus NUBes, tiếng Tây Ban Nha lâm sàng), có thí nghiệm với lượng dữ liệu huấn luyện khác nhau và ví dụ test đối kháng. Đây đúng là cầu nối ta cần: gán cạnh scope một lần rồi DẪN XUẤT isNegated/isHistorical, thay vì gán assertion trực tiếp trên từng entity. <span class="pill p">fetched</span></div></div></div>
+  </div>
+  <div class="shead"><span class="num">C</span><h2>Hợp nhất nhãn trên đồ thị</h2><span class="sub">16 mục</span></div>
+  <div class="card">
+    <div class="ref"><span class="id">AGG-1</span><div class="b"><span class="ti">Maximum Likelihood Estimation of Observer Error-Rates Using the EM Algorithm</span>
+      <div class="me">Dawid và Skene · Journal of the Royal Statistical Society Series C (Applied Statistics), 1979 · <a href="https://doi.org/10.2307/2346806">doi:10.2307/2346806</a></div>
+      <div class="de">Gốc của mọi label model: mỗi nguồn nhãn có một ma trận nhầm lẫn K×K riêng, ước lượng bằng EM không cần nhãn vàng. Là mô hình mà FlyingSquid ở tab 07 rút gọn xuống; hiểu nó cho biết chính xác giả định nào bị vi phạm (nguồn độc lập có điều kiện với nhãn thật). <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-10</span><div class="b"><span class="ti">Named Entity Recognition without Labelled Data: A Weak Supervision Approach</span>
+      <div class="me">Lison và cs. · ACL 2020 · <a href="https://arxiv.org/abs/2004.14723">arXiv:2004.14723</a> · <a href="https://aclanthology.org/2020.acl-main.139/">ACL 2020.acl-main.139</a> · <a href="https://doi.org/10.18653/v1/2020.acl-main.139">doi:10.18653/v1/2020.acl-main.139</a></div>
+      <div class="de">Hợp nhất phổ rộng labelling function cho NER bằng HMM bắt được độ chính xác và ma trận nhầm lẫn khác nhau của từng LF, rồi huấn luyện mô hình gán nhãn chuỗi trên nhãn hợp nhất; cải thiện khoảng 7 điểm phần trăm F1 mức entity so với mô hình NER neural ngoài miền. Đây là baseline &#x27;hợp nhất mức token bằng HMM&#x27; mà đề xuất đồ thị của ta phải vượt. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-11</span><div class="b"><span class="ti">BERTifying the Hidden Markov Model for Multi-Source Weakly Supervised Named Entity Recognition (CHMM)</span>
+      <div class="me">Li và cs. · ACL 2021 (bản arXiv 2105.12848) · <a href="https://arxiv.org/abs/2105.12848">arXiv:2105.12848</a> · <a href="https://doi.org/10.48550/arXiv.2105.12848">doi:10.48550/arXiv.2105.12848</a></div>
+      <div class="de">HMM có điều kiện: xác suất chuyển/phát xạ mức token được sinh từ embedding BERT của chính token, nên độ tin cậy của nguồn phụ thuộc NGỮ CẢNH thay vì là một hằng số toàn cục. Đúng thứ ta cần cho tập test smart-medic: một prompt đáng tin dưới mục &#x27;Chẩn đoán:&#x27; nhưng kém trong đoạn hội thoại. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-12</span><div class="b"><span class="ti">Neural-Hidden-CRF: A Robust Weakly-Supervised Sequence Labeler</span>
+      <div class="me">Chen và cs. · ACM SIGKDD (KDD) 2023 · <a href="https://arxiv.org/abs/2309.05086">arXiv:2309.05086</a> · <a href="https://doi.org/10.1145/3580305.3599445">doi:10.1145/3580305.3599445</a></div>
+      <div class="de">Mô hình đồ thị vô hướng mô hình đồng thời chuỗi từ, chuỗi nhãn thật ẩn và chuỗi nhãn yếu; vượt CHMM 2,80 F1 (generalization) và 2,23 F1 (inference) trung bình trên 1 benchmark crowdsourcing + 3 benchmark weak supervision. Cho ta ước lượng biên trên của việc thay HMM bằng mô hình đồ thị chặt hơn: khoảng 2–3 F1, không phải 10. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-13</span><div class="b"><span class="ti">Great Models Think Alike and this Undermines AI Oversight</span>
+      <div class="me">Goel và cs. · ICML 2025 (bản arXiv 2502.04313) · <a href="https://arxiv.org/abs/2502.04313">arXiv:2502.04313</a> · <a href="https://doi.org/10.48550/arXiv.2502.04313">doi:10.48550/arXiv.2502.04313</a></div>
+      <div class="de">Đưa CAPA — độ tương đồng giữa LM tính theo mức TRÙNG LỖI, đã hiệu chỉnh ngẫu nhiên. Hai phát hiện dùng ngay: điểm LLM-as-judge thiên vị các model giống judge, và lỗi của model ngày càng GIỐNG NHAU khi năng lực tăng, tức rủi ro hỏng tương quan. Đây là công cụ đo trực tiếp thứ tab 07 chỉ nêu như rủi ro chưa mô hình hoá. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-14</span><div class="b"><span class="ti">Improving large language models for clinical named entity recognition via prompt engineering</span>
+      <div class="me">Hu và cs. · Journal of the American Medical Informatics Association (JAMIA) 31(9), 2024 · <a href="https://doi.org/10.1093/jamia/ocad259">doi:10.1093/jamia/ocad259</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/38281112/">PMID 38281112</a></div>
+      <div class="de">Con số agreement/độ chính xác của LLM trên trích xuất span y khoa: prompt cơ sở cho relaxed F1 0,634 (GPT-3.5) và 0,804 (GPT-4) trên MTSamples; thêm đủ 4 thành phần prompt lên 0,794 và 0,861; vẫn dưới BioClinicalBERT tinh chỉnh (F1 0,901). Lưu ý MTSamples chính là nguồn của data/external/en_notes/mtsamples_filtered.jsonl trong repo. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-15</span><div class="b"><span class="ti">CACER: Clinical concept Annotations for Cancer Events and Relations</span>
+      <div class="me">Fu và cs. · Journal of the American Medical Informatics Association (JAMIA) 31(11), 2024 · <a href="https://doi.org/10.1093/jamia/ocae231">doi:10.1093/jamia/ocae231</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/39225779/">PMID 39225779</a></div>
+      <div class="de">Cho TRẦN NGƯỜI trên trích xuất span y khoa: agreement giữa người gán nhãn (IAA) là 88,4 F1, và BERT/Llama3 tinh chỉnh đạt 88,0–88,2 F1 tức ngang trần đó, còn GPT-4 in-context KÉM NHẤT ở cả hai nhiệm vụ. Nghĩa là mọi mục tiêu đặt trên ~0,88 F1 mức span là vượt độ nhất quán của con người — dùng để định ngưỡng bỏ cho label model. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-16</span><div class="b"><span class="ti">From Louvain to Leiden: guaranteeing well-connected communities</span>
+      <div class="me">Traag và cs. · Scientific Reports 9:5233, 2019 · <a href="https://arxiv.org/abs/1810.08473">arXiv:1810.08473</a> · <a href="https://doi.org/10.1038/s41598-019-41695-z">doi:10.1038/s41598-019-41695-z</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/30914743/">PMID 30914743</a></div>
+      <div class="de">Louvain có thể sinh ra community RỜI RẠC nội bộ (không liên thông) — lỗi chí tử nếu ta phân cụm đồ thị chồng lấn span, vì một cụm không liên thông = trộn hai entity khác nhau vào một. Leiden đảm bảo mọi community liên thông và hội tụ tới phân hoạch tối ưu địa phương ở mọi mức; đây là thuật toán nên dùng cho bước gom span. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-2</span><div class="b"><span class="ti">Comparing Bayesian Models of Annotation</span>
+      <div class="me">Paun và cs. · Transactions of the ACL (TACL) 6, 2018 · <a href="https://doi.org/10.1162/tacl_a_00040">doi:10.1162/tacl_a_00040</a></div>
+      <div class="de">So sánh 6 mô hình annotator (gồm Dawid–Skene, MACE, mô hình có gộp tham số/pooling) trên 4 tập với mức nhiễu khác nhau, đánh giá theo 4 tiêu chí và kết thúc bằng hướng dẫn CHỌN mô hình. Chỗ dùng được: mô hình có pooling (tie tham số giữa annotator) là lựa chọn cho chế độ ít dữ liệu — đúng tình huống 5–8 nguồn LLM của ta. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-3</span><div class="b"><span class="ti">Aggregating and Predicting Sequence Labels from Crowd Annotations</span>
+      <div class="me">Nguyen và cs. · ACL 2017 · <a href="https://aclanthology.org/P17-1028/">ACL P17-1028</a> · <a href="https://doi.org/10.18653/v1/P17-1028">doi:10.18653/v1/P17-1028</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/29093611/">PMID 29093611</a></div>
+      <div class="de">Đưa biến thể HMM (HMM-Crowd) để hợp nhất nhãn CHUỖI thay vì nhãn rời rạc, đánh giá trên NER tin tức và trích xuất thông tin từ abstract y sinh, vượt các baseline mạnh. Đây là bằng chứng trực tiếp rằng bỏ phiếu mức span rời (như tab 07) đánh mất phụ thuộc BIO giữa các token kề nhau. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-4</span><div class="b"><span class="ti">A Bayesian Approach for Sequence Tagging with Crowds</span>
+      <div class="me">Simpson và Gurevych · EMNLP-IJCNLP 2019 · <a href="https://arxiv.org/abs/1811.00780">arXiv:1811.00780</a> · <a href="https://aclanthology.org/D19-1101/">ACL D19-1101</a> · <a href="https://doi.org/10.18653/v1/D19-1101">doi:10.18653/v1/D19-1101</a></div>
+      <div class="de">Nói thẳng vấn đề của ta: các phương pháp hợp nhất hiện có KHÔNG bắt được các dạng lỗi ranh giới span thường gặp. Cách chữa: mô hình Bayesian có phụ thuộc chuỗi cả ở phía nhãn của annotator và phía nhãn thật, đồng thời tính bất định do annotator làm ít việc — đúng chế độ n nhỏ. Vượt SOTA trên NER/IE/argument mining và giảm chi phí gán nhãn qua active learning. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-5</span><div class="b"><span class="ti">Truth Discovery in Sequence Labels from Crowds (AggSLC)</span>
+      <div class="me">Sabetpour và cs. · IEEE ICDM 2021 (bản arXiv 2109.04470) · <a href="https://arxiv.org/abs/2109.04470">arXiv:2109.04470</a> · <a href="https://doi.org/10.48550/arXiv.2109.04470">doi:10.48550/arXiv.2109.04470</a></div>
+      <div class="de">Chỉ rõ rằng văn liệu hợp nhất nhãn &#x27;giả định các nhãn độc lập nên gặp khó với gán nhãn chuỗi có phụ thuộc phức tạp&#x27;, rồi giải bằng bài toán tối ưu kết hợp độ tin cậy worker + ràng buộc chuỗi, có chứng minh hội tụ sau hữu hạn bước. Cho ta một khung tối ưu thay vì EM, dễ thêm ràng buộc cứng (không span lồng nhau). <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-6</span><div class="b"><span class="ti">Truth inference in crowdsourcing: is the problem solved?</span>
+      <div class="me">Zheng và cs. · Proceedings of the VLDB Endowment 10(5), 2017 · <a href="https://doi.org/10.14778/3055540.3055547">doi:10.14778/3055540.3055547</a></div>
+      <div class="de">Khảo sát 17 thuật toán suy luận chân trị và đánh giá lại trên 5 tập thật: kết luận là các thuật toán KHÔNG ổn định giữa các tập và KHÔNG có thuật toán nào thắng nhất quán. Đây là kết quả âm tính quan trọng: đừng kỳ vọng một label model &#x27;xịn&#x27; thắng majority vote một cách chắc chắn; phải chọn bằng ablation trên chính dữ liệu của mình. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-7</span><div class="b"><span class="ti">Learning the Structure of Generative Models without Labeled Data</span>
+      <div class="me">Bach và cs. · ICML 2017 (PMLR 70) · <a href="https://arxiv.org/abs/1703.00854">arXiv:1703.00854</a> · <a href="https://doi.org/10.48550/arXiv.1703.00854">doi:10.48550/arXiv.1703.00854</a></div>
+      <div class="de">Học cấu trúc phụ thuộc giữa các nguồn nhãn bằng cách tối đa pseudolikelihood có phạt L1, không cần nhãn vàng; lượng dữ liệu không nhãn cần thiết tăng DƯỚI tuyến tính theo số phụ thuộc khả dĩ. Lợi ích thực đo được khiêm tốn: trung bình +1,5 F1 so với ứng dụng do người tự thiết kế, nhưng nhanh hơn ước lượng hợp lý cực đại 100× và chọn ít phụ thuộc rác hơn 4 lần. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-8</span><div class="b"><span class="ti">Learning Dependency Structures for Weak Supervision Models</span>
+      <div class="me">Varma và cs. · ICML 2019 (bản arXiv 1903.05844) · <a href="https://arxiv.org/abs/1903.05844">arXiv:1903.05844</a> · <a href="https://doi.org/10.48550/arXiv.1903.05844">doi:10.48550/arXiv.1903.05844</a></div>
+      <div class="de">Con số then chốt cho câu hỏi trung tâm của nhánh: học cấu trúc phụ thuộc bằng robust-PCA vượt các phương pháp GIẢ ĐỊNH ĐỘC LẬP CÓ ĐIỀU KIỆN tới 4,64 F1 và vượt các phương pháp học cấu trúc trước đó tới 4,41 F1. Số dữ liệu không nhãn cần có thể tăng dưới tuyến tính hoặc thậm chí logarit theo số nguồn m. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">AGG-9</span><div class="b"><span class="ti">Fast and Three-rious: Speeding Up Weak Supervision with Triplet Methods (FlyingSquid)</span>
+      <div class="me">Fu và cs. · ICML 2020 (bản arXiv 2002.11955) · <a href="https://arxiv.org/abs/2002.11955">arXiv:2002.11955</a> · <a href="https://doi.org/10.48550/arXiv.2002.11955">doi:10.48550/arXiv.2002.11955</a></div>
+      <div class="de">Chính là label model tab 07 đang dùng: nghiệm dạng đóng cho lớp mô hình biến ẩn, nhanh hơn ~170× so với ước lượng tham số bằng SGD và cần ít giả định hơn. Quan trọng: nghiệm tam giác (triplet) dựa trên tích kỳ vọng cặp nguồn, nên nó KHÔNG miễn nhiễm với tương quan lỗi — phụ thuộc giữa nguồn làm lệch trực tiếp lời giải. <span class="pill p">fetched</span> <span class="pill w">trùng <code>WSP-1.3</code> của báo cáo cũ</span></div></div></div>
+  </div>
+  <div class="shead"><span class="num">D</span><h2>Đồ thị làm bộ kiểm chứng</h2><span class="sub">15 mục</span></div>
+  <div class="card">
+    <div class="ref"><span class="id">VER-10</span><div class="b"><span class="ti">Grammar-Constrained Decoding for Structured NLP Tasks without Finetuning</span>
+      <div class="me">Geng và cs. · EMNLP 2023 (Main) · <a href="https://arxiv.org/abs/2305.13971">arXiv:2305.13971</a> · <a href="https://aclanthology.org/2023.emnlp-main.674/">ACL 2023.emnlp-main.674</a> · <a href="https://doi.org/10.18653/v1/2023.emnlp-main.674">doi:10.18653/v1/2023.emnlp-main.674</a></div>
+      <div class="de">Mặt tích cực của cùng vấn đề: với input-dependent grammar, LLM bị ràng buộc văn phạm &#x27;vượt trội đáng kể&#x27; so với LLM không ràng buộc và có khi hơn cả mô hình fine-tune riêng cho tác vụ, trên trích xuất thông tin, entity disambiguation, phân tích cú pháp. Cùng VER-8/VER-9 tạo bức tranh hai chiều: ràng buộc giúp ở tác vụ CÓ KHÔNG GIAN ĐẦU RA HỮU HẠN, hại ở tác vụ cần suy luận. <span class="pill p">fetched</span> <span class="pill w">trùng <code>AGT-15</code> của báo cáo cũ</span></div></div></div>
+    <div class="ref"><span class="id">VER-11</span><div class="b"><span class="ti">KG-Guard: Graph-Based Hallucination Detection for Knowledge Base Question Answering</span>
+      <div class="me">Sawczyn và cs. · arXiv preprint, 2026 · <a href="https://arxiv.org/abs/2606.00328">arXiv:2606.00328</a></div>
+      <div class="de">Đặt phát hiện hallucination thành bài toán PHÂN LOẠI NÚT ĐÁP ÁN trên đồ thị tăng cường, coi LLM trả lời là hộp đen. F1 82,0 / 87,4 / 84,3 trên WebQSP / CWQ / PUGG, cao hơn LLM-as-judge và baseline lấy mẫu, với số tham số ít hơn ~305×. Quan trọng nhất: đưa nút bị gắn cờ ngược lại hệ thống để tinh chỉnh làm KBQA F1 tăng 13,0–14,5 điểm và Exact Match tăng 16,9–17,6 điểm — bằng chứng rằng tín hiệu vi phạm đồ thị là TÁC ĐỘNG ĐƯỢC, không chỉ để chẩn đoán. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-12</span><div class="b"><span class="ti">Large Language Models Are Poor Medical Coders — Benchmarking of Medical Code Querying</span>
+      <div class="me">Soroush và cs. · NEJM AI 1(5), 2024 · <a href="https://doi.org/10.1056/aidbp2300040">doi:10.1056/aidbp2300040</a></div>
+      <div class="de">Con số nền cho toàn nhánh: cho LLM MÔ TẢ mã rồi yêu cầu sinh mã, GPT-4 đạt exact match cao nhất mà chỉ 45,9% (ICD-9-CM), 33,9% (ICD-10-CM), 49,8% (CPT) trên 7.697 / 15.950 / 3.673 mã trích từ EHR Mount Sinai; các mô hình đều dưới 50%. Trong nhóm sai, GPT-3.5 sinh nhiều mã &#x27;đúng nhưng tổng quát hơn&#x27; nhất (29,9% ICD-9-CM; 18,5% ICD-10-CM) — dưới exact-match Jaccard của cuộc thi, những mã này = 0 điểm. Kết luận của bài: LLM thường sinh mã truyền tải thông tin không chính xác hoặc BỊA. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-13</span><div class="b"><span class="ti">Annotation Error Detection: Analyzing the Past and Present for a More Coherent Future</span>
+      <div class="me">Klie và cs. · Computational Linguistics 49(1):157–198, 2023 · <a href="https://arxiv.org/abs/2206.02280">arXiv:2206.02280</a> · <a href="https://aclanthology.org/2023.cl-1.4/">ACL 2023.cl-1.4</a> · <a href="https://doi.org/10.1162/coli_a_00464">doi:10.1162/coli_a_00464</a></div>
+      <div class="de">Cài lại 18 phương pháp phát hiện lỗi nhãn và đánh giá trên 9 dataset tiếng Anh gồm cả gán nhãn token/span, với giao thức đánh giá thống nhất và gói mã nguồn mở. Cho ta thư viện baseline (model-based, retag, variation n-gram...) để so với ràng buộc ONTOLOGY khi soát 543 file bạc — và cảnh báo rằng phần lớn dataset đánh giá AED là lỗi TIÊM NHÂN TẠO, không phản ánh lỗi thật. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-14</span><div class="b"><span class="ti">Improving broad-coverage medical entity linking with semantic type prediction and large-scale datasets (MedType)</span>
+      <div class="me">Vashishth và cs. · Journal of Biomedical Informatics 121:103880, 2021 · <a href="https://doi.org/10.1016/j.jbi.2021.103880">doi:10.1016/j.jbi.2021.103880</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/34390853/">PMID 34390853</a></div>
+      <div class="de">Bằng chứng định lượng cho đúng cơ chế ta muốn dùng: chèn một module dự đoán SEMANTIC TYPE để lọc ứng viên sai loại, kết quả &#x27;cải thiện entity linking y sinh trên MỌI toolkit và MỌI dataset, thường vài điểm phần trăm F1&#x27; (5 toolkit, 4 benchmark). Đây là biện luận trực tiếp cho ràng buộc RXNSTY T109/T121 và cho ràng buộc chương ICD. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-15</span><div class="b"><span class="ti">Quality Assurance of SNOMED CT using Lexical Similarity and Sibling Relationships</span>
+      <div class="me">Agrawal và Qazi · ICMHI 2023 (7th Int. Conf. on Medical and Health Informatics) · <a href="https://doi.org/10.1145/3608298.3608317">doi:10.1145/3608298.3608317</a></div>
+      <div class="de">Dùng tương đồng LEXICAL cộng quan hệ ANH EM trong cây phân loại để khoanh vùng lỗi/mâu thuẫn trong SNOMED CT. Chỉ xác minh được metadata (Crossref có DOI, venue, tác giả) chứ chưa lấy được abstract nên không dẫn con số; giá trị dùng được là mẫu quy trình: bất thường = cụm mã anh em có tên gần nhau nhưng gán khác nhau, áp thẳng cho 1.484/2.138 mục 3 ký tự có mã con thập phân trong ICD10.csv. <span class="pill a">indexed</span></div></div></div>
+    <div class="ref"><span class="id">VER-16</span><div class="b"><span class="ti">Learn to Not Link: Exploring NIL Prediction in Entity Linking</span>
+      <div class="me">Zhu và cs. · Findings of ACL 2023 · <a href="https://arxiv.org/abs/2305.15725">arXiv:2305.15725</a></div>
+      <div class="de">Phân biệt hai loại NIL (Missing Entity vs Non-Entity Phrase) và chỉ ra rằng sự có mặt của CẢ HAI loại trong dữ liệu huấn luyện ảnh hưởng đáng kể tới độ chính xác dự đoán NIL của bi-encoder và cross-encoder. Nền tảng lý thuyết cho chính sách ABSTAIN của smart-medic: &#x27;không có mã&#x27; phải là một lớp được huấn luyện tường minh, không phải ngưỡng cắt hậu kiểm. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-2</span><div class="b"><span class="ti">When to use Graphs in RAG: A Comprehensive Analysis for Graph Retrieval-Augmented Generation (GraphRAG-Bench)</span>
+      <div class="me">Xiang và cs. · arXiv preprint, 2025 · <a href="https://arxiv.org/abs/2506.05690">arXiv:2506.05690</a></div>
+      <div class="de">Benchmark chuyên đánh giá GraphRAG theo từng tầng pipeline (dựng đồ thị → truy hồi → sinh). Kết luận trích nguyên: các nghiên cứu gần đây báo cáo GraphRAG THƯỜNG KÉM HƠN vanilla RAG trên nhiều tác vụ thực tế; lợi ích chỉ đo được ở suy luận đa bước theo tầng. Cho ta cơ sở để BỎ GraphRAG ở quy mô 100 file test. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-3</span><div class="b"><span class="ti">How Significant Are the Real Performance Gains? An Unbiased Evaluation Framework for GraphRAG</span>
+      <div class="me">Zeng và cs. · arXiv preprint, 2025 · <a href="https://arxiv.org/abs/2506.06331">arXiv:2506.06331</a></div>
+      <div class="de">Chỉ ra hai lỗi hệ thống trong cách đánh giá GraphRAG (câu hỏi không liên quan tới dữ liệu, và bias của LLM-as-judge); sau khi sửa, mức tăng của 3 phương pháp GraphRAG tiêu biểu &#x27;ôn hoà hơn nhiều so với báo cáo trước&#x27;. Kết quả âm tính này là lý do trực tiếp để không đầu tư ngày-người vào GraphRAG. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-4</span><div class="b"><span class="ti">Do We Still Need GraphRAG? Benchmarking RAG and GraphRAG for Agentic Search Systems</span>
+      <div class="me">Fan và cs. · arXiv preprint, 2026 · <a href="https://arxiv.org/abs/2604.09666">arXiv:2604.09666</a></div>
+      <div class="de">Đo trực tiếp câu hỏi &#x27;agentic search có bù được việc thiếu cấu trúc đồ thị tường minh không&#x27;. Kết quả: agentic search cải thiện đáng kể dense RAG và THU HẸP khoảng cách tới GraphRAG; GraphRAG chỉ còn lợi thế ở suy luận đa bước phức tạp. Nghĩa là ReAct linker ở tab 08 đã hấp thụ phần lớn giá trị của GraphRAG cho smart-medic. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-5</span><div class="b"><span class="ti">Autoregressive Entity Retrieval (GENRE)</span>
+      <div class="me">De Cao và cs. · ICLR 2021 (spotlight) · <a href="https://arxiv.org/abs/2010.00904">arXiv:2010.00904</a></div>
+      <div class="de">Nền tảng của trie-constrained generation: sinh định danh thực thể theo token dưới ràng buộc cây tiền tố nên đầu ra LUÔN là một định danh tồn tại trong KB. Thí nghiệm trên &gt;20 dataset entity disambiguation/linking, đạt SOTA hoặc rất cạnh tranh với dung lượng bộ nhớ nhỏ hơn nhiều lần so với bi-encoder. Đây là cơ chế &#x27;không thể sinh mã không tồn tại&#x27; mà smart-medic cần cho 13.189 mã ICD. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-6</span><div class="b"><span class="ti">Generative Biomedical Entity Linking via Knowledge Base-Guided Pre-training and Synonyms-Aware Fine-tuning (GenBioEL)</span>
+      <div class="me">Yuan và cs. · NAACL 2022 · <a href="https://arxiv.org/abs/2204.05164">arXiv:2204.05164</a></div>
+      <div class="de">Chuyển GENRE sang miền y sinh: prefix tree ĐA-ĐỒNG-NGHĨA (multi-synonyms constrained prefix tree) lúc suy luận, cộng tiền huấn luyện dẫn dắt bởi KB. Đạt SOTA nhiều tác vụ EL y sinh KHÔNG cần bước chọn ứng viên. Trực tiếp áp được: trie xây từ mọi chuỗi STR của RxNorm/ICD10.csv, không cần retriever riêng. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-7</span><div class="b"><span class="ti">Decoding on Graphs: Faithful and Sound Reasoning on Knowledge Graphs through Generation of Well-Formed Chains</span>
+      <div class="me">Li và cs. · arXiv preprint, 2024 · <a href="https://arxiv.org/abs/2410.18415">arXiv:2410.18415</a></div>
+      <div class="de">Định nghĩa &#x27;well-formed chain&#x27; (chuỗi triple liên kết trên KG từ thực thể câu hỏi tới đáp án) và ép nó bằng graph-aware constrained decoding, training-free. Mô hình cho cơ chế biến RÀNG BUỘC CẠNH thành mặt nạ token — mẫu để ép đường đi RXNREL (has_active_ingredient / consists_of / isa) thay vì chỉ kiểm hậu kiểm. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-8</span><div class="b"><span class="ti">Guiding LLMs The Right Way: Fast, Non-Invasive Constrained Generation (DOMINO)</span>
+      <div class="me">Beurer-Kellner và cs. · ICML 2024 / arXiv · <a href="https://arxiv.org/abs/2403.06988">arXiv:2403.06988</a></div>
+      <div class="de">Kết quả then chốt và mang tính cảnh báo: nhiều phương pháp constrained decoding LÀM GIẢM ĐỘ CHÍNH XÁC tác vụ nếu không căn chỉnh đúng từ vựng subword của LLM với ràng buộc ngoài. DOMINO căn chỉnh ở mức subword nên gần như không overhead, có ca nhanh gấp ~2× so với giải mã không ràng buộc. Nếu ta làm trie trên RxNorm, phải căn subword đúng nếu không hại nhiều hơn lợi. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">VER-9</span><div class="b"><span class="ti">Let Me Speak Freely? A Study on the Impact of Format Restrictions on Performance of Large Language Models</span>
+      <div class="me">Tam và cs. · EMNLP 2024 Industry Track · <a href="https://arxiv.org/abs/2408.02442">arXiv:2408.02442</a> · <a href="https://aclanthology.org/2024.emnlp-industry.91/">ACL 2024.emnlp-industry.91</a> · <a href="https://doi.org/10.18653/v1/2024.emnlp-industry.91">doi:10.18653/v1/2024.emnlp-industry.91</a></div>
+      <div class="de">Đo tác động của ép định dạng (JSON/XML) lên năng lực LLM: SUY GIẢM ĐÁNG KỂ khả năng suy luận, và ràng buộc càng chặt thì mức giảm càng lớn. Đây là luận cứ mạnh cho kiến trúc &#x27;sinh tự do rồi kiểm chứng hậu kiểm&#x27; thay vì ép ràng buộc ngay lúc sinh — quan trọng vì assertions của ta cần suy luận ngữ cảnh. <span class="pill p">fetched</span></div></div></div>
+  </div>
+  <div class="shead"><span class="num">E</span><h2>Chất lượng &amp; độ phủ của dữ liệu tổng hợp</h2><span class="sub">16 mục</span></div>
+  <div class="card">
+    <div class="ref"><span class="id">QUA-1</span><div class="b"><span class="ti">Is Model Collapse Inevitable? Breaking the Curse of Recursion by Accumulating Real and Synthetic Data</span>
+      <div class="me">Gerstgrasser và cs. · arXiv preprint 2404.01413 (2024) — venue kỷ yếu chưa xác minh qua API · <a href="https://arxiv.org/abs/2404.01413">arXiv:2404.01413</a> · <a href="https://doi.org/10.48550/arXiv.2404.01413">doi:10.48550/arXiv.2404.01413</a></div>
+      <div class="de">Chứng minh bằng thực nghiệm pretraining chuỗi LM: THAY THẾ dữ liệu thật bằng synthetic mỗi thế hệ thì collapse, nhưng TÍCH LUỸ synthetic BÊN CẠNH dữ liệu thật thì test loss không phân kỳ, ổn định qua nhiều kích cỡ/kiến trúc. Đây là căn cứ để giữ nguyên translated/ khi huấn luyện cùng restyled/ thay vì thay thế. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-10</span><div class="b"><span class="ti">Position: All Current Generative Fidelity and Diversity Metrics are Flawed</span>
+      <div class="me">Räisä và cs. · arXiv preprint 2505.22450 (2025), track Position — venue kỷ yếu chưa xác minh qua API · <a href="https://arxiv.org/abs/2505.22450">arXiv:2505.22450</a> · <a href="https://doi.org/10.48550/arXiv.2505.22450">doi:10.48550/arXiv.2505.22450</a></div>
+      <div class="de">Đưa ra bộ desiderata và các sanity check đơn giản, rồi kết luận mọi chỉ số fidelity/diversity hiện hành đều hỏng ở ít nhất một chế độ (thiếu bền với outlier, biên trên/dưới không rõ). Lý do để KHÔNG dựa vào một điểm số embedding duy nhất mà dùng chỉ số đếm được trên đồ thị ontology. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-11</span><div class="b"><span class="ti">The Vendi Score: A Diversity Evaluation Metric for Machine Learning</span>
+      <div class="me">Friedman và Dieng · arXiv preprint 2210.02410 (2022) — venue kỷ yếu chưa xác minh qua API · <a href="https://arxiv.org/abs/2210.02410">arXiv:2210.02410</a> · <a href="https://doi.org/10.48550/arXiv.2210.02410">doi:10.48550/arXiv.2210.02410</a></div>
+      <div class="de">Vendi = exp(entropy Shannon của phổ riêng ma trận tương đồng), KHÔNG cần tập tham chiếu và cho phép người dùng tự định nghĩa hàm tương đồng. Cho ta cách biến khoảng cách trên cây ICD (LCA depth) thành kernel để có một chỉ số đa dạng &#x27;số mã hiệu dụng&#x27; thay vì đếm mã thô. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-12</span><div class="b"><span class="ti">MAUVE: Measuring the Gap Between Neural Text and Human Text using Divergence Frontiers</span>
+      <div class="me">Pillutla và cs. · arXiv preprint 2102.01454 (2021) — venue kỷ yếu chưa xác minh qua API · <a href="https://arxiv.org/abs/2102.01454">arXiv:2102.01454</a> · <a href="https://doi.org/10.48550/arXiv.2102.01454">doi:10.48550/arXiv.2102.01454</a></div>
+      <div class="de">So sánh phân phối văn bản sinh với văn bản người bằng divergence frontier trên không gian embedding lượng tử hoá; báo cáo tương quan với đánh giá người và nhận ra các tính chất đã biết của văn bản sinh. Dùng được để đo khoảng cách corpus bạc ↔ 100 file test mà KHÔNG cần nhãn. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-13</span><div class="b"><span class="ti">SemDeDup: Data-efficient learning at web-scale through semantic deduplication</span>
+      <div class="me">Abbas và cs. · arXiv preprint 2303.09540 (2023) — venue kỷ yếu chưa xác minh qua API · <a href="https://arxiv.org/abs/2303.09540">arXiv:2303.09540</a> · <a href="https://doi.org/10.48550/arXiv.2303.09540">doi:10.48550/arXiv.2303.09540</a></div>
+      <div class="de">Xoá &#x27;trùng lặp ngữ nghĩa&#x27; bằng embedding của mô hình tiền huấn luyện: loại 50% dữ liệu LAION mà hiệu năng gần như không đổi, huấn luyện nhanh gấp đôi, và tốt hơn ngoài phân phối. Quy trình rẻ để cắt phần dư trong 543 file bạc, đặc biệt các bản restyled cùng gốc. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-14</span><div class="b"><span class="ti">Data Selection for Language Models via Importance Resampling</span>
+      <div class="me">Xie và cs. · NeurIPS 2023 (kỷ yếu DOI 10.52202/075280-1482; arXiv 2302.03169) · <a href="https://arxiv.org/abs/2302.03169">arXiv:2302.03169</a> · <a href="https://doi.org/10.48550/arXiv.2302.03169">doi:10.48550/arXiv.2302.03169</a></div>
+      <div class="de">DSIR: chọn tập con của corpus thô để KHỚP phân phối đích chỉ cần MẪU ĐÍCH KHÔNG NHÃN, tính importance weight trên đặc trưng n-gram băm nên rất nhẹ. Đúng bài toán của ta: 100 file test không nhãn làm phân phối đích để lọc 543 file bạc. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-15</span><div class="b"><span class="ti">Synthetic Clinical Notes for Rare ICD Codes: A Data-Centric Framework for Long-Tail Medical Coding</span>
+      <div class="me">Vo, Wu, Ding · arXiv preprint (2025) · <a href="https://arxiv.org/abs/2511.14112">arXiv:2511.14112</a> · <a href="https://doi.org/10.48550/arXiv.2511.14112">doi:10.48550/arXiv.2511.14112</a></div>
+      <div class="de">Sinh 90.000 giấy xuất viện tổng hợp neo trên mã ICD HIẾM, dùng đồng xuất hiện thực tế + mô tả/từ đồng nghĩa/taxonomy ICD, phủ 7.902 mã; fine-tune PLM-ICD và GKI-ICD. Kết quả: macro-F1 chỉ tăng KHIÊM TỐN trong khi micro-F1 giữ nguyên — tác giả tự nhận lợi ích nhỏ so với chi phí tính toán. Đây là kết quả âm tính quan trọng cho tham vọng &#x27;lấp toàn bộ vùng trắng ICD&#x27;. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-16</span><div class="b"><span class="ti">Bias Amplification: Large Language Models as Increasingly Biased Media</span>
+      <div class="me">Wang và cs. · IJCNLP-AACL 2025 (arXiv 2410.15234) · <a href="https://arxiv.org/abs/2410.15234">arXiv:2410.15234</a> · <a href="https://aclanthology.org/2025.ijcnlp-long.8/">ACL 2025.ijcnlp-long.8</a> · <a href="https://doi.org/10.18653/v1/2025.ijcnlp-long.8">doi:10.18653/v1/2025.ijcnlp-long.8</a></div>
+      <div class="de">Trên benchmark tiếp câu nhiều thế hệ với GPT-2, thiên lệch bị khuếch đại đơn điệu qua các vòng huấn luyện synthetic, và tồn tại ĐỘC LẬP với model collapse — ba chiến lược Overfitting/Preservation/Accumulation kiểm soát được collapse nhưng không chặn được khuếch đại thiên lệch. Nghĩa là &#x27;test loss không phân kỳ&#x27; KHÔNG chứng minh corpus restyled/ vô hại. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-2</span><div class="b"><span class="ti">Collapse or Thrive? Perils and Promises of Synthetic Data in a Self-Generating World</span>
+      <div class="me">Kazdan, Schaeffer và cs. · arXiv preprint (2024) · <a href="https://arxiv.org/abs/2410.16713">arXiv:2410.16713</a> · <a href="https://doi.org/10.48550/arXiv.2410.16713">doi:10.48550/arXiv.2410.16713</a></div>
+      <div class="de">So sánh 3 workflow (replace / accumulate / accumulate-then-subsample) trên 3 bài toán gồm fine-tuning LM: replace luôn collapse; accumulate ổn định dù tỷ lệ dữ liệu thật tiến về 0. Cho ta khuôn &#x27;ablation workflow&#x27; rẻ để chạy trên 543 file bạc. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-3</span><div class="b"><span class="ti">On the Stability of Iterative Retraining of Generative Models on their own Data</span>
+      <div class="me">Bertrand, Bose và cs. · arXiv preprint 2310.00429 (2023) — venue kỷ yếu chưa xác minh qua API · <a href="https://arxiv.org/abs/2310.00429">arXiv:2310.00429</a> · <a href="https://doi.org/10.48550/arXiv.2310.00429">doi:10.48550/arXiv.2310.00429</a></div>
+      <div class="de">Chứng minh ổn định của huấn luyện đệ quy CÓ ĐIỀU KIỆN: mô hình khởi đầu phải xấp xỉ phân phối đủ tốt VÀ tỷ lệ dữ liệu sạch phải đủ lớn. Đây là cơ sở lý thuyết cho việc đặt một ngưỡng tỷ lệ &#x27;thật&#x27; khi trộn, thay vì trộn tuỳ ý. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-4</span><div class="b"><span class="ti">A Tale of Tails: Model Collapse as a Change of Scaling Laws</span>
+      <div class="me">Dohmatob, Feng và cs. · arXiv preprint 2402.07043 (2024) — venue kỷ yếu chưa xác minh qua API · <a href="https://arxiv.org/abs/2402.07043">arXiv:2402.07043</a> · <a href="https://doi.org/10.48550/arXiv.2402.07043">doi:10.48550/arXiv.2402.07043</a></div>
+      <div class="de">Mô tả collapse như một thay đổi luật tỷ lệ: mất scaling, dịch scaling theo số thế hệ, và &#x27;un-learning&#x27; kỹ năng — cơ chế cụ thể là ĐUÔI phân phối bị cắt. Giải thích trực tiếp hiện tượng ta đo được: translated→restyled mất 27 mã chẩn đoán và 117 RxCUI. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-5</span><div class="b"><span class="ti">Strong Model Collapse</span>
+      <div class="me">Dohmatob và cs. · arXiv preprint 2410.04840 (2024) — venue kỷ yếu chưa xác minh qua API · <a href="https://arxiv.org/abs/2410.04840">arXiv:2410.04840</a> · <a href="https://doi.org/10.48550/arXiv.2410.04840">doi:10.48550/arXiv.2410.04840</a></div>
+      <div class="de">Trong hồi quy có giám sát, chỉ 1% dữ liệu synthetic cũng đủ làm hiệu năng chững lại (tăng dữ liệu không còn giúp); mô hình lớn hơn có thể KHUẾCH ĐẠI collapse. Cảnh báo rằng &#x27;chỉ 162/543 file là thế hệ hai&#x27; không phải lý lẽ an toàn tự động. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-6</span><div class="b"><span class="ti">Self-Consuming Generative Models Go MAD</span>
+      <div class="me">Alemohammad và cs. · arXiv preprint 2307.01850 (2023) — venue kỷ yếu chưa xác minh qua API · <a href="https://arxiv.org/abs/2307.01850">arXiv:2307.01850</a> · <a href="https://doi.org/10.48550/arXiv.2307.01850">doi:10.48550/arXiv.2307.01850</a></div>
+      <div class="de">Kết luận xuyên mọi vòng lặp tự tiêu: không có đủ dữ liệu thật MỚI ở mỗi thế hệ thì chất lượng (precision) HOẶC đa dạng (recall) suy giảm dần. Tách precision/recall là đúng khung để đo restyled/: ta cần đo riêng &#x27;văn có thật giống test&#x27; và &#x27;độ phủ mã&#x27;. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-7</span><div class="b"><span class="ti">Beyond Model Collapse: Scaling Up with Synthesized Data Requires Verification</span>
+      <div class="me">Feng, Dohmatob và cs. · arXiv preprint (2024) · <a href="https://arxiv.org/abs/2406.07515">arXiv:2406.07515</a> · <a href="https://doi.org/10.48550/arXiv.2406.07515">doi:10.48550/arXiv.2406.07515</a></div>
+      <div class="de">Chỉ ra rằng verifier — kể cả verifier KHÔNG hoàn hảo — đủ để chọn lọc dữ liệu sinh và ngăn collapse, có đặc trưng lý thuyết bằng Gaussian mixture + linear verifier. Ứng với smart-medic: một bộ kiểm tra cạnh ontology (mã con thuộc mục 3 ký tự, TUI trong T109/T121) đủ vai trò verifier mà không cần LLM lúc chạy. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-8</span><div class="b"><span class="ti">Losing our Tail, Again: (Un)Natural Selection &amp; Multilingual LLMs</span>
+      <div class="me">Vanmassenhove · ACL 2026 (Long Papers); arXiv 2507.03933 · <a href="https://arxiv.org/abs/2507.03933">arXiv:2507.03933</a> · <a href="https://aclanthology.org/2026.acl-long.532/">ACL 2026.acl-long.532</a> · <a href="https://doi.org/10.18653/v1/2026.acl-long.532">doi:10.18653/v1/2026.acl-long.532</a></div>
+      <div class="de">Position paper tập trung vào công nghệ DỊCH: vòng tự tiêu làm mất dạng thức ngôn ngữ, đặc trưng ngữ pháp và sắc thái văn hoá — các hiện tượng xác suất thấp bị dưới-biểu-diễn. Trực tiếp liên quan tới pipeline translated/ (EN→VI) rồi restyled/ của ta. <span class="pill p">fetched</span></div></div></div>
+    <div class="ref"><span class="id">QUA-9</span><div class="b"><span class="ti">On the Diversity of Synthetic Data and its Impact on Training Large Language Models</span>
+      <div class="me">Chen, Waheed và cs. · arXiv preprint (2024) · <a href="https://arxiv.org/abs/2410.15226">arXiv:2410.15226</a> · <a href="https://doi.org/10.48550/arXiv.2410.15226">doi:10.48550/arXiv.2410.15226</a></div>
+      <div class="de">Đề xuất chỉ số &#x27;LLM cluster-agent&#x27; đo đa dạng của corpus tổng hợp; thí nghiệm có kiểm soát ở 350M và 1.4B tham số cho thấy chỉ số này TƯƠNG QUAN DƯƠNG với hiệu năng cả pretraining lẫn SFT, và ảnh hưởng tới SFT mạnh hơn pretraining. Bằng chứng rằng chỉ số đa dạng có thể dự báo downstream. <span class="pill p">fetched</span></div></div></div>
+  </div>
+
+  <div class="shead"><span class="num">§</span><h2>Ghi chú về quy trình xác minh</h2></div>
+  <div class="card">
+    <p>
+      Năm nhánh khảo cứu chạy <b>song song và độc lập</b>, mỗi nhánh nhận cùng một bản tóm lược bối cảnh
+      dự án (ràng buộc metric, số liệu đã đo trên repo, danh sách 10 hướng đã có kèm yêu cầu nêu rõ điểm
+      khác biệt). Mỗi nhánh tự tra văn liệu bằng code gọi API, tự xác minh định danh, và tự đo lại số liệu
+      trên repo cho phần ánh xạ. Trùng lặp giữa các nhánh: <b>1 mục</b> (GraphRAG, xuất hiện ở cả nhánh B
+      và D — và cả hai đều kết luận không dùng được, vì lý do khác nhau).
+    </p>
+    <div class="note warn">
+      <span class="lab">Cách đọc các con số trong báo cáo này</span>
+      Số liệu có hai loại. <b>Loại 1 — từ văn liệu:</b> luôn kèm mã nguồn (ví dụ <code>VER-12</code>) để
+      tra lại trong tab này. <b>Loại 2 — đo trên repo:</b> tính lại trong phiên làm việc này trên
+      <code>data/test/</code>, <code>data/knowledge_base/</code> và
+      <code>data/generated_medical_records/</code>. Số liệu loại 2 là <b>ảnh chụp ngày 29/07/2026</b> và sẽ
+      dịch chuyển khi corpus bạc và gold lớn lên — hãy chạy lại phép đo thay vì trích số cứng.
+      Ba con số của báo cáo cũ đã được điều chỉnh trong tài liệu này: gold <b>162 file / 7.435 entity</b>
+      (không phải 100 / 4.715), phân bố assertion đo trên <b>4.337 entity</b> (không phải 2.819), và chi phí
+      ép nhất quán <code>candidates</code> là <b>0,69%</b> trên gold (không phải 0,23% như đo trên bạc).
+    </div>
+    <div class="note">
+      <span class="lab">Tài liệu tham khảo là công trình của bên thứ ba</span>
+      Mọi mô tả trong cột diễn giải là tóm lược của nhóm về nội dung dùng được cho smart-medic, không phải
+      trích dẫn nguyên văn. Trước khi đưa bất kỳ con số nào vào bài nộp hoặc báo cáo đối ngoại, hãy đọc lại
+      bản gốc qua liên kết DOI/arXiv ở trên.
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Smart Medic — Graph/LLM Annotation &amp; Synthesis.</b> Báo cáo nghiên cứu nội bộ, Viettel AI Race
+    2026 · Vòng 1. Tài liệu này bổ sung cho <code>docs/PRD.html</code> và
+    <code>docs/reports/research-directions.html</code>, không thay thế chúng.
+    Số liệu “đo được” tính trực tiếp trên <code>data/test/</code>,
+    <code>data/generated_medical_records/</code> và <code>data/knowledge_base/</code> của repo tại ngày
+    29/07/2026 — ảnh chụp, hãy chạy lại phép đo khi corpus lớn lên. Xem tab <b>§ Tham khảo</b> để tra nguồn
+    gốc của mọi con số lấy từ văn liệu.
+  </div>
+</footer>
+
+<button class="toplink" id="top" aria-label="Lên đầu trang">↑</button>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  function show(id,push){
+    tabs.forEach(function(t){t.classList.toggle('active',t.dataset.tab===id)});
+    panels.forEach(function(p){p.classList.toggle('active',p.id==='p-'+id)});
+    if(push) history.replaceState(null,'','#'+id);
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.dataset.tab,true)})});
+  var h=location.hash.replace('#','');
+  if(h&&document.getElementById('p-'+h)) show(h,false);
+
+  var top=document.getElementById('top');
+  addEventListener('scroll',function(){top.classList.toggle('show',scrollY>620)});
+  top.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'})});
+
+  document.addEventListener('keydown',function(e){
+    if(e.target.tagName==='INPUT'||e.metaKey||e.ctrlKey||e.altKey) return;
+    var i=tabs.findIndex(function(t){return t.classList.contains('active')});
+    if(e.key==='ArrowRight'&&i<tabs.length-1) show(tabs[i+1].dataset.tab,true);
+    if(e.key==='ArrowLeft'&&i>0) show(tabs[i-1].dataset.tab,true);
+  });
+})();
+</script>
+</body>
+</html>

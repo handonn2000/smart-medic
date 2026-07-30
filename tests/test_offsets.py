@@ -22,6 +22,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import sys
 import unicodedata
 from pathlib import Path
 
@@ -38,6 +39,12 @@ def numbered(directory: Path, suffix: str) -> list[Path]:
     )
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from smart_medic.io.labels import (  # noqa: E402
+    ASSERTABLE_TYPES as _ASSERTABLE_TYPES,
+    CODEABLE_TYPES as _CODEABLE_TYPES,
+)
+
 TEST_DIR = ROOT / "data" / "test"
 OUTPUT_DIR = ROOT / "data" / "output"
 SILVER_ROOT = ROOT / "data" / "generated_medical_records"
@@ -51,8 +58,19 @@ TYPES = {
     "THUỐC",
 }
 ASSERTIONS = {"isNegated", "isFamily", "isHistorical"}
-CODEABLE = {"CHẨN_ĐOÁN", "THUỐC"}
-ASSERTABLE = {"CHẨN_ĐOÁN", "THUỐC", "TRIỆU_CHỨNG"}
+
+# Imported, not restated. These were literals here until W1, which made
+# TRIỆU_CHỨNG codeable (ADR 0006) — and this file then failed the submission gate
+# with 2000 "must have empty candidates" errors on output that was correct. A
+# schema rule copied into three places is a rule that will disagree with itself;
+# `io/labels.py` is the one that `validate/schema.py` actually enforces, so this
+# check has to be reading the same object.
+#
+# The invariant worth pinning independently is the lab-type one, and it is:
+# test_validate.py::test_codeable_types_are_exactly_the_three_documented asserts
+# the exact membership and that no lab type ever enters it.
+CODEABLE = set(_CODEABLE_TYPES)
+ASSERTABLE = set(_ASSERTABLE_TYPES)
 
 
 def read_raw(path: Path) -> str:

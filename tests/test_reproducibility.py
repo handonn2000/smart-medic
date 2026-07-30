@@ -133,6 +133,58 @@ def test_no_version_gated_pathlib_kwargs():
     )
 
 
+def test_every_runtime_data_file_is_tracked_by_git():
+    """A clean checkout must be able to run inference.
+
+    Found by rehearsal, not by reasoning: `git archive HEAD` into a temp
+    directory, install, run — and it died with
+
+        ConfigError: data/knowledge_base/brand_to_ingredient.json not found
+
+    `.gitignore` excluded `/data/knowledge_base` (the raw UMLS drops are 660 MB
+    and licence-gated) and `data/artifacts/` (marked "regenerable"). Regenerable
+    was true and beside the point: the rebuild needs those same 660 MB the
+    organisers will not have. Three derived files, 11 MB together, are what the
+    inference path actually opens, and without them a fresh clone raises on the
+    first document.
+
+    Under PRD §5 that is a disqualification, so this is checked mechanically
+    rather than left to whoever remembers to rehearse.
+    """
+    import subprocess
+
+    referenced: set[str] = set()
+    pattern = re.compile(r"data/(?:knowledge_base|artifacts)/[A-Za-z0-9_.-]+")
+    for path in list(_python_files()) + [
+        p for p in (ROOT / "resources").glob("*.yaml")
+    ] + [p for p in (ROOT / "configs").glob("*.yaml")]:
+        referenced |= set(pattern.findall(path.read_text(encoding="utf-8")))
+
+    # Only what the inference path opens. The .RRF drops are read by scripts/
+    # at build time, which is a different (and licence-gated) situation.
+    build_time = {"RXNCONSO.RRF", "RXNREL.RRF", "RXNSTY.RRF", "RXNATOMARCHIVE.RRF"}
+    runtime = {r for r in referenced if Path(r).name not in build_time}
+
+    tracked = set(
+        subprocess.run(
+            ["git", "ls-files", "data/"],
+            cwd=ROOT, capture_output=True, text=True, check=False,
+        ).stdout.split()
+    )
+    if not tracked:  # not a git checkout (e.g. unpacked tarball) — nothing to assert
+        return
+
+    missing = sorted(r for r in runtime if r not in tracked)
+    assert not missing, (
+        "the inference path reads data files that git does not track, so a fresh "
+        "clone cannot run:\n"
+        + "\n".join(f"  {m}" for m in missing)
+        + "\n\nAdd them with `git add -f`, or stop reading them at inference time. "
+        "Do not rely on `make index` — that rebuild needs the licence-gated raw "
+        "drops the organisers will not have."
+    )
+
+
 def test_declared_python_floor_is_honoured():
     """`requires-python` must not promise a version the code cannot run on."""
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")

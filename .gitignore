@@ -43,8 +43,14 @@ data/output/*.json
 .idea/
 .vscode/
 
-# datasource
+# datasource — the raw UMLS/RxNorm drops are 660 MB and licence-gated, so they
+# stay out. The ONE derived file inference reads is tracked below: without it a
+# clean checkout raises ConfigError on the first drug span, which under PRD §5
+# ("nếu BTC không cài đặt lại được source code của nhóm → nhóm thi sẽ bị loại")
+# is a disqualification, not an inconvenience.
 /data/knowledge_base
+!/data/knowledge_base/ICD10.csv
+!/data/knowledge_base/brand_to_ingredient.json
 
 # Immutable run records — regenerable from pinned code + config
 runs/*
@@ -54,8 +60,15 @@ runs/*
 # not a per-run output. Regenerate with scripts/analysis/leverage_map.py
 !runs/leverage_map.json
 
-# Built indexes / caches — regenerable
+# Built indexes / caches. "Regenerable" was true and beside the point: the
+# rebuild (`make index`) needs the 660 MB licence-gated RRF drops, which the
+# organisers will not have. The two the inference path actually opens are
+# tracked — 8.5 MB together, and the difference between a submission that runs
+# on a clean checkout and one that does not.
 data/artifacts/
+!data/artifacts/gazetteer.json
+!data/artifacts/kb_codes.json
+!data/artifacts/kb_hashes.json
 
 # The submission archive. Rebuild with `make submit`; the authoritative copy
 # lives in runs/<ts>_<sha>/output.zip alongside the manifest that explains it.

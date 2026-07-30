@@ -691,9 +691,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
 │   │   └── emit_json.py            <span class="c">   tuần tự hoá — ép ràng buộc ở ĐÚNG chỗ này</span>
 │   ├── <span class="k">eval/</span>                      <span class="c">✅ L7 · NGOÀI đường suy luận · README ✅</span>
 │   │   ├── scoring.py              <span class="c">✅ 451 dòng · 3 cách đọc × 4 alignment · 8 self-test</span>
-│   │   ├── slices.py               <span class="c">⬜ P2 · bảng lát cắt kèm n và MDE</span>
-│   │   ├── bootstrap.py            <span class="c">⬜ P2 · paired bootstrap + KTC</span>
-│   │   └── probe.py                <span class="c">⬜ P2 · sinh biến thể probe từ một tập dự đoán</span>
+│   │   ├── slices.py               <span class="c">✅ P2 · bảng lát cắt kèm n và MDE · 60 lát trên 162 gold</span>
+│   │   ├── bootstrap.py            <span class="c">✅ P2 · paired bootstrap + KTC · 4 ca hiệu chuẩn tái lập</span>
+│   │   └── probe.py                <span class="c">✅ P2 · A · A′ · B dựng xong, 7/7 đóng gói · C chờ P4</span>
 │   ├── pipeline.py                 <span class="c">⬜ P1 · orchestrator, đọc configs/pipeline.yaml</span>
 │   └── cli.py                      <span class="c">⬜ P1 · python -m smart_medic {run,index,submit}</span>
 │
@@ -740,7 +740,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
     ├── test_offsets.py             <span class="c">✅ 322 dòng — hook chạy file này</span>
     ├── test_scoring.py             <span class="c">✅ 143 dòng — chứng minh matched suy biến</span>
     ├── data_test_manifest.json     <span class="c">✅ sha256 của 100 file test</span>
-    ├── test_alignment_parity.py    <span class="c">⬜ P2 · fail khi greedy↑ mà overlap_type↓ &gt;0,010</span>
+    ├── test_alignment_parity.py    <span class="c">✅ P2 · fail khi greedy↑ mà overlap_type↓ &gt;0,010 · 6 test</span>
     ├── test_no_api_in_runtime.py   <span class="c">⚠ P0 · 3 test xanh — nhưng pipeline.py chưa có nên</span>
     │                               <span class="c">   chỉ quét layer module; ĐỦ TẢI khi P1 dựng orchestrator</span>
     ├── test_layer_boundaries.py    <span class="c">✅ P0 · thi hành quy tắc phụ thuộc</span>
@@ -1215,12 +1215,17 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
           <td><b>Recall span thấp lặng lẽ</b> — baseline 15,8/file vs gold 45,9/file, có thể mất ~46 điểm</td>
           <td><span class="pill w">chí mạng</span></td>
           <td>Làn R không model làm sàn + báo cáo mật độ entity/file trên <b>mọi</b> lần chạy +
-              Probe A xác nhận trên test thật</td><td>⬜ P1 · P2</td></tr>
+              Probe A xác nhận trên test thật</td>
+          <td>⚠ làn R + báo mật độ ✅ (P1, 25,63/file) · Probe A <b>chưa nộp</b> — hoãn tới
+              sau P3·P4·P5 (quyết định 30/07), nên "xác nhận trên test thật" vẫn trống</td></tr>
       <tr><td><b>Tối ưu vào <code>greedy_iou</code>, hỏng dưới <code>overlap_type</code></b> — hài hoà
               vô điều kiện tốn 1,13; sai type 2% tốn 2,79</td>
           <td><span class="pill a">cao</span></td>
           <td>CI fail khi <code>greedy_iou</code> tăng mà <code>overlap_type</code> giảm &gt; 0,010;
-              hài hoà có ngưỡng ≥4</td><td>⬜ P2 <code>test_alignment_parity.py</code></td></tr>
+              hài hoà có ngưỡng ≥4</td>
+          <td>✅ P2 <code>test_alignment_parity.py</code> — 6 test xanh; đã chứng minh nó chặn
+              một thay đổi xấu biết trước (<code>greedy_iou</code> +17,17 mà
+              <code>overlap_type</code> −9,65 ⇒ từ chối)</td></tr>
       <tr><td><b>Cứng hoá luật phạm vi theo mục</b> — P=0,448 &lt; hoà vốn 0,50 ⇒ <b>âm 0,21 điểm</b></td>
           <td><span class="pill a">cao</span></td>
           <td>Cạnh là đặc trưng có trọng số; đo P của <b>mọi</b> bộ sinh cạnh trước khi bật</td>
@@ -1273,7 +1278,10 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
       <tr><td><b>Đầu tư theo mật độ gold mà gold không đại diện test</b></td>
           <td><span class="pill a">cao</span></td>
           <td>Probe A <b>trước</b> khi rót người vào recall; gold là <code>restyled/</code> tổng hợp,
-              test là văn bản thật</td><td>⬜ P2</td></tr>
+              test là văn bản thật</td>
+          <td>⚠ P2 — hạ tầng probe xong, nhưng chữ <b>trước</b> đã bị bỏ: nộp hoãn tới sau
+              P3·P4·P5, tức là sau khi đã rót người vào recall. Phòng thủ này hiện
+              <b>không hoạt động</b></td></tr>
     </tbody></table></div>
 
   <div class="shead"><span class="num">E</span><h2>Điểm nối năm giải pháp graph/LLM</h2>
@@ -2337,11 +2345,13 @@ layout/lines.py ─► boundary_priors ─► CẢ HAI làn span   [P1, P3] ─�
       <tr><td class="num">3</td><td>Dựng chỉ mục KB qua <code>scripts/kb_sources.py</code></td>
           <td class="num">P1 · P5</td><td><span class="pill g">chạy được</span></td></tr>
       <tr><td class="num">4</td><td>Chạy trên <b>gold</b> → chấm điểm — đây là ô <b>ĐO</b></td>
-          <td class="num">P0–P6</td><td><span class="pill">chờ pipeline</span></td></tr>
+          <td class="num">P0–P6</td><td><span class="pill g">chạy được</span> — P1 mở khoá
+              pipeline; P2 thêm parity gate + lát cắt + hiệu chuẩn bootstrap</td></tr>
       <tr><td class="num">5</td><td>Chạy trên <b><code>data/test/</code></b> → <code>data/output/</code> — ô <b>NỘP</b></td>
-          <td class="num">P0–P6</td><td><span class="pill">chờ pipeline</span></td></tr>
+          <td class="num">P0–P6</td><td><span class="pill g">chạy được</span> — P1 mở khoá</td></tr>
       <tr><td class="num">6</td><td>Đóng gói <code>output.zip</code> + <code>unzip -l</code></td>
-          <td class="num">P0 · P7</td><td><span class="pill g">chạy được</span></td></tr>
+          <td class="num">P0 · P7</td><td><span class="pill g">chạy được</span> — P2 thêm ba zip
+              probe (A · A′ · B), mỗi cái 7/7 kiểm tra</td></tr>
       <tr><td class="num">7</td><td>Diễn tập tái lập trên container sạch</td><td class="num">P7</td>
           <td><span class="pill g">có lệnh</span></td></tr>
       <tr style="background:var(--good-tint)"><td class="num">8</td>

@@ -89,6 +89,99 @@ layout:
 # ─────────────────────────────────────────────────────────────────────────────
 extract:
   model_threshold: 0.15
+
+  # ── LANE R · the recall floor (P1). No model, no checkpoint, no GPU. ────────
+  # These are PRIORS on "is this hit a real entity", not thresholds: the only
+  # comparison against a threshold happens in decision/emit.py. They exist here
+  # because a number baked into extract/*.py is a number nobody can review.
+  recall_floor:
+    aho:
+      # Built by `python3 scripts/build_gazetteer.py`. linking/ reads the SAME
+      # artifact at P5 — one index, two readers. src/ never imports scripts/.
+      gazetteer: 'data/artifacts/gazetteer.json'
+      # Measured on gold, sweeping this alone: 2 and 3 are indistinguishable in
+      # score (33.21 vs 33.19, inside the 0.010 noise floor) but 2 recovers 30
+      # gold entities — chiefly `ho` (cough), a real one-syllable symptom. 4 is
+      # clearly worse (−2.5): it starts deleting real short names. P1 owns the
+      # RECALL floor, so the tie goes to the setting that misses less.
+      min_key_chars: 2
+      # ICD-10 carries whole descriptive sentences as "names". They never occur
+      # verbatim in a clinical note, and they inflate the automaton.
+      max_key_tokens: 8
+      # What may sit BETWEEN two tokens of one name. Whitespace and hyphens only:
+      # `restyled/` hard-wraps mid-phrase (one gold span is "tim \nenzym"), but a
+      # name may not jump a comma, a colon or a sentence end.
+      phrase_filler: '[\s\-–—]*'
+      # Evidence, by where the surface form came from. `silver` was observed in a
+      # real annotation, so it is worth more than an ICD-10 label that merely
+      # happens to be a Vietnamese word.
+      source_score:
+        silver: 0.55
+        rxnorm: 0.50
+        icd_vi: 0.35
+      source_score_default: 0.30
+      multi_token_bonus: 0.15
+
+    labvalues:
+      name_score: 0.60
+      abbrev_name_score: 0.45      # case-sensitive AND value-gated, still riskier
+      value_score: 0.55
+      kv_known_label_score: 0.65   # label is in the lab lexicon
+      kv_unknown_label_score: 0.40 # unseen label, value looks like a measurement
+
+    kvspan:
+      # Measured: only 6.7% of gold spans coincide with a unit value or a bullet.
+      # This lane is for the 94/100 TEST files with `TÊN: giá trị` lines, which
+      # gold cannot show. Kept narrow on purpose.
+      max_value_tokens: 6
+      score: 0.35
+      bullet_score: 0.30
+      bullets_inherit_header: true
+      strip_trailing: '.,;:)]'
+      # Section label -> type distribution. Longest prefix wins.
+      label_types:
+        'chẩn đoán':        {CHẨN_ĐOÁN: 0.90, TRIỆU_CHỨNG: 0.10}
+        'chẩn đoán chính':  {CHẨN_ĐOÁN: 0.92, TRIỆU_CHỨNG: 0.08}
+        'chẩn đoán vào viện': {CHẨN_ĐOÁN: 0.92, TRIỆU_CHỨNG: 0.08}
+        'chẩn đoán ra viện':  {CHẨN_ĐOÁN: 0.92, TRIỆU_CHỨNG: 0.08}
+        'bệnh chính':       {CHẨN_ĐOÁN: 0.90, TRIỆU_CHỨNG: 0.10}
+        'tiền sử bệnh':     {CHẨN_ĐOÁN: 0.75, TRIỆU_CHỨNG: 0.25}
+        'tiền sử bệnh lý':  {CHẨN_ĐOÁN: 0.75, TRIỆU_CHỨNG: 0.25}
+        'ts bệnh':          {CHẨN_ĐOÁN: 0.75, TRIỆU_CHỨNG: 0.25}
+        # Measured on the leverage map: isFamily is worth 0.26 points, so the
+        # family-history section is typed like any other history section and no
+        # effort goes into the flag itself.
+        'tiền sử gia đình': {CHẨN_ĐOÁN: 0.70, TRIỆU_CHỨNG: 0.30}
+        # Generic fallbacks. Matching is longest-prefix-first, so the specific
+        # rows above still win; these only catch labels none of them covers.
+        # Added from the TEST corpus, where 90/100 files carry a `label: value`
+        # line but almost none of them is a lab measurement — `Lý do nhập viện:
+        # Nôn ra máu`, `Bệnh lý mãn tính: hội chứng ruột kích thích`. ⚠ GOLD
+        # CANNOT MEASURE THIS: it is synthetic `restyled/` prose with almost no
+        # such lines, so these rows are justified by the input distribution, not
+        # by a score delta. Do not read a gold-neutral result as "no effect".
+        'tiền sử':          {CHẨN_ĐOÁN: 0.70, TRIỆU_CHỨNG: 0.30}
+        'lý do':            {TRIỆU_CHỨNG: 0.65, CHẨN_ĐOÁN: 0.35}
+        'lý do vào viện':   {TRIỆU_CHỨNG: 0.65, CHẨN_ĐOÁN: 0.35}
+        'lý do khám':       {TRIỆU_CHỨNG: 0.65, CHẨN_ĐOÁN: 0.35}
+        'lý do nhập viện':  {TRIỆU_CHỨNG: 0.65, CHẨN_ĐOÁN: 0.35}
+        'bệnh lý mãn tính': {CHẨN_ĐOÁN: 0.85, TRIỆU_CHỨNG: 0.15}
+        'bệnh lý':          {CHẨN_ĐOÁN: 0.85, TRIỆU_CHỨNG: 0.15}
+        'triệu chứng':      {TRIỆU_CHỨNG: 0.88, CHẨN_ĐOÁN: 0.12}
+        'triệu chứng hiện tại': {TRIỆU_CHỨNG: 0.88, CHẨN_ĐOÁN: 0.12}
+        'thuốc':            {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
+        'thuốc dùng':       {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
+        'thuốc đang dùng':  {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
+        'thuốc điều trị':   {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
+        'thuốc trước khi nhập viện': {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
+        'dị ứng':           {THUỐC: 0.70, TRIỆU_CHỨNG: 0.30}
+
+    # Source priority when two lanes propose overlapping spans. The lab lanes win
+    # on the two lab types because they read the line structure the gazetteer
+    # cannot see. Full graph-based merging with weighted-median boundaries is P3
+    # (`overlap_graph.py` + `boundary.py`); this is the P1 stand-in.
+    merge_priority: ['labvalues', 'aho', 'kvspan']
+
   harmonize:
     # Measured: THUỐC↔TÊN_XÉT_NGHIỆM confuse each other and harmonising helps.
     # CHẨN_ĐOÁN↔TRIỆU_CHỨNG do NOT — harmonising them loses points.

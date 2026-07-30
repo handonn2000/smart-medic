@@ -1,0 +1,367 @@
+# L0 · resources/lab_patterns.yaml — luật dòng xét nghiệm. NGƯỜI viết, người review.
+#
+# Đọc bởi: src/smart_medic/extract/labvalues.py (P1)
+#
+# VÌ SAO FILE NÀY ĐÁNG CÓ
+# 41,7% entity của gold (3.098/7.435) là hai loại xét nghiệm — TÊN_XÉT_NGHIỆM
+# 23,5% và KẾT_QUẢ_XÉT_NGHIỆM 18,2%. Bỏ hẳn hai loại này tốn 56,42 và 60,41 điểm.
+# Và 94/100 file test có dòng dạng `TÊN: giá trị`. Đây là recall RẺ NHẤT trong bài.
+#
+# Các mẫu này sẽ được chỉnh hàng chục lần. Nằm ở YAML thì một bác sĩ đọc được và
+# sửa được mà không chạm vào Python; nằm trong code thì mỗi lần chỉnh là một diff
+# phải review bởi người đọc được Python.
+#
+# ĐO ĐƯỢC TRÊN 162 FILE GOLD (1.350 KẾT_QUẢ_XÉT_NGHIỆM), căn cứ của mọi luật dưới:
+#   · 1.343/1.350 (99,5%) có một TÊN_XÉT_NGHIỆM đứng TRƯỚC nó trong cùng tài liệu
+#   · khoảng cách tên→giá trị: 1 ký tự 778 lần · 2 ký tự 253 · ≤2 ký tự = 76,3%
+#   · phân cách hay gặp nhất: ' ' (771) · ': ' (240) · ' là ' (14) · ', ' (10)
+#   · hình dạng giá trị: số thuần 753 · tỷ số kiểu 159/49 là 77 · phần trăm 28 ·
+#     còn lại là từ định tính ('bình thường' 43, 'âm tính' 20, 'tăng' 14, …)
+version: 1
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1 · NGỮ PHÁP GIÁ TRỊ — KẾT_QUẢ_XÉT_NGHIỆM
+#
+# Thứ tự trong `value_order` là thứ tự THỬ, dài trước ngắn. `numeric` phải ở CUỐI:
+# nếu thử trước thì `159/49` chỉ ra `159`, và `98%` chỉ ra `98`.
+#
+# ⚠ DẤU PHẨY THẬP PHÂN. `Chol: 4,7 mmol/l` — `numeric` phải nuốt cả `,7`. Tách
+# theo `,` biến MỘT kết quả thành HAI span rác; sai ranh giới tốn 6,95 điểm.
+# ─────────────────────────────────────────────────────────────────────────────
+value_patterns:
+  # '< 0,5' · '>=10' · '≤ 2.0'
+  comparator: '[<>]=?|[≤≥]'
+  # '159/49' huyết áp · '20%-25%'
+  ratio: '\d+(?:[.,]\d+)?[ \t]*[/\-–][ \t]*\d+(?:[.,]\d+)?'
+  # '98%' · '20 %'
+  percent: '\d+(?:[.,]\d+)?[ \t]*%'
+  # 'protein 2+' · '3+'
+  graded: '\d[+-]'
+  # '4,7' · '227.0' · '12' — dấu phẩy VÀ dấu chấm đều là dấu thập phân
+  numeric: '\d+(?:[.,]\d+)*'
+value_order: [ratio, percent, graded, numeric]
+
+# Giá trị định tính. Dài trước ngắn khi so khớp ('tăng cao' trước 'tăng'), việc đó
+# do code sắp; danh sách này chỉ cần đọc được.
+qualitative_results:
+  - bình thường
+  - trong giới hạn bình thường
+  - trong giới hạn
+  - không có bất thường
+  - không bất thường
+  - bất thường
+  - âm tính
+  - dương tính
+  - tăng cao
+  - tăng nhẹ
+  - tăng
+  - giảm nhẹ
+  - giảm
+  - rất cao
+  - hơi cao
+  - cao
+  - thấp
+  - ổn định
+  - nguyên vẹn
+  - đều
+  - không đều
+  - nhịp xoang
+  - vết
+  - sạch
+  - rõ
+  - trong
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2 · TỪ TÊN SANG GIÁ TRỊ
+#
+# `separator` là TOÀN BỘ những gì được phép nằm giữa tên và giá trị. Nó phải
+# fullmatch — không phải search — nên một dấu chấm hay một tên khác chen vào là
+# đủ để KHÔNG phát. Đo được: 76,3% khoảng cách là ≤2 ký tự, nên cửa sổ hẹp.
+# ─────────────────────────────────────────────────────────────────────────────
+separator: '[ \t]*(?::|=|là|đạt|ở mức|mức|khoảng|:[ \t]*khoảng)?[ \t]*'
+separator_max_chars: 12
+
+# 'H&H 30 va 39' → HAI kết quả. `và` viết sai thành `va` có thật trong corpus.
+continuation: '[ \t]*(?:và|va|&|,|/|hoặc)[ \t]*'
+max_continuations: 3
+
+# Đơn vị đi SAU giá trị và KHÔNG thuộc span (đo được: 753/1.350 kết quả là số
+# thuần, chỉ một nhúm gồm cả đơn vị). Danh sách này dùng để XÁC NHẬN rằng một
+# giá trị trong dòng `TÊN: giá trị` thật sự là một phép đo, không phải để mở rộng
+# span.
+units:
+  - mmol/l
+  - mmol/L
+  - mg/dl
+  - mg/dL
+  - mg/L
+  - mg
+  - g/dl
+  - g/dL
+  - g/L
+  - g
+  - mcg
+  - µg
+  - ug
+  - micromol/l
+  - µmol/L
+  - umol/L
+  - ng/ml
+  - ng/mL
+  - pg/ml
+  - IU/L
+  - U/L
+  - mEq/L
+  - mmHg
+  - cmH2O
+  - kg
+  - g/kg
+  - cm
+  - mm
+  - ml
+  - mL
+  - l
+  - '%'
+  - lần/phút
+  - nhịp/phút
+  - lần/ph
+  - bpm
+  - độ C
+  - °C
+  - giây
+  - phút
+  - giờ
+  - tuần
+  - K/uL
+  - x10^9/L
+  - '10^3/uL'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3 · TÊN XÉT NGHIỆM
+#
+# Phần lớn tên xét nghiệm đến từ `data/artifacts/gazetteer.json` (khai thác từ
+# corpus bạc synthetic + translated). Đo được: chỉ mục đó phủ 74,5% surface form
+# TÊN_XÉT_NGHIỆM của gold. Phần thiếu gần như TOÀN BỘ là DẤU SINH TỒN — không phải
+# vì chúng hiếm mà vì chúng là kiến thức phổ thông, không ai đi gán nhãn để dạy.
+# Bổ sung bằng tay ở đây đưa trần phủ lên ~0,90.
+#
+# `names` khớp KHÔNG phân biệt hoa thường, và chỉ ở biên từ.
+names:
+  # dấu sinh tồn — 5 dòng đầu bù 152/445 surface form gold còn thiếu
+  - huyết áp
+  - nhịp tim
+  - nhịp thở
+  - nhiệt độ
+  - mạch
+  - cân nặng
+  - chiều cao
+  - thân nhiệt
+  - nhịp mạch
+  - tần số hô hấp
+  - tần số tim
+  - độ bão hòa oxy
+  - độ bão hòa o2
+  - độ bão hoà oxy
+  - chỉ số khối cơ thể
+  - vòng bụng
+  - vòng cổ
+  - lượng nước tiểu
+  # nhóm xét nghiệm / thăm dò nói bằng cụm chung
+  - chức năng gan
+  - chức năng thận
+  - chức năng phổi
+  - chức năng đông máu
+  - chức năng tuyến giáp
+  - công thức máu
+  - tổng phân tích nước tiểu
+  - phân suất tống máu
+  - enzyme tim
+  - enzym tim
+  - dấu sinh tồn
+  - sinh hiệu
+  - điện tâm đồ
+  - siêu âm tim
+  - siêu âm bụng
+  - x-quang ngực
+  - x quang ngực
+  - chụp x-quang ngực
+  - chụp ct ngực
+  - chụp cắt lớp vi tính
+  - chụp cộng hưởng từ
+  - chụp mạch cộng hưởng từ
+  - nội soi đại tràng
+  - nội soi dạ dày
+  - dẫn truyền thần kinh
+  - nghiên cứu giấc ngủ
+  - mẫu cấy
+  - cấy máu
+  - cấy nước tiểu
+  - cấy nấm
+  - bạch cầu trung tính
+  - bạch cầu
+  - hồng cầu
+  - tiểu cầu
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3b · TÊN CHỈ TÍNH KHI CÓ GIÁ TRỊ ĐI SAU
+#
+# Đây là danh sách sửa lỗi ĐO ĐƯỢC, không phải đề phòng lý thuyết. Chạy trên 162
+# file gold, làn từ vựng sinh 402 span TÊN_XÉT_NGHIỆM rác, và phần lớn tập trung ở
+# vài từ vừa là tên xét nghiệm vừa là từ thường:
+#
+#     mạch      136 rác  — 'mạch' là tên (pulse), nhưng trong 'bệnh mạch vành' và
+#                          'Tim mạch' nó là một phần của chẩn đoán/tên khoa
+#     phân       12 rác  — 'phân' (stool) so với 'phân' trong 'đi tiêu phân cứng'
+#     nhịp tim   13 rác  — 'Nhịp tim đều, click cơ học' là mô tả khám, không phải
+#                          một phép đo có giá trị
+#
+# Với những từ này, BẰNG CHỨNG là một giá trị đi sau. `M 67` là phép đo; `Tim mạch`
+# thì không. Tên trong `names_require_value` chỉ được phát khi `separator` +
+# `value` khớp ngay sau nó — cùng đúng một luật mà `abbreviations` đã dùng.
+names_require_value:
+  - mạch
+  - phân
+  - nước tiểu
+  - thở
+  - nhiệt
+  - cân
+  - nhịp tim
+  - nhịp thở
+  - huyết áp
+  - lipid
+  - kali
+  - natri
+  - canxi
+  - clo
+  - đường
+  - protein
+  - albumin
+  - đồng tử
+  - dáng đi
+
+# Không bao giờ là tên xét nghiệm. Đây là từ chỉ VIỆC xét nghiệm hoặc tiêu đề mục,
+# không phải một phép đo — 'các xét nghiệm như CAT scan' không có giá trị nào.
+# Đo được: 'xét nghiệm' 114 span rác, 'sinh hiệu' 10.
+names_never:
+  - xét nghiệm
+  - xét nghiệm máu
+  - các xét nghiệm
+  - kết quả
+  - kết quả xét nghiệm
+  - kq
+  - kq xn
+  - xn
+  - sinh hiệu
+  - dấu sinh tồn
+  - chỉ số
+  - thông số
+  - mức
+  - nồng độ
+  - tỷ lệ
+  - giá trị
+
+# Viết tắt. PHÂN BIỆT HOA THƯỜNG, và chỉ được nhận khi có một GIÁ TRỊ đi liền sau
+# — nếu không thì `M` khớp mọi chữ M trong tài liệu và `T` khớp mọi chữ T.
+# Ví dụ thật trong gold: `Dấu sinh tồn: M67 HA 159/49 không sốt thở 18.`
+# ⇒ `M` là tên, `67` là kết quả, dính liền nhau không có khoảng trắng.
+abbreviations:
+  - HA        # huyết áp
+  - BP
+  - M         # mạch
+  - NT        # nhịp tim / nhịp thở
+  - HR
+  - RR
+  - T         # nhiệt độ (temperature)
+  - P         # pulse
+  - Wt
+  - Ht
+  - BMI
+  - EF
+  - SpO2
+  - O2
+  - BC        # bạch cầu
+  - HC
+  - TC
+  - H&H
+  - CO2
+  - C3
+  - C4
+abbreviation_requires_value: true
+abbreviation_max_chars: 4
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4 · NHÃN KHÔNG PHẢI TÊN XÉT NGHIỆM
+#
+# Cổng chặn của làn `TÊN: giá trị` tổng quát. `Chẩn đoán: viêm phổi` có đúng hình
+# dạng của một dòng xét nghiệm và KHÔNG phải một dòng xét nghiệm; nhận nó là tự
+# tạo ra hai span sai type, và sai type bị phạt HAI LẦN (một span rác + một entity
+# bỏ sót) trên cả ba số hạng.
+#
+# So khớp: nhãn của LayoutUnit, không phân biệt hoa thường, sau khi bỏ dấu.
+non_lab_labels:
+  - chẩn đoán
+  - chẩn đoán phân biệt
+  - chẩn đoán chính
+  - chẩn đoán ra viện
+  - chẩn đoán vào viện
+  - lý do vào viện
+  - lý do khám
+  - lí do vào viện
+  - bệnh sử
+  - bệnh sử hiện tại
+  - tiền sử
+  - tiền sử bệnh
+  - tiền sử bệnh lý
+  - tiền sử gia đình
+  - tiền sử dị ứng
+  - tiền sử phẫu thuật
+  - tiền sử cá nhân
+  - ts
+  - ts bệnh
+  - ts gia đình
+  - ts cá nhân
+  - ts phẫu thuật
+  - triệu chứng
+  - triệu chứng hiện tại
+  - thuốc
+  - thuốc dùng
+  - thuốc đang dùng
+  - thuốc điều trị
+  - thuốc trước khi nhập viện
+  - dị ứng
+  - khám
+  - khám thực thể
+  - khám lâm sàng
+  - hướng điều trị
+  - điều trị
+  - kế hoạch
+  - đánh giá
+  - kết luận
+  - ghi chú
+  - họ tên
+  - họ và tên
+  - tên
+  - tuổi
+  - giới
+  - giới tính
+  - địa chỉ
+  - ngày
+  - ngày sinh
+  - ngày vào viện
+  - ngày ra viện
+  - số bệnh án
+  - mã bệnh nhân
+  - bác sĩ
+  - khoa
+  - nghề nghiệp
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5 · LÀN `TÊN: giá trị` TỔNG QUÁT — cho 94/100 file test
+#
+# Gold là corpus `restyled/` tổng hợp và gần như không có dòng `TÊN: giá trị`
+# (đo được: chỉ 12,6% TÊN_XÉT_NGHIỆM của gold trùng khít nhãn của một LayoutUnit).
+# Tập test thì có, ở 94/100 file. Nên làn này gần như KHÔNG ghi điểm trên gold mà
+# vẫn phải đúng — nó là làn mang tập test. Vì thế nó siết chặt: một nhãn lạ chỉ
+# được nhận là tên xét nghiệm khi GIÁ TRỊ của nó trông như một phép đo.
+unknown_label_requires_measurement: true
+label_max_tokens: 6

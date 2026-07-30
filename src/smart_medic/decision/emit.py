@@ -1,0 +1,212 @@
+"""L5 · the emit gate. P1 ships the CONSTANT branch only.
+
+`decision/` is the one layer allowed to compare a score against a threshold. Every
+layer below returns a distribution precisely so that this comparison happens in
+exactly one place, where it can be retuned from YAML without retraining anything.
+
+## Why the threshold is a table, and why P1 uses one row of it
+
+The marginal exchange rate measured directly is `c_fn / c_fp = 1.14`, giving a
+Bayes threshold of `p* = 0.468`. But that is measured *near the ceiling*. In real
+operation a rescued entity brings its `assertions` and `candidates` score with it,
+so the break-even moves with how much you are already missing:
+
+    miss 10% → score 63.02 → break-even ≈ 0.44
+    miss 30% → score 49.45 → break-even ≈ 0.38
+    miss 60% → score 28.01 → break-even ≈ 0.23
+
+Hence `decision.emit_threshold` in `configs/pipeline.yaml` is keyed by the run's own
+entity density, not by a constant. **P1 deliberately implements only the
+`density_ratio < 0.50` row**: the lane-R baseline is far under half of gold's
+45.9 entities/file, so that is the row that applies, and building the full table
+before there is anything to look up in it would be guessing at the shape of a
+curve the P6 measurements have not drawn yet. `select_threshold()` therefore
+*asserts* it is in that regime and says so loudly when it is not, rather than
+silently reading a row it was not built to honour.
+
+This is not "recall at any cost". Measured: missing 30% *and* adding 30% spurious
+scores 42.58, which is 6.87 points **worse** than missing 30% alone (49.45). A gate
+at 0 is wrong in every regime.
+"""
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+from functools import lru_cache
+
+from ..extract.spans import Span
+from ..io.config import ConfigError, load_pipeline, require
+from ..io.document import Document
+from ..io.labels import CODEABLE_TYPES, LAB_TYPES
+
+__all__ = ["Concept", "ThresholdChoice", "select_threshold", "finalize", "P1_BRANCH"]
+
+#: The one row of the table P1 implements. P6 replaces this module's single
+#: lookup with the full three-tier schedule.
+P1_BRANCH = "<0.50"
+
+_RANGE = re.compile(r"^(?P<op><|>|<=|>=)?\s*(?P<a>[\d.]+)(?:\s*-\s*(?P<b>[\d.]+))?$")
+
+
+@dataclass(frozen=True)
+class Concept:
+    """The record that gets serialised. `validate/` is what actually writes it."""
+
+    text: str
+    position: tuple[int, int]
+    type: str
+    assertions: tuple[str, ...] = ()
+    candidates: tuple[str, ...] = ()
+
+    def as_dict(self) -> dict:
+        return {
+            "text": self.text,
+            "type": self.type,
+            "candidates": list(self.candidates),
+            "assertions": list(self.assertions),
+            "position": [self.position[0], self.position[1]],
+        }
+
+
+@dataclass(frozen=True)
+class ThresholdChoice:
+    """Which row of the table was used, and on what evidence."""
+
+    p: float
+    branch: str
+    density: float
+    density_ratio: float
+    regime: str
+
+    @property
+    def regime_matches(self) -> bool:
+        return self.regime == P1_BRANCH
+
+    def summary(self) -> str:
+        return (
+            f"emit_threshold p={self.p:.2f} (branch {self.branch!r}) from "
+            f"candidate density {self.density:.2f}/file, ratio "
+            f"{self.density_ratio:.3f}"
+        )
+
+    def warning(self) -> str:
+        """Empty when the measured density agrees with the branch P1 implements."""
+        if self.regime_matches:
+            return ""
+        return (
+            f"⚠ REGIME MISMATCH — candidate density {self.density:.2f}/file is "
+            f"ratio {self.density_ratio:.3f} of gold's 45.9, which the table maps to "
+            f"branch {self.regime!r}, not the {P1_BRANCH!r} branch this P1 constant "
+            f"gate implements.\n"
+            f"  The plan's premise was the 15.8/file baseline (ratio 0.34). Lane R "
+            f"is denser than that, so p={self.p:.2f} is now a LOOSER gate than the "
+            f"table intends and the run is over-generating rather than under-\n"
+            f"  generating. +10% spurious costs 6.10 points, +30% costs 15.61. The "
+            f"three-tier schedule is P6 by design (see the module docstring); this "
+            f"is the number that says P6 has become load-bearing."
+        )
+
+
+@lru_cache(maxsize=1)
+def _decision_cfg() -> dict:
+    return require(load_pipeline(), "decision")
+
+
+def _matches(spec: str, ratio: float) -> bool:
+    m = _RANGE.match(str(spec).strip())
+    if m is None:
+        raise ConfigError(
+            f"decision.emit_threshold: cannot parse density_ratio {spec!r} "
+            f"(expected '<0.50', '0.50-0.80' or '>0.80')"
+        )
+    a = float(m.group("a"))
+    if m.group("b") is not None:
+        return a <= ratio <= float(m.group("b"))
+    op = m.group("op") or "<"
+    return {"<": ratio < a, "<=": ratio <= a, ">": ratio > a, ">=": ratio >= a}[op]
+
+
+def select_threshold(density: float) -> ThresholdChoice:
+    """Look up `p` for this run's entity density. P1 honours one row only.
+
+    `density` is candidate spans per file from `extract.RecallFloorReport`. This
+    is why that number is printed on every run: it is the input to a decision
+    parameter, not a diagnostic.
+    """
+    cfg = _decision_cfg()
+    gold_density = float(require(cfg, "gold_density_per_file"))
+    if gold_density <= 0:
+        raise ConfigError("decision.gold_density_per_file must be > 0")
+    ratio = density / gold_density
+
+    table = require(cfg, "emit_threshold")
+    # The CONSTANT: the row P1 implements, looked up by name, not by measurement.
+    # Reading the table by density here would be implementing the schedule, which
+    # is P6's job and needs P6's measurements behind it.
+    row = next(
+        (r for r in table if str(require(r, "density_ratio")) == P1_BRANCH), None
+    )
+    if row is None:
+        raise ConfigError(
+            f"decision.emit_threshold has no {P1_BRANCH!r} row — that row is the "
+            f"P1 constant gate. Rows present: "
+            f"{[r.get('density_ratio') for r in table]}"
+        )
+    # Which row the measurement WOULD have selected. Reported, never acted on:
+    # if these two disagree, the plan's density premise no longer holds and that
+    # is a finding, not something to paper over.
+    regime = next(
+        (
+            str(require(r, "density_ratio"))
+            for r in table
+            if _matches(require(r, "density_ratio"), ratio)
+        ),
+        "unmapped",
+    )
+    return ThresholdChoice(
+        p=float(require(row, "p")),
+        branch=P1_BRANCH,
+        density=density,
+        density_ratio=ratio,
+        regime=regime,
+    )
+
+
+def finalize(
+    doc: Document,
+    spans: list[Span],
+    threshold: ThresholdChoice,
+) -> list[dict]:
+    """Apply the gate, pick the type, and produce submission records.
+
+    P1 emits no assertions and no candidates:
+
+    * `assertions` is P4. An empty list is the correct answer for the two lab
+      types (worth 11.59 points) and a Jaccard of 0 elsewhere — the same 0 a wrong
+      flag would score, so guessing here buys nothing.
+    * `candidates` is P5. The whole term is capped at 10.00 of the 70.00 ceiling
+      because the official denominator carries a `+1`, and 67% of entities belong
+      to types that can never carry a code. Emitting 1/4/9 junk codes on every
+      entity was measured at exactly 0.00.
+
+    `type` is argmax with no hedging: emitting two types for one span costs 1.29
+    points under *both* alignment readings.
+    """
+    out: list[dict] = []
+    for span in sorted(spans, key=lambda s: (s.start, s.end)):
+        if span.score < threshold.p:
+            continue
+        etype = span.argmax_type()
+        concept = Concept(
+            text=span.text(doc),
+            position=(span.start, span.end),
+            type=etype,
+            assertions=(),
+            candidates=(),
+        )
+        if etype in LAB_TYPES:
+            assert not concept.assertions  # the 11.59-point constraint
+        if etype not in CODEABLE_TYPES:
+            assert not concept.candidates
+        out.append(concept.as_dict())
+    return out

@@ -1,0 +1,238 @@
+# resources/gazetteer_vi.yaml — hand-reviewable rules for `scripts/build_gazetteer.py`
+#
+# This file is the ONLY place numbers/rules governing the gazetteer build live.
+# `scripts/build_gazetteer.py` contains no thresholds, priors, or word lists —
+# everything here should be auditable by a clinician without reading Python.
+#
+# Every number below was MEASURED on 2026-07-30 against the files that ship in
+# this repo (`data/knowledge_base/ICD10.csv`, `RXNCONSO.RRF`, and the silver
+# corpus under `data/generated_medical_records/{synthetic,translated}` —
+# `restyled/` is never mined, see the module docstring of build_gazetteer.py).
+# If the KB or the silver corpus changes, re-run the measurement scripts before
+# touching these numbers; do not hand-edit them back to "round" values.
+
+# ── key filtering ────────────────────────────────────────────────────────────
+# Dropped BEFORE any merging, from all three sources alike.
+min_key_chars: 2
+# Justification (measured): ICD10.csv has exactly one match-key of length 2
+# after normalisation — "ho" (cough), a real, frequent TRIỆU_CHỨNG/CHẨN_ĐOÁN
+# term (0/1 length-1 keys). RXNCONSO IN/PIN/MIN has zero names of length <= 2.
+# Silver mining's own length<=2 keys (80 of them) are almost all bare numbers
+# ("49", "12", ...) or 2-letter lab-test abbreviations ("ct", "ua", "pt",
+# "ob", "t3") — the numeric ones are caught by the `patterns` stoplist below
+# regardless of this floor, so raising min_key_chars past 2 would only cost
+# the one real term ("ho") for no extra safety. Floor stays at 2, not 3.
+
+stoplist:
+  # Surface forms that must NEVER become a gazetteer key, checked against the
+  # SAME normalised match key `k` that will end up in the index.
+  literal:
+    # Ordinary Vietnamese function words. Measured effect on the current build:
+    # 0 removed (none of these occur as an exact ICD name, RxNorm ingredient
+    # name, or silver-mined entity surface form today) — kept as a defensive
+    # floor because the silver corpus is regenerated and noisy; a future
+    # regeneration run could easily emit one of these as a tagging defect.
+    - "khác"
+    - "không đặc hiệu"
+    - "không xác định"
+    - "và"
+    - "hoặc"
+    - "của"
+    - "cho"
+    - "là"
+    - "có"
+    - "được"
+    - "các"
+    - "những"
+    - "này"
+    - "đó"
+    - "theo"
+    - "về"
+    - "tại"
+    - "như"
+
+    # Generic health-domain CATEGORY nouns — 2026-07-30, added after
+    # `penalised/greedy_iou` full-pipeline measurement on gold (162 files)
+    # found ~840/1638 spurious spans traced to generic words in this index.
+    # The class: a key that NAMES the entity category/domain itself (or a
+    # class of things, e.g. a drug CLASS) rather than one specific instance
+    # of it. Every entry below was individually checked for its ACTUAL
+    # gold-entity count (`load_gold()`, exact-text match) before being added,
+    # so the list only contains words with 0 measured gold cost:
+    #   thuốc         THUỐC        301 spurious · 0 gold hits — "medicine",
+    #                              the noun for the category, not a drug.
+    #   triệu chứng   TRIỆU_CHỨNG  128 spurious · 0 gold hits — "symptom".
+    #   kháng sinh    CHẨN_ĐOÁN     20 spurious · 0 gold hits — "antibiotic",
+    #                              a drug CLASS silver mis-linked to U83.7
+    #                              (antibiotic-resistance code), not a
+    #                              diagnosis.
+    #   phòng ngừa    CHẨN_ĐOÁN     15 spurious · 0 gold hits — "prevention".
+    #   xét nghiệm    TÊN_XÉT_NGHIỆM (not in the coordinator's list; found by
+    #                              extending the same check) 190 silver
+    #                              occurrences at 100% one type, 0 gold hits —
+    #                              almost certainly the section header
+    #                              "Xét nghiệm:" mistagged as an entity by the
+    #                              silver generator, not a specific test name
+    #                              (compare "creatinine", "công thức máu toàn
+    #                              phần": both real gazetteer keys WITH gold
+    #                              support, correctly left in).
+    # The remaining category words a clinician would expect here — "chẩn
+    # đoán", "bệnh", "kết quả", "dấu hiệu", "khám", "tiền sử", "chỉ số", "dự
+    # phòng", "điều trị", "chăm sóc" — are NOT in the index today (0 rows
+    # measured for all of them, from any of the 3 sources), so adding them
+    # removes 0 entries right now. They stay in this list anyway as the same
+    # defensive floor as the function words above: the silver corpus is
+    # regenerated, and any of these could show up as a mistagged section
+    # header in a future run.
+    - "thuốc"
+    - "triệu chứng"
+    - "kháng sinh"
+    - "phòng ngừa"
+    - "xét nghiệm"
+    - "chẩn đoán"
+    - "bệnh"
+    - "kết quả"
+    - "dấu hiệu"
+    - "khám"
+    - "tiền sử"
+    - "chỉ số"
+    - "dự phòng"
+    - "điều trị"
+    - "chăm sóc"
+
+    # NOT added, despite being on the coordinator's suggested list, because
+    # measurement contradicts the premise:
+    #   "đau" (bare "pain") — coordinator's premise was "gold annotates
+    #     'đau <site>'", i.e. never bare. Measured: gold has 46 entities with
+    #     EXACT text "đau", TRIỆU_CHỨNG, 162-file corpus. Nearly all sit in
+    #     physical-exam negation idiom — "Bụng: Mềm, không đau" ("Abdomen:
+    #     soft, not tender") — where the section header already supplies the
+    #     site and `isNegated` supplies the negation; gold's span is legally
+    #     just "đau". Stoplisting it would trade 40 measured spurious hits
+    #     for up to 46 real gold spans — net negative on recall, and recall
+    #     (`text`+`assertions`, 0.6 of the 70.00 ceiling) outweighs precision
+    #     here. Left OUT.
+    #   "yếu" (bare "weak") — same shape: 5/5 gold occurrences are the exact
+    #     standalone text "yếu"/"Yếu", used in symptom lists ("Khó thở, yếu,
+    #     mệt mỏi" — "shortness of breath, weakness, fatigue"), a real
+    #     standalone TRIỆU_CHỨNG term in Vietnamese clinical Vietnamese, not
+    #     a stray adjective. Left OUT.
+    # Both figures came straight out of `load_gold()`; see the P1 report for
+    # the exact contexts. If gold's phrasing changes (e.g. a private-test
+    # style shift toward "đau <site>" only), re-measure before restoring
+    # either word here.
+
+    # RxNorm-name / Vietnamese-function-word collision. RXNCONSO's IN/PIN/MIN
+    # family carries 17 English chemical/element names of length 2-4 with no
+    # internal space ("agar", "air", ... "zinc", "tin", ...). Checked EVERY
+    # one of the 17 against gold raw text (word-boundary occurrence) vs gold
+    # entity occurrence with that exact text:
+    #   "tin"  — 29 raw occurrences in gold text, 0 as a THUỐC entity. "tin"
+    #     is an ordinary Vietnamese word (news/belief; also a common syllable
+    #     in compounds) that happens to collide with RxNorm's ELEMENT "tin"
+    #     (Sn). Matches the coordinator's measured 29 spurious THUỐC hits
+    #     almost exactly. Added.
+    #   "zinc" — 1 raw occurrence, but it IS the one gold THUỐC entity (a
+    #     real zinc-supplement mention) — 1/1, not a false positive. NOT
+    #     added: dropping it would cost the only real hit it has.
+    #   The other 15 ("agar", "air", "bran", "gold", "hemp", "iron", "lard",
+    #   "lead", "mica", "nadh", "neon", "rna", "talc", "urea", "zein") have 0
+    #   raw occurrences in gold text at all — no evidence either way, so left
+    #   alone rather than guessed at.
+    - "tin"
+  patterns:
+    # Regex, matched with `re.fullmatch` against the normalised key `k`.
+    # 1) Redaction placeholders. `linking/README.md` documents 30/100 test
+    #    files carrying `*****` runs that are NOT masked drug names (false
+    #    positives on "glucose"/"lipase" already caught there) — measured here
+    #    too: silver mining turns up 22 distinct asterisk-run keys ("*****"
+    #    through 39 stars) that must never become index entries.
+    - '^[*]+$'
+    # 2) Bare numeric/lab-value tokens ("49", "12.5", "90-92%", "140/57").
+    #    Measured: 331 such keys in the silver corpus. These are the job of
+    #    `extract/labvalues.py` / `extract/kvspan.py` (P1, owned by another
+    #    agent), not the gazetteer — indexing them would make the
+    #    Aho-Corasick sweep fire on every number in every document.
+    - '^[\d.,\-/%\s]+$'
+
+# ── drop by dominant type ─────────────────────────────────────────────────────
+# Applied AFTER merging (the blended `t` across all contributing sources is
+# what decides this, not any one source alone). A merged entry is dropped
+# entirely — never written to entries — when its argmax type is in this list.
+#
+# Measured 2026-07-30, full-pipeline gold run (162 files): 296 of 1638
+# spurious spans were qualitative lab-value words mined into the gazetteer as
+# silver keys — "bình thường" (100), "giảm" (81), "ổn định" (49), "tăng"
+# (35), "âm tính" (12), plus longer free-text radiology/lab-finding
+# sentences ("cho thấy thâm nhiễm thùy dưới hai bên...", "không thấy tổn
+# thương khu trú", ...). These are lab VALUES — `resources/lab_patterns.yaml
+# qualitative_results:` already owns them with the precondition a lab NAME
+# precedes them, which the gazetteer cannot express — so the gazetteer copy
+# is pure duplication with strictly worse precision (fires with no such
+# precondition). Applying `argmax(t) == "KẾT_QUẢ_XÉT_NGHIỆM"` removes 181
+# merged entries, ALL from `silver` (icd_vi entries are always
+# CHẨN_ĐOÁN/TRIỆU_CHỨNG by construction, rxnorm entries are always THUỐC, so
+# neither source can ever produce this dominant type) — see the P1 report
+# for the full before/after gold-coverage table this was checked against.
+drop_dominant_types:
+  - "KẾT_QUẢ_XÉT_NGHIỆM"
+
+# ── ICD-10 Vietnamese parsing (ICD10.csv has a 4-row title block) ────────────
+# Mirrors `configs/pipeline.yaml: knowledge_base` / `validate/schema.py::_read_icd_codes`
+# (header_row=5, code_column='Mã') — duplicated here, not imported from there,
+# because L0 configs/ must not depend on scripts/ and this value is this
+# script's own magic number to own, not `configs/pipeline.yaml`'s.
+icd10_vi:
+  header_row: 5              # 1-based; rows 1-4 are a title block
+  code_column: "Mã"
+  name_column: "Tên bệnh"    # header cell in the file has a trailing space;
+                              # the loader strips headers before comparing.
+  group_column: "Nhóm bệnh"
+
+# ── type prior for ICD-linked keys, by chapter/block ─────────────────────────
+# Measured 2026-07-30: for every ICD10.csv Vietnamese disease-NAME key that
+# also occurs as an annotated entity surface form in synthetic+translated
+# silver (restyled excluded), cross-tabulate the observed entity `type`
+# against whether the linked code's first letter is 'R' (WHO chapter XVIII,
+# "Symptoms, signs and abnormal clinical/laboratory findings").
+#   R-block   codes: 347 unique ICD names, 12 matched a silver key, n=340 obs
+#             -> TRIỆU_CHỨNG 323 (95.0%) · CHẨN_ĐOÁN 17 (5.0%)
+#   non-R     codes: 13,923 unique ICD names, 688 matched, n=1358 obs
+#             -> CHẨN_ĐOÁN 1246 (91.75%) · TRIỆU_CHỨNG 112 (8.25%)
+# (A residual 10/1368 non-R observations were KẾT_QUẢ_XÉT_NGHIỆM/THUỐC —
+# folded into the two-way split above since they are <1% and irrelevant to
+# the CHẨN_ĐOÁN/TRIỆU_CHỨNG question this table exists to answer.)
+icd_chapter_type_prior:
+  r_block:
+    TRIỆU_CHỨNG: 0.95
+    CHẨN_ĐOÁN: 0.05
+  default:
+    CHẨN_ĐOÁN: 0.9175
+    TRIỆU_CHỨNG: 0.0825
+
+# ── RxNorm parsing ────────────────────────────────────────────────────────────
+rxnorm:
+  sab: "RXNORM"
+  tty: ["IN", "PIN", "MIN"]
+  suppress: ["", "N"]
+
+# ── silver mining ─────────────────────────────────────────────────────────────
+silver:
+  kinds: ["synthetic", "translated"]   # NEVER "restyled" — see build_gazetteer.py docstring
+  annotations_subdir: "annotations"
+  text_subdir: null                    # not needed: we only read *.json here
+
+# ── merge weights (blending `t` when the same key `k` comes from >1 source) ──
+source_weight:
+  icd_vi: 1.0
+  rxnorm: 1.0
+  silver: 0.5   # machine-mined and noisier (the same silver corpus carries
+                # 165 known schema violations elsewhere, see io/labels.py) —
+                # half the trust of a curated KB source when the two disagree
+                # on the type distribution of a shared key.
+
+# Priority for the single `s` field on a merged entry: first source in this
+# list that contributed the key wins. icd_vi/rxnorm are curated code sources
+# and should keep their identity even when silver also mined the same string;
+# silver only wins `s` when neither curated source produced that key.
+source_priority: ["icd_vi", "rxnorm", "silver"]

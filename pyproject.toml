@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smart-medic"
+version = "0.1.0"
+description = "Vietnamese clinical concept extraction and normalisation (Viettel AI Race 2026)"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+
+# Runtime dependencies of the INFERENCE pipeline only. No LLM-vendor HTTP client
+# appears here or anywhere under src/ — see ADR 0003 and
+# tests/test_no_api_in_runtime.py, which enforces it structurally.
+dependencies = [
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# Added by P3/P5 when the model lanes land. Kept out of `dependencies` so a
+# scoring-only rerun does not need torch.
+models = [
+  "torch>=2.2",
+  "transformers>=4.40",
+  "numpy>=1.26",
+]
+dev = [
+  "pytest>=8.0",
+]
+
+[project.scripts]
+smart-medic = "smart_medic.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+smart_medic = ["py.typed"]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Hard version pinning with hashes lives in requirements.lock (P7), not here.
+# `pip install --require-hashes -r requirements.lock` is what the reproducibility
+# rehearsal runs; pyproject declares the ranges the project is written against.
+# ─────────────────────────────────────────────────────────────────────────────
+
+[tool.pytest.ini_options]
+# So `pytest tests/` works without PYTHONPATH=src. The scorer CLI still needs
+# PYTHONPATH=src, because subprocesses do not inherit pytest's sys.path.
+pythonpath = ["src"]
+testpaths = ["tests"]

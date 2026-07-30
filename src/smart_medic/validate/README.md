@@ -41,9 +41,9 @@ Rò rỉ `isNegated` sang 2 loại xét nghiệm làm 70,00 → 58,41. Corpus b�
 
 | File | Trạng thái | Phase |
 |---|---|---|
-| `schema.py` — 6 kiểm tra lược đồ | ⬜ | P0 |
-| `offsets.py` — assert byte-exact | ⬜ | P0 |
-| `emit_json.py` — tuần tự hoá + ràng buộc ở đúng chỗ này | ⬜ | P0 |
+| `schema.py` — 7 kiểm tra lược đồ | ✅ | P0 |
+| `offsets.py` — assert byte-exact | ✅ | P0 |
+| `emit_json.py` — tuần tự hoá + ràng buộc ở đúng chỗ này | ✅ | P0 |
 
 Bộ đóng gói nằm ở [`scripts/submit/`](../../../scripts) vì nó là build-time, không phải
 đường suy luận.

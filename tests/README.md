@@ -22,8 +22,11 @@ liệu**, không phải test hỏng. **Đừng "sửa" test.** Chính sách: l�
 | `test_scoring.py` | self-test scorer; quan trọng nhất: `test_matched_aggregation_is_degenerate_*` **chứng minh trên dữ liệu thật** rằng cách đọc `matched` thưởng cho việc xoá dự đoán của chính mình | ✅ 143 dòng |
 | `data_test_manifest.json` | sha256 của 100 file test — lớp bảo vệ thứ hai sau hook | ✅ |
 | `test_alignment_parity.py` | **fail** khi `greedy_iou` tăng mà `overlap_type` giảm > 0,010 | ⬜ P2 |
-| `test_no_api_in_runtime.py` | 3 test chống rò rỉ API — xem dưới | ⬜ P0 |
-| `test_layer_boundaries.py` | không layer nào import từ layer cao hơn nó | ⬜ P0 |
+| `test_no_api_in_runtime.py` | 3 test chống rò rỉ API — xem dưới | ✅ P0 |
+| `test_layer_boundaries.py` | không layer nào import từ layer cao hơn nó | ✅ P0 |
+| `test_document.py` | round-trip NFC/NFD 262 file · `newline=""` · bộ lọc 165 vi phạm bạc | ✅ P0 |
+| `test_layout.py` | ≥97/100 file có header · 0 ca `4,7` bị tách · phủ biên gold | ✅ P0 |
+| `test_validate.py` | cổng lược đồ, kiểm **trên file JSON đã ghi** | ✅ P0 |
 | `fixtures/` | ca khó viết tay, dùng làm regression | ⬜ P4 |
 
 ## Ba test chống rò rỉ API vào runtime

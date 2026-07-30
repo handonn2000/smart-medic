@@ -51,6 +51,6 @@ assertion:
 
 | File | Trạng thái | Phase |
 |---|---|---|
-| `pipeline.yaml` | ⬜ | P0 |
-| `models.yaml` | ⬜ | P0 |
-| `metric.yaml` | ⬜ | P0 |
+| `pipeline.yaml` | ✅ | P0 |
+| `models.yaml` | ✅ | P0 |
+| `metric.yaml` | ✅ | P0 |

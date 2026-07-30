@@ -56,3 +56,7 @@ runs/*
 
 # Built indexes / caches — regenerable
 data/artifacts/
+
+# The submission archive. Rebuild with `make submit`; the authoritative copy
+# lives in runs/<ts>_<sha>/output.zip alongside the manifest that explains it.
+/output.zip

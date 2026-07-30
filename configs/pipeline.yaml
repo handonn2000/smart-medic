@@ -1,0 +1,162 @@
+# L0 · configs/pipeline.yaml — every threshold in the project lives here.
+#
+# Rule: there is NO numeric threshold inside src/smart_medic/. A magic number in
+# code is a threshold nobody can review. Rules live in resources/*.yaml, numbers
+# live here, and the sha256 of this file goes into runs/<ts>/manifest.json.
+#
+# Read by: decision/ · linking/ · extract/ · layout/ · validate/
+# Owner:   HUMAN. Agents propose diffs to this file; they do not invent values.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# L2 · layout/ — deterministic document structure. Regex + an indent stack.
+# ─────────────────────────────────────────────────────────────────────────────
+layout:
+  # Measured: three indent tiers are enough for this corpus; a fourth never
+  # appears. A line's level is the largest i with indent >= indent_levels[i].
+  indent_levels: [0, 4, 8]
+  tab_width: 4
+
+  marker:
+    # "1.  Tiền sử bệnh lý" · "2)" · "I." · "a)"  — the enumerator, not the text
+    numeric: '^[ \t]*(?:\(?\d{1,2}[.)]|[IVXLCDM]{1,5}[.)]|[a-zA-Z][.)])[ \t]+'
+    # "- ho khan" · "• Thường là 1 hạch" · "* ..."
+    bullet: '^[ \t]*(?:[-*+•·▪◦–—>])[ \t]+'
+
+  kv:
+    # A KV/header label: starts with a letter, stops at the first colon, holds no
+    # sentence punctuation. 94/100 test files carry a "TÊN: giá trị" line and
+    # 97/100 carry a header line.
+    # NOTE: applied with re.match(raw, pos, end), which anchors on its own. A '^'
+    # here would never match, because '^' ignores `pos` and looks for the real
+    # start of the string.
+    label: '(?P<label>[^\W\d_][^:;\n]{0,58}?)[ \t]*:'
+    label_max_chars: 60
+    # "khoảng 11:00 sáng" — a clock. The word-boundary lookbehind is what keeps
+    # "HCO3: 32.09" and "Vitamin B12: ..." out: there the digits before the colon
+    # are the tail of a lab name, not an hour.
+    time_like: '(?<![\w.])\d{1,2}[ \t]*:[ \t]*\d{2}(?![\d.,])'
+    clock_window: 4        # chars either side of a colon the clock pattern needs
+
+  split:
+    # `;` separates lab items unconditionally:
+    #     "Ure: 5,9 mmol/l; Creatinin: 89 micromol/l"
+    semicolon: ';'
+    # `,` splits ONLY when what follows starts a new lab item. `4,7` in
+    # "Chol: 4,7 mmol/l" is a DECIMAL COMMA — splitting it is a measured defect.
+    comma: ','
+    comma_requires_lab_name: true
+    # What "starts a new lab item" means, tested against the text AFTER the comma.
+    # No '^': this is applied with re.match(raw, pos, end).
+    lab_name: '[ \t]*[^\W\d_][^:;,\n]{0,28}?[ \t]*:'
+    # Two KV pairs on one line separated only by whitespace:
+    #     "CRP: 227.0 mg/L Creatinin : 46 µmol/L Kali +: 3.6 mmol/L"
+    # The label is ONE token plus an optional ion sign — "Kali +", "Na+", "HCO3".
+    # Allowing more tokens makes the cut swallow the previous value's unit, so
+    # "227.0 mg/L" would lose its "mg/L" to the next label.
+    inline_kv: '(?P<label>[^\W\d_]\w*(?:[ \t]{0,2}[+\-])?)[ \t]{0,2}:[ \t]*(?=[<>≤≥(]?[ \t]*[\d.,])'
+    inline_kv_min_gap: 2      # chars of value required before a new pair may open
+
+  outline:
+    # NUM_HEADER and COLON_HEADER always open a section.
+    open_on: ['NUM_HEADER', 'COLON_HEADER']
+    # So does a short unpunctuated line that is immediately followed by a bullet
+    # at the same or deeper indent — "Thuốc trước khi nhập viện" then "- tylenol".
+    # Without this, half the bullet lists in the corpus hang off the wrong section
+    # and assertion/ inherits the wrong scope.
+    prose_header_max_chars: 60
+    prose_header_requires_following_bullet: true
+    prose_header_forbidden_tail: '[.!?,;:]$'
+    lookahead_lines: 3     # how far to look for the following bullet
+
+  # Token boundaries feeding boundary_priors.
+  #
+  # The decimal alternative comes FIRST so "4,7" and "227.0" stay one token —
+  # this is the `4,7` guard, and ordering is what implements it.
+  #
+  # The word alternative must accept COMBINING MARKS (U+0300-U+036F …). Python's
+  # `\w` rejects them, so on the 41/162 gold files that are not in NFC a token
+  # would end one character early: "thở" would tokenise as "thơ" + a stray hook,
+  # and 27 gold span ends would fall outside boundary_priors. Measured, not
+  # theorised.
+  token: '\d+(?:[.,]\d+)+|(?:[^\W\d_]|[̀-ͯ᪰-᫿᷀-᷿])+(?:[’\x27\-_](?:[^\W\d_]|[̀-ͯ᪰-᫿᷀-᷿])+|(?!\d*[.,]\d)\d+(?:[^\W\d_]|[̀-ͯ᪰-᫿᷀-᷿])*)*|\d+'
+  # Characters that attach to a token and are still inside a span:
+  #   "96%" · "protein 2+" · "chức năng gan (LFTs)" · "37°"
+  token_suffix: '[%‰+°)\]}>]+'
+  token_prefix: '[(\[{<]+'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# L3 · extract/ — RAW model threshold. decision/ makes the real call.
+# ─────────────────────────────────────────────────────────────────────────────
+extract:
+  model_threshold: 0.15
+  harmonize:
+    # Measured: THUỐC↔TÊN_XÉT_NGHIỆM confuse each other and harmonising helps.
+    # CHẨN_ĐOÁN↔TRIỆU_CHỨNG do NOT — harmonising them loses points.
+    pairs: [['THUỐC', 'TÊN_XÉT_NGHIỆM']]
+    min_majority: 4
+    min_ratio: 4
+
+# ─────────────────────────────────────────────────────────────────────────────
+# L4a · assertion/
+# ─────────────────────────────────────────────────────────────────────────────
+assertion:
+  # isFamily is worth 0.26 points on the leverage map ⇒ do not invest in it.
+  flags: ['isNegated', 'isHistorical']
+
+# ─────────────────────────────────────────────────────────────────────────────
+# L4b · linking/
+# ─────────────────────────────────────────────────────────────────────────────
+linking:
+  target_tty: 'IN'                  # ADR 0001 rev 3 — provisional, pending Probe B
+  exclude_rel: ['inactive_ingredient_of']
+  exclude_sty: ['T200']             # DROP by T200; do NOT whitelist T109/T121
+
+# ─────────────────────────────────────────────────────────────────────────────
+# L5 · decision/ — the ONLY layer allowed to apply a threshold.
+# ─────────────────────────────────────────────────────────────────────────────
+decision:
+  # Measured (leverage map §D.2): at a high miss-rate, opening the gate pays;
+  # near the ceiling it does not. Hence a TABLE keyed by the run's own entity
+  # density, not a constant.
+  emit_threshold:
+    - {density_ratio: '<0.50',     p: 0.25}
+    - {density_ratio: '0.50-0.80', p: 0.38}
+    - {density_ratio: '>0.80',     p: 0.45}
+  gold_density_per_file: 45.9       # denominator of density_ratio (7435 / 162)
+  q0:
+    CHẨN_ĐOÁN: 0.0521               # P(gold candidate list empty)
+    THUỐC:     0.0588
+  diagnosis_always_single_code: true  # p_d = 0.0000 over 1456 diagnosis mentions
+  top1_top2_margin:
+    THUỐC: 0.1007                   # reference marker only; KB rules decide
+
+# ─────────────────────────────────────────────────────────────────────────────
+# L6 · validate/ — the hard gate. 11.59 points live here.
+# ─────────────────────────────────────────────────────────────────────────────
+validate:
+  # An offset mismatch is always a pipeline bug, never data noise ⇒ raise, never
+  # repair. Repairing it would hide exactly the NFC bug the check exists to find.
+  strict_offsets: true
+  # Schema constraints ARE repaired: they are model habits, and the enforcement
+  # point is serialisation. 0/7435 gold spans are nested, so dropping the
+  # contained span is the policy that matches the data.
+  nesting_policy: 'keep_longer'
+  drop_unknown_codes: true
+  json:
+    indent: 2
+    field_order: ['text', 'type', 'candidates', 'assertions', 'position']
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Knowledge-base paths, for RUNTIME readers (validate/, linking/).
+#
+# scripts/kb_sources.py is the build-time equivalent. src/ may not import
+# scripts/ — the dependency runs one way — so the paths are declared here in L0
+# instead. Keep the two in step: the layout is flat, no release subdirectories.
+# ─────────────────────────────────────────────────────────────────────────────
+knowledge_base:
+  root: 'data/knowledge_base'
+  icd10_vi: 'ICD10.csv'             # Vietnamese, 13189 codes / 36689 names
+  icd10_vi_header_row: 5            # 1-based: rows 1-4 are a title block
+  icd10_vi_code_column: 'Mã'
+  rxnconso: 'RXNCONSO.RRF'          # field 1 is RXCUI
+  cache: 'data/artifacts/kb_codes.json'

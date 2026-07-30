@@ -18,7 +18,7 @@ vòng chấm source code, tức khi đã quá muộn. Ba test thi hành ranh gi�
 | `data_gen/` | `gen_sample_data.py` — sinh bệnh án tổng hợp (543 bạc + 162 gold). **Gọi OpenAI.** | ✅ 2.014 dòng |
 | `annotation_qa/` | kiểm tra chất lượng gold: `validate.py` · `consistency.py` · `diff_report.py` · `kb.py` · `make_packets.py` · `normalize.py` · `scd_index.py` · `scd_probe3.py` | ✅ |
 | `analysis/` | `measure_data.py` — **tái lập mọi con số** trong `docs/reports/*.html` | ✅ 523 dòng |
-| `submit/` | `package_submission.py` — đóng gói `output.zip` + `runs/<ts>/manifest.json` | ⬜ P0 |
+| `submit/` | `package_submission.py` — đóng gói `output.zip` + `runs/<ts>/manifest.json` | ✅ P0 |
 
 ## Chạy
 

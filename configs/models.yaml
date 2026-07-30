@@ -1,0 +1,41 @@
+# L0 · configs/models.yaml — model identity, pinned revision, parameter count.
+#
+# WHY `params` is a required field: the competition caps the inference pipeline at
+# 9B parameters total, self-hosted. Carrying the count here turns that rule into a
+# BUILD ERROR at startup (io.config.load_models) instead of something to remember.
+#
+# WHY `revision_sha` and not a tag: tags move. A moved tag means a different
+# tokenizer, and a different tokenizer means different offsets — silently.
+# A model with `enabled: true` and a null revision_sha is a load-time error.
+
+param_budget: 9000000000            # 9e9 — the regulation, as data
+
+models:
+  - name: 'globalpointer_encoder'
+    role: 'extract · lane M · Efficient GlobalPointer head'
+    hf_id: 'FacebookAI/xlm-roberta-large'
+    revision_sha: null              # ⬜ P3 — pin before the first scored run
+    params: 559890432               # 559.9M
+    enabled: false                  # ⬜ P3
+
+  - name: 'gliner'
+    role: 'extract · lane M · zero-shot span typing, only if time remains'
+    hf_id: 'urchade/gliner_multi-v2.1'
+    revision_sha: null              # ⬜ P3
+    params: 209000000               # 209M
+    enabled: false                  # ⬜ P3
+
+  - name: 'icd_dense_encoder'
+    role: 'linking · flat dense index, 45MB, recall 100% — do NOT build an ANN'
+    hf_id: 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'
+    revision_sha: null              # ⬜ P5
+    params: 117653760               # 117.7M
+    enabled: false                  # ⬜ P5
+
+# Σ params over ENABLED models is what the budget assert measures; the total over
+# every declared model is reported too, so enabling one cannot silently overrun.
+# declared total = 886,544,192 (0.886B) — 9.85% of the 9B budget.
+
+seed: 20260804                      # every RNG: python · numpy · torch · tokenizer
+batch_size: 1                       # temperature 0 does NOT give determinism;
+                                    # batch invariance is missing, so pin the batch

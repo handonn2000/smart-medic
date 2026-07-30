@@ -36,9 +36,10 @@ layout.parse(doc: Document) -> Layout
 
 | File | Vai trò | Trạng thái | Phase |
 |---|---|---|---|
-| `lines.py` | phân loại dòng: `NUM_HEADER` · `COLON_HEADER` · `KV` · `BULLET` · `PROSE` | ⬜ | P0 |
-| `outline.py` | ngăn xếp thụt lề → cây mục + đường tổ tiên | ⬜ | P0 |
-| `kv.py` | tách chuỗi `TÊN: giá trị` trong dòng, xử lý dấu phẩy thập phân | ⬜ | P0 |
+| `lines.py` | phân loại dòng: `NUM_HEADER` · `COLON_HEADER` · `KV` · `BULLET` · `PROSE` | ✅ | P0 |
+| `outline.py` | ngăn xếp thụt lề → cây mục + đường tổ tiên | ✅ | P0 |
+| `kv.py` | tách chuỗi `TÊN: giá trị` trong dòng, xử lý dấu phẩy thập phân | ✅ | P0 |
+| `rules.py` | biên dịch khối `layout:` của `configs/pipeline.yaml` | ✅ | P0 |
 
 ## Nghiệm thu
 

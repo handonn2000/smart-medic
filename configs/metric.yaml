@@ -1,0 +1,57 @@
+# L0 · configs/metric.yaml — the identity of the measurement.
+#
+# The official internal number is penalised / greedy_iou, reported as /100 with
+# two decimals. But greedy_iou NEVER compares the `type` field, so the official
+# number can never reward fixing a type. Both alignments are therefore required,
+# and `exact` is carried as a diagnostic light.
+
+aggregation: 'penalised'
+cand_formula: 'official'            # the `+1` denominator from the problem statement
+doc_aggregation: 'macro'
+clamp_text: true
+
+# BOTH. Not one.
+#   greedy_iou    — the official number
+#   overlap_type  — the BLOCKING column. 10% wrong types costs 12.35 (sd ±0.82)
+#                   here while greedy_iou reports 0.00.
+alignment: ['greedy_iou', 'overlap_type']
+
+# Reported on every run, never used to accept a change.
+#   exact    — OFFSET BUG LIGHT. A 1-character span shift scores 0.00 here. If
+#              this column collapses while the other two look normal, stop: it is
+#              an offset bug, not a model gap.
+#   matched  — DEGENERATE. Deleting 30% of your own predictions makes it go UP.
+#              Ceiling only. See tests/test_scoring.py.
+diagnostic_alignment: ['exact']
+diagnostic_aggregation: ['matched']
+
+# ─────────────────────────── acceptance bar ───────────────────────────
+# A delta is accepted only if BOTH hold:
+#   Δ > max(min_delta, 1.96 · SE_bootstrap)   and   CI95 excludes 0
+# The 0.010 floor is valid ONLY for a highly correlated pair of systems. Two
+# systems that miss entities in DIFFERENT places are indistinguishable below
+# ~0.8 points (measured SE 0.415).
+acceptance:
+  min_delta: 0.010
+  bootstrap_z: 1.96
+  uncorrelated_se: 0.415
+  # A change may not drop overlap_type by more than this, whatever greedy_iou says.
+  overlap_type_max_regression: 0.010
+
+# ─────────────────────────── what the score means ───────────────────────────
+# REAL ceiling = 70.00/100, not 100:
+#   text 30.00 + assertions 30.00 + candidates 10.00
+# candidates is nominally weighted 0.40 but the `+1` in its denominator caps it at
+# 0.2501, because 67% of entities belong to three types that never carry a code.
+# Public leaderboard top 1 = 50.41 = 72% of this ceiling.
+ceiling:
+  total: 70.00
+  text: 30.00
+  assertions: 30.00
+  candidates: 10.00                 # nominal 40.00
+
+# Gold is the SYNTHETIC `restyled/` corpus (surface-string retention 63.5%); the
+# test set is real prose. A gold score is NOT a leaderboard forecast. The only
+# bridge is Probe A:
+#     recall_span ≈ probe_A_score / 51.55      (coefficient 51.55 ± 0.28)
+probe_a_coefficient: 51.55

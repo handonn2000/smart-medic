@@ -42,8 +42,8 @@ load_silver() -> list[Document]   # 543 file, LỌC 165 vi phạm schema lúc n�
 
 | File | Trạng thái | Phase |
 |---|---|---|
-| `document.py` | ⬜ | P0 |
-| `corpus.py` | ⬜ | P0 |
+| `document.py` | ✅ | P0 |
+| `corpus.py` | ✅ | P0 |
 
 ## Kiểm
 

@@ -131,13 +131,11 @@ def test_lane_score_is_below_every_gazetteer_source_and_above_the_gate():
     cfg = load_pipeline()
     score = float(require(cfg, "extract.recall_floor.lexicon.score"))
     gaz = require(cfg, "extract.recall_floor.aho.source_score")
-    lowest_gate = min(
-        float(row["p"]) for row in require(cfg, "decision.emit_threshold")
-    )
+    gate = float(require(cfg, "decision.emit_threshold"))
     assert score < min(float(v) for v in gaz.values())
-    assert score > lowest_gate, (
-        f"lexicon score {score} is at or below the loosest emit threshold "
-        f"{lowest_gate} — every span this lane proposes would be discarded"
+    assert score > gate, (
+        f"lexicon score {score} is at or below the emit threshold {gate} — every "
+        f"span this lane proposes would be discarded"
     )
 
 

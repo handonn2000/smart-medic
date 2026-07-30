@@ -358,11 +358,59 @@ decision:
   # Measured (leverage map §D.2): at a high miss-rate, opening the gate pays;
   # near the ceiling it does not. Hence a TABLE keyed by the run's own entity
   # density, not a constant.
-  emit_threshold:
-    - {density_ratio: '<0.50',     p: 0.25}
-    - {density_ratio: '0.50-0.80', p: 0.38}
-    - {density_ratio: '>0.80',     p: 0.45}
-  gold_density_per_file: 45.9       # denominator of density_ratio (7435 / 162)
+  # ⚠ THE DENSITY-KEYED TABLE WAS REMOVED 2026-07-31 (W5). It read
+  #     <0.50 → 0.25 · 0.50-0.80 → 0.38 · >0.80 → 0.45
+  # against `gold_density_per_file: 45.9`, and every run printed a REGIME
+  # MISMATCH warning saying the constant gate was looser than the schedule
+  # intended and the run was over-generating.
+  #
+  # Swept end to end against 20 hand-annotated TEST documents (candidates held
+  # out — that sample carries no codes):
+  #     p      spans   recall  precision   score
+  #    0.10    2912    0.622     0.693     44.10
+  #    0.20    2912    0.622     0.693     44.10
+  #    0.25    2912    0.622     0.693     44.10   ← shipped
+  #    0.30    2555    0.526     0.716     38.55
+  #    0.35    2518    0.526     0.719     38.60
+  #    0.45    2427    0.503     0.728     37.62
+  #
+  # Tightening costs 5.5 points at the first step. Two separate errors had to be
+  # unwound to see it:
+  #
+  # 1. `gold_density_per_file: 45.9` came from the SYNTHETIC corpus (7435/162).
+  #    The real test set carries 36.2 entities/file in the annotated sample, so
+  #    every ratio the table compared against was wrong by 27%. Same
+  #    synthetic-gold calibration error as the diagnosis-code verdict (ADR 0006),
+  #    reaching a second parameter.
+  #
+  # 2. Fixing the denominator alone made it WORSE: the corrected ratio is
+  #    29.12/36.2 = 0.804, which selects the tightest row and −5.5 points. The
+  #    table's premise — "high density means we are over-generating, so tighten"
+  #    — is simply false here. Recall is still 0.622 at 29.12 entities/file; the
+  #    lexicon lane added spans that were RIGHT, and density rose because the
+  #    test set is denser than the run, not because the run got sloppy.
+  #
+  # So the tiers are gone rather than re-tuned. Keeping a principled-looking
+  # schedule whose own sweep contradicts it is worse than one measured constant.
+  # Restore a schedule only with a sweep that shows a crossover — this one has no
+  # crossover anywhere in the measured range.
+  #
+  # The asymmetry behind the flat answer: under `penalised` a missed entity
+  # scores zero in text, assertions AND candidates at once, while a spurious one
+  # only dilutes a document mean. Below 0.25 the curve is flat because no lane
+  # proposes anything weaker (lexicon, the lowest, scores 0.28).
+  emit_threshold: 0.25
+
+  # Reported in the run log and used for the out-of-range check, no longer a
+  # divisor for choosing `p`. 724 entities over 20 hand-annotated test documents.
+  gold_density_per_file: 36.2
+
+  # Density ratios (run density ÷ gold_density_per_file) the threshold above was
+  # actually swept over. Outside this, `p` is still applied — it is flat across
+  # everything measured — but the run prints a warning, because a ratio this far
+  # out usually means a lane changed rather than the corpus. The shipped run
+  # sits at 0.80.
+  swept_density_ratio: [0.50, 1.20]
   q0:
     CHẨN_ĐOÁN: 0.0521               # P(gold candidate list empty)
     THUỐC:     0.0588

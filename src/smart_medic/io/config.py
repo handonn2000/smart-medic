@@ -33,6 +33,7 @@ __all__ = [
     "ModelSpec",
     "kb_paths",
     "require",
+    "require_probability",
 ]
 
 
@@ -84,6 +85,28 @@ def require(cfg: dict, dotted: str) -> Any:
         node = node[part]
         walked.append(part)
     return node
+
+
+def require_probability(cfg: dict, dotted: str) -> float:
+    """`require`, plus the check that the value is a usable probability.
+
+    Lives here rather than in the caller because `decision/` is forbidden float
+    literals in executable code (tests/test_decision.py enforces it): a bound
+    written into Python is a bound nobody reviews, and the config's sha256 is
+    what goes into the run manifest. The unit interval is not a threshold, so it
+    belongs in the loader that validates shapes.
+    """
+    value = require(cfg, dotted)
+    try:
+        out = float(value)
+    except (TypeError, ValueError) as exc:
+        raise ConfigError(f"{dotted} must be a number, got {value!r}") from exc
+    if not 0 <= out <= 1:
+        raise ConfigError(
+            f"{dotted} must be a probability in [0, 1], got {out}. A score gate "
+            f"outside that range either passes everything or nothing."
+        )
+    return out
 
 
 @lru_cache(maxsize=1)

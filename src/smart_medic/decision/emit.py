@@ -30,13 +30,12 @@ at 0 is wrong in every regime.
 """
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass
 from functools import lru_cache
 
 from ..assertion import scope
 from ..extract.spans import Span
-from ..io.config import ConfigError, load_pipeline, require
+from ..io.config import ConfigError, load_pipeline, require, require_probability
 from ..io.document import Document
 from ..io.labels import CODEABLE_TYPES, LAB_TYPES
 from ..linking import edge_verify, icd, rxnorm
@@ -47,12 +46,24 @@ __all__ = [
     "select_threshold",
     "finalize",
     "assertion_rate_check",
-    "P1_BRANCH",
 ]
 
 #: The one row of the table P1 implements. P6 replaces this module's single
 #: lookup with the full three-tier schedule.
-P1_BRANCH = "<0.50"
+def _in_swept_range(ratio: float) -> bool:
+    lo, hi = _swept_range()
+    return lo <= ratio <= hi
+
+
+def _swept_range() -> tuple[float, float]:
+    """Density ratios the emit threshold was measured over.
+
+    Lives in `configs/pipeline.yaml` like every other number here: a bound baked
+    into Python is a bound nobody reviews, and the config's sha256 goes into the
+    run manifest.
+    """
+    lo, hi = (float(x) for x in require(load_pipeline(), "decision.swept_density_ratio"))
+    return lo, hi
 
 
 def assertion_rate_check(records: list[dict]) -> str:
@@ -91,7 +102,6 @@ def assertion_rate_check(records: list[dict]) -> str:
 #: because its codes are RxCUIs, a different vocabulary entirely.
 _ICD_RETRIEVAL_TYPES = frozenset({"CHẨN_ĐOÁN", "TRIỆU_CHỨNG"})
 
-_RANGE = re.compile(r"^(?P<op><|>|<=|>=)?\s*(?P<a>[\d.]+)(?:\s*-\s*(?P<b>[\d.]+))?$")
 
 
 def _pick_codes(
@@ -175,7 +185,8 @@ class ThresholdChoice:
 
     @property
     def regime_matches(self) -> bool:
-        return self.regime == P1_BRANCH
+        """True when this run's density is inside the range `p` was swept over."""
+        return self.regime == "in-range"
 
     def summary(self) -> str:
         return (
@@ -185,20 +196,28 @@ class ThresholdChoice:
         )
 
     def warning(self) -> str:
-        """Empty when the measured density agrees with the branch P1 implements."""
+        """Empty when the density lands inside a row of the table.
+
+        Before W5 this fired on every run: the table was pinned to one row by
+        name while the density pointed at another, and the ratio it compared
+        against used the synthetic corpus's 45.9 entities/file instead of the
+        test set's 36.2. Both are fixed, so this is now a real anomaly signal
+        rather than standing noise — the only way to reach it is a density
+        outside every row, which means the run does not resemble anything the
+        table was swept on.
+        """
         if self.regime_matches:
             return ""
+        lo, hi = _swept_range()
         return (
-            f"⚠ REGIME MISMATCH — candidate density {self.density:.2f}/file is "
-            f"ratio {self.density_ratio:.3f} of gold's 45.9, which the table maps to "
-            f"branch {self.regime!r}, not the {P1_BRANCH!r} branch this P1 constant "
-            f"gate implements.\n"
-            f"  The plan's premise was the 15.8/file baseline (ratio 0.34). Lane R "
-            f"is denser than that, so p={self.p:.2f} is now a LOOSER gate than the "
-            f"table intends and the run is over-generating rather than under-\n"
-            f"  generating. +10% spurious costs 6.10 points, +30% costs 15.61. The "
-            f"three-tier schedule is P6 by design (see the module docstring); this "
-            f"is the number that says P6 has become load-bearing."
+            f"⚠ DENSITY OUTSIDE THE SWEPT RANGE — {self.density:.2f} entities/file "
+            f"is ratio {self.density_ratio:.3f} of the test set's "
+            f"{self.density / self.density_ratio:.1f}/file, outside the "
+            f"[{lo:.2f}, {hi:.2f}] the threshold was measured over.\n"
+            f"  p={self.p:.2f} is still applied — it is flat from 0.10 to 0.25 on "
+            f"every run measured — but nothing here was verified at this density.\n"
+            f"  Check the extract report before trusting the output: a ratio this "
+            f"far out usually means a lane changed, not that the corpus did."
         )
 
 
@@ -207,26 +226,13 @@ def _decision_cfg() -> dict:
     return require(load_pipeline(), "decision")
 
 
-def _matches(spec: str, ratio: float) -> bool:
-    m = _RANGE.match(str(spec).strip())
-    if m is None:
-        raise ConfigError(
-            f"decision.emit_threshold: cannot parse density_ratio {spec!r} "
-            f"(expected '<0.50', '0.50-0.80' or '>0.80')"
-        )
-    a = float(m.group("a"))
-    if m.group("b") is not None:
-        return a <= ratio <= float(m.group("b"))
-    op = m.group("op") or "<"
-    return {"<": ratio < a, "<=": ratio <= a, ">": ratio > a, ">=": ratio >= a}[op]
-
-
 def select_threshold(density: float) -> ThresholdChoice:
-    """Look up `p` for this run's entity density. P1 honours one row only.
+    """The emit threshold, plus whether this run resembles the swept range.
 
-    `density` is candidate spans per file from `extract.RecallFloorReport`. This
-    is why that number is printed on every run: it is the input to a decision
-    parameter, not a diagnostic.
+    `density` is candidate spans per file from `extract.RecallFloorReport`. It no
+    longer selects `p` — see the comment below and the sweep in
+    configs/pipeline.yaml — but it is still what tells us whether the measured
+    constant applies to the run in front of us.
     """
     cfg = _decision_cfg()
     gold_density = float(require(cfg, "gold_density_per_file"))
@@ -234,36 +240,30 @@ def select_threshold(density: float) -> ThresholdChoice:
         raise ConfigError("decision.gold_density_per_file must be > 0")
     ratio = density / gold_density
 
-    table = require(cfg, "emit_threshold")
-    # The CONSTANT: the row P1 implements, looked up by name, not by measurement.
-    # Reading the table by density here would be implementing the schedule, which
-    # is P6's job and needs P6's measurements behind it.
-    row = next(
-        (r for r in table if str(require(r, "density_ratio")) == P1_BRANCH), None
-    )
-    if row is None:
-        raise ConfigError(
-            f"decision.emit_threshold has no {P1_BRANCH!r} row — that row is the "
-            f"P1 constant gate. Rows present: "
-            f"{[r.get('density_ratio') for r in table]}"
-        )
-    # Which row the measurement WOULD have selected. Reported, never acted on:
-    # if these two disagree, the plan's density premise no longer holds and that
-    # is a finding, not something to paper over.
-    regime = next(
-        (
-            str(require(r, "density_ratio"))
-            for r in table
-            if _matches(require(r, "density_ratio"), ratio)
-        ),
-        "unmapped",
-    )
+    # ONE swept constant since W5 (2026-07-31), not a density-keyed schedule.
+    #
+    # The old table pinned `p` by row name and reported which row the density
+    # would have chosen; that report disagreed on every run. Two errors were
+    # stacked. `gold_density_per_file` was the synthetic corpus's 45.9 rather
+    # than the test set's 36.2, so every ratio was 27% off — and fixing only
+    # that made things worse, because the corrected ratio (0.804) selects the
+    # tightest row, which the sweep shows costs 5.5 points.
+    #
+    # The schedule's premise ("dense run ⇒ over-generating ⇒ tighten") is false
+    # here: recall is still 0.622 at 29.12 entities/file. Density rose because
+    # the lexicon lane found spans that were RIGHT. So the tiers were removed
+    # rather than re-tuned — see configs/pipeline.yaml for the full sweep.
+    p = require_probability(cfg, "emit_threshold")
+
+    # `ratio` is no longer an input to the choice; it is the anomaly signal. The
+    # sweep covered 0.5–1.2, so a run far outside that is not one these numbers
+    # were measured on.
     return ThresholdChoice(
-        p=float(require(row, "p")),
-        branch=P1_BRANCH,
+        p=p,
+        branch="swept-constant",
         density=density,
         density_ratio=ratio,
-        regime=regime,
+        regime="in-range" if _in_swept_range(ratio) else "outside",
     )
 
 

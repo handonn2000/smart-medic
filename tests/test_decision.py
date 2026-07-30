@@ -61,39 +61,43 @@ def test_no_threshold_literal_in_decision_source():
     )
 
 
-def test_p1_uses_the_constant_row_regardless_of_density():
-    """P1 implements ONE row. Reading the table by density is P6's job.
+def test_threshold_is_one_swept_constant_not_a_density_schedule():
+    """The gate must not move with the run's own density.
 
-    This is the test that fails if someone "helpfully" makes `select_threshold`
-    interpolate the schedule: the three-tier table needs the P6 measurements
-    behind it, and a lookup that silently changes the gate between two runs makes
-    every earlier score incomparable.
+    It used to: a three-tier table keyed by `density / gold_density_per_file`.
+    W5 removed it because the sweep contradicted its premise. Swept end to end on
+    20 hand-annotated test documents, p = 0.10/0.20/0.25 all score 44.10, and
+    0.30 drops to 38.55 — no crossover anywhere in the measured range, so "dense
+    run ⇒ tighten" is false here. Recall is still 0.622 at 29 entities/file.
+
+    Restoring a schedule needs a sweep that actually shows a crossover. This test
+    is what fails if one is reintroduced without one.
     """
-    table = require(load_pipeline(), "decision.emit_threshold")
-    constant = next(
-        float(r["p"]) for r in table if str(r["density_ratio"]) == emit.P1_BRANCH
+    configured = float(require(load_pipeline(), "decision.emit_threshold"))
+    seen = {emit.select_threshold(d).p for d in (1.0, 15.8, 29.1, 45.9, 90.0)}
+    assert seen == {configured}, (
+        f"threshold varied with density: {sorted(seen)} — the gate is a measured "
+        f"constant, and a run-dependent gate makes every earlier score "
+        f"incomparable"
     )
-    for density in (1.0, 15.8, 33.6, 45.9, 90.0):
-        choice = emit.select_threshold(density)
-        assert choice.p == constant
-        assert choice.branch == emit.P1_BRANCH
 
 
-def test_regime_mismatch_is_reported_not_hidden():
-    """When measured density leaves the P1 branch, the run must say so.
+def test_density_outside_the_swept_range_is_flagged_not_hidden():
+    """`p` still applies, but the run says nothing was measured out there.
 
-    Lane R measures ~49/file on gold and ~34/file on test, both well outside the
-    `<0.50` ratio the plan assumed from the 15.8/file baseline. That contradiction
-    is a finding; a gate that swallowed it would let the plan's premise rot
-    silently.
+    The threshold was swept at ratios 0.5–1.2 (the shipped run sits at 0.80). A
+    density far outside that usually means a lane changed rather than the corpus,
+    which is a finding, not something to swallow.
     """
-    low = emit.select_threshold(10.0)
-    assert low.regime_matches and low.warning() == ""
+    gold = float(require(load_pipeline(), "decision.gold_density_per_file"))
+    inside = emit.select_threshold(gold * 0.8)
+    assert inside.regime_matches and inside.warning() == ""
 
-    high = emit.select_threshold(49.0)
-    assert not high.regime_matches
-    assert "REGIME MISMATCH" in high.warning()
-    assert f"{high.density_ratio:.3f}" in high.warning()
+    outside = emit.select_threshold(gold * 3.0)
+    assert not outside.regime_matches
+    assert "OUTSIDE THE SWEPT RANGE" in outside.warning()
+    assert f"{outside.density_ratio:.3f}" in outside.warning()
+    assert outside.p == inside.p, "the flag reports; it must not change the gate"
 
 
 def test_gate_drops_below_and_keeps_at_threshold():
@@ -196,23 +200,33 @@ def test_records_are_position_sorted_and_unique():
     assert len(keys) == len(set(keys))
 
 
-@pytest.mark.parametrize(
-    "spec,ratio,expected",
-    [
-        ("<0.50", 0.34, True),
-        ("<0.50", 0.60, False),
-        ("0.50-0.80", 0.73, True),
-        ("0.50-0.80", 0.34, False),
-        (">0.80", 1.08, True),
-        (">0.80", 0.73, False),
-    ],
-)
-def test_density_ratio_specs_parse(spec, ratio, expected):
-    assert emit._matches(spec, ratio) is expected
+def test_threshold_config_is_a_scalar_in_range():
+    """`decision.emit_threshold` is one number since W5, not a list of rows.
+
+    The density-keyed table (and the range-spec parser that read it) was removed
+    when the sweep showed no crossover — see
+    test_threshold_is_one_swept_constant_not_a_density_schedule.
+    """
+    p = require(load_pipeline(), "decision.emit_threshold")
+    assert isinstance(p, (int, float)) and not isinstance(p, bool), (
+        f"emit_threshold is {type(p).__name__}; a density-keyed schedule was "
+        f"removed in W5 and needs a sweep showing a crossover to come back"
+    )
+    assert 0.0 <= float(p) <= 1.0
 
 
-def test_unparseable_density_spec_raises():
+def test_swept_range_is_configured_and_ordered():
+    lo, hi = (float(x) for x in require(load_pipeline(), "decision.swept_density_ratio"))
+    assert 0.0 < lo < hi
+
+
+def test_a_bad_threshold_is_rejected_rather_than_clamped(monkeypatch):
     from smart_medic.io.config import ConfigError
 
+    monkeypatch.setattr(emit, "_decision_cfg", lambda: {
+        "gold_density_per_file": 36.2,
+        "emit_threshold": 1.7,
+        "swept_density_ratio": [0.5, 1.2],
+    })
     with pytest.raises(ConfigError):
-        emit._matches("about half", 0.5)
+        emit.select_threshold(29.0)

@@ -625,38 +625,41 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
   </div>
 
   <div class="shead"><span class="num">B</span><h2>Cây thư mục</h2>
-    <span class="sub">✅ đã có · ⬜ chưa · 🔒 bất biến</span></div>
+    <span class="sub">✅ đã có · ⚠ có nhưng chờ NGƯỜI duyệt · ⬜ chưa · 🔒 bất biến</span></div>
   <div class="card">
 <pre><span class="h">smart-medic/</span>
 ├── README.md                       <span class="c">✅ cài đặt + chạy + tái lập. BTC đọc file này.</span>
-├── pyproject.toml                  <span class="c">⬜ thay requirements.txt — pin chặt + hash</span>
-├── Makefile                        <span class="c">⬜ make setup | index | run | score | submit</span>
+├── pyproject.toml                  <span class="c">✅ P0 · thay requirements.txt — pin chặt + hash</span>
+├── Makefile                        <span class="c">✅ P0 · make setup | index | run | score | submit</span>
 │
 ├── <span class="k">.claude/</span>                       <span class="c">✅ 2 hook · 3 subagent · /score</span>
 │   ├── settings.json               <span class="c">   hook chặn data/test + validator offset</span>
 │   ├── agents/                     <span class="c">   span-eval · kb-linker · probe-builder</span>
 │   └── commands/score.md           <span class="c">   /score</span>
 │
-├── <span class="k">configs/</span>                       <span class="c">⬜ L0 · NGƯỜI sở hữu · README.md ✅</span>
+├── <span class="k">configs/</span>                       <span class="c">⚠ P0 · L0 · agent viết — NGƯỜI chưa duyệt · README.md ✅</span>
 │   ├── pipeline.yaml               <span class="c">   emit_threshold (biểu) · q0 · target_tty</span>
-│   ├── models.yaml                 <span class="c">   hf id + revision SHA + params, assert Σ&lt;9e9</span>
+│   ├── models.yaml                 <span class="c">   ⚠ params là PLACEHOLDER viết từ ký ức, chưa verify</span>
 │   └── metric.yaml                 <span class="c">   alignment: [greedy_iou, overlap_type] — CẢ HAI</span>
 │
-├── <span class="k">resources/</span>                     <span class="c">⬜ L0 · NGƯỜI viết tay · README.md ✅</span>
+├── <span class="k">resources/</span>                     <span class="c">⬜ P1 · P4 · L0 · NGƯỜI viết tay · README.md ✅</span>
 │   ├── cues_vi.yaml                <span class="c">   phủ định · người nhà · tiền sử · GIẢ ĐỊNH · kết thúc</span>
 │   ├── sections_vi.yaml            <span class="c">   "Tiền sử bệnh nội khoa:" → SECTION_SCOPE</span>
 │   ├── lay_terms_vi.yaml           <span class="c">   dân dã → chuẩn</span>
 │   └── lab_patterns.yaml           <span class="c">   TÊN: giá trị, đơn vị, dấu phẩy thập phân</span>
 │
 ├── <span class="k">src/smart_medic/</span>               <span class="c">✅ README.md = bản đồ layer</span>
-│   ├── <span class="k">io/</span>                        <span class="c">⬜ L1 · NỀN MÓNG — chặn cả 70,00 · README ✅</span>
+│   ├── <span class="k">io/</span>                        <span class="c">✅ P0 · L1 · NỀN MÓNG — chặn cả 70,00 · README ✅</span>
 │   │   ├── document.py             <span class="c">   raw BẤT BIẾN + char_map + slice an toàn</span>
-│   │   └── corpus.py               <span class="c">   nạp test/gold/silver, LỌC 165 vi phạm lúc nạp</span>
-│   ├── <span class="k">layout/</span>                    <span class="c">⬜ L2 · regex, không model · README ✅</span>
+│   │   ├── corpus.py               <span class="c">   nạp test/gold/silver, LỌC 165 vi phạm lúc nạp</span>
+│   │   ├── labels.py               <span class="c">   MỚI · 5 type + 3 assertion, nguồn duy nhất</span>
+│   │   └── config.py               <span class="c">   MỚI · nạp YAML · assert Σparams · chặn revision_sha rỗng</span>
+│   ├── <span class="k">layout/</span>                    <span class="c">✅ P0 · L2 · regex, không model · README ✅</span>
 │   │   ├── lines.py                <span class="c">   NUM_HEADER·COLON_HEADER·KV·BULLET·PROSE</span>
 │   │   ├── outline.py              <span class="c">   ngăn xếp thụt lề {0,4,8} → cây mục</span>
-│   │   └── kv.py                   <span class="c">   tách TÊN: giá trị · dấu phẩy thập phân</span>
-│   ├── <span class="k">extract/</span>                   <span class="c">⬜ L3 · ≈60,00 ĐIỂM · README ✅</span>
+│   │   ├── kv.py                   <span class="c">   tách TÊN: giá trị · dấu phẩy thập phân</span>
+│   │   └── rules.py                <span class="c">   MỚI · LayoutRules.from_config — luật ra YAML</span>
+│   ├── <span class="k">extract/</span>                   <span class="c">⬜ P1 · P3 · P5 · L3 · ≈60,00 ĐIỂM · README ✅</span>
 │   │   ├── aho.py                  <span class="c">   LÀN R · sàn recall · P1</span>
 │   │   ├── labvalues.py            <span class="c">   LÀN R · 41,7% entity là 2 loại XN</span>
 │   │   ├── kvspan.py               <span class="c">   LÀN R · mẫu TÊN: giá trị</span>
@@ -666,33 +669,33 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
 │   │   ├── boundary.py             <span class="c">   TRUNG VỊ biên có trọng số (WER là L1)</span>
 │   │   ├── harmonize.py            <span class="c">   CHỈ THUỐC↔XN, đa số≥4 &amp; tỷ lệ≥4</span>
 │   │   └── semicrf.py              <span class="c">   HOÃN — ngoài đường tới hạn</span>
-│   ├── <span class="k">assertion/</span>                 <span class="c">⬜ L4a · 8,19 ĐIỂM · README ✅</span>
+│   ├── <span class="k">assertion/</span>                 <span class="c">⬜ P4 · L4a · 8,19 ĐIỂM · README ✅</span>
 │   │   ├── scope_graph.py          <span class="c">   CẤU TRÚC DỮ LIỆU hợp nhất</span>
 │   │   ├── lexicon.py              <span class="c">   nạp resources/cues_vi.yaml</span>
 │   │   ├── context.py  scope.py    <span class="c">   bộ SINH cạnh</span>
 │   │   ├── veto.py                 <span class="c">   bộ XOÁ cạnh (giả định · vai NGUỒN · thể loại)</span>
 │   │   └── decode.py               <span class="c">   softmax 8 chiều + kỳ vọng Jaccard</span>
-│   ├── <span class="k">linking/</span>                   <span class="c">⬜ L4b · 10,00 ĐIỂM · README ✅</span>
+│   ├── <span class="k">linking/</span>                   <span class="c">⬜ P5 · L4b · 10,00 ĐIỂM · README ✅</span>
 │   │   ├── icd.py                  <span class="c">   dense PHẲNG 45MB, recall 100% — ĐỪNG xây ANN</span>
 │   │   ├── rxnorm.py               <span class="c">   thang bậc RXNREL · target_tty THAM SỐ HOÁ</span>
 │   │   ├── edge_verify.py          <span class="c">   6 luật → vector 6 bit → abstain</span>
 │   │   ├── retrieve.py  rerank.py  <span class="c">   CombMNZ (KHÔNG RRF)</span>
 │   │   └── redaction.py            <span class="c">   ***** CHỈ cắt danh sách ứng viên</span>
-│   ├── <span class="k">decision/</span>                  <span class="c">⬜ L5 · NƠI DUY NHẤT áp ngưỡng · README ✅</span>
+│   ├── <span class="k">decision/</span>                  <span class="c">⬜ P1 · P6 · L5 · NƠI DUY NHẤT áp ngưỡng · README ✅</span>
 │   │   ├── emit.py                 <span class="c">   ngưỡng phát span = BIỂU theo mật độ</span>
 │   │   ├── select.py               <span class="c">   assertions kỳ vọng Jaccard · candidates LUẬT</span>
 │   │   └── calibrate.py            <span class="c">   Platt (2 tham số) &gt; isotonic dưới 300 mẫu</span>
-│   ├── <span class="k">validate/</span>                  <span class="c">⬜ L6 · CỔNG CỨNG · README ✅</span>
+│   ├── <span class="k">validate/</span>                  <span class="c">✅ P0 · L6 · CỔNG CỨNG · README ✅</span>
 │   │   ├── schema.py               <span class="c">   6 kiểm tra — 11,59 điểm nằm ở đây</span>
 │   │   ├── offsets.py              <span class="c">   assert raw[s:e] == text, byte-exact</span>
 │   │   └── emit_json.py            <span class="c">   tuần tự hoá — ép ràng buộc ở ĐÚNG chỗ này</span>
 │   ├── <span class="k">eval/</span>                      <span class="c">✅ L7 · NGOÀI đường suy luận · README ✅</span>
 │   │   ├── scoring.py              <span class="c">✅ 451 dòng · 3 cách đọc × 4 alignment · 8 self-test</span>
-│   │   ├── slices.py               <span class="c">⬜ bảng lát cắt kèm n và MDE</span>
-│   │   ├── bootstrap.py            <span class="c">⬜ paired bootstrap + KTC</span>
-│   │   └── probe.py                <span class="c">⬜ sinh biến thể probe từ một tập dự đoán</span>
-│   ├── pipeline.py                 <span class="c">⬜ orchestrator, đọc configs/pipeline.yaml</span>
-│   └── cli.py                      <span class="c">⬜ python -m smart_medic {run,index,submit}</span>
+│   │   ├── slices.py               <span class="c">⬜ P2 · bảng lát cắt kèm n và MDE</span>
+│   │   ├── bootstrap.py            <span class="c">⬜ P2 · paired bootstrap + KTC</span>
+│   │   └── probe.py                <span class="c">⬜ P2 · sinh biến thể probe từ một tập dự đoán</span>
+│   ├── pipeline.py                 <span class="c">⬜ P1 · orchestrator, đọc configs/pipeline.yaml</span>
+│   └── cli.py                      <span class="c">⬜ P1 · python -m smart_medic {run,index,submit}</span>
 │
 ├── <span class="k">scripts/</span>                       <span class="c">✅ build-time · nơi DUY NHẤT gọi API · README ✅</span>
 │   ├── kb_sources.py               <span class="c">✅ MỚI · nơi DUY NHẤT định nghĩa đường dẫn KB + parse RRF</span>
@@ -701,7 +704,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
 │   ├── analysis/                   <span class="c">✅</span>
 │   │   ├── measure_data.py         <span class="c">✅ tái lập số liệu corpus/KB</span>
 │   │   └── leverage_map.py         <span class="c">✅ MỚI · tái lập bản đồ đòn bẩy → runs/</span>
-│   └── submit/package_submission.py <span class="c">⬜ output.zip + manifest 10 trường</span>
+│   └── submit/package_submission.py <span class="c">✅ P0 · output.zip + manifest 10 trường</span>
 │
 ├── <span class="k">data/</span>                          <span class="c">✅ README.md ✅ · gitignore hết trừ test/</span>
 │   ├── test/                       <span class="c">🔒 BẤT BIẾN — hook chặn + manifest sha256</span>
@@ -714,11 +717,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
 │   │   └── RXNATOMARCHIVE.RRF      <span class="c">   + RXNCUI.RRF — remap mã đã rút</span>
 │   ├── generated_medical_records/  <span class="c">✅ 543 bạc + 162 GOLD (7.435 entity, 0 lỗi)</span>
 │   ├── external/en_notes/          <span class="c">✅ 457 note tiếng Anh (nguồn dịch)</span>
-│   └── artifacts/                  <span class="c">⬜ index đã build — SINH LẠI ĐƯỢC, gitignore</span>
+│   └── artifacts/                  <span class="c">⬜ P1 · index đã build — SINH LẠI ĐƯỢC, gitignore</span>
 │
 ├── <span class="k">runs/</span>                          <span class="c">✅ BẤT BIẾN, một thư mục một lần chạy · README ✅</span>
 │   ├── leverage_map.json           <span class="c">✅ MỚI · bản đồ đòn bẩy đã ghim</span>
-│   └── 2026-07-30T14-02_a1b2c3d/   <span class="c">⬜ manifest.json · output/ · output.zip · score.json</span>
+│   └── 2026-07-30T07-38_8c00bd5/   <span class="c">✅ P0 · manifest.json · output/ · output.zip</span>
 │
 ├── <span class="k">notebooks/</span>                     <span class="c">✅ MỚI</span>
 │   └── runbook.ipynb               <span class="c">✅ 8 ô — đường thẳng repo sạch → output.zip</span>
@@ -726,8 +729,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
 ├── <span class="k">models/</span>                        <span class="c">✅ weights — gitignore nhị phân</span>
 ├── <span class="k">docs/</span>                          <span class="c">✅ README.md ✅</span>
 │   ├── PRD.html                    <span class="c">✅ đề bài gốc</span>
-│   ├── decisions/000{1,2,3}-*.md   <span class="c">✅ 3 ADR</span>
-│   ├── guidelines/annotation.md    <span class="c">⬜ hướng dẫn gán nhãn</span>
+│   ├── decisions/000{1..5}-*.md    <span class="c">✅ 5 ADR — 0004/0005 thêm ở P0</span>
+│   ├── guidelines/annotation.md    <span class="c">⬜ ngoài phase · hướng dẫn gán nhãn</span>
 │   └── reports/                    <span class="c">✅</span>
 │       ├── plan-v4.html            <span class="c">✅ FILE NÀY — kế hoạch hiện hành</span>
 │       ├── plan.html               <span class="c">✅ bản v3 — LỊCH SỬ, đừng trích số</span>
@@ -738,8 +741,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
     ├── test_scoring.py             <span class="c">✅ 143 dòng — chứng minh matched suy biến</span>
     ├── data_test_manifest.json     <span class="c">✅ sha256 của 100 file test</span>
     ├── test_alignment_parity.py    <span class="c">⬜ P2 · fail khi greedy↑ mà overlap_type↓ &gt;0,010</span>
-    ├── test_no_api_in_runtime.py   <span class="c">⬜ P0 · 3 test (ADR 0003)</span>
-    ├── test_layer_boundaries.py    <span class="c">⬜ P0 · thi hành quy tắc phụ thuộc</span>
+    ├── test_no_api_in_runtime.py   <span class="c">⚠ P0 · 3 test xanh — nhưng pipeline.py chưa có nên</span>
+    │                               <span class="c">   chỉ quét layer module; ĐỦ TẢI khi P1 dựng orchestrator</span>
+    ├── test_layer_boundaries.py    <span class="c">✅ P0 · thi hành quy tắc phụ thuộc</span>
+    ├── test_document.py            <span class="c">✅ P0 · MỚI · round-trip NFC/NFD 262 file</span>
+    ├── test_layout.py              <span class="c">✅ P0 · MỚI · header ≥97/100 · dấu phẩy thập phân</span>
+    ├── test_validate.py            <span class="c">✅ P0 · MỚI · 6 kiểm tra lược đồ + offset</span>
     └── fixtures/                   <span class="c">⬜ P4 · ca khó viết tay làm regression</span></pre>
 
     <div class="note good">
@@ -1193,7 +1200,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
     </tbody></table></div>
 
   <div class="shead"><span class="num">D</span><h2>Chế độ hỏng &amp; phòng thủ</h2>
-    <span class="sub">✅ đã có phòng thủ · ⬜ chưa</span></div>
+    <span class="sub">✅ đã có phòng thủ · ⚠ cơ chế có, số liệu chưa duyệt · ⬜ chưa</span></div>
   <div class="tscroll"><table>
     <thead><tr><th>Chế độ hỏng</th><th>Mức</th><th>Phòng thủ</th><th>Đã có?</th></tr></thead>
     <tbody>
@@ -1247,20 +1254,22 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
           <td><span class="pill w">có thể bị loại</span></td>
           <td>3 test <i>cấu trúc</i>: không vendor HTTP trong <code>sys.modules</code> ·
               socket bị monkeypatch · <code>Σparams &lt; 9e9</code></td>
-          <td>⬜ P0 <code>test_no_api_in_runtime.py</code></td></tr>
+          <td>⚠ P0 <code>test_no_api_in_runtime.py</code> — xanh, nhưng
+              <code>pipeline.py</code> chưa có nên chưa quét được orchestrator</td></tr>
       <tr><td>Bỏ ràng buộc <code>assertions=[]</code> cho 2 loại XN — rò hết mất <b>11,59</b></td>
           <td><span class="pill">trung bình</span></td>
-          <td>Ép ở tầng <code>validate/</code>, không bao giờ tin model tự nhớ</td><td>⬜ P0</td></tr>
+          <td>Ép ở tầng <code>validate/</code>, không bao giờ tin model tự nhớ</td><td>✅ P0</td></tr>
       <tr><td>Model tổng vượt 9B khi ghép ensemble</td><td><span class="pill a">cao</span></td>
           <td><code>configs/models.yaml</code> có trường <code>params</code> + assert tổng lúc khởi động</td>
-          <td>⬜ P0</td></tr>
+          <td>✅ cơ chế · ⚠ số liệu — <code>params</code> hiện là PLACEHOLDER viết từ
+              ký ức, chưa đối chiếu model card. Thay bằng số đọc từ weights ở P3/P5</td></tr>
       <tr><td>Bài nộp không tái lập ở vòng chấm source</td><td><span class="pill w">chí mạng</span></td>
           <td><code>runs/</code> bất biến + manifest 10 trường + chạy lại từ container sạch <b>hai lần</b></td>
           <td>⬜ P7</td></tr>
       <tr><td><b>Layer import vòng</b> — <code>extract/</code> gọi <code>decision/</code> ⇒ mất bất biến
               "chỉ decision áp ngưỡng"</td>
           <td><span class="pill a">cao</span></td>
-          <td><code>tests/test_layer_boundaries.py</code> đi hết cây import và fail</td><td>⬜ P0</td></tr>
+          <td><code>tests/test_layer_boundaries.py</code> đi hết cây import và fail</td><td>✅ P0</td></tr>
       <tr><td><b>Đầu tư theo mật độ gold mà gold không đại diện test</b></td>
           <td><span class="pill a">cao</span></td>
           <td>Probe A <b>trước</b> khi rót người vào recall; gold là <code>restyled/</code> tổng hợp,
@@ -2332,7 +2341,7 @@ layout/lines.py ─► boundary_priors ─► CẢ HAI làn span   [P1, P3] ─�
       <tr><td class="num">5</td><td>Chạy trên <b><code>data/test/</code></b> → <code>data/output/</code> — ô <b>NỘP</b></td>
           <td class="num">P0–P6</td><td><span class="pill">chờ pipeline</span></td></tr>
       <tr><td class="num">6</td><td>Đóng gói <code>output.zip</code> + <code>unzip -l</code></td>
-          <td class="num">P0 · P7</td><td><span class="pill">chờ P0</span></td></tr>
+          <td class="num">P0 · P7</td><td><span class="pill g">chạy được</span></td></tr>
       <tr><td class="num">7</td><td>Diễn tập tái lập trên container sạch</td><td class="num">P7</td>
           <td><span class="pill g">có lệnh</span></td></tr>
       <tr style="background:var(--good-tint)"><td class="num">8</td>

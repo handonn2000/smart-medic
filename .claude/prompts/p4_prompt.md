@@ -192,6 +192,36 @@ KHÔNG đụng: extract/ · linking/ · decision/ · configs/*.yaml
 Sau khi luật cue chạy và đo được trên gold: báo assertions_score, F1 hai cờ chính,
 tp/fp/fn, P của từng bộ sinh cạnh, và kết quả contrast set.
 DỪNG, chờ xác nhận trước khi mở rộng sang isFamily (gần như chắc chắn tôi sẽ nói không).
+
+## CẬP NHẬT TIẾN ĐỘ TRONG PLAN — CHỈ SAU KHI USER XÁC NHẬN
+Điều kiện kích hoạt DUY NHẤT: user nói rõ P4 đã xong / đã duyệt. Bạn vừa báo cáo
+xong mà user chưa trả lời ⇒ CHƯA được sửa gì. Tự tick là làm bảng mất giá trị.
+
+NGOẠI LỆ SỞ HỮU FILE: khi và chỉ khi điều kiện trên thoả, bạn được ghi vào
+`docs/reports/plan-v4.html`, GIỚI HẠN ở các ô trạng thái. KHÔNG sửa số liệu, KHÔNG
+sửa bảng đòn bẩy, KHÔNG sửa văn bản phân tích — đổi một con số trong plan là việc
+khác hẳn và phải hỏi riêng.
+
+1. Danh sách việc lấy bằng MỘT lệnh — dò theo tag phase, ĐỪNG dùng số dòng (số dòng
+   trôi sau mỗi lần sửa plan):
+       grep -nE '(class="c">|<td>)(⬜|⚠) (P[0-9] · )*P4( |<)' docs/reports/plan-v4.html
+   Neo vào `class="c"`/`<td>` để KHÔNG bắt văn xuôi tiền đề trong tab 07.
+   `grep '⬜ P4'` trần thì BỎ SÓT marker đa phase — ví dụ thật: dòng `extract/`
+   mang `⬜ P1 · P3 · P5`.
+2. Đổi marker theo trạng thái THẬT, ba mức:
+     ✅  chạy được VÀ có số đo chứng minh
+     ⚠   cơ chế có nhưng số liệu/độ phủ còn thiếu — ghi rõ thiếu gì, ngay trong ô đó
+     ⬜  chưa làm
+   Đạt một phần thì ghi ⚠ kèm con số thực tế. KHÔNG làm tròn lên thành ✅.
+3. Hai bảng trạng thái khác phải khớp theo:
+     tab 02 §D "Chế độ hỏng & phòng thủ" — cột "Đã có?"
+     tab 04 bảng runbook 8 ô — cột "Trạng thái hôm nay" (pill nào P4 vừa mở khoá)
+4. File mới sinh trong phase ⇒ thêm vào cây thư mục tab 01 §B. Cây là một khối `<pre>`
+   căn bằng khoảng trắng, và căn lề KHÔNG đều: dòng file ở cột 36, dòng thư mục ở cột
+   35, vài tên dài tràn 37–38. ĐỪNG tin con số — COPY căn lề của dòng anh em ngay trên.
+5. Tab 08 Checklist lưu ở localStorage của TRÌNH DUYỆT, không có gì trong file để sửa.
+   BẢO USER tự tick P4-1…P4-6. ĐỪNG báo là đã tick hộ.
+6. Commit RIÊNG, đừng trộn với code: `docs: mark P4 progress in plan-v4`.
 ```
 
 ---

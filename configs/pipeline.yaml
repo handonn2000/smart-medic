@@ -200,9 +200,22 @@ assertion:
 # L4b · linking/
 # ─────────────────────────────────────────────────────────────────────────────
 linking:
-  target_tty: 'IN'                  # ADR 0001 rev 3 — provisional, pending Probe B
+  target_tty: 'IN'                  # ADR 0001 CHỐT 30/07 — Probe B ΔB = +1.5429.
+                                    # Stays a parameter: the ADR's fallback to a
+                                    # product tier must remain one YAML edit.
   exclude_rel: ['inactive_ingredient_of']
   exclude_sty: ['T200']             # DROP by T200; do NOT whitelist T109/T121
+
+  # linking/icd.py — a code for a diagnosis the gazetteer missed exactly.
+  # On a span we were leaving EMPTY, a wrong code scores the same 0 as no code, so
+  # retrieval is a free bet; the only loss is on spans whose gold is empty.
+  # Measured 2026-07-30 over the 528 such spans: 513 (97.2%) have a gold code,
+  # 15 (2.8%) do not. Sweep of the floor, net spans rescued:
+  #   0.00 → +124   0.40 → +124   0.50 → +125   0.60 → +111   0.70 → +97   0.80 → +56
+  # Flat from 0.00 to 0.50 and falling after, so 0.50 is the plateau edge — the
+  # highest floor that costs nothing, not a tuned optimum.
+  icd_retrieval:
+    min_similarity: 0.50
 
 # ─────────────────────────────────────────────────────────────────────────────
 # L5 · decision/ — the ONLY layer allowed to apply a threshold.

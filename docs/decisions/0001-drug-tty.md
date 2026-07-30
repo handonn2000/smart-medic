@@ -87,7 +87,45 @@ Nếu Probe B chọn tầng sản phẩm, thứ tự bắt buộc là:
 
 ---
 
-## Cập nhật 30/07/2026 — phase P2: Probe B đã dựng, ADR **GIỮ TREO**
+## Cập nhật 30/07/2026 18:36 — **ĐÃ CHỐT: `target_tty = IN`**
+
+Probe B đã nộp. Kết quả bác bỏ dứt điểm nhánh SCD.
+
+| | Probe A | Probe B | Δ |
+|---|---:|---:|---:|
+| WER | 73,3686 | 73,3686 | **±0,0000** |
+| J_assertion | 30,9496 | 30,9496 | **±0,0000** |
+| J_candidates | 11,0259 | 14,8832 | **+3,8573** |
+| **ĐIỂM** | 21,6847 | 23,2276 | **+1,5429** |
+
+`0,4 · 3,8573 = 1,5429` — khớp Δđiểm tuyệt đối. Đúng một biến đổi, xác nhận bằng chính công
+thức của BTC.
+
+**ΔB = +1,5429 điểm (ΔJ_candidates = +3,8573).** Quy tắc chốt ghi ở mục dưới đòi > +0,3; kết
+quả vượt gấp 5 lần và ΔJ_candidates rơi đúng vào con số kỳ vọng +3,9 của plan-v4 tab 05 §D.
+
+⇒ **Mã mức `IN` ĐƯỢC BTC TÍNH ĐIỂM.** `configs/pipeline.yaml: target_tty: 'IN'` chốt lại,
+không còn tạm. Không nộp probe thứ hai cho câu hỏi này. Trình tự chuyển sang tầng sản phẩm ở
+mục "Quyết định vận hành" **không thực hiện**.
+
+Phạm vi của kết luận, nói cho đúng: ΔB > 0 chứng minh `IN` **được tính điểm**, không chứng
+minh `IN` **tối ưu** — `SCD` có thể còn cao hơn. Nhưng trần tranh chấp ~1,1 điểm (18,6% span
+thuốc có hàm lượng) không đáng một lần nộp nữa khi P3 đang giữ 23–35 điểm.
+
+### Hai phát hiện phụ, đáng giá hơn câu hỏi gốc
+
+1. **Căn chỉnh KHÔNG phụ thuộc `candidates`.** `WER` và `J_assertion` bất động tới 4 chữ số
+   thập phân khi thêm 228 mã. Thêm mã **không thể** làm hỏng 60% điểm nằm ở text + assertions.
+   Đây là bảo hiểm cho toàn bộ P5: nhánh linking chỉ có thể thắng hoặc đứng yên trên hai số
+   hạng kia, không bao giờ thua.
+2. **Giá biên đo được của một mã:** 196 span THUỐC có mã → **+0,00787 điểm/span**
+   (+0,01968 J_candidates/span), 228 mã → +0,00677 điểm/mã. Ngoại suy sang 791 span
+   CHẨN_ĐOÁN chưa có mã: **+3,1 … +6,2 điểm** tuỳ tỷ lệ khớp của ICD-10 tiếng Việt so với
+   RxNorm mức IN. Đây là bài toán kinh doanh của P5, đo được, không ước lượng.
+
+---
+
+## Cập nhật 30/07/2026 (trước khi nộp) — Probe B đã dựng, ADR khi đó **GIỮ TREO**
 
 Phần thân giữ nguyên. Mục này ghi trạng thái Probe B và **quy tắc chốt**, để lần chốt sau
 không phải suy diễn lại.

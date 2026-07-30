@@ -38,6 +38,7 @@ from ..extract.spans import Span
 from ..io.config import ConfigError, load_pipeline, require
 from ..io.document import Document
 from ..io.labels import CODEABLE_TYPES, LAB_TYPES
+from ..linking import icd, rxnorm
 
 __all__ = ["Concept", "ThresholdChoice", "select_threshold", "finalize", "P1_BRANCH"]
 
@@ -49,7 +50,7 @@ _RANGE = re.compile(r"^(?P<op><|>|<=|>=)?\s*(?P<a>[\d.]+)(?:\s*-\s*(?P<b>[\d.]+)
 
 
 def _pick_codes(
-    codes: tuple[str, ...], etype: str, caps: dict, order: str
+    codes: tuple[str, ...], etype: str, caps: dict, order: str, surface: str = ""
 ) -> tuple[str, ...]:
     """The codes that leave this layer for one entity. Deterministic, always.
 
@@ -58,8 +59,18 @@ def _pick_codes(
     constraint below and this table cannot disagree.
     """
     cap = int(caps.get(etype, 0))
-    if cap <= 0 or not codes:
+    if cap <= 0:
         return ()
+    if not codes and etype == "CHẨN_ĐOÁN" and surface:
+        # Nothing matched the gazetteer exactly. On a span we would otherwise ship
+        # empty, a wrong code scores the same 0 as no code — see linking/icd.py.
+        codes = icd.retrieve(surface)
+    if not codes:
+        return ()
+    if etype == "THUỐC":
+        # ADR 0001 rule 1, BEFORE the cut: a combination brand lifts to two
+        # ingredient codes, and cutting first would truncate the second one.
+        codes = rxnorm.lift_to_ingredient(codes)
     if order == "shortest_first":
         ranked = sorted(codes, key=lambda c: (len(c), c))
     elif order == "ascending":
@@ -232,12 +243,13 @@ def finalize(
         if span.score < threshold.p:
             continue
         etype = span.argmax_type()
+        surface = span.text(doc)
         concept = Concept(
-            text=span.text(doc),
+            text=surface,
             position=(span.start, span.end),
             type=etype,
             assertions=(),
-            candidates=_pick_codes(span.codes, etype, caps, order),
+            candidates=_pick_codes(span.codes, etype, caps, order, surface),
         )
         if etype in LAB_TYPES:
             assert not concept.assertions  # the 11.59-point constraint

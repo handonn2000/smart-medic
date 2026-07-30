@@ -642,11 +642,13 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
 │   ├── models.yaml                 <span class="c">   ⚠ params là PLACEHOLDER viết từ ký ức, chưa verify</span>
 │   └── metric.yaml                 <span class="c">   alignment: [greedy_iou, overlap_type] — CẢ HAI</span>
 │
-├── <span class="k">resources/</span>                     <span class="c">⬜ P1 · P4 · L0 · NGƯỜI viết tay · README.md ✅</span>
-│   ├── cues_vi.yaml                <span class="c">   phủ định · người nhà · tiền sử · GIẢ ĐỊNH · kết thúc</span>
-│   ├── sections_vi.yaml            <span class="c">   "Tiền sử bệnh nội khoa:" → SECTION_SCOPE</span>
-│   ├── lay_terms_vi.yaml           <span class="c">   dân dã → chuẩn</span>
-│   └── lab_patterns.yaml           <span class="c">   TÊN: giá trị, đơn vị, dấu phẩy thập phân</span>
+├── <span class="k">resources/</span>                     <span class="c">⚠ P1·P3 xong · P4 chờ · L0 · luật là YAML · README.md ✅</span>
+│   ├── gazetteer_vi.yaml           <span class="c">✅ P1 · P3 · luật dựng gazetteer + usage_overrides_vocabulary</span>
+│   ├── section_type_prior.yaml     <span class="c">✅ P3 · MỚI · P(type|section) đo trên 381 file bạc</span>
+│   ├── cues_vi.yaml                <span class="c">⬜ P4 · phủ định · người nhà · tiền sử · GIẢ ĐỊNH</span>
+│   ├── sections_vi.yaml            <span class="c">⬜ P4 · "Tiền sử bệnh nội khoa:" → SECTION_SCOPE</span>
+│   ├── lay_terms_vi.yaml           <span class="c">⬜ P4 · dân dã → chuẩn</span>
+│   └── lab_patterns.yaml           <span class="c">✅ P1 · TÊN: giá trị, đơn vị, dấu phẩy thập phân</span>
 │
 ├── <span class="k">src/smart_medic/</span>               <span class="c">✅ README.md = bản đồ layer</span>
 │   ├── <span class="k">io/</span>                        <span class="c">✅ P0 · L1 · NỀN MÓNG — chặn cả 70,00 · README ✅</span>
@@ -659,8 +661,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
 │   │   ├── outline.py              <span class="c">   ngăn xếp thụt lề {0,4,8} → cây mục</span>
 │   │   ├── kv.py                   <span class="c">   tách TÊN: giá trị · dấu phẩy thập phân</span>
 │   │   └── rules.py                <span class="c">   MỚI · LayoutRules.from_config — luật ra YAML</span>
-│   ├── <span class="k">extract/</span>                   <span class="c">⬜ P1 · P3 · P5 · L3 · ≈60,00 ĐIỂM · README ✅</span>
-│   │   ├── aho.py                  <span class="c">   LÀN R · sàn recall · P1</span>
+│   ├── <span class="k">extract/</span>                   <span class="c">⚠ P1 xong · P3 phần luật · P5 chờ · L3 · README ✅</span>
+│   │   ├── aho.py                  <span class="c">✅ P1 · P3 · LÀN R + prior theo section (Bayes trong support)</span>
 │   │   ├── labvalues.py            <span class="c">   LÀN R · 41,7% entity là 2 loại XN</span>
 │   │   ├── kvspan.py               <span class="c">   LÀN R · mẫu TÊN: giá trị</span>
 │   │   ├── globalpointer.py        <span class="c">   LÀN M · XLM-R + Efficient GlobalPointer</span>
@@ -690,7 +692,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
 │   │   ├── offsets.py              <span class="c">   assert raw[s:e] == text, byte-exact</span>
 │   │   └── emit_json.py            <span class="c">   tuần tự hoá — ép ràng buộc ở ĐÚNG chỗ này</span>
 │   ├── <span class="k">eval/</span>                      <span class="c">✅ L7 · NGOÀI đường suy luận · README ✅</span>
-│   │   ├── scoring.py              <span class="c">✅ 451 dòng · 3 cách đọc × 4 alignment · 8 self-test</span>
+│   │   ├── scoring.py              <span class="c">✅ P2 · viết lại theo ĐẶC TẢ CHÍNH THỨC 30/07 · 12 self-test</span>
 │   │   ├── slices.py               <span class="c">✅ P2 · bảng lát cắt kèm n và MDE · 60 lát trên 162 gold</span>
 │   │   ├── bootstrap.py            <span class="c">✅ P2 · paired bootstrap + KTC · 4 ca hiệu chuẩn tái lập</span>
 │   │   └── probe.py                <span class="c">✅ P2 · A · A′ · B dựng xong, 7/7 đóng gói · C chờ P4</span>
@@ -738,9 +740,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
 │       └── graph-llm-annotation.html <span class="c">✅ 5 nhánh graph/LLM, 79 tài liệu</span>
 └── <span class="k">tests/</span>                         <span class="c">✅ README.md ✅</span>
     ├── test_offsets.py             <span class="c">✅ 322 dòng — hook chạy file này</span>
-    ├── test_scoring.py             <span class="c">✅ 143 dòng — chứng minh matched suy biến</span>
+    ├── test_scoring.py             <span class="c">✅ P2 · matched suy biến + `+1` là trọng số, không phải trần</span>
     ├── data_test_manifest.json     <span class="c">✅ sha256 của 100 file test</span>
-    ├── test_alignment_parity.py    <span class="c">✅ P2 · fail khi greedy↑ mà overlap_type↓ &gt;0,010 · 6 test</span>
+    ├── test_alignment_parity.py    <span class="c">✅ P2 · cột chặn thành lỗi build · 7 test, đã chứng minh chặn</span>
     ├── test_no_api_in_runtime.py   <span class="c">⚠ P0 · 3 test xanh — nhưng pipeline.py chưa có nên</span>
     │                               <span class="c">   chỉ quét layer module; ĐỦ TẢI khi P1 dựng orchestrator</span>
     ├── test_layer_boundaries.py    <span class="c">✅ P0 · thi hành quy tắc phụ thuộc</span>
@@ -1279,9 +1281,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
           <td><span class="pill a">cao</span></td>
           <td>Probe A <b>trước</b> khi rót người vào recall; gold là <code>restyled/</code> tổng hợp,
               test là văn bản thật</td>
-          <td>⚠ P2 — hạ tầng probe xong, nhưng chữ <b>trước</b> đã bị bỏ: nộp hoãn tới sau
-              P3·P4·P5, tức là sau khi đã rót người vào recall. Phòng thủ này hiện
-              <b>không hoạt động</b></td></tr>
+          <td>✅ P2 — Probe A nộp 30/07 <b>trước</b> khi P3 khởi động, và nó BẮT ĐÚNG chế độ
+              hỏng này: gold KHÔNG đại diện test. 39% file test là hỏi-đáp (gold 0%),
+              chỉ 14% section header của test từng xuất hiện trong gold, tỷ lệ slot ghép
+              0,672 trên gold so với 0,303 trên test. Phòng thủ đã hoạt động và đã đổi
+              hình dạng P3</td></tr>
     </tbody></table></div>
 
   <div class="shead"><span class="num">E</span><h2>Điểm nối năm giải pháp graph/LLM</h2>

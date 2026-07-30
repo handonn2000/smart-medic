@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from smart_medic.eval.scoring import align, load_dir, sort_key  # noqa: E402
-from smart_medic.linking import icd, rxnorm  # noqa: E402
+from smart_medic.linking import edge_verify, icd, rxnorm  # noqa: E402
 
 GOLD = ROOT / "data/generated_medical_records/restyled/annotations_gold"
 PRED = ROOT / "runs/_pred_gold"
@@ -123,4 +123,59 @@ def test_icd_retrieval_is_a_net_win_on_gold():
         f"retrieval rescued {win} spans but broke {lose} that were already right "
         f"({neutral} no-change). The 97.2/2.8 split this module relies on has "
         f"moved — re-run the floor sweep in configs/pipeline.yaml before shipping."
+    )
+
+
+# ───────────────────────── edge verification (a guard) ─────────────────────────
+def test_edge_verify_fires_on_a_code_we_know_is_bad():
+    """The rules must work even though nothing in today's output trips them.
+
+    A guard that has never been seen to fire is a guard nobody knows works — the
+    same argument as `tests/test_alignment_parity.py`. So both rules are driven
+    with a real RxCUI drawn from the KB tables themselves, not an invented one.
+    """
+    retired = edge_verify._retired()
+    t200 = edge_verify._t200()
+    assert retired and t200, "KB tables loaded empty"
+
+    dead = sorted(retired)[0]
+    v = edge_verify.verify((dead,), "THUỐC")[0]
+    assert v.bits >> edge_verify.BIT_RETIRED & 1
+    assert v.action in {"remap", "drop"}
+    if v.action == "remap":
+        assert v.replacement == (retired[dead],)
+
+    clinical = sorted(t200)[0]
+    w = edge_verify.verify((clinical,), "THUỐC")[0]
+    assert w.bits >> edge_verify.BIT_T200 & 1
+    assert w.action == "drop" and "semantic_type_t200" in w.violated
+    assert edge_verify.apply_verdicts((clinical,), "THUỐC") == ()
+
+
+def test_edge_verify_leaves_non_drug_types_alone():
+    """ICD-10 codes must not be judged against an RxNorm vocabulary."""
+    codes = ("I48", "E11.9")
+    assert edge_verify.apply_verdicts(codes, "CHẨN_ĐOÁN") == codes
+    assert all(v.action == "keep" for v in edge_verify.verify(codes, "CHẨN_ĐOÁN"))
+
+
+def test_edge_verify_is_silent_on_the_real_run():
+    """Documents the honest number: 0 of the emitted RxCUIs violate anything.
+
+    If this ever fails, the pipeline started emitting codes it should not — most
+    likely because the gazetteer's tty filter widened and the lift path is now
+    carrying T200. That is the regression this module exists to catch.
+    """
+    if not PRED.is_dir():
+        pytest.skip("runs/_pred_gold not built")
+    seen = set()
+    for ents in load_dir(PRED).values():
+        for e in ents:
+            if e["type"] == "THUỐC":
+                seen.update(e.get("candidates") or [])
+    assert seen, "no drug codes in the run at all"
+    bad = [v for v in edge_verify.verify(tuple(sorted(seen)), "THUỐC") if v.bits]
+    assert not bad, (
+        f"{len(bad)}/{len(seen)} emitted RxCUIs now violate a rule: "
+        f"{[(v.code, v.violated) for v in bad[:5]]}"
     )

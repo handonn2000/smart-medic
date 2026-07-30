@@ -38,7 +38,7 @@ from ..extract.spans import Span
 from ..io.config import ConfigError, load_pipeline, require
 from ..io.document import Document
 from ..io.labels import CODEABLE_TYPES, LAB_TYPES
-from ..linking import icd, rxnorm
+from ..linking import edge_verify, icd, rxnorm
 
 __all__ = ["Concept", "ThresholdChoice", "select_threshold", "finalize", "P1_BRANCH"]
 
@@ -71,6 +71,11 @@ def _pick_codes(
         # ADR 0001 rule 1, BEFORE the cut: a combination brand lifts to two
         # ingredient codes, and cutting first would truncate the second one.
         codes = rxnorm.lift_to_ingredient(codes)
+        # …and verify AFTER the lift: the lift is the one path into `candidates`
+        # that does not pass the gazetteer's tty filter, so it is exactly the path
+        # that can introduce a retired or T200 code. Fires 0 times today; see
+        # linking/edge_verify.py for why it is here anyway.
+        codes = edge_verify.apply_verdicts(codes, etype)
     if order == "shortest_first":
         ranked = sorted(codes, key=lambda c: (len(c), c))
     elif order == "ascending":

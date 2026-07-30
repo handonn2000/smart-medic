@@ -1,12 +1,14 @@
 [
   {
-    "text": "bệnh thận mãn tính giai đoạn IV",
+    "text": "bệnh thận mạn giai đoạn IV",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": [
+      "N18.2"
+    ],
     "assertions": [],
     "position": [
-      66,
-      97
+      67,
+      93
     ]
   },
   {
@@ -17,8 +19,8 @@
     ],
     "assertions": [],
     "position": [
-      101,
-      118
+      107,
+      124
     ]
   },
   {
@@ -27,28 +29,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      120,
-      130
+      126,
+      136
     ]
   },
   {
-    "text": "4",
+    "text": "4 đến 4.5",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      151,
-      152
-    ]
-  },
-  {
-    "text": "4.5",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      157,
-      160
+      160,
+      169
     ]
   },
   {
@@ -59,20 +51,8 @@
     ],
     "assertions": [],
     "position": [
-      238,
-      262
-    ]
-  },
-  {
-    "text": "đo huyết áp",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "Z01.3"
-    ],
-    "assertions": [],
-    "position": [
-      543,
-      554
+      254,
+      278
     ]
   },
   {
@@ -81,20 +61,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      724,
-      727
+      710,
+      713
     ]
   },
   {
     "text": "khó thở",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      975,
-      982
+      973,
+      980
     ]
   },
   {
@@ -103,8 +81,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      984,
-      992
+      982,
+      990
     ]
   },
   {
@@ -113,33 +91,32 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1007,
-      1015
+      1003,
+      1011
     ]
   },
   {
     "text": "Vytorin",
     "type": "THUỐC",
     "candidates": [
-      "341248",
-      "36567"
+      "495215"
     ],
     "assertions": [],
     "position": [
-      1079,
-      1086
+      1070,
+      1077
     ]
   },
   {
     "text": "Rocaltrol",
     "type": "THUỐC",
     "candidates": [
-      "1894"
+      "152323"
     ],
     "assertions": [],
     "position": [
-      1117,
-      1126
+      1100,
+      1109
     ]
   },
   {
@@ -150,32 +127,32 @@
     ],
     "assertions": [],
     "position": [
-      1156,
-      1166
+      1139,
+      1149
     ]
   },
   {
     "text": "Cozaar",
     "type": "THUỐC",
     "candidates": [
-      "52175"
+      "151558"
     ],
     "assertions": [],
     "position": [
-      1196,
-      1202
+      1179,
+      1185
     ]
   },
   {
     "text": "Lasix",
     "type": "THUỐC",
     "candidates": [
-      "4603"
+      "202991"
     ],
     "assertions": [],
     "position": [
-      1230,
-      1235
+      1213,
+      1218
     ]
   },
   {
@@ -184,8 +161,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1318,
-      1324
+      1300,
+      1306
     ]
   },
   {
@@ -194,8 +171,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1331,
-      1333
+      1313,
+      1315
     ]
   },
   {
@@ -204,8 +181,20 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1359,
-      1366
+      1338,
+      1345
+    ]
+  },
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1496,
+      1504
     ]
   },
   {
@@ -214,8 +203,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1769,
-      1779
+      1748,
+      1758
     ]
   },
   {
@@ -224,8 +213,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1799,
-      1809
+      1777,
+      1787
     ]
   },
   {
@@ -234,8 +223,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1813,
-      1816
+      1791,
+      1794
     ]
   },
   {
@@ -244,8 +233,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1829,
-      1844
+      1807,
+      1822
     ]
   },
   {
@@ -254,8 +243,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1845,
-      1848
+      1823,
+      1826
     ]
   },
   {
@@ -264,8 +253,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1850,
-      1864
+      1828,
+      1842
     ]
   },
   {
@@ -274,8 +263,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1865,
-      1868
+      1843,
+      1846
     ]
   },
   {
@@ -284,8 +273,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1873,
-      1883
+      1851,
+      1861
     ]
   },
   {
@@ -294,18 +283,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1898,
-      1902
-    ]
-  },
-  {
-    "text": "EPO",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1918,
-      1921
+      1876,
+      1880
     ]
   },
   {
@@ -314,18 +293,20 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1931,
-      1933
+      1904,
+      1906
     ]
   },
   {
-    "text": "Bệnh thận mãn tính giai đoạn IV",
+    "text": "Bệnh thận mạn giai đoạn IV",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": [
+      "N18.2"
+    ],
     "assertions": [],
     "position": [
-      1957,
-      1988
+      1942,
+      1968
     ]
   },
   {
@@ -336,30 +317,18 @@
     ],
     "assertions": [],
     "position": [
-      1992,
-      2009
+      1982,
+      1999
     ]
   },
   {
-    "text": "GFR ước tính là 16 mL/phút",
+    "text": "16 mL/phút",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2011,
-      2037
-    ]
-  },
-  {
-    "text": "uremia",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      2060,
-      2066
+      2025,
+      2035
     ]
   },
   {
@@ -370,8 +339,8 @@
     ],
     "assertions": [],
     "position": [
-      2071,
-      2084
+      2070,
+      2083
     ]
   },
   {
@@ -380,8 +349,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2126,
-      2147
+      2120,
+      2141
     ]
   },
   {
@@ -392,8 +361,8 @@
     ],
     "assertions": [],
     "position": [
-      2152,
-      2161
+      2146,
+      2155
     ]
   },
   {
@@ -402,8 +371,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2491,
-      2505
+      2497,
+      2511
     ]
   },
   {
@@ -412,8 +381,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2554,
-      2557
+      2562,
+      2565
     ]
   },
   {
@@ -422,8 +391,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2617,
-      2620
+      2632,
+      2635
     ]
   },
   {
@@ -432,18 +401,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2647,
-      2649
-    ]
-  },
-  {
-    "text": "02/05",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2668,
-      2673
+      2658,
+      2660
     ]
   }
 ]

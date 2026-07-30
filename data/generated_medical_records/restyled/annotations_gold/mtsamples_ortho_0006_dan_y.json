@@ -1,0 +1,569 @@
+[
+  {
+    "text": "Viêm đa khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M13.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      129,
+      144
+    ]
+  },
+  {
+    "text": "Bệnh to đầu chi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E22.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      150,
+      169
+    ]
+  },
+  {
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      175,
+      184
+    ]
+  },
+  {
+    "text": "Tăng huyết áp ranh giới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R03.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      190,
+      219
+    ]
+  },
+  {
+    "text": "Béo phì",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      225,
+      234
+    ]
+  },
+  {
+    "text": "thoát vị",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K46.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      285,
+      295
+    ]
+  },
+  {
+    "text": "hội chứng ống cổ tay",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G56.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      357,
+      385
+    ]
+  },
+  {
+    "text": "gãy xương khuỷu trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      506,
+      531
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      605,
+      610
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      682,
+      684
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      689,
+      699
+    ]
+  },
+  {
+    "text": "tiếng thổi tim",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      772,
+      790
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      815,
+      826
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      835,
+      845
+    ]
+  },
+  {
+    "text": "chảy máu tiêu hóa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      854,
+      875
+    ]
+  },
+  {
+    "text": "tiểu buốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      903,
+      916
+    ]
+  },
+  {
+    "text": "tiểu ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      925,
+      939
+    ]
+  },
+  {
+    "text": "u tuyến yên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      974,
+      988
+    ]
+  },
+  {
+    "text": "Depo-Testosterone 200 mg tiêm bắp mỗi 3 tuần",
+    "type": "THUỐC",
+    "candidates": [
+      "10379"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1047,
+      1098
+    ]
+  },
+  {
+    "text": "prednisone 1 viên uống mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "8640"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1104,
+      1141
+    ]
+  },
+  {
+    "text": "octreotide tiêm bắp mỗi tháng",
+    "type": "THUỐC",
+    "candidates": [
+      "7617"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1147,
+      1182
+    ]
+  },
+  {
+    "text": "morphine extended release 50 mg uống hai lần mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "7052"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1188,
+      1248
+    ]
+  },
+  {
+    "text": "Synthroid 100 mcg uống mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1254,
+      1290
+    ]
+  },
+  {
+    "text": "desmopressin 1 viên uống mỗi tối",
+    "type": "THUỐC",
+    "candidates": [
+      "3251"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1296,
+      1335
+    ]
+  },
+  {
+    "text": "aspirin/oxycodone",
+    "type": "THUỐC",
+    "candidates": [
+      "1191",
+      "7804"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1341,
+      1358
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1363,
+      1370
+    ]
+  },
+  {
+    "text": "IBUPROFEN",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      1413,
+      1422
+    ]
+  },
+  {
+    "text": "TYLENOL",
+    "type": "THUỐC",
+    "candidates": [
+      "161"
+    ],
+    "assertions": [],
+    "position": [
+      1427,
+      1434
+    ]
+  },
+  {
+    "text": "béo phì",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1627,
+      1636
+    ]
+  },
+  {
+    "text": "Huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1673,
+      1684
+    ]
+  },
+  {
+    "text": "105/55",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1685,
+      1691
+    ]
+  },
+  {
+    "text": "mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1693,
+      1698
+    ]
+  },
+  {
+    "text": "90",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1699,
+      1701
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1710,
+      1715
+    ]
+  },
+  {
+    "text": "O2",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1717,
+      1719
+    ]
+  },
+  {
+    "text": "95% trong không khí phòng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1720,
+      1748
+    ]
+  },
+  {
+    "text": "tiếng rít",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1867,
+      1879
+    ]
+  },
+  {
+    "text": "ẩm rên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1888,
+      1897
+    ]
+  },
+  {
+    "text": "Viêm đa khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M13.0"
+    ],
+    "assertions": [],
+    "position": [
+      2049,
+      2064
+    ]
+  },
+  {
+    "text": "Bệnh to đầu chi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E22.0"
+    ],
+    "assertions": [],
+    "position": [
+      2141,
+      2160
+    ]
+  },
+  {
+    "text": "u tuyến yên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D35.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      2171,
+      2185
+    ]
+  },
+  {
+    "text": "Tăng huyết áp ranh giới",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R03.0"
+    ],
+    "assertions": [],
+    "position": [
+      2222,
+      2251
+    ]
+  },
+  {
+    "text": "huyết khối tĩnh mạch sâu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I80.2"
+    ],
+    "assertions": [],
+    "position": [
+      2300,
+      2331
+    ]
+  },
+  {
+    "text": "Thiếu máu do mất máu liên tục",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D62"
+    ],
+    "assertions": [],
+    "position": [
+      2353,
+      2390
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2402,
+      2412
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2417,
+      2427
+    ]
+  }
+]

@@ -1,0 +1,268 @@
+[
+  {
+    "text": "Giãn đài bể thận phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      16,
+      37
+    ]
+  },
+  {
+    "text": "ung thư tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      81,
+      96
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      98,
+      108
+    ]
+  },
+  {
+    "text": "trung biểu mô",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C45"
+    ],
+    "assertions": [],
+    "position": [
+      110,
+      123
+    ]
+  },
+  {
+    "text": "ung thư vú phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      226,
+      241
+    ]
+  },
+  {
+    "text": "giãn đài bể thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      435,
+      451
+    ]
+  },
+  {
+    "text": "thận phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      565,
+      574
+    ]
+  },
+  {
+    "text": "Phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      615,
+      634
+    ]
+  },
+  {
+    "text": "Ung thư tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      697,
+      712
+    ]
+  },
+  {
+    "text": "trung biểu mô",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C45"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      714,
+      727
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      729,
+      739
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      741,
+      755
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      757,
+      770
+    ]
+  },
+  {
+    "text": "Diovan HCT",
+    "type": "THUỐC",
+    "candidates": [
+      "216653"
+    ],
+    "assertions": [],
+    "position": [
+      850,
+      860
+    ]
+  },
+  {
+    "text": "metformin",
+    "type": "THUỐC",
+    "candidates": [
+      "6809"
+    ],
+    "assertions": [],
+    "position": [
+      883,
+      892
+    ]
+  },
+  {
+    "text": "Giãn đài bể thận phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1325,
+      1346
+    ]
+  },
+  {
+    "text": "thủy thũng thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1361,
+      1376
+    ]
+  },
+  {
+    "text": "CT scan bụng và chậu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1407,
+      1427
+    ]
+  },
+  {
+    "text": "thận phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1495,
+      1504
+    ]
+  },
+  {
+    "text": "IVP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1579,
+      1582
+    ]
+  },
+  {
+    "text": "xạ hình thận",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1586,
+      1598
+    ]
+  },
+  {
+    "text": "ung thư",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1935,
+      1942
+    ]
+  },
+  {
+    "text": "sỏi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1977,
+      1980
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2105,
+      2115
+    ]
+  }
+]

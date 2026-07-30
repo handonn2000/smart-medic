@@ -1,12 +1,12 @@
 [
   {
-    "text": "bệnh phổi tắc nghẽn mạn tính",
+    "text": "bệnh phổi tắc nghẽn mạn tính (COPD)",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      42,
-      70
+      44,
+      79
     ]
   },
   {
@@ -15,28 +15,28 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      74,
-      90
+      83,
+      99
     ]
   },
   {
-    "text": "ho tăng lên",
+    "text": "ho tăng",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      129,
-      140
+      138,
+      145
     ]
   },
   {
-    "text": "dịch tiết đường hô hấp",
+    "text": "tiết dịch hô hấp",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      142,
-      164
+      147,
+      163
     ]
   },
   {
@@ -45,8 +45,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      166,
-      173
+      165,
+      172
     ]
   },
   {
@@ -65,18 +65,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      258,
-      265
+      262,
+      269
     ]
   },
   {
-    "text": "khò khè nghe rõ",
+    "text": "khò khè nghe được",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      276,
-      291
+      280,
+      297
     ]
   },
   {
@@ -85,18 +85,42 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      313,
-      339
+      323,
+      349
     ]
   },
   {
-    "text": "bệnh phổi tắc nghẽn mạn tính",
+    "text": "bệnh phổi tắc nghẽn mạn tính (COPD)",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      350,
-      378
+      359,
+      394
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      516,
+      519
+    ]
+  },
+  {
+    "text": "vã mồ hôi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      521,
+      530
     ]
   },
   {
@@ -107,46 +131,46 @@
       "isNegated"
     ],
     "position": [
-      512,
-      520
+      532,
+      540
     ]
   },
   {
-    "text": "đặt van động mạch chủ nhân tạo",
-    "type": "CHẨN_ĐOÁN",
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
-      "isHistorical"
+      "isNegated"
     ],
     "position": [
-      601,
-      631
+      542,
+      550
     ]
   },
   {
     "text": "Coumadin",
     "type": "THUỐC",
     "candidates": [
-      "11289"
+      "202421"
     ],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      682,
-      690
+      702,
+      710
     ]
   },
   {
-    "text": "Bệnh phổi tắc nghẽn mạn tính",
+    "text": "bệnh phổi tắc nghẽn mạn tính (COPD)",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      692,
-      720
+      728,
+      763
     ]
   },
   {
@@ -159,8 +183,8 @@
       "isHistorical"
     ],
     "position": [
-      750,
-      763
+      785,
+      798
     ]
   },
   {
@@ -173,8 +197,8 @@
       "isHistorical"
     ],
     "position": [
-      767,
-      783
+      810,
+      826
     ]
   },
   {
@@ -183,8 +207,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      926,
-      936
+      981,
+      991
     ]
   },
   {
@@ -193,8 +217,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      938,
-      943
+      995,
+      1000
     ]
   },
   {
@@ -203,18 +227,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      944,
-      947
+      1001,
+      1004
     ]
   },
   {
-    "text": "kali",
+    "text": "Kali",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      949,
-      953
+      1006,
+      1010
     ]
   },
   {
@@ -223,8 +247,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      954,
-      957
+      1011,
+      1014
     ]
   },
   {
@@ -233,8 +257,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      959,
-      962
+      1016,
+      1019
     ]
   },
   {
@@ -243,8 +267,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      963,
-      965
+      1020,
+      1022
     ]
   },
   {
@@ -253,8 +277,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      970,
-      980
+      1026,
+      1036
     ]
   },
   {
@@ -263,8 +287,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      981,
-      984
+      1037,
+      1040
     ]
   },
   {
@@ -273,8 +297,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      986,
-      996
+      1042,
+      1052
     ]
   },
   {
@@ -283,18 +307,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      997,
-      1001
+      1053,
+      1057
     ]
   },
   {
-    "text": "hematocrit",
+    "text": "Hematocrit",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1005,
-      1015
+      1061,
+      1071
     ]
   },
   {
@@ -303,20 +327,40 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1016,
-      1020
+      1072,
+      1076
     ]
   },
   {
-    "text": "Solu-Medrol",
+    "text": "kháng sinh tiêm tĩnh mạch",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1140,
+      1165
+    ]
+  },
+  {
+    "text": "liệu pháp hô hấp tích cực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1167,
+      1192
+    ]
+  },
+  {
+    "text": "Solu-Medrol tĩnh mạch",
     "type": "THUỐC",
     "candidates": [
-      "6902"
+      "203856"
     ],
     "assertions": [],
     "position": [
-      1132,
-      1143
+      1197,
+      1218
     ]
   },
   {
@@ -325,42 +369,52 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1197,
-      1209
+      1260,
+      1272
     ]
   },
   {
-    "text": "suy tim sung huyết",
+    "text": "không có suy tim sung huyết (CHF)",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      1225,
-      1243
+      1288,
+      1321
     ]
   },
   {
-    "text": "Cortisone",
+    "text": "cortisone",
     "type": "THUỐC",
     "candidates": [
       "2878"
     ],
     "assertions": [],
     "position": [
-      1245,
-      1254
+      1328,
+      1337
     ]
   },
   {
-    "text": "Bệnh phổi tắc nghẽn mạn tính",
-    "type": "CHẨN_ĐOÁN",
+    "text": "oxy hóa máu của bệnh nhân cải thiện",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
       1362,
-      1390
+      1397
+    ]
+  },
+  {
+    "text": "Bệnh phổi tắc nghẽn mạn tính (COPD)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1458,
+      1493
     ]
   },
   {
@@ -369,8 +423,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1394,
-      1420
+      1497,
+      1523
     ]
   },
   {
@@ -381,20 +435,20 @@
     ],
     "assertions": [],
     "position": [
-      1505,
-      1515
+      1615,
+      1625
     ]
   },
   {
     "text": "Keflex",
     "type": "THUỐC",
     "candidates": [
-      "2231"
+      "203167"
     ],
     "assertions": [],
     "position": [
-      1603,
-      1609
+      1717,
+      1723
     ]
   }
 ]

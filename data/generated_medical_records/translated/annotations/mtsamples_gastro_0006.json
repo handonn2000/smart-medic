@@ -15,8 +15,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      144,
-      153
+      143,
+      152
     ]
   },
   {
@@ -25,8 +25,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      164,
-      183
+      163,
+      182
     ]
   },
   {
@@ -35,8 +35,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      211,
-      219
+      216,
+      224
+    ]
+  },
+  {
+    "text": "đau sau phẫu thuật thoát vị",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      301,
+      328
     ]
   },
   {
@@ -45,8 +55,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      423,
-      442
+      398,
+      417
     ]
   },
   {
@@ -55,32 +65,22 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      459,
-      466
+      437,
+      444
     ]
   },
   {
-    "text": "tiểu buốt",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
+    "text": "nôn ra máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K92.0"
+    ],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      545,
+      544,
       554
-    ]
-  },
-  {
-    "text": "ói ra máu",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      569,
-      578
     ]
   },
   {
@@ -91,20 +91,22 @@
       "isNegated"
     ],
     "position": [
-      593,
-      616
+      575,
+      598
     ]
   },
   {
     "text": "ho ra máu",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R04.2"
+    ],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      631,
-      640
+      619,
+      628
     ]
   },
   {
@@ -115,33 +117,32 @@
       "isHistorical"
     ],
     "position": [
-      741,
-      760
+      726,
+      745
     ]
   },
   {
     "text": "Cipro",
     "type": "THUỐC",
     "candidates": [
-      "2551"
+      "203563"
     ],
     "assertions": [],
     "position": [
-      802,
-      807
+      787,
+      792
     ]
   },
   {
     "text": "Lomotil",
     "type": "THUỐC",
     "candidates": [
-      "1223",
-      "3500"
+      "28874"
     ],
     "assertions": [],
     "position": [
-      812,
-      819
+      797,
+      804
     ]
   },
   {
@@ -151,11 +152,22 @@
       "Z72.0"
     ],
     "assertions": [
+      "isHistorical",
       "isNegated"
     ],
     "position": [
-      888,
-      904
+      876,
+      892
+    ]
+  },
+  {
+    "text": "Nhịp tim nhanh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1399,
+      1413
     ]
   },
   {
@@ -164,18 +176,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1738,
-      1748
+      1693,
+      1703
     ]
   },
   {
-    "text": "Sodium",
+    "text": "Natri",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1750,
-      1756
+      1705,
+      1710
     ]
   },
   {
@@ -184,18 +196,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1757,
-      1760
+      1711,
+      1714
     ]
   },
   {
-    "text": "potassium",
+    "text": "kali",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1762,
-      1771
+      1716,
+      1720
     ]
   },
   {
@@ -204,18 +216,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1772,
-      1775
+      1721,
+      1724
     ]
   },
   {
-    "text": "chloride",
+    "text": "clorua",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1777,
-      1785
+      1726,
+      1732
     ]
   },
   {
@@ -224,8 +236,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1786,
-      1788
+      1733,
+      1735
     ]
   },
   {
@@ -234,8 +246,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1790,
-      1793
+      1737,
+      1740
     ]
   },
   {
@@ -244,8 +256,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1794,
-      1796
+      1741,
+      1743
     ]
   },
   {
@@ -254,8 +266,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1798,
-      1801
+      1745,
+      1748
     ]
   },
   {
@@ -264,8 +276,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1802,
-      1804
+      1749,
+      1751
     ]
   },
   {
@@ -274,8 +286,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1806,
-      1816
+      1753,
+      1763
     ]
   },
   {
@@ -284,8 +296,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1817,
-      1820
+      1764,
+      1767
     ]
   },
   {
@@ -294,8 +306,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1822,
-      1829
+      1769,
+      1776
     ]
   },
   {
@@ -304,8 +316,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1830,
-      1833
+      1777,
+      1780
     ]
   },
   {
@@ -314,8 +326,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1835,
-      1838
+      1782,
+      1785
     ]
   },
   {
@@ -324,8 +336,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1839,
-      1842
+      1786,
+      1789
     ]
   },
   {
@@ -334,8 +346,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1844,
-      1852
+      1791,
+      1799
     ]
   },
   {
@@ -344,8 +356,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1861,
-      1865
+      1808,
+      1812
     ]
   },
   {
@@ -354,8 +366,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1867,
-      1884
+      1814,
+      1831
     ]
   },
   {
@@ -364,8 +376,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1885,
-      1889
+      1832,
+      1836
     ]
   },
   {
@@ -374,8 +386,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1891,
-      1901
+      1838,
+      1848
     ]
   },
   {
@@ -384,8 +396,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1902,
-      1906
+      1849,
+      1853
     ]
   },
   {
@@ -394,8 +406,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1911,
-      1928
+      1858,
+      1875
     ]
   },
   {
@@ -404,28 +416,28 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1929,
-      1932
+      1876,
+      1879
     ]
   },
   {
-    "text": "ECG",
+    "text": "EKG",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1962,
-      1965
+      1901,
+      1904
     ]
   },
   {
-    "text": "nhịp nhanh xoang",
+    "text": "nhịp xoang nhanh",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1975,
-      1991
+      1914,
+      1930
     ]
   },
   {
@@ -434,8 +446,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2008,
-      2022
+      1954,
+      1968
     ]
   },
   {
@@ -446,8 +458,8 @@
     ],
     "assertions": [],
     "position": [
-      2027,
-      2044
+      1973,
+      1990
     ]
   },
   {
@@ -456,32 +468,32 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2049,
-      2068
+      1995,
+      2014
     ]
   },
   {
     "text": "Levaquin",
     "type": "THUỐC",
     "candidates": [
-      "82122"
+      "217992"
     ],
     "assertions": [],
     "position": [
-      2164,
-      2172
+      2089,
+      2097
     ]
   },
   {
     "text": "Flagyl",
     "type": "THUỐC",
     "candidates": [
-      "6922"
+      "202866"
     ],
     "assertions": [],
     "position": [
-      2176,
-      2182
+      2101,
+      2107
     ]
   },
   {
@@ -490,8 +502,38 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2217,
-      2227
+      2135,
+      2145
+    ]
+  },
+  {
+    "text": "bạch cầu trong phân",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2146,
+      2165
+    ]
+  },
+  {
+    "text": "O&P",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2167,
+      2170
+    ]
+  },
+  {
+    "text": "C. diff",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2175,
+      2182
     ]
   },
   {
@@ -500,20 +542,30 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2264,
-      2271
+      2187,
+      2194
     ]
   },
   {
-    "text": "loét dạ dày tá tràng",
+    "text": "PPI",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2245,
+      2248
+    ]
+  },
+  {
+    "text": "loét dạ dày",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "K25"
     ],
     "assertions": [],
     "position": [
-      2350,
-      2370
+      2261,
+      2272
     ]
   }
 ]

@@ -1,0 +1,383 @@
+[
+  {
+    "text": "Giãn đài bể thận phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N13.3"
+    ],
+    "assertions": [],
+    "position": [
+      24,
+      45
+    ]
+  },
+  {
+    "text": "ung thư tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C55"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      103,
+      118
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      120,
+      130
+    ]
+  },
+  {
+    "text": "trung biểu mô",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C45"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      132,
+      145
+    ]
+  },
+  {
+    "text": "ung thư vú phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      235,
+      250
+    ]
+  },
+  {
+    "text": "PET scan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      317,
+      325
+    ]
+  },
+  {
+    "text": "giãn đài bể thận mạnh bên phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N13.3"
+    ],
+    "assertions": [],
+    "position": [
+      335,
+      365
+    ]
+  },
+  {
+    "text": "tắc nghẽn UPJ phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N13.0"
+    ],
+    "assertions": [],
+    "position": [
+      388,
+      406
+    ]
+  },
+  {
+    "text": "viên sỏi nhỏ không gây tắc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.0"
+    ],
+    "assertions": [],
+    "position": [
+      420,
+      446
+    ]
+  },
+  {
+    "text": "giãn niệu quản phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N13.4"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      489,
+      508
+    ]
+  },
+  {
+    "text": "Phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      515,
+      534
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      543,
+      550
+    ]
+  },
+  {
+    "text": "Ung thư tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C55"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      593,
+      608
+    ]
+  },
+  {
+    "text": "trung biểu mô",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C45"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      610,
+      623
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      625,
+      635
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      637,
+      651
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      653,
+      666
+    ]
+  },
+  {
+    "text": "Diovan HCT 80/12.5 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "5487",
+      "69749"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      765,
+      796
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1089,
+      1092
+    ]
+  },
+  {
+    "text": "chướng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1100,
+      1106
+    ]
+  },
+  {
+    "text": "khối sờ thấy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1114,
+      1126
+    ]
+  },
+  {
+    "text": "điểm đau góc xương sườn thận (CVA tenderness)",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1143,
+      1188
+    ]
+  },
+  {
+    "text": "Giãn đài bể thận phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N13.3"
+    ],
+    "assertions": [],
+    "position": [
+      1230,
+      1251
+    ]
+  },
+  {
+    "text": "thủy thũng thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N13.3"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1267,
+      1282
+    ]
+  },
+  {
+    "text": "CT scan bụng và chậu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1305,
+      1325
+    ]
+  },
+  {
+    "text": "IVP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1421,
+      1424
+    ]
+  },
+  {
+    "text": "xạ hình thận",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1428,
+      1440
+    ]
+  },
+  {
+    "text": "X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1570,
+      1577
+    ]
+  },
+  {
+    "text": "X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1631,
+      1638
+    ]
+  },
+  {
+    "text": "ung thư",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C80"
+    ],
+    "assertions": [],
+    "position": [
+      1653,
+      1660
+    ]
+  },
+  {
+    "text": "sỏi trong thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.0"
+    ],
+    "assertions": [],
+    "position": [
+      1683,
+      1697
+    ]
+  }
+]

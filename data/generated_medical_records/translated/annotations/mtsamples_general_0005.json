@@ -1,80 +1,12 @@
 [
   {
-    "text": "yếu mệt",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      113,
-      120
-    ]
-  },
-  {
-    "text": "mệt mỏi",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      122,
-      129
-    ]
-  },
-  {
     "text": "khó thở khi gắng sức",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      133,
-      153
-    ]
-  },
-  {
-    "text": "sốt",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      242,
-      245
-    ]
-  },
-  {
-    "text": "ớn lạnh",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      247,
-      254
-    ]
-  },
-  {
-    "text": "toát mồ hôi",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      258,
-      269
-    ]
-  },
-  {
-    "text": "ho",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      290,
-      292
+      115,
+      135
     ]
   },
   {
@@ -85,8 +17,8 @@
       "isNegated"
     ],
     "position": [
-      296,
-      305
+      255,
+      264
     ]
   },
   {
@@ -95,21 +27,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      329,
-      336
-    ]
-  },
-  {
-    "text": "u nang thành ngực",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isHistorical",
-      "isNegated"
-    ],
-    "position": [
-      397,
-      414
+      279,
+      286
     ]
   },
   {
@@ -120,32 +39,32 @@
       "isHistorical"
     ],
     "position": [
-      438,
-      448
+      379,
+      389
     ]
   },
   {
-    "text": "âm tính",
+    "text": "PPD",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      474,
+      477
+    ]
+  },
+  {
+    "text": "âm tính vào tháng 8 năm 1994",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      535,
-      542
-    ]
-  },
-  {
-    "text": "Không dùng thuốc",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "Y63.6"
-    ],
-    "assertions": [],
-    "position": [
-      580,
-      596
+      500,
+      528
     ]
   },
   {
@@ -159,48 +78,18 @@
       "isNegated"
     ],
     "position": [
-      820,
-      834
+      791,
+      805
     ]
   },
   {
-    "text": "nấm miệng",
+    "text": "tưa miệng",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1216,
-      1225
-    ]
-  },
-  {
-    "text": "phì đại hạnh nhân rõ rệt",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1255,
-      1279
-    ]
-  },
-  {
-    "text": "rales nền hai bên",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1406,
-      1423
-    ]
-  },
-  {
-    "text": "nốt cục di động dưới da",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1650,
-      1673
+      1187,
+      1196
     ]
   },
   {
@@ -209,42 +98,22 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1748,
-      1758
-    ]
-  },
-  {
-    "text": "Natri",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1761,
+      1756,
       1766
     ]
   },
   {
-    "text": "133",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1767,
-      1770
-    ]
-  },
-  {
-    "text": "kali",
+    "text": "Sodium",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1772,
+      1770,
       1776
     ]
   },
   {
-    "text": "5.3",
+    "text": "133",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
@@ -254,13 +123,33 @@
     ]
   },
   {
-    "text": "BUN",
+    "text": "potassium",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
       1782,
-      1785
+      1791
+    ]
+  },
+  {
+    "text": "5.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1792,
+      1795
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1797,
+      1800
     ]
   },
   {
@@ -269,8 +158,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1786,
-      1788
+      1801,
+      1803
     ]
   },
   {
@@ -279,8 +168,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1790,
-      1800
+      1805,
+      1815
     ]
   },
   {
@@ -289,8 +178,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1801,
-      1804
+      1816,
+      1819
     ]
   },
   {
@@ -299,8 +188,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1806,
-      1816
+      1821,
+      1831
     ]
   },
   {
@@ -309,18 +198,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1817,
-      1819
-    ]
-  },
-  {
-    "text": "bạch cầu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1821,
-      1829
+      1832,
+      1834
     ]
   },
   {
@@ -329,18 +208,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1830,
-      1834
-    ]
-  },
-  {
-    "text": "tiểu cầu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1836,
-      1844
+      1854,
+      1858
     ]
   },
   {
@@ -349,18 +218,20 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1845,
-      1848
+      1878,
+      1881
     ]
   },
   {
-    "text": "Protein toàn phần",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
+    "text": "protein",
+    "type": "THUỐC",
+    "candidates": [
+      "8859"
+    ],
     "assertions": [],
     "position": [
-      1850,
-      1867
+      1888,
+      1895
     ]
   },
   {
@@ -369,8 +240,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1868,
-      1870
+      1896,
+      1898
     ]
   },
   {
@@ -379,8 +250,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1872,
-      1879
+      1900,
+      1907
     ]
   },
   {
@@ -389,8 +260,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1880,
-      1883
+      1908,
+      1911
     ]
   },
   {
@@ -399,8 +270,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1885,
-      1888
+      1913,
+      1916
     ]
   },
   {
@@ -409,8 +280,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1889,
-      1892
+      1917,
+      1920
     ]
   },
   {
@@ -419,8 +290,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1894,
-      1897
+      1922,
+      1925
     ]
   },
   {
@@ -429,48 +300,38 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1898,
-      1900
+      1926,
+      1928
     ]
   },
   {
-    "text": "Phân tích nước tiểu",
+    "text": "Urinalysis",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1902,
-      1921
+      1930,
+      1940
     ]
   },
   {
-    "text": "1+ protein",
+    "text": "1+ protein, vết máu",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1931,
-      1941
+      1950,
+      1969
     ]
   },
   {
-    "text": "vết máu",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1943,
-      1950
-    ]
-  },
-  {
-    "text": "Bilirubin toàn phần",
+    "text": "bilirubin",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1952,
-      1971
+      1976,
+      1985
     ]
   },
   {
@@ -479,18 +340,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1972,
-      1975
+      1986,
+      1989
     ]
   },
   {
-    "text": "bilirubin trực tiếp",
+    "text": "direct bilirubin",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1977,
-      1996
+      1991,
+      2007
     ]
   },
   {
@@ -499,28 +360,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1997,
-      2000
-    ]
-  },
-  {
-    "text": "Khí máu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2002,
-      2009
-    ]
-  },
-  {
-    "text": "pH",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2021,
-      2023
+      2008,
+      2011
     ]
   },
   {
@@ -529,18 +370,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2024,
-      2028
-    ]
-  },
-  {
-    "text": "pC02",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2030,
-      2034
+      2038,
+      2042
     ]
   },
   {
@@ -549,18 +380,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2035,
-      2037
-    ]
-  },
-  {
-    "text": "pO2",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2039,
-      2042
+      2049,
+      2051
     ]
   },
   {
@@ -569,18 +390,28 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2043,
-      2066
+      2057,
+      2080
     ]
   },
   {
-    "text": "Điện tâm đồ",
+    "text": "Electrocardiogram",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2068,
-      2079
+      2082,
+      2099
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2133,
+      2145
     ]
   },
   {
@@ -589,8 +420,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2135,
-      2168
+      2155,
+      2188
     ]
   },
   {
@@ -601,24 +432,12 @@
     ],
     "assertions": [],
     "position": [
-      2186,
-      2203
+      2207,
+      2224
     ]
   },
   {
-    "text": "viêm phổi không điển hình",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "J18"
-    ],
-    "assertions": [],
-    "position": [
-      2214,
-      2239
-    ]
-  },
-  {
-    "text": "viêm phổi Pneumocystis carinii",
+    "text": "viêm phổi do Pneumocystis carinii",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "J18"
@@ -627,38 +446,40 @@
       "isNegated"
     ],
     "position": [
-      2250,
-      2280
+      2271,
+      2304
     ]
   },
   {
-    "text": "lao",
+    "text": "lao phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A15.0"
+    ],
+    "assertions": [],
+    "position": [
+      2308,
+      2316
+    ]
+  },
+  {
+    "text": "Tưa miệng",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2284,
-      2287
+      2323,
+      2332
     ]
   },
   {
-    "text": "Nấm miệng",
-    "type": "CHẨN_ĐOÁN",
+    "text": "Bilirubin gián tiếp tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2292,
-      2301
-    ]
-  },
-  {
-    "text": "Tăng bilirubin không liên hợp",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2306,
-      2335
+      2339,
+      2363
     ]
   },
   {
@@ -669,18 +490,18 @@
     ],
     "assertions": [],
     "position": [
-      2340,
-      2348
+      2370,
+      2378
     ]
   },
   {
-    "text": "Tăng phân đoạn globulin",
-    "type": "CHẨN_ĐOÁN",
+    "text": "Phân đoạn globulin tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2353,
-      2376
+      2385,
+      2408
     ]
   },
   {
@@ -691,63 +512,54 @@
     ],
     "assertions": [],
     "position": [
-      2381,
-      2389
+      2415,
+      2423
     ]
   },
   {
-    "text": "U dưới da",
-    "type": "TRIỆU_CHỨNG",
+    "text": "Nốt dưới da",
+    "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2394,
-      2403
+      2430,
+      2441
     ]
   },
   {
-    "text": "Hành vi tình dục nguy cơ vào năm 1982 ở Haiti",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2408,
-      2453
-    ]
-  },
-  {
-    "text": "viêm phổi Pneumocystis carinii",
+    "text": "viêm phổi do Pneumocystis carinii",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "J18"
     ],
     "assertions": [],
     "position": [
-      2501,
-      2531
+      2541,
+      2574
     ]
   },
   {
-    "text": "lao",
+    "text": "lao phổi",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": [
+      "A15.0"
+    ],
     "assertions": [],
     "position": [
-      2535,
-      2538
+      2578,
+      2586
     ]
   },
   {
     "text": "Bactrim",
     "type": "THUỐC",
     "candidates": [
-      "10180",
-      "10829"
+      "151399"
     ],
     "assertions": [],
     "position": [
-      2556,
-      2563
+      2608,
+      2615
     ]
   },
   {
@@ -758,8 +570,8 @@
     ],
     "assertions": [],
     "position": [
-      2567,
-      2579
+      2619,
+      2631
     ]
   },
   {
@@ -770,8 +582,8 @@
     ],
     "assertions": [],
     "position": [
-      2612,
-      2622
+      2651,
+      2661
     ]
   },
   {
@@ -782,8 +594,8 @@
     ],
     "assertions": [],
     "position": [
-      2653,
-      2661
+      2694,
+      2702
     ]
   },
   {
@@ -792,8 +604,48 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2683,
-      2693
+      2709,
+      2719
+    ]
+  },
+  {
+    "text": "HIV",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2753,
+      2756
+    ]
+  },
+  {
+    "text": "RPR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2760,
+      2763
+    ]
+  },
+  {
+    "text": "Pneumovax",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2775,
+      2784
+    ]
+  },
+  {
+    "text": "Heptavax",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2808,
+      2816
     ]
   }
 ]

@@ -1,0 +1,367 @@
+[
+  {
+    "text": "Thiếu máu bất sản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D61.9"
+    ],
+    "assertions": [],
+    "position": [
+      24,
+      41
+    ]
+  },
+  {
+    "text": "giảm ba dòng máu ngoại vi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D61.9"
+    ],
+    "assertions": [],
+    "position": [
+      93,
+      118
+    ]
+  },
+  {
+    "text": "thiếu máu bất sản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D61.9"
+    ],
+    "assertions": [],
+    "position": [
+      135,
+      152
+    ]
+  },
+  {
+    "text": "sinh thiết tủy xương",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      157,
+      177
+    ]
+  },
+  {
+    "text": "cyclosporine",
+    "type": "THUỐC",
+    "candidates": [
+      "3008"
+    ],
+    "assertions": [],
+    "position": [
+      201,
+      213
+    ]
+  },
+  {
+    "text": "prednisone",
+    "type": "THUỐC",
+    "candidates": [
+      "8640"
+    ],
+    "assertions": [],
+    "position": [
+      217,
+      227
+    ]
+  },
+  {
+    "text": "tổn thương thận cấp tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N17.9"
+    ],
+    "assertions": [],
+    "position": [
+      289,
+      313
+    ]
+  },
+  {
+    "text": "Mức độ cyclosporine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      320,
+      339
+    ]
+  },
+  {
+    "text": "555",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      340,
+      343
+    ]
+  },
+  {
+    "text": "cyclosporine",
+    "type": "THUỐC",
+    "candidates": [
+      "3008"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      356,
+      368
+    ]
+  },
+  {
+    "text": "độc tính cyclosporine",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      372,
+      393
+    ]
+  },
+  {
+    "text": "CBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      491,
+      494
+    ]
+  },
+  {
+    "text": "bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      512,
+      520
+    ]
+  },
+  {
+    "text": "3.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      521,
+      524
+    ]
+  },
+  {
+    "text": "hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      526,
+      536
+    ]
+  },
+  {
+    "text": "10.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      537,
+      541
+    ]
+  },
+  {
+    "text": "tiểu cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      543,
+      551
+    ]
+  },
+  {
+    "text": "49,000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      552,
+      558
+    ]
+  },
+  {
+    "text": "Folic acid",
+    "type": "THUỐC",
+    "candidates": [
+      "4511"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      586,
+      596
+    ]
+  },
+  {
+    "text": "Aciphex",
+    "type": "THUỐC",
+    "candidates": [
+      "114979"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      598,
+      605
+    ]
+  },
+  {
+    "text": "MiraLax",
+    "type": "THUỐC",
+    "candidates": [
+      "221147"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      607,
+      614
+    ]
+  },
+  {
+    "text": "trazodone",
+    "type": "THUỐC",
+    "candidates": [
+      "10737"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      616,
+      625
+    ]
+  },
+  {
+    "text": "Prednisone",
+    "type": "THUỐC",
+    "candidates": [
+      "8640"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      632,
+      642
+    ]
+  },
+  {
+    "text": "Bactrim double strength",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      668,
+      691
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      874,
+      887
+    ]
+  },
+  {
+    "text": "GERD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K21.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      894,
+      898
+    ]
+  },
+  {
+    "text": "Thoái hóa khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M19.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      905,
+      919
+    ]
+  },
+  {
+    "text": "đục thủy tinh thể",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H26.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      981,
+      998
+    ]
+  },
+  {
+    "text": "Hẹp thực quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K22.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1013,
+      1026
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1202,
+      1212
+    ]
+  }
+]

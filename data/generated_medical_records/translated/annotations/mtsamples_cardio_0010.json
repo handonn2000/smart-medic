@@ -1,42 +1,80 @@
 [
   {
-    "text": "Tràn dịch màng tim",
+    "text": "bệnh động mạch vành",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": [
+      "I79"
+    ],
     "assertions": [],
     "position": [
-      16,
-      34
+      43,
+      62
     ]
   },
   {
-    "text": "khó thở",
+    "text": "rối loạn lo âu mạn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F41.9"
+    ],
+    "assertions": [],
+    "position": [
+      98,
+      121
+    ]
+  },
+  {
+    "text": "bệnh động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [],
+    "position": [
+      123,
+      142
+    ]
+  },
+  {
+    "text": "thoái hóa khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M16"
+    ],
+    "assertions": [],
+    "position": [
+      146,
+      160
+    ]
+  },
+  {
+    "text": "đau khớp",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      101,
-      108
+      201,
+      209
     ]
   },
   {
-    "text": "mệt mỏi",
+    "text": "đau bụng",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      110,
-      117
+      293,
+      301
     ]
   },
   {
-    "text": "uể oải",
+    "text": "buồn nôn",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      122,
-      128
+      313,
+      321
     ]
   },
   {
@@ -45,389 +83,134 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      190,
-      198
+      383,
+      391
     ]
   },
   {
-    "text": "chụp CT",
-    "type": "TÊN_XÉT_NGHIỆM",
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      342,
-      349
+      453,
+      460
     ]
   },
   {
-    "text": "tràn dịch màng tim",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      365,
-      383
-    ]
-  },
-  {
-    "text": "chóng mặt",
+    "text": "hồi hộp đánh trống ngực",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      460,
-      469
+      503,
+      526
     ]
   },
   {
-    "text": "tăng huyết áp giới hạn",
-    "type": "CHẨN_ĐOÁN",
+    "text": "xây xẩm mặt mày",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      561,
-      583
+      531,
+      546
     ]
   },
   {
-    "text": "đái tháo đường",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "O24.0"
-    ],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      602,
-      616
-    ]
-  },
-  {
-    "text": "cholesterol",
+    "text": "Lipitor",
     "type": "THUỐC",
     "candidates": [
-      "2438"
+      "153165"
     ],
     "assertions": [],
     "position": [
-      639,
-      650
+      597,
+      604
     ]
   },
   {
-    "text": "Aspirin",
+    "text": "metoprolol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [],
+    "position": [
+      621,
+      631
+    ]
+  },
+  {
+    "text": "Plavix",
+    "type": "THUỐC",
+    "candidates": [
+      "174742"
+    ],
+    "assertions": [],
+    "position": [
+      656,
+      662
+    ]
+  },
+  {
+    "text": "enalapril",
+    "type": "THUỐC",
+    "candidates": [
+      "3827"
+    ],
+    "assertions": [],
+    "position": [
+      693,
+      702
+    ]
+  },
+  {
+    "text": "aspirin",
     "type": "THUỐC",
     "candidates": [
       "1191"
     ],
     "assertions": [],
     "position": [
-      885,
-      892
+      727,
+      734
     ]
   },
   {
-    "text": "sử dụng ma túy",
-    "type": "CHẨN_ĐOÁN",
+    "text": "Lorcet",
+    "type": "THUỐC",
     "candidates": [
-      "Z72.2"
+      "491666"
     ],
-    "assertions": [
-      "isHistorical",
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      1004,
-      1018
+      760,
+      766
     ]
   },
   {
-    "text": "Suy giáp",
-    "type": "CHẨN_ĐOÁN",
+    "text": "Xanax",
+    "type": "THUỐC",
     "candidates": [
-      "E03.9"
+      "202363"
     ],
-    "assertions": [
-      "isHistorical"
-    ],
+    "assertions": [],
     "position": [
-      1047,
-      1055
+      793,
+      798
     ]
   },
   {
-    "text": "Tăng huyết áp giới hạn",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      1060,
-      1082
-    ]
-  },
-  {
-    "text": "Viêm khớp",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "M02"
-    ],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      1087,
-      1096
-    ]
-  },
-  {
-    "text": "đau ngực",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      1125,
-      1133
-    ]
-  },
-  {
-    "text": "khó thở",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      1137,
-      1144
-    ]
-  },
-  {
-    "text": "Yếu mệt",
-    "type": "TRIỆU_CHỨNG",
+    "text": "lệch trục trái",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1177,
+      1170,
       1184
-    ]
-  },
-  {
-    "text": "mệt mỏi",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1186,
-      1193
-    ]
-  },
-  {
-    "text": "uể oải",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1198,
-      1204
-    ]
-  },
-  {
-    "text": "Đau ngực",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1281,
-      1289
-    ]
-  },
-  {
-    "text": "suy tim sung huyết",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I50.0"
-    ],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1300,
-      1318
-    ]
-  },
-  {
-    "text": "Khó chịu vùng thượng vị",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1412,
-      1435
-    ]
-  },
-  {
-    "text": "nôn ra máu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "K92.0"
-    ],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1446,
-      1456
-    ]
-  },
-  {
-    "text": "Viêm khớp",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "M02"
-    ],
-    "assertions": [],
-    "position": [
-      1551,
-      1560
-    ]
-  },
-  {
-    "text": "yếu cơ",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1564,
-      1570
-    ]
-  },
-  {
-    "text": "86",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1739,
-      1741
-    ]
-  },
-  {
-    "text": "93/54",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1752,
-      1757
-    ]
-  },
-  {
-    "text": "16 lần/phút",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      1779,
-      1790
-    ]
-  },
-  {
-    "text": "xét nghiệm",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2071,
-      2081
-    ]
-  },
-  {
-    "text": "Bạch cầu",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2083,
-      2091
-    ]
-  },
-  {
-    "text": "20",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2092,
-      2094
-    ]
-  },
-  {
-    "text": "13 và 39",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2102,
-      2110
-    ]
-  },
-  {
-    "text": "BUN",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2112,
-      2115
-    ]
-  },
-  {
-    "text": "creatinine",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2119,
-      2129
-    ]
-  },
-  {
-    "text": "enzym tim",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2164,
-      2173
-    ]
-  },
-  {
-    "text": "CT ngực",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2212,
-      2219
-    ]
-  },
-  {
-    "text": "tràn dịch màng tim",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2235,
-      2253
     ]
   },
   {
@@ -436,28 +219,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2255,
-      2266
-    ]
-  },
-  {
-    "text": "tràn dịch màng tim",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2276,
-      2294
-    ]
-  },
-  {
-    "text": "đau ngực",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2429,
-      2437
+      1213,
+      1224
     ]
   },
   {
@@ -466,18 +229,336 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      2441,
-      2448
+      1229,
+      1236
     ]
   },
   {
-    "text": "Tràn dịch màng tim",
+    "text": "bệnh động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [],
+    "position": [
+      1240,
+      1259
+    ]
+  },
+  {
+    "text": "Dày thất trái trung bình",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      2522,
-      2540
+      1307,
+      1331
+    ]
+  },
+  {
+    "text": "sỏi túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1350,
+      1361
+    ]
+  },
+  {
+    "text": "Bệnh động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [],
+    "position": [
+      1378,
+      1397
+    ]
+  },
+  {
+    "text": "bệnh động mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [],
+    "position": [
+      1462,
+      1476
+    ]
+  },
+  {
+    "text": "Khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1589,
+      1596
+    ]
+  },
+  {
+    "text": "siêu âm tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1670,
+      1681
+    ]
+  },
+  {
+    "text": "Đau gối",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1760,
+      1767
+    ]
+  },
+  {
+    "text": "Lorcet",
+    "type": "THUỐC",
+    "candidates": [
+      "491666"
+    ],
+    "assertions": [],
+    "position": [
+      1850,
+      1856
+    ]
+  },
+  {
+    "text": "Rối loạn lipid",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1890,
+      1904
+    ]
+  },
+  {
+    "text": "cholesterol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1933,
+      1944
+    ]
+  },
+  {
+    "text": "115",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1945,
+      1948
+    ]
+  },
+  {
+    "text": "HDL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1950,
+      1953
+    ]
+  },
+  {
+    "text": "45",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1954,
+      1956
+    ]
+  },
+  {
+    "text": "triglycerides",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1958,
+      1971
+    ]
+  },
+  {
+    "text": "187",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1972,
+      1975
+    ]
+  },
+  {
+    "text": "LDL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1980,
+      1983
+    ]
+  },
+  {
+    "text": "33",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1984,
+      1986
+    ]
+  },
+  {
+    "text": "Lipitor",
+    "type": "THUỐC",
+    "candidates": [
+      "153165"
+    ],
+    "assertions": [],
+    "position": [
+      2009,
+      2016
+    ]
+  },
+  {
+    "text": "Cơn hoảng loạn và lo âu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2021,
+      2044
+    ]
+  },
+  {
+    "text": "Đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2101,
+      2109
+    ]
+  },
+  {
+    "text": "omeprazole",
+    "type": "THUỐC",
+    "candidates": [
+      "7646"
+    ],
+    "assertions": [],
+    "position": [
+      2137,
+      2147
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      2168,
+      2175
+    ]
+  },
+  {
+    "text": "Phòng ngừa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2201,
+      2211
+    ]
+  },
+  {
+    "text": "Plavix",
+    "type": "THUỐC",
+    "candidates": [
+      "174742"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2246,
+      2252
+    ]
+  },
+  {
+    "text": "Plavix",
+    "type": "THUỐC",
+    "candidates": [
+      "174742"
+    ],
+    "assertions": [],
+    "position": [
+      2344,
+      2350
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      2360,
+      2367
+    ]
+  },
+  {
+    "text": "Lorcet",
+    "type": "THUỐC",
+    "candidates": [
+      "491666"
+    ],
+    "assertions": [],
+    "position": [
+      2400,
+      2406
+    ]
+  },
+  {
+    "text": "Xanax",
+    "type": "THUỐC",
+    "candidates": [
+      "202363"
+    ],
+    "assertions": [],
+    "position": [
+      2410,
+      2415
+    ]
+  },
+  {
+    "text": "Peridex",
+    "type": "THUỐC",
+    "candidates": [
+      "224891"
+    ],
+    "assertions": [],
+    "position": [
+      2494,
+      2501
     ]
   }
 ]

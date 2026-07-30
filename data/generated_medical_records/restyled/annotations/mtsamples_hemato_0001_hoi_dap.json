@@ -1,22 +1,12 @@
 [
   {
-    "text": "xét nghiệm máu",
+    "text": "Siêu âm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      216,
-      234
-    ]
-  },
-  {
-    "text": "siêu âm",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      332,
-      341
+      132,
+      139
     ]
   },
   {
@@ -25,70 +15,102 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      428,
-      443
+      198,
+      213
     ]
   },
   {
-    "text": "chụp CT",
+    "text": "siêu âm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      481,
-      489
+      258,
+      265
     ]
   },
   {
-    "text": "nội soi",
+    "text": "chụp CT",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      700,
-      709
+      297,
+      304
     ]
   },
   {
-    "text": "ung thư đường mật",
+    "text": "chụp MRI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      393,
+      401
+    ]
+  },
+  {
+    "text": "ung thư đường mật",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      766,
-      789
+      600,
+      617
     ]
   },
   {
-    "text": "tăng huyết áp",
+    "text": "Xét nghiệm máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      669,
+      683
+    ]
+  },
+  {
+    "text": "CA99",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      709,
+      713
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I10"
     ],
     "assertions": [],
     "position": [
-      890,
-      907
+      836,
+      849
     ]
   },
   {
-    "text": "rối loạn lipid máu",
+    "text": "rối loạn mỡ máu",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      912,
-      934
+      853,
+      868
     ]
   },
   {
-    "text": "******",
+    "text": "Diovan",
     "type": "THUỐC",
-    "candidates": [],
+    "candidates": [
+      "69749"
+    ],
     "assertions": [],
     "position": [
-      1106,
-      1112
+      1011,
+      1017
     ]
   },
   {
@@ -99,96 +121,70 @@
     ],
     "assertions": [],
     "position": [
-      1114,
-      1121
+      1019,
+      1026
     ]
   },
   {
-    "text": "bệnh tim",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I51.9"
-    ],
-    "assertions": [],
-    "position": [
-      1259,
-      1269
-    ]
-  },
-  {
-    "text": "tăng huyết áp",
+    "text": "tăng huyết áp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I10"
     ],
     "assertions": [],
     "position": [
-      1314,
-      1331
+      1198,
+      1211
     ]
   },
   {
-    "text": "tiêu chảy",
+    "text": "tiêu chảy",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      1547,
-      1558
+      1665,
+      1674
     ]
   },
   {
-    "text": "ung thư đường mật",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2079,
-      2102
-    ]
-  },
-  {
-    "text": "tiêu chảy",
+    "text": "phosphatase kiềm bất thường",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      2480,
-      2491
+      1737,
+      1764
     ]
   },
   {
-    "text": "tăng huyết áp",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I10"
-    ],
-    "assertions": [],
-    "position": [
-      2886,
-      2903
-    ]
-  },
-  {
-    "text": "rối loạn lipid máu",
-    "type": "CHẨN_ĐOÁN",
+    "text": "bilirubin toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2908,
-      2930
+      1766,
+      1785
     ]
   },
   {
-    "text": "cholesterol",
-    "type": "THUỐC",
-    "candidates": [
-      "2438"
-    ],
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
     "assertions": [],
     "position": [
-      3004,
-      3015
+      1787,
+      1790
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1794,
+      1797
     ]
   }
 ]

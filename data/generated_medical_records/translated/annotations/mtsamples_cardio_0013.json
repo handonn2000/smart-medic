@@ -1,24 +1,24 @@
 [
   {
-    "text": "rung nhĩ kịch phát (PAF)",
+    "text": "rung nhĩ kịch phát",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I48.0"
     ],
     "assertions": [],
     "position": [
-      47,
-      71
+      48,
+      66
     ]
   },
   {
-    "text": "đau ngực khi hoạt động",
+    "text": "đau ngực",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      107,
-      129
+      89,
+      97
     ]
   },
   {
@@ -27,24 +27,22 @@
     "candidates": [
       "E05"
     ],
-    "assertions": [
-      "isNegated"
-    ],
+    "assertions": [],
     "position": [
-      283,
-      293
+      268,
+      278
     ]
   },
   {
     "text": "Tapazole",
     "type": "THUỐC",
     "candidates": [
-      "6835"
+      "224936"
     ],
     "assertions": [],
     "position": [
-      313,
-      321
+      298,
+      306
     ]
   },
   {
@@ -55,8 +53,8 @@
     ],
     "assertions": [],
     "position": [
-      335,
-      358
+      320,
+      343
     ]
   },
   {
@@ -65,20 +63,20 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      375,
-      382
+      360,
+      367
     ]
   },
   {
     "text": "Lanoxin",
     "type": "THUỐC",
     "candidates": [
-      "3407"
+      "202988"
     ],
     "assertions": [],
     "position": [
-      395,
-      402
+      380,
+      387
     ]
   },
   {
@@ -89,20 +87,20 @@
     ],
     "assertions": [],
     "position": [
-      417,
-      431
+      402,
+      416
     ]
   },
   {
     "text": "Crestor",
     "type": "THUỐC",
     "candidates": [
-      "301542"
+      "320864"
     ],
     "assertions": [],
     "position": [
-      443,
-      450
+      428,
+      435
     ]
   },
   {
@@ -113,20 +111,20 @@
     ],
     "assertions": [],
     "position": [
-      464,
-      474
+      449,
+      459
     ]
   },
   {
     "text": "Bayer Aspirin",
     "type": "THUỐC",
     "candidates": [
-      "1191"
+      "215568"
     ],
     "assertions": [],
     "position": [
-      482,
-      495
+      467,
+      480
     ]
   },
   {
@@ -135,64 +133,42 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      507,
-      514
+      492,
+      499
     ]
   },
   {
     "text": "Nexium",
     "type": "THUỐC",
     "candidates": [
-      "283742"
+      "284799"
     ],
     "assertions": [],
     "position": [
-      525,
-      531
+      510,
+      516
     ]
   },
   {
-    "text": "hồi hộp đánh trống ngực",
+    "text": "choáng váng",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
     ],
     "position": [
-      598,
-      621
+      601,
+      612
     ]
   },
   {
-    "text": "chóng mặt nhẹ hay ngất xỉu",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      632,
-      658
-    ]
-  },
-  {
-    "text": "phù chi dưới nhẹ",
+    "text": "phù nhẹ ở chân",
     "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [],
     "position": [
-      673,
-      689
-    ]
-  },
-  {
-    "text": "Phù nhẹ",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      900,
-      907
+      630,
+      644
     ]
   },
   {
@@ -201,8 +177,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      918,
-      928
+      880,
+      890
     ]
   },
   {
@@ -211,38 +187,28 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      930,
-      933
+      892,
+      895
     ]
   },
   {
-    "text": "Nhịp xoang chậm ở 58 nhịp/phút",
+    "text": "Nhịp tim chậm xoang ở 58 nhịp/phút",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      935,
-      965
+      897,
+      931
     ]
   },
   {
-    "text": "bất thường ST nhẹ ở vùng dưới bên",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "text": "Đau ngực nhẹ",
+    "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      967,
-      1000
-    ]
-  },
-  {
-    "text": "Đau ngực",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1017,
-      1025
+      986,
+      998
     ]
   },
   {
@@ -251,18 +217,18 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1032,
-      1035
+      1008,
+      1011
     ]
   },
   {
-    "text": "siêu âm",
+    "text": "stress echo",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1083,
-      1090
+      1054,
+      1065
     ]
   },
   {
@@ -271,30 +237,30 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1268,
-      1283
+      1220,
+      1235
     ]
   },
   {
     "text": "Nexium",
     "type": "THUỐC",
     "candidates": [
-      "283742"
+      "284799"
     ],
     "assertions": [],
     "position": [
-      1326,
-      1332
+      1264,
+      1270
     ]
   },
   {
-    "text": "Phù chi dưới nhẹ",
-    "type": "TRIỆU_CHỨNG",
+    "text": "Phù nhẹ ở chân",
+    "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1337,
-      1353
+      1275,
+      1289
     ]
   },
   {
@@ -305,18 +271,20 @@
     ],
     "assertions": [],
     "position": [
-      1422,
-      1436
+      1350,
+      1364
     ]
   },
   {
-    "text": "PAF",
+    "text": "Rung nhĩ kịch phát",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": [
+      "I48.0"
+    ],
     "assertions": [],
     "position": [
-      1441,
-      1444
+      1369,
+      1387
     ]
   },
   {
@@ -327,8 +295,8 @@
     ],
     "assertions": [],
     "position": [
-      1449,
-      1462
+      1393,
+      1406
     ]
   },
   {
@@ -339,8 +307,8 @@
     ],
     "assertions": [],
     "position": [
-      1464,
-      1474
+      1408,
+      1418
     ]
   },
   {
@@ -351,8 +319,8 @@
     ],
     "assertions": [],
     "position": [
-      1478,
-      1489
+      1422,
+      1433
     ]
   },
   {
@@ -363,30 +331,30 @@
     ],
     "assertions": [],
     "position": [
-      1514,
-      1524
+      1458,
+      1468
     ]
   },
   {
-    "text": "TSH",
-    "type": "TÊN_XÉT_NGHIỆM",
+    "text": "giảm nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1526,
-      1529
+      1491,
+      1499
     ]
   },
   {
     "text": "Tapazole",
     "type": "THUỐC",
     "candidates": [
-      "6835"
+      "224936"
     ],
     "assertions": [],
     "position": [
-      1571,
-      1579
+      1521,
+      1529
     ]
   },
   {
@@ -395,20 +363,20 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1615,
-      1633
+      1569,
+      1587
     ]
   },
   {
     "text": "Crestor",
     "type": "THUỐC",
     "candidates": [
-      "301542"
+      "320864"
     ],
     "assertions": [],
     "position": [
-      1649,
-      1656
+      1606,
+      1613
     ]
   },
   {
@@ -417,48 +385,50 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      1661,
-      1678
+      1618,
+      1635
     ]
   },
   {
-    "text": "Rong kinh rối loạn",
+    "text": "Rong kinh rong huyết",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1683,
-      1701
+      1640,
+      1660
     ]
   },
   {
-    "text": "siêu âm",
+    "text": "stress echo",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1739,
-      1746
+      1695,
+      1706
     ]
   },
   {
-    "text": "phù chi dưới",
-    "type": "TRIỆU_CHỨNG",
+    "text": "phù chân",
+    "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1798,
-      1810
+      1745,
+      1753
     ]
   },
   {
-    "text": "******",
+    "text": "Nexium",
     "type": "THUỐC",
-    "candidates": [],
+    "candidates": [
+      "284799"
+    ],
     "assertions": [],
     "position": [
-      1830,
-      1836
+      1773,
+      1779
     ]
   }
 ]

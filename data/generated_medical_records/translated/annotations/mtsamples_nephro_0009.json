@@ -1,94 +1,102 @@
 [
   {
-    "text": "Thận ứ nước bên phải",
+    "text": "Giãn đài bể thận phải",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      20,
-      49
+      16,
+      37
     ]
   },
   {
-    "text": "ung thư tử cung",
+    "text": "ung thư tử cung",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      109,
-      127
+      81,
+      96
     ]
   },
   {
-    "text": "ung thư vú",
+    "text": "ung thư vú",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      129,
-      141
+      98,
+      108
     ]
   },
   {
-    "text": "u trung biểu mô màng phổi",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "C45"
-    ],
-    "assertions": [],
-    "position": [
-      143,
-      174
-    ]
-  },
-  {
-    "text": "cắt bỏ vú",
+    "text": "mesothelioma",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      224,
-      237
+      110,
+      122
     ]
   },
   {
-    "text": "ung thư vú phải",
+    "text": "phẫu thuật cắt bỏ vú",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      148,
+      168
+    ]
+  },
+  {
+    "text": "ung thư vú phải",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      312,
-      330
+      225,
+      240
     ]
   },
   {
-    "text": "cắt bỏ khối u vú",
-    "type": "CHẨN_ĐOÁN",
+    "text": "cắt bỏ khối u",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      360,
-      382
+      257,
+      270
     ]
   },
   {
-    "text": "nạo hạch nách",
-    "type": "CHẨN_ĐOÁN",
+    "text": "nạo vét hạch nách",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      387,
-      403
+      274,
+      291
     ]
   },
   {
-    "text": "cắt bỏ vú",
-    "type": "CHẨN_ĐOÁN",
+    "text": "xạ trị",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      474,
-      487
+      302,
+      308
+    ]
+  },
+  {
+    "text": "phẫu thuật cắt bỏ vú",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      347,
+      367
     ]
   },
   {
@@ -97,94 +105,58 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      536,
-      544
+      412,
+      420
     ]
   },
   {
-    "text": "thận ứ nước bên phải",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      583,
-      612
-    ]
-  },
-  {
-    "text": "đường nối bể thận niệu quản bên phải",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "D30.2"
-    ],
-    "assertions": [],
-    "position": [
-      663,
-      713
-    ]
-  },
-  {
-    "text": "thận phải",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
-    "position": [
-      787,
-      799
-    ]
-  },
-  {
-    "text": "Xét nghiệm nước tiểu",
+    "text": "Xét nghiệm nước tiểu",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      862,
-      890
+      648,
+      668
     ]
   },
   {
-    "text": "Ung thư tử cung",
+    "text": "Ung thư tử cung",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      970,
-      988
+      728,
+      743
     ]
   },
   {
-    "text": "u trung biểu mô màng phổi",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "C45"
-    ],
-    "assertions": [
-      "isHistorical"
-    ],
-    "position": [
-      990,
-      1021
-    ]
-  },
-  {
-    "text": "ung thư vú",
+    "text": "mesothelioma",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      1023,
-      1035
+      745,
+      757
     ]
   },
   {
-    "text": "đái tháo đường",
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      759,
+      769
+    ]
+  },
+  {
+    "text": "đái tháo đường",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "O24.0"
@@ -193,12 +165,12 @@
       "isHistorical"
     ],
     "position": [
-      1037,
-      1056
+      771,
+      785
     ]
   },
   {
-    "text": "tăng huyết áp",
+    "text": "tăng huyết áp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
       "I10"
@@ -207,45 +179,44 @@
       "isHistorical"
     ],
     "position": [
-      1058,
-      1075
+      787,
+      800
     ]
   },
   {
-    "text": "Phẫu thuật cắt bỏ khối u vú",
-    "type": "CHẨN_ĐOÁN",
+    "text": "Cắt bỏ khối u",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      1106,
-      1143
+      823,
+      836
     ]
   },
   {
-    "text": "phẫu thuật cắt tử cung",
-    "type": "CHẨN_ĐOÁN",
+    "text": "cắt bỏ tử cung",
+    "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [
       "isHistorical"
     ],
     "position": [
-      1145,
-      1175
+      838,
+      852
     ]
   },
   {
     "text": "Diovan HCT",
     "type": "THUỐC",
     "candidates": [
-      "5487",
-      "69749"
+      "216653"
     ],
     "assertions": [],
     "position": [
-      1198,
-      1208
+      872,
+      882
     ]
   },
   {
@@ -256,68 +227,48 @@
     ],
     "assertions": [],
     "position": [
-      1233,
-      1242
+      904,
+      913
     ]
   },
   {
-    "text": "Thận ứ nước bên phải",
+    "text": "Giãn đài bể thận phải",
     "type": "CHẨN_ĐOÁN",
     "candidates": [],
     "assertions": [],
     "position": [
-      1763,
-      1792
+      1326,
+      1347
     ]
   },
   {
-    "text": "chụp CT",
+    "text": "CT scan bụng và chậu",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      1891,
-      1899
+      1413,
+      1433
     ]
   },
   {
-    "text": "thận bên phải",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2015,
-      2032
-    ]
-  },
-  {
-    "text": "IVP và chụp thận đồ",
+    "text": "IVP và scan thận",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2128,
-      2153
+      1582,
+      1598
     ]
   },
   {
-    "text": "thận bên phải",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      2219,
-      2236
-    ]
-  },
-  {
-    "text": "xét nghiệm",
+    "text": "xét nghiệm",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      2859,
-      2872
+      2131,
+      2141
     ]
   }
 ]

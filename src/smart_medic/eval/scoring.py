@@ -28,8 +28,8 @@ combination so you can see when a change only "wins" under one reading.
 
 Usage
 -----
-    python -m smart_medic.scoring --pred data/output --gold data/dev_gold
-    python -m smart_medic.scoring --pred data/output --describe     # no gold
+    python -m smart_medic.eval.scoring --pred data/output --gold data/dev_gold
+    python -m smart_medic.eval.scoring --pred data/output --describe     # no gold
 """
 from __future__ import annotations
 
@@ -39,8 +39,8 @@ import json
 import re
 import statistics
 import sys
-from collections import Counter, defaultdict
-from dataclasses import asdict, dataclass, field
+from collections import Counter
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Iterable, Sequence
 
@@ -312,15 +312,26 @@ def diagnostics(docs: list[tuple[str, list, list]]) -> dict:
 
 # ────────────────────────────────── io ───────────────────────────────────
 def load_dir(d: Path) -> dict[str, list]:
+    """Load every annotation file in a directory, keyed by filename stem.
+
+    Accepts both submission dirs (`1.json`) and corpus dirs
+    (`mtsamples_cardio_0001_dan_y.json`). Non-record sidecars such as
+    `run_manifest.json` are skipped by shape: a record is a JSON *list*.
+    """
     out = {}
     for p in sorted(d.glob("*.json")):
-        if not RECORD.match(p.stem):
-            continue
         try:
-            out[p.stem] = json.loads(p.read_text(encoding="utf-8"))
+            obj = json.loads(p.read_text(encoding="utf-8"))
         except json.JSONDecodeError as exc:
             print(f"  !! {p.name}: invalid JSON — {exc}", file=sys.stderr)
+            continue
+        if isinstance(obj, list):
+            out[p.stem] = obj
     return out
+
+
+def sort_key(k: str):
+    return (0, int(k)) if RECORD.match(k) else (1, k)
 
 
 def describe(pred: dict[str, list]) -> None:
@@ -372,7 +383,7 @@ def main(argv=None) -> int:
         return 0
 
     gold = load_dir(args.gold)
-    common = sorted(set(gold) & set(pred), key=int)
+    common = sorted(set(gold) & set(pred), key=sort_key)
     if not common:
         print("no overlapping record ids between --pred and --gold", file=sys.stderr)
         return 1

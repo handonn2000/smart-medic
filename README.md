@@ -25,23 +25,58 @@ Built for **Viettel AI Race 2026 — Vòng 1**. See [`docs/PRD.html`](docs/PRD.h
 
 ## Project structure
 
+The inference pipeline is organised into **stacked layers**. A layer may only import from
+layers strictly below it — that rule is what lets several people (or agents) work in
+parallel without collisions. **Every layer has its own `README.md`** describing what it
+owns, its input/output contract, and its invariants; start with
+[`src/smart_medic/README.md`](src/smart_medic/README.md) for the layer map.
+
+| # | Layer | Owns |
+|---|---|---|
+| L0 | [`configs/`](configs) · [`resources/`](resources) | Tunable parameters and hand-written knowledge (YAML) |
+| L1 | [`src/smart_medic/io/`](src/smart_medic/io) | Offset-preserving `Document` — gates every point |
+| L2 | [`src/smart_medic/layout/`](src/smart_medic/layout) | Deterministic document structure (regex, no model) |
+| L3 | [`src/smart_medic/extract/`](src/smart_medic/extract) | Span + type detection — the largest workstream |
+| L4 | [`src/smart_medic/assertion/`](src/smart_medic/assertion) · [`linking/`](src/smart_medic/linking) | Context flags · ICD-10 / RxNorm codes |
+| L5 | [`src/smart_medic/decision/`](src/smart_medic/decision) | The **only** place a threshold lives |
+| L6 | [`src/smart_medic/validate/`](src/smart_medic/validate) | Hard gate before anything is written |
+| L7 | [`src/smart_medic/eval/`](src/smart_medic/eval) | Scorer and diagnostics — off the inference path |
+
 ```
 smart-medic/
+├── configs/                 # L0 · thresholds, model pins, metric config (human-owned)
+├── resources/               # L0 · hand-written YAML: negation cues, section titles, lab patterns
+├── src/smart_medic/
+│   ├── io/                  # L1 · Document(raw) — immutable, byte-exact offsets
+│   ├── layout/              # L2 · line classes, outline tree, key:value splitting
+│   ├── extract/             # L3 · recall-floor lane (rules) + model lane, graph merge
+│   ├── assertion/           # L4 · scope graph → isNegated / isHistorical / isFamily
+│   ├── linking/             # L4 · ICD-10 + RxNorm retrieval, edge verification
+│   ├── decision/            # L5 · calibration, emit threshold, candidate selection
+│   ├── validate/            # L6 · schema + offset gate, JSON serialisation
+│   ├── eval/scoring.py      # L7 · internal scorer (3 readings × 4 alignment modes)
+│   ├── pipeline.py          #      orchestrator
+│   └── cli.py               #      python -m smart_medic {run,index,submit}
+├── scripts/                 # build-time ONLY — the only place API calls are allowed
+│   ├── data_gen/            #   gen_sample_data.py — training-data generator (see below)
+│   ├── annotation_qa/       #   gold-annotation quality checks
+│   ├── analysis/            #   measure_data.py — reproduces every measured number
+│   └── submit/              #   package_submission.py
+├── runs/                    # immutable run records: manifest + output + score
+├── models/                  # trained model weights / checkpoints
+├── tests/                   # offsets, scorer, API-leak guards, layer boundaries
 ├── docs/
 │   ├── PRD.html             # Full problem statement / requirements doc
-│   ├── reports/             # Write-ups, experiment reports
+│   ├── decisions/           # ADRs — irreversible decisions
+│   ├── reports/             # plan-v4.html is the current plan of record
 │   └── references/          # Background papers (neurosymbolic AI, ontology engineering)
-├── src/
-│   └── smart_medic/         # Source code (data processing, training, inference)
-├── models/                  # Trained model weights / checkpoints
-├── tests/                   # Unit tests and integration tests
-├── scripts/
-│   └── gen_sample_data.py   # Training-data generator (see below)
 └── data/
     ├── knowledge_base/      # Reference vocabularies (ICD-10, RxNorm)
     │   ├── ICD10.csv        # ICD-10 disease codes (5.2 MB, 73K+ concepts)
-    │   ├── RXNORM.csv       # RxNorm medication names (73 MB, 1M+ rows)
-    │   ├── RxNorm_full_*/   # Full RxNorm release with RXNREL.RRF for brand→ingredient mapping
+    │   ├── RXNCONSO.RRF     # RxNorm concept names (replaces the organisers' RXNORM.csv)
+    │   ├── RXNREL.RRF       # RxNorm relations — brand→ingredient mapping
+    │   ├── RXNSTY.RRF       # semantic types · RXNATOMARCHIVE.RRF — retired-code remap
+    │   ├── icd10cm-codes-2027.txt    # English ICD-10-CM labels, joined BY CODE to enrich ICD10.csv
     │   └── brand_to_ingredient.json  # Cached brand→ingredient map (~96k brands)
     ├── external/
     │   └── en_notes/        # mtsamples_filtered.jsonl — 457 English notes, source for `translate`
@@ -73,14 +108,21 @@ pip install -r requirements.txt
 Run inference over `data/test/` and write predictions to `data/output/`:
 
 ```bash
-python -m smart_medic.infer --input data/test --output data/output
+python -m smart_medic.cli run --input data/test --output data/output
 ```
 
-(Adjust the command above once the pipeline entry point is implemented in `src/smart_medic/`.)
+(The pipeline entry point is not implemented yet — see
+[`docs/reports/plan-v4.html`](docs/reports/plan-v4.html) tab 04 for the phase plan.)
+
+Score predictions against a gold directory:
+
+```bash
+PYTHONPATH=src python3 -m smart_medic.eval.scoring --pred data/output --gold <gold_dir>
+```
 
 ## Generating training data
 
-`scripts/gen_sample_data.py` builds labelled Vietnamese clinical notes from two
+`scripts/data_gen/gen_sample_data.py` builds labelled Vietnamese clinical notes from two
 independent sources. Both guarantee **exact character offsets by construction**: an
 LLM wraps every entity in `〔 〕` markers, and offsets are computed at the moment the
 markers are stripped — so a label can never drift out of alignment with its text.
@@ -89,8 +131,8 @@ markers are stripped — so a label can never drift out of alignment with its te
 gold), then an LLM writes a note around it:
 
 ```bash
-python scripts/gen_sample_data.py compose --n 200 --use-api
-python scripts/gen_sample_data.py emit
+python scripts/data_gen/gen_sample_data.py compose --n 200 --use-api
+python scripts/data_gen/gen_sample_data.py emit
 ```
 
 **B. Translated** — real English notes from mtsamples, translated to Vietnamese with
@@ -98,7 +140,7 @@ entities marked inline, then linked to ICD-10 / RxNorm codes via a gazetteer bui
 from the competition tables:
 
 ```bash
-python scripts/gen_sample_data.py translate --n 100 --use-api --model gpt-4o
+python scripts/data_gen/gen_sample_data.py translate --n 100 --use-api --model gpt-4o
 ```
 
 **C. Restyled** — rewrites the translated notes into the genre mix actually found in
@@ -108,15 +150,15 @@ the competition test set, keeping the `〔 〕` markers so offsets stay exact. M
 100% clinical prose, i.e. it matches only ~17% of the test distribution:
 
 ```bash
-python scripts/gen_sample_data.py restyle --use-api --model gpt-4o
+python scripts/data_gen/gen_sample_data.py restyle --use-api --model gpt-4o
 ```
 
-**Drug codes — ingredient, not brand.** `RXNORM.csv` (which is just RXNCONSO, names
+**Drug codes — ingredient, not brand.** `RXNCONSO.RRF` (names
 only) resolves a brand name to its *brand* CUI: `Lipitor → 153165`. But competition gold
 uses *ingredient* CUIs exclusively — measured on 20 dev-gold files, 16/16 coded drug
 spans are `tty=IN`, e.g. `levothyroxine → 10582`. The two are linked only by the
 `tradename_of` relation in `RXNREL.RRF`, which ships with the **full** RxNorm release,
-not the CSV. When `data/knowledge_base/RxNorm_full_*/rrf/RXNREL.RRF` is present the
+not RXNCONSO. When `data/knowledge_base/RXNREL.RRF` is present the
 script builds that map on first run (cached to `brand_to_ingredient.json`, ~96k brands)
 and emits ingredient codes; without it, brand codes are used unchanged. Combination
 brands map to all their ingredients (`Augmentin → 48203, 723`).
@@ -125,7 +167,7 @@ brands map to all their ingredients (`Augmentin → 48203, 723`).
 compares against the competition test set):
 
 ```bash
-python scripts/gen_sample_data.py verify
+python scripts/data_gen/gen_sample_data.py verify
 ```
 
 Both `compose` and `translate` need `OPENAI_API_KEY` when run with `--use-api`. Without
@@ -139,8 +181,8 @@ translation quality before committing to a full run.
 ## Data
 
 - `data/knowledge_base/ICD10.csv` — ICD-10 disease codes (5.2 MB, 73K+ concepts) used for diagnosis candidate mapping.
-- `data/knowledge_base/RXNORM.csv` — RxNorm medication names (73 MB, 1M+ rows) used for drug candidate mapping.
-- `data/knowledge_base/RxNorm_full_*/` — Full RxNorm release with RXNREL.RRF for brand→ingredient mapping.
+- `data/knowledge_base/RXNCONSO.RRF` — RxNorm concept names (656k rows over 6 source vocabularies). Read via `scripts/kb_sources.py`.
+- `data/knowledge_base/RXNREL.RRF` — RxNorm relations, used for brand→ingredient mapping.
 - `data/knowledge_base/brand_to_ingredient.json` — Cached brand→ingredient map built from RXNREL.RRF (~96k brands).
 - `data/test/*.txt` — 100 free-form clinical text records (competition test set: 1.txt … 100.txt).
 - `data/output/*.json` — one prediction file per input record, matching `test/N.txt` → `output/N.json`.

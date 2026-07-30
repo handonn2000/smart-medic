@@ -17,7 +17,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from smart_medic.scoring import (  # noqa: E402
+from smart_medic.eval.scoring import (  # noqa: E402
     MetricConfig,
     align,
     jaccard,

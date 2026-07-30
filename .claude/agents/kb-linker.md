@@ -19,20 +19,21 @@ chapter → block (the `Nhóm bệnh` column, which conveniently gives every blo
 Vietnamese label) → 3-char category (2,138) → decimal code (11,051). 1,484
 categories have both a parent and decimal children present.
 
-**`data/knowledge_base/icd10cm-code-descriptions-2027/icd10cm-codes-2027.txt`**
+**`data/knowledge_base/icd10cm-codes-2027.txt`**
 — English ICD-10-CM descriptions. Joining on code yields **5,460 exact
 Vietnamese↔English label pairs (41.4% of VN codes)**; 81.2% of VN codes prefix
 at least one CM code. This is a free bilingual medical lexicon — the training
 signal for any cross-lingual alignment. Watch the granularity mismatch: CM is
 finer than WHO ICD-10, so join on prefix and treat as many-to-one.
 
-**`data/knowledge_base/RXNORM.csv`** — 637,977 rows, **all `lat=ENG`**,
+**`data/knowledge_base/RXNCONSO.RRF`** — 656,257 rows over 6 SABs, **all `lat=ENG`**,
+(read it through `scripts/kb_sources.py:iter_rxnconso()`; the organisers' RXNORM.csv it replaces is gone),
 263,416 unique RxCUI, 465,397 unique normalised strings. The
 ingredient family (`IN`/`PIN`/`MIN`) is only **23,926 CUIs / 29,604 names** —
 an **11× smaller** search space. `sab='RXNORM'` alone cuts 638k → 323k and drops
 218k MTHSPL packaging rows that only generate false positives.
 
-**`RxNorm_full_07062026/rrf/RXNREL.RRF`** — relation counts verified:
+**`data/knowledge_base/RXNREL.RRF`** — relation counts verified:
 `inactive_ingredient_of` 1,673,734 (**noise — filter it out first, it is 4.7×
 the next relation**), `ingredient_of` 355,165, `isa` 292,028,
 `has_active_ingredient` 288,367, `has_active_moiety` 266,440,

@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Build a strength-preserving product index from RXNORM.csv (SCD/SCDC/SBD).
+"""Build a strength-preserving product index from RXNCONSO.RRF (SCD/SCDC/SBD).
 
 kb.py's normaliser destroys decimal strengths ("0.5 mg" -> "0 5 mg"), so drug
 products cannot be matched by strength through it. This builds a separate index
 keyed on (ingredient-token, strength-value, unit) with decimals intact.
 """
-import csv, os, pickle, re, collections
+import csv, os, pickle, re, collections, sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+from kb_sources import iter_rxnconso  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
@@ -27,8 +30,7 @@ def build():
     by_key = collections.defaultdict(list)
     cui_name = {}
     n = 0
-    with open(os.path.join(ROOT, "RXNORM.csv"), encoding="utf-8") as f:
-        for x in csv.DictReader(f):
+    for x in iter_rxnconso():
             if x["sab"] != "RXNORM" or x["tty"] not in ("SCD", "SCDC", "SBD"):
                 continue
             if x["suppress"] not in ("", "N"):

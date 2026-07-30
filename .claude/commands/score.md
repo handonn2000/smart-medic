@@ -1,7 +1,7 @@
 ---
 description: Validate offsets/schema, then score data/output under all three metric readings
 argument-hint: "[--gold DIR] [--pred DIR] [--cand-formula official|plain]"
-allowed-tools: Bash(python3 -m pytest*), Bash(PYTHONPATH=src python3 -m smart_medic.scoring*)
+allowed-tools: Bash(python3 -m pytest*), Bash(PYTHONPATH=src python3 -m smart_medic.eval.scoring*)
 ---
 
 Score the current predictions and report what actually moved.
@@ -17,7 +17,7 @@ is a hard blocker.
 
 ## 2. Score
 
-!`cd "$(git rev-parse --show-toplevel)" && PYTHONPATH=src python3 -m smart_medic.scoring --pred data/output $ARGUMENTS 2>&1`
+!`cd "$(git rev-parse --show-toplevel)" && PYTHONPATH=src python3 -m smart_medic.eval.scoring --pred data/output $ARGUMENTS 2>&1`
 
 ## 3. How to read it
 
@@ -27,11 +27,12 @@ Report concisely, in this order:
    that penalises over- and under-generation monotonically. Quote it as `/100`
    so it is comparable to the public leaderboard.
 
-2. **Ceiling context.** A *perfect* prediction scores about **69/100**, not 100,
+2. **Ceiling context.** A *perfect* prediction scores **70.00/100**, not 100,
    because the official candidates denominator carries a `+1` that caps that
-   term near 0.23. So `text` and `assertions` are ~87% of the reachable score
-   and `candidates` is ~9 points. If someone proposes spending a day on code
-   linking, weigh it against that, not against the nominal 0.4 weight.
+   term at 0.2501 (measured on 162 gold files). So `text` and `assertions` are
+   ~86% of the reachable score and `candidates` is 10.00 points. If someone
+   proposes spending a day on code linking, weigh it against that, not against
+   the nominal 0.4 weight.
 
 3. **Cross-check the readings.** If a change improved `matched` but hurt
    `penalised`, it is metric gaming — almost certainly the system dropped

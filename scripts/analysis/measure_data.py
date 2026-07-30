@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Reproduce every measured number quoted in docs/reports/research-directions.html.
+"""Reproduce every measured number quoted in the docs/reports/*.html write-ups.
 
 Run from the repo root:
 
-    python docs/reports/measure_data.py
+    python scripts/analysis/measure_data.py
 
 Every figure in the report's "Đo đạc" sections comes from this script. Nothing is
 estimated from the literature; if a number is not printed here, it is not ours.
@@ -20,6 +20,9 @@ import re
 import statistics
 import sys
 import unicodedata
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+from kb_sources import iter_rxnconso  # noqa: E402
 
 csv.field_size_limit(10 ** 7)
 KB = "data/knowledge_base"
@@ -203,7 +206,7 @@ def kb_profile() -> None:
 
     # VN↔EN parallel corpus via the ICD-10-CM description file
     cm = {}
-    p = f"{KB}/icd10cm-code-descriptions-2027/icd10cm-codes-2027.txt"
+    p = f"{KB}/icd10cm-codes-2027.txt"
     if os.path.exists(p):
         for line in open(p, encoding="utf-8", errors="replace"):
             parts = line.rstrip("\n").split(None, 1)
@@ -225,16 +228,13 @@ def kb_profile() -> None:
     tty = collections.Counter()
     cui = set()
     ing_cui, ing_names, allnames = set(), set(), set()
-    with open(f"{KB}/RXNORM.csv", encoding="utf-8") as f:
-        for row in csv.DictReader(f):
+    for row in iter_rxnconso():
             tty[row["tty"]] += 1
             cui.add(row["rxcui"])
             allnames.add(row["str"].strip().lower())
             if row["tty"] in ("IN", "PIN", "MIN"):
                 ing_cui.add(row["rxcui"])
                 ing_names.add(row["str"].strip())
-            if row["tty"] in ("IN", "PIN", "MIN", "BN", "SU"):
-                pass
     print(f"\n  RxNorm rows             : {sum(tty.values())}")
     print(f"  unique RxCUI            : {len(cui)}")
     print(f"  unique normalized names : {len(allnames)}")
@@ -370,11 +370,82 @@ def metric_sim() -> None:
               f"(final +{0.3*(v-empty):+.4f})")
 
 
+GOLD = f"{GEN}/restyled/annotations_gold"
+
+
+def gold_stats() -> None:
+    """The numbers that actually govern the decision layer.
+
+    Everything here was previously estimated from SILVER and was wrong by a wide
+    margin. Silver under-annotates: it carries 77.7% empty-assertion entities
+    against gold's 50.7%, and 19.6% empty-candidate entities against gold's 5.5%.
+    Always take decision-layer parameters from THIS function, never from silver.
+    """
+    h("6 · GOLD SET — the numbers that govern the decision layer")
+    files = sorted(glob.glob(f"{GOLD}/*.json"))
+    if not files:
+        print("  (no gold corpus present)")
+        return
+
+    asets, ncand, types, genres = (collections.Counter() for _ in range(4))
+    n_ent = 0
+    for f in files:
+        genres[os.path.basename(f).rsplit("_", 1)[-1].replace(".json", "")] += 1
+        try:
+            ents = json.load(open(f, encoding="utf-8"))
+        except Exception:
+            continue
+        for e in ents:
+            n_ent += 1
+            t = e.get("type")
+            types[t] += 1
+            if t in ("CHẨN_ĐOÁN", "THUỐC", "TRIỆU_CHỨNG"):
+                asets[tuple(sorted(e.get("assertions") or []))] += 1
+            if t in ("CHẨN_ĐOÁN", "THUỐC"):
+                ncand[min(len(e.get("candidates") or []), 3)] += 1
+
+    print(f"  files {len(files)}   entities {n_ent}   ({n_ent/len(files):.1f}/doc)")
+
+    print("\n  genre mix (target = test set 45/17/15/14/9):")
+    gmap = {"y": "dàn ý", "xuoi": "văn xuôi", "bien": "phổ biến",
+            "dap": "hỏi đáp", "dong": "xuống dòng"}
+    tg = sum(genres.values())
+    for g, n in genres.most_common():
+        print(f"      {gmap.get(g, g):<14} {n:>4}  {n/tg:6.1%}")
+
+    ta = sum(asets.values())
+    print(f"\n  assertion sets (n={ta}):")
+    for k, v in asets.most_common():
+        print(f"      {str(k or '()'):<44} {v:>5}  {v/ta:6.1%}")
+
+    def J(g, p):
+        g, p = set(g), set(p)
+        return 1.0 if not (g | p) else len(g & p) / len(g | p)
+
+    empty = sum(v * J(set(k), set()) for k, v in asets.items()) / ta
+    print(f"\n      always-empty baseline  E[Jaccard] = {empty:.4f}  "
+          f"→ {0.3*empty*100:.2f} of 30 pts")
+    print(f"      headroom to a P=.95/R=.90 model    ≈ {0.3*(0.95-empty)*100:.1f} pts/100")
+
+    tc = sum(ncand.values())
+    nonempty = tc - ncand[0]
+    print(f"\n  codes per CHẨN_ĐOÁN/THUỐC entity (n={tc}):")
+    for k in sorted(ncand):
+        lbl = {0: "0 (empty)", 1: "1", 2: "2", 3: "≥3"}[k]
+        print(f"      {lbl:<12} {ncand[k]:>5}  {ncand[k]/tc:6.1%}")
+    p0 = ncand[0] / tc
+    pd = ncand[2] / nonempty
+    print(f"\n      P(gold empty)         = {p0:.3f}   ← abstention threshold")
+    print(f"      P(doublet | has code) = {pd:.4f}")
+    print(f"      gap threshold for a 2nd code = {pd/(1-pd):.4f}")
+
+
 if __name__ == "__main__":
     if not os.path.isdir("data"):
         sys.exit("run me from the repo root (data/ not found)")
     test_set_profile()
     silver_stats()
+    gold_stats()
     consistency()
     kb_profile()
     metric_sim()

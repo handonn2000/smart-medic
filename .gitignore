@@ -9,6 +9,11 @@ dist/
 venv/
 env/
 
+# Test / tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
 # Jupyter
 .ipynb_checkpoints/
 
@@ -40,3 +45,14 @@ data/output/*.json
 
 # datasource
 /data/knowledge_base
+
+# Immutable run records — regenerable from pinned code + config
+runs/*
+!runs/.gitkeep
+!runs/README.md
+# ...except the pinned leverage map — it is a reference artifact the plan cites,
+# not a per-run output. Regenerate with scripts/analysis/leverage_map.py
+!runs/leverage_map.json
+
+# Built indexes / caches — regenerable
+data/artifacts/

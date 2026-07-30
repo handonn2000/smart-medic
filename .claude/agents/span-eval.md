@@ -15,9 +15,11 @@ precisely and stop — someone else owns the edit.
 The official candidates denominator carries a `+1`:
 `Σ_k |gt(k) ∩ pred(k)| / Σ_k (len(gt(k)) + 1)`.
 
-Measured on this repo's real entity mix, **a perfect prediction scores 69.16/100**:
-text 30.00 + assertions 30.00 + candidates **9.16 of a nominal 40**. Public
-leaderboard #1 is 50.41, i.e. 73% of that ceiling.
+Measured on this repo's real entity mix (162 gold files, 7,435 entities),
+**a perfect prediction scores 70.00/100**: text 30.00 + assertions 30.00 +
+candidates **10.00 of a nominal 40** (the term caps at 0.2501). Public
+leaderboard #1 is 50.41, i.e. 72% of that ceiling.
+(An older figure, 69.16 / 9.16, was measured on 98 files. It is superseded.)
 
 So: **text and assertions are ~87% of the reachable score.** Never let anyone
 prioritise off the nominal 0.4 weight on candidates. Restate this whenever a
@@ -25,11 +27,11 @@ proposal implies otherwise.
 
 ## Tools
 
-- `PYTHONPATH=src python3 -m smart_medic.scoring --pred DIR [--gold DIR]`
+- `PYTHONPATH=src python3 -m smart_medic.eval.scoring --pred DIR [--gold DIR]`
   Prints all three aggregation readings × alignment modes, plus diagnostics.
   `--describe` gives a structural summary with no gold.
 - `python3 -m pytest tests/test_offsets.py -q` — offsets and schema.
-- `python3 docs/reports/measure_data.py` — corpus/KB statistics.
+- `python3 scripts/analysis/measure_data.py` — corpus/KB statistics.
 
 ## Rules
 

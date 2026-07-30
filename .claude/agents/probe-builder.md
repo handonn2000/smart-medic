@@ -30,9 +30,11 @@ drug `tty` question. Build these before any model work.
 
 ## What a perfect prediction actually scores
 
-**69.16/100**, not 100 — text 30.00 + assertions 30.00 + candidates 9.16 of a
-nominal 40, because of the `+1` in the official candidates denominator. Public
-#1 is 50.41. When you report an expected outcome, anchor to 69, not 100.
+**70.00/100**, not 100 — text 30.00 + assertions 30.00 + candidates 10.00 of a
+nominal 40, because of the `+1` in the official candidates denominator caps that
+term at 0.2501. Measured on 162 gold files / 7,435 entities. Public #1 is 50.41,
+i.e. 72% of that ceiling. When you report an expected outcome, anchor to 70, not
+100. (The older 69.16 / 9.16 figure was measured on 98 files; it is superseded.)
 
 ## Checklist before you hand a build over — all must pass
 

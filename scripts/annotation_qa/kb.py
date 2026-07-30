@@ -12,6 +12,9 @@ Usage:
 """
 import csv, json, os, pickle, re, sys, unicodedata
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+from kb_sources import iter_rxnconso  # noqa: E402
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(HERE))
 
@@ -36,7 +39,7 @@ def build():
             icd_name.setdefault(norm(name), set()).add(code)
 
     icd_en = {}
-    p = os.path.join(ROOT, "icd10cm-code-descriptions-2027", "icd10cm-codes-2027.txt")
+    p = os.path.join(ROOT, "icd10cm-codes-2027.txt")
     with open(p, encoding="utf-8", errors="replace") as f:
         for line in f:
             line = line.rstrip("\n")
@@ -47,8 +50,7 @@ def build():
 
     rx_cui, rx_name = {}, {}
     keep = {"IN", "PIN", "MIN", "BN", "SCD", "SBD", "SCDC", "BPCK", "GPCK", "PSN", "SY"}
-    with open(os.path.join(ROOT, "RXNORM.csv"), encoding="utf-8") as f:
-        for x in csv.DictReader(f):
+    for x in iter_rxnconso():
             if x["sab"] != "RXNORM" or x["tty"] not in keep or x["suppress"] not in ("", "N"):
                 continue
             cui, tty, s = x["rxcui"], x["tty"], x["str"]

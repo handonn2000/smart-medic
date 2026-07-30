@@ -5,7 +5,7 @@ Khác bản ở nhánh feature: script này KHÔNG phụ thuộc gì ngoài thư
 hai bảng ban tổ chức đã có sẵn trên master:
 
     data/knowledge_base/ICD10.csv     (36.689 mã, cột "Mã" + "Tên bệnh")
-    data/knowledge_base/RXNORM.csv    (637.977 dòng, lọc tty IN/BN)
+    data/knowledge_base/RXNCONSO.RRF  (lọc 6 SAB + tty IN/BN)
 
 Không cần data/kb/, không cần src/smart_medic/, không cần tải dữ liệu ngoài.
 
@@ -63,7 +63,9 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-REPO = Path(__file__).resolve().parent.parent
+REPO = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(REPO / "scripts"))
+from kb_sources import iter_rxnconso  # noqa: E402
 KB = REPO / "data" / "knowledge_base"
 EXT = REPO / "data" / "external"
 
@@ -426,9 +428,9 @@ def load_icd(min_words: int = 2, max_words: int = 5) -> list[dict]:
     return out
 
 
-#: Bảng RxNorm đầy đủ (RxNorm_full_*/rrf/RXNREL.RRF) — quan hệ giữa các khái niệm.
-#: RXNORM.csv mà repo đang dùng chỉ là RXNCONSO (tên gọi), không có quan hệ nào.
-RXNREL_GLOB = "RxNorm_full_*/rrf/RXNREL.RRF"
+#: Quan hệ giữa các khái niệm RxNorm. RXNCONSO chỉ có TÊN GỌI, không có quan hệ nào —
+#: brand→ingredient phải đi qua file này.
+RXNREL_GLOB = "RXNREL.RRF"
 BRAND_MAP_CACHE = KB / "brand_to_ingredient.json"
 
 
@@ -441,7 +443,7 @@ def load_brand_to_ingredient(rebuild: bool = False) -> dict[str, list[str]]:
     mã biệt dược (tty=BN): 'Synthroid' 224920 thay vì 10582, 'Lipitor' 153165 thay
     vì 83367. Cùng một thuốc, khác quy ước mã — dạy model trả sai loại mã.
 
-    RXNCONSO (tức RXNORM.csv) KHÔNG nối được hai thứ đó: nó chỉ có tên gọi, quan hệ
+    RXNCONSO KHÔNG nối được hai thứ đó: nó chỉ có tên gọi, quan hệ
     tradename_of nằm ở RXNREL.RRF của bản full. Đây là lý do cần bản full.
 
     Dòng RRF đọc theo chiều RXCUI2 --RELA--> RXCUI1, nên 'tradename_of' cho ta
@@ -475,18 +477,18 @@ def load_brand_to_ingredient(rebuild: bool = False) -> dict[str, list[str]]:
 
 
 def load_rxnorm(max_words: int = 5, map_brands: bool = True) -> list[dict]:
-    """Đọc data/knowledge_base/RXNORM.csv -> [{rxcui, alias}], chỉ tty IN/BN.
+    """Đọc RXNCONSO.RRF -> [{rxcui, alias}], chỉ tty IN/BN.
 
     IN = hoạt chất, BN = biệt dược. Đo trên gold: 13/13 thuốc tra được trong bảng
     đều thuộc đúng hai loại này; các tty khác (SCD, DP, PSN...) là dạng bào chế
     đầy đủ kiểu "Tremfya 100 MG/ML Auto-Injector", không phải cách bệnh án viết.
+
+    Trước đây đọc RXNORM.csv của ban tổ chức; file đó là RXNCONSO đã chuyển sang
+    CSV nên `iter_rxnconso()` cho đúng cùng hình dạng dict.
     """
-    path = KB / "RXNORM.csv"
-    if not path.exists():
-        sys.exit(f"thiếu {path.relative_to(REPO)} — bảng RxNorm của ban tổ chức")
     out, seen = [], set()
-    with path.open(encoding="utf-8", errors="replace", newline="") as fh:
-        for row in csv.DictReader(fh):
+    if True:
+        for row in iter_rxnconso():
             if (row.get("tty") or "").strip() not in ("IN", "BN"):
                 continue
             if (row.get("suppress") or "").strip() not in ("", "N"):

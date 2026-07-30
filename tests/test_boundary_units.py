@@ -19,9 +19,11 @@ from pathlib import Path
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 
-from smart_medic.extract import labvalues, tokenize  # noqa: E402
+from smart_medic.decision import emit  # noqa: E402
+from smart_medic.extract import labvalues, recall_floor, tokenize  # noqa: E402
 from smart_medic.io.document import Document  # noqa: E402
 from smart_medic.layout.kv import split_units  # noqa: E402
 from smart_medic.layout.lines import split_lines  # noqa: E402
@@ -109,12 +111,56 @@ def test_the_bonus_is_a_preference_not_a_filter():
     )
 
 
-def test_diagnoses_are_not_boosted():
-    """CHẨN_ĐOÁN must keep its body-system chapter — decision/emit.py only sets
-    the flag for TRIỆU_CHỨNG."""
-    assert icd.retrieve("viêm phổi") == icd.retrieve(
-        "viêm phổi", prefer_symptom_chapter=False
+def test_only_symptom_spans_ask_for_the_boost():
+    """The flag must reach `retrieve` for TRIỆU_CHỨNG and for nothing else.
+
+    Comparing `retrieve(x)` against `retrieve(x, prefer_symptom_chapter=False)`
+    would prove nothing — both are the same default path. What can actually
+    regress is `decision/emit.py` passing the flag for the wrong type, so this
+    calls the real code and records what it asked for.
+    """
+    seen: dict[str, bool] = {}
+    real = emit.icd.retrieve
+
+    def spy(surface, **kw):
+        seen[surface] = bool(kw.get("prefer_symptom_chapter"))
+        return real(surface, **kw)
+
+    # Real documents, not a fixture line: `retrieve` is only called when the
+    # gazetteer found no code, so a hand-written sentence of well-known terms
+    # never reaches this branch at all.
+    by_type: dict[str, str] = {}
+    emit.icd.retrieve = spy
+    try:
+        for doc_id in (str(n) for n in range(1, 11)):
+            raw = (ROOT / "data" / "test" / f"{doc_id}.txt").open(
+                encoding="utf-8", newline=""
+            ).read()
+            doc = Document(doc_id=doc_id, raw=raw)
+            lines = split_lines(doc)
+            spans = recall_floor(doc, lines, split_units(doc, lines))
+            for record in emit.finalize(doc, spans, emit.select_threshold(10.0)):
+                by_type[record["text"]] = record["type"]
+    finally:
+        emit.icd.retrieve = real
+
+    asked = {t: flag for t, flag in seen.items() if t in by_type}
+    assert asked, "no retrieval happened — the fixture no longer exercises this path"
+
+    # Both branches must be present, or the test could pass by never reaching the
+    # case it is about. Over documents 1–10: ~52 symptom retrievals and ~22
+    # diagnosis retrievals.
+    types_asked = {by_type[t] for t in asked}
+    assert {"TRIỆU_CHỨNG", "CHẨN_ĐOÁN"} <= types_asked, (
+        f"only {sorted(types_asked)} reached retrieval — this test cannot "
+        f"distinguish the flag being right from it never being set"
     )
+
+    for surface, boosted in asked.items():
+        assert boosted == (by_type[surface] == "TRIỆU_CHỨNG"), (
+            f"{surface!r} is {by_type[surface]} but asked for "
+            f"prefer_symptom_chapter={boosted}"
+        )
 
 
 def test_retrieval_is_deterministic():

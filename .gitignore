@@ -65,12 +65,18 @@ runs/*
 
 # Built indexes / caches. "Regenerable" was true and beside the point: the
 # rebuild (`make index`) needs the 660 MB licence-gated RRF drops, which the
-# organisers will not have. The two the inference path actually opens are
-# tracked — 8.5 MB together, and the difference between a submission that runs
-# on a clean checkout and one that does not.
+# organisers will not have — so the four files below are tracked, 11 MB
+# together, and they are the difference between a submission that runs on a
+# clean checkout and one that does not.
 data/artifacts/
+# Opened by the inference path — verified by instrumenting `open` over a full
+# run (tests/test_reproducibility.py does this on every suite run).
 !data/artifacts/gazetteer.json
 !data/artifacts/kb_codes.json
+!data/artifacts/edge_index.json
+# NOT read at inference: scripts/submit/package_submission.py reads it to record
+# KB versions in the run manifest. Tracked so `make submit` works from a clean
+# checkout too, which is a different requirement from the three above.
 !data/artifacts/kb_hashes.json
 
 # The submission archive. Rebuild with `make submit`; the authoritative copy

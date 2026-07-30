@@ -37,7 +37,7 @@ Measured on `proxy_gold_test/` — 20 test documents annotated by hand, 724 span
         15         none         27    0
         20         none         28    2
         20          ≤2          31    4
-        40          ≤2          31    7
+        40          ≤2          34    9
 
   The tight window is not caution for its own sake: it wins on net points
   (`tp − fp`, since a tp turns 0→1 and an fp turns 1→0) *and* takes zero of the

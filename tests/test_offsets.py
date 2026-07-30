@@ -1,6 +1,6 @@
 """Offset and schema integrity — the single most important test in this repo.
 
-Three independent guards:
+Four independent guards:
 
 1. `test_test_corpus_unmodified`  — the 100 scored input files must never change.
    Guards against an agent "fixing the encoding" of data/test/*.txt, which would
@@ -14,6 +14,12 @@ Three independent guards:
 
 3. `test_silver_offsets` — same offset check against the generated silver
    corpus, so generator drift surfaces immediately rather than after training.
+   OFFSETS only: the 165 illegal lab assertions in that corpus are cleared at
+   load (ADR 0004), not fixed at rest, so asserting the schema on the raw files
+   would fail by design.
+
+4. `test_loader_clears_illegal_lab_assertions` — the other half of ADR 0004,
+   checked where the decision actually puts the remedy: `io/corpus.load_silver`.
 
 Run:  pytest tests/test_offsets.py -q
 """

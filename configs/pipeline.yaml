@@ -346,7 +346,7 @@ assertion:
     #     15     none    27   0  +27   ← this row
     #     20     none    28   2  +26
     #     20      ≤2     31   4  +27   (same net, 4× the expensive error)
-    #     40      ≤2     31   7  +24
+    #     40      ≤2     34   9  +25
     # 15/none is chosen over 20/≤2 on equal net because its errors are all of the
     # cheap kind. Widening buys recall in negated comma lists ("Không ghi nhận co
     # giật, cứng đờ, cắn lưỡi" — three spans, we catch one) at the price of

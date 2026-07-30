@@ -361,6 +361,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
       <button class="tab" data-tab="risk"><span class="n">06</span> Rủi ro &amp; KHÔNG LÀM</button>
       <button class="tab" data-tab="kick"><span class="n">07</span> Prompt thực thi</button>
       <button class="tab" data-tab="todo"><span class="n">08</span> Checklist</button>
+      <button class="tab" data-tab="real"><span class="n">09</span> Đo thật</button>
     </nav>
   </div>
 </header>
@@ -4008,6 +4009,301 @@ Sau diễn tập lần 2: báo 7 ô nghiệm thu + output của unzip -l. DỪNG
     <code>recall ≈ điểm / 51,55</code>.
   </div>
 </footer>
+
+<div class="panel" id="p-real">
+  <div class="hero">
+    <div class="eyebrow">09 · Đo thật trên leaderboard</div>
+    <h1>Hộp đen đã mở.<br>Và <em>gold nói ngược</em> leaderboard.</h1>
+    <p class="lede">
+      Ngày 30/07/2026 ban tổ chức công bố đủ công thức, và ba lần nộp đã trả về chỉ số
+      <b>từng số hạng</b>. Tab này ghi những gì đo được — kể cả khi nó bác bỏ số liệu ở các tab
+      trước. <b>Các tab 00–08 giữ nguyên làm bản ghi lịch sử;</b> chỗ nào mâu thuẫn thì tab này
+      đúng. Điều quan trọng nhất học được: một cải tiến <b>+5,11 điểm trên gold</b> đã làm
+      <b>−1,77 điểm trên leaderboard</b>. Từ đây, nhánh candidates chỉ được nghiệm thu bằng
+      leaderboard.
+    </p>
+  </div>
+
+  <div class="shead"><span class="num">A</span><h2>Công thức chính thức, đã xác nhận hai lần</h2>
+    <span class="sub">khớp tới 4 chữ số thập phân trên hai lần nộp độc lập</span></div>
+
+  <div class="note good">
+    <span class="lab">Công thức</span>
+    <code>final = 0.3·(100 − WER) + 0.3·J_assertion + 0.4·J_candidates</code>
+    <p style="margin-bottom:0">
+      <code>i</code> là <b>một tài liệu</b>, <code>k</code> là một khái niệm trong đó.
+      <code>WER</code> được báo là <b>sai số thô</b>, còn <code>text_score = 100 − WER</code>.
+      <code>num_scored = num_records = 100</code> ở cả ba lần ⇒ không tài liệu nào bị loại.
+    </p>
+  </div>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>lần nộp</th><th>biến thể</th><th class="num">text</th>
+      <th class="num">J_assertion</th><th class="num">J_candidates</th><th class="num">ĐIỂM</th></tr></thead>
+    <tbody>
+      <tr><td>30/07 18:23</td><td>Probe A — span+type, <b>0 mã</b></td>
+          <td class="num">26,63</td><td class="num">30,9496</td>
+          <td class="num">11,0259</td><td class="num">21,6847</td></tr>
+      <tr style="background:var(--primary-tint)"><td>30/07 18:36</td>
+          <td>Probe B — A + <b>228 mã THUỐC</b></td>
+          <td class="num">26,63</td><td class="num">30,9496</td>
+          <td class="num"><b>14,8832</b></td><td class="num"><b>23,2276</b></td></tr>
+      <tr style="background:var(--warn-tint)"><td>30/07 22:11</td>
+          <td>đầy đủ — <b>948 mã</b> (764 CHẨN_ĐOÁN)</td>
+          <td class="num">26,83</td><td class="num">31,2028</td>
+          <td class="num"><b>10,4617</b></td><td class="num"><b>21,5945</b></td></tr>
+    </tbody></table></div>
+
+  <div class="note warn">
+    <span class="lab">Đọc kỹ hàng thứ ba</span>
+    <p style="margin-bottom:0">
+      <code>J_candidates</code> với <b>948 mã</b> (10,4617) <b>THẤP HƠN</b> khi không có mã nào
+      (11,0259). Probe B đã chứng minh mã THUỐC đáng <b>+3,8573</b> ⇒ 764 mã CHẨN_ĐOÁN đang mất
+      <b>≈ −4,42</b> trên <code>J_candidates</code> = <b>−1,77 điểm cuối</b>. Cơ chế: với entity
+      <b>đã ghép</b>, phát mã khi gold không có mã biến <code>J=1</code> miễn phí thành
+      <code>J=0</code>. Trên gold <code>P(gold rỗng | CHẨN_ĐOÁN) = 0,0521</code>; trên test
+      rõ ràng cao hơn nhiều. Đã tắt bằng
+      <code>decision.max_candidates_per_type: {CHẨN_ĐOÁN: 0}</code>.
+    </p>
+  </div>
+
+  <div class="shead"><span class="num">B</span><h2>Số liệu của plan đã bị bác bỏ</h2>
+    <span class="sub">mỗi dòng có bằng chứng đo được — không sửa tab cũ, chỉ ghi ở đây</span></div>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>Tab cũ nói</th><th>Thật</th><th>Bằng chứng</th></tr></thead>
+    <tbody>
+      <tr><td>trần điểm <b>70,00</b></td><td class="num"><b>100,00</b></td>
+          <td><code>+1</code> là <b>trọng số tài liệu</b> <code>W_i</code>, không phải mẫu số ⇒ không chặn gì</td></tr>
+      <tr><td>candidates trần <b>10,00</b> (0,2501)</td><td class="num"><b>40,00</b></td>
+          <td>dự đoán hoàn hảo đạt <code>J_candidates = 100</code> ở bản cài tham chiếu</td></tr>
+      <tr><td><code>recall ≈ A / 51,55</code></td><td><b>VÔ HIỆU</b></td>
+          <td>hệ số suy từ trần 51,81 dưới cách đọc <code>official</code> đã sai. Thay bằng
+              <code>m = text /(100·q)</code></td></tr>
+      <tr><td>số chính thức <code>greedy_iou</code></td><td><code><b>overlap_type</b></code></td>
+          <td>đặc tả: sai loại ⇒ <i>"tính 2 lần, mỗi lần 0 điểm với cả 3 metric"</i></td></tr>
+      <tr><td><code>1−WER</code> chặn ở 0</td><td><b>KHÔNG chặn</b></td>
+          <td>đặc tả viết <code>Σ(1−WER(i))/len(test)</code> không kèm <code>max(0,·)</code></td></tr>
+      <tr style="background:var(--warn-tint)"><td>assertions đáng <b>8,19 điểm</b></td>
+          <td class="num"><b>0 … +1,14</b></td>
+          <td><code>J_assertion = 31,20</code> mà trần là <code>100·m ≈ 31,2</code> ⇒ <b>đã kịch trần</b></td></tr>
+      <tr><td>bỏ 10% entity <b>−6,90</b></td><td class="num"><b>−10,16</b></td>
+          <td>đo lại dưới công thức đúng (<code>bootstrap --calibrate</code>)</td></tr>
+      <tr><td>sai 30% mã <b>−2,96</b></td><td class="num"><b>−3,92</b></td><td>nt</td></tr>
+      <tr><td>sàn nhiễu <b>~0,8</b> (SE 0,415)</td><td class="num"><b>~1,04</b> (SE 0,531)</td><td>nt</td></tr>
+      <tr><td>P5 <i>"1,0–3,0 điểm · trọng số 0,4 là cái bẫy lớn nhất"</i></td>
+          <td>THUỐC <b>+1,54</b> · CHẨN_ĐOÁN <b>−1,77</b></td>
+          <td>cả hai đo trên leaderboard, không phải gold</td></tr>
+      <tr style="background:var(--warn-tint)"><td>ngưỡng phát P6 — bảng 3 tầng</td>
+          <td><b>hiện là no-op</b></td>
+          <td>điểm thấp nhất làn R sinh ra là <b>0,30</b>, cổng là <b>0,25</b> ⇒ hạ xuống 0
+              không thêm một span nào</td></tr>
+    </tbody></table></div>
+
+  <div class="shead"><span class="num">C</span><h2>Gold không dự báo được leaderboard</h2>
+    <span class="sub">bốn thay đổi, đo cả hai phía — đây là phát hiện đắt nhất của dự án</span></div>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>Thay đổi</th><th class="num">Δ trên GOLD</th><th class="num">Δ trên LEADERBOARD</th>
+      <th>Kết luận</th></tr></thead>
+    <tbody>
+      <tr><td>mã THUỐC (khớp chuỗi chính xác)</td><td class="num">+5,11 <span class="sub">(nối dây)</span></td>
+          <td class="num"><b>+1,543</b></td><td>✅ chuyển giao, nhỏ hơn</td></tr>
+      <tr style="background:var(--warn-tint)"><td>mã CHẨN_ĐOÁN</td><td class="num">+5,11</td>
+          <td class="num"><b>−1,77</b></td><td>❌ <b>ĐẢO DẤU</b> — đã tắt</td></tr>
+      <tr><td>prior theo section (TRIỆU_CHỨNG↔CHẨN_ĐOÁN)</td><td class="num">+0,537</td>
+          <td class="num"><b>≈ 0</b></td><td>❌ không chuyển giao</td></tr>
+      <tr><td>sửa type analyte (creatinine…)</td><td class="num">+2,503</td>
+          <td class="num">+0,06 <span class="sub">(text)</span></td><td>⚠ chuyển giao rất ít</td></tr>
+    </tbody></table></div>
+
+  <div class="note warn">
+    <span class="lab">Vì sao — đo được, không suy đoán</span>
+    <ul class="tight" style="margin-bottom:0">
+      <li><b>39% file test là hỏi-đáp bệnh nhân; gold có 0%.</b> Gold có nhãn thể loại
+        <code>hoi_dap</code> (12/162) nhưng dựng bằng văn phong khác hẳn.</li>
+      <li><b>Chỉ 14% section header của test từng xuất hiện trong gold</b> (81/565). 182 loại
+        header chỉ có ở test: <code>tiền sử bệnh hiện tại</code> (33),
+        <code>đánh giá tại bệnh viện</code> (33), <code>câu hỏi từ người dùng</code> (33)…</li>
+      <li><b>Tỷ lệ slot được ghép:</b> gold <code>m = 0,672</code> · test <code>m ≥ 0,312</code>.
+        Cùng extractor, kém <b>2,2 lần</b>.</li>
+      <li>Khớp tiền tố header là <b>bẫy</b>, không phải giải pháp:
+        <code>tiền sử bệnh hiện tại</code> (phần lớn triệu chứng) chứa
+        <code>tiền sử bệnh</code> (prior CHẨN_ĐOÁN 0,97) — ghép hai cái đó sẽ làm hỏng.</li>
+    </ul>
+  </div>
+
+  <div class="shead"><span class="num">D</span><h2>Chẩn đoán: ~69% slot đang chấm 0</h2>
+    <span class="sub">suy trực tiếp từ công thức, không cần thêm lần nộp nào</span></div>
+
+  <p>
+    Slot không ghép được chấm 0 ở <b>cả ba</b> số hạng ⇒ mọi số hạng <code>≤ 100·m</code>.
+    Từ <code>J_assertion = 31,2028</code> suy ra <b><code>m ≥ 0,3120</code></b>; từ
+    <code>text = 26,83 = 100·m·q</code> suy ra <code>q ≤ 0,860</code> (trên gold
+    <code>q = 0,879</code>). ⇒ <b><code>m</code> thực tế nằm khoảng 0,312–0,35.</b>
+  </p>
+
+  <div class="tscroll"><table>
+    <thead><tr><th class="num">m</th><th class="num">text</th><th class="num">J_assertion</th>
+      <th class="num">J_candidates</th><th class="num">ĐIỂM</th><th>ghi chú</th></tr></thead>
+    <tbody>
+      <tr><td class="num">0,312</td><td class="num">26,8</td><td class="num">31,2</td>
+          <td class="num">14,9</td><td class="num"><b>23,4</b></td><td>hôm nay</td></tr>
+      <tr><td class="num">0,390</td><td class="num">33,5</td><td class="num">39,0</td>
+          <td class="num">18,6</td><td class="num">29,2</td><td>+25% ghép</td></tr>
+      <tr><td class="num">0,468</td><td class="num">40,2</td><td class="num">46,8</td>
+          <td class="num">22,3</td><td class="num">35,0</td><td>+50% ghép</td></tr>
+      <tr style="background:var(--primary-tint)"><td class="num">0,672</td><td class="num">57,7</td>
+          <td class="num">67,1</td><td class="num">32,0</td><td class="num"><b>50,2</b></td>
+          <td>mức <code>m</code> của gold</td></tr>
+    </tbody></table></div>
+
+  <div class="note good">
+    <span class="lab">Hệ quả xếp ưu tiên</span>
+    <p style="margin-bottom:0">
+      Cả ba số hạng cùng bị <code>m</code> nhân vào ⇒ <b>nâng <code>m</code> là đòn bẩy duy nhất
+      có bậc độ lớn lớn</b>. Mọi thứ khác — assertions, mã, type — đều là phần trăm của một
+      chiếc bánh đang nhỏ. Hướng ưu tiên của plan gốc (recall trước) <b>đúng</b>; độ lớn và lý do
+      thì khác hẳn.
+    </p>
+  </div>
+
+  <div class="shead"><span class="num">E</span><h2>Nút thắt: sinh ứng viên, không phải cổng phát</h2>
+    <span class="sub">chuẩn hoá theo độ dài văn bản — mật độ/file gây hiểu nhầm vì file dài ngắn khác nhau</span></div>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>Tập</th><th class="num">file</th><th class="num">ký tự TB</th>
+      <th class="num">entity/file</th><th class="num">entity/1k ký tự</th><th class="num">% mật độ gold</th></tr></thead>
+    <tbody>
+      <tr style="background:var(--primary-tint)"><td><b>GOLD — nhãn thật</b></td><td class="num">162</td>
+          <td class="num">1.819</td><td class="num">45,90</td><td class="num"><b>25,23</b></td>
+          <td class="num">100%</td></tr>
+      <tr><td>test · lâm sàng</td><td class="num">61</td><td class="num">2.147</td>
+          <td class="num">29,15</td><td class="num">13,58</td><td class="num">54%</td></tr>
+      <tr><td>test · hỏi-đáp</td><td class="num">39</td><td class="num">1.868</td>
+          <td class="num">20,33</td><td class="num">10,89</td><td class="num">43%</td></tr>
+      <tr style="background:var(--warn-tint)"><td><b>test · tổng</b></td><td class="num">100</td>
+          <td class="num">2.038</td><td class="num">25,71</td><td class="num"><b>12,61</b></td>
+          <td class="num"><b>50%</b></td></tr>
+    </tbody></table></div>
+
+  <h3>Làn nào sụp khi gặp văn bản thật</h3>
+  <div class="tscroll"><table>
+    <thead><tr><th>làn</th><th>phụ trách</th><th class="num">gold /1k ký tự</th>
+      <th class="num">test /1k</th><th class="num">giữ lại</th><th>sửa bằng gì</th></tr></thead>
+    <tbody>
+      <tr style="background:var(--warn-tint)"><td><code>labvalues</code></td>
+          <td>2 loại xét nghiệm (41,7% entity gold)</td>
+          <td class="num">9,48</td><td class="num">2,98</td><td class="num"><b>31%</b></td>
+          <td><code>resources/lab_patterns.yaml</code> — <b>luật YAML, không cần GPU</b></td></tr>
+      <tr><td><code>aho</code></td><td>gazetteer</td>
+          <td class="num">14,24</td><td class="num">9,41</td><td class="num">66%</td>
+          <td>mở rộng từ vựng, ưu tiên ngôn ngữ dân dã</td></tr>
+      <tr><td><code>kvspan</code></td><td>mẫu <code>TÊN: giá trị</code></td>
+          <td class="num">0,38</td><td class="num">0,23</td><td class="num">61%</td>
+          <td>ít đòn bẩy</td></tr>
+      <tr><td><b>tổng</b></td><td></td><td class="num"><b>24,10</b></td>
+          <td class="num"><b>12,61</b></td><td class="num"><b>52%</b></td><td></td></tr>
+    </tbody></table></div>
+
+  <div class="note warn">
+    <span class="lab">Cổng phát hiện là no-op — P6 chưa có gì để chỉnh</span>
+    <p style="margin-bottom:0">
+      Phân phối điểm ứng viên làn R trên test:
+      <code>{0,30: 37 · 0,35: 62 · 0,40: 30 · 0,45: 18 · 0,50: 507 · 0,55: 640 · 0,60: 382 · 0,65: 26 · 0,70: 869}</code>.
+      Ngưỡng hiện tại là <b>0,25</b> — <b>mọi ứng viên đều vượt</b>. Hạ xuống 0 cho đúng
+      2.571 span như cũ. Bảng ba tầng của P6 không thể tăng recall vì <b>không có ứng viên nào
+      đang bị chặn</b>; nút thắt nằm hoàn toàn ở khâu sinh.
+    </p>
+  </div>
+
+  <div class="shead"><span class="num">F</span><h2>Trạng thái phase — theo số đo, không theo lịch</h2></div>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>Phase</th><th>Trạng thái</th><th>Số đo</th></tr></thead>
+    <tbody>
+      <tr><td>P0 · nền móng</td><td><span class="pill g">xong</span></td>
+          <td>zip 7/7 · offset byte-exact 0 vi phạm · bộ ghi archive tất định</td></tr>
+      <tr><td>P1 · làn R</td><td><span class="pill g">xong</span></td>
+          <td>gold recall 0,7812 · 12,61 span/1k ký tự trên test</td></tr>
+      <tr><td>P2 · hiệu chuẩn hộp đen</td><td><span class="pill g">xong</span></td>
+          <td>công thức đã mở · 2 lần nộp (A, B) · A′ <b>huỷ</b> vì đặc tả đã trả lời</td></tr>
+      <tr style="background:var(--warn-tint)"><td>P3 · recall span</td>
+          <td><span class="pill w">một phần</span></td>
+          <td><b>nhánh model BỎ</b> — không có torch/GPU. Chỉ làm phần luật: gold +3,04,
+              leaderboard +0,14</td></tr>
+      <tr><td>P4 · assertions</td><td><span class="pill a">không nên làm</span></td>
+          <td>dư địa <b>0 … +1,14</b> — <code>assertions=[]</code> đã kịch trần trên test</td></tr>
+      <tr style="background:var(--warn-tint)"><td>P5 · candidates</td>
+          <td><span class="pill w">một phần</span></td>
+          <td>THUỐC ✅ +1,54 leaderboard · CHẨN_ĐOÁN ❌ −1,77 <b>đã tắt</b> ·
+              <code>edge_verify</code> 0/228 (chốt chặn, 0 điểm)</td></tr>
+      <tr><td>P6 · ngưỡng</td><td><span class="pill a">chưa có gì để chỉnh</span></td>
+          <td>cổng phát là no-op — xem §E</td></tr>
+      <tr><td>P7 · tái lập</td><td><span class="pill a">chưa làm</span></td>
+          <td><code>requirements.txt</code> vẫn rỗng ⇒ rủi ro vòng chấm source</td></tr>
+    </tbody></table></div>
+
+  <div class="shead"><span class="num">G</span><h2>Blocker</h2>
+    <span class="sub">xếp theo mức chặn, không theo thứ tự phát hiện</span></div>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>Blocker</th><th>Mức</th><th>Hệ quả</th><th>Gỡ bằng gì</th></tr></thead>
+    <tbody>
+      <tr style="background:var(--warn-tint)">
+          <td><b>Không biết mật độ nhãn thật của test</b></td>
+          <td><span class="pill a">chí mạng</span></td>
+          <td>Con số 25,23/1k đến từ corpus gold <b>tổng hợp</b>. Nếu văn bản thật được gán nhãn
+              thưa hơn thì đuổi theo mật độ gold là <b>sinh thừa</b>. Đây là số chặn toàn bộ
+              kế hoạch recall</td>
+          <td>tăng mật độ ~30% rồi <b>NỘP ĐỂ ĐO</b>, không xây tiếp trước khi biết</td></tr>
+      <tr><td><code>torch</code>/<code>transformers</code> không cài; macOS không có CUDA</td>
+          <td><span class="pill a">cao</span></td>
+          <td>Nhánh model span (P3 việc 1) không khởi động được. GlobalPointer/GLiNER loại khỏi bàn</td>
+          <td>chấp nhận — hoặc cài + train MPS, đổi lại rủi ro tái lập</td></tr>
+      <tr><td>Gold không dự báo được leaderboard ở nhánh candidates</td>
+          <td><span class="pill a">cao</span></td>
+          <td>Bar nghiệm thu nội bộ (bootstrap, CI95, sàn 1,04) <b>chỉ có giá trị trong gold</b>.
+              Một Δ+5,11 trên gold đã cho −1,77 thật</td>
+          <td>mọi thay đổi candidates phải nghiệm thu bằng <b>lần nộp</b></td></tr>
+      <tr><td><code>requirements.txt</code> rỗng</td>
+          <td><span class="pill w">trung bình</span></td>
+          <td>Vòng chấm source: cài không được ⇒ bị loại. Rủi ro duy nhất không mua lại được bằng điểm</td>
+          <td>P7 — ghim <code>pip freeze</code> (395 gói đã có trong manifest)</td></tr>
+      <tr><td>Tab 08 Checklist lưu ở <code>localStorage</code></td>
+          <td><span class="pill w">nhỏ</span></td>
+          <td>Không có gì trong file để agent sửa</td>
+          <td>người dùng tự tick</td></tr>
+    </tbody></table></div>
+
+  <div class="shead"><span class="num">H</span><h2>Việc tiếp theo, xếp theo đòn bẩy đo được</h2></div>
+
+  <ol class="tight">
+    <li><b>Nộp bản drugs-only</b> (<code>CHẨN_ĐOÁN: 0</code>, <code>THUỐC: 2</code>) — dự báo
+      <b>23,4</b>. Xác nhận việc gỡ mã chẩn đoán. <span class="sub">1 lần nộp · đã dựng xong</span></li>
+    <li><b><code>resources/lab_patterns.yaml</code></b> — làn <code>labvalues</code> chỉ giữ 31%
+      khi gặp văn bản thật, và nó phụ trách 41,7% entity. Kéo về mức gold =
+      <b>+1.325 span</b> ⇒ mật độ 12,61 → 19,1/1k (76% gold).
+      <span class="sub">luật YAML thuần · không cần GPU</span></li>
+    <li><b>NỘP NGAY khi mật độ tăng ~30%</b> — đây là chỗ <b>bắt buộc đo</b>, không được ngoại suy.
+      Xem blocker #1.</li>
+    <li><b>Mở rộng gazetteer theo ngôn ngữ dân dã</b> — 39% test là hỏi-đáp bệnh nhân.
+      <code>resources/lay_terms_vi.yaml</code> có trong plan, <b>chưa dựng</b>.</li>
+    <li><b>P7 <code>requirements.lock</code></b> — không cho điểm nào, nhưng bỏ qua thì mất tất cả.</li>
+  </ol>
+
+  <div class="note acc">
+    <span class="lab">Bài học phương pháp, đắt hơn 1,77 điểm</span>
+    <p style="margin-bottom:0">
+      Probe B đo giá biên <b>+0,00787 điểm/span</b> trên <b>span THUỐC</b>. Con số đó bị ngoại suy
+      sang <b>span CHẨN_ĐOÁN</b> để dự báo +6,3 — thực tế −0,09. Thứ quyết định không phải
+      phương pháp gán mã (đều là khớp dạng bề mặt) mà là <b>gold của test có gán mã cho loại đó
+      hay không</b> — một thuộc tính của <i>nhãn</i>, không phải của <i>cách làm</i>.
+      Cùng loại lỗi với việc plan giả định gold đại diện cho test.
+      <b>Quy tắc rút ra: một phép đo trên tập con chỉ có giá trị trên tập con đó.</b>
+    </p>
+  </div>
+</div>
 
 <button id="top" title="Lên đầu trang">↑</button>
 <div id="tip" role="tooltip" aria-hidden="true"></div>

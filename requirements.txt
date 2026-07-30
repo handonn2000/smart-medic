@@ -4,7 +4,9 @@
 #     pip install -r requirements.txt
 #     python -m smart_medic.cli run --input data/test --output data/output
 #
-# Python >= 3.11 (declared in pyproject.toml). Verified on 3.11 and 3.14; both
+# Python >= 3.11 (declared in pyproject.toml). Checked by `make verify-repro`,
+# which runs the pipeline under two interpreters and diffs the output; 3.11 and
+# 3.14 both
 # produce a byte-identical output.zip — see tests/test_reproducibility.py.
 #
 # The pipeline under src/smart_medic/ imports exactly ONE package that is not in

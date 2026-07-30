@@ -54,13 +54,30 @@ P(assert rỗng) ≤ 1   ⇒   P(gold candidates rỗng | slot) ≤ 0,356
 Mô phỏng trên `proxy_gold_test/` (20 file test thật gán nhãn tay, 724 span), trọng số
 `W_i` tính đúng theo công thức chính thức:
 
-| giả thuyết | P(cand rỗng) | tỷ lệ dự đoán | so với 0,356 |
-|---|---|---|---|
-| gold mã DX+THUỐC · scope tất cả khái niệm | 0,276 | **0,799** | cao gấp 2,2× |
-| gold mã DX+THUỐC · scope chỉ loại có mã | — | **0,061** | thấp 5,8× |
-| **gold mã DX+THUỐC+TRIỆU_CHỨNG · scope tất cả** | 0,137 | **0,407** | **lệch 1,14×** |
+Hai mô hình mô phỏng được chạy, và **các cột dưới đây không được trộn giữa hai
+mô hình** — mỗi hàng là một mô hình, đọc trọn vẹn.
 
-Giả thuyết thứ ba là giả thuyết duy nhất nằm gần con số đo được.
+*Mô hình 1 — gán mã tất định (mọi entity thuộc loại có mã đều có mã):*
+
+| giả thuyết | P(cand rỗng) | P(assert rỗng) | tỷ lệ |
+|---|---|---|---|
+| gold mã DX+THUỐC | 0,276 | 0,357 | **0,774** |
+| **+ TRIỆU_CHỨNG** | 0,137 | 0,357 | **0,385** |
+
+*Mô hình 2 — gán mã theo tỷ lệ quan sát trên gold tổng hợp (DX 0,95 · THUỐC 0,94
+· TRIỆU_CHỨNG 1,0), và thử thêm cách đọc scope hẹp:*
+
+| giả thuyết | J_cand | J_assert | tỷ lệ |
+|---|---|---|---|
+| gold mã DX+THUỐC · scope mọi khái niệm | 28,50 | 35,69 | **0,799** |
+| gold mã DX+THUỐC · scope chỉ loại có mã | 2,16 | 35,69 | **0,061** |
+| **+ TRIỆU_CHỨNG · scope mọi khái niệm** | 14,52 | 35,69 | **0,407** |
+
+Kết luận không phụ thuộc chọn mô hình nào: **cả hai** đều cho giả thuyết
+DX+THUỐC ra tỷ lệ ~0,77–0,80 (cao hơn 0,356 hơn hai lần) và giả thuyết có
+TRIỆU_CHỨNG ra ~0,39–0,41 (lệch 1,1×). Cách đọc scope hẹp sai 5,8 lần theo chiều
+ngược lại. Giả thuyết có TRIỆU_CHỨNG là giả thuyết duy nhất nằm gần con số đo
+được, dưới mọi cách mô phỏng đã thử.
 
 ## Hai lời giải thích thay thế, đều đã loại
 

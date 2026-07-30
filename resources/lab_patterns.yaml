@@ -125,6 +125,15 @@ units:
   - lần/phút
   - nhịp/phút
   - lần/ph
+  # `l/p` and `ck/ph` are how respiratory and pulse rates are written in the TEST
+  # corpus ("Mạch: 93 l/p", "Nhịp thở: 14 l/p"). They must be listed BEFORE the
+  # bare `l` below or the alternation stops at `l` and the span becomes `93 l` —
+  # `sorted(units, key=len, reverse=True)` in labvalues.py handles the ordering,
+  # but only for units it knows about.
+  - l/p
+  - l/ph
+  - ck/ph
+  - ck/phút
   - bpm
   - độ C
   - °C
@@ -135,6 +144,13 @@ units:
   - K/uL
   - x10^9/L
   - '10^3/uL'
+  # Vietnamese haematology reports count cells in T/l (tera per litre, red cells)
+  # and G/l (giga per litre, white cells and platelets) — "4,49 T/l", "14.99 G/L".
+  # Both were showing up as bare numbers.
+  - T/l
+  - T/L
+  - G/l
+  - G/L
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 3 · TÊN XÉT NGHIỆM

@@ -100,14 +100,38 @@ def _min_similarity() -> float:
     return float(require(load_pipeline(), "linking.icd_retrieval.min_similarity"))
 
 
+def _symptom_bonus() -> float:
+    return float(
+        require(load_pipeline(), "linking.icd_retrieval.symptom_chapter_bonus")
+    )
+
+
 def retrieve(
-    surface: str, *, index: IcdIndex | None = None, min_similarity: float | None = None
+    surface: str,
+    *,
+    index: IcdIndex | None = None,
+    min_similarity: float | None = None,
+    prefer_symptom_chapter: bool = False,
 ) -> tuple[str, ...]:
     """Best ICD code set for `surface`, or `()` below the similarity floor.
 
     Cosine over IDF-weighted token sets. Ties break on (−score, first code, index)
     so two builds of one commit cannot disagree — an unstable tie-break here would
     silently break the byte-identical archive guarantee (ADR 0005).
+
+    `prefer_symptom_chapter` multiplies R00–R99 candidates by
+    `linking.icd_retrieval.symptom_chapter_bonus`. Cosine alone systematically
+    picks the wrong code for a bare symptom word, because a rare disease name
+    containing that word carries far more IDF than the plain symptom entry:
+
+        "sốt"  → A68   (relapsing fever)          instead of R50  (fever)
+        "nôn"  → Y53.7 (poisoning by emetics)     instead of R11  (nausea/vomiting)
+        "mụn"  → B07   (viral warts)              instead of a skin-finding code
+
+    Chapter XVIII (R00–R99) is literally titled "Symptoms, signs and abnormal
+    clinical findings", so for a TRIỆU_CHỨNG span it is the chapter the code
+    should come from. This is a preference, not a filter: a symptom whose best
+    match is a real disease code still gets it when the margin is large enough.
     """
     idx = index if index is not None else load_icd_index()
     floor = _min_similarity() if min_similarity is None else min_similarity
@@ -126,9 +150,15 @@ def retrieve(
     if not acc:
         return ()
 
+    bonus = _symptom_bonus() if prefer_symptom_chapter else 1.0
     qnorm = math.sqrt(sum(idx.idf.get(w, 0.0) ** 2 for w in query)) or 1.0
-    best = min(
-        acc, key=lambda i: (-acc[i] / (idx.norms[i] * qnorm), idx.codes[i][0], i)
-    )
+
+    def ranked(i: int) -> float:
+        base = acc[i] / (idx.norms[i] * qnorm)
+        return base * bonus if idx.codes[i][0].startswith("R") else base
+
+    best = min(acc, key=lambda i: (-ranked(i), idx.codes[i][0], i))
+    # The floor is applied to the UNBOOSTED similarity: the bonus decides which
+    # candidate wins, never whether a weak match is good enough to emit.
     score = acc[best] / (idx.norms[best] * qnorm)
     return idx.codes[best] if score >= floor else ()

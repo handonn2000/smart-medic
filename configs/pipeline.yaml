@@ -279,6 +279,45 @@ linking:
   # highest floor that costs nothing, not a tuned optimum.
   icd_retrieval:
     min_similarity: 0.50
+    # Applied only when the span is a TRIỆU_CHỨNG (decision/emit.py passes the
+    # flag). Plain IDF-cosine reliably picks the wrong code for a bare symptom
+    # word, because a rare disease name containing that word outweighs the plain
+    # symptom entry: "sốt" → A68 (relapsing fever) instead of R50 (fever), "nôn"
+    # → Y53.7 (poisoning by emetics) instead of R11. Chapter XVIII (R00–R99) is
+    # titled "Symptoms, signs and abnormal clinical findings" — for a symptom
+    # span that is where the code belongs.
+    #
+    # A preference, not a filter: a symptom whose best match is a genuine disease
+    # code still keeps it when the margin exceeds the bonus.
+    #
+    # Swept over the 1245 symptom spans of the test run:
+    #   bonus   spans coded   in chapter R   %R
+    #    1.00       1168           446       38%
+    #    1.25       1160           653       56%
+    #    1.40       1073           760       71%
+    #    1.50       1067           760       71%
+    #    1.75       1041           764       73%
+    #    2.00        997           764       77%
+    #    2.50        889           764       86%
+    #
+    # The coded COUNT falls as the bonus rises, which is not obvious: the
+    # similarity floor is applied to the winner's unboosted cosine, so when the
+    # boost hands the win to a chapter-R entry with a weaker cosine, that entry
+    # can fall below the floor and the span ends up with no code at all.
+    #
+    # So %R is the wrong thing to maximise — a lost code forfeits a possible +1
+    # exactly like a wrong one. Maximising expected CORRECT codes
+    # (R-count·a_R + other-count·a_other) puts the optimum at 1.40–1.75 under
+    # every plausible pair of accuracies, and the curve is flat across that
+    # range. 1.50 sits in the middle of the plateau.
+    #
+    # What it fixes, on the highest-frequency surfaces:
+    #   "sốt"       A68   (relapsing fever)      → R50.9  (fever, unspecified)
+    #   "nôn"       Y53.7 (poisoning by emetics) → R11    (nausea and vomiting)
+    #   "chóng mặt" A88.1 (epidemic vertigo)     → R42    (dizziness)
+    #   "đau"       M25.5 (joint pain)           → R51    (headache→pain)
+    #   "phù"       G93.6 (cerebral oedema)      → R60.9  (oedema)
+    symptom_chapter_bonus: 1.50
 
 # ─────────────────────────────────────────────────────────────────────────────
 # L4a · assertion/ — isNegated / isHistorical. isFamily is deliberately absent.

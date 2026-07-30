@@ -116,7 +116,9 @@ def _pick_codes(
         # the reason to ask it is that the leaderboard ratio bounds the share of
         # uncoded gold entities at 0.356 and diagnosis+drug alone cannot fit
         # under that (see io/labels.CODEABLE_TYPES).
-        codes = icd.retrieve(surface)
+        codes = icd.retrieve(
+            surface, prefer_symptom_chapter=(etype == "TRIỆU_CHỨNG")
+        )
     if not codes:
         return ()
     if etype == "THUỐC":

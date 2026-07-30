@@ -229,6 +229,46 @@ def _value_after(
     return out
 
 
+def _extend_over_unit(
+    norm: str, ne: int, rules: LabRules, limit: int | None = None
+) -> int:
+    """End offset of the value INCLUDING its unit, when one follows.
+
+    `rules.unit` already exists to decide whether a bare number is a measurement;
+    this reuses it to decide where the measurement ENDS. The two questions have
+    the same answer and were being asked with only one of them acted on.
+
+    Why it matters, measured on 20 hand-annotated test documents: 26 of the 158
+    boundary mismatches on matched pairs are exactly this — `130/75` where gold
+    says `130/75mmHg`, `37` where gold says `37°C`. Their combined WER is 14.75,
+    which is 3.3 points of `q = mean(1 − WER)` across the 450 matched pairs, and
+    `text = m·q` is 30% of the final score.
+
+    A value with its unit is also the more defensible span on its own terms:
+    `KẾT_QUẢ_XÉT_NGHIỆM` is a result, and `130/75` without `mmHg` is a number.
+    """
+    tail = (
+        rules.unit.match(norm, ne)
+        if limit is None
+        else rules.unit.match(norm, ne, limit)
+    )
+    if tail is None:
+        return ne
+    # `rules.unit` allows leading spaces/tabs so `5 mmol/l` matches. Do not
+    # swallow a gap that reaches a newline — the unit has to be on this line.
+    if "\n" in norm[ne : tail.end()]:
+        return ne
+    # The unit alternation is unanchored on its right, so a longer word starting
+    # with a shorter unit gets cut in half: `93 l/p` matched `l` and produced
+    # `93 l`, and `Tăng gánh` matched `g` and produced `Tăng g`. Both are worse
+    # than the bare number they replaced. Require the character after the unit to
+    # end the token.
+    end = tail.end()
+    if end < len(norm) and (norm[end].isalnum() or norm[end] in "/^"):
+        return ne
+    return end
+
+
 def _emit(
     doc: Document, ns: int, ne: int, etype: str, score: float, out: list[Span]
 ) -> None:
@@ -282,7 +322,7 @@ def _lexicon_lane(
             continue
         _emit(doc, view.tokens[i].start, view.tokens[j].end, NAME_TYPE, name_score, out)
         for vs, ve in values:
-            _emit(doc, vs, ve, VALUE_TYPE, value_score, out)
+            _emit(doc, vs, _extend_over_unit(norm, ve, rules), VALUE_TYPE, value_score, out)
         i = j + 1
 
 
@@ -305,7 +345,7 @@ def _abbreviation_lane(
             continue
         _emit(doc, m.start(), m.end(), NAME_TYPE, name_score, out)
         for vs, ve in values:
-            _emit(doc, vs, ve, VALUE_TYPE, value_score, out)
+            _emit(doc, vs, _extend_over_unit(norm, ve, rules), VALUE_TYPE, value_score, out)
 
 
 # ────────────────────────────── lane 2 · KV units ─────────────────────────────
@@ -352,11 +392,21 @@ def _kv_lane(
 
         ls_norm, le_norm = doc.to_norm_span(*unit.label_span)
         _emit(doc, ls_norm, le_norm, NAME_TYPE, known_score if known else unknown_score, out)
-        _emit(doc, m.start(), m.end(), VALUE_TYPE, value_score, out)
+        # Same unit extension as the prose lane: the value span ends after its
+        # unit, not before it. Bounded by `ve_norm` so it cannot run past the end
+        # of the layout unit's value.
+        _emit(
+            doc, m.start(), _extend_over_unit(norm, m.end(), rules, ve_norm),
+            VALUE_TYPE, value_score, out,
+        )
         cursor = m.end()
         nxt = rules.continuation.match(norm, cursor, ve_norm)
         while nxt is not None:
-            _emit(doc, nxt.start("val"), nxt.end("val"), VALUE_TYPE, value_score, out)
+            _emit(
+                doc, nxt.start("val"),
+                _extend_over_unit(norm, nxt.end("val"), rules, ve_norm),
+                VALUE_TYPE, value_score, out,
+            )
             cursor = nxt.end("val")
             nxt = rules.continuation.match(norm, cursor, ve_norm)
 

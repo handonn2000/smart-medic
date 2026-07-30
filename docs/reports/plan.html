@@ -248,6 +248,36 @@ footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:12.5px;col
     </div>
   </div>
 
+  <div class="note warn">
+    <span class="lab">Đính chính 29/07 — gold set 162 file đã có, và nó lật ngược mấy con số</span>
+    Mọi tham số của lớp quyết định trước đây ước lượng từ <b>silver</b>, và silver
+    <b>chú thích thiếu nghiêm trọng</b>. Đo lại trên
+    <code>restyled/annotations_gold</code> (162 file, 7.435 entity, 0 vi phạm schema):
+    <div class="tscroll">
+    <table style="margin-top:10px">
+      <thead><tr><th>Đại lượng</th><th class="num">Ước lượng từ SILVER</th><th class="num">SỰ THẬT từ GOLD</th><th>Hệ quả</th></tr></thead>
+      <tbody>
+        <tr style="background:var(--warn-tint)"><td>Baseline “luôn trả assertions rỗng”</td>
+          <td class="num">0,777</td><td class="num"><b>0,507</b></td>
+          <td><b>Mặc định rỗng KHÔNG còn an toàn</b> — nó bỏ lại 13,3 điểm</td></tr>
+        <tr style="background:var(--warn-tint)"><td>Khoảng trống assertions</td>
+          <td class="num">~5 điểm</td><td class="num"><b>13,3 điểm</b></td>
+          <td><b>Assertions là cơ hội lớn nhất dự án</b>, không phải text</td></tr>
+        <tr style="background:var(--warn-tint)"><td><code>P(gold rỗng)</code> ở candidates</td>
+          <td class="num">0,209</td><td class="num"><b>0,055</b></td>
+          <td>Ngưỡng bỏ trống tụt mạnh ⇒ <b>gần như không bao giờ bỏ trống</b></td></tr>
+        <tr><td>Ngưỡng gap cho mã thứ 2</td><td class="num">0,018</td><td class="num">0,035</td>
+          <td>Vẫn nhỏ; chính sách “1 mã hoặc 0” giữ nguyên</td></tr>
+        <tr><td>Tỷ lệ <code>isHistorical</code></td><td class="num">9,4%</td><td class="num"><b>23,7%</b></td>
+          <td>Lan truyền theo mục quan trọng hơn hẳn dự tính</td></tr>
+        <tr><td>Trần điểm</td><td class="num">69,16</td><td class="num">70,00</td><td>khớp — cách đọc metric đúng</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <b>Quy tắc từ nay:</b> mọi tham số lớp quyết định lấy từ <code>gold_stats()</code> trong
+    <code>measure_data.py</code>, <b>không bao giờ từ silver</b>.
+  </div>
+
   <div class="shead"><span class="num">B</span><h2>Ba câu hỏi chặn đường — <span style="color:var(--good)">đã trả lời</span></h2>
     <span class="sub">chốt 29/07/2026 · ADR trong docs/decisions/</span></div>
   <div class="card">
@@ -891,9 +921,16 @@ decision.finalize(spans, dist8, cands)-&gt; list[Concept]     <span class="c"># 
   </div>
 
   <!-- PHASE 3 -->
-  <div class="shead"><span class="num">P3</span><h2>Assertions — 30 điểm · precision-first</h2>
+  <div class="shead"><span class="num">P3</span><h2>Assertions — 30 điểm · <span style="color:var(--warn)">cơ hội lớn nhất dự án</span></h2>
     <span class="sub cnt"></span></div>
   <div class="card">
+    <div class="note warn" style="margin-top:0">
+      <span class="lab">Đo trên gold, không phải silver</span>
+      Baseline “luôn trả rỗng” chỉ đạt <b>0,507</b> trên gold (không phải 0,777 như silver gợi ý).
+      Khoảng trống tới một mô hình P=0,95/R=0,90 là <b>13,3 điểm/100</b> — lớn hơn mọi phase khác.
+      Và <code>isHistorical</code> chiếm <b>23,7%</b> entity mang assertion (silver chỉ 9,4%),
+      nên <b>lan truyền phạm vi theo mục (P3.5) quan trọng hơn hẳn dự tính ban đầu</b>.
+    </div>
     <ul class="ck">
       <li><input type="checkbox" data-k="p3.1"><span class="id">3.1</span><label>
         <b>Ràng buộc lược đồ (Nhóm 0).</b> Ép <code>assertions=[]</code> cho hai loại xét nghiệm và

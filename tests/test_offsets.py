@@ -224,6 +224,41 @@ def _silver_pairs():
                 yield kind, ann, txt
 
 
+GOLD_DIR = SILVER_ROOT / "restyled" / "annotations_gold"
+
+
+def test_gold_offsets_and_schema():
+    """The hand-adjudicated gold set must be spotless — it is the measuring stick.
+
+    Any violation here is worse than a violation in silver: every score, every
+    threshold and every ablation is measured against these files.
+    """
+    if not GOLD_DIR.is_dir():
+        pytest.skip("no gold corpus present")
+
+    txt_dir = SILVER_ROOT / "restyled" / "text"
+    all_errs: list[str] = []
+    n = 0
+    for ann in sorted(GOLD_DIR.glob("*.json")):
+        txt = txt_dir / f"{ann.stem}.txt"
+        if not txt.exists():
+            all_errs.append(f"gold/{ann.name}: no matching text file")
+            continue
+        try:
+            entities = json.loads(ann.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            all_errs.append(f"gold/{ann.name}: invalid JSON — {exc}")
+            continue
+        n += 1
+        all_errs += check_entities(entities, read_raw(txt), f"gold/{ann.name}")
+
+    assert not all_errs, (
+        f"{len(all_errs)} violation(s) in the GOLD set ({n} files checked). "
+        f"Gold must be clean — fix before measuring anything:\n\n"
+        + "\n".join(all_errs[:30])
+    )
+
+
 def test_silver_offsets():
     """Generated training data must satisfy the same offset invariant."""
     pairs = list(_silver_pairs())

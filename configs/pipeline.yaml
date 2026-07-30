@@ -269,6 +269,16 @@ linking:
   exclude_rel: ['inactive_ingredient_of']
   exclude_sty: ['T200']             # DROP by T200; do NOT whitelist T109/T121
 
+  # Precomputed by `python3 scripts/build_edge_index.py` and COMMITTED. It
+  # replaces the raw RXNCUI.RRF (1.7 MB) + RXNSTY.RRF (20 MB) that edge_verify.py
+  # used to read at inference time: both are licence-gated UMLS drops that
+  # .gitignore excludes, so a clean checkout raised ConfigError on the first drug
+  # span, and PRD §5 disqualifies a submission the organisers cannot re-run. Only
+  # two columns of those 22 MB are used — 2.7 MB of JSON.
+  # Rebuild and re-commit after refreshing RxNorm or changing exclude_sty above;
+  # the loader refuses an index built for a different exclude_sty.
+  edge_index: 'data/artifacts/edge_index.json'
+
   # linking/icd.py — a code for a diagnosis the gazetteer missed exactly.
   # On a span we were leaving EMPTY, a wrong code scores the same 0 as no code, so
   # retrieval is a free bet; the only loss is on spans whose gold is empty.

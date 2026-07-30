@@ -45,11 +45,12 @@ through here would be judged against a vocabulary it does not belong to.
 """
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 
-from ..io.config import ConfigError, kb_paths, load_pipeline, require
+from ..io.config import ConfigError, load_pipeline, repo_root, require
 
 __all__ = ["Verdict", "verify", "apply_verdicts", "RULES", "BIT_RETIRED", "BIT_T200"]
 
@@ -83,40 +84,60 @@ class Verdict:
 
 
 @lru_cache(maxsize=1)
-def _retired() -> dict[str, str]:
-    """RxCUI → its successor, from `RXNCUI.RRF` (21.524 retired codes)."""
-    p = Path(kb_paths()["root"]) / "RXNCUI.RRF"
+def _edge_index() -> dict:
+    """The two RxCUI facts this module needs, precomputed and committed.
+
+    These used to be read straight from `RXNCUI.RRF` (1.7 MB) and `RXNSTY.RRF`
+    (20 MB) at inference time. Both are licence-gated UMLS drops that
+    `.gitignore` excludes, so a clean checkout raised `ConfigError` on the first
+    drug span — and PRD §5 disqualifies a submission the organisers cannot
+    re-run. Only two columns of those 22 MB are ever used: 21.524 retirement
+    pairs and 249.563 excluded-STY RxCUIs, which is 2.7 MB of JSON, small enough
+    to track in git.
+
+    Rebuild with `python3 scripts/build_edge_index.py` after refreshing RxNorm,
+    and commit the result. `src/` never imports `scripts/`.
+    """
+    p = repo_root() / require(load_pipeline(), "linking.edge_index")
     if not p.exists():
         raise ConfigError(
-            f"{p} not found — the retired-code check cannot run. A retired RxCUI "
-            f"scores 0 and looks identical to a correct one in the output."
+            f"missing {p} — the retired-code and semantic-type checks cannot run. "
+            f"A retired RxCUI scores 0 and looks identical to a correct one in "
+            f"the output.\n"
+            f"  rebuild it with:  python3 scripts/build_edge_index.py\n"
+            f"  (needs the raw RxNorm drops; the built index is committed so a "
+            f"fresh clone does not)"
         )
-    out: dict[str, str] = {}
-    with p.open(encoding="utf-8") as fh:
-        for line in fh:
-            f = line.rstrip("\n").split("|")
-            if len(f) > 4 and f[0] and f[4] and f[0] != f[4]:
-                out[f[0]] = f[4]
-    return out
+    blob = json.loads(p.read_text(encoding="utf-8"))
+
+    # The index bakes in which semantic types were excluded when it was built.
+    # If the config has moved since, the file on disk answers a question nobody
+    # is asking any more — louder than silently filtering by the wrong set.
+    built_for = [str(s) for s in blob.get("exclude_sty", ())]
+    configured = sorted(str(s) for s in require(load_pipeline(), "linking.exclude_sty"))
+    if built_for != configured:
+        raise ConfigError(
+            f"{p} was built for linking.exclude_sty={built_for}, but the config "
+            f"now says {configured}. Re-run scripts/build_edge_index.py and "
+            f"commit the result."
+        )
+    return blob
 
 
-@lru_cache(maxsize=1)
+def _retired() -> dict[str, str]:
+    """RxCUI → its successor (21.524 retired codes)."""
+    return _edge_index()["retired"]
+
+
 def _t200() -> frozenset[str]:
-    """Every RxCUI carrying T200. DROP by this; do NOT whitelist T109/T121 —
-    measured, 220/220 gold RxCUIs are ingredient level but two of them
-    (9863 sodium chloride T197, 11124 vancomycin T116/T195) fall outside that
-    whitelist, so whitelisting loses real codes."""
-    p = Path(kb_paths()["root"]) / "RXNSTY.RRF"
-    if not p.exists():
-        raise ConfigError(f"{p} not found — the T200 check cannot run.")
-    drop = set(require(load_pipeline(), "linking.exclude_sty"))
-    out = set()
-    with p.open(encoding="utf-8") as fh:
-        for line in fh:
-            f = line.split("|", 2)
-            if len(f) > 1 and f[1] in drop:
-                out.add(f[0])
-    return frozenset(out)
+    """Every RxCUI carrying an excluded semantic type.
+
+    DROP by T200; do NOT whitelist T109/T121 — measured, 220/220 gold RxCUIs are
+    ingredient level but two of them (9863 sodium chloride T197, 11124
+    vancomycin T116/T195) fall outside that whitelist, so whitelisting loses
+    real codes.
+    """
+    return frozenset(_edge_index()["excluded_sty_rxcui"])
 
 
 def verify(codes: tuple[str, ...] | list[str], etype: str) -> tuple[Verdict, ...]:

@@ -150,20 +150,50 @@ def test_every_runtime_data_file_is_tracked_by_git():
 
     Under PRD §5 that is a disqualification, so this is checked mechanically
     rather than left to whoever remembers to rehearse.
+
+    A static scan of the source is NOT enough, and the first version of this test
+    proved it: `edge_verify.py` builds its path as `Path(kb_paths()["root"]) /
+    "RXNCUI.RRF"`, so no regex over the source sees `data/knowledge_base/...`,
+    and the second rehearsal died on exactly that file. This runs the real
+    pipeline over the real test set with `open` and `Path.read_text`
+    instrumented, so what it checks is what the process opened.
     """
+    import builtins
     import subprocess
 
-    referenced: set[str] = set()
-    pattern = re.compile(r"data/(?:knowledge_base|artifacts)/[A-Za-z0-9_.-]+")
-    for path in list(_python_files()) + [
-        p for p in (ROOT / "resources").glob("*.yaml")
-    ] + [p for p in (ROOT / "configs").glob("*.yaml")]:
-        referenced |= set(pattern.findall(path.read_text(encoding="utf-8")))
+    opened: set[str] = set()
 
-    # Only what the inference path opens. The .RRF drops are read by scripts/
-    # at build time, which is a different (and licence-gated) situation.
-    build_time = {"RXNCONSO.RRF", "RXNREL.RRF", "RXNSTY.RRF", "RXNATOMARCHIVE.RRF"}
-    runtime = {r for r in referenced if Path(r).name not in build_time}
+    def note(target) -> None:
+        try:
+            resolved = Path(target).resolve()
+            rel = resolved.relative_to(ROOT)
+        except (ValueError, OSError, TypeError):
+            return
+        if rel.parts and rel.parts[0] == "data" and rel.parts[1] != "test":
+            opened.add(rel.as_posix())
+
+    real_open, real_read_text = builtins.open, Path.read_text
+
+    def spy_open(file, *a, **k):
+        note(file)
+        return real_open(file, *a, **k)
+
+    def spy_read_text(self, *a, **k):
+        note(self)
+        return real_read_text(self, *a, **k)
+
+    import tempfile
+
+    from smart_medic import cli
+
+    builtins.open, Path.read_text = spy_open, spy_read_text
+    try:
+        with tempfile.TemporaryDirectory() as out:
+            cli.run(ROOT / "data" / "test", out, quiet=True)
+    finally:
+        builtins.open, Path.read_text = real_open, real_read_text
+
+    assert opened, "instrumentation caught nothing — the spy is broken, not the repo"
 
     tracked = set(
         subprocess.run(
@@ -174,7 +204,7 @@ def test_every_runtime_data_file_is_tracked_by_git():
     if not tracked:  # not a git checkout (e.g. unpacked tarball) — nothing to assert
         return
 
-    missing = sorted(r for r in runtime if r not in tracked)
+    missing = sorted(r for r in opened if r not in tracked and not r.startswith("data/output"))
     assert not missing, (
         "the inference path reads data files that git does not track, so a fresh "
         "clone cannot run:\n"

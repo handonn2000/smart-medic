@@ -51,6 +51,9 @@ data/output/*.json
 /data/knowledge_base
 !/data/knowledge_base/ICD10.csv
 !/data/knowledge_base/brand_to_ingredient.json
+# 1.7 MB, and it is a correctness check, not a nicety: a retired RxCUI scores 0
+# and is indistinguishable from a correct one in the output.
+!/data/knowledge_base/RXNCUI.RRF
 
 # Immutable run records — regenerable from pinned code + config
 runs/*

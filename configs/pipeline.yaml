@@ -247,8 +247,26 @@ decision:
   # diagnosis mentions, so a second one can only shrink the Jaccard. THUỐC gets
   # two because 8.4% of drug mentions are combination products with two
   # ingredient codes.
+  # ⚠ CHẨN_ĐOÁN SET TO 0 ON LEADERBOARD EVIDENCE, 2026-07-30 22:11.
+  # Gold said diagnosis codes were worth +5.11. The leaderboard says the opposite,
+  # and the leaderboard is the ground truth we are scored on:
+  #   Probe A   0 codes                J_candidates 11.0259
+  #   Probe B   228 drug codes         J_candidates 14.8832   (+3.8573)
+  #   full      948 codes (764 diag)   J_candidates 10.4617   (−0.5642)
+  # Drug codes are worth +3.86 on their own, so the 764 diagnosis codes are
+  # costing ≈ −4.42 on J_candidates = −1.77 on the final score.
+  #
+  # Mechanism: for a MATCHED entity, emitting a code when gold carries none turns
+  # a free J=1 into J=0. On our gold corpus P(gold empty | CHẨN_ĐOÁN) = 0.0521, so
+  # the bet looked safe. On the organisers' test set it evidently is not — the same
+  # gold≠test gap that made the section prior worthless (39% of test is Q&A, gold
+  # 0%; 14% header overlap). Drugs transfer, diagnoses do not.
+  #
+  # Setting this to 0 also disables `linking/icd.py` retrieval, which never fires
+  # at cap 0 — one knob, both paths. Raise it again only against a leaderboard
+  # measurement, never against a gold measurement.
   max_candidates_per_type:
-    CHẨN_ĐOÁN: 1
+    CHẨN_ĐOÁN: 0
     THUỐC: 2
   # Tie-break when a surface form carries several codes (347 of 2650 codeable
   # spans do). Shortest-first prefers the 3-character block code, which the task

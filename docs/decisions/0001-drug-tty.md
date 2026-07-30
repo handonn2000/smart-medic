@@ -84,3 +84,59 @@ Nếu Probe B chọn tầng sản phẩm, thứ tự bắt buộc là:
   mọi fallback gần nhất phải được reviewer duyệt.
 - Khi dùng `IN`, tra cứu biệt dược phải đi qua quan hệ brand-to-ingredient và giữ đủ hoạt
   chất của thuốc phối hợp.
+
+---
+
+## Cập nhật 30/07/2026 — phase P2: Probe B đã dựng, ADR **GIỮ TREO**
+
+Phần thân giữ nguyên. Mục này ghi trạng thái Probe B và **quy tắc chốt**, để lần chốt sau
+không phải suy diễn lại.
+
+### Trạng thái
+
+**GIỮ TREO ở `IN`.** Chưa nộp, nên chưa có ΔB thật. Zip đã sẵn sàng:
+`runs/p2/output_probe_B.zip`, 7/7 kiểm tra đóng gói, `--probe B`.
+
+Chủ dự án quyết định 30/07 **hoãn mọi lần nộp tới sau P3 · P4 · P5**. Với riêng ADR này thì
+hoãn gần như không tốn gì — `target_tty` đã tham số hoá, trần ảnh hưởng ~1,1 điểm — nên treo
+tiếp là hợp lý. Nhưng zip nói trên dựng từ đầu ra làn R (P1) và sẽ **hết hạn** khi P3/P4/P5
+ghi đè `data/output/`: dựng lại trước khi nộp, đừng nộp file cũ.
+
+### Probe B đã dựng thế nào
+
+`eval/probe.py --variant B`: Probe A cộng RxCUI mức `IN`/`PIN`/`MIN` cho THUỐC, **khớp chuỗi
+chính xác** với `data/artifacts/gazetteer.json` (bộ lọc `tty ∈ {IN,PIN,MIN}` của
+`scripts/build_gazetteer.py` *chính là* "mức IN" của ADR này). Tối đa 2 mã/span, theo
+`configs/pipeline.yaml: max_candidates`.
+
+Khớp chính xác là có chủ đích: câu hỏi là **tầng mã**, không phải **recall của linker**.
+Khớp mờ sẽ nhét recall của linker vào một delta đáng lẽ chỉ mang một biến.
+
+- Trên `data/output` (bài nộp): **196/199** span THUỐC được mã hoá — 98,5%, 228 mã.
+- Trên corpus gold (162 file): 979/1109 — 88,3%.
+
+### ΔB nội bộ — cái mà lần nộp phải vượt qua
+
+Đo trên gold, paired bootstrap B=10.000, `penalised/greedy_iou`:
+
+    ΔB = +2,796   SE 0,201   CI95 [+2,413; +3,201]   MDE 0,394
+
+Dưới `overlap_type`: +2,70. Cả hai cột cùng tăng ⇒ không vi phạm cột chặn.
+
+### Quy tắc chốt — quyết định trước, đọc sau
+
+| ΔB thật | Kết luận | Hành động |
+|---|---|---|
+| > +0,3 (kỳ vọng ≈ +3,9) | gold BTC ở tầng `IN` | **CHỐT** ADR này, `target_tty=IN` |
+| ≈ 0 hoặc âm | gold BTC ở tầng sản phẩm | bật `target_tty=SCD`, chạy trình tự 4 bước ở "Quyết định vận hành" |
+| \|ΔB\| < 0,3 | không phân giải được | **GIỮ `IN` VÀ ĐI TIẾP** |
+
+Hàng cuối là hàng quan trọng: trần ảnh hưởng của tranh chấp này chỉ **~1,1 điểm** (18,6% span
+thuốc có hàm lượng). **Không nộp probe thứ hai cho câu hỏi này** — một lần nộp đáng giá hơn
+khi dùng cho thứ chưa biết đáp án.
+
+### Ràng buộc kỹ thuật đã thoả
+
+Điểm 3 của "Quyết định vận hành" — *pipeline candidates phải tham số hoá `target_tty`, không
+hard-code* — đã có mặt: `configs/pipeline.yaml` mang `target_tty: 'IN'` kèm chú thích trỏ về
+ADR này. Chuyển tầng là đổi một dòng YAML, không phải sửa code.

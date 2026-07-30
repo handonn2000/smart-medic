@@ -1,4 +1,24 @@
-# Add project dependencies here, e.g.:
-# torch
-# transformers
-# pandas
+# Runtime dependencies of the INFERENCE pipeline. Exhaustive.
+#
+#     python -m venv .venv && . .venv/bin/activate
+#     pip install -r requirements.txt
+#     python -m smart_medic.cli run --input data/test --output data/output
+#
+# Python >= 3.11 (declared in pyproject.toml). Verified on 3.11 and 3.14; both
+# produce a byte-identical output.zip — see tests/test_reproducibility.py.
+#
+# The pipeline under src/smart_medic/ imports exactly ONE package that is not in
+# the standard library, and it is listed below. There is no HTTP client, no LLM
+# vendor SDK, and no torch on the inference path: ADR 0003 forbids it and
+# tests/test_no_api_in_runtime.py enforces it structurally, so this file staying
+# one line long is a property worth preserving rather than an oversight.
+#
+# Versions are pinned with a floor plus a major-version ceiling rather than ==:
+# an exact pin that predates the grader's platform forces a source build of a
+# wheel that may not exist for their interpreter, which is the same
+# "cannot install" failure the pin was meant to avoid.
+
+PyYAML>=6.0,<7
+
+# Development only — NOT needed to reproduce a submission.
+#     pip install -r requirements-dev.txt

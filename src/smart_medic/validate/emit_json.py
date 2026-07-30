@@ -110,7 +110,12 @@ def emit_document(
 
     out = Path(path)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(dumps(clean), encoding="utf-8", newline="\n")
+    # `Path.open`, not `write_text(newline=...)`: that keyword is 3.13+, and this
+    # module has to run on the 3.11 the project promises. Pinning newline="\n"
+    # still matters — the default would emit CRLF on Windows and change the byte
+    # content of an archive ADR 0005 requires to be reproducible.
+    with out.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(dumps(clean))
 
     rep.files_written += 1
     for e in clean:

@@ -61,7 +61,8 @@ def read_raw(path: Path) -> str:
     No normalisation, no newline translation. `newline=""` stops Python from
     rewriting CRLF, which would shift offsets on any file that uses it.
     """
-    return path.read_text(encoding="utf-8", newline="")
+    with path.open(encoding="utf-8", newline="") as handle:
+        return handle.read()
 
 
 def check_entities(entities, raw: str, label: str) -> list[str]:
@@ -266,6 +267,7 @@ def test_silver_offsets():
         pytest.skip("no silver corpus present")
 
     all_errs: list[str] = []
+    lab_flag_errs: list[str] = []
     bad_files = 0
     for kind, ann, txt in pairs:
         try:
@@ -275,13 +277,58 @@ def test_silver_offsets():
             bad_files += 1
             continue
         errs = check_entities(entities, read_raw(txt), f"{kind}/{ann.name}")
+        # ADR 0004: the 165 lab-type `assertions` in the silver corpus are a
+        # KNOWN data defect, and the accepted remedy is `io.corpus.load_silver()`
+        # clearing the flag at load rather than regenerating the corpus (which
+        # would invalidate every measured number in configs/ and docs/reports/).
+        # Asserting on the raw files therefore tests a layer the decision says is
+        # not the enforcement point. Those violations are split out here and
+        # checked where they are actually fixed, in
+        # test_loader_clears_illegal_lab_assertions below; everything else — and
+        # above all an offset mismatch — still has to be zero.
+        for e in errs:
+            (lab_flag_errs if "must have empty assertions" in e else all_errs).append(e)
         if errs:
             bad_files += 1
-            all_errs += errs
 
     assert not all_errs, (
         f"{len(all_errs)} violation(s) across {bad_files}/{len(pairs)} silver "
         f"files — the generator is producing drifted offsets:\n\n"
         + "\n".join(all_errs[:30])
         + ("\n... (truncated)" if len(all_errs) > 30 else "")
+    )
+
+
+def test_loader_clears_illegal_lab_assertions():
+    """ADR 0004's remedy, tested where it actually runs: at load.
+
+    The silver corpus on disk carries `assertions` on lab-type entities, which the
+    task forbids. `load_silver()` strips them. This asserts the contract end to
+    end — nothing reaches a training loop still carrying an illegal flag — and
+    that the loader reports how many it cleared, so a regenerated corpus that
+    fixes the defect shows up as the count falling to 0 rather than silently.
+    """
+    pytest.importorskip("yaml")
+    from smart_medic.io.corpus import LoadReport, load_silver
+    from smart_medic.io.labels import LAB_TYPES
+
+    report = LoadReport()
+    docs = load_silver(report)
+    if not docs:
+        pytest.skip("no silver corpus present")
+
+    leaked = [
+        f"{d.doc_id}[{i}]: {e['type']} kept assertions {e['assertions']}"
+        for d in docs
+        for i, e in enumerate(d.entities)
+        if e.get("type") in LAB_TYPES and e.get("assertions")
+    ]
+    assert not leaked, (
+        f"{len(leaked)} lab-type entities survived load_silver() with an illegal "
+        f"assertion — ADR 0004's guarantee is broken:\n" + "\n".join(leaked[:20])
+    )
+    assert report.assertions_cleared > 0, (
+        "load_silver() cleared 0 assertions. Either the corpus was regenerated "
+        "clean (good — update ADR 0004 and delete this assertion) or the clearing "
+        "step stopped running (bad)."
     )

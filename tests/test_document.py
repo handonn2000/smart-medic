@@ -227,4 +227,5 @@ def test_gold_dir_matches_the_documented_path():
 def test_read_raw_matches_the_reference_reader():
     """`io.read_raw` and the reader inside tests/test_offsets.py must agree."""
     for path in sorted(corpus_test_dir().glob("*.txt"))[:20]:
-        assert read_raw(path) == path.read_text(encoding="utf-8", newline="")
+        with path.open(encoding="utf-8", newline="") as handle:
+            assert read_raw(path) == handle.read()

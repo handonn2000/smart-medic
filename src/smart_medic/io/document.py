@@ -43,8 +43,15 @@ def read_raw(path: str | Path) -> str:
     `newline=""` is not optional. Without it Python rewrites CRLF to LF and every
     offset after the first line break is wrong by the number of lines — a shift no
     reviewer spots by eye. No normalisation, no strip, no whitespace fixing.
+
+    Opened through `Path.open` rather than `Path.read_text(newline=...)`: that
+    keyword only exists from Python 3.13, while `pyproject.toml` promises 3.11.
+    The organisers re-run this source on their own machine, so a 3.11 or 3.12
+    interpreter meant a `TypeError` on the first document and a disqualified
+    submission. `open(newline="")` has meant the same thing since 3.0.
     """
-    return Path(path).read_text(encoding="utf-8", newline="")
+    with Path(path).open(encoding="utf-8", newline="") as handle:
+        return handle.read()
 
 
 def normalise_with_map(raw: str) -> tuple[str, tuple[int, ...], bool]:

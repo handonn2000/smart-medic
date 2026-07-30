@@ -11,7 +11,7 @@ GOLD     := data/generated_medical_records/restyled/annotations_gold
 PRED_GOLD := runs/_pred_gold
 
 .DEFAULT_GOAL := help
-.PHONY: help setup gate index run score submit test clean
+.PHONY: help setup gate index run score submit test verify-repro clean
 
 help:
 	@echo "make setup    install dependencies"
@@ -26,10 +26,12 @@ setup:
 	$(PY) -m pip install -e '.[dev]'
 
 # A score computed on drifted offsets is worse than no score, so this gate comes
-# before everything. test_silver_offsets FAILS by design: 165 real violations in
-# the silver corpus, filtered at load in io/corpus.py.
+# before everything. The whole file runs now: test_silver_offsets used to fail by
+# design on the 165 known lab-assertion violations, but ADR 0004 puts the remedy
+# in io/corpus.py at load time, so the test now asserts there (see
+# test_loader_clears_illegal_lab_assertions) and the offset half stays strict.
 gate:
-	$(PY) -m pytest tests/test_offsets.py -q -k "not silver"
+	$(PY) -m pytest tests/test_offsets.py tests/test_reproducibility.py -q
 
 index:
 	$(PY) -c "import sys; sys.path.insert(0,'scripts'); import kb_sources as k; \
@@ -54,6 +56,22 @@ submit: gate
 
 test:
 	$(PY) -m pytest tests/ -q
+
+# The organisers re-run this source on an interpreter we do not choose. This
+# proves two of them agree byte-for-byte, which is the claim ADR 0005 makes and
+# nothing was checking. Set ALT_PY to any second interpreter >= 3.11.
+ALT_PY ?= python3.14
+verify-repro:
+	@command -v $(ALT_PY) >/dev/null || { \
+	  echo "ALT_PY=$(ALT_PY) not found — set it to a second interpreter >= 3.11"; exit 1; }
+	@echo "primary : $$($(PY) -V 2>&1)"
+	@echo "alternate: $$($(ALT_PY) -V 2>&1)"
+	@rm -rf /tmp/_repro_a /tmp/_repro_b
+	$(PY)     -m smart_medic.cli run --input data/test --output /tmp/_repro_a --quiet
+	$(ALT_PY) -m smart_medic.cli run --input data/test --output /tmp/_repro_b --quiet
+	@diff -r /tmp/_repro_a /tmp/_repro_b \
+	  && echo "IDENTICAL — $$(ls /tmp/_repro_a | wc -l | tr -d ' ') files match byte-for-byte" \
+	  || { echo "DIVERGED — the archive is not reproducible across interpreters"; exit 1; }
 
 clean:
 	rm -rf .pytest_cache $(PRED_GOLD)

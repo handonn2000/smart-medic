@@ -1,0 +1,4 @@
+# Development / verification only. A submission reproduces without any of this.
+-r requirements.txt
+
+pytest>=8.0,<9

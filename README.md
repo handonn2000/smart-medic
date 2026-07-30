@@ -101,11 +101,20 @@ smart-medic/
 
 ## Getting started
 
+**Requires Python ≥ 3.11.** Verified end to end on 3.11 and 3.14; both produce a
+byte-identical `output.zip`.
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+pip install -e .                  # puts smart_medic on the path
 ```
+
+The inference pipeline depends on **PyYAML and nothing else** — no HTTP client, no
+model runtime, no torch. `tests/test_reproducibility.py` asserts that
+`requirements.txt` covers every non-stdlib import under `src/`, so an install from
+this file cannot silently be missing a dependency.
 
 Run inference over `data/test/` and write predictions to `data/output/`:
 
@@ -113,8 +122,15 @@ Run inference over `data/test/` and write predictions to `data/output/`:
 python -m smart_medic.cli run --input data/test --output data/output
 ```
 
-(The pipeline entry point is not implemented yet — see
-[`docs/reports/plan-v4.html`](docs/reports/plan-v4.html) tab 04 for the phase plan.)
+Reproduces in under a second on a laptop: 100 documents, no checkpoint loaded, no
+network access.
+
+To confirm the archive is reproducible on an interpreter other than yours — the
+thing the organisers will do:
+
+```bash
+make verify-repro ALT_PY=python3.12    # any second interpreter >= 3.11
+```
 
 **Or run the whole thing end to end:** [`notebooks/runbook.ipynb`](notebooks/runbook.ipynb) is
 the linear path from a clean checkout to `output.zip` — integrity gate, KB indexes, inference,

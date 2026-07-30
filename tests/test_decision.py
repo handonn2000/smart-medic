@@ -131,7 +131,11 @@ def test_emitted_records_are_schema_legal():
     coded = 0
     for r in records:
         assert doc.raw[r["position"][0] : r["position"][1]] == r["text"]
-        assert r["assertions"] == []
+        # `assertions` stopped being unconditionally empty when assertion/ landed
+        # (W2). What is still absolute is the schema constraint below: the two lab
+        # types must never carry one. Everything else is checked in
+        # tests/test_assertion.py, including the rate band.
+        assert set(r["assertions"]) <= {"isNegated", "isFamily", "isHistorical"}
         if r["type"] in LAB_TYPES:
             assert not r["assertions"]
         if r["type"] not in CODEABLE_TYPES:

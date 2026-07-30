@@ -34,17 +34,56 @@ import re
 from dataclasses import dataclass
 from functools import lru_cache
 
+from ..assertion import scope
 from ..extract.spans import Span
 from ..io.config import ConfigError, load_pipeline, require
 from ..io.document import Document
 from ..io.labels import CODEABLE_TYPES, LAB_TYPES
 from ..linking import edge_verify, icd, rxnorm
 
-__all__ = ["Concept", "ThresholdChoice", "select_threshold", "finalize", "P1_BRANCH"]
+__all__ = [
+    "Concept",
+    "ThresholdChoice",
+    "select_threshold",
+    "finalize",
+    "assertion_rate_check",
+    "P1_BRANCH",
+]
 
 #: The one row of the table P1 implements. P6 replaces this module's single
 #: lookup with the full three-tier schedule.
 P1_BRANCH = "<0.50"
+
+
+def assertion_rate_check(records: list[dict]) -> str:
+    """Empty when the share of flagged entities is inside the configured band.
+
+    A tripwire, not a tuning knob. The synthetic gold corpus flags 29.6% of its
+    entities; the real test set is near 13% (implied by the leaderboard) and
+    11.6% (hand-annotated sample). A run drifting toward the synthetic rate is
+    over-flagging against the thing we are actually scored on, and each excess
+    flag turns a scored 1 into a 0. `cli.py` refuses to write when this fires.
+    """
+    if not records:
+        return ""
+    lo, hi = (float(x) for x in require(load_pipeline(), "assertion.rate_band"))
+    flagged = sum(1 for r in records if r.get("assertions"))
+    rate = flagged / len(records)
+    if lo <= rate <= hi:
+        return ""
+    direction = "ABOVE" if rate > hi else "BELOW"
+    return (
+        f"⚠ ASSERTION RATE {rate:.3f} IS {direction} THE BAND [{lo:.2f}, {hi:.2f}] "
+        f"— {flagged}/{len(records)} entities flagged.\n"
+        f"  The test set carries an assertion on ~13% of matched entities "
+        f"(leaderboard) and 11.6% (hand-annotated sample); the synthetic gold "
+        f"corpus says 29.6% and is not what we are scored on.\n"
+        f"  Above the band means points already held are being spent: on an "
+        f"entity whose gold set is empty, any flag scores 0 where nothing scored "
+        f"1. Below it means the rules stopped firing. Either way, look before "
+        f"submitting."
+    )
+
 
 #: Types for which `linking/icd.py` is asked for a code when the gazetteer found
 #: none. Both map into the same Vietnamese ICD-10 name space — diagnoses into the
@@ -230,12 +269,16 @@ def finalize(
     doc: Document,
     spans: list[Span],
     threshold: ThresholdChoice,
+    section_at=None,
 ) -> list[dict]:
     """Apply the gate, pick the type, and produce submission records.
 
-    * `assertions` is P4. An empty list is the correct answer for the two lab
-      types (worth 11.59 points) and a Jaccard of 0 elsewhere — the same 0 a wrong
-      flag would score, so guessing here buys nothing.
+    * `assertions` comes from `assertion/scope.py`. It stays empty for the two
+      lab types, which the schema requires, and empty elsewhere unless a narrow
+      rule fires: only ~13% of matched gold entities carry a flag at all, so an
+      unjustified one turns a scored 1 into a 0 about seven times as often as it
+      rescues a 0. `section_at` is `layout.outline.SectionIndex`; without it the
+      history rule cannot fire and only negation is detected.
     * `candidates` comes from `Span.codes`, which `extract/aho.py` already carries
       off the gazetteer: 799 of 971 codeable spans (82.3%) arrive here with a code
       attached. This function used to discard all of them, on the reading that the
@@ -262,11 +305,12 @@ def finalize(
             continue
         etype = span.argmax_type()
         surface = span.text(doc)
+        titles = section_at(span.start).path() if section_at is not None else ()
         concept = Concept(
             text=surface,
             position=(span.start, span.end),
             type=etype,
-            assertions=(),
+            assertions=scope.assertions_for(doc.raw, span.start, etype, titles),
             candidates=_pick_codes(span.codes, etype, caps, order, surface),
         )
         if etype in LAB_TYPES:

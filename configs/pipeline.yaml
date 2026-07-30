@@ -218,6 +218,38 @@ linking:
     min_similarity: 0.50
 
 # ─────────────────────────────────────────────────────────────────────────────
+# L4a · assertion/ — isNegated / isHistorical. isFamily is deliberately absent.
+# ─────────────────────────────────────────────────────────────────────────────
+# Only ~13% of MATCHED gold entities carry an assertion, derived from the
+# leaderboard: submission A emitted `assertions: []` everywhere and still scored
+# J_assertion = 30.9496 against text = 26.63, which puts
+# P(gold assertions empty | matched) near 0.87. So a flag we emit where gold has
+# none turns a scored 1 into a 0, and there are roughly seven such entities for
+# every one we could rescue. Every number here is set for precision.
+assertion:
+  negation:
+    # Swept against 20 hand-annotated test documents (proxy_gold_test/), counting
+    # net points (a true positive turns 0→1, a false positive turns 1→0):
+    #   window  commas   tp  fp  net
+    #     15     none    27   0  +27   ← this row
+    #     20     none    28   2  +26
+    #     20      ≤2     31   4  +27   (same net, 4× the expensive error)
+    #     40      ≤2     31   7  +24
+    # 15/none is chosen over 20/≤2 on equal net because its errors are all of the
+    # cheap kind. Widening buys recall in negated comma lists ("Không ghi nhận co
+    # giật, cứng đờ, cắn lưỡi" — three spans, we catch one) at the price of
+    # affirmed items after a clause boundary, which cost double.
+    max_chars: 15
+    allow_comma: false
+
+  # The share of emitted entities allowed to carry an assertion. Not a tuning
+  # knob — a tripwire. Gold on the synthetic corpus flags 29.6% of entities,
+  # the real test set ~13% (leaderboard) and 11.6% (hand-annotated sample), so a
+  # run that drifts toward the synthetic rate is over-flagging against the thing
+  # we are scored on. Outside this band the run stops rather than submits.
+  rate_band: [0.05, 0.16]
+
+# ─────────────────────────────────────────────────────────────────────────────
 # L5 · decision/ — the ONLY layer allowed to apply a threshold.
 # ─────────────────────────────────────────────────────────────────────────────
 decision:

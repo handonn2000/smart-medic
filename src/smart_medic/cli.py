@@ -34,6 +34,7 @@ from .io.corpus import load_documents
 from .io.document import Document
 from .layout.kv import split_units
 from .layout.lines import split_lines
+from .layout.outline import SectionIndex, build_outline
 from .validate import emit_json, schema
 
 __all__ = ["main", "run"]
@@ -64,11 +65,17 @@ def run(
     # ── pass 1 · propose ──────────────────────────────────────────────────────
     t0 = time.perf_counter()
     report = RecallFloorReport()
-    proposals: list[tuple[Document, list]] = []
+    proposals: list[tuple[Document, list, object]] = []
     for doc in docs:
         lines = split_lines(doc)
         units = split_units(doc, lines)
-        proposals.append((doc, recall_floor(doc, lines, units, report)))
+        # The outline is built here rather than inside `finalize` because the
+        # assertion scope needs the SECTION a span sits in, not the nearest
+        # heading above it: a section closes when a same-or-shallower heading
+        # arrives, so "Tiền sử bệnh nội khoa" stops governing at the next
+        # top-level heading instead of leaking isHistorical down the document.
+        section_at = SectionIndex(build_outline(lines, len(doc.raw)))
+        proposals.append((doc, recall_floor(doc, lines, units, report), section_at))
     extract_s = time.perf_counter() - t0
     say(f"extract    : {report.summary()}")
     say(f"             {extract_s:.1f}s, no checkpoint loaded")
@@ -79,7 +86,24 @@ def run(
     if choice.warning():
         say(choice.warning())
 
-    records = [(doc, emit.finalize(doc, spans, choice)) for doc, spans in proposals]
+    records = [
+        (doc, emit.finalize(doc, spans, choice, section_at))
+        for doc, spans, section_at in proposals
+    ]
+
+    flat = [r for _, rs in records for r in rs]
+    flagged = sum(1 for r in flat if r["assertions"])
+    say(
+        f"assertion  : {flagged}/{len(flat)} entities flagged "
+        f"({flagged / max(len(flat), 1):.1%}) · "
+        f"isNegated {sum(1 for r in flat if 'isNegated' in r['assertions'])} · "
+        f"isHistorical {sum(1 for r in flat if 'isHistorical' in r['assertions'])}"
+    )
+    # A rate outside the band means we are spending points we already hold, so it
+    # stops the run rather than warning into a log nobody reads before submitting.
+    rate_warning = emit.assertion_rate_check(flat)
+    if rate_warning:
+        raise ValueError(rate_warning)
 
     # ── validate + write ──────────────────────────────────────────────────────
     codes = schema.load_code_index() if check_codes else None

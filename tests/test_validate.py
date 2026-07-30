@@ -121,13 +121,38 @@ def test_unknown_assertion_labels_are_dropped(tmp_path):
 
 
 # ───────────────── check 4 and 5 · candidates ─────────────────
-@pytest.mark.parametrize("etype", ["TRIỆU_CHỨNG", "TÊN_XÉT_NGHIỆM", "KẾT_QUẢ_XÉT_NGHIỆM"])
+@pytest.mark.parametrize("etype", ["TÊN_XÉT_NGHIỆM", "KẾT_QUẢ_XÉT_NGHIỆM"])
 def test_uncodeable_types_lose_their_candidates(tmp_path, etype, codes):
+    """The two lab types must reach the file with an empty candidate list.
+
+    This is the expensive direction of the Jaccard: on an entity whose gold
+    carries no code, emitting one turns a scored 1 into a 0. Nothing in the PRD,
+    the sample output, or the leaderboard ratio suggests lab types are coded, and
+    they are ~31% of gold entities — so the schema gate keeps them empty even if
+    a stage above proposes something.
+    """
     doc = Document(doc_id="1", raw=RAW)
     entity = _entity(RAW, *LAB, etype, candidates=["D55.0"])
     validate.emit_document(doc, [entity], tmp_path / "1.json", codes=codes)
     written = json.loads((tmp_path / "1.json").read_text(encoding="utf-8"))
     assert written[0]["candidates"] == []
+
+
+def test_symptoms_keep_their_candidates(tmp_path, codes):
+    """TRIỆU_CHỨNG became codeable on 2026-07-31 — see io/labels.CODEABLE_TYPES.
+
+    Derived from the published leaderboard, not from our gold corpus: with every
+    prediction empty, `J_cand / J_assert = P(gold cand empty) / P(gold assert
+    empty) = 0.356`, and since the denominator is at most 1, at most 35.6% of
+    matched gold entities can have an empty candidate list. Coding only diagnoses
+    and drugs implies 63.6%, which does not fit under that bound; including
+    symptoms gives 32.0%, which does.
+    """
+    doc = Document(doc_id="1", raw=RAW)
+    entity = _entity(RAW, *LAB, "TRIỆU_CHỨNG", candidates=["D55.0"])
+    validate.emit_document(doc, [entity], tmp_path / "1.json", codes=codes)
+    written = json.loads((tmp_path / "1.json").read_text(encoding="utf-8"))
+    assert written[0]["candidates"] == ["D55.0"]
 
 
 def test_codes_absent_from_the_kb_are_dropped(tmp_path, codes):
@@ -140,8 +165,18 @@ def test_codes_absent_from_the_kb_are_dropped(tmp_path, codes):
     )
 
 
-def test_codeable_types_are_exactly_the_two_documented(codes):
-    assert CODEABLE_TYPES == {"CHẨN_ĐOÁN", "THUỐC"}
+def test_codeable_types_are_exactly_the_three_documented(codes):
+    """Pinned so widening this set stays a decision, never a drift.
+
+    The two lab types are what must never appear here: they are ~31% of gold
+    entities, and a code on an entity whose gold has none is the only way the
+    candidates term loses a point it already held.
+    """
+    assert CODEABLE_TYPES == {"CHẨN_ĐOÁN", "THUỐC", "TRIỆU_CHỨNG"}
+    assert not (CODEABLE_TYPES & LAB_TYPES), (
+        "a lab type became codeable — see io/labels.py for why that is the one "
+        "change in this set that can only lose points"
+    )
 
 
 # ───────────────── check 1 · offsets RAISE, never repair ─────────────────

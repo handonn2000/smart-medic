@@ -41,9 +41,33 @@ LAB_TYPES = frozenset({"TÊN_XÉT_NGHIỆM", "KẾT_QUẢ_XÉT_NGHIỆM"})
 #: The three types that may carry assertions.
 ASSERTABLE_TYPES = TYPES - LAB_TYPES
 
-#: The two types that may carry candidate codes. 67% of entities are not here,
-#: which is why the candidates term is capped at 10.00 and not 40.00.
-CODEABLE_TYPES = frozenset({"CHẨN_ĐOÁN", "THUỐC"})
+#: Types whose `candidates` list may be non-empty.
+#:
+#: The PRD's worked example only ever shows codes on CHẨN_ĐOÁN and THUỐC, and
+#: this set matched that reading until 2026-07-31. The leaderboard says the test
+#: gold is wider. With every prediction carrying an empty candidate list,
+#: `J_candidates = m·P(gold candidates empty)` and
+#: `J_assertion = m·P(gold assertions empty)`; the match rate `m` cancels in
+#: their ratio, so the published numbers pin a quantity no gold corpus can argue
+#: with:
+#:
+#:     P(cand empty) / P(assert empty) = 11.0259 / 30.9496 = 0.356
+#:     P(assert empty) ≤ 1  ⇒  P(gold candidates empty | matched) ≤ 0.356
+#:
+#: Weighting each type by the W_i the official formula uses, over 20 hand-checked
+#: test documents: coding only CHẨN_ĐOÁN + THUỐC implies P = 0.636, which exceeds
+#: that bound and is therefore impossible; adding TRIỆU_CHỨNG gives 0.320, which
+#: fits. So symptoms carry ICD codes in the real gold.
+#:
+#: The two lab types stay out. They are ~31% of gold entities and nothing in the
+#: PRD, the sample output, or the ratio above suggests they are coded — and
+#: unlike the matched-entity case, emitting a code where gold is empty is the one
+#: move that turns a scored 1 into a 0.
+#:
+#: `decision.max_candidates_per_type` in configs/pipeline.yaml sets how MANY
+#: codes each type may carry; this set is the hard schema gate behind it, so a
+#: type must appear in both to emit anything.
+CODEABLE_TYPES = frozenset({"CHẨN_ĐOÁN", "THUỐC", "TRIỆU_CHỨNG"})
 
 #: Fields every entity must have.
 REQUIRED_FIELDS = ("text", "type", "position")

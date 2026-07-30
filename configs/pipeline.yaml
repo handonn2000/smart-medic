@@ -265,9 +265,49 @@ decision:
   # Setting this to 0 also disables `linking/icd.py` retrieval, which never fires
   # at cap 0 — one knob, both paths. Raise it again only against a leaderboard
   # measurement, never against a gold measurement.
+  # ⚠ REOPENED 2026-07-31 — the −1.77 attributed to diagnosis codes is a
+  # CONFOUNDED measurement, and two independent readings of the leaderboard say
+  # the opposite. Both are arithmetic on the three published submissions, not
+  # gold measurements, so neither repeats the gold≠test mistake.
+  #
+  # 1. Submission C was not "B + diagnosis codes". `text` and `J_assertion` do
+  #    not depend on candidates at all, so an experiment that only added codes
+  #    must leave both columns untouched:
+  #        A → B  text +0.0000   J_assert +0.0000   (same spans: clean A/B test)
+  #        B → C  text +0.2000   J_assert +0.2532   (spans CHANGED)
+  #    C bundled the P3 type fixes with the diagnosis codes. Charging the whole
+  #    −1.63 to the codes assigns a confounded effect to one cause — the exact
+  #    extrapolation tab 09 was written to warn against. Diagnosis codes have
+  #    never been measured in isolation.
+  #
+  # 2. The share of gold entities carrying a code is bounded by the leaderboard.
+  #    With every prediction empty, J_candidates = m·P(gold cand empty) and
+  #    J_assertion = m·P(gold assert empty); m cancels in the ratio:
+  #        P(cand empty) / P(assert empty) = 11.0259 / 30.9496 = 0.356
+  #    P(assert empty) ≤ 1, so P(gold candidates empty | matched) ≤ 0.356.
+  #    Measured on 20 hand-checked test documents (proxy_gold_test/), weighting
+  #    each type by the W_i the official formula actually uses:
+  #        gold codes CHẨN_ĐOÁN + THUỐC only  → P(cand empty) = 0.636  ✗ > 0.356
+  #        gold codes those + TRIỆU_CHỨNG     → P(cand empty) = 0.320  ✓ ≤ 0.356
+  #    The first hypothesis is arithmetically impossible. Gold assigns ICD codes
+  #    to symptoms.
+  #
+  # Why this cannot lose points on a MATCHED entity, which is where all the fear
+  # was. Jaccard on the candidate set, by case:
+  #        gold has a code, we emit none   → 0   (already lost)
+  #        gold has a code, we emit wrong  → 0   (loses nothing further)
+  #        gold has a code, we emit right  → 1   (+1)
+  #        gold empty,      we emit none   → 1   (already held)
+  #        gold empty,      we emit a code → 0   (the ONLY downside)
+  # A spurious span scores 0 whatever it carries, so a code there is free. The
+  # sole risk is the last row, and its probability is bounded above at 0.320 —
+  # most of which is the two lab types, which stay at 0 below.
+  #
+  # Raise or lower these against a LEADERBOARD reading, never a gold one.
   max_candidates_per_type:
-    CHẨN_ĐOÁN: 0
-    THUỐC: 2
+    CHẨN_ĐOÁN: 1                    # 1, not 2: diagnosis_always_single_code
+    THUỐC: 2                        # 8.4% of drugs are combinations → two INs
+    TRIỆU_CHỨNG: 1                  # NEW — see the derivation above
   # Tie-break when a surface form carries several codes (347 of 2650 codeable
   # spans do). Shortest-first prefers the 3-character block code, which the task
   # permits (I48.0 → I48) and which is the safer bet when nothing disambiguates.

@@ -46,6 +46,12 @@ __all__ = ["Concept", "ThresholdChoice", "select_threshold", "finalize", "P1_BRA
 #: lookup with the full three-tier schedule.
 P1_BRANCH = "<0.50"
 
+#: Types for which `linking/icd.py` is asked for a code when the gazetteer found
+#: none. Both map into the same Vietnamese ICD-10 name space — diagnoses into the
+#: body-system chapters, symptoms into chapter XVIII (R00–R99). THUỐC is absent
+#: because its codes are RxCUIs, a different vocabulary entirely.
+_ICD_RETRIEVAL_TYPES = frozenset({"CHẨN_ĐOÁN", "TRIỆU_CHỨNG"})
+
 _RANGE = re.compile(r"^(?P<op><|>|<=|>=)?\s*(?P<a>[\d.]+)(?:\s*-\s*(?P<b>[\d.]+))?$")
 
 
@@ -61,9 +67,16 @@ def _pick_codes(
     cap = int(caps.get(etype, 0))
     if cap <= 0:
         return ()
-    if not codes and etype == "CHẨN_ĐOÁN" and surface:
+    if not codes and etype in _ICD_RETRIEVAL_TYPES and surface:
         # Nothing matched the gazetteer exactly. On a span we would otherwise ship
         # empty, a wrong code scores the same 0 as no code — see linking/icd.py.
+        #
+        # TRIỆU_CHỨNG joined CHẨN_ĐOÁN here on 2026-07-31. ICD-10 chapter XVIII
+        # (R00–R99, "Symptoms, signs and abnormal findings") is a symptom
+        # vocabulary, so the same Vietnamese-to-Vietnamese index answers both;
+        # the reason to ask it is that the leaderboard ratio bounds the share of
+        # uncoded gold entities at 0.356 and diagnosis+drug alone cannot fit
+        # under that (see io/labels.CODEABLE_TYPES).
         codes = icd.retrieve(surface)
     if not codes:
         return ()

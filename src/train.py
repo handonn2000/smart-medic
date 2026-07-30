@@ -120,6 +120,6 @@ def main():
     torch.save(model.state_dict(), MODEL_PATH)
     print(f"Saved model to: {MODEL_PATH}")
 
-# Run: python src/train.py -e 5 --checkpoint models/pho_bert_crf_medical.pth
+# Run: python src/train.py -e 16 --checkpoint models/pho_bert_crf_medical.pth
 if __name__ == "__main__":
     main()

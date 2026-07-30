@@ -146,7 +146,9 @@ class MedicalNormalizer:
         except Exception:
             pass
 
-        return ["UNKNOWN_RXNORM"]
+        # No guess beats a wrong guess: candidates are scored by Jaccard, so a code
+        # that cannot possibly be right only enlarges the union and pushes J down.
+        return []
 
     def normalize_disease(self, disease_text: str, top_k=3):
         """Trả về ICD-10 code"""
@@ -170,9 +172,13 @@ class MedicalNormalizer:
                     candidates.append(code)
             return candidates[:top_k]
 
-        return ["UNKNOWN_ICD10"]
+        return []
 
     def normalize_test(self, test_text: str):
-        """LOINC hoặc custom cho xét nghiệm"""
-        # TODO: Thêm LOINC mapping tương tự
-        return ["DEMO_LOINC"]
+        """Không dùng khi chấm: gold để candidates RỖNG cho cả hai type xét nghiệm.
+
+        Giữ lại vì chỉ đề bài của Vòng 1 mới không tính mã xét nghiệm; nếu vòng sau có
+        thì thay bằng LOINC mapping ở đây. Trả về rỗng, KHÔNG trả mã giả: điền mã cho
+        span mà đáp án để rỗng biến J = 1 (cả hai rỗng) thành J = 0.
+        """
+        return []

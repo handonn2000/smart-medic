@@ -32,6 +32,35 @@ TEST_DIR = ROOT / "data" / "test"
 PROXY = ROOT / "data" / "proxy_gold_test"
 
 
+@pytest.fixture(autouse=True)
+def lane_enabled(monkeypatch: pytest.MonkeyPatch):
+    """Run every test in this file with the lane ON, whatever the repo default.
+
+    `extract.recall_floor.redacted.enabled` ships `false` so a clean checkout
+    rebuilds the archive that is actually queued for submission. That is a
+    release decision, not a statement about whether the lane works — these tests
+    are about whether it works, so they set the flag themselves. Without this,
+    shipping the flag off would silently turn the whole file green-by-vacuum.
+    """
+    from smart_medic.io import config
+
+    # Hold the real (cached) callable: monkeypatch replaces the module attribute
+    # with a plain lambda, which has no `cache_clear`, so teardown has to reach
+    # through this reference rather than through `config.load_pipeline`.
+    real_loader = config.load_pipeline
+    real_loader.cache_clear()
+    loaded = real_loader()
+    loaded["extract"]["recall_floor"]["redacted"]["enabled"] = True
+    monkeypatch.setattr(config, "load_pipeline", lambda: loaded)
+    for module in (redacted, emit):
+        if hasattr(module, "load_pipeline"):
+            monkeypatch.setattr(module, "load_pipeline", lambda: loaded)
+    yield
+    # The mutation above edited the CACHED dict in place, so the next test file
+    # to read config would inherit `enabled: true`. Drop the cache.
+    real_loader.cache_clear()
+
+
 def _raw(doc_id: str) -> str:
     with (TEST_DIR / f"{doc_id}.txt").open(encoding="utf-8", newline="") as fh:
         return fh.read()

@@ -272,3 +272,69 @@ E[J_cand | đã ghép] = 0,1508 / m  →  ≈ 0,48
 Đọc: trong số entity **đã ghép**, ta mới ăn ~48% điểm mã tối đa. Còn dư địa ở
 nhánh candidates, và cận `m ≥ 0,3118` này là neo chính xác nhất hiện có cho mọi
 dự báo sau.
+
+---
+
+## ĐO THẬT LẦN 2 — lần nộp H, 31/07 20:55
+
+**H = 22,6801.** Thất bại: kém E (23,3923) **0,7122 điểm**. Cả ba cột giảm.
+
+| cột | E | H | Δ | góp vào Δ |
+|---|---|---|---|---|
+| text (100−WER) | 26,6837 | 25,9546 | −0,7291 | −0,2187 |
+| J_assertion | 31,1780 | 30,0833 | −1,0947 | −0,3284 |
+| J_candidates | 15,0845 | 14,6718 | −0,4127 | −0,1651 |
+
+Ba cột giảm gần **cùng tỷ lệ** (0,9727 · 0,9649 · 0,9726) — chữ ký của
+pha loãng thuần, không phải của span sai.
+
+### Khớp mô hình: gold KHÔNG gán nhãn chuỗi `***` nào
+
+Quét số chuỗi `***` mà gold có gán (n) và tỷ lệ slot/span:
+
+| n | sai số khớp |
+|---|---|
+| **0** | **0,0078** |
+| 10 | 0,0530 |
+| 20 | 0,0997 |
+| 99 | 0,5273 |
+
+n=0 khớp tốt hơn phương án gần nhất **6,8 lần**. Và mọi n>0 dự đoán các cột
+**tăng** — thực tế cả ba giảm.
+
+Bằng chứng 7/7 từ `data/proxy_gold_test/` bị bác bỏ, đúng ở chỗ đã ghi là yếu
+nhất: gold tay do LLM sinh, và LLM thấy chuỗi sao trong ngữ cảnh thuốc thì gán
+THUỐC. BTC che tên thuốc để **loại** nó khỏi bài toán, không phải để hỏi về nó.
+
+### Neo lại kích thước gold — đảo chiều chiến lược
+
+Hệ số pha loãng cho slot/span = 1,407 ⇒ SLOTS_E ≈ 4097.
+
+| | ước cũ | neo mới |
+|---|---|---|
+| gold (entity) | 3893 | **~2550** |
+| recall | 0,41 | **0,54** |
+| precision | 0,56 | **0,47** |
+| span thừa | 1287 | **1545** |
+
+Gold nhỏ hơn nhiều so với mọi ước lượng trước. Ta đã bắt 54% gold, nhưng
+**1545 trong 2912 span phát ra là thừa**.
+
+H vừa đo trực tiếp giá trị của span thừa: **99 span thừa = −0,7122 điểm**, tức
+**−0,72 điểm mỗi 100 span thừa**. Đây là hệ số dùng được cho mọi quyết định sau.
+
+Hướng đi đảo ngược: từ đầu phiên tôi xếp recall là đòn bẩy lớn nhất; neo mới nói
+**precision** mới là chỗ có điểm.
+
+### Quyết định
+
+`extract.recall_floor.redacted.enabled` giữ **false** vĩnh viễn. Làn và test ở
+lại vì phép đo có giá trị, nhưng nó không bao giờ được bật lại trừ khi có bằng
+chứng mới về quy ước gold.
+
+H+ (12 mã co-reference) **không cần nộp**: mã nằm trên span thừa, nên H+ = H
+cộng 0. Dự báo 22,68 ± 0,01.
+
+Lần nộp tiếp theo nên là **F** (tắt làn lexicon, 2571 span). Dưới neo mới nó bỏ
+341 span và có kỳ vọng dương ở mọi tỷ lệ đúng r < 0,73 — ngưỡng hoà vốn rất cao
+vì bỏ một span thừa được 1 đơn vị còn mất một span đúng chỉ tốn 0,267.

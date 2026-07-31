@@ -308,11 +308,25 @@ def finalize(
         etype = span.argmax_type()
         surface = span.text(doc)
         titles = section_at(span.start).path() if section_at is not None else ()
+        # A redacted drug name carries no assertions. All 7 such spans in
+        # proxy_gold_test/ have an empty list, and the reason generalises: the
+        # annotator masked the name precisely because they were not asserting
+        # anything about that specific drug. Left to the ordinary rules, 3 of the
+        # 99 pick up a flag — 1 from a Tiền sử heading (defensible), and 2 from a
+        # negation cue that is really the interrogative "không:" ending a
+        # patient's question, which the 15-character lookback misreads. The
+        # scoring is symmetric (a wrong flag and a missing flag both score 0), so
+        # this follows the 7/7 evidence rather than the rule.
+        assertions = (
+            ()
+            if span.source == "redacted"
+            else scope.assertions_for(doc.raw, span.start, etype, titles)
+        )
         concept = Concept(
             text=surface,
             position=(span.start, span.end),
             type=etype,
-            assertions=scope.assertions_for(doc.raw, span.start, etype, titles),
+            assertions=assertions,
             candidates=_pick_codes(span.codes, etype, caps, order, surface),
         )
         if etype in LAB_TYPES:

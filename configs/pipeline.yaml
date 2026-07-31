@@ -176,6 +176,33 @@ extract:
         'thuốc trước khi nhập viện': {THUỐC: 0.95, CHẨN_ĐOÁN: 0.05}
         'dị ứng':           {THUỐC: 0.70, TRIỆU_CHỨNG: 0.30}
 
+    redacted:
+      # Runs of `*` where the organisers masked a brand name. 99 of them across
+      # 30 of the 100 test documents; every other lane keys off letters, so the
+      # shipped pipeline emits a span for exactly 0.
+      #
+      # This is the only concept type that scores 1.0 on all three terms at once:
+      # WER is 0 against an identical run of asterisks, and gold candidates and
+      # assertions are both empty because the annotator could not know the drug
+      # either. An ordinary clinical span averages q ≈ 0.83 on text and needs a
+      # correct code to score anything on candidates.
+      #
+      # Evidence: all 7 runs inside proxy_gold_test/ are THUỐC with empty
+      # assertions and empty candidates, and in all 7 the gold span is the whole
+      # run of asterisks with no surrounding whitespace. Small sample, so the
+      # risk is real in both directions — if the gold does not annotate
+      # redactions these 99 spans dilute every denominator by ~3.4%. One
+      # submission settles it; this flag is how you toggle the experiment.
+      enabled: true
+      # 8 is the shortest run the annotators labelled; 3 is the floor here so a
+      # deliberately short mask is not missed. One `*` is a footnote marker and
+      # `**` is markdown emphasis — both excluded by the regex, not by length.
+      min_asterisks: 3
+      # Above every other lane: an exact-match run of asterisks has no ambiguity
+      # to resolve, so nothing should out-vote it in the merge.
+      score: 0.90
+      type: 'THUỐC'
+
     lexicon:
       # resources/lexicon_vi.yaml — the vocabulary a KB-derived gazetteer cannot
       # hold: drug CLASSES ("thuốc lợi tiểu" has no RxNorm ingredient row), lay
@@ -243,7 +270,7 @@ extract:
     # `lexicon` is last: it proposes a type with no code behind it, so any other
     # lane claiming the same span should win the tie. Length still outranks
     # priority (see extract/__init__._merge).
-    merge_priority: ['labvalues', 'aho', 'kvspan', 'lexicon']
+    merge_priority: ['redacted', 'labvalues', 'aho', 'kvspan', 'lexicon']
 
   harmonize:
     # Measured: THUỐC↔TÊN_XÉT_NGHIỆM confuse each other and harmonising helps.

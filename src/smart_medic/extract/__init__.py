@@ -30,7 +30,7 @@ from ..io.config import load_pipeline, require
 from ..io.document import Document
 from ..layout.kv import LayoutUnit, split_units
 from ..layout.lines import Line, split_lines
-from . import aho, kvspan, labvalues, lexicon
+from . import aho, kvspan, labvalues, lexicon, redacted
 from .spans import Span, Token, TokenView, merge_type_dist, tokenize
 
 __all__ = [
@@ -96,6 +96,7 @@ def recall_floor(
     gaz = aho.spans(doc, view)
     kv = kvspan.spans(doc, view, units, lines, covered=lab + gaz)
     lex = lexicon.spans(doc, view)
+    red = redacted.find_redacted(doc)
 
     if report is not None:
         report.documents += 1
@@ -103,8 +104,9 @@ def recall_floor(
         report.note("aho", len(gaz))
         report.note("kvspan", len(kv))
         report.note("lexicon", len(lex))
+        report.note("redacted", len(red))
 
-    merged = _merge(lab + gaz + kv + lex, report)
+    merged = _merge(lab + gaz + kv + lex + red, report)
     if report is not None:
         report.emitted += len(merged)
     return merged

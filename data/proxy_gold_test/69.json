@@ -1,0 +1,185 @@
+[
+ {
+  "text": "ý định tự tử",
+  "type": "TRIỆU_CHỨNG",
+  "position": [
+   34,
+   46
+  ],
+  "assertions": [
+   "isHistorical"
+  ],
+  "candidates": []
+ },
+ {
+  "text": "trầm cảm",
+  "type": "CHẨN_ĐOÁN",
+  "position": [
+   108,
+   116
+  ],
+  "assertions": [
+   "isHistorical"
+  ],
+  "candidates": []
+ },
+ {
+  "text": "rối loạn lo âu",
+  "type": "CHẨN_ĐOÁN",
+  "position": [
+   121,
+   135
+  ],
+  "assertions": [
+   "isHistorical"
+  ],
+  "candidates": []
+ },
+ {
+  "text": "tổn thương chi dưới",
+  "type": "TRIỆU_CHỨNG",
+  "position": [
+   179,
+   198
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "buồn chán",
+  "type": "TRIỆU_CHỨNG",
+  "position": [
+   314,
+   323
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "tổn thương chi dưới",
+  "type": "TRIỆU_CHỨNG",
+  "position": [
+   441,
+   460
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "trầm cảm",
+  "type": "CHẨN_ĐOÁN",
+  "position": [
+   555,
+   563
+  ],
+  "assertions": [
+   "isNegated",
+   "isHistorical"
+  ],
+  "candidates": []
+ },
+ {
+  "text": "ý định tự tử",
+  "type": "TRIỆU_CHỨNG",
+  "position": [
+   595,
+   607
+  ],
+  "assertions": [
+   "isNegated"
+  ],
+  "candidates": []
+ },
+ {
+  "text": "tổn thương chi dưới nghiêm trọng",
+  "type": "TRIỆU_CHỨNG",
+  "position": [
+   633,
+   665
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "cắt cụt chân trái bên trên gối",
+  "type": "CHẨN_ĐOÁN",
+  "position": [
+   689,
+   719
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "cắt cụt chân phải bên dưới gối",
+  "type": "CHẨN_ĐOÁN",
+  "position": [
+   724,
+   754
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "thuyên tắc phổi hai bên",
+  "type": "CHẨN_ĐOÁN",
+  "position": [
+   768,
+   791
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "nhiễm trùng chi dưới bên phải do Enterococcus kháng vancomycin",
+  "type": "CHẨN_ĐOÁN",
+  "position": [
+   795,
+   857
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "cắt cụt chân trái trên gối",
+  "type": "CHẨN_ĐOÁN",
+  "position": [
+   888,
+   914
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "kháng sinh",
+  "type": "THUỐC",
+  "position": [
+   943,
+   953
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "thuốc giảm đau",
+  "type": "THUỐC",
+  "position": [
+   1116,
+   1130
+  ],
+  "assertions": [],
+  "candidates": []
+ },
+ {
+  "text": "dị ứng thời tiết",
+  "type": "CHẨN_ĐOÁN",
+  "position": [
+   1337,
+   1353
+  ],
+  "assertions": [
+   "isNegated"
+  ],
+  "candidates": []
+ }
+]

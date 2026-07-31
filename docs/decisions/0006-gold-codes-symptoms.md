@@ -226,13 +226,49 @@ kiện *cần*. Điều kiện *đủ* là mã **của ta** phải chính xác h
 chứng vượt ngưỡng vì chương XVIII là từ vựng đóng và nhỏ; chẩn đoán không vượt vì
 là cụm danh từ mở, nơi mã "gần đúng" vẫn là mã sai.
 
-## Bác bỏ tiếp thế nào
+## Đã bác bỏ xong — lần nộp E, 31/07 11:35
 
-Cấu hình hiện tại (`CHẨN_ĐOÁN: 0`) dự báo `J_candidates ≈ 15,7…16,2` và điểm
-**23,6…23,8**. Đây là một lần nộp **chỉ-đổi-mã**: span, type và assertions giống
-hệt bản D (đã kiểm bằng so sánh trực tiếp), nên
+Dự báo trước khi nộp: `J_candidates ≈ 15,7…16,2`, điểm **23,6…23,8**, với hai
+điều kiện bất biến vì đây là lần nộp **chỉ-đổi-mã**.
 
-- `WER` và `J_assertion` **bắt buộc** trùng khít 73,3163 và 31,1780. Nếu chúng
-  đổi, giả định "chỉ đổi mã" sai và mọi suy luận trên phải đọc lại từ đầu.
-- `J_candidates` là thứ duy nhất được phép đổi, và nó đo trực tiếp giá trị của
-  756 mã chẩn đoán đã gỡ.
+| | dự báo | thực tế | |
+|---|---|---|---|
+| `WER` | 73,3163 (bắt buộc) | **73,3163** | ✅ khớp đến chữ số cuối |
+| `J_assertion` | 31,1780 (bắt buộc) | **31,1780** | ✅ khớp đến chữ số cuối |
+| `J_candidates` | 15,7…16,2 | **15,0845** | hụt 0,6 |
+| **điểm** | 23,6…23,8 | **23,3923** | hụt 0,21 — **kỷ lục mới** |
+
+`0,3·26,6837 + 0,3·31,178 + 0,4·15,0845 = 23,3923` — khớp chính xác số BTC báo.
+
+### Hai cột bất biến khớp khít, nên đây là phép đo sạch
+
+Không cần hiệu chỉnh `m` gì cả. Giá trị của 756 mã CHẨN_ĐOÁN đo trực tiếp:
+
+```
+J_cand(D, có mã CĐ) = 11,6075
+J_cand(E, bỏ mã CĐ) = 15,0845
+                      ────────
+chênh               = +3,4770 pp  →  +1,3908 điểm
+```
+
+**Dấu đúng, độ lớn hụt 24%** so với dự báo +1,82. Nguồn sai số đã xác định: dự
+báo dùng `m_C/m_A = 1,00818` suy từ lần nộp C, mà C có tập span khác D/E — tỷ lệ
+đó không chuyển hoàn hảo sang một tập span khác. Ghi lại như một giới hạn của
+phương pháp khử `m` xuyên-lần-nộp: nó cho **dấu** đáng tin, **độ lớn** thì không.
+
+Kết luận của ADR không đổi: `cfe764c` đúng, việc W1 đảo lại là sai, và
+`CHẨN_ĐOÁN: 0` là cấu hình đúng.
+
+### Neo mới cho các tham số ẩn
+
+Từ E, với `J_assert = m·P(gold assert ∅) ≤ m`:
+
+```
+m ≥ 0,3118          (chặt hơn cận từ q ≤ 1, vốn chỉ cho m ≥ 0,2668)
+q = 0,2668 / m      →  m = 0,3118 ⇒ q = 0,856
+E[J_cand | đã ghép] = 0,1508 / m  →  ≈ 0,48
+```
+
+Đọc: trong số entity **đã ghép**, ta mới ăn ~48% điểm mã tối đa. Còn dư địa ở
+nhánh candidates, và cận `m ≥ 0,3118` này là neo chính xác nhất hiện có cho mọi
+dự báo sau.

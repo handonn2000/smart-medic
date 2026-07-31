@@ -193,7 +193,14 @@ extract:
       # risk is real in both directions — if the gold does not annotate
       # redactions these 99 spans dilute every denominator by ~3.4%. One
       # submission settles it; this flag is how you toggle the experiment.
-      enabled: true
+      #
+      # Shipped OFF so a clean checkout reproduces the archive currently queued
+      # for submission (E: diagnosis codes disabled, 2912 spans, sha256
+      # 8f2e5e45…). Flip to true and `make run && make submit` to rebuild the H
+      # candidate (3011 spans, sha256 205235d1…) — a clean A/B against E: the
+      # 2912 non-redaction records are byte-identical, so WER and J_assertion
+      # move only by the 99 new spans and nothing else.
+      enabled: false
       # 8 is the shortest run the annotators labelled; 3 is the floor here so a
       # deliberately short mask is not missed. One `*` is a footnote marker and
       # `**` is markdown emphasis — both excluded by the regex, not by length.

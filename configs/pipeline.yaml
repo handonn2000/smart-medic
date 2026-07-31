@@ -496,10 +496,37 @@ decision:
   # most of which is the two lab types, which stay at 0 below.
   #
   # Raise or lower these against a LEADERBOARD reading, never a gold one.
+  # ⚠ MEASURED 31/07 on submission D (22.0015). The W1 reasoning below was right
+  # that the real gold codes symptoms, and wrong to re-enable diagnosis codes at
+  # the same time. Both are now settled ON THE LEADERBOARD, per type.
+  #
+  # Submission C emitted `assertions: []` everywhere, so its J_assertion is
+  # m_C·P(gold assert ∅) and dividing by A's gives m_C/m_A = 1.00818 with no
+  # assumption about q at all. That removes the confound the W1 note complained
+  # about, and the per-type contributions are then additive (each matched pair
+  # has exactly one type):
+  #
+  #     mã THUỐC       (A→B, identical spans)   +3.8573 pp J_c  = +1.54 điểm
+  #     mã CHẨN_ĐOÁN   (from C, m-corrected)    −4.5433 pp J_c  = −1.82 điểm
+  #     mã TRIỆU_CHỨNG (from D, m-corrected)    +1.25…+2.27 pp  = +0.50…+0.91
+  #
+  # The symptom range spans every plausible q_D/q_A from 1.00 to 1.11; it stays
+  # positive throughout, so that one does not depend on the unknown.
+  #
+  # Correcting for m made diagnosis codes look WORSE, not better (−4.54 against
+  # the −1.77 that cfe764c charged them). cfe764c was right and W1's reversal
+  # was wrong: ADR 0006 proved the gold CARRIES codes, which is necessary but not
+  # sufficient — it never showed OUR diagnosis codes are accurate enough to clear
+  # the break-even. That threshold is a/(1−a) > P(gold ∅)/(1−P(gold ∅)) = 0.553,
+  # and ICD retrieval over Vietnamese diagnosis names evidently does not.
+  #
+  # Symptoms clear it because chapter XVIII is a small closed vocabulary of
+  # exactly the words patients write; diagnoses are open-ended noun phrases where
+  # a near-miss code is simply a wrong code.
   max_candidates_per_type:
-    CHẨN_ĐOÁN: 1                    # 1, not 2: diagnosis_always_single_code
-    THUỐC: 2                        # 8.4% of drugs are combinations → two INs
-    TRIỆU_CHỨNG: 1                  # NEW — see the derivation above
+    CHẨN_ĐOÁN: 0                    # measured −1.82 điểm; see the derivation
+    THUỐC: 2                        # measured +1.54; 8.4% combinations → two INs
+    TRIỆU_CHỨNG: 1                  # measured +0.50…+0.91
   # Tie-break when a surface form carries several codes (347 of 2650 codeable
   # spans do). Shortest-first prefers the 3-character block code, which the task
   # permits (I48.0 → I48) and which is the safer bet when nothing disambiguates.

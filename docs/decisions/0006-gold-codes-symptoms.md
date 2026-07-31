@@ -1,9 +1,30 @@
-# ADR 0006 — Gold gán mã cho TRIỆU_CHỨNG: **bật mã cho cả ba loại**
+# ADR 0006 — Gold gán mã cho TRIỆU_CHỨNG: **bật THUỐC + TRIỆU_CHỨNG, tắt CHẨN_ĐOÁN**
 
-- **Trạng thái:** ĐÃ QUYẾT
+- **Trạng thái:** ĐÃ QUYẾT — đã sửa 31/07 sau khi có kết quả đo
 - **Ngày:** 2026-07-31
 - **Ảnh hưởng:** `io/labels.py` · `decision/emit.py` · `configs/pipeline.yaml`
-- **Đảo lại:** quyết định tắt `CHẨN_ĐOÁN` ở commit `cfe764c` (30/07 22:11)
+
+> ## ⚠ ĐÍNH CHÍNH — bản gốc của ADR này đảo ngược `cfe764c` và đã sai một nửa
+>
+> Lần nộp D (bản bật mã cả ba loại) được **22,0015**, thấp hơn lần nộp B
+> (23,2276) đúng 1,23 điểm, và toàn bộ khoảng cách nằm ở `J_candidates`
+> (14,8832 → 11,6075). Phân rã theo loại ở [mục "Đo thật"](#đo-thật) cho:
+>
+> | | đóng góp J_candidates | điểm |
+> |---|---|---|
+> | mã THUỐC | +3,8573 pp | **+1,54** |
+> | mã CHẨN_ĐOÁN | −4,5433 pp | **−1,82** |
+> | mã TRIỆU_CHỨNG | +1,25…+2,27 pp | **+0,50…+0,91** |
+>
+> **Luận điểm chính của ADR vẫn đứng vững:** gold thật CÓ gán mã cho
+> TRIỆU_CHỨNG, và mã triệu chứng dương trong mọi kịch bản. Phần **sai** là gộp
+> mã CHẨN_ĐOÁN bật lại cùng lúc — `cfe764c` đã đúng và tôi đã đảo nhầm.
+>
+> Chỗ hổng trong lập luận: ADR chứng minh gold **có** mã, đó là điều kiện *cần*.
+> Nó chưa bao giờ chứng minh mã **của ta** đủ chính xác để vượt điểm hoà vốn
+> `a/(1−a) > P(gold ∅)/(1−P(gold ∅)) = 0,553`. Triệu chứng vượt vì chương XVIII
+> là từ vựng đóng, nhỏ, đúng những từ bệnh nhân viết; chẩn đoán là cụm danh từ
+> mở, nơi một mã "gần đúng" chỉ đơn giản là một mã sai.
 
 ## Bối cảnh
 
@@ -90,10 +111,17 @@ giải thích, dù lệch đến mức phi lý.
 **"Scorer chỉ chấm candidates trên các loại có mã."** Cách đọc này cho 0,061 — sai 5,8
 lần theo chiều ngược lại. Loại.
 
-## Quyết định
+## Quyết định (đã sửa theo số đo 31/07)
 
-`CODEABLE_TYPES = {CHẨN_ĐOÁN, THUỐC, TRIỆU_CHỨNG}`, với
-`max_candidates_per_type: {CHẨN_ĐOÁN: 1, THUỐC: 2, TRIỆU_CHỨNG: 1}`.
+`CODEABLE_TYPES = {CHẨN_ĐOÁN, THUỐC, TRIỆU_CHỨNG}` — giữ nguyên, vì đây là cổng
+schema và bằng chứng tỷ lệ vẫn nói gold có mã cho cả ba.
+
+`max_candidates_per_type: {CHẨN_ĐOÁN: 0, THUỐC: 2, TRIỆU_CHỨNG: 1}`.
+
+`CHẨN_ĐOÁN: 0` là **kết quả đo**, không phải kết luận suy diễn: cùng một cấu hình
+đó đã được nộp và mất 1,82 điểm. Nếu sau này có cách sinh mã chẩn đoán tốt hơn
+(containment matching, hoặc làn M), chỉ cần đổi số này về 1 và nộp lại một lần
+**chỉ-đổi-mã** để đo — cổng schema không cản.
 `linking/icd.py` phục vụ cả CHẨN_ĐOÁN và TRIỆU_CHỨNG — chương XVIII của ICD-10
 (R00–R99, *"Triệu chứng, dấu hiệu và phát hiện bất thường"*) chính là một từ điển
 triệu chứng, nên cùng một chỉ mục Việt–Việt trả lời được cả hai.
@@ -132,20 +160,79 @@ Gold tổng hợp gán mã cho TRIỆU_CHỨNG ở tỷ lệ **0/1849 = 0,0%**. 
 triệu chứng ta phát đều biến một J=1 thành J=0, nên điểm **phải** giảm. Đây là hệ quả
 tất yếu của giả thuyết, không phải bằng chứng chống lại nó.
 
-Việc bật mã CHẨN_ĐOÁN (+2,54) được cả hai nguồn ủng hộ. Việc bật mã TRIỆU_CHỨNG chỉ
-được leaderboard ủng hộ, và **leaderboard là thứ chúng ta bị chấm**. ADR này áp dụng
-đúng bài học của chính dự án — *nhánh candidates chỉ nghiệm thu bằng leaderboard* — lần
-này theo chiều mà gold nói "không" còn leaderboard nói "có".
+Việc bật mã CHẨN_ĐOÁN được **cả hai nguồn ủng hộ** — gold tổng hợp +2,54, và lập
+luận tỷ lệ ở trên — và **cả hai đều sai**: leaderboard đo được −1,82. Đây là chi
+tiết đắt nhất trong toàn bộ ADR này, nên ghi rõ: hai nguồn cùng đồng ý không
+mạnh hơn một nguồn, khi cả hai đo *"gold có mã không"* còn thứ quyết định điểm là
+*"mã của ta có đúng không"*.
 
-## Cách bác bỏ
+Việc bật mã TRIỆU_CHỨNG chỉ được leaderboard ủng hộ (gold tổng hợp nói không, và
+điểm gold giảm đúng như dự báo) — và leaderboard đo được **+0,50…+0,91**. Bài học
+*nhánh candidates chỉ nghiệm thu bằng leaderboard* đứng vững ở cả hai chiều: nó
+cứu mã triệu chứng khỏi bị gold bác oan, và nó là thứ duy nhất bắt được mã chẩn
+đoán mà gold khen nhầm.
 
-Nộp bản hiện tại. Ba kết quả có thể:
+## Đo thật
 
-- **J_candidates > 14,88** → giả thuyết đúng, giữ nguyên.
-- **J_candidates ≈ 14,88** → mã triệu chứng đúng nhưng độ chính xác retrieval quá thấp;
-  giữ `CHẨN_ĐOÁN: 1`, hạ `TRIỆU_CHỨNG: 0`, đầu tư vào containment matching (W4).
-- **J_candidates < 11,03** → giả thuyết sai bất chấp số học ở trên; hạ cả hai về 0 và
-  đọc lại việc suy ra cột.
+Bản gốc ADR này viết sẵn ba kịch bản và bảo "chỉ tốn một lần nộp để phân định".
+Đã nộp — lần nộp D, 31/07 08:49:
 
-Chỉ tốn **một** lần nộp để phân định, và nó phải là một lần nộp **chỉ đổi mã** — tập
-span phải giữ nguyên y hệt, đúng như A→B đã làm và B→C đã không làm.
+| | WER | text | J_assertion | J_candidates | điểm |
+|---|---|---|---|---|---|
+| A · span+type, 0 mã | 73,3700 | 26,6300 | 30,9496 | 11,0259 | 21,6847 |
+| B · A + 228 mã THUỐC | 73,3700 | 26,6300 | 30,9496 | 14,8832 | 23,2276 |
+| C · 948 mã dx+thuốc | 73,1700 | 26,8300 | 31,2028 | 10,4617 | 21,5945 |
+| **D · W0–W5** | 73,3163 | 26,6837 | 31,1780 | **11,6075** | **22,0015** |
+
+`J_candidates = 11,6075` rơi vào đúng nhánh thứ ba đã viết sẵn: **thấp hơn B**.
+
+### Cách khử `m` mà bản gốc chưa nghĩ ra
+
+Bản gốc kêu rằng B→C bị hỗn nhiễu vì tập span đổi. Đúng, nhưng vẫn khử được:
+**lần nộp C phát `assertions: []` khắp nơi**, nên `J_assertion` của nó bằng
+`m_C · P(gold assert ∅)` — chia cho A là ra thẳng tỷ số match rate, **không cần
+giả định gì về `q`**:
+
+```
+m_C / m_A = 31,2028 / 30,9496 = 1,00818
+q_C / q_A = (26,8300/26,6300) / 1,00818 = 0,99933    (biên gần như không đổi)
+```
+
+Có `m` rồi thì các đóng góp trở nên **cộng tính** — mỗi cặp đã ghép thuộc đúng
+một loại, nên mã của các loại không chồng lấn nhau:
+
+```
+mã THUỐC       = J_c(B) − J_c(A)                        = +3,8573 pp  → +1,54 điểm
+mã CHẨN_ĐOÁN   = J_c(C) − m_C·[J_c(A) + mã THUỐC]       = −4,5433 pp  → −1,82 điểm
+mã TRIỆU_CHỨNG = J_c(D) − m_D·[J_c(A) + hai mã trên]    = +1,25…+2,27 → +0,50…+0,91
+```
+
+Khoảng của TRIỆU_CHỨNG quét toàn bộ `q_D/q_A` từ 1,00 đến 1,11 (giới hạn trên là
+mức W4 đo trên proxy gold); **nó dương ở mọi điểm**, nên kết luận đó không phụ
+thuộc ẩn số.
+
+### Điều này khẳng định gì và bác bỏ gì
+
+**Khẳng định:** gold thật có gán mã cho TRIỆU_CHỨNG. Ràng buộc
+`P(gold cand ∅) ≤ 0,356` từ lần nộp A là số học thuần, không đụng tới, và mã
+triệu chứng đo được là dương.
+
+**Bác bỏ:** việc bật lại mã CHẨN_ĐOÁN. Hiệu chỉnh `m` làm nó trông **tệ hơn**
+(−4,54 pp) so với con số −1,77 mà `cfe764c` đã quy cho nó. `cfe764c` đúng.
+
+**Lỗ hổng lập luận, ghi lại để không lặp:** ADR chứng minh gold **có** mã — điều
+kiện *cần*. Điều kiện *đủ* là mã **của ta** phải chính xác hơn điểm hoà vốn
+`a/(1−a) > P(∅)/(1−P(∅)) = 0,553`. Hai điều kiện này bị tôi gộp làm một. Triệu
+chứng vượt ngưỡng vì chương XVIII là từ vựng đóng và nhỏ; chẩn đoán không vượt vì
+là cụm danh từ mở, nơi mã "gần đúng" vẫn là mã sai.
+
+## Bác bỏ tiếp thế nào
+
+Cấu hình hiện tại (`CHẨN_ĐOÁN: 0`) dự báo `J_candidates ≈ 15,7…16,2` và điểm
+**23,6…23,8**. Đây là một lần nộp **chỉ-đổi-mã**: span, type và assertions giống
+hệt bản D (đã kiểm bằng so sánh trực tiếp), nên
+
+- `WER` và `J_assertion` **bắt buộc** trùng khít 73,3163 và 31,1780. Nếu chúng
+  đổi, giả định "chỉ đổi mã" sai và mọi suy luận trên phải đọc lại từ đầu.
+- `J_candidates` là thứ duy nhất được phép đổi, và nó đo trực tiếp giá trị của
+  756 mã chẩn đoán đã gỡ.

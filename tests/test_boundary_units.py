@@ -126,41 +126,33 @@ def test_only_symptom_spans_ask_for_the_boost():
         seen[surface] = bool(kw.get("prefer_symptom_chapter"))
         return real(surface, **kw)
 
-    # Real documents, not a fixture line: `retrieve` is only called when the
-    # gazetteer found no code, so a hand-written sentence of well-known terms
-    # never reaches this branch at all.
-    by_type: dict[str, str] = {}
+    # Exercised at `_pick_codes`, not through `finalize`, and that choice is
+    # load-bearing. `decision.max_candidates_per_type` puts CHẨN_ĐOÁN at 0 (the
+    # leaderboard measured its codes at −1.82 điểm), so a run through `finalize`
+    # never reaches retrieval for a diagnosis and the test would silently degrade
+    # to "the only type present got the flag it wanted" — which is what it did
+    # when that cap changed. Calling one layer down keeps both branches alive
+    # regardless of the cap, since the flag lives in `_pick_codes`.
+    caps = {"CHẨN_ĐOÁN": 1, "THUỐC": 2, "TRIỆU_CHỨNG": 1}
+    surfaces = {
+        "TRIỆU_CHỨNG": "ngứa nhiều về đêm",
+        "CHẨN_ĐOÁN": "viêm cầu thận mạn tính giai đoạn cuối",
+    }
+
     emit.icd.retrieve = spy
     try:
-        for doc_id in (str(n) for n in range(1, 11)):
-            raw = (ROOT / "data" / "test" / f"{doc_id}.txt").open(
-                encoding="utf-8", newline=""
-            ).read()
-            doc = Document(doc_id=doc_id, raw=raw)
-            lines = split_lines(doc)
-            spans = recall_floor(doc, lines, split_units(doc, lines))
-            for record in emit.finalize(doc, spans, emit.select_threshold(10.0)):
-                by_type[record["text"]] = record["type"]
+        for etype, surface in surfaces.items():
+            seen.clear()
+            emit._pick_codes((), etype, caps, "shortest_first", surface)
+            assert surface in seen, (
+                f"{etype} did not reach ICD retrieval — pick a surface the "
+                f"gazetteer does not already carry a code for"
+            )
+            assert seen[surface] == (etype == "TRIỆU_CHỨNG"), (
+                f"{etype} asked for prefer_symptom_chapter={seen[surface]}"
+            )
     finally:
         emit.icd.retrieve = real
-
-    asked = {t: flag for t, flag in seen.items() if t in by_type}
-    assert asked, "no retrieval happened — the fixture no longer exercises this path"
-
-    # Both branches must be present, or the test could pass by never reaching the
-    # case it is about. Over documents 1–10: ~52 symptom retrievals and ~22
-    # diagnosis retrievals.
-    types_asked = {by_type[t] for t in asked}
-    assert {"TRIỆU_CHỨNG", "CHẨN_ĐOÁN"} <= types_asked, (
-        f"only {sorted(types_asked)} reached retrieval — this test cannot "
-        f"distinguish the flag being right from it never being set"
-    )
-
-    for surface, boosted in asked.items():
-        assert boosted == (by_type[surface] == "TRIỆU_CHỨNG"), (
-            f"{surface!r} is {by_type[surface]} but asked for "
-            f"prefer_symptom_chapter={boosted}"
-        )
 
 
 def test_retrieval_is_deterministic():

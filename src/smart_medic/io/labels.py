@@ -64,6 +64,22 @@ ASSERTABLE_TYPES = TYPES - LAB_TYPES
 #: unlike the matched-entity case, emitting a code where gold is empty is the one
 #: move that turns a scored 1 into a 0.
 #:
+#: MEASURED 2026-07-31, and this is the distinction that cost a submission:
+#: "gold carries a code here" is necessary, not sufficient. What earns points is
+#: OUR code being right often enough to clear the break-even
+#: `a/(1−a) > P(gold ∅)/(1−P(gold ∅)) = 0.553`. Per-type, from the leaderboard:
+#:
+#:     THUỐC        +3.86 pp J_candidates   (+1.54 điểm)
+#:     TRIỆU_CHỨNG  +1.25…+2.27 pp          (+0.50…+0.91)
+#:     CHẨN_ĐOÁN    −4.54 pp                (−1.82)  ← fails the break-even
+#:
+#: Symptoms clear it because ICD chapter XVIII is a small closed vocabulary of
+#: the words patients actually write; diagnoses are open-ended noun phrases where
+#: a near-miss code is just a wrong code. So CHẨN_ĐOÁN stays in this set — the
+#: gold does carry diagnosis codes — but `max_candidates_per_type` holds it at 0
+#: until a better generator exists. The two questions live in two places on
+#: purpose: this set is "may it, in principle", the cap is "does it pay".
+#:
 #: `decision.max_candidates_per_type` in configs/pipeline.yaml sets how MANY
 #: codes each type may carry; this set is the hard schema gate behind it, so a
 #: type must appear in both to emit anything.

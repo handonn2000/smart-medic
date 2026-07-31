@@ -412,3 +412,75 @@ span đó phải sửa BIÊN trước, không phải retrieval.
 giờ đáng kiểm lại bằng một lần nộp.
 
 output.zip vẫn là E, sha 8f2e5e45… Suite 229/229.
+
+---
+
+## Bốn hướng loại bằng số liệu sau F — không tốn lượt nộp nào
+
+Sau F tôi kiểm bốn hướng còn lại. Cả bốn đều bị loại **trước khi nộp**, và ghi
+lại đây để không ai thử lại.
+
+### 1· Gán mã cho 641 span xét nghiệm — NGÕ CỤT
+
+`TÊN_XÉT_NGHIỆM` (479 span) và `KẾT_QUẢ_XÉT_NGHIỆM` (162) chưa bao giờ được thử
+gán mã, nên tôi tưởng đó là đòn bẩy. Đo:
+
+    khớp chính xác tên ICD-10:  TÊN_XN 0/479  ·  KẾT_QUẢ 0/162
+
+ICD-10 là phân loại **bệnh**. `nội soi`, `siêu âm`, `men gan`, `SpO2` không có mã
+ICD theo định nghĩa. Bộ mã đúng cho chúng là LOINC (xét nghiệm) hoặc ICD-10-PCS
+(thủ thuật), và `data/knowledge_base/` **không có cả hai**: chỉ ICD10.csv,
+icd10cm-*, và các file RxNorm. `RXNCONSO.RRF` có cột SAB gồm ATC, DRUGBANK,
+SNOMEDCT_US, VANDF… — tất cả là tập con thuốc, 0 dòng thủ thuật/xét nghiệm.
+
+Không phải "chưa thử" mà là **không thể**. `CODEABLE_TYPES` giữ nguyên.
+
+### 2· Tiên nghiệm type CHẨN_ĐOÁN ↔ TRIỆU_CHỨNG — LOẠI
+
+Đối chiếu luật "cụm mở đầu bằng từ khoá bệnh lý → CHẨN_ĐOÁN" trên 90 span
+CHẨN_ĐOÁN có mặt trong gold tay:
+
+    luật CHUYỂN sang TRIỆU_CHỨNG:  đúng 12 · SAI 18  -> precision 0,40
+    luật GIỮ CHẨN_ĐOÁN          :  đúng 59 · sai  1
+    accuracy tổng 0,79
+
+Chiều chuyển **sai nhiều hơn đúng**. Bộ từ khoá thiếu cả một lớp tên bệnh không
+có tiền tố hình thái: `đột quỵ`, `loãng xương`, `béo phì`, `rung nhĩ`, `trầm cảm`,
+`sâu răng`, `tăng lipid máu`, `tràn dịch màng phổi`.
+
+Đây là lần thứ hai tôi ước lượng hướng này quá lạc quan — trước ghi precision
+0,86 (đo cả hai chiều gộp), đo riêng chiều cần dùng thì 0,40.
+
+### 3· Nới cap mã TRIỆU_CHỨNG từ 1 lên 2 — LOẠI, −2,88 điểm
+
+`J_candidates` là Jaccard trên tập: phát 2 mã khi gold có 1 cho J = 0,5 thay vì
+1,0. Nới cap chỉ đáng nếu `acc(top-2) > 2·acc(top-1)` — bất khả khi acc ≈ 0,5.
+
+Lần nộp A→B đo 0,693 đơn vị J mỗi span THUỐC ở cap 2, mà 0,693 > 0,5 nên thoạt
+trông như gold có nhiều mã. Nhưng **99% mục THUỐC trong gazetteer chỉ có 1 mã**
+(21802 mục 1 mã, 112 mục 2 mã), nên cap 2 gần như luôn phát 1 mã và J = 1. Giải
+thích đó đủ; không có bằng chứng gold nhiều mã.
+
+Ước lượng nếu nới cap: 95% của Σj_cand đến từ TRIỆU_CHỨNG (≈589/618 đơn vị), chia
+2 làm J_candidates 15,08 → 7,90, tức **−2,88 điểm**.
+
+Ghi chú kỹ thuật: `icd.retrieve` hiện chỉ trả top-1 (`min(acc, key=...)`), nên
+cap 2 hiện tại là no-op cho TRIỆU_CHỨNG — mọi mã của loại này đến từ retrieve,
+không phải gazetteer. Cap 2 chỉ có tác dụng nếu retrieve trả top-k, và phân tích
+trên nói đừng làm điều đó.
+
+### 4· Lọc phần thừa của làn lexicon — quá nhỏ
+
+Đã ghi ở mục "Đo thật lần 3": lọc từ tố không phân biệt được (58% có mã ở nhóm
+loại so với 55% ở nhóm giữ), lọc span 1 từ chỉ dự báo +0,10.
+
+### Hệ quả
+
+**E = 23,3923 là cực đại địa phương của kiến trúc hiện tại.** Ba lần nộp gần nhất
+(D 22,00 · H 22,68 · F 23,31) đều không vượt được, và mọi hướng đổi-cấu-hình đã
+cạn.
+
+Hướng duy nhất còn giá trị lớn cần **làm việc thật**, không phải đổi tham số: sửa
+biên 280 span CHẨN_ĐOÁN cụt (`thận`, `sỏi`, `mạch vành`) để mở khoá 776 span cho
+mã. Nới trái bằng từ điển ICD đã thử và thất bại — gazetteer chỉ chứa tên ICD đầy
+đủ nên `viêm cầu thận` không có mục riêng.

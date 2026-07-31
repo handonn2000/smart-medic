@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Medic — Trình xem chú thích</title>
+<style>
+  :root{
+    --bg:#f4f5f3; --panel:#ffffff; --ink:#1b2320; --ink-soft:#5d6b64; --ink-faint:#8b968f;
+    --line:#e2e6e2; --line-soft:#eef1ee; --accent:#3f7d5c; --warn:#c2410c; --warn-bg:#fff3ea;
+    --shadow:0 1px 2px rgba(20,35,28,.05), 0 8px 24px rgba(20,35,28,.06);
+    --diff:#7c5cd6; --diff-strong:#d1477a; --diff-bg:#f6f2fd;
+    --sym-bg:#fbe6bd; --sym-bd:#e2ab4b; --sym-ink:#6b4708;
+    --lab-bg:#cfeaf2; --lab-bd:#79bfd2; --lab-ink:#0d4b5c;
+    --res-bg:#e7dbf8; --res-bd:#b193e0; --res-ink:#442a70;
+    --dx-bg:#fbd9d3;  --dx-bd:#eb9a8d;  --dx-ink:#7a2b1c;
+    --rx-bg:#d2ebd3;  --rx-bd:#87c58b;  --rx-ink:#1f5426;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --panel:#1b2124; --ink:#e6ebe7; --ink-soft:#a2b0a8; --ink-faint:#76837b;
+      --line:#2b3438; --line-soft:#222a2d; --accent:#6fbb90; --warn:#f59e6b; --warn-bg:#33221a;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+      --diff:#a98ef0; --diff-strong:#ef7fa9; --diff-bg:#241d33;
+      --sym-bg:#4a3a17; --sym-bd:#a8822f; --sym-ink:#f5d99c;
+      --lab-bg:#153f4b; --lab-bd:#4d94a9; --lab-ink:#b6e4f0;
+      --res-bg:#332552; --res-bd:#8163b5; --res-ink:#dccdf7;
+      --dx-bg:#4d251d;  --dx-bd:#b56a5b;  --dx-ink:#f8cfc6;
+      --rx-bg:#1d4023;  --rx-bd:#5c9662;  --rx-ink:#c6e8c8;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Roboto,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  button{font:inherit; color:inherit; cursor:pointer}
+  code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+  /* ---------- layout ---------- */
+  .app{display:flex; flex-direction:column; height:100vh}
+  header{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    padding:12px 20px; background:var(--panel); border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex; align-items:baseline; gap:10px; margin-right:auto}
+  .brand h1{margin:0; font-size:16px; font-weight:650; letter-spacing:-.01em}
+  .brand span{font-size:12.5px; color:var(--ink-faint)}
+  .pick{
+    display:inline-flex; align-items:center; gap:8px; padding:7px 13px;
+    background:var(--panel); border:1px solid var(--line); border-radius:9px;
+    font-size:13px; font-weight:500; transition:border-color .15s, background .15s;
+  }
+  .pick:hover{border-color:var(--accent)}
+  .pick.ready{border-color:var(--accent); background:color-mix(in srgb, var(--accent) 8%, transparent)}
+  .pick .dot{width:7px;height:7px;border-radius:50%;background:var(--line);flex:none}
+  .pick.ready .dot{background:var(--accent)}
+  .pick small{color:var(--ink-faint); font-weight:400; max-width:130px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .pick .side{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-weight:700; font-size:11px;
+    padding:1px 5px; border-radius:4px; background:var(--line-soft); border:1px solid var(--line);
+  }
+  .pick.ready .side{background:var(--accent); color:var(--panel); border-color:var(--accent)}
+  .pick .x{margin-left:2px; opacity:.45; font-size:15px; line-height:1}
+  .pick .x:hover{opacity:1}
+  main{flex:1; display:flex; min-height:0}
+
+  /* ---------- sidebar ---------- */
+  aside{
+    width:288px; flex:none; display:flex; flex-direction:column; min-height:0;
+    background:var(--panel); border-right:1px solid var(--line);
+  }
+  .search{padding:10px 12px; border-bottom:1px solid var(--line-soft)}
+  .search input{
+    width:100%; padding:7px 10px; border:1px solid var(--line); border-radius:8px;
+    background:var(--bg); color:var(--ink); font:inherit; font-size:13px; outline:none;
+  }
+  .search input:focus{border-color:var(--accent)}
+  .search .hint{margin-top:6px; font-size:11.5px; color:var(--ink-faint)}
+  .search .only{
+    margin-top:7px; display:none; align-items:center; gap:6px; font-size:12px; color:var(--ink-soft);
+    cursor:pointer; user-select:none;
+  }
+  .search .only.on{display:flex}
+  .filelist{flex:1; overflow-y:auto; padding:6px}
+  .fitem{
+    display:flex; align-items:center; gap:7px; width:100%; text-align:left;
+    padding:7px 10px; border:0; border-radius:8px; background:transparent; font-size:13.5px;
+  }
+  .fitem:hover{background:var(--line-soft)}
+  .fitem.on{background:color-mix(in srgb, var(--accent) 14%, transparent); font-weight:600}
+  .fitem .nm{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .fitem .ct{font-size:11.5px; color:var(--ink-faint); font-variant-numeric:tabular-nums}
+  .fitem .bad{color:var(--warn); font-size:12px}
+  .fitem .dbadge{
+    font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; padding:1px 6px; border-radius:20px;
+    background:color-mix(in srgb, var(--diff) 16%, transparent); color:var(--diff);
+    border:1px solid color-mix(in srgb, var(--diff) 35%, transparent);
+  }
+  .fitem .dbadge.zero{background:transparent; color:var(--ink-faint); border-color:var(--line)}
+  .fitem.nojson .nm{color:var(--ink-faint); font-style:italic}
+  .empty{padding:22px 16px; font-size:13px; color:var(--ink-faint); line-height:1.6}
+
+  /* ---------- toolbar ---------- */
+  .pane{flex:1; display:flex; flex-direction:column; min-width:0; min-height:0}
+  .toolbar{
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+    padding:10px 18px; border-bottom:1px solid var(--line); background:var(--panel);
+  }
+  .toolbar .docname{font-weight:600; font-size:14px; margin-right:auto; display:flex; align-items:center; gap:9px}
+  .toolbar .docname em{font-style:normal; font-weight:400; font-size:12.5px; color:var(--ink-faint)}
+  .chip{
+    display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:7px;
+    border:1px solid; font-size:12px; font-weight:600; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    background:var(--panel); transition:opacity .15s;
+  }
+  .chip .n{font-weight:500; opacity:.7; font-variant-numeric:tabular-nums}
+  .chip.off{opacity:.32}
+  .chip[data-t="TRIỆU_CHỨNG"]      {background:var(--sym-bg); border-color:var(--sym-bd); color:var(--sym-ink)}
+  .chip[data-t="TÊN_XÉT_NGHIỆM"]   {background:var(--lab-bg); border-color:var(--lab-bd); color:var(--lab-ink)}
+  .chip[data-t="KẾT_QUẢ_XÉT_NGHIỆM"]{background:var(--res-bg); border-color:var(--res-bd); color:var(--res-ink)}
+  .chip[data-t="CHẨN_ĐOÁN"]        {background:var(--dx-bg);  border-color:var(--dx-bd);  color:var(--dx-ink)}
+  .chip[data-t="THUỐC"]            {background:var(--rx-bg);  border-color:var(--rx-bd);  color:var(--rx-ink)}
+  .tgl{
+    display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:7px;
+    border:1px solid var(--line); background:var(--panel); font-size:12.5px; font-weight:500;
+  }
+  .tgl.on{border-color:var(--diff); background:var(--diff-bg); color:var(--diff); font-weight:650}
+
+  /* ---------- diff legend ---------- */
+  .difflegend{
+    display:none; align-items:center; gap:16px; flex-wrap:wrap;
+    padding:7px 18px; border-bottom:1px solid var(--line); background:var(--bg);
+    font-size:12px; color:var(--ink-soft);
+  }
+  .difflegend.on{display:flex}
+  .difflegend b{font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums}
+  .dl{display:inline-flex; align-items:center; gap:7px}
+  .swatch{width:26px; height:16px; border-radius:5px; background:var(--line-soft); flex:none}
+  .swatch.attr{outline:2px dotted var(--diff); outline-offset:1px}
+  .swatch.bound{outline:2px dashed var(--diff); outline-offset:1px}
+  .swatch.only{outline:2px solid var(--diff-strong); outline-offset:1px}
+
+  /* ---------- document columns ---------- */
+  .doc{flex:1; display:grid; grid-template-columns:1fr; min-height:0}
+  .doc.split{grid-template-columns:1fr 1fr}
+  /* Two columns need real width to stay readable — stack them below that. */
+  @media (max-width:1100px){
+    .doc.split{grid-template-columns:1fr; grid-template-rows:1fr 1fr}
+    .doc.split .col{border-left:0; border-top:1px solid var(--line)}
+    .doc.split .col:first-child{border-top:0}
+  }
+  .col{display:flex; flex-direction:column; min-width:0; overflow-y:auto; border-left:1px solid var(--line)}
+  .col:first-child{border-left:0}
+  .colhead{
+    position:sticky; top:0; z-index:3; display:flex; align-items:center; gap:9px;
+    padding:8px 20px; background:color-mix(in srgb, var(--panel) 92%, transparent);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line); font-size:12.5px; font-weight:600;
+  }
+  .colhead .side{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px; font-weight:700;
+    padding:1px 6px; border-radius:4px; background:var(--accent); color:var(--panel);
+  }
+  .colhead .path{color:var(--ink-faint); font-weight:400; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .colhead .ct{margin-left:auto; color:var(--ink-faint); font-weight:400; font-variant-numeric:tabular-nums}
+  .colbody{padding:20px 24px 40px}
+  .sheet{
+    max-width:900px; margin:0 auto; background:var(--panel); border:1px solid var(--line);
+    border-radius:14px; box-shadow:var(--shadow); padding:24px 28px;
+    white-space:pre-wrap; word-wrap:break-word; font-size:16px; line-height:2.05;
+  }
+  .placeholder{max-width:640px; margin:8vh auto 0; text-align:center; color:var(--ink-soft); padding:0 20px}
+  .placeholder h2{font-size:17px; margin:0 0 10px}
+  .placeholder ol{text-align:left; display:inline-block; margin:14px 0 0; padding-left:20px; font-size:13.5px; line-height:1.9}
+
+  /* ---------- annotated spans ---------- */
+  .ent{
+    border-radius:6px; padding:2px 4px; margin:0 1px; border:1px solid transparent;
+    cursor:pointer; font-weight:600; transition:box-shadow .12s, filter .12s, opacity .12s;
+  }
+  .ent sup{font-size:.62em; font-weight:700; opacity:.72; margin-left:2px; letter-spacing:.02em}
+  .ent:hover{filter:brightness(.96)}
+  .ent.sel,.ent.peerhl{box-shadow:0 0 0 2px currentColor}
+  .ent[data-t="TRIỆU_CHỨNG"]      {background:var(--sym-bg); border-color:var(--sym-bd); color:var(--sym-ink)}
+  .ent[data-t="TÊN_XÉT_NGHIỆM"]   {background:var(--lab-bg); border-color:var(--lab-bd); color:var(--lab-ink)}
+  .ent[data-t="KẾT_QUẢ_XÉT_NGHIỆM"]{background:var(--res-bg); border-color:var(--res-bd); color:var(--res-ink)}
+  .ent[data-t="CHẨN_ĐOÁN"]        {background:var(--dx-bg);  border-color:var(--dx-bd);  color:var(--dx-ink)}
+  .ent[data-t="THUỐC"]            {background:var(--rx-bg);  border-color:var(--rx-bd);  color:var(--rx-ink)}
+  .ent.dim{opacity:.22; font-weight:400}
+  .ent.mismatch{border-style:dashed; border-width:2px; border-color:var(--warn)}
+  .ent.neg{text-decoration:line-through; text-decoration-thickness:1.5px; text-decoration-color:color-mix(in srgb, currentColor 55%, transparent)}
+  /* diff status — outline, so it never collides with the type fill or the offset-mismatch border */
+  .ent[data-d="attr"] {outline:2px dotted var(--diff); outline-offset:1px}
+  .ent[data-d="bound"]{outline:2px dashed var(--diff); outline-offset:1px}
+  .ent[data-d="only"] {outline:2px solid var(--diff-strong); outline-offset:1px}
+
+  .notice{
+    max-width:900px; margin:0 auto 14px; padding:10px 14px; border-radius:10px;
+    background:var(--warn-bg); border:1px solid color-mix(in srgb, var(--warn) 35%, transparent);
+    color:var(--warn); font-size:12.5px; line-height:1.6;
+  }
+
+  /* ---------- detail ---------- */
+  .detail{
+    flex:none; border-top:1px solid var(--line); background:var(--panel);
+    padding:14px 22px; max-height:36vh; overflow-y:auto;
+  }
+  .detail.idle{color:var(--ink-faint); font-size:13px}
+  .dgrid{display:grid; grid-template-columns:106px 1fr; gap:2px 14px; align-items:start}
+  .dgrid.cmp{grid-template-columns:106px 1fr 1fr}
+  .dkey{
+    font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--ink-faint); font-weight:600; padding-top:5px;
+  }
+  .dval{min-width:0; display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding:2px 0}
+  .dval.txt{font-weight:600; font-size:15px}
+  .dval.chg{background:var(--diff-bg); border-radius:6px; padding:2px 8px; box-shadow:0 0 0 1px color-mix(in srgb,var(--diff) 30%,transparent)}
+  .dhead{font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--ink-faint); padding-bottom:4px}
+  .dhead b{color:var(--ink)}
+  .tag{
+    display:inline-block; padding:2px 9px; border-radius:6px; font-size:12.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    background:var(--line-soft); border:1px solid var(--line);
+  }
+  .tag.code{background:color-mix(in srgb, var(--accent) 12%, transparent); border-color:color-mix(in srgb, var(--accent) 40%, transparent)}
+  .tag.assert{background:var(--warn-bg); border-color:color-mix(in srgb,var(--warn) 35%,transparent); color:var(--warn)}
+  .none{color:var(--ink-faint); font-size:13px}
+  .detail .raws{display:flex; gap:10px; margin-top:10px}
+  .detail .raw{
+    position:relative; flex:1; min-width:0; font-size:12px; color:var(--ink-soft); background:var(--bg);
+    border:1px solid var(--line-soft); border-radius:8px; padding:9px 11px;
+    white-space:pre; overflow-x:auto;
+  }
+  .copy{
+    position:absolute; top:6px; right:8px;
+    padding:3px 9px; font-size:11.5px; border:1px solid var(--line); border-radius:6px;
+    background:var(--panel); opacity:.6;
+  }
+  .copy:hover{opacity:1; border-color:var(--accent)}
+
+  /* ---------- tooltip ---------- */
+  #tip{
+    position:fixed; z-index:99; pointer-events:none; opacity:0; transition:opacity .1s;
+    max-width:360px; background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    box-shadow:var(--shadow); padding:10px 12px; font-size:12.5px; line-height:1.55;
+  }
+  #tip.show{opacity:1}
+  #tip .tt{font-weight:650; font-size:13.5px; margin-bottom:5px}
+  #tip .tr{display:flex; gap:8px; margin-top:3px}
+  #tip .tk{width:78px; flex:none; color:var(--ink-faint); font-size:11px; text-transform:uppercase; letter-spacing:.07em; padding-top:2px}
+  #tip .tv{flex:1; display:flex; flex-wrap:wrap; gap:4px}
+  #tip .dnote{
+    margin-top:7px; padding-top:6px; border-top:1px solid var(--line-soft);
+    color:var(--diff); font-weight:600; font-size:12px;
+  }
+  #tip .dnote.only{color:var(--diff-strong)}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="brand">
+      <h1>Trình xem chú thích</h1>
+      <span>văn bản + nhãn · so sánh 2 kết quả · chạy hoàn toàn trong trình duyệt</span>
+    </div>
+
+    <button class="pick" id="pickTxt">
+      <span class="dot"></span> Thư mục <code>.txt</code> <small id="txtInfo"></small>
+    </button>
+    <button class="pick" id="pickA">
+      <span class="dot"></span><span class="side">A</span> Kết quả <code>.json</code> <small id="aInfo"></small>
+    </button>
+    <button class="pick" id="pickB">
+      <span class="dot"></span><span class="side">B</span> So sánh <code>.json</code> <small id="bInfo"></small>
+    </button>
+    <input type="file" id="fTxt" webkitdirectory directory multiple hidden>
+    <input type="file" id="fA"   webkitdirectory directory multiple hidden>
+    <input type="file" id="fB"   webkitdirectory directory multiple hidden>
+  </header>
+
+  <main>
+    <aside>
+      <div class="search">
+        <input id="q" type="search" placeholder="Lọc theo tên file hoặc nội dung nhãn…" autocomplete="off">
+        <label class="only" id="onlyDiffWrap">
+          <input type="checkbox" id="onlyDiffFiles"> Chỉ file có khác biệt
+        </label>
+        <div class="hint" id="fcount"></div>
+      </div>
+      <div class="filelist" id="filelist">
+        <div class="empty">Chưa có file nào.<br>Hãy chọn thư mục văn bản ở phía trên.</div>
+      </div>
+    </aside>
+
+    <div class="pane">
+      <div class="toolbar" id="toolbar">
+        <div class="docname"><em>Chưa mở tài liệu</em></div>
+      </div>
+      <div class="difflegend" id="difflegend"></div>
+      <div class="doc" id="doc">
+        <div class="placeholder">
+          <h2>Chọn thư mục để bắt đầu</h2>
+          <p>Thư mục văn bản chứa các file <code>*.txt</code>; mỗi thư mục kết quả chứa các file
+             <code>*.json</code>. Các file được ghép cặp theo tên (ví dụ <code>12.txt</code> ↔ <code>12.json</code>).</p>
+          <ol>
+            <li>Chọn <b>thư mục .txt</b> trên máy bạn.</li>
+            <li>Chọn <b>kết quả A</b> — xem một mình là đủ.</li>
+            <li>Muốn so sánh: chọn thêm <b>kết quả B</b>, màn hình sẽ chia đôi và
+                đánh dấu mọi khác biệt giữa hai run.</li>
+          </ol>
+          <p style="margin-top:18px;font-size:12.5px;color:var(--ink-faint)">
+            Không có gì được tải lên máy chủ — mọi thứ đọc và hiển thị ngay trên trình duyệt.</p>
+        </div>
+      </div>
+      <div class="detail idle" id="detail">Di chuột hoặc bấm vào một nhãn để xem chi tiết JSON.</div>
+    </div>
+  </main>
+</div>
+
+<div id="tip"></div>
+
+<script>
+"use strict";
+
+/* ============================ constants ============================ */
+
+const TYPES = ["TRIỆU_CHỨNG","TÊN_XÉT_NGHIỆM","KẾT_QUẢ_XÉT_NGHIỆM","CHẨN_ĐOÁN","THUỐC"];
+const ABBR  = {"TRIỆU_CHỨNG":"TC","TÊN_XÉT_NGHIỆM":"XN","KẾT_QUẢ_XÉT_NGHIỆM":"KQ","CHẨN_ĐOÁN":"CĐ","THUỐC":"T"};
+const LABEL = {"TRIỆU_CHỨNG":"Triệu chứng","TÊN_XÉT_NGHIỆM":"Tên XN","KẾT_QUẢ_XÉT_NGHIỆM":"Kết quả",
+               "CHẨN_ĐOÁN":"Chẩn đoán","THUỐC":"Thuốc"};
+const CODESYS = {"CHẨN_ĐOÁN":"ICD-10","THUỐC":"RxNorm"};
+const DIFF_LABEL = {
+  same:  "giống hệt",
+  attr:  "cùng vị trí, khác thuộc tính",
+  bound: "lệch biên",
+  only:  "chỉ có ở bên này"
+};
+
+/* ============================ state ============================ */
+
+const state = {
+  texts: new Map(),                       // stem -> File
+  anns:  {A: new Map(), B: new Map()},    // side -> stem -> {items, error}
+  dir:   {A: "", B: ""},                  // folder name, for column headers
+  stems: [], current: null,
+  hidden: new Set(), pinned: null,        // pinned = {side, idx}
+  diffOnly: false,
+  diffCache: new Map(),                   // stem -> {a, b, d}
+  doc: null
+};
+
+const $ = id => document.getElementById(id);
+const sides = () => ["A","B"].filter(s => state.anns[s].size > 0);
+const comparing = () => sides().length === 2;
+
+/* ============================ folder loading ============================ */
+
+$("pickTxt").onclick = () => $("fTxt").click();
+$("pickA").onclick   = e => clearOr(e, "A", () => $("fA").click());
+$("pickB").onclick   = e => clearOr(e, "B", () => $("fB").click());
+$("fTxt").onchange = e => loadTexts([...e.target.files]);
+$("fA").onchange   = e => loadAnns("A", [...e.target.files]);
+$("fB").onchange   = e => loadAnns("B", [...e.target.files]);
+
+/** The little "×" inside a loaded picker unloads that side instead of re-picking. */
+function clearOr(ev, side, pick){
+  if (ev.target.classList.contains("x")){
+    state.anns[side].clear(); state.dir[side] = "";
+    state.diffCache.clear();
+    markReady(side === "A" ? "pickA" : "pickB", side === "A" ? "aInfo" : "bInfo", 0, 0, "");
+    rebuild();
+  } else pick();
+}
+
+const stemOf = f => (f.name || "").replace(/\.[^.]+$/, "");
+const dirOf  = f => (f.webkitRelativePath || "").split("/")[0] || "";
+
+function naturalSort(a, b){
+  const na = /^\d+$/.test(a), nb = /^\d+$/.test(b);
+  if (na && nb) return (+a) - (+b);
+  return a.localeCompare(b, "vi", {numeric:true});
+}
+
+function loadTexts(files){
+  const txt = files.filter(f => /\.(txt|text)$/i.test(f.name));
+  state.texts.clear();
+  for (const f of txt) state.texts.set(stemOf(f), f);
+  markReady("pickTxt", "txtInfo", txt.length, files.length, dirOf(files[0] || {}));
+  rebuild();
+}
+
+async function loadAnns(side, files){
+  const js = files.filter(f => /\.json$/i.test(f.name));
+  const map = state.anns[side];
+  map.clear();
+  state.dir[side] = dirOf(files[0] || {});
+  await Promise.all(js.map(async f => {
+    let rec;
+    try {
+      const parsed = JSON.parse(await f.text());
+      rec = Array.isArray(parsed) ? {items: parsed, error: null}
+                                  : {items: [], error: "Không phải mảng JSON — bỏ qua"};
+    } catch (err) {
+      rec = {items: [], error: "JSON lỗi: " + err.message};
+    }
+    map.set(stemOf(f), rec);
+  }));
+  state.diffCache.clear();
+  markReady(side === "A" ? "pickA" : "pickB", side === "A" ? "aInfo" : "bInfo",
+            js.length, files.length, state.dir[side]);
+  rebuild();
+}
+
+function markReady(btnId, infoId, kept, total, dir){
+  const b = $(btnId);
+  b.classList.toggle("ready", kept > 0);
+  const label = [dir, kept ? `${kept} file` + (total > kept ? `/${total}` : "") : ""].filter(Boolean).join(" · ");
+  $(infoId).textContent = label ? "· " + label : "";
+  b.querySelector(".x")?.remove();
+  if (kept && btnId !== "pickTxt"){
+    const x = document.createElement("span");
+    x.className = "x"; x.textContent = "×"; x.title = "Bỏ thư mục này";
+    b.appendChild(x);
+  }
+}
+
+function rebuild(){
+  state.stems = [...state.texts.keys()].sort(naturalSort);
+  $("onlyDiffWrap").classList.toggle("on", comparing());
+  if (!comparing()) $("onlyDiffFiles").checked = false;
+  renderFileList();
+  if (state.current && state.texts.has(state.current)) open(state.current);
+  else if (state.stems.length) open(state.stems[0]);
+}
+
+/* ============================ per-file diff summary ============================ */
+
+const setEq = (x, y) => {
+  const a = [...new Set(x || [])].sort(), b = [...new Set(y || [])].sort();
+  return a.length === b.length && a.every((v, i) => v === b[i]);
+};
+const sameAttrs = (a, b) =>
+  a.type === b.type && setEq(a.candidates, b.candidates) && setEq(a.assertions, b.assertions);
+const posKey = it => `${it.position?.[0]}:${it.position?.[1]}`;
+
+/** Cheap diff count for the sidebar — needs only the JSON, not the text. */
+function fileDiff(stem){
+  if (state.diffCache.has(stem)) return state.diffCache.get(stem);
+  const A = state.anns.A.get(stem)?.items || [];
+  const B = state.anns.B.get(stem)?.items || [];
+  const pool = new Map();
+  for (const b of B){
+    const k = posKey(b);
+    if (!pool.has(k)) pool.set(k, []);
+    pool.get(k).push(b);
+  }
+  let identical = 0;
+  for (const a of A){
+    const bucket = pool.get(posKey(a));
+    if (!bucket) continue;
+    const i = bucket.findIndex(b => sameAttrs(a, b));
+    if (i >= 0){ bucket.splice(i, 1); identical++; }
+  }
+  const out = {a: A.length, b: B.length, d: (A.length - identical) + (B.length - identical)};
+  state.diffCache.set(stem, out);
+  return out;
+}
+
+/* ============================ sidebar ============================ */
+
+$("q").oninput = renderFileList;
+$("onlyDiffFiles").onchange = renderFileList;
+
+function renderFileList(){
+  const box = $("filelist");
+  const q = $("q").value.trim().toLowerCase();
+  const cmp = comparing();
+  const onlyDiff = cmp && $("onlyDiffFiles").checked;
+  box.innerHTML = "";
+
+  if (!state.stems.length){
+    box.innerHTML = '<div class="empty">Chưa có file nào.<br>Hãy chọn thư mục văn bản ở phía trên.</div>';
+    $("fcount").textContent = "";
+    return;
+  }
+
+  const hit = s => {
+    if (!q) return true;
+    if (s.toLowerCase().includes(q)) return true;
+    return sides().some(k =>
+      (state.anns[k].get(s)?.items || []).some(it => String(it.text || "").toLowerCase().includes(q)));
+  };
+
+  const shown = state.stems.filter(s => hit(s) && (!onlyDiff || fileDiff(s).d > 0));
+
+  for (const s of shown){
+    const recs = sides().map(k => state.anns[k].get(s));
+    const b = document.createElement("button");
+    b.className = "fitem" + (s === state.current ? " on" : "") + (recs.some(Boolean) ? "" : " nojson");
+    const err = recs.find(r => r && r.error);
+    const counts = cmp
+      ? `${state.anns.A.get(s)?.items.length ?? "—"}/${state.anns.B.get(s)?.items.length ?? "—"}`
+      : `${recs[0] ? recs[0].items.length : "—"}`;
+    let badge = "";
+    if (cmp){
+      const d = fileDiff(s).d;
+      badge = `<span class="dbadge${d ? "" : " zero"}" title="${d} khác biệt">${d ? d : "="}</span>`;
+    }
+    b.innerHTML = `<span class="nm">${esc(s)}</span>`
+      + (err ? `<span class="bad" title="${esc(err.error)}">⚠</span>` : "")
+      + `<span class="ct">${counts}</span>` + badge;
+    b.onclick = () => open(s);
+    box.appendChild(b);
+  }
+
+  let hint = `${shown.length}/${state.stems.length} file`;
+  if (cmp){
+    const withDiff = state.stems.filter(s => fileDiff(s).d > 0).length;
+    hint += ` · ${withDiff} file khác nhau`;
+  }
+  $("fcount").textContent = hint;
+}
+
+/* ============================ offsets ============================ */
+
+/**
+ * Annotation offsets are Unicode code points (Python semantics); JS string indices
+ * are UTF-16 code units. Identical unless the text has non-BMP characters.
+ */
+function makeMapper(text){
+  if (!/[\uD800-\uDBFF]/.test(text)) return null;
+  const map = new Int32Array([...text].length + 1);
+  let cp = 0;
+  for (let u = 0; u < text.length; ){
+    map[cp++] = u;
+    u += (text.codePointAt(u) > 0xFFFF) ? 2 : 1;
+  }
+  map[cp] = text.length;
+  return i => (i <= 0 ? 0 : i >= map.length ? text.length : map[i]);
+}
+
+/* ============================ prepare + link ============================ */
+
+/** Normalise, validate and lay out one side's items against the text. */
+function prepare(text, rec, map){
+  const items = [], problems = [];
+  (rec ? rec.items : []).forEach((it, i) => {
+    const pos = Array.isArray(it.position) ? it.position : [];
+    let s = Number(pos[0]), e = Number(pos[1]);
+    if (!Number.isFinite(s) || !Number.isFinite(e)){
+      problems.push(`#${i} thiếu hoặc sai trường "position"`);
+      return;
+    }
+    if (map){ s = map(s); e = map(e); }
+    s = Math.max(0, Math.min(s, text.length));
+    e = Math.max(s, Math.min(e, text.length));
+    const slice = text.slice(s, e);
+    const mismatch = slice !== String(it.text ?? "");
+    if (mismatch) problems.push(`#${i} "${it.text}" ≠ văn bản tại [${pos[0]},${pos[1]}] ("${slice}")`);
+    items.push({raw: it, idx: i, s, e, slice, mismatch, type: it.type || "?", diff: null, peer: null});
+  });
+
+  items.sort((a, b) => a.s - b.s || (b.e - b.s) - (a.e - a.s));
+  const placed = [];
+  let cursor = -1;
+  for (const it of items){
+    if (it.s < cursor){
+      it.dropped = true;
+      problems.push(`#${it.idx} "${it.raw.text}" chồng lấn nhãn trước — không tô màu được`);
+    } else { placed.push(it); cursor = it.e; }
+  }
+  return {items, placed, problems, error: rec ? rec.error : null};
+}
+
+/**
+ * Pair up A and B spans and label each with a diff status.
+ * Pass 1 matches identical offsets; pass 2 falls back to any overlap.
+ */
+function linkSides(A, B){
+  const pool = new Map();
+  for (const b of B.items){
+    const k = `${b.s}:${b.e}`;
+    if (!pool.has(k)) pool.set(k, []);
+    pool.get(k).push(b);
+  }
+  for (const a of A.items){
+    const bucket = pool.get(`${a.s}:${a.e}`) || [];
+    const b = bucket.find(x => !x.peer);
+    if (!b) continue;
+    a.peer = b; b.peer = a;
+    a.diff = b.diff = sameAttrs(a.raw, b.raw) ? "same" : "attr";
+  }
+  for (const a of A.items){
+    if (a.peer) continue;
+    const b = B.items.find(x => !x.peer && x.s < a.e && a.s < x.e);
+    if (b){ a.peer = b; b.peer = a; a.diff = b.diff = "bound"; }
+    else a.diff = "only";
+  }
+  for (const b of B.items) if (!b.peer) b.diff = "only";
+}
+
+/* ============================ open + render ============================ */
+
+async function open(stem){
+  state.current = stem;
+  state.pinned = null;
+  renderFileList();
+
+  const file = state.texts.get(stem);
+  if (!file) return;
+  const text = await file.text();
+  const map = makeMapper(text);
+
+  const use = sides();
+  const data = {};
+  for (const k of use) data[k] = prepare(text, state.anns[k].get(stem), map);
+  if (use.length === 2) linkSides(data.A, data.B);
+
+  state.doc = {text, use, data};
+  renderToolbar();
+  renderDoc();
+  showDetail(null);
+}
+
+function renderToolbar(){
+  const {use, data} = state.doc;
+  const tb = $("toolbar");
+  tb.innerHTML = "";
+
+  const counts = {};
+  for (const k of use) for (const it of data[k].items) counts[it.type] = (counts[it.type] || 0) + 1;
+
+  const name = document.createElement("div");
+  name.className = "docname";
+  const per = use.map(k => `${k}: ${data[k].items.length}`).join(" · ");
+  name.innerHTML = `${esc(state.current)}<em>${per || "0"} nhãn · ${state.doc.text.length} ký tự</em>`;
+  tb.appendChild(name);
+
+  if (use.length === 2){
+    const t = document.createElement("button");
+    t.className = "tgl" + (state.diffOnly ? " on" : "");
+    t.textContent = "Chỉ khác biệt";
+    t.title = "Làm mờ các nhãn giống hệt nhau (phím D)";
+    t.onclick = () => { state.diffOnly = !state.diffOnly; renderToolbar(); renderDoc(); };
+    tb.appendChild(t);
+  }
+
+  const present = TYPES.concat(Object.keys(counts).filter(t => !TYPES.includes(t)));
+  for (const t of present){
+    if (!counts[t] && !TYPES.includes(t)) continue;
+    const c = document.createElement("button");
+    c.className = "chip" + (state.hidden.has(t) ? " off" : "");
+    c.dataset.t = t;
+    c.innerHTML = `${esc(LABEL[t] || t)} <span class="n">${counts[t] || 0}</span>`;
+    c.title = "Bấm để ẩn/hiện loại này";
+    c.onclick = () => {
+      state.hidden.has(t) ? state.hidden.delete(t) : state.hidden.add(t);
+      renderToolbar(); renderDoc();
+    };
+    tb.appendChild(c);
+  }
+
+  renderDiffLegend();
+}
+
+function renderDiffLegend(){
+  const el = $("difflegend");
+  const {use, data} = state.doc;
+  el.classList.toggle("on", use.length === 2);
+  if (use.length !== 2) return;
+
+  const tally = {same:0, attr:0, bound:0, onlyA:0, onlyB:0};
+  for (const a of data.A.items) a.diff === "only" ? tally.onlyA++ : tally[a.diff]++;
+  for (const b of data.B.items) if (b.diff === "only") tally.onlyB++;
+
+  el.innerHTML =
+    `<span class="dl"><b>${tally.same}</b> giống hệt</span>` +
+    `<span class="dl"><span class="swatch attr"></span><b>${tally.attr}</b> khác type/mã/assertion</span>` +
+    `<span class="dl"><span class="swatch bound"></span><b>${tally.bound}</b> lệch biên</span>` +
+    `<span class="dl"><span class="swatch only"></span><b>${tally.onlyA}</b> chỉ có ở A · <b>${tally.onlyB}</b> chỉ có ở B</span>`;
+}
+
+function renderDoc(){
+  const {text, use, data} = state.doc;
+  const doc = $("doc");
+  doc.className = "doc" + (use.length === 2 ? " split" : "");
+  doc.innerHTML = "";
+
+  if (!use.length){
+    doc.innerHTML = `<div class="placeholder"><h2>${esc(state.current)}</h2>
+      <p>Chưa chọn thư mục kết quả nào — đang hiển thị văn bản thô.</p>
+      <div class="sheet" style="text-align:left;margin-top:20px">${esc(text)}</div></div>`;
+    return;
+  }
+
+  const cols = [];
+  for (const k of use){
+    const col = document.createElement("div");
+    col.className = "col";
+    col.dataset.side = k;
+
+    if (use.length === 2){
+      const h = document.createElement("div");
+      h.className = "colhead";
+      h.innerHTML = `<span class="side">${k}</span>` +
+        `<span class="path">${esc(state.dir[k] || "thư mục " + k)}</span>` +
+        `<span class="ct">${data[k].items.length} nhãn</span>`;
+      col.appendChild(h);
+    }
+
+    const body = document.createElement("div");
+    body.className = "colbody";
+    body.appendChild(buildSheet(text, data[k], k));
+    col.appendChild(body);
+    doc.appendChild(col);
+    cols.push(col);
+  }
+
+  if (cols.length === 2) syncScroll(cols[0], cols[1]);
+}
+
+function buildSheet(text, side, k){
+  const frag = document.createDocumentFragment();
+
+  if (side.error || side.problems.length){
+    const n = document.createElement("div");
+    n.className = "notice";
+    const head = side.error ? `<b>${esc(side.error)}</b><br>` : "";
+    const list = side.problems.slice(0, 5).map(esc).join("<br>");
+    const more = side.problems.length > 5 ? `<br>… và ${side.problems.length - 5} cảnh báo khác` : "";
+    n.innerHTML = head + (side.problems.length
+      ? `<b>${side.problems.length} cảnh báo offset/chồng lấn:</b><br>` + list + more : "");
+    frag.appendChild(n);
+  }
+
+  const sheet = document.createElement("div");
+  sheet.className = "sheet";
+  let at = 0;
+  for (const it of side.placed){
+    if (it.s > at) sheet.appendChild(document.createTextNode(text.slice(at, it.s)));
+    const span = document.createElement("span");
+    const dimmed = state.hidden.has(it.type) || (state.diffOnly && it.diff === "same");
+    span.className = "ent" + (dimmed ? " dim" : "")
+      + (it.mismatch ? " mismatch" : "")
+      + ((it.raw.assertions || []).includes("isNegated") ? " neg" : "");
+    span.dataset.t = it.type;
+    span.dataset.i = it.idx;
+    if (it.diff && it.diff !== "same") span.dataset.d = it.diff;
+    span.textContent = it.slice || it.raw.text || "";
+    const sup = document.createElement("sup");
+    sup.textContent = ABBR[it.type] || "?";
+    span.appendChild(sup);
+    span.onmouseenter = ev => { showTip(it, k, ev.currentTarget); markPeer(it, k, true); };
+    span.onmouseleave = () => { hideTip(); markPeer(it, k, false); };
+    span.onclick = () => {
+      state.pinned = {side: k, idx: it.idx};
+      document.querySelectorAll(".ent.sel").forEach(x => x.classList.remove("sel"));
+      span.classList.add("sel");
+      showDetail(it, k);
+    };
+    sheet.appendChild(span);
+    at = it.e;
+  }
+  if (at < text.length) sheet.appendChild(document.createTextNode(text.slice(at)));
+  frag.appendChild(sheet);
+  return frag;
+}
+
+/** Highlight the paired span in the other column while hovering. */
+function markPeer(it, side, on){
+  if (!it.peer) return;
+  const other = side === "A" ? "B" : "A";
+  const el = document.querySelector(`.col[data-side="${other}"] .ent[data-i="${it.peer.idx}"]`);
+  if (el) el.classList.toggle("peerhl", on);
+}
+
+/**
+ * Keep the two columns aligned. Only the column the user is actually scrolling
+ * drives the other; the echoed scroll event it causes must not bounce back, so
+ * the driver holds the lock until it has been quiet for a moment.
+ */
+function syncScroll(a, b){
+  let driver = null, release = null;
+  const link = (from, to) => from.addEventListener("scroll", () => {
+    if (driver && driver !== from) return;
+    driver = from;
+    if (to.scrollTop !== from.scrollTop) to.scrollTop = from.scrollTop;
+    clearTimeout(release);
+    release = setTimeout(() => { driver = null; }, 120);
+  }, {passive: true});
+  link(a, b); link(b, a);
+}
+
+/* ============================ detail + tooltip ============================ */
+
+function codeCell(it){
+  if (!it) return '<span class="none">— (không có nhãn)</span>';
+  const cands = it.raw.candidates || [];
+  const sys = CODESYS[it.type];
+  if (!cands.length) return `<span class="none">—${sys ? ` (dự kiến ${sys})` : ""}</span>`;
+  return cands.map(c => `<span class="tag code">${esc(c)}</span>`).join("");
+}
+const assertCell = it => {
+  if (!it) return '<span class="none">—</span>';
+  const a = it.raw.assertions || [];
+  return a.length ? a.map(x => `<span class="tag assert">${esc(x)}</span>`).join("")
+                  : '<span class="none">—</span>';
+};
+const posCell = it => {
+  if (!it) return '<span class="none">—</span>';
+  return `<span class="tag">[${it.raw.position?.[0]}, ${it.raw.position?.[1]}]</span>` +
+    (it.mismatch ? `<span class="tag assert">lệch offset → "${esc(it.slice)}"</span>` : "");
+};
+const typeCell = it => it
+  ? `<span class="chip" data-t="${esc(it.type)}">${esc(it.type)}</span>`
+  : '<span class="none">—</span>';
+const textCell = it => it ? `"${esc(it.raw.text ?? "")}"` : '<span class="none">— (không có)</span>';
+
+function showDetail(it, side){
+  const d = $("detail");
+  if (!it){
+    d.className = "detail idle";
+    d.textContent = comparing()
+      ? "Di chuột hoặc bấm vào một nhãn để xem chi tiết và so sánh A ↔ B."
+      : "Di chuột hoặc bấm vào một nhãn để xem chi tiết JSON.";
+    return;
+  }
+  d.className = "detail";
+
+  // In compare mode always show A on the left and B on the right, whichever side was hovered.
+  // A span with no counterpart leaves its column empty — that is the "only on one side" case.
+  const cmp = comparing();
+  const A = !cmp ? it : (side === "A" ? it : it.peer);
+  const B = !cmp ? null : (side === "B" ? it : it.peer);
+
+  const row = (key, a, b, changed) => cmp
+    ? `<div class="dkey">${key}</div>
+       <div class="dval${changed ? " chg" : ""}">${a}</div>
+       <div class="dval${changed ? " chg" : ""}">${b}</div>`
+    : `<div class="dkey">${key}</div><div class="dval">${a}</div>`;
+
+  const chg = (f) => cmp && A && B ? f(A) !== f(B) : false;
+
+  const head = cmp
+    ? `<div class="dkey"></div>
+       <div class="dhead"><b>A</b> · ${esc(state.dir.A || "kết quả A")}</div>
+       <div class="dhead"><b>B</b> · ${esc(state.dir.B || "kết quả B")}</div>` : "";
+
+  const status = cmp
+    ? `<div class="dkey">Trạng thái</div><div class="dval" style="grid-column:2/4">
+         <span class="tag" style="border-color:var(--diff);color:var(--diff)">${
+           esc(DIFF_LABEL[it.diff] || "—")}</span>
+       </div>` : "";
+
+  d.innerHTML = `
+    <div class="dgrid${cmp ? " cmp" : ""}">
+      ${head}
+      ${row("Text", textCell(A), textCell(B), chg(x => x.raw.text))}
+      ${row("Type", typeCell(A), typeCell(B), chg(x => x.type))}
+      ${row("Position", posCell(A), posCell(B), chg(x => `${x.s}:${x.e}`))}
+      ${row("Candidates", codeCell(A), codeCell(B), cmp && A && B ? !setEq(A.raw.candidates, B.raw.candidates) : false)}
+      ${row("Assertions", assertCell(A), assertCell(B), cmp && A && B ? !setEq(A.raw.assertions, B.raw.assertions) : false)}
+      ${status}
+    </div>
+    <div class="raws">
+      <div class="raw">${A ? esc(JSON.stringify(A.raw, null, 2)) : "—"}
+        ${A ? `<button class="copy" data-copy="A">Sao chép</button>` : ""}</div>
+      ${cmp ? `<div class="raw">${B ? esc(JSON.stringify(B.raw, null, 2)) : "—"}
+        ${B ? `<button class="copy" data-copy="B">Sao chép</button>` : ""}</div>` : ""}
+    </div>`;
+
+  for (const btn of d.querySelectorAll(".copy")){
+    const src = btn.dataset.copy === "A" ? A : B;
+    btn.onclick = () => {
+      navigator.clipboard.writeText(JSON.stringify(src.raw, null, 2))
+        .then(() => { btn.textContent = "Đã sao chép ✓"; setTimeout(() => btn.textContent = "Sao chép", 1400); })
+        .catch(() => { btn.textContent = "Không sao chép được"; });
+    };
+  }
+}
+
+const tip = $("tip");
+
+function showTip(it, side, el){
+  const cands = it.raw.candidates || [], asserts = it.raw.assertions || [];
+  let note = "";
+  if (it.diff && it.diff !== "same"){
+    const other = side === "A" ? "B" : "A";
+    note = it.diff === "only"
+      ? `<div class="dnote only">Chỉ có ở ${side} — không có ở ${other}</div>`
+      : `<div class="dnote">${esc(DIFF_LABEL[it.diff])} so với ${other}${
+           it.peer ? ` — ${other}: "${esc(it.peer.raw.text ?? "")}" · ${esc(it.peer.type)}` : ""}</div>`;
+  }
+  tip.innerHTML = `
+    <div class="tt">${comparing() ? `<span class="tag">${side}</span> ` : ""}"${esc(it.raw.text ?? "")}"</div>
+    <div class="tr"><div class="tk">Type</div><div class="tv"><span class="tag">${esc(it.type)}</span></div></div>
+    <div class="tr"><div class="tk">Position</div><div class="tv"><span class="tag">[${it.raw.position?.[0]}, ${it.raw.position?.[1]}]</span></div></div>
+    <div class="tr"><div class="tk">Codes</div><div class="tv">${
+      cands.length ? cands.map(c => `<span class="tag code">${esc(c)}</span>`).join("") : '<span class="none">—</span>'}</div></div>
+    <div class="tr"><div class="tk">Assert</div><div class="tv">${
+      asserts.length ? asserts.map(a => `<span class="tag assert">${esc(a)}</span>`).join("") : '<span class="none">—</span>'}</div></div>
+    ${it.mismatch ? `<div class="tr"><div class="tk">⚠</div><div class="tv">offset lệch: "${esc(it.slice)}"</div></div>` : ""}
+    ${note}`;
+  tip.classList.add("show");
+
+  const r = el.getBoundingClientRect(), t = tip.getBoundingClientRect();
+  let x = r.left, y = r.bottom + 8;
+  if (x + t.width > innerWidth - 12)  x = innerWidth - t.width - 12;
+  if (y + t.height > innerHeight - 12) y = r.top - t.height - 8;
+  tip.style.left = Math.max(12, x) + "px";
+  tip.style.top  = Math.max(12, y) + "px";
+
+  if (!state.pinned) showDetail(it, side);
+}
+
+function hideTip(){
+  tip.classList.remove("show");
+  if (!state.pinned) showDetail(null);
+}
+
+/* ============================ keyboard ============================ */
+
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT"){
+    if (e.key === "Escape") e.target.blur();
+    return;
+  }
+  if (e.key === "/"){ e.preventDefault(); $("q").focus(); return; }
+  if (e.key === "Escape"){
+    state.pinned = null;
+    document.querySelectorAll(".ent.sel").forEach(x => x.classList.remove("sel"));
+    showDetail(null);
+    return;
+  }
+  if ((e.key === "d" || e.key === "D") && comparing()){
+    state.diffOnly = !state.diffOnly; renderToolbar(); renderDoc(); return;
+  }
+  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+    const list = [...document.querySelectorAll(".fitem")];
+    const i = list.findIndex(b => b.classList.contains("on"));
+    const j = Math.max(0, Math.min(list.length - 1, i + (e.key === "ArrowDown" ? 1 : -1)));
+    if (list[j]){ e.preventDefault(); list[j].click(); list[j].scrollIntoView({block:"nearest"}); }
+  }
+});
+
+/* ============================ utils ============================ */
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => (
+    {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]
+  ));
+}
+</script>
+</body>
+</html>

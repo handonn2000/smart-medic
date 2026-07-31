@@ -14,10 +14,34 @@ A redacted span is the one concept type where all three scored terms are exactly
     candidates  gold [] and pred []                     →  J = 1
 
 Nothing else in this corpus scores like that. An ordinary clinical span averages
-q ≈ 0.83 on `text` and needs a correct code to score on `candidates`. Here the
-annotator could not know the drug either, so "no code" is the *correct* answer
-and a lane that emits nothing but the span gets full marks on two of three
-columns for free.
+q ≈ 0.83 on `text` and needs a correct code to score on `candidates`.
+
+## Why the codes stay empty even when the drug IS recoverable
+
+Worth stating carefully, because the obvious objection is right: sometimes you
+CAN work out the masked name. Document 100 is the clean case — two 7-character
+runs, one of them followed by "là thuốc có tác dụng chống đông máu", and
+"aspirin" (7 characters) appears unmasked at offset 1114. RxCUI 1191. The two
+12-character runs in the same document fit "aspirin 81mg" exactly.
+
+The lane still emits no code, and the reason is not that the inference fails:
+
+  * **A code would defeat the redaction.** The organisers masked these names on
+    purpose. A normalised code IS a drug identifier — publishing RxCUI 1191 in
+    the answer key would let anyone recover "aspirin" with one lookup. A gold
+    file that hides the string and then hands over the code contradicts itself.
+  * **The bet is one-directional.** Emitting a code cannot win more cells than
+    it can lose: gold-empty + our-code scores 0 where empty would have scored 1,
+    and gold-coded + our-correct-code scores 1 where empty scores 0. Same count
+    either way, so the sign rests entirely on which convention the gold used —
+    a binary guess about a convention, not an accuracy problem to optimise.
+
+Note what the 7/7 sample does and does not support here. For TYPE and BOUNDARY
+it is strong evidence: those are surface facts an annotator can see. For
+CANDIDATES it is weak — the annotations were LLM-generated, and an LLM cannot
+resolve the masked name either, so "empty" there may reflect the annotator's
+limits rather than the organisers' convention. The redaction argument above is
+what actually carries this decision.
 
 ## Evidence for the type
 

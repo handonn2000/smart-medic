@@ -297,6 +297,29 @@ assertion:
 # L4b · linking/
 # ─────────────────────────────────────────────────────────────────────────────
 linking:
+  masked_coreference:
+    # Recover the RxNorm code behind a `***` run when the same drug appears
+    # unmasked in the document and the run length matches the name length.
+    # Document 100: a 7-run followed by "là thuốc có tác dụng chống đông máu",
+    # and "aspirin" (7 chars, RxCUI 1191) unmasked at offset 1114.
+    #
+    # OFF, and not because the inference is bad. Emitting a code on a masked
+    # span is a one-directional bet: if the gold leaves candidates empty there
+    # — the reading extract/redacted.py argues for, since publishing the code
+    # defeats the redaction — every code we add turns a scored 1 into a 0.
+    #
+    # Submission H decides it at no extra cost. Turn this on ONLY if H comes
+    # back with text UP and J_candidates DOWN, which is the single signature
+    # meaning the gold does code redacted spans. Worth ~+0.16 điểm then:
+    # 12 of 99 runs resolve, against ~982 matched pairs.
+    #
+    # Precision 0.688 out of sample (16 hand-checked candidates, 11 right).
+    # The three filters in the module raise that to 0.917 measured ON THE CASES
+    # THEY WERE WRITTEN FROM — a fit, not a validation. Both clear the 0.553
+    # break-even, so the conclusion survives the pessimistic number; do not
+    # quote 0.917 as evidence.
+    enabled: false
+
   target_tty: 'IN'                  # ADR 0001 CHỐT 30/07 — Probe B ΔB = +1.5429.
                                     # Stays a parameter: the ADR's fallback to a
                                     # product tier must remain one YAML edit.

@@ -82,3 +82,9 @@ data/artifacts/
 # The submission archive. Rebuild with `make submit`; the authoritative copy
 # lives in runs/<ts>_<sha>/output.zip alongside the manifest that explains it.
 /output.zip
+
+# Experiment candidates built by flipping one config flag and re-running
+# `make run && make submit` (H = extract.recall_floor.redacted, F = the lexicon
+# lane). Regenerable by definition, and committing one would let a test read
+# back the very artifact it is supposed to be checking.
+/output_[A-Z]*.zip

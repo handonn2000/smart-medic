@@ -5,7 +5,7 @@ formal nomenclature; the test set is not written in it. 47 of the 100 test
 documents are patient-facing Q&A, and a patient writes "thuốc giảm đau", not
 "paracetamol", and "ngứa", not "pruritus, unspecified".
 
-Measured against `proxy_gold_test/` (20 hand-annotated test documents, 724
+Measured against `proxy_gold_test/` (20 hand-annotated test documents, 718
 spans), on the run that shipped before this lane existed:
 
     missed THUỐC        33   of which 14 are class/lay names, 4 are vitamins

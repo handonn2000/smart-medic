@@ -124,7 +124,7 @@ def test_no_signal_means_no_assertion():
 
 
 def test_isfamily_is_never_emitted():
-    """3 of 724 annotated spans carry it — below the rate where a rule can help."""
+    """3 of 718 annotated spans carry it — below the rate where a rule can help."""
     line = "Mẹ bệnh nhân bị đái tháo đường"
     got = assertions_for(
         line, line.index("đái tháo đường"), "CHẨN_ĐOÁN", ("Tiền sử gia đình",)

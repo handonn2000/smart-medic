@@ -72,7 +72,7 @@ P(cand rỗng) / P(assert rỗng) = 11,0259 / 30,9496 = 0,356
 P(assert rỗng) ≤ 1   ⇒   P(gold candidates rỗng | slot) ≤ 0,356
 ```
 
-Mô phỏng trên `proxy_gold_test/` (20 file test thật gán nhãn tay, 724 span), trọng số
+Mô phỏng trên `proxy_gold_test/` (20 file test thật gán nhãn tay, 718 span), trọng số
 `W_i` tính đúng theo công thức chính thức:
 
 Hai mô hình mô phỏng được chạy, và **các cột dưới đây không được trộn giữa hai

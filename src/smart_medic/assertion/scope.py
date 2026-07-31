@@ -27,7 +27,7 @@ quietly turn this into a guesser.
 
 ## The two signals, and why not a third
 
-Measured on `proxy_gold_test/` — 20 test documents annotated by hand, 724 spans,
+Measured on `proxy_gold_test/` — 20 test documents annotated by hand, 718 spans,
 84 of them carrying an assertion:
 
 * **isNegated** — a negation cue earlier on the same line, within 15 characters,
@@ -53,7 +53,7 @@ Measured on `proxy_gold_test/` — 20 test documents annotated by hand, 724 span
   and a measurement line like `M: 82 ck/ph` reads as a heading and hides the real
   one.
 
-* **isFamily** is deliberately NOT implemented. Three of 724 annotated spans
+* **isFamily** is deliberately NOT implemented. Three of 718 annotated spans
   carry it — under 0.5%. At that base rate a rule good enough to help is
   indistinguishable from one that hurts, and the downside is the expensive
   direction. `FAMILY_HEADINGS` is kept as data so the decision stays visible.
@@ -108,7 +108,7 @@ HISTORY_HEADINGS: tuple[str, ...] = (
     "quá trình bệnh lý",
 )
 
-#: Kept as data, not used. See the module docstring: 3 of 724 annotated spans.
+#: Kept as data, not used. See the module docstring: 3 of 718 annotated spans.
 FAMILY_HEADINGS: tuple[str, ...] = (
     "tiền sử gia đình",
     "ts gia đình",

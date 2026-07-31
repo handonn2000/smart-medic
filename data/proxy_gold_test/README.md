@@ -1,6 +1,6 @@
 # proxy_gold_test — 20 tài liệu test được gán nhãn tay
 
-724 span trên 20/100 file của `data/test/`. Lấy mẫu phân tầng theo thể loại;
+718 span trên 20/100 file của `data/test/`. Lấy mẫu phân tầng theo thể loại;
 26 file được yêu cầu gán nhãn, 20 file cho kết quả dùng được (số còn lại hỏng do
 vượt giới hạn token hoặc lỗi phân tích JSON). Phân bố thể loại của **20 file
 thực tế có mặt ở đây**, đếm lại từ đĩa:

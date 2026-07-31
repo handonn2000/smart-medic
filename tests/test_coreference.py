@@ -119,6 +119,46 @@ def test_length_must_match_exactly(enabled) -> None:
     assert coreference.recover_codes(raw, concepts) == {}
 
 
+def test_the_flag_actually_reaches_the_pipeline(tmp_path) -> None:
+    """Flipping the config must change the OUTPUT, not just the module's return.
+
+    This exists because the first version of this feature shipped unwired: the
+    module was importable and unit-tested, `enabled: true` loaded fine, and a
+    full run still emitted 0 codes on redacted spans because nothing called
+    `recover_codes`. Every other test in this file would have passed. The only
+    thing that catches a dead code path is running the real entry point and
+    reading the files it wrote.
+    """
+    import subprocess
+
+    src = ROOT / "src"
+    script = (
+        "import sys, json, glob, os, pathlib;"
+        f"sys.path.insert(0, {str(src)!r});"
+        "from smart_medic.io import config;"
+        "c = config.load_pipeline();"
+        "c['extract']['recall_floor']['redacted']['enabled'] = True;"
+        "c['linking']['masked_coreference']['enabled'] = True;"
+        "from smart_medic import cli;"
+        f"cli.run(pathlib.Path({str(ROOT / 'data' / 'test')!r}),"
+        f" pathlib.Path({str(tmp_path)!r}), quiet=True, enforce_rate_band=False);"
+        "recs = [e for p in glob.glob(os.path.join("
+        f"{str(tmp_path)!r}, '*.json')) for e in json.load(open(p, encoding='utf-8'))];"
+        "stars = [e for e in recs if e['text'] and set(e['text']) == {'*'}];"
+        "print(len(stars), sum(1 for e in stars if e['candidates']))"
+    )
+    out = subprocess.run(
+        [sys.executable, "-c", script], capture_output=True, text=True, cwd=ROOT
+    )
+    assert out.returncode == 0, out.stderr[-2000:]
+    n_stars, n_coded = (int(x) for x in out.stdout.split()[-2:])
+    assert n_stars == 99, f"{n_stars} redacted spans, expected 99"
+    assert n_coded == 12, (
+        f"{n_coded} of them carry a code, expected 12 — the config flag is set "
+        f"but the recovered codes are not reaching the written output"
+    )
+
+
 def test_scale_on_the_real_corpus(enabled) -> None:
     """12 of the 99 runs resolve — the number the +0.16 điểm estimate rests on.
 

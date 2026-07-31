@@ -35,6 +35,7 @@ from .io.document import Document
 from .layout.kv import split_units
 from .layout.lines import split_lines
 from .layout.outline import SectionIndex, build_outline
+from .linking import coreference
 from .validate import emit_json, schema
 
 __all__ = ["main", "run"]
@@ -91,6 +92,25 @@ def run(
         (doc, emit.finalize(doc, spans, choice, section_at))
         for doc, spans, section_at in proposals
     ]
+
+    # Masked-drug co-reference runs AFTER finalize, not as a lane, because it
+    # needs the document's own finished drug records as its candidate pool: a
+    # `***` run is resolved by matching its length against a drug that appears
+    # unmasked and already carries a code. Disabled by default — see
+    # `linking/masked_coreference` in configs/pipeline.yaml for why turning it
+    # on is a bet on an unobserved gold convention rather than an improvement.
+    recovered = 0
+    for doc, rs in records:
+        codes_at = coreference.recover_codes(doc.raw, rs)
+        if not codes_at:
+            continue
+        for record in rs:
+            found = codes_at.get(record["position"][0])
+            if found:
+                record["candidates"] = list(found)
+                recovered += 1
+    if recovered:
+        say(f"coref      : {recovered} redacted spans resolved to an RxNorm code")
 
     flat = [r for _, rs in records for r in rs]
     flagged = sum(1 for r in flat if r["assertions"])

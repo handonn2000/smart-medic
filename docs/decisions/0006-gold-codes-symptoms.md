@@ -338,3 +338,77 @@ cộng 0. Dự báo 22,68 ± 0,01.
 Lần nộp tiếp theo nên là **F** (tắt làn lexicon, 2571 span). Dưới neo mới nó bỏ
 341 span và có kỳ vọng dương ở mọi tỷ lệ đúng r < 0,73 — ngưỡng hoà vốn rất cao
 vì bỏ một span thừa được 1 đơn vị còn mất một span đúng chỉ tốn 0,267.
+
+---
+
+## ĐO THẬT LẦN 3 — lần nộp F, 31/07 21:10
+
+**F = 23,3109.** Kém E (23,3923) chỉ **0,0814**, nhưng các cột đi NGƯỢC chiều nhau
+— đó là thông tin, không phải nhiễu.
+
+| cột | E | F | Δ | tỷ lệ F/E |
+|---|---|---|---|---|
+| text | 26,6837 | **27,0796** | **+0,3959** | 1,0148 |
+| J_assertion | 31,1780 | **31,9002** | **+0,7222** | 1,0232 |
+| J_candidates | 15,0845 | 14,0425 | **−1,0420** | 0,9309 |
+
+`text` 27,08 là **cao nhất trong sáu lần nộp**. Nhưng J_candidates giảm 6,9%.
+
+### Làn lexicon: precision 0,23, và vẫn nên GIỮ
+
+Khớp mô hình trên (G span đúng, S span thừa) trong 341 span mà làn phát ra:
+
+    G=80 đúng · S=261 thừa   sai số 0,0144   <- khớp tốt nhất
+
+Con số này khớp độc lập với `text_F/text_E = 1,0148`, mà bảng dựng TRƯỚC khi nộp
+đã quy ra r ≈ 0,20–0,24.
+
+Kinh tế của quyết định:
+
+    bỏ 261 span thừa  -> text +1,48%, J_a +2,32%  = +0,335 điểm
+    mất  80 span đúng -> J_candidates −6,91%      = −0,417 điểm
+    ròng                                            −0,081 điểm
+
+**Trọng số 0,4 của J_candidates là lý do.** 80 span đúng mang mã ICD đúng có giá
+trị hơn 261 span thừa gây pha loãng. Đây là bài học tổng quát cho bài toán này:
+**MÃ ĐÚNG quan trọng hơn PRECISION SPAN.**
+
+`extract.recall_floor.lexicon.enabled` giữ **true**.
+
+### Hai bộ lọc đã thử và loại
+
+Bỏ "từ tố" (`viêm` 72 lần, `tổn thương` 59 lần, `mụn` 44 lần — chúng khớp bên
+trong cụm dài hơn): loại 199 span nhưng nhóm loại có **58%** mang mã so với
+**55%** ở nhóm giữ. Bộ lọc không phân biệt được, sẽ mất J_candidates đúng như F.
+
+Bỏ span 1 từ: phân biệt tốt hơn (32% có mã so với 76% ở span ≥2 từ), nhưng dự báo
+chỉ **+0,10 điểm**. Quá nhỏ để tốn một lượt nộp.
+
+### Đòn bẩy còn lại, định giá bằng chính F
+
+F cho hệ số đo được: **mỗi span có mã đúng = +0,0052 điểm** (0,417 / 80).
+
+Bản E còn **1660/2912 span chưa có mã (57%)**:
+
+| type | tổng | chưa mã |
+|---|---|---|
+| CHẨN_ĐOÁN | 776 | **776 (100%)** |
+| TÊN_XÉT_NGHIỆM | 479 | 479 (100%) |
+| KẾT_QUẢ_XÉT_NGHIỆM | 162 | 162 (100%) |
+| TRIỆU_CHỨNG | 1245 | 174 (14%) |
+| THUỐC | 250 | 69 (28%) |
+
+    +200 span có mã đúng -> 24,43
+    +400                 -> 25,48
+    +700                 -> 27,04
+
+Đây là đòn bẩy lớn nhất còn lại, và nó **đo được** thay vì suy đoán. Nhưng lưu ý
+ràng buộc từ lần nộp C: mã CHẨN_ĐOÁN đã thử và mất 1,82 điểm, vì span chẩn đoán
+phần lớn là mảnh cụt (`thận`, `sỏi`, `mạch vành`) nên mã sai. Muốn khai thác 776
+span đó phải sửa BIÊN trước, không phải retrieval.
+
+`TÊN_XÉT_NGHIỆM` và `KẾT_QUẢ_XÉT_NGHIỆM` chưa bao giờ được thử gán mã, và ADR
+0006 ghi chúng nằm ngoài `CODEABLE_TYPES` theo suy luận từ đề bài — suy luận đó
+giờ đáng kiểm lại bằng một lần nộp.
+
+output.zip vẫn là E, sha 8f2e5e45… Suite 229/229.

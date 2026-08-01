@@ -1,0 +1,160 @@
+[
+  {
+    "text": "suy thận mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18"
+    ],
+    "assertions": [],
+    "position": [
+      38,
+      55
+    ]
+  },
+  {
+    "text": "đái tháo đường type 2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [],
+    "position": [
+      65,
+      86
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      90,
+      103
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      118,
+      121
+    ]
+  },
+  {
+    "text": "mệt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      130,
+      133
+    ]
+  },
+  {
+    "text": "ngứa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      135,
+      139
+    ]
+  },
+  {
+    "text": "xét nghiệm chức năng thận",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      141,
+      166
+    ]
+  },
+  {
+    "text": "2.8 mg/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      179,
+      188
+    ]
+  },
+  {
+    "text": "xét nghiệm máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      201,
+      215
+    ]
+  },
+  {
+    "text": "9.3 g/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      220,
+      228
+    ]
+  },
+  {
+    "text": "losartan",
+    "type": "THUỐC",
+    "candidates": [
+      "52175"
+    ],
+    "assertions": [],
+    "position": [
+      237,
+      245
+    ]
+  },
+  {
+    "text": "furosemide",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [],
+    "position": [
+      247,
+      257
+    ]
+  },
+  {
+    "text": "metformin",
+    "type": "THUỐC",
+    "candidates": [
+      "6809"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      259,
+      268
+    ]
+  },
+  {
+    "text": "ibuprofen",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      313,
+      322
+    ]
+  }
+]

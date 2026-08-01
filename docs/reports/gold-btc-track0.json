@@ -1,0 +1,46 @@
+{
+  "n_cases": 11,
+  "tiers": null,
+  "max_fan_in": null,
+  "rerank": true,
+  "slices": {
+    "TỔNG THỂ": {
+      "n": 11,
+      "recall@1": 0.6364,
+      "recall@5": 0.8182,
+      "recall@20": 0.9091,
+      "mrr": 0.7343
+    },
+    "chẩn đoán → ICD": {
+      "n": 0,
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@20": 0.0,
+      "mrr": 0.0
+    },
+    "thuốc → RxNorm": {
+      "n": 11,
+      "recall@1": 0.6364,
+      "recall@5": 0.8182,
+      "recall@20": 0.9091,
+      "mrr": 0.7343
+    },
+    "ca thường": {
+      "n": 11,
+      "recall@1": 0.6364,
+      "recall@5": 0.8182,
+      "recall@20": 0.9091,
+      "mrr": 0.7343
+    },
+    "ca KHÓ": {
+      "n": 0,
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@20": 0.0,
+      "mrr": 0.0
+    }
+  },
+  "misses": [
+    "guaifenesin ml po q6h:prn"
+  ]
+}

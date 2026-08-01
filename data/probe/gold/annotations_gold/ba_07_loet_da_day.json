@@ -1,0 +1,110 @@
+[
+  {
+    "text": "đau vùng thượng vị sau ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      38,
+      63
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      65,
+      73
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      82,
+      90
+    ]
+  },
+  {
+    "text": "nội soi dạ dày tá tràng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      110,
+      133
+    ]
+  },
+  {
+    "text": "loét hang vị Forrest IIc",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      135,
+      159
+    ]
+  },
+  {
+    "text": "loét dạ dày",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K25"
+    ],
+    "assertions": [],
+    "position": [
+      172,
+      183
+    ]
+  },
+  {
+    "text": "pantoprazole",
+    "type": "THUỐC",
+    "candidates": [
+      "40790"
+    ],
+    "assertions": [],
+    "position": [
+      195,
+      207
+    ]
+  },
+  {
+    "text": "ibuprofen",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      236,
+      245
+    ]
+  },
+  {
+    "text": "công thức máu toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      265,
+      288
+    ]
+  },
+  {
+    "text": "92 g/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      294,
+      300
+    ]
+  }
+]

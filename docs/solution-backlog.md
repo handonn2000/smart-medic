@@ -9,9 +9,14 @@
 
 ## S1 — SNOMED làm máy sinh dữ liệu huấn luyện cho embedding
 
-**Trạng thái:** đã khảo sát, chưa triển khai
-**Điều kiện tiên quyết:** KB Phase 3 xong (cần ExtendedMap đã nạp)
-**Tiềm năng:** cao — nhắm thẳng vào module chiếm 0.4 điểm
+**Trạng thái:** đã có **kế hoạch khoa học đầy đủ** → [`s1-embedding-plan.md`](s1-embedding-plan.md)
+**Điều kiện tiên quyết:** KB Phase 3 xong (cần ExtendedMap đã nạp) — ✅ đã xong
+**Tiềm năng:** **xếp lại — thấp ở thời điểm hiện tại.** Đo trên 20 ca đang trượt
+cho thấy chỉ 3/20 có lợi từ embedding, 4/20 sẽ bị nó làm hỏng. Phải làm ba luật
+xếp hạng (Track 0) và cổng đo S1.0 trước.
+
+> ⚠️ Mô tả bên dưới **bỏ sót vế quan trọng nhất**: cầu Việt–Anh pivot qua mã ICD
+> (304.611 cặp) — xem §2 của kế hoạch. Giữ nguyên văn để đối chiếu.
 
 ### Ý tưởng
 
@@ -88,6 +93,12 @@ trên bài toán cùng hình dạng.
 Dense chỉ đáng bật khi nó **cứu được ca mà lexical trượt**. Hiện lexical đạt
 R@20 = 1,000 trên probe set nên không còn ca nào để cứu — **phải mở rộng probe
 set bằng mention khó hơn trước**, nếu không sẽ không đo được cải thiện nào.
+
+> **Đính chính (xem [`s1-embedding-plan.md`](s1-embedding-plan.md) §1.1).** Đoạn
+> trên đóng khung dense như *bộ mở rộng recall*, và với khung đó thì đúng là hết
+> chỗ đo. Nhưng `R@1 = 0,836` — còn **20 ca xếp sai hạng**, tức headroom vẫn đo
+> được nếu dùng dense làm **re-ranker trên top-20** thay vì làm retriever. Đó
+> cũng là cách rẻ hơn nhiều: nhúng 20 ứng viên/truy vấn thay vì 141.948 concept.
 
 ---
 

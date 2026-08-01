@@ -1,0 +1,247 @@
+[
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      39,
+      52
+    ]
+  },
+  {
+    "text": "đái tháo đường type 2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      54,
+      75
+    ]
+  },
+  {
+    "text": "tăng lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      77,
+      91
+    ]
+  },
+  {
+    "text": "nhồi máu cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I21"
+    ],
+    "assertions": [
+      "isFamily",
+      "isHistorical"
+    ],
+    "position": [
+      144,
+      159
+    ]
+  },
+  {
+    "text": "đái tháo đường type 2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      180,
+      201
+    ]
+  },
+  {
+    "text": "đau ngực khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      216,
+      237
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      239,
+      263
+    ]
+  },
+  {
+    "text": "điện tâm đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      265,
+      276
+    ]
+  },
+  {
+    "text": "điện tâm đồ có sóng T âm ở các chuyển đạo trước tim",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      278,
+      329
+    ]
+  },
+  {
+    "text": "troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      331,
+      339
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      340,
+      347
+    ]
+  },
+  {
+    "text": "HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      349,
+      354
+    ]
+  },
+  {
+    "text": "7.2%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      355,
+      359
+    ]
+  },
+  {
+    "text": "110 mg/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      365,
+      374
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      404,
+      411
+    ]
+  },
+  {
+    "text": "clopidogrel",
+    "type": "THUỐC",
+    "candidates": [
+      "32968"
+    ],
+    "assertions": [],
+    "position": [
+      413,
+      424
+    ]
+  },
+  {
+    "text": "atorvastatin",
+    "type": "THUỐC",
+    "candidates": [
+      "83367"
+    ],
+    "assertions": [],
+    "position": [
+      438,
+      450
+    ]
+  },
+  {
+    "text": "rosuvastatin",
+    "type": "THUỐC",
+    "candidates": [
+      "301542"
+    ],
+    "assertions": [],
+    "position": [
+      456,
+      468
+    ]
+  },
+  {
+    "text": "bisoprolol",
+    "type": "THUỐC",
+    "candidates": [
+      "19484"
+    ],
+    "assertions": [],
+    "position": [
+      470,
+      480
+    ]
+  },
+  {
+    "text": "perindopril",
+    "type": "THUỐC",
+    "candidates": [
+      "54552"
+    ],
+    "assertions": [],
+    "position": [
+      482,
+      493
+    ]
+  },
+  {
+    "text": "metformin",
+    "type": "THUỐC",
+    "candidates": [
+      "6809"
+    ],
+    "assertions": [],
+    "position": [
+      495,
+      504
+    ]
+  }
+]

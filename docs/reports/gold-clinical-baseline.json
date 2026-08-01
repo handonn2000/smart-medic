@@ -1,0 +1,53 @@
+{
+  "n_cases": 114,
+  "tiers": null,
+  "max_fan_in": null,
+  "rerank": false,
+  "slices": {
+    "TỔNG THỂ": {
+      "n": 114,
+      "recall@1": 0.6842,
+      "recall@5": 0.9123,
+      "recall@20": 0.9298,
+      "mrr": 0.7781
+    },
+    "chẩn đoán → ICD": {
+      "n": 48,
+      "recall@1": 0.3542,
+      "recall@5": 0.7917,
+      "recall@20": 0.8333,
+      "mrr": 0.525
+    },
+    "thuốc → RxNorm": {
+      "n": 66,
+      "recall@1": 0.9242,
+      "recall@5": 1.0,
+      "recall@20": 1.0,
+      "mrr": 0.9621
+    },
+    "ca thường": {
+      "n": 114,
+      "recall@1": 0.6842,
+      "recall@5": 0.9123,
+      "recall@20": 0.9298,
+      "mrr": 0.7781
+    },
+    "ca KHÓ": {
+      "n": 0,
+      "recall@1": 0.0,
+      "recall@5": 0.0,
+      "recall@20": 0.0,
+      "mrr": 0.0
+    }
+  },
+  "misses": [
+    "đái tháo đường type 2",
+    "viêm phổi",
+    "đái tháo đường type 2",
+    "đái tháo đường type 2",
+    "đái tháo đường type 2",
+    "đái tháo đường type 2",
+    "đái tháo đường type 2",
+    "đái tháo đường type 2"
+  ]
+}

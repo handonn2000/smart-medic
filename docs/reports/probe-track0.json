@@ -1,0 +1,44 @@
+{
+  "n_cases": 122,
+  "tiers": null,
+  "max_fan_in": null,
+  "rerank": true,
+  "slices": {
+    "TỔNG THỂ": {
+      "n": 122,
+      "recall@1": 0.9508,
+      "recall@5": 0.9836,
+      "recall@20": 1.0,
+      "mrr": 0.9658
+    },
+    "chẩn đoán → ICD": {
+      "n": 84,
+      "recall@1": 0.9524,
+      "recall@5": 0.9762,
+      "recall@20": 1.0,
+      "mrr": 0.9623
+    },
+    "thuốc → RxNorm": {
+      "n": 38,
+      "recall@1": 0.9474,
+      "recall@5": 1.0,
+      "recall@20": 1.0,
+      "mrr": 0.9737
+    },
+    "ca thường": {
+      "n": 87,
+      "recall@1": 0.954,
+      "recall@5": 0.977,
+      "recall@20": 1.0,
+      "mrr": 0.9655
+    },
+    "ca KHÓ": {
+      "n": 35,
+      "recall@1": 0.9429,
+      "recall@5": 1.0,
+      "recall@20": 1.0,
+      "mrr": 0.9667
+    }
+  },
+  "misses": []
+}

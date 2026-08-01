@@ -1,0 +1,212 @@
+[
+  {
+    "text": "đái tháo đường type 2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [],
+    "position": [
+      55,
+      76
+    ]
+  },
+  {
+    "text": "tăng lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.5"
+    ],
+    "assertions": [],
+    "position": [
+      80,
+      94
+    ]
+  },
+  {
+    "text": "đái tháo đường type 2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      121,
+      142
+    ]
+  },
+  {
+    "text": "tăng lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.5"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      155,
+      169
+    ]
+  },
+  {
+    "text": "khát nước nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      192,
+      207
+    ]
+  },
+  {
+    "text": "tiểu nhiều lần về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      209,
+      230
+    ]
+  },
+  {
+    "text": "mệt mỏi nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      232,
+      245
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      247,
+      254
+    ]
+  },
+  {
+    "text": "HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      260,
+      265
+    ]
+  },
+  {
+    "text": "8.4%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      267,
+      271
+    ]
+  },
+  {
+    "text": "định lượng đường huyết lúc đói",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      273,
+      303
+    ]
+  },
+  {
+    "text": "9.8 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      305,
+      315
+    ]
+  },
+  {
+    "text": "định lượng mỡ máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      317,
+      334
+    ]
+  },
+  {
+    "text": "158 mg/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      340,
+      349
+    ]
+  },
+  {
+    "text": "220 mg/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      364,
+      373
+    ]
+  },
+  {
+    "text": "metformin",
+    "type": "THUỐC",
+    "candidates": [
+      "6809"
+    ],
+    "assertions": [],
+    "position": [
+      393,
+      402
+    ]
+  },
+  {
+    "text": "atorvastatin",
+    "type": "THUỐC",
+    "candidates": [
+      "83367"
+    ],
+    "assertions": [],
+    "position": [
+      420,
+      432
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      487,
+      494
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      528,
+      535
+    ]
+  }
+]

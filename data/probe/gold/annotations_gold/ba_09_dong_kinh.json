@@ -1,0 +1,102 @@
+[
+  {
+    "text": "co giật toàn thể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      47,
+      63
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      77,
+      83
+    ]
+  },
+  {
+    "text": "động kinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G40"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      115,
+      124
+    ]
+  },
+  {
+    "text": "điện não đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      126,
+      137
+    ]
+  },
+  {
+    "text": "hoạt động sóng đỉnh khu trú thái dương",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      139,
+      177
+    ]
+  },
+  {
+    "text": "chụp MRI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      179,
+      187
+    ]
+  },
+  {
+    "text": "không thấy khối choán chỗ nội sọ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      192,
+      224
+    ]
+  },
+  {
+    "text": "gabapentin",
+    "type": "THUỐC",
+    "candidates": [
+      "25480"
+    ],
+    "assertions": [],
+    "position": [
+      233,
+      243
+    ]
+  },
+  {
+    "text": "tramadol",
+    "type": "THUỐC",
+    "candidates": [
+      "10689"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      297,
+      305
+    ]
+  }
+]

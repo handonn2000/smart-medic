@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Đổi (văn bản + nhãn JSON) thành file BIO cho src/train.py.
 
-    python scripts/prepare_training_data.py                    # gold của bộ restyled
+    python scripts/prepare_training_data.py                    # gold restyled + batch2
     python scripts/prepare_training_data.py --holdout 24       # chừa 24 file để đo
     python src/train.py --data data/train_generated.txt --from-scratch -e 6
     python src/test.py -d data/holdout/text -o data/holdout/pred
@@ -48,7 +48,11 @@ from assertions import assertions_at  # noqa: E402
 from labels import ENTITY_TYPE_MAP, LABELS, TYPE_TO_BIO  # noqa: E402
 from tokenization import chunk_words, group_entities, segment_document  # noqa: E402
 
-DEFAULT_SOURCE = REPO / "data" / "generated_medical_records" / "restyled"
+_GEN = REPO / "data" / "generated_medical_records"
+DEFAULT_SOURCES = (
+    _GEN / "restyled",
+    _GEN / "batch2",
+)
 DEFAULT_OUT = REPO / "data" / "train_generated.txt"
 DEFAULT_HOLDOUT_DIR = REPO / "data" / "holdout"
 
@@ -319,8 +323,8 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Nhãn JSON -> file BIO cho src/train.py.")
     parser.add_argument("--source", action="append", type=Path,
-                        help=f"thư mục có text/ và annotations*/ "
-                             f"(mặc định: {DEFAULT_SOURCE.relative_to(REPO)})")
+                        help="thư mục có text/ và annotations*/ (lặp được nhiều lần; "
+                             "mặc định: restyled + batch2)")
     parser.add_argument("--annotations", default="annotations_gold",
                         help="tên thư mục nhãn trong mỗi --source "
                              "(mặc định: annotations_gold)")
@@ -347,7 +351,7 @@ def parse_args():
 def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     args = parse_args()
-    sources = args.source or [DEFAULT_SOURCE]
+    sources = args.source or list(DEFAULT_SOURCES)
     report = collections.Counter()
     segment_line = make_segmenter()
 

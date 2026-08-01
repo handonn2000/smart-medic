@@ -64,3 +64,22 @@ print('artifact OK:', c.pref_vi)"
 
 ENTRYPOINT ["smk", "kb"]
 CMD ["eval"]
+
+# ═══════════════════════ dense (tuỳ chọn) ═══════════════════════
+# Thêm nhánh truy hồi ngữ nghĩa. Tách riêng vì torch nặng ~1 GB — người chỉ cần
+# tra mã không nên phải tải.
+#
+# ★ Model được BAKE VÀO IMAGE lúc build, không tải lúc chạy: PRD §8 cấm phụ
+#   thuộc mạng khi BTC dựng lại. Revision được ghim trong kb/dense.py.
+FROM runtime AS dense
+
+RUN pip install --no-cache-dir ".[dense]"
+
+ENV HF_HOME=/opt/hf
+RUN python -c "\
+from smart_medic.kb.dense import MODEL_NAME, MODEL_REVISION; \
+from sentence_transformers import SentenceTransformer; \
+SentenceTransformer(MODEL_NAME, revision=MODEL_REVISION); \
+print('model đã bake vào image')"
+
+COPY data/artifacts/kb.faiss data/artifacts/kb.faiss.meta.json ./data/artifacts/

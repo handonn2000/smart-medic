@@ -48,6 +48,49 @@ Bằng chứng bổ trợ: embedding học từ đồ thị SNOMED cải thiện
 
 ---
 
+## S4 — Thay embedding đa dụng bằng embedding y sinh
+
+**Trạng thái:** hạ tầng đã có (Phase 5), **model sai loại** — cần thay
+**Bằng chứng:** kết quả âm đo được ở KB Phase 5
+
+Hạ tầng dense đã xong và có test: `smk kb dense` dựng FAISS 141.948 vector,
+`search_dense` chạy, cơ chế chống lệch `concept_id` hoạt động. Thứ **sai là
+model**.
+
+Dùng `paraphrase-multilingual-MiniLM-L12-v2` (đa ngữ, đa dụng) cho kết quả:
+
+| | R@1 | R@5 | R@20 |
+|---|---|---|---|
+| lexical | 0,836 | 0,975 | 1,000 |
+| dense (model đa dụng) | 0,443 | 0,508 | 0,574 |
+
+Dense cứu được **0** ca lexical trượt, làm trượt **52** ca lexical trúng.
+
+Nguyên nhân: model không có tri thức y khoa — không biết `THA` = tăng huyết áp,
+`COPD` = bệnh phổi tắc nghẽn mạn tính.
+
+### Việc cần làm
+
+PRD §4 chỉ ra **bất đối xứng ngôn ngữ** và khuyến nghị **hai model khác nhau**:
+
+- nhánh **THUỐC → RxNorm** (Anh–Anh): `cambridgeltl/SapBERT-from-PubMedBERT-fulltext`
+- nhánh **CHẨN_ĐOÁN → ICD** (Việt–Việt): XL-BEL hoặc BioLORD-M đa ngữ
+
+`kb/dense.py` hiện ghim MỘT model cho cả hai nhánh. Cần tách thành hai index
+theo `vocab`, hoặc một index với model đa ngữ y sinh.
+
+Kết hợp với **S1** (fine-tune SapBERT trên cặp đồng nghĩa sinh từ ExtendedMap):
+đó mới là cấu hình mà văn liệu dự đoán sẽ thắng, và ClinLinker đã kiểm chứng
+trên bài toán cùng hình dạng.
+
+### Ngưỡng để coi là thành công
+
+Dense chỉ đáng bật khi nó **cứu được ca mà lexical trượt**. Hiện lexical đạt
+R@20 = 1,000 trên probe set nên không còn ca nào để cứu — **phải mở rộng probe
+set bằng mention khó hơn trước**, nếu không sẽ không đo được cải thiện nào.
+
+---
+
 ## S2 — Khớp thành phần bằng quan hệ định nghĩa SNOMED *(đã loại khỏi KB plan)*
 
 **Trạng thái:** loại khỏi kế hoạch, giữ để tham khảo

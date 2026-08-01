@@ -37,7 +37,8 @@ PUBLIC_API = {
 #   Phase 0: tất cả
 #   Phase 1: bỏ lookup / search_lexical / neighbors
 #   Phase 3: bỏ ancestors / is_ancestor / lca / similarity  (bảng `closure`)
-STUBBED = {"search_dense"}
+#   Phase 5: bỏ search_dense  (kb.faiss) → không còn stub nào
+STUBBED: set[str] = set()
 IMPLEMENTED = set(PUBLIC_API) - STUBBED
 
 

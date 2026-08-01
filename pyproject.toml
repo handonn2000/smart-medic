@@ -18,6 +18,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Dense retrieval (Phase 5). Tách khỏi dependency lõi vì image `runtime` chỉ
+# cần nhánh từ vựng; torch nặng ~1 GB không nên bắt buộc với người chỉ tra mã.
+dense = [
+    "faiss-cpu==1.14.3",
+    "sentence-transformers==5.1.2",
+]
 dev = [
     "pytest==8.4.2",
     "pytest-cov==7.0.0",

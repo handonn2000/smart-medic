@@ -9,6 +9,8 @@ data/staging/
 data/artifacts/*
 !data/artifacts/kb.sqlite
 !data/artifacts/manifest.json
+!data/artifacts/kb.faiss
+!data/artifacts/kb.faiss.meta.json
 
 data/output/
 models/

@@ -581,15 +581,15 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 
 ---
 
-### Phase 5 — Dense index *(tuỳ chọn, bắc cầu sang pipeline giải bài)*
+### Phase 5 — Dense index ⚠️ *(hạ tầng xong, HIỆU QUẢ ÂM — xem §10)*
 
 **Làm gì:** sinh embedding cho `terms`, dựng FAISS, cài `search_dense`, kiểm tra `concept_id` khớp giữa SQLite và FAISS.
 
 **Tiêu chí thành công**
 
-- [ ] `kb.faiss` và `kb.sqlite` cùng `schema_version` và cùng số concept
-- [ ] Test phát hiện được lệch id: cố tình build lại SQLite rồi dùng FAISS cũ → **phải fail**
-- [ ] `search_dense` tìm ra `D55.0` cho `"Thiếu men G6PD"` — ca mà BM25 trượt
+- [x] `kb.faiss` và `kb.sqlite` cùng `schema_version` và cùng số concept (141.948)
+- [x] Test phát hiện được lệch id: đổi `artifact_sha256` trong meta → `IndexOutOfSync`
+- [ ] `search_dense` tìm ra `D55.0` cho `"Thiếu men G6PD"` — **KHÔNG ĐẠT**, và tiền đề cũng đã sai: sau E5, BM25 không còn trượt ca này
 
 ---
 
@@ -635,8 +635,8 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 | **2 — RxNorm** | ✅ Xong | `dd96a04` | 193 test, artifact 248 MB, truy vấn nhanh gấp ~400× |
 | **2.5 — Probe set** | ✅ Xong | `d9099dc` | 122 cặp, 212 test, baseline đã chốt |
 | **3 — Enrichment** | ✅ Xong | `0d9704d` | R@1 +21,3 điểm · 2/4 nguồn bị BỎ vì đo thấy có hại |
-| **4 — Đóng gói** | ⚠️ Một phần | | Dockerfile viết xong nhưng **không có daemon để kiểm** |
-| 5 — Dense index | ⏳ | | |
+| **4 — Đóng gói** | ⚠️ Một phần | `8f3c458` | Dockerfile viết xong nhưng **không có daemon để kiểm** |
+| **5 — Dense index** | ⚠️ Hạ tầng xong | | Hiệu quả **ÂM** — model sai loại, không bật mặc định |
 
 ### Phase 0 — kết quả đo
 
@@ -999,3 +999,76 @@ sạch hoàn toàn; `run()` nạp muộn.
 nó lộ ra ở tầng native chứ không cần Docker. Đúng loại lỗi mà cổng chất lượng
 thông thường không bắt được — mọi rule vẫn xanh, mọi truy vấn vẫn chạy trên máy
 dev vì ở đó pyarrow luôn có sẵn.
+
+### Phase 5 — kết quả đo: HẠ TẦNG ĐẠT, HIỆU QUẢ ÂM
+
+**Hạ tầng — đạt**
+
+```
+141.948 vector · dim 384 · IndexFlatIP (vét cạn, chính xác tuyệt đối)
+kb.faiss 209 MB + kb.faiss.meta.json
+10/10 test, gồm cả cổng phát hiện lệch concept_id
+```
+
+Bất biến quan trọng nhất hoạt động đúng: `kb.faiss.meta.json` ghi
+`artifact_sha256` của `.sqlite` lúc dựng; đổi checksum hoặc `schema_version` →
+`load_index()` ném `IndexOutOfSync` thay vì trả concept sai một cách im lặng.
+
+**Hiệu quả — ÂM, và rõ ràng**
+
+| phương pháp | R@1 | R@5 | R@20 | MRR |
+|---|---|---|---|---|
+| lexical (BM25 + E5 + E1) | **0,836** | **0,975** | **1,000** | **0,897** |
+| dense | 0,443 | 0,508 | 0,574 | 0,475 |
+
+```
+dense cứu được ca lexical trượt : 0
+dense làm trượt ca lexical trúng : 52
+```
+
+Trên chính 7 ca khó nhất, lexical trúng **#1 cả 7**, dense chỉ trúng 1 (và ở #2):
+
+| mention | lexical | dense | top-3 của dense |
+|---|---|---|---|
+| `phù` | #1 | — | H02.2, Z52.1, L29 |
+| `tiểu đường` | #1 | #2 | R81, E10, Z13.1 |
+| `ung thư` | #1 | — | E88.3, D04.5, D00.1 |
+| `THA` | #1 | — | H93.1, Z52.1, H02.2 |
+| `COPD` | #1 | — | N41.2, I26, Z01.4 |
+| `GERD` | #1 | — | L29, K75.0, S32.4 |
+
+**Chẩn đoán nguyên nhân**
+
+Model dùng là `paraphrase-multilingual-MiniLM-L12-v2` — **đa ngữ nhưng đa dụng,
+không có tri thức y khoa**. Nó không biết `THA` = tăng huyết áp, `COPD` = bệnh
+phổi tắc nghẽn mạn tính. Với viết tắt 3–4 ký tự đặt cạnh tên bệnh tiếng Việt
+dài, nó gần như không có tín hiệu ngữ nghĩa nào để bám.
+
+PRD §4 khuyến nghị đích danh **SapBERT / BioLORD** — embedding *y sinh chuyên
+biệt*. Tôi chọn model đa ngữ đa dụng để xử lý tiếng Việt, và đánh đổi đó đã xoá
+sạch tín hiệu chuyên ngành. Đây là lỗi lựa chọn của tôi, không phải giới hạn
+của hướng dense.
+
+**Quyết định**
+
+Áp đúng kỷ luật đã dùng ở Phase 3 (không đạt cổng hiệu quả thì bỏ):
+
+- **Giữ hạ tầng.** Code đúng, có test, và cơ chế chống lệch `concept_id` là thứ
+  giá trị độc lập với chất lượng model.
+- **KHÔNG bật dense trong đường truy vấn mặc định.** `search_dense` vốn đã là
+  hàm riêng; `validate` và `eval` chỉ dùng `search_lexical`. Không có gì phải gỡ.
+- **KHÔNG đóng gói `kb.faiss` vào bản chia sẻ mặc định** — 209 MB cho giá trị âm.
+- **Ghi lại điều kiện để thử lại**: đổi sang embedding y sinh, và theo đúng
+  "bất đối xứng ngôn ngữ" mà PRD chỉ ra thì nên dùng **hai model khác nhau** —
+  SapBERT (Anh) cho nhánh RxNorm, XL-BEL/BioLORD-M cho nhánh ICD.
+
+**Hai lỗi lập trình bị bắt trong phase này**
+
+1. `@dataclass(slots=True)` **không có `__dict__`** — `to_json()` dùng
+   `self.__dict__` nên nổ **sau khi đã nhúng xong 141.948 vector** (~5 phút).
+   Loại lỗi chỉ lộ ở bước cuối của tác vụ dài; một unit test cho `to_json()`
+   bắt được nó trong mili-giây.
+2. `Path("kb.faiss").with_suffix(".meta.json")` cho ra **`kb.meta.json`** chứ
+   không phải `kb.faiss.meta.json` — `with_suffix` THAY đuôi chứ không nối.
+   Build vẫn báo thành công còn `load_index()` thì không tìm thấy meta: hỏng ở
+   chỗ khác với chỗ gây lỗi. Đã đổi sang `with_name(name + ".meta.json")`.

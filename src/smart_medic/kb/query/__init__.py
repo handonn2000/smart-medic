@@ -156,8 +156,39 @@ def search_dense(
     vocab: str | None = None,
     top_k: int = 20,
 ) -> list[Candidate]:
-    """Truy hồi ngữ nghĩa bằng FAISS."""
-    raise NotImplementedError("Phase 5")
+    """Truy hồi ngữ nghĩa bằng FAISS.
+
+    Bổ trợ cho `search_lexical`: BM25 mạnh khi mention chia sẻ token với tên
+    chuẩn, dense mạnh khi KHÔNG có token chung.
+
+    Nạp muộn `kb.dense` để image `runtime` không bắt buộc phải có torch/faiss.
+    Ném `IndexOutOfSync` nếu index lệch với artifact — thà nổ còn hơn trả về
+    concept sai một cách im lặng.
+    """
+    from smart_medic.kb import dense
+
+    index, _meta = dense.load_index(db=store.path)
+    # Lấy dư rồi lọc theo vocab: FAISS không biết bộ mã.
+    scores, ids = index.search(dense.embed_query(text), top_k * 10 if vocab else top_k)
+
+    out: list[Candidate] = []
+    for score, cid in zip(scores[0], ids[0], strict=True):
+        if cid < 0:
+            continue
+        concept = lookup_by_id(store, int(cid))
+        if concept is None or (vocab and concept.vocab != vocab):
+            continue
+        out.append(
+            Candidate(
+                concept=concept,
+                score=float(score),
+                matched_term=concept.label,
+                matched_tier="authoritative",
+            )
+        )
+        if len(out) >= top_k:
+            break
+    return out
 
 
 def neighbors(

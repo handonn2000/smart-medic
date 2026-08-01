@@ -40,6 +40,10 @@ def _add_kb_parser(sub: argparse._SubParsersAction) -> None:
     p_build.add_argument("--source", default="all", choices=SOURCE_CHOICES)
     p_build.add_argument("--force", action="store_true", help="bỏ qua cache")
 
+    p_dense = kb_sub.add_parser("dense", help="dựng FAISS index từ kb.sqlite (Phase 5)")
+    p_dense.add_argument("--db", help="artifact nguồn")
+    p_dense.add_argument("--out", help="đường dẫn index")
+
     p_eval = kb_sub.add_parser("eval", help="đo Recall@k trên probe set")
     p_eval.add_argument("--db", help="artifact cần đo")
     p_eval.add_argument("--probe", help="probe set (mặc định data/probe/retrieval_probe.yaml)")
@@ -76,6 +80,8 @@ def _dispatch_kb(args: argparse.Namespace) -> int:
             return pipeline.run_validate(db=args.db)
         case "build":
             return pipeline.run_build(source=args.source, force=args.force)
+        case "dense":
+            return pipeline.run_dense(db=args.db, out=args.out)
         case "eval":
             return pipeline.run_eval(
                 db=args.db,

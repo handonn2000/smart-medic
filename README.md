@@ -11,7 +11,7 @@ Xây cho **Viettel AI Race 2026 — Vòng 1**. Đề bài đầy đủ: [`docs/P
 
 | Phần | Trạng thái |
 |---|---|
-| **Knowledge Base pipeline** | ✅ Xong — xem [`docs/kb-pipeline-plan.md`](docs/kb-pipeline-plan.md) |
+| **Knowledge Base pipeline** | ✅ Xong (Phase 0–5) — xem [`docs/kb-pipeline-plan.md`](docs/kb-pipeline-plan.md) |
 | Pipeline giải bài (NER → assertion → linking) | ⏳ Chưa bắt đầu |
 
 KB hiện có **141.948 concept** (16.944 mã bệnh ICD-10 + 124.708 khái niệm thuốc RxNorm), 633.000 term song ngữ, artifact 326 MB. Truy hồi đạt Recall@20 = 1,000 trên probe set 122 cặp.
@@ -87,6 +87,27 @@ with KBStore() as kb:
     ancestors(kb, concept_id)
     similarity(kb, a, b)                  # Wu-Palmer, không cần corpus
 ```
+
+## Truy hồi ngữ nghĩa (tuỳ chọn)
+
+Nhánh dense bổ trợ cho BM25 ở đúng lớp ca mà BM25 yếu: mention **không chia sẻ
+token nào** với tên chuẩn.
+
+```bash
+pip install -e ".[dense]"        # thêm faiss-cpu + sentence-transformers (~1 GB)
+PYTHONHASHSEED=0 smk kb dense    # dựng data/artifacts/kb.faiss
+```
+
+```python
+from smart_medic.kb.query import KBStore, search_dense
+with KBStore() as kb:
+    search_dense(kb, "ung thư", vocab="icd10", top_k=5)
+```
+
+Index ghi kèm `kb.faiss.meta.json` chứa `artifact_sha256` của `.sqlite` lúc dựng.
+Nếu artifact được build lại và `concept_id` đổi, `search_dense` **từ chối chạy**
+thay vì trả về concept sai một cách im lặng — đó là failure mode nguy hiểm nhất
+của kiến trúc này.
 
 ## Docker
 

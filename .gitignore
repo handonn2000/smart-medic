@@ -29,6 +29,10 @@ data/staging/*
 data/artifacts/*
 !data/artifacts/.gitkeep
 
+# Cache model của HuggingFace (Phase 5) — tải một lần, không vào git
+.cache/
+models/hf/
+
 # Test / lint cache
 .pytest_cache/
 .ruff_cache/

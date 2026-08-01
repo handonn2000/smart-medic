@@ -1,0 +1,32 @@
+# Hai service cho hai nhu cầu. Chạy từ gốc repo:
+#     docker compose -f docker/compose.yaml run --rm kb-build
+#     docker compose -f docker/compose.yaml run --rm kb-query lookup icd10 K21.0
+
+services:
+  # Dựng KB từ nguồn thô. Nguồn được mount READ-ONLY lúc chạy — 9 GB không
+  # bao giờ vào image, và mount ro thì container không thể làm hỏng nguồn.
+  kb-build:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: builder
+    image: smart-medic-kb:builder
+    environment:
+      PYTHONHASHSEED: "0"
+      SMK_BUILDER_IMAGE: smart-medic-kb:builder
+    volumes:
+      - ../data/knowledge_base:/app/data/knowledge_base:ro
+      - ../data/staging:/app/data/staging
+      - ../data/artifacts:/app/data/artifacts
+      - ../data/curated:/app/data/curated:ro
+    command: ["build"]
+
+  # Chỉ truy vấn. Artifact đã nằm sẵn trong image, không cần mount gì.
+  kb-query:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: runtime
+    image: smart-medic-kb:runtime
+    environment:
+      PYTHONHASHSEED: "0"

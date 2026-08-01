@@ -1,0 +1,25 @@
+# ★ Chặn nguồn thô 9 GB khỏi build context. Không có dòng này thì mỗi lần
+#   `docker build` sẽ nén và gửi 9 GB tới daemon — chậm khủng khiếp và vô ích.
+data/knowledge_base/
+
+# Staging là dữ liệu dẫn xuất, dựng lại được.
+data/staging/
+
+# Artifact: stage `runtime` cần kb.sqlite + manifest.json, phần còn lại thì không.
+data/artifacts/*
+!data/artifacts/kb.sqlite
+!data/artifacts/manifest.json
+
+data/output/
+models/
+
+.git/
+.venv/
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.DS_Store
+docs/PRD.html

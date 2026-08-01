@@ -1,72 +1,154 @@
 # Smart Medic
 
-**Ontological Reasoning in Medical Knowledge Retrieval** — an AI system that reads free-form Vietnamese clinical text (doctor's notes, discharge papers, lab reports, EHR excerpts) and:
+**Ontological Reasoning in Medical Knowledge Retrieval** — hệ thống AI đọc văn bản y khoa tiếng Việt tự do (ghi chú bác sĩ, giấy ra viện, kết quả xét nghiệm, hồ sơ EHR) và:
 
-1. **Detects & normalizes medical concepts** — mapping natural-language mentions to standard codes (ICD-10 for diseases, RxNorm for medications).
-2. **Performs ontological reasoning** — inferring the contextual relationship between concepts within a passage (negation, family history, past history).
+1. **Phát hiện & chuẩn hoá khái niệm y tế** — ánh xạ cụm từ ngôn ngữ tự nhiên về mã chuẩn (ICD-10 cho bệnh, RxNorm cho thuốc).
+2. **Suy luận ontology** — xác định quan hệ ngữ cảnh giữa các khái niệm (phủ định, người nhà, tiền sử).
 
-Built for **Viettel AI Race 2026 — Vòng 1**. See [`docs/PRD.html`](docs/PRD.html) for the full problem statement.
+Xây cho **Viettel AI Race 2026 — Vòng 1**. Đề bài đầy đủ: [`docs/PRD.html`](docs/PRD.html).
 
-## Problem summary
+## Trạng thái
 
-**Input:** a free-form medical text passage containing multiple concepts of different types.
-
-**Output:** a JSON list of detected concepts, each a dictionary with:
-
-| Field | Meaning |
+| Phần | Trạng thái |
 |---|---|
-| `text` | The exact phrase identified as a medical concept |
-| `position` | `[start, end]` character offsets in the input |
-| `type` | One of the 5 concept types below |
-| `assertions` | Contextual flags (only for `CHẨN_ĐOÁN`, `THUỐC`, `TRIỆU_CHỨNG`), up to 3: `isNegated`, `isFamily`, `isHistorical` |
-| `candidates` | Predicted standard codes (only for `CHẨN_ĐOÁN` → ICD-10, `THUỐC` → RxNorm) |
+| **Knowledge Base pipeline** | ✅ Xong — xem [`docs/kb-pipeline-plan.md`](docs/kb-pipeline-plan.md) |
+| Pipeline giải bài (NER → assertion → linking) | ⏳ Chưa bắt đầu |
 
-**Concept types:** `TRIỆU_CHỨNG` (symptom) · `TÊN_XÉT_NGHIỆM` (lab test name) · `KẾT_QUẢ_XÉT_NGHIỆM` (lab result) · `CHẨN_ĐOÁN` (diagnosis) · `THUỐC` (medication)
+KB hiện có **141.948 concept** (16.944 mã bệnh ICD-10 + 124.708 khái niệm thuốc RxNorm), 633.000 term song ngữ, artifact 326 MB. Truy hồi đạt Recall@20 = 1,000 trên probe set 122 cặp.
 
-## Project structure
+---
 
-```
-smart-medic/
-├── docs/
-│   ├── PRD.html             # Full problem statement / requirements doc
-│   ├── reports/             # Write-ups, experiment reports
-│   └── references/          # Background papers (neurosymbolic AI, ontology engineering)
-├── src/
-│   └── smart_medic/         # Source code (data processing, training, inference)
-├── models/                  # Trained model weights / checkpoints
-└── data/
-    ├── knowledge_base/      # Reference vocabularies (ICD-10 codes, etc.)
-    ├── input/               # Input text records (test.zip → input/*.txt)
-    └── output/              # Predicted output (output.zip → *.json), one per input record
-```
-
-## Getting started
+## Cài đặt
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e ".[dev]"
 ```
 
-Run inference over `data/input/` and write predictions to `data/output/`:
+Yêu cầu Python ≥ 3.11. Không cần GPU, không cần Docker, không cần kết nối mạng lúc build.
+
+## Dựng Knowledge Base
+
+### 1. Kiểm nguồn thô
 
 ```bash
-python -m smart_medic.infer --input data/input --output data/output
+./scripts/fetch_raw_data.sh
 ```
 
-(Adjust the command above once the pipeline entry point is implemented in `src/smart_medic/`.)
+Script **không tự tải** — ba nguồn đều có điều kiện sử dụng riêng (SNOMED cần license, RxNorm cần tài khoản UMLS/UTS, ICD-10 tiếng Việt lấy từ công bố BYT). Nó chỉ báo thiếu gì và lấy ở đâu. Đặt nguồn vào `data/knowledge_base/` theo đúng cấu trúc script in ra.
 
-## Data
+### 2. Build
 
-- `data/knowledge_base/ICD10.csv` — ICD-10 disease codes used for diagnosis candidate mapping.
-- `data/input/*.txt` — 100 free-form clinical text records (competition test set).
-- `data/output/*.json` — one prediction file per input record, matching `input/N.txt` → `output/N.json`.
+```bash
+PYTHONHASHSEED=0 smk kb build
+```
 
-## Submission requirements (Vòng 1)
+Mất ~27 phút từ trạng thái chưa cache (pha `extract` chiếm phần lớn: PDF 1.271 trang mất ~280 s, RxNorm RRF ~20 phút). Các lần sau, nếu nguồn thô không đổi thì pha `extract` được bỏ qua và build chỉ mất ~30 giây.
 
-- Predictions submitted as `output.zip` containing `output/1.json … output/100.json`.
-- Top ~15 teams must submit full source code (data processing, training, inference), the data used, model weights, and a setup README — reproducibility is required or the team is disqualified.
+Kết quả: `data/artifacts/kb.sqlite` + `manifest.json`.
+
+### 3. Kiểm tra
+
+```bash
+smk kb validate   # 20 rule + 30 smoke query, fail hard nếu sai
+smk kb eval       # Recall@1/5/20 + MRR trên probe set 122 cặp
+```
+
+### Chạy từng pha
+
+```bash
+smk kb extract     # raw → staging/raw/      (đắt, có cache theo checksum nguồn)
+smk kb normalize   # → staging/norm/         (hàm thuần, rẻ)
+smk kb enrich      # → staging/enrich/       (chỉ THÊM, không sửa)
+smk kb load        # → kb.sqlite + FTS5 + closure
+smk kb validate
+```
+
+Đổi schema thì chỉ cần chạy lại `load` (~14 s) chứ không phải build lại từ đầu.
+
+## Dùng Knowledge Base
+
+Downstream **chỉ** import `smart_medic.kb.query` — đó là bề mặt công khai duy nhất.
+
+```python
+from smart_medic.kb.query import KBStore, lookup, search_lexical, ancestors, similarity
+
+with KBStore() as kb:
+    # tra theo mã
+    lookup(kb, "icd10", "K21.0")          # Bệnh trào ngược dạ dày - thực quản với viêm thực quản
+    lookup(kb, "rxnorm", "243670")        # aspirin 81 MG Oral Tablet
+
+    # truy hồi từ vựng (BM25 qua FTS5)
+    search_lexical(kb, "thiếu men G6PD", vocab="icd10", top_k=5)
+    search_lexical(kb, "aspirin 81 mg po daily", vocab="rxnorm", top_k=5)
+
+    # phân cấp — đọc từ bảng bao đóng truyền ứng
+    ancestors(kb, concept_id)
+    similarity(kb, a, b)                  # Wu-Palmer, không cần corpus
+```
+
+## Docker
+
+Hai image cho hai nhu cầu:
+
+```bash
+# Dựng KB từ nguồn thô (nguồn mount READ-ONLY lúc chạy, KHÔNG vào image)
+docker compose -f docker/compose.yaml run --rm kb-build
+
+# Chỉ truy vấn — artifact nằm sẵn trong image, không cần nguồn thô
+docker compose -f docker/compose.yaml build kb-query
+docker compose -f docker/compose.yaml run --rm kb-query eval
+```
+
+`.dockerignore` chặn `data/knowledge_base/` khỏi build context, nên 9 GB nguồn thô không bao giờ được gửi tới daemon.
+
+## Tái lập
+
+Build hai lần cho ra artifact **giống hệt từng byte**. Bốn điều kiện:
+
+1. `concept_id` gán bằng sort `(vocab, code)`, không phải thứ tự insert
+2. Thứ tự `INSERT` tất định ở mọi bảng
+3. `page_size` cố định + `VACUUM` cuối cùng
+4. **Không timestamp nào trong `.sqlite`** — mọi mốc thời gian nằm ở `manifest.json`
+
+Kiểm bằng: chạy `smk kb load` hai lần, so `artifact_sha256` trong `manifest.json`.
+
+## Cấu trúc
+
+```
+src/smart_medic/kb/
+  query/       ★ API công khai — nơi DUY NHẤT downstream được import
+  schema/      ddl.sql là nguồn sự thật duy nhất về cấu trúc store
+  extract/     raw → staging, một module một nguồn
+  normalize/   hàm thuần, không I/O — coverage 99%
+  enrich/      Phase 3, chỉ THÊM không sửa
+  load/        staging → sqlite, gán concept_id tất định
+  validate/    cổng chất lượng, fail hard
+
+data/
+  knowledge_base/  nguồn thô (gitignored, ~9 GB)
+  curated/         từ đồng nghĩa tiếng Việt đã đóng băng (trong git)
+  probe/           probe set đo Recall@k (trong git)
+  artifacts/       kb.sqlite + manifest.json (gitignored)
+```
+
+Chi tiết thiết kế, kết quả đo và các quyết định: [`docs/kb-pipeline-plan.md`](docs/kb-pipeline-plan.md).
+Hướng cho pipeline giải bài: [`docs/solution-backlog.md`](docs/solution-backlog.md).
+
+## Test
+
+```bash
+pytest -m "not slow"   # nhanh, không cần nguồn thô — chạy trong CI
+pytest                 # đầy đủ, cần artifact đã build
+ruff check src tests && ruff format --check src tests
+```
+
+## Nộp bài Vòng 1
+
+- Dự đoán nộp dưới dạng `output.zip` chứa `output/1.json … output/100.json`.
+- Top ~15 đội phải nộp source code (data processing, training, inference), dữ liệu, model weights và README cài đặt. **BTC cài lại không được là bị loại** — đó là lý do mọi lựa chọn kỹ thuật ở đây ưu tiên tính tái lập.
 
 ## License
 
-Code in this repository is licensed under the [MIT License](LICENSE). Third-party reference data (e.g. ICD-10 codes) retains its original licensing terms and is included here for research/competition use only.
+Code theo [MIT License](LICENSE). Dữ liệu tham chiếu của bên thứ ba (ICD-10, RxNorm, SNOMED CT) giữ nguyên điều kiện sử dụng gốc và chỉ được đưa vào đây cho mục đích nghiên cứu/dự thi.

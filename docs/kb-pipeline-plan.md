@@ -568,16 +568,16 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 
 ---
 
-### Phase 4 — Đóng gói
+### Phase 4 — Đóng gói ⚠️ *(3/4 tiêu chí không kiểm được — xem §10)*
 
 **Làm gì:** Dockerfile multi-stage; script `fetch_raw_data.sh`; README cài đặt từ máy sạch; publish artifact + manifest.
 
 **Tiêu chí thành công**
 
-- [ ] `docker build` xong trên máy **không có** nguồn thô (builder chỉ mount lúc run)
-- [ ] Artifact build trong container có **checksum trùng** với build native
-- [ ] Người khác nhận `runtime` image → chạy được truy vấn mà không cấu hình gì
-- [ ] README được kiểm bằng cách làm theo từng bước trên môi trường sạch, không bước nào phải suy đoán
+- [ ] `docker build` xong trên máy **không có** nguồn thô — **KHÔNG KIỂM ĐƯỢC** (không có Docker daemon); đã kiểm gián tiếp bằng `.dockerignore`
+- [ ] Artifact build trong container có **checksum trùng** với build native — **KHÔNG KIỂM ĐƯỢC**; đã kiểm bằng venv độc lập
+- [x] Người khác nhận `runtime` → chạy được truy vấn mà không cấu hình gì — kiểm bằng cách trỏ `SMK_RAW_DIR` vào thư mục rỗng
+- [x] README được kiểm bằng cách làm theo từng bước trên môi trường sạch (venv mới, `pip install -e ".[dev]"`)
 
 ---
 
@@ -634,8 +634,8 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 | **1 — ICD-10** | ✅ Xong | `3e18b7a` | 165 test pass, artifact 29 MB, build tất định |
 | **2 — RxNorm** | ✅ Xong | `dd96a04` | 193 test, artifact 248 MB, truy vấn nhanh gấp ~400× |
 | **2.5 — Probe set** | ✅ Xong | `d9099dc` | 122 cặp, 212 test, baseline đã chốt |
-| **3 — Enrichment** | ✅ Xong | | R@1 +21,3 điểm · 2/4 nguồn bị BỎ vì đo thấy có hại |
-| 4 — Đóng gói | ⏳ | | |
+| **3 — Enrichment** | ✅ Xong | `0d9704d` | R@1 +21,3 điểm · 2/4 nguồn bị BỎ vì đo thấy có hại |
+| **4 — Đóng gói** | ⚠️ Một phần | | Dockerfile viết xong nhưng **không có daemon để kiểm** |
 | 5 — Dense index | ⏳ | | |
 
 ### Phase 0 — kết quả đo
@@ -949,3 +949,53 @@ Không thực hiện được: ta không lưu concept SNOMED nên không có ph�
 trong KB để đối chiếu. Thẻ vẫn được trích đủ (11.685 dòng `attributes`) và
 **không** ghi đè `entity_kind` — phần cốt lõi của cảnh báo Bona & Ceusters vẫn
 được tôn trọng.
+
+### Phase 4 — kết quả đo, và những gì KHÔNG kiểm được
+
+> ⚠️ **Docker daemon không chạy trong môi trường build này** (`docker` CLI có,
+> `docker info` fail). Ba tiêu chí liên quan tới container **chưa được kiểm
+> chứng thực tế**. Dưới đây tách rõ phần đã kiểm và phần chưa.
+
+**Đã viết**
+
+`docker/Dockerfile` multi-stage (`builder` | `runtime`), `docker/compose.yaml`,
+`.dockerignore`, `scripts/fetch_raw_data.sh`, README viết lại toàn bộ.
+
+**Đã kiểm được (native)**
+
+| kiểm chứng | kết quả |
+|---|---|
+| venv **sạch** + `pip install -e ".[dev]"` theo đúng README | ✓ cài được |
+| artifact build từ venv sạch vs venv dự án | ✓ **checksum trùng** `5f8cfc2c9ef4c04b…` |
+| truy vấn khi `SMK_RAW_DIR` trỏ vào **thư mục rỗng** | ✓ `lookup` / `search_lexical` / `ancestors` / `similarity` đều chạy |
+| `.dockerignore` chặn nguồn thô | ✓ chặn `data/knowledge_base/`, `data/staging/`; vẫn gửi artifact + probe + src |
+| `scripts/fetch_raw_data.sh` | ✓ liệt kê đúng 5 nguồn, phân biệt bắt buộc/tuỳ chọn |
+
+Kiểm chứng thứ hai là thứ **thay thế gần nhất** cho "checksum container ==
+checksum native": nó chứng minh artifact tái lập được qua một môi trường Python
+độc lập. Phần container chưa kiểm chỉ còn là lớp OS/base image.
+
+**KHÔNG kiểm được — cần chạy lại khi có Docker**
+
+```bash
+docker compose -f docker/compose.yaml run --rm kb-build
+docker compose -f docker/compose.yaml build kb-query
+docker compose -f docker/compose.yaml run --rm kb-query eval
+# rồi so artifact_sha256 trong manifest.json với bản build native
+```
+
+**★ Một rò rỉ kiến trúc bị bắt trong lúc làm Phase này**
+
+Test `test_query_khong_import_module_build` phát hiện: `import
+smart_medic.kb.query` **kéo theo `pyarrow`** — dependency chỉ có ở image
+`builder`. Đường đi: `query.lexical` → `normalize.text` → Python chạy
+`normalize/__init__.py` → `import pyarrow`.
+
+Nghĩa là image `runtime` sẽ nổ ngay lúc import dù nó không cần parquet chút nào.
+Đã tách phần chạy pha sang `normalize/phase.py`, giữ `normalize/__init__.py`
+sạch hoàn toàn; `run()` nạp muộn.
+
+Đáng chú ý: **lỗi này chỉ lộ ra vì viết test cho bất biến của container**, và
+nó lộ ra ở tầng native chứ không cần Docker. Đúng loại lỗi mà cổng chất lượng
+thông thường không bắt được — mọi rule vẫn xanh, mọi truy vấn vẫn chạy trên máy
+dev vì ở đó pyarrow luôn có sẵn.

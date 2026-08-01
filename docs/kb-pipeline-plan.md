@@ -12,7 +12,7 @@
 | # | Mục tiêu | Đo bằng |
 |---|---|---|
 | G1 | Một interface truy vấn duy nhất cho cả 3 bộ mã | Downstream chỉ import từ `kb.query`, không chạm file thô |
-| G2 | Tái lập được từ máy sạch | Build 2 lần → checksum artifact giống hệt |
+| G2 | Tái lập được từ máy sạch | Cùng môi trường → trùng byte; khác môi trường → trùng **`content_sha256`** |
 | G3 | Schema đổi được mà không phải build lại từ đầu | Đổi schema → chỉ chạy lại pha `load` (< 2 phút) |
 | G4 | Đóng gói & chia sẻ được | `docker run` ra kết quả giống chạy native |
 | G5 | Không mất thông tin so với nguồn thô | Cổng kiểm tra ở §7 pass 100% |
@@ -568,7 +568,7 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 
 ---
 
-### Phase 4 — Đóng gói ⚠️ *(3/4 tiêu chí không kiểm được — xem §10)*
+### Phase 4 — Đóng gói ✅
 
 **Làm gì:** Dockerfile multi-stage; script `fetch_raw_data.sh`; README cài đặt từ máy sạch; publish artifact + manifest.
 
@@ -598,6 +598,7 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 | Rủi ro | Ảnh hưởng | Cách chặn |
 |---|---|---|
 | `concept_id` lệch giữa các lần build → FAISS trỏ sai, **im lặng** | Nghiêm trọng | Id tất định §5.2 + cổng checksum ở Phase 1 và test lệch id ở Phase 5 |
+| **Đường dẫn suy ra sai khi cài KHÔNG ở chế độ `-e`** → build chạy trên dữ liệu rỗng | **Nghiêm trọng** | `find_project_root()` tìm theo marker `pyproject.toml`, không đếm cứng số cấp; test ở `test_config.py::TestTimGocDuAn` |
 | Chuẩn hoá sai (bẫy `đ`, dấu thập phân) làm hỏng retrieval mà không lộ | Cao | `normalize/` là hàm thuần, coverage ≥ 90%, smoke query mỗi lần build |
 | Heuristic tách synonym theo dấu phẩy cắt nhầm tên bệnh | Trung bình | In toàn bộ ca bị tách để duyệt mắt một lần, không tự động mù |
 | Nạp quá nhiều dữ liệu vô dụng → artifact phình, build chậm | Trung bình | Quy tắc "không phục vụ 4 hàm API thì không ingest" §4.2 |
@@ -635,7 +636,7 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 | **2 — RxNorm** | ✅ Xong | `dd96a04` | 193 test, artifact 248 MB, truy vấn nhanh gấp ~400× |
 | **2.5 — Probe set** | ✅ Xong | `d9099dc` | 122 cặp, 212 test, baseline đã chốt |
 | **3 — Enrichment** | ✅ Xong | `0d9704d` | R@1 +21,3 điểm · 2/4 nguồn bị BỎ vì đo thấy có hại |
-| **4 — Đóng gói** | ⚠️ Một phần | `8f3c458` | Dockerfile viết xong nhưng **không có daemon để kiểm** |
+| **4 — Đóng gói** | ✅ Xong | `8f3c458` + | Kiểm thật bằng Docker; **3 bug** lộ ra nhờ container |
 | **5 — Dense index** | ⚠️ Hạ tầng xong | | Hiệu quả **ÂM** — model sai loại, không bật mặc định |
 
 ### Phase 0 — kết quả đo
@@ -1072,3 +1073,92 @@ của hướng dense.
    không phải `kb.faiss.meta.json` — `with_suffix` THAY đuôi chứ không nối.
    Build vẫn báo thành công còn `load_index()` thì không tìm thấy meta: hỏng ở
    chỗ khác với chỗ gây lỗi. Đã đổi sang `with_name(name + ".meta.json")`.
+
+### Phase 4 (bổ sung) — kiểm chứng thật bằng Docker
+
+Sau khi Docker Desktop được bật, ba tiêu chí còn treo đã chạy thật. **Cả ba đạt
+— nhưng chỉ sau khi sửa ba bug mà container mới làm lộ ra.**
+
+| tiêu chí | kết quả |
+|---|---|
+| `docker build` không có nguồn thô | ✅ build context **11 kB** / repo 14 GB |
+| artifact container vs native | ✅ **`content_sha256` trùng**: `3e5bee6899c245a8…` |
+| runtime chạy không cấu hình gì | ✅ 20/20 rule, 30/30 smoke, R@20 = 1,000 |
+
+**★ Bug 1 — `PROJECT_ROOT` đếm cứng số cấp thư mục (NGHIÊM TRỌNG)**
+
+```python
+PROJECT_ROOT = Path(__file__).resolve().parents[3]   # SAI
+```
+
+Đúng khi cài `pip install -e`, nhưng khi cài bình thường vào site-packages:
+
+```
+/usr/local/lib/python3.13/site-packages/smart_medic/kb/config.py
+parents[3] → /usr/local/lib/python3.13     ← không phải gốc dự án
+```
+
+Hệ quả: `DATA_DIR` trỏ `/usr/local/lib/python3.13/data` thay vì `/app/data` nơi
+compose mount. Build chạy trên thư mục **rỗng** rồi ghi artifact vào chỗ bị vứt
+đi cùng container.
+
+Suýt lọt vì hai lý do cùng lúc: validate vẫn báo `Rule 8/8` (database rỗng thì
+không có gì mồ côi để bắt, và 12 rule ICD/RxNorm không kích hoạt vì
+`rules_for()` chọn theo `vocab` thực có), còn tôi thì suýt kết luận "checksum
+trùng" vì **đang so file native với chính nó** — chỉ `mtime` mới lộ sự thật.
+
+Sửa: `find_project_root()` tìm theo marker `pyproject.toml`, rơi về `cwd()`.
+Đây chính là thứ BTC sẽ gặp khi cài lại source code.
+
+**★ Bug 2 — đường dẫn tuyệt đối rò vào artifact**
+
+`enrich/sources.origin_file` lưu `/Users/handonn/…/vi_synonyms.yaml` trên máy
+dev và `/app/data/curated/vi_synonyms.yaml` trong container. Cùng một file, hai
+chuỗi, hai artifact khác nhau. Đây là **khác biệt DUY NHẤT** giữa staging của hai
+bên — extract và normalize giống hệt nhau đến từng dòng:
+
+```
+  ✓ raw/concepts     680770213466be32 = 680770213466be32   153.924
+  ✓ raw/terms        4a0aee0b5e0a939e = 4a0aee0b5e0a939e   487.776
+  ✓ norm/terms       010ed661c8122a6a = 010ed661c8122a6a   487.776
+  ✗ enrich/sources   b31961dc17f457c6 ≠ 370ac0e5f9b8d4df         2
+```
+
+Sửa: lưu đường dẫn **tương đối** so với `DATA_DIR`.
+
+**★ Bug 3 — image `runtime` mang theo 213 MB thư viện không dùng**
+
+`pymupdf` và `pyarrow` nằm ở `dependencies` lõi nên `pip install .` kéo vào cả
+image runtime — vốn chỉ đọc SQLite. Đã chuyển sang extra `build`:
+
+| | trước | sau |
+|---|---|---|
+| image runtime | 686 MB | **473 MB** (311 MB trong đó là artifact) |
+| `fitz`/`pyarrow` trong runtime | có | **không** |
+
+**Điều chỉnh cam kết tái lập (G2)**
+
+Phát hiện quan trọng về mặt thiết kế: **checksum byte KHÔNG thể ổn định qua các
+phiên bản SQLite**. Build native (3.51.0) và container (3.46.1) trên *cùng một
+staging* cho hai file khác byte, nhưng đối chiếu nội dung sáu bảng thì:
+
+```
+  ✓ sources     c1f5f556c4cfcff5          5
+  ✓ concepts    79e4b58ee1b37d16    141.948
+  ✓ terms       453a9042b86f4885    633.000
+  ✓ relations   6e0249a247e4e5fa    372.024
+  ✓ attributes  3702af08a9f89cd8    116.210
+  ✓ closure     b224df46d5815a86    168.451
+```
+
+Giống hệt. Hai phiên bản SQLite chỉ serialize B-tree và index FTS5 khác nhau.
+
+Nên cam kết đúng phải là **hai tầng**, và `manifest.json` giờ ghi cả hai:
+
+- `artifact_sha256` — byte. Ổn định trong **cùng** môi trường.
+- `content_sha256` — nội dung logic. Ổn định **qua** môi trường. Đây mới là thứ
+  trả lời câu hỏi thực sự quan trọng: *hai bên có dựng ra cùng một KB không.*
+
+Kéo theo: bộ chống lệch của dense index (Phase 5) đổi sang canh `content_sha256`.
+Canh theo byte sẽ **từ chối oan** một index hoàn toàn hợp lệ chỉ vì artifact
+được build ở môi trường SQLite khác — mà `concept_id` thì không hề đổi.

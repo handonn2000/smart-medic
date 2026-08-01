@@ -9,6 +9,8 @@ Mỗi nguồn bật/tắt độc lập qua `--only` / `--skip` để đo đóng 
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pyarrow as pa
 import pyarrow.parquet as pq
 
@@ -52,6 +54,24 @@ SORT_KEYS = {
     "relations": ["src_vocab", "src_code", "rel", "dst_vocab", "dst_code"],
     "attributes": ["vocab", "code", "attr", "value"],
 }
+
+
+def _relative_origin(enricher) -> str | None:
+    """Đường dẫn nguồn ở dạng TƯƠNG ĐỐI so với `DATA_DIR`.
+
+    Đường dẫn TUYỆT ĐỐI rò vào artifact sẽ phá tính tái lập giữa các máy:
+    `/Users/…/data/curated/vi_synonyms.yaml` trên máy dev vs
+    `/app/data/curated/vi_synonyms.yaml` trong container — cùng một file, hai
+    chuỗi khác nhau, và artifact khác nhau. Đã bắt được đúng lỗi này khi đối
+    chiếu staging giữa build native và build container.
+    """
+    path = getattr(enricher, "path", None)
+    if path is None:
+        return None
+    try:
+        return str(Path(path).resolve().relative_to(config.DATA_DIR))
+    except ValueError:
+        return Path(path).name
 
 
 def _known_concepts() -> dict[str, set[str]]:
@@ -128,7 +148,7 @@ def run(*, only: str | None = None, skip: str | None = None) -> dict[str, int]:
             part.register_source(
                 name=enricher.name,
                 release=getattr(enricher, "release", None),
-                origin_file=str(getattr(enricher, "path", "") or "") or None,
+                origin_file=_relative_origin(enricher),
                 sha256=enricher.fingerprint() if hasattr(enricher, "fingerprint") else None,
                 n_rows=len(part.terms),
             )

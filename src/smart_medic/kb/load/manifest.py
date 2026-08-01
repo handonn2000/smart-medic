@@ -27,6 +27,47 @@ def sha256_file(path: Path, *, chunk: int = 1 << 20) -> str:
     return h.hexdigest()
 
 
+# Truy vấn dựng checksum NỘI DUNG. Sắp xếp tường minh ở mọi bảng để kết quả
+# không phụ thuộc thứ tự lưu trữ vật lý.
+_CONTENT_SQL = {
+    "sources": "SELECT source,release,origin_file,sha256,n_rows FROM sources ORDER BY source",
+    "concepts": "SELECT concept_id,vocab,code,entity_kind,pref_vi,pref_en,is_active "
+    "FROM concepts ORDER BY concept_id",
+    "terms": "SELECT concept_id,vocab,source,term,norm_term,ascii_term,lang,term_type,"
+    "is_preferred,tier,evidence FROM terms ORDER BY concept_id,source,lang,term_type,term",
+    "relations": "SELECT src_concept,rel,dst_concept,rel_group,priority,tier,meta "
+    "FROM relations ORDER BY src_concept,rel,dst_concept",
+    "attributes": "SELECT concept_id,attr,value FROM attributes ORDER BY concept_id,attr,value",
+    "closure": "SELECT ancestor,descendant,min_dist FROM closure ORDER BY ancestor,descendant",
+}
+
+
+def content_sha256(db: Path) -> str:
+    """Checksum của NỘI DUNG LOGIC, độc lập với bố cục byte của file.
+
+    ★ Vì sao cần cả hai loại checksum:
+
+    `artifact_sha256` (byte) chỉ ổn định trong **cùng một môi trường**. Đo được:
+    build native (SQLite 3.51.0) và build container (SQLite 3.46.1) trên cùng
+    staging cho ra hai file khác byte nhưng **nội dung sáu bảng giống hệt** —
+    hai phiên bản SQLite serialize B-tree và index FTS5 khác nhau.
+
+    Vậy lời cam kết đúng phải là: *cùng môi trường → trùng byte; khác môi trường
+    → trùng nội dung*. `content_sha256` là thứ kiểm được vế thứ hai, và nó mới
+    là điều thực sự quan trọng — "hai bên có dựng ra cùng một KB không".
+    """
+    conn = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+    try:
+        h = hashlib.sha256()
+        for name, sql in _CONTENT_SQL.items():
+            h.update(name.encode())
+            for row in conn.execute(sql):
+                h.update(repr(row).encode())
+        return h.hexdigest()
+    finally:
+        conn.close()
+
+
 def _table_counts(db: Path) -> dict[str, int]:
     conn = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
     try:
@@ -58,6 +99,7 @@ def write(db: Path | None = None, out: Path | None = None) -> dict:
         "sources": _sources(db),
         "counts": _table_counts(db),
         "artifact_sha256": sha256_file(db),
+        "content_sha256": content_sha256(db),
     }
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")

@@ -54,10 +54,15 @@ class TestDongBoVoiArtifact:
         assert meta.n_vectors == n
 
     def test_gan_voi_dung_artifact(self, dense_mod):
+        """Canh theo NỘI DUNG, không theo byte.
+
+        Cùng một KB build ở hai môi trường SQLite khác nhau cho hai file khác
+        byte nhưng concept_id giống hệt — index vẫn phải dùng được.
+        """
         from smart_medic.kb.load import manifest
 
         _, meta = dense_mod.load_index()
-        assert meta.artifact_sha256 == manifest.read()["artifact_sha256"]
+        assert meta.content_sha256 == manifest.read()["content_sha256"]
 
 
 class TestPhatHienLechId:
@@ -70,10 +75,10 @@ class TestPhatHienLechId:
         idx = tmp_path / "kb.faiss"
         shutil.copyfile(config.KB_FAISS, idx)
         meta = json.loads(dense_mod.meta_path(config.KB_FAISS).read_text(encoding="utf-8"))
-        meta["artifact_sha256"] = "0" * 64
+        meta["content_sha256"] = "0" * 64
         dense_mod.meta_path(idx).write_text(json.dumps(meta), encoding="utf-8")
 
-        with pytest.raises(dense_mod.IndexOutOfSync, match="artifact"):
+        with pytest.raises(dense_mod.IndexOutOfSync, match="NỘI DUNG"):
             dense_mod.load_index(idx)
 
     def test_schema_khac_thi_TU_CHOI(self, dense_mod, tmp_path):

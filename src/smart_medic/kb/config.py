@@ -10,8 +10,35 @@ import os
 from pathlib import Path
 from typing import Final
 
-# src/smart_medic/kb/config.py → lên 4 cấp là gốc repo
-PROJECT_ROOT: Final = Path(__file__).resolve().parents[3]
+ROOT_MARKER = "pyproject.toml"
+
+
+def find_project_root(start: Path | None = None) -> Path:
+    """Gốc dự án: thư mục tổ tiên gần nhất có `pyproject.toml`, hoặc CWD.
+
+    ★ KHÔNG đếm cứng số cấp thư mục. Bản đầu dùng
+    `Path(__file__).resolve().parents[3]` — đúng khi cài `pip install -e`
+    (`src/smart_medic/kb/config.py` → gốc repo), nhưng SAI khi cài bình thường:
+
+        /usr/local/lib/python3.13/site-packages/smart_medic/kb/config.py
+        parents[3] → /usr/local/lib/python3.13          ← không phải gốc dự án
+
+    Hệ quả trong container: `DATA_DIR` trỏ vào `/usr/local/lib/python3.13/data`
+    thay vì `/app/data` nơi compose mount, nên build chạy trên dữ liệu RỖNG rồi
+    ghi artifact vào chỗ bị vứt đi cùng container. Lỗi này **không lộ ở máy dev**
+    vì ở đó luôn cài `-e`, và nó cũng là chính thứ BTC sẽ gặp khi cài lại.
+
+    Trong image, site-packages không có tổ tiên nào chứa `pyproject.toml` nên
+    hàm rơi về `Path.cwd()` — Dockerfile đặt `WORKDIR /app`, đúng nơi mount.
+    """
+    here = (start or Path(__file__)).resolve()
+    for parent in here.parents:
+        if (parent / ROOT_MARKER).is_file():
+            return parent
+    return Path.cwd()
+
+
+PROJECT_ROOT: Final = find_project_root()
 
 
 def _env_path(var: str, default: Path) -> Path:

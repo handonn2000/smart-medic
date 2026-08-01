@@ -27,7 +27,7 @@ FROM base AS builder
 
 COPY pyproject.toml README.md LICENSE ./
 COPY src/ ./src/
-RUN pip install --no-cache-dir .
+RUN pip install --no-cache-dir ".[build]"
 
 # Nơi mount nguồn thô (read-only) và nơi ghi artifact.
 VOLUME ["/app/data/knowledge_base", "/app/data/artifacts"]
@@ -49,6 +49,7 @@ FROM base AS runtime
 COPY pyproject.toml README.md LICENSE ./
 COPY src/ ./src/
 COPY data/probe/ ./data/probe/
+# KHÔNG có [build]: image này chỉ đọc SQLite, không cần pymupdf/pyarrow.
 RUN pip install --no-cache-dir .
 
 COPY data/artifacts/kb.sqlite data/artifacts/manifest.json ./data/artifacts/

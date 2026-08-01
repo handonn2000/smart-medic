@@ -74,7 +74,7 @@ def run_dense(*, db: str | None = None, out: str | None = None) -> int:
     t0 = _banner("dense")
     meta = dense.build(Path(db) if db else None, Path(out) if out else None)
     print(f"  {meta.n_vectors:,} vector · dim {meta.dim} · model {meta.model}")
-    print(f"  gắn với artifact {meta.artifact_sha256[:16]}…")
+    print(f"  gắn với nội dung artifact {meta.content_sha256[:16]}…")
     _done(t0)
     return 0
 

@@ -10,14 +10,22 @@ requires-python = ">=3.11"
 license = { file = "LICENSE" }
 
 # Pin chặt: reproducibility là điều kiện sống còn (PRD §8 — BTC cài lại không được là loại).
-# Không dùng dải version (>=, ~=) ở dependency runtime.
+# Không dùng dải version (>=, ~=).
+#
+# ★ Dependency LÕI chỉ gồm những gì cần để TRUY VẤN. `pymupdf` và `pyarrow`
+#   chỉ cần khi DỰNG KB, nên nằm ở extra `build`. Nhờ vậy image `runtime` không
+#   phải mang theo ~360 MB thư viện nó không bao giờ gọi tới.
+#   Đo được: trước khi tách, runtime nặng 686 MB dù chỉ đọc SQLite.
 dependencies = [
-    "pymupdf==1.28.0",   # trích bảng từ icd-10-vn.pdf (KHÔNG dùng OCR — xem D1)
-    "pyarrow==22.0.0",   # staging parquet
     "PyYAML==6.0.3",     # smoke queries, probe set
 ]
 
 [project.optional-dependencies]
+# Dựng KB từ nguồn thô. Chỉ image `builder` cần.
+build = [
+    "pymupdf==1.28.0",   # trích bảng từ icd-10-vn.pdf (KHÔNG dùng OCR — xem D1)
+    "pyarrow==22.0.0",   # staging parquet
+]
 # Dense retrieval (Phase 5). Tách khỏi dependency lõi vì image `runtime` chỉ
 # cần nhánh từ vựng; torch nặng ~1 GB không nên bắt buộc với người chỉ tra mã.
 dense = [
@@ -25,6 +33,7 @@ dense = [
     "sentence-transformers==5.1.2",
 ]
 dev = [
+    "smart-medic[build]",
     "pytest==8.4.2",
     "pytest-cov==7.0.0",
     "ruff==0.14.4",

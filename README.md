@@ -23,8 +23,12 @@ KB hiện có **141.948 concept** (16.944 mã bệnh ICD-10 + 124.708 khái ni�
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -e ".[dev]"
+pip install -e ".[dev]"        # dev đã bao gồm extra `build`
 ```
+
+Dependency lõi chỉ có `PyYAML` — đủ để **truy vấn**. `pymupdf` và `pyarrow` chỉ
+cần khi **dựng** KB nên nằm ở extra `build`; nhờ vậy image runtime không phải
+mang theo 213 MB thư viện nó không gọi tới.
 
 Yêu cầu Python ≥ 3.11. Không cần GPU, không cần Docker, không cần kết nối mạng lúc build.
 
@@ -126,14 +130,29 @@ docker compose -f docker/compose.yaml run --rm kb-query eval
 
 ## Tái lập
 
-Build hai lần cho ra artifact **giống hệt từng byte**. Bốn điều kiện:
+`manifest.json` ghi **hai** checksum, vì chúng bảo đảm hai thứ khác nhau:
+
+| | ổn định khi nào | dùng để |
+|---|---|---|
+| `artifact_sha256` | **cùng** môi trường | phát hiện build không tất định |
+| `content_sha256` | **qua** các môi trường | xác nhận hai bên dựng ra **cùng một KB** |
+
+Byte không thể ổn định qua các phiên bản SQLite: đo được rằng build native
+(SQLite 3.51.0) và build trong container (3.46.1) trên cùng staging cho hai file
+khác byte nhưng **nội dung sáu bảng giống hệt** — chúng chỉ serialize B-tree và
+index FTS5 khác nhau.
+
+Bốn điều kiện để `artifact_sha256` ổn định trong cùng môi trường:
 
 1. `concept_id` gán bằng sort `(vocab, code)`, không phải thứ tự insert
 2. Thứ tự `INSERT` tất định ở mọi bảng
 3. `page_size` cố định + `VACUUM` cuối cùng
-4. **Không timestamp nào trong `.sqlite`** — mọi mốc thời gian nằm ở `manifest.json`
+4. **Không timestamp, không đường dẫn tuyệt đối nào trong `.sqlite`** — mốc thời
+   gian nằm ở `manifest.json`, đường dẫn nguồn lưu tương đối so với `DATA_DIR`
 
-Kiểm bằng: chạy `smk kb load` hai lần, so `artifact_sha256` trong `manifest.json`.
+```bash
+smk kb load && smk kb load   # so artifact_sha256 giữa hai lần
+```
 
 ## Cấu trúc
 

@@ -9,8 +9,13 @@ trượt hết 7/7.
   dense sẽ trỏ **nhầm concept mà không báo lỗi** — dạng hỏng âm thầm nguy hiểm
   nhất của cả kiến trúc (§8).
 
-  Cách chặn: `kb.faiss.meta.json` ghi `artifact_sha256` của .sqlite lúc dựng
+  Cách chặn: `kb.faiss.meta.json` ghi `content_sha256` của .sqlite lúc dựng
   index. `load_index()` đối chiếu và **từ chối** nếu lệch.
+
+  Canh theo NỘI DUNG chứ không theo byte: cùng một KB build ở hai môi trường
+  SQLite khác nhau cho hai file khác byte nhưng `concept_id` giống hệt, nên
+  index vẫn dùng được. Canh theo `artifact_sha256` sẽ từ chối oan — đo được
+  khi so build native (SQLite 3.51.0) với build container (3.46.1).
 
 ── Phạm vi embedding ────────────────────────────────────────────────────
 Chỉ nhúng **tên ưu tiên của mỗi concept** (`pref_vi` hoặc `pref_en`), không
@@ -47,7 +52,7 @@ class IndexOutOfSync(RuntimeError):
 @dataclass(slots=True)
 class IndexMeta:
     schema_version: str
-    artifact_sha256: str
+    content_sha256: str
     model: str
     revision: str
     dim: int
@@ -75,11 +80,11 @@ def meta_path(index_path: Path | None = None) -> Path:
     return path.with_name(path.name + ".meta.json")
 
 
-def _artifact_sha(db: Path) -> str:
-    """sha256 của .sqlite, lấy từ manifest — không tính lại cho nhanh."""
+def _content_sha(db: Path) -> str:
+    """Checksum NỘI DUNG của .sqlite — bất biến qua các phiên bản SQLite."""
     from smart_medic.kb.load import manifest
 
-    return manifest.read()["artifact_sha256"] if config.KB_MANIFEST.is_file() else ""
+    return manifest.content_sha256(db)
 
 
 def _rows(db: Path) -> tuple[list[int], list[str]]:
@@ -138,7 +143,7 @@ def build(db: Path | None = None, out: Path | None = None) -> IndexMeta:
 
     meta = IndexMeta(
         schema_version=SCHEMA_VERSION,
-        artifact_sha256=_artifact_sha(db),
+        content_sha256=_content_sha(db),
         model=MODEL_NAME,
         revision=MODEL_REVISION,
         dim=EMBED_DIM,
@@ -162,11 +167,11 @@ def load_index(index_path: Path | None = None, *, db: Path | None = None):
         raise IndexOutOfSync(
             f"index dựng cho schema {meta.schema_version}, code cần {SCHEMA_VERSION}"
         )
-    current = _artifact_sha(db or config.KB_SQLITE)
-    if current and meta.artifact_sha256 and meta.artifact_sha256 != current:
+    current = _content_sha(db or config.KB_SQLITE)
+    if current and meta.content_sha256 and meta.content_sha256 != current:
         raise IndexOutOfSync(
-            "FAISS index dựng từ một artifact .sqlite KHÁC.\n"
-            f"  index  : {meta.artifact_sha256[:16]}…\n"
+            "FAISS index dựng từ một artifact .sqlite có NỘI DUNG KHÁC.\n"
+            f"  index  : {meta.content_sha256[:16]}…\n"
             f"  hiện có: {current[:16]}…\n"
             "concept_id có thể đã đổi — mọi kết quả dense sẽ trỏ nhầm concept. "
             "Chạy lại `smk kb dense`."

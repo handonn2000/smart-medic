@@ -1,0 +1,25 @@
+# Gold THẬT của BTC — trích từ `sample_output.json`.
+#
+# ★ KHÁC BẢN CHẤT với `retrieval_probe.yaml`: probe kia là nhãn TỰ GÁN để đo
+#   delta giữa hai lần build. File này là **đáp án do BTC cung cấp**, nên nó là
+#   thước đo có thẩm quyền — khi hai bên mâu thuẫn, tin file này.
+#
+# Chỉ có nhánh THUỐC: mẫu của BTC không chứa mục CHẨN_ĐOÁN nào.
+# Vì vậy file này KHÔNG nói gì về nhánh ICD.
+#
+# Lưu ý về `position` trong sample_output.json: offset của nó tính trên văn bản
+# GỐC có xuống dòng CRLF (mỗi dòng kết thúc bằng " \r\n"), không khớp với
+# `sample_input.txt` đã bị làm phẳng. Xem docs/s1-embedding-plan.md §9.1.
+# Mã `candidates` thì không bị ảnh hưởng — đó là thứ file này dùng.
+
+- {mention: "amlodipine 10 mg po daily", kind: drug, gold: ["308135"]}
+- {mention: "aspirin 81 mg po daily", kind: drug, gold: ["243670"]}
+- {mention: "metoprolol succinate xl 50 mg po daily", kind: drug, gold: ["866436"]}
+- {mention: "guaifenesin ml po q6h:prn", kind: drug, gold: ["392085"]}
+- {mention: "nystatin oral suspension 5 ml po qid:prn", kind: drug, gold: ["7597"]}
+- {mention: "acetaminophen 325-650 mg po q6h:prn", kind: drug, gold: ["313782"]}
+- {mention: "pravastatin 40 mg po daily", kind: drug, gold: ["904475"]}
+- {mention: "docusate sodium 100 mg po bid", kind: drug, gold: ["1099279"]}
+- {mention: "senna 8.6 mg po bid:prn", kind: drug, gold: ["312935"]}
+- {mention: "clonazepam 0.5 mg po qam:prn", kind: drug, gold: ["197527"]}
+- {mention: "clonazepam 1.5 mg po qhs", kind: drug, gold: ["197528"]}

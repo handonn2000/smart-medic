@@ -51,6 +51,9 @@ def _add_kb_parser(sub: argparse._SubParsersAction) -> None:
     p_eval.add_argument("--max-fan-in", type=int, help="ngưỡng fan-in cho term mượn từ SNOMED")
     p_eval.add_argument("--save", help="ghi kết quả ra JSON để làm mốc so sánh")
     p_eval.add_argument("--compare", help="JSON mốc để in delta")
+    p_eval.add_argument(
+        "--rerank", action="store_true", help="bật re-rank nhánh thuốc (độ phủ token × TTY)"
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -89,6 +92,7 @@ def _dispatch_kb(args: argparse.Namespace) -> int:
                 tiers=args.tiers,
                 save=args.save,
                 compare=args.compare,
+                rerank=args.rerank,
             )
         case _:  # pragma: no cover — argparse đã chặn
             raise AssertionError(args.kb_cmd)

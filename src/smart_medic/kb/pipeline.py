@@ -87,6 +87,7 @@ def run_eval(
     max_fan_in: int | None = None,
     save: str | None = None,
     compare: str | None = None,
+    rerank: bool = False,
 ) -> int:
     from smart_medic.kb import evaluate
 
@@ -94,6 +95,7 @@ def run_eval(
     code = evaluate.run(
         db=Path(db) if db else None,
         probe=Path(probe) if probe else None,
+        rerank=rerank,
         tiers=tuple(t.strip() for t in tiers.split(",")) if tiers else None,
         max_fan_in=max_fan_in,
         save=Path(save) if save else None,

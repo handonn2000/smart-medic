@@ -71,8 +71,44 @@ class Slice:
         }
 
 
+# Nhãn của bộ gold lâm sàng → `kind` của probe. Chỉ hai nhãn có `candidates`.
+KIND_OF_TYPE = {"CHẨN_ĐOÁN": "disease", "THUỐC": "drug"}
+
+
+def load_gold_dir(path: Path) -> list[Case]:
+    """Nạp bộ gold gán tay dạng thư mục (`annotations_gold/*.json` + `text/`).
+
+    Đọc THẲNG từ nguồn thay vì sinh file YAML dẫn xuất — một nguồn sự thật, không
+    có bản sao để lệch.
+
+    Giữ **mọi lần xuất hiện**, không gộp trùng: `candidates_score` của đề cộng
+    trên từng lượt, nên mention xuất hiện 6 lần thì đáng 6 lần trong phép đo.
+
+    Bỏ qua mục có `candidates` rỗng — TRIỆU_CHỨNG / TÊN_XÉT_NGHIỆM /
+    KẾT_QUẢ_XÉT_NGHIỆM theo đề bài không được gán mã.
+    """
+    ann = path / "annotations_gold" if (path / "annotations_gold").is_dir() else path
+    cases: list[Case] = []
+    for f in sorted(ann.glob("*.json")):
+        for e in json.loads(f.read_text(encoding="utf-8")):
+            kind = KIND_OF_TYPE.get(e.get("type", ""))
+            if kind is None or not e.get("candidates"):
+                continue
+            cases.append(
+                Case(
+                    mention=e["text"],
+                    kind=kind,
+                    gold=tuple(str(g) for g in e["candidates"]),
+                    note=f.stem,
+                )
+            )
+    return cases
+
+
 def load_probe(path: Path | None = None) -> list[Case]:
     path = path or DEFAULT_PROBE
+    if path.is_dir():
+        return load_gold_dir(path)
     raw = yaml.safe_load(path.read_text(encoding="utf-8")) or []
     return [
         Case(
@@ -93,10 +129,17 @@ def run_cases(
     tiers: tuple[str, ...] | None = None,
     max_fan_in: int | None = None,
     top_k: int = max(CUTOFFS),
+    rerank: bool = False,
 ) -> list[Case]:
     for c in cases:
         hits = search_lexical(
-            store, c.mention, vocab=c.vocab, tiers=tiers, max_fan_in=max_fan_in, top_k=top_k
+            store,
+            c.mention,
+            vocab=c.vocab,
+            tiers=tiers,
+            max_fan_in=max_fan_in,
+            top_k=top_k,
+            rerank=rerank,
         )
         codes = [h.code for h in hits]
         c.top = tuple(codes[:5])
@@ -154,6 +197,7 @@ def run(
     max_fan_in: int | None = None,
     save: Path | None = None,
     compare: Path | None = None,
+    rerank: bool = False,
 ) -> int:
     cases = load_probe(probe)
     if not cases:
@@ -161,7 +205,7 @@ def run(
         return 1
 
     with KBStore(db) as store:
-        run_cases(store, cases, tiers=tiers, max_fan_in=max_fan_in)
+        run_cases(store, cases, tiers=tiers, max_fan_in=max_fan_in, rerank=rerank)
 
     sl = slices_of(cases)
     base = None
@@ -173,6 +217,8 @@ def run(
         print(f"  (chỉ dùng term tier ∈ {list(tiers)})")
     if max_fan_in is not None:
         print(f"  (chỉ dùng term SNOMED có fan_in ≤ {max_fan_in})")
+    if rerank:
+        print("  (BẬT re-rank: thuốc = độ phủ × TTY prior · chẩn đoán = độ phủ × mã khoảng)")
     print(_fmt_table(sl, base))
     print(_fmt_misses(cases))
 
@@ -181,6 +227,7 @@ def run(
             "n_cases": len(cases),
             "tiers": list(tiers) if tiers else None,
             "max_fan_in": max_fan_in,
+            "rerank": rerank,
             "slices": {s.name: s.as_dict() for s in sl},
             "misses": [c.mention for c in cases if c.rank is None],
         }

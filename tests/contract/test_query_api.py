@@ -24,6 +24,8 @@ PUBLIC_API = {
         "tiers",
         "max_fan_in",
         "top_k",
+        # Cộng thêm, mặc định False ⇒ code cũ không đổi hành vi.
+        "rerank",
     ),
     "search_dense": ("store", "text", "vocab", "top_k"),
     "neighbors": ("store", "concept_id", "rel", "direction"),

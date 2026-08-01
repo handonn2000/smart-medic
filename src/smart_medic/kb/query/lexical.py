@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import re
 
+from smart_medic.kb.normalize.sig import strip_sig_if_drug
 from smart_medic.kb.normalize.text import normalize_term, to_ascii
 
 # FTS5 tokenizer `unicode61` cắt theo ký tự không phải chữ/số. Ta cắt giống vậy
@@ -36,8 +37,12 @@ def build_match_expr(text: str, *, vocab: str | None = None) -> str:
       Lọc ở WHERE khiến query planner chọn `concepts` làm vòng ngoài rồi
       SCAN terms_fts ở trong cùng — đo được 7,4 s cho một truy vấn. Đẩy vào
       MATCH thì FTS thành vòng ngoài và bộ lọc chạy ngay trong index.
+
+    ★ Với `vocab='rxnorm'`, token chỉ dẫn dùng thuốc (`po`, `bid`, `q6h:prn`)
+      bị bóc trước. Chúng không định danh thuốc, mà lại trùng token thật trong
+      tên viết tắt của RxNorm — xem `normalize/sig.py`.
     """
-    norm = normalize_term(text)
+    norm = normalize_term(strip_sig_if_drug(text, vocab))
     tokens = dict.fromkeys(tokenize(norm) + tokenize(to_ascii(norm)))
     picked = [t for t in tokens if t][:MAX_TOKENS]
     if not picked:

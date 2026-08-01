@@ -42,6 +42,23 @@ _CONCEPT_COLS = "concept_id, vocab, code, entity_kind, pref_vi, pref_en, is_acti
 # và các bộ lọc lang/entity_kind/tier chạy SAU tầng FTS nên cần khoảng đệm.
 FETCH_MULTIPLIER = 40
 
+# Số ứng viên gom về trước khi re-rank, rồi mới cắt xuống `top_k`.
+#
+# ★ SÂU THEO NHÁNH, không dùng chung một số — đo chéo mới lộ ra:
+#
+#                        pool 20              pool 60
+#   ICD  (gold lâm sàng) R@5 0,833 R@20 0,857  R@5 0,857 R@20 1,000  ← sâu THẮNG
+#   thuốc (gold BTC)     R@5 0,818 R@20 0,909  R@5 0,818 R@20 0,818  ← sâu THUA
+#
+# Nhánh ICD cần pool sâu vì mã "không xác định" mà người gán nhãn chọn
+# (`J18.9`, `E11.9`) nằm ở **hạng 21–26** — re-rank trên đúng top-20 không bao
+# giờ với tới. Nới ra thì `Recall@20` TĂNG thật, không chỉ đổi thứ tự.
+#
+# Nhánh thuốc thì ngược: đáp án vốn đã nằm trong top-20, nới pool chỉ rước thêm
+# ứng viên nhiễu và đẩy ca `nystatin` (gold là hoạt chất) văng khỏi top-20.
+RERANK_POOL: dict[str, int] = {"icd10": 60, "rxnorm": 20}
+RERANK_POOL_DEFAULT = 20
+
 
 def _to_concept(row: sqlite3.Row) -> Concept:
     return Concept(
@@ -77,6 +94,7 @@ def search_lexical(
     tiers: tuple[str, ...] | None = None,
     max_fan_in: int | None = None,
     top_k: int = 20,
+    rerank: bool = False,
 ) -> list[Candidate]:
     """Truy hồi từ vựng bằng BM25 (FTS5). Sắp xếp giảm dần theo `score`.
 
@@ -85,17 +103,32 @@ def search_lexical(
     `max_fan_in` lọc term mượn từ SNOMED theo số concept cùng trỏ về một mã ICD
     (§P3.2). Nạp rộng ở build-time, siết ở ĐÂY — nhờ vậy chỉnh ngưỡng không phải
     build lại, và ngưỡng thành tham số đo được trên probe set.
+
+    `rerank` bật bước xếp hạng lại (`kb.query.rerank`), khác nhau theo nhánh:
+    THUỐC dùng độ phủ token × TTY prior; CHẨN_ĐOÁN dùng độ phủ token trên tên
+    đã bỏ đuôi định tính × prior mã khoảng.
+
+    Lưu ý: nó **cũng gom ứng viên sâu hơn** `top_k` (xem `RERANK_POOL`) rồi mới
+    cắt, nên `Recall@top_k` có thể **TĂNG** chứ không chỉ đổi thứ tự — đo được
+    0,857 → 1,000 ở nhánh ICD.
+
+    Mặc định TẮT để hợp đồng API §4.2 không đổi hành vi dưới chân code đã viết.
     """
     expr = build_match_expr(text, vocab=vocab)
     if not expr:
         return []
+
+    # ★ Khi re-rank, gom SÂU HƠN top_k rồi mới cắt. Đo được: mã `.9` mà gold hay
+    #   chọn (`J18.9`, `E11.9`) nằm ở hạng 21–26 — re-rank trên đúng top-20
+    #   không bao giờ với tới chúng. Nhờ nới pool, `Recall@top_k` có thể TĂNG.
+    pool = max(top_k, RERANK_POOL.get(vocab or "", RERANK_POOL_DEFAULT)) if rerank else top_k
 
     # ★ Hai tầng, cố ý. Tầng trong CHỈ đụng FTS (không JOIN) nên planner buộc
     #   phải lấy FTS làm vòng ngoài; tầng ngoài join trên tập đã nhỏ.
     #   Viết một tầng thì planner chọn `concepts` làm vòng ngoài rồi SCAN
     #   terms_fts ở trong cùng — 7,4 s/truy vấn (đo được, xem docs §10).
     where = []
-    params: list[object] = [expr, top_k * FETCH_MULTIPLIER]
+    params: list[object] = [expr, pool * FETCH_MULTIPLIER]
     if lang:
         where.append("t.lang = ?")
         params.append(lang)
@@ -144,9 +177,15 @@ def search_lexical(
                 matched_tier=row["matched_tier"],
             )
         )
-        if len(out) >= top_k:
+        if len(out) >= pool:
             break
-    return out
+
+    if rerank and vocab in ("rxnorm", "icd10"):
+        from smart_medic.kb.query import rerank as _rr
+
+        fn = _rr.rerank_drug if vocab == "rxnorm" else _rr.rerank_disease
+        out = fn(store, text, out)
+    return out[:top_k]
 
 
 def search_dense(

@@ -161,8 +161,13 @@ identically, and it normalises tokens to NFC because PhoBERT's vocabulary is NFC
 quarter of the corpus is NFD on purpose.
 
 ```bash
-# 162 gold-annotated restyled records → data/train_generated.txt
+# restyled + batch2 gold → data/train_generated.txt
 python scripts/prepare_training_data.py
+
+# Or pick sources explicitly
+python scripts/prepare_training_data.py \
+    --source data/generated_medical_records/restyled \
+    --source data/generated_medical_records/batch2
 
 # Hold out 24 records so there is something honest to score against later
 python scripts/prepare_training_data.py --holdout 24

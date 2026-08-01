@@ -155,16 +155,6 @@
     ]
   },
   {
-    "text": "**********",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      613,
-      623
-    ]
-  },
-  {
     "text": "Enoxaparin",
     "type": "THUỐC",
     "candidates": [
@@ -174,16 +164,6 @@
     "position": [
       645,
       655
-    ]
-  },
-  {
-    "text": "**********",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      674,
-      684
     ]
   },
   {
@@ -420,7 +400,7 @@
     "candidates": [
       "I50"
     ],
-    "assertions": [],
+    "assertions": ["isNegated"],
     "position": [
       1854,
       1875
@@ -436,16 +416,6 @@
     "position": [
       1902,
       1919
-    ]
-  },
-  {
-    "text": "Lịch sử ngã",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1941,
-      1956
     ]
   },
   {

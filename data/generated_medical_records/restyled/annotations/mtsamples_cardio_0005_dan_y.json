@@ -2,7 +2,7 @@
   {
     "text": "bệnh phổi tắc nghẽn mãn tính (COPD)",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": ["J44"],
     "assertions": [],
     "position": [
       38,
@@ -84,7 +84,7 @@
   {
     "text": "viêm phế quản hen cấp tính chồng lên COPD mãn tính",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": ["J45"],
     "assertions": [],
     "position": [
       253,
@@ -176,7 +176,7 @@
   {
     "text": "Bệnh phổi tắc nghẽn mãn tính",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": ["J44"],
     "assertions": [
       "isHistorical"
     ],
@@ -202,7 +202,7 @@
   {
     "text": "cholesterol tăng cao",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": ["E78.0"],
     "assertions": [
       "isHistorical"
     ],
@@ -219,16 +219,6 @@
     "position": [
       594,
       606
-    ]
-  },
-  {
-    "text": "ran nổ và ran ngáy",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      636,
-      654
     ]
   },
   {
@@ -362,20 +352,10 @@
     ]
   },
   {
-    "text": "kháng sinh tiêm tĩnh mạch",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      819,
-      844
-    ]
-  },
-  {
     "text": "Solu-Medrol tĩnh mạch",
     "type": "THUỐC",
     "candidates": [
-      "6902"
+      "203856"
     ],
     "assertions": [],
     "position": [
@@ -420,7 +400,7 @@
   {
     "text": "Bệnh phổi tắc nghẽn mãn tính",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": ["J44"],
     "assertions": [],
     "position": [
       1074,
@@ -430,7 +410,7 @@
   {
     "text": "viêm phế quản hen cấp tính",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": ["J45"],
     "assertions": [],
     "position": [
       1108,

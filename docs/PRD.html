@@ -275,6 +275,14 @@
     .brand-txt span{display:none}
     .anno-body{font-size:15px;line-height:2.2}
     .card{padding:18px}
+    /* Nav 4 tab rộng 620px > màn hình — cho cuộn ngang trong chính thanh nav
+       thay vì đẩy cả trang tràn ngang. */
+    .tabs{overflow-x:auto;max-width:100%;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{white-space:nowrap;flex-shrink:0}
+    /* Bảng nhiều cột cuộn trong hộp của nó, không kéo body tràn theo. */
+    table.def{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
+    table.def td,table.def th{white-space:normal;min-width:118px}
   }
   /* ---------- Approach tab (tab 3) ---------- */
   .prio{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0}
@@ -388,6 +396,35 @@
   .wk-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 8px}
   .wk-head h4{font-family:var(--display);font-size:14.5px;margin:0;color:var(--ink);flex:1;min-width:200px}
 
+  /* ---------- Data tab (tab 4) ---------- */
+  /* Ba bộ mã dùng lại đúng màu ngữ nghĩa của 5 nhãn: bệnh→cd, thuốc→th, lâm sàng→kq */
+  .vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 4px}
+  @media(max-width:860px){.vgrid{grid-template-columns:1fr}}
+  .vcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:17px 18px;box-shadow:var(--shadow);border-top:3px solid var(--line-strong)}
+  .vcard.icd{border-top-color:var(--cd)} .vcard.rx{border-top-color:var(--th)} .vcard.sno{border-top-color:var(--kq)}
+  .vcard h4{font-family:var(--display);font-size:15px;margin:0 0 2px;color:var(--ink)}
+  .vcard .vq{font-size:12.4px;color:var(--ink-faint);font-style:italic;margin-bottom:10px;display:block}
+  .vcard .vshape{font-family:var(--mono);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:9px}
+  .vcard.icd .vshape{background:var(--cd-bg);color:#8a2f2a} .vcard.rx .vshape{background:var(--th-bg);color:#2f6b38} .vcard.sno .vshape{background:var(--kq-bg);color:#4a3785}
+  .vcard p{font-size:13px;color:var(--ink-soft);margin:0 0 8px}
+  .vcard dl{margin:0;font-family:var(--mono);font-size:11.5px;display:grid;grid-template-columns:auto 1fr;gap:3px 10px}
+  .vcard dt{color:var(--ink-faint)} .vcard dd{margin:0;color:var(--ink);font-weight:700;text-align:right}
+
+  /* dải số đo */
+  .stats{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+  .stat{background:var(--paper-2);border:1px solid var(--line);border-radius:9px;padding:9px 13px;min-width:96px}
+  .stat b{font-family:var(--display);font-weight:800;font-size:17px;color:var(--primary-deep);display:block;line-height:1.15}
+  .stat span{font-family:var(--mono);font-size:10.2px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.4px}
+
+  /* thanh so sánh trước/sau */
+  .cmp{display:grid;grid-template-columns:130px 1fr 62px;gap:9px;align-items:center;margin:7px 0;font-size:12.6px}
+  .cmp .lab{color:var(--ink-soft)}
+  .cmp .track{height:15px;border-radius:8px;background:var(--paper-2);border:1px solid var(--line);overflow:hidden}
+  .cmp .fill{display:block;height:100%;background:var(--primary);border-radius:7px}
+  .cmp .fill.base{background:var(--line-strong)} .cmp .fill.bad{background:var(--cd)}
+  .cmp .val{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--primary-deep);text-align:right}
+  .cmp .val.bad{color:var(--cd)}
+
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
 </style>
 </head>
@@ -408,6 +445,7 @@
       <button class="tab active" data-tab="req"  role="tab"><span class="n">01</span> Yêu cầu đề thi</button>
       <button class="tab" data-tab="biz"  role="tab"><span class="n">02</span> Giải thích nghiệp vụ</button>
       <button class="tab" data-tab="app"  role="tab"><span class="n">03</span> Hướng tiếp cận</button>
+      <button class="tab" data-tab="data" role="tab"><span class="n">04</span> Dữ liệu</button>
     </nav>
   </div>
 </header>
@@ -1223,6 +1261,411 @@
         <div class="refc" id="ref-R17"><b>[R17]</b> Mahajan et al. <i>2022 n2c2 Contextualized Medication Event Extraction</i> (JBI 2023); ConText/NegEx (Harkema, Chapman).</div>
         <div class="refc"><b>[Survey]</b> Chen et al. <i>A comprehensive survey on medical concept normalization</i> (J. Biomedical Informatics 178:105005, 2026).</div>
       </div>
+    </div>
+  </section>
+
+</section>
+
+<!-- ============ TAB 4 : DỮ LIỆU ============ -->
+<section class="panel" id="data" role="tabpanel">
+
+  <div class="hero">
+    <span class="eyebrow">Cơ sở tri thức · đã triển khai</span>
+    <h1 class="title">Ba bộ chuẩn y khoa<br><span class="en">và pipeline quy chúng về một mối</span></h1>
+    <p class="subtitle">Đề bài chấm điểm trên <b>ICD-10</b> (bệnh) và <b>RxNorm</b> (thuốc), còn <b>SNOMED CT</b> đóng vai trò cầu nối. Tab này giải thích ba bộ mã, mối quan hệ thật giữa chúng, và pipeline đã dựng để biến 9,3 GB dữ liệu thô rời rạc thành một kho truy vấn duy nhất.</p>
+    <div class="hero-meta">
+      <span class="chip"><span class="dot"></span>141.948 <b>concept</b></span>
+      <span class="chip"><span class="dot"></span>633.000 <b>term</b></span>
+      <span class="chip"><span class="dot"></span>Recall@20 <b>1,000</b></span>
+      <span class="chip"><span class="dot"></span>Artifact <b>311 MB</b></span>
+    </div>
+  </div>
+
+  <!-- 1. Ba bộ mã -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Ba bộ mã, ba câu hỏi khác nhau</h2></div>
+    <div class="card">
+      <p>Điểm dễ nhầm nhất là nghĩ chúng là ba lựa chọn thay thế nhau. Thực ra chúng trả lời <b>ba câu hỏi khác nhau</b>, và có <b>hình dạng dữ liệu khác nhau về bản chất</b> — điều này quyết định toàn bộ thiết kế lưu trữ.</p>
+
+      <div class="vgrid">
+        <div class="vcard icd">
+          <h4>ICD-10</h4>
+          <span class="vq">"Bệnh nhân được chẩn đoán bệnh gì?"</span>
+          <span class="vshape">CÂY PHÂN LOẠI</span>
+          <p>Do <b>WHO</b> ban hành cho mục đích thống kê tử vong/bệnh tật, sau thành công cụ thanh toán bảo hiểm. Mỗi ca xếp vào đúng một ô.</p>
+          <dl>
+            <dt>Bản Việt hoá</dt><dd>QĐ 4469/BYT</dd>
+            <dt>Mã trong KB</dt><dd>16.944</dd>
+            <dt>Ngôn ngữ</dt><dd>Việt + Anh</dd>
+          </dl>
+        </div>
+        <div class="vcard rx">
+          <h4>RxNorm</h4>
+          <span class="vq">"Bệnh nhân dùng thuốc gì?"</span>
+          <span class="vshape">ĐỒ THỊ</span>
+          <p>Do <b>NLM/NIH</b> duy trì. Gom mọi cách gọi một viên thuốc — biệt dược, hoạt chất, hàm lượng — về một số <code>RXCUI</code> chung.</p>
+          <dl>
+            <dt>Concept trong KB</dt><dd>124.708</dd>
+            <dt>Cạnh quan hệ</dt><dd>355.837</dd>
+            <dt>Ngôn ngữ</dt><dd>Anh</dd>
+          </dl>
+        </div>
+        <div class="vcard sno">
+          <h4>SNOMED CT</h4>
+          <span class="vq">"Mọi thứ trong lâm sàng"</span>
+          <span class="vshape">ONTOLOGY (DAG)</span>
+          <p>Bộ thuật ngữ lâm sàng chi tiết nhất. Khác ICD ở chỗ nó là <b>ontology để suy luận</b>, không phải cây phân loại để đếm.</p>
+          <dl>
+            <dt>Concept active</dt><dd>383.853</dd>
+            <dt>Cạnh IS-A</dt><dd>638.927</dd>
+            <dt>Vai trò ở đây</dt><dd>nguồn cho</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="callout"><b>Hệ quả thiết kế quan trọng:</b> ép cả ba vào <i>một</i> bảng phẳng <code>(mã, tên)</code> sẽ mất toàn bộ <b>cạnh</b> — mà cạnh chính là thứ làm nên giá trị: <code>has_ingredient</code> (hoạt chất → mọi thuốc kê đơn), <code>isa</code> (leo phân cấp khi lưỡng lự), và ánh xạ SNOMED → ICD.</div>
+    </div>
+
+    <h3><span class="lead">1.1</span>ICD-10 — hai bản khác nhau, đừng nhầm</h3>
+    <div class="card">
+      <p>Trong repo có <b>hai</b> phiên bản ICD-10 rất khác nhau. Đề bài dùng mã dạng <code>D55.0</code>, <code>K21.0</code>, <code>O14</code> — tức chuẩn <b>WHO/BYT</b>:</p>
+      <table class="def">
+        <thead><tr><th>File</th><th>Là gì</th><th>Định dạng mã</th><th>Vai trò</th></tr></thead>
+        <tbody>
+          <tr><td><code>icd-10-vn.pdf</code></td><td>ICD-10 WHO bản Việt hoá của BYT, <b>song ngữ</b>, có phân cấp đầy đủ</td><td><code>K21.0</code></td><td><b>Nguồn chính</b></td></tr>
+          <tr><td><code>ICD10.csv</code></td><td>Danh mục QĐ 4469/BYT — có <b>mã mở rộng 5 ký tự</b> mà WHO không có</td><td><code>A17.83</code></td><td><b>Bổ sung</b></td></tr>
+          <tr><td><code>icd10cm-codes-2027.txt</code></td><td>ICD-10-<b>CM</b>, bản mở rộng của Mỹ, tiếng Anh</td><td><code>K2100</code></td><td>Đã thử, <b>bị loại</b> (§6)</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px">Hai nguồn đầu <b>bổ sung nhau chứ không thay thế</b> — đo được:</p>
+      <div class="stats">
+        <div class="stat"><b>15.843</b><span>chỉ PDF hợp lệ</span></div>
+        <div class="stat"><b>13.077</b><span>chỉ CSV hợp lệ</span></div>
+        <div class="stat"><b>1.101</b><span>chỉ có ở CSV</span></div>
+        <div class="stat"><b>16.944</b><span>hợp nhất</span></div>
+      </div>
+      <div class="callout ok"><b>Phát hiện đáng giá:</b> PDF có cột <b>tên tiếng Anh WHO 2019</b>. Điều này làm dịu "bất đối xứng ngôn ngữ" mà tab 03 nêu — mỗi mã ICD giờ có song ngữ Việt–Anh, nên embedding y sinh tiếng Anh dùng được cho <i>cả hai</i> nhánh.</div>
+    </div>
+
+    <h3><span class="lead">1.2</span>RxNorm — chọn đúng tầng TTY mới ăn điểm</h3>
+    <div class="card">
+      <p>RxNorm có nhiều <b>tầng trừu tượng</b> gọi là TTY, và chọn sai tầng là mất điểm:</p>
+      <div class="quote">IN     1191  Aspirin                        ← hoạt chất thuần
+SCDC         aspirin 81 MG                  ← + hàm lượng
+<span class="hi">SCD  243670  aspirin 81 MG Oral Tablet      ← + dạng bào chế  ★ tầng "thuốc kê đơn"</span>
+SBD          Bayer Aspirin 81 MG Oral Tab   ← + tên thương mại</div>
+      <p>Đáp án mẫu của PRD cho <code>"aspirin 81 mg po daily"</code> là <b><code>243670</code></b> — mã <b>SCD</b>, không phải <code>1191</code>. Quy tắc rút ra: <b>mention có hàm lượng + đường dùng → map về SCD/SBD</b>.</p>
+      <div class="callout warn"><b>Bẫy về chiều quan hệ.</b> Dòng <code>rxcui1=315431 | rela=consists_of | rxcui2=243670</code> đọc là <i>"243670 consists_of 315431"</i> — quan hệ đi từ <code>rxcui2</code> tới <code>rxcui1</code>, <b>ngược trực giác</b>. Đọc ngược sẽ lật toàn bộ đồ thị thuốc <b>mà không báo lỗi nào</b>.</div>
+      <p style="margin-top:10px">Cũng vì vậy <b>không có cạnh trực tiếp</b> từ hoạt chất tới thuốc kê đơn — đường đi là hai bước:</p>
+      <div class="flow">
+        <span class="box">IN 1191 · aspirin</span><span class="arw">←</span>
+        <span class="box">has_ingredient</span><span class="arw">←</span>
+        <span class="box">SCDC 315431</span><span class="arw">←</span>
+        <span class="box">consists_of</span><span class="arw">←</span>
+        <span class="box">SCD 243670</span>
+      </div>
+    </div>
+
+    <h3><span class="lead">1.3</span>SNOMED CT — ontology, không phải danh mục</h3>
+    <div class="card">
+      <p>Khác biệt căn bản với ICD: ICD là <b>cây phân loại để đếm</b>, SNOMED là <b>ontology để suy luận</b>. Mỗi khái niệm có định nghĩa logic bằng quan hệ, nên máy tự suy được "viêm phổi thuỳ <i>là một loại</i> bệnh phổi" mà không cần ai liệt kê sẵn.</p>
+      <div class="stats">
+        <div class="stat"><b>383.853</b><span>concept active</span></div>
+        <div class="stat"><b>638.927</b><span>cạnh IS-A</span></div>
+        <div class="stat"><b>42,8%</b><span>đa kế thừa</span></div>
+        <div class="stat"><b>7,5 GB</b><span>dung lượng thô</span></div>
+      </div>
+      <div class="callout"><b>42,8% concept có nhiều hơn một cha</b> ⇒ đây là <b>DAG chứ không phải cây</b>. Điều này loại bỏ các kỹ thuật nhãn khoảng rẻ tiền (nested set, interval labeling) vốn chỉ đúng trên cây — chỗ nhiều người vấp.</div>
+    </div>
+  </section>
+
+  <!-- 2. Mối quan hệ -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Mối quan hệ giữa ba bộ mã</h2></div>
+    <div class="card">
+      <p>Ba bộ mã <b>không độc lập</b>. Có cầu nối chính thức, và cả hai cầu nối đều nằm sẵn trong dữ liệu của repo:</p>
+
+      <div class="figwrap">
+        <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sơ đồ quan hệ giữa SNOMED CT, ICD-10 và RxNorm">
+          <defs>
+            <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0 0 L10 5 L0 10 z" fill="#0a6b66"/>
+            </marker>
+          </defs>
+
+          <!-- SNOMED hub -->
+          <rect x="250" y="14" width="220" height="76" rx="12" fill="#e6ddf6" stroke="#c3b1ea" stroke-width="1.5"/>
+          <text x="360" y="42" text-anchor="middle" font-family="sans-serif" font-size="14.5" font-weight="700" fill="#4a3785">SNOMED CT</text>
+          <text x="360" y="60" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#42605c">ontology lâm sàng · 383.853 concept</text>
+          <text x="360" y="76" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#7c948f">KHÔNG được chấm điểm</text>
+
+          <!-- arrows down -->
+          <path d="M300 92 L196 150" stroke="#0a6b66" stroke-width="2" fill="none" marker-end="url(#ah2)"/>
+          <path d="M420 92 L524 150" stroke="#0a6b66" stroke-width="2" fill="none" marker-end="url(#ah2)"/>
+
+          <text x="196" y="118" text-anchor="middle" font-family="monospace" font-size="10" fill="#074946">ExtendedMap</text>
+          <text x="196" y="131" text-anchor="middle" font-family="monospace" font-size="10" fill="#7c948f">129.741 map</text>
+          <text x="536" y="118" text-anchor="middle" font-family="monospace" font-size="10" fill="#074946">SAB=SNOMEDCT_US</text>
+          <text x="536" y="131" text-anchor="middle" font-family="monospace" font-size="10" fill="#7c948f">116.477 atom</text>
+
+          <!-- ICD -->
+          <rect x="60" y="156" width="212" height="72" rx="12" fill="#f7dcd9" stroke="#eaa9a4" stroke-width="1.5"/>
+          <text x="166" y="184" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#8a2f2a">ICD-10</text>
+          <text x="166" y="202" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#42605c">chẩn đoán · 16.944 mã</text>
+          <text x="166" y="217" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#8a2f2a" font-weight="700">ĐƯỢC CHẤM ĐIỂM</text>
+
+          <!-- RxNorm -->
+          <rect x="448" y="156" width="212" height="72" rx="12" fill="#d7edd6" stroke="#a4d4a0" stroke-width="1.5"/>
+          <text x="554" y="184" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#2f6b38">RxNorm</text>
+          <text x="554" y="202" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#42605c">thuốc · 124.708 concept</text>
+          <text x="554" y="217" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#2f6b38" font-weight="700">ĐƯỢC CHẤM ĐIỂM</text>
+
+          <!-- UMLS -->
+          <rect x="60" y="250" width="600" height="38" rx="10" fill="#eef1ef" stroke="#d5ddd9" stroke-dasharray="5 4"/>
+          <text x="360" y="274" text-anchor="middle" font-family="monospace" font-size="11" fill="#7c948f">UMLS — siêu từ điển gom mọi bộ chuẩn qua CUI chung (cần license UTS, chưa dùng)</text>
+        </svg>
+        <div class="figcap">SNOMED là <b>trục trung gian</b>: nó nối được sang cả ICD lẫn RxNorm, nhưng bản thân không được chấm điểm.</div>
+      </div>
+
+      <table class="def">
+        <thead><tr><th>Cầu nối</th><th>Nằm ở đâu</th><th>Đo được</th></tr></thead>
+        <tbody>
+          <tr><td><b>SNOMED → ICD-10</b></td><td>Refset <code>ExtendedMap</code> (<code>447562003</code>)</td><td>154.960 map active → <b>129.741 dùng được</b> sau khi lọc <code>mapRule=TRUE</code> và "properly classified"</td></tr>
+          <tr><td><b>SNOMED ↔ RxNorm</b></td><td>Ngay trong <code>RXNCONSO.RRF</code></td><td><b>116.477 dòng</b> <code>SAB=SNOMEDCT_US</code> — RxNorm tự đóng gói sẵn nhánh thuốc của SNOMED</td></tr>
+          <tr><td>ICD ↔ RxNorm ↔ SNOMED</td><td>UMLS qua CUI</td><td>Cần license UTS — <b>chưa dùng</b></td></tr>
+        </tbody>
+      </table>
+
+      <h4 style="font-family:var(--display);font-size:14.5px;margin:18px 0 6px">Chồng lấn và phân vai</h4>
+      <ul class="clean">
+        <li><b>Bệnh</b> — cả ICD lẫn SNOMED mã hoá được, nhưng ICD dùng để <i>báo cáo/thanh toán</i>, SNOMED để <i>ghi nhận và suy luận</i>.</li>
+        <li><b>Thuốc</b> — RxNorm và SNOMED chồng lấn; RxNorm chi tiết hơn về hàm lượng/dạng bào chế. ICD <b>không</b> mã hoá thuốc.</li>
+        <li><b>Triệu chứng</b> — SNOMED tốt, ICD chỉ có chương R00–R99 khá thô. Đây là lý do đề bài <b>không</b> yêu cầu <code>candidates</code> cho <code>TRIỆU_CHỨNG</code>.</li>
+        <li><b>Xét nghiệm</b> — cả ba đều yếu; đó là địa hạt của <b>LOINC</b>. Cũng là lý do <code>TÊN_XÉT_NGHIỆM</code> và <code>KẾT_QUẢ_XÉT_NGHIỆM</code> để candidates rỗng.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Pipeline -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Data pipeline đã dựng</h2></div>
+    <div class="card">
+      <p>Mục tiêu: quy 9,3 GB dữ liệu thô ba định dạng khác nhau (PDF, CSV, RRF, RF2) về <b>một kho truy vấn duy nhất</b>, tái lập được từ máy sạch — vì PRD §8 nói rõ BTC cài lại không được là <b>bị loại</b>.</p>
+
+      <div class="figwrap">
+        <svg viewBox="0 0 720 268" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sơ đồ pipeline bốn pha">
+          <defs>
+            <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0 0 L10 5 L0 10 z" fill="#0a6b66"/>
+            </marker>
+          </defs>
+
+          <!-- RAW -->
+          <rect x="6" y="46" width="126" height="120" rx="10" fill="#f2f5f3" stroke="#bcc9c4"/>
+          <text x="69" y="68" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#42605c">RAW · 9,3 GB</text>
+          <text x="69" y="90" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#7c948f">icd-10-vn.pdf</text>
+          <text x="69" y="105" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#7c948f">ICD10.csv</text>
+          <text x="69" y="120" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#7c948f">RXNCONSO.RRF</text>
+          <text x="69" y="135" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#7c948f">RXNREL.RRF</text>
+          <text x="69" y="150" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#7c948f">sct2_*.txt</text>
+
+          <path d="M136 106 l26 0" stroke="#0a6b66" stroke-width="2" marker-end="url(#ah3)"/>
+          <text x="149" y="96" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#b8443f" font-weight="700">ĐẮT</text>
+
+          <!-- STAGING -->
+          <rect x="166" y="46" width="150" height="120" rx="10" fill="#e2efed" stroke="#bcdedb"/>
+          <text x="241" y="68" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#074946">STAGING · parquet</text>
+          <text x="241" y="90" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">raw/ ─ extract</text>
+          <text x="241" y="107" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">norm/ ─ normalize</text>
+          <text x="241" y="124" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">enrich/ ─ chỉ THÊM</text>
+          <text x="241" y="148" text-anchor="middle" font-family="monospace" font-size="9" fill="#7c948f">hợp đồng 5 bảng</text>
+
+          <path d="M320 106 l26 0" stroke="#0a6b66" stroke-width="2" marker-end="url(#ah3)"/>
+          <text x="333" y="96" text-anchor="middle" font-family="monospace" font-size="8.5" fill="#3f8a4a" font-weight="700">RẺ</text>
+
+          <!-- STORE -->
+          <rect x="350" y="34" width="160" height="146" rx="10" fill="#fff" stroke="#0a6b66" stroke-width="1.6"/>
+          <text x="430" y="56" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#074946">kb.sqlite · 311 MB</text>
+          <text x="430" y="77" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">concepts   141.948</text>
+          <text x="430" y="93" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">terms      633.000</text>
+          <text x="430" y="109" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">relations  372.024</text>
+          <text x="430" y="125" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">attributes 116.210</text>
+          <text x="430" y="141" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">closure    168.451</text>
+          <text x="430" y="163" text-anchor="middle" font-family="monospace" font-size="9" fill="#0a6b66">+ FTS5 (BM25 miễn phí)</text>
+
+          <path d="M514 106 l26 0" stroke="#0a6b66" stroke-width="2" marker-end="url(#ah3)"/>
+
+          <!-- API -->
+          <rect x="544" y="46" width="170" height="120" rx="10" fill="#e2efed" stroke="#0a6b66" stroke-dasharray="4 3"/>
+          <text x="629" y="68" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#074946">API công khai</text>
+          <text x="629" y="89" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">lookup()</text>
+          <text x="629" y="104" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">search_lexical()</text>
+          <text x="629" y="119" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">neighbors()</text>
+          <text x="629" y="134" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#42605c">ancestors() · lca()</text>
+          <text x="629" y="155" text-anchor="middle" font-family="monospace" font-size="9" fill="#7c948f">nơi DUY NHẤT downstream gọi</text>
+
+          <!-- ranh giới -->
+          <line x1="149" y1="176" x2="149" y2="210" stroke="#b8443f" stroke-width="1.4" stroke-dasharray="3 3"/>
+          <text x="149" y="226" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#b8443f" font-weight="700">ranh giới ĐẮT/RẺ</text>
+          <text x="149" y="240" text-anchor="middle" font-family="monospace" font-size="9" fill="#7c948f">cache theo checksum</text>
+
+          <line x1="333" y1="176" x2="333" y2="210" stroke="#0a6b66" stroke-width="1.4" stroke-dasharray="3 3"/>
+          <text x="345" y="226" text-anchor="middle" font-family="monospace" font-size="9.5" fill="#074946" font-weight="700">ranh giới SCHEMA</text>
+          <text x="345" y="240" text-anchor="middle" font-family="monospace" font-size="9" fill="#7c948f">đổi schema → chỉ chạy lại load (14 s)</text>
+        </svg>
+        <div class="figcap">Bốn pha, tách theo <b>hai ranh giới có chủ đích</b>: đắt/rẻ và schema.</div>
+      </div>
+
+      <p>Hai ranh giới đó là lý do pipeline dễ sửa: chỉnh luật chuẩn hoá thì chạy lại từ <code>normalize</code>; đổi schema thì chỉ chạy lại <code>load</code> — <b>14 giây</b> thay vì build lại <b>27 phút</b>.</p>
+
+      <div class="stats">
+        <div class="stat"><b>27 phút</b><span>build đầy đủ</span></div>
+        <div class="stat"><b>14 s</b><span>chỉ load lại</span></div>
+        <div class="stat"><b>1,3 s</b><span>validate</span></div>
+        <div class="stat"><b>253</b><span>test</span></div>
+        <div class="stat"><b>20/20</b><span>rule</span></div>
+        <div class="stat"><b>30/30</b><span>smoke query</span></div>
+      </div>
+    </div>
+
+    <h3><span class="lead">3.1</span>Lưu trữ: SQLite, không phải graph DB hay vector DB</h3>
+    <div class="card">
+      <p>Quyết định này gây bất ngờ nên cần nói rõ căn cứ. Workload thực tế là: <b>build một lần, đọc nhiều, offline, một máy</b>, và bắt buộc tái lập.</p>
+      <table class="def">
+        <thead><tr><th>Hướng</th><th>Vì sao KHÔNG chọn</th></tr></thead>
+        <tbody>
+          <tr><td><b>Graph DB</b> (Neo4j…)</td><td>Truy vấn thực tế chỉ <b>1–2 hop</b> — một phép <code>JOIN</code> tầm thường. Và bao đóng truyền ứng <b>tiền tính được</b> (168.451 cặp) nên traversal thành tra bảng có index. Chính <b>Snowstorm</b> — terminology server của SNOMED International — cũng chạy trên Elasticsearch chứ không phải graph DB.</td></tr>
+          <tr><td><b>Vector DB</b> (Qdrant…)</td><td>Có lãi từ ~10 triệu vector trở lên. Ở đây 141.948 vector — FAISS phẳng tra cứu vài mili-giây, thêm server chỉ làm chậm.</td></tr>
+          <tr><td><b>RDF + SPARQL</b></td><td><b>Cái bẫy tên gọi.</b> Đề tên là "Ontological Reasoning" nhưng đọc kỹ PRD thì nó nghĩa là <i>phát hiện assertion</i> (phủ định/người nhà/tiền sử), <b>không</b> phải suy luận description logic trên OWL. Dựng Jena tốn hàng tuần cho đúng 0 điểm.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout ok"><b>SQLite thắng vì ba lý do cụ thể:</b> <code>sqlite3</code> nằm trong stdlib Python nên zero dependency (điểm sống còn cho ràng buộc tái lập); <b>FTS5 cho BM25 miễn phí</b> — đúng thứ kế hoạch retrieval cần, không phải dựng Elasticsearch; và một file duy nhất thì đóng gói nộp BTC gọn gàng.</div>
+    </div>
+
+    <h3><span class="lead">3.2</span>Schema — ba bảng lõi theo mô hình UMLS</h3>
+    <div class="card">
+      <p>Thay vì ép mọi thứ vào một bảng, schema sao chép đúng cách <b>UMLS</b> hợp nhất 200+ bộ từ vựng:</p>
+      <table class="def">
+        <thead><tr><th>Bảng</th><th>Vai trò</th><th>Ghi chú thiết kế</th></tr></thead>
+        <tbody>
+          <tr><td><code>concepts</code></td><td>Neo — 1 dòng/mã</td><td><code>concept_id</code> là INTEGER <b>gán tất định</b> bằng sort <code>(vocab, code)</code>; đây là khoá join với FAISS</td></tr>
+          <tr><td><code>terms</code></td><td>"Atom" — mọi retrieval đánh vào đây</td><td>Có cả <code>norm_term</code> (giữ dấu) và <code>ascii_term</code> (bỏ dấu) để cân recall/precision</td></tr>
+          <tr><td><code>relations</code></td><td>Triple thống nhất</td><td>Nuốt được mọi loại cạnh: <code>has_ingredient</code>, <code>isa</code>, <code>maps_to</code></td></tr>
+          <tr><td><code>attributes</code></td><td>EAV — metadata theo nguồn</td><td>Hấp thụ thay đổi <b>cộng thêm</b> mà không cần DDL</td></tr>
+          <tr><td><code>closure</code></td><td>Bao đóng truyền ứng IS-A</td><td>Bảng <b>dẫn xuất</b>, cùng loại với index FTS5 — dựng ở pha <code>load</code></td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn"><b>Bất biến nguy hiểm nhất của cả kiến trúc:</b> <code>concept_id</code> phải <b>tất định</b>. Nếu nó đổi giữa hai lần build, mọi FAISS index đã dựng sẽ trỏ <b>nhầm concept mà không báo lỗi</b> — hỏng âm thầm, không triệu chứng, chỉ biểu hiện thành điểm số tụt không rõ lý do. Vì vậy id gán bằng <i>sort</i>, không phải thứ tự insert, và có cổng checksum canh riêng.</div>
+    </div>
+  </section>
+
+  <!-- 4. Kết quả đo -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Kết quả đo</h2></div>
+    <div class="card">
+      <p>Mọi thay đổi được đo trên <b>probe set 122 cặp</b> <code>(mention → mã đúng)</code> — rẻ hơn gold annotation nhiều vì không cần span, không cần assertion. Mention lấy từ tần suất thật trong <code>data/test/</code> và từ ví dụ của PRD.</p>
+
+      <div class="prio">
+        <div class="pcard"><div class="pv">0,836</div><div class="pk">Recall@1</div><div class="pl">từ 0,623 · <b>+21,3 điểm</b></div></div>
+        <div class="pcard"><div class="pv">0,975</div><div class="pk">Recall@5</div><div class="pl">từ 0,844 · <b>+13,1 điểm</b></div></div>
+        <div class="pcard hot"><div class="pv">1,000</div><div class="pk">Recall@20</div><div class="pl">cả hai nhánh · <b>kịch trần</b></div></div>
+      </div>
+
+      <h4 style="font-family:var(--display);font-size:14.5px;margin:20px 0 8px">Trước và sau enrichment</h4>
+      <div class="cmp"><span class="lab">Tổng thể R@1</span><span class="track"><span class="fill base" style="width:62.3%"></span></span><span class="val">0,623</span></div>
+      <div class="cmp"><span class="lab" style="color:var(--primary-deep);font-weight:600">→ sau</span><span class="track"><span class="fill" style="width:83.6%"></span></span><span class="val">0,836</span></div>
+      <div class="cmp" style="margin-top:12px"><span class="lab">Ca KHÓ R@1</span><span class="track"><span class="fill base" style="width:40%"></span></span><span class="val">0,400</span></div>
+      <div class="cmp"><span class="lab" style="color:var(--primary-deep);font-weight:600">→ sau</span><span class="track"><span class="fill" style="width:85.7%"></span></span><span class="val">0,857</span></div>
+
+      <p style="margin-top:14px">Nhóm <b>ca khó</b> tăng <b>+45,7 điểm</b> — và không còn ca nào trượt khỏi top-20 (baseline có 7 ca).</p>
+
+      <div class="callout ok"><b>Bài học từ 7 ca trượt của baseline:</b> cả 7 đều cùng một nguyên nhân — mention <b>không có token nào chung</b> với tên chuẩn. <code>"tiểu đường"</code> vs <code>"Đái tháo đường"</code>, <code>"ung thư"</code> vs <code>"U ác tính"</code>, và các viết tắt <code>THA</code>/<code>ĐTĐ</code>/<code>COPD</code>/<code>GERD</code> hoàn toàn không xuất hiện trong tên. Ngược lại <code>"Thiếu men G6PD"</code> — ca mà PRD §7 xếp vào "Điểm yếu 2" — lại trúng <b>hạng #1</b> vì vẫn chia sẻ token. Ranh giới "khó" không nằm ở độ dài chênh lệch mà ở <b>có hay không token chung</b>.</div>
+    </div>
+  </section>
+
+  <!-- 5. Kết quả âm -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">5</span><h2>Kết quả âm — phần đáng giá nhất</h2></div>
+    <div class="card">
+      <div class="verdict">
+        <div class="em">📉</div>
+        <div>
+          <p class="big">2 trong 4 nguồn làm giàu bị BỎ vì đo thấy có hại</p>
+          <p>Quy tắc đặt ra từ đầu: enrichment là <b>thí nghiệm và được phép thất bại</b>. Không đạt cổng hiệu quả thì bỏ, và kết quả âm được ghi lại đầy đủ thay vì giấu đi.</p>
+        </div>
+      </div>
+
+      <table class="def" style="margin-top:14px">
+        <thead><tr><th>Cấu hình</th><th>Tổng R@1 / R@5</th><th>Ca KHÓ R@1 / R@5</th><th>Kết luận</th></tr></thead>
+        <tbody>
+          <tr><td>không enrichment</td><td><code>0,623 / 0,844</code></td><td><code>0,400 / 0,714</code></td><td>mốc</td></tr>
+          <tr><td><b>chỉ E5</b> — từ đồng nghĩa Việt</td><td><code>0,828 / 0,959</code></td><td><code>0,857 / 0,943</code></td><td><span class="tag pass">GIỮ</span> gánh gần như toàn bộ mức tăng</td></tr>
+          <tr><td>chỉ E4 — rollup tên nhóm</td><td><code>0,623 / <b>0,836</b></code></td><td><code>0,400 / 0,714</code></td><td><span class="tag fail">BỎ</span> tệ hơn cả không làm gì</td></tr>
+          <tr><td>chỉ E2 — ICD-10-CM tiếng Anh</td><td><code>0,623 / 0,844</code></td><td><code>0,400 / 0,714</code></td><td><span class="tag fail">BỎ</span> đóng góp đúng 0</td></tr>
+          <tr><td><b>E5 + E1</b> (SNOMED)</td><td><code><b>0,836 / 0,975</b></code></td><td><code>0,857 / 0,971</code></td><td><span class="tag pass">★ CHỐT</span></td></tr>
+          <tr><td>E5 + E1 + E2</td><td><code>0,828 / 0,967</code></td><td><code>0,857 / 0,971</code></td><td>E2 làm <b>tụt</b></td></tr>
+        </tbody>
+      </table>
+
+      <ul class="clean" style="margin-top:12px">
+        <li><b>E4</b> — mọi mã con của cùng một nhóm nhận đúng <i>một</i> chuỗi giống hệt nhau nên BM25 không phân biệt được. Đúng rủi ro đã ghi sẵn trong code trước khi đo.</li>
+        <li><b>E2</b> — tên tiếng Anh không giúp gì cho probe set vốn 84/122 là mention tiếng Việt, mà lại pha loãng tín hiệu.</li>
+      </ul>
+
+      <div class="verdict" style="margin-top:18px">
+        <div class="em">🔻</div>
+        <div>
+          <p class="big">Dense retrieval cho hiệu quả ÂM — vì chọn sai model</p>
+          <p>Hạ tầng FAISS đúng và có test đầy đủ, nhưng dùng model đa ngữ <b>đa dụng</b> thay vì y sinh chuyên biệt.</p>
+        </div>
+      </div>
+
+      <div class="cmp" style="margin-top:12px"><span class="lab">lexical R@20</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">1,000</span></div>
+      <div class="cmp"><span class="lab">dense R@20</span><span class="track"><span class="fill bad" style="width:57.4%"></span></span><span class="val bad">0,574</span></div>
+
+      <p style="margin-top:12px">Dense cứu được <b>0</b> ca mà lexical trượt, nhưng làm trượt <b>52</b> ca lexical trúng. Nguyên nhân rõ: <code>paraphrase-multilingual-MiniLM</code> <b>không có tri thức y khoa</b> — nó không biết <code>THA</code> = tăng huyết áp, <code>COPD</code> = bệnh phổi tắc nghẽn mạn tính.</p>
+      <div class="callout warn">PRD §4 khuyến nghị đích danh <b>SapBERT / BioLORD</b> — embedding <i>y sinh chuyên biệt</i>. Chọn model đa dụng để xử lý tiếng Việt đã xoá sạch tín hiệu chuyên ngành. Đây là <b>lỗi lựa chọn</b>, không phải giới hạn của hướng dense. Hạ tầng được giữ lại và không bật mặc định; điều kiện thử lại đã ghi vào backlog.</div>
+    </div>
+  </section>
+
+  <!-- 6. Lỗi bắt được -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">6</span><h2>Những lỗi cổng kiểm tra bắt được</h2></div>
+    <div class="card">
+      <p>Ghi lại vì tất cả đều thuộc loại <b>không có triệu chứng</b> — mọi rule vẫn xanh, mọi truy vấn vẫn chạy trên máy dev.</p>
+
+      <div class="acc-item" style="margin-bottom:10px">
+        <div style="padding:15px 18px">
+          <div class="wk-head"><h4>Đường dẫn suy ra sai khi cài không ở chế độ <code>-e</code></h4><span class="sev hi">NGHIÊM TRỌNG</span></div>
+          <p style="font-size:13.4px;color:var(--ink-soft);margin:0 0 8px"><code>Path(__file__).parents[3]</code> đúng với <code>pip install -e</code> nhưng cho ra <code>/usr/local/lib/python3.13</code> khi cài bình thường. Trong container, build chạy trên thư mục <b>rỗng</b> rồi ghi artifact vào chỗ bị vứt đi.</p>
+          <div class="quote">validate vẫn báo  <span class="hi">Rule 8/8</span>  ← database rỗng thì không có gì mồ côi để bắt
+                             12 rule ICD/RxNorm không kích hoạt vì không có vocab nào</div>
+          <p style="font-size:13.4px;color:var(--ink-soft);margin:8px 0 0">Suýt lọt lần hai vì phép so checksum đang so file native <b>với chính nó</b> — chỉ <code>mtime</code> mới lộ sự thật. Đây đúng là thứ BTC sẽ gặp khi cài lại source code.</p>
+        </div>
+      </div>
+
+      <div class="acc-item" style="margin-bottom:10px">
+        <div style="padding:15px 18px">
+          <div class="wk-head"><h4>Truy vấn chậm 7,4 giây vì query planner chọn sai vòng ngoài</h4><span class="sev hi">CAO</span></div>
+          <p style="font-size:13.4px;color:var(--ink-soft);margin:0 0 8px">Vì bộ lọc <code>vocab</code> nằm ở <code>WHERE</code>, planner chọn <code>concepts</code> làm vòng ngoài rồi <code>SCAN terms_fts</code> ở trong cùng — chạy lại MATCH cho <i>mỗi</i> ứng viên. Bản thân FTS5 chỉ mất 0,01 s.</p>
+          <div class="cmp"><span class="lab">trước</span><span class="track"><span class="fill bad" style="width:100%"></span></span><span class="val bad">7,4 s</span></div>
+          <div class="cmp"><span class="lab">sau</span><span class="track"><span class="fill" style="width:1.5%"></span></span><span class="val">112 ms</span></div>
+          <p style="font-size:13.4px;color:var(--ink-soft);margin:8px 0 0">Sửa bằng cách đẩy bộ lọc vào chính biểu thức MATCH và tách CTE hai tầng. <code>smk kb validate</code> từ <b>22 phút</b> xuống <b>1,3 giây</b>.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <div style="padding:15px 18px">
+          <div class="wk-head"><h4>Rác trong chính file công bố của BYT</h4><span class="sev md">TRUNG BÌNH</span></div>
+          <div class="quote">ICD10.csv  <span class="rd">I65565</span> → "gdfgdfg"      <span class="rd">T112233</span> → "aaaa"
+           <span class="rd">I787</span>   → "đsadsấ"       <span class="rd">D15.098</span> → "test"
+PDF        một hàng "đánh số cột" ở trang 1 lọt qua bộ lọc tiêu đề
+           vì ô STT của nó cũng là chữ số</div>
+          <p style="font-size:13.4px;color:var(--ink-soft);margin:8px 0 0">Bộ lọc định dạng mã bắt được cả 6. Việc loại <b>có báo cáo</b> ra file <code>.rejected-codes.tsv</code>, không im lặng — nếu nguồn thô đổi và số này nhảy vọt thì phải thấy được.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:16px"><b>Một điều chỉnh thiết kế đáng kể:</b> checksum <b>byte</b> không thể ổn định qua các phiên bản SQLite — build native (3.51.0) và container (3.46.1) trên <i>cùng staging</i> cho hai file khác byte nhưng nội dung sáu bảng <b>giống hệt</b>. Nên cam kết tái lập tách làm hai tầng: <code>artifact_sha256</code> ổn định <i>trong</i> một môi trường, <code>content_sha256</code> ổn định <i>qua</i> các môi trường — và vế thứ hai mới trả lời câu hỏi thực sự quan trọng: <b>hai bên có dựng ra cùng một KB không</b>.</div>
     </div>
   </section>
 

@@ -23,6 +23,18 @@ models/*.onnx
 data/output/*.json
 !data/output/.gitkeep
 
+# KB pipeline — dữ liệu dẫn xuất, luôn build lại được từ nguồn thô
+data/staging/*
+!data/staging/.gitkeep
+data/artifacts/*
+!data/artifacts/.gitkeep
+
+# Test / lint cache
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
 # Environment / secrets
 .env
 .env.*
@@ -35,3 +47,4 @@ data/output/*.json
 
 data/knowledge_base/icd
 data/knowledge_base/rxnorm
+data/knowledge_base/snomed

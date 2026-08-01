@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smart-medic"
+version = "0.1.0"
+description = "Ontological Reasoning in Medical Knowledge Retrieval — Viettel AI Race 2026"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+
+# Pin chặt: reproducibility là điều kiện sống còn (PRD §8 — BTC cài lại không được là loại).
+# Không dùng dải version (>=, ~=) ở dependency runtime.
+dependencies = [
+    "pymupdf==1.28.0",   # trích bảng từ icd-10-vn.pdf (KHÔNG dùng OCR — xem D1)
+    "pyarrow==22.0.0",   # staging parquet
+    "PyYAML==6.0.3",     # smoke queries, probe set
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.4.2",
+    "pytest-cov==7.0.0",
+    "ruff==0.14.4",
+]
+
+[project.scripts]
+smk = "smart_medic.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"smart_medic.kb.schema" = ["*.sql"]
+"smart_medic.kb.validate" = ["*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "slow: cần dữ liệu thô, không chạy trong CI mặc định",
+]
+
+[tool.coverage.run]
+source = ["smart_medic.kb.normalize"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]

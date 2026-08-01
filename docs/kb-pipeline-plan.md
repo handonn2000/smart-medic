@@ -370,7 +370,7 @@ Các quyết định đã chốt ở giai đoạn khảo sát: gộp hai file th
 
 ---
 
-### Phase 2.5 — Probe set & bộ đo retrieval *(điều kiện tiên quyết của Phase 3)*
+### Phase 2.5 — Probe set & bộ đo retrieval ✅ *(điều kiện tiên quyết của Phase 3)*
 
 Phase 3 là phase đầu tiên **không thể tự chứng minh bằng tính đúng đắn cấu trúc**. Nạp thêm dữ liệu thì luôn "thành công" về mặt kỹ thuật; câu hỏi thật là *nó có làm retrieval tốt lên không*. Không có thước đo thì Phase 3 chỉ là "thêm dữ liệu rồi hy vọng".
 
@@ -386,10 +386,10 @@ Mục tiêu ~120–150 cặp rút từ `data/test/`, gán tay một buổi. Kèm
 
 **Tiêu chí thành công**
 
-- [ ] ≥ 120 cặp, phủ cả 2 nhánh, có ít nhất 20 ca "khó" (mention rút gọn, dân dã, viết tắt)
-- [ ] `smk kb eval` in bảng Recall@k, chạy < 30 giây
-- [ ] Có **baseline số** của KB sau Phase 2 — mọi thay đổi sau này đo bằng delta so với nó
-- [ ] Probe set version-hoá trong git, tách khỏi test set để không tự lừa mình
+- [x] **122 cặp**, phủ cả 2 nhánh (84 chẩn đoán + 38 thuốc), **35 ca "khó"**
+- [x] `smk kb eval` in bảng Recall@k, chạy **1,8 s**
+- [x] Có baseline số của KB sau Phase 2 → `docs/reports/baseline-phase2.json`
+- [x] Probe set version-hoá trong git tại `data/probe/retrieval_probe.yaml`
 
 > Có thể làm song song với Phase 1–2. Đây cũng chính là hạ tầng mà PRD §5 gọi là "quan trọng ngang với model".
 
@@ -632,8 +632,8 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 |---|---|---|---|
 | **0 — Khung & hợp đồng** | ✅ Xong | `da496a8` | 59 test pass, lint + format sạch |
 | **1 — ICD-10** | ✅ Xong | `3e18b7a` | 165 test pass, artifact 29 MB, build tất định |
-| **2 — RxNorm** | ✅ Xong | | 193 test, artifact 248 MB, truy vấn nhanh gấp ~400× |
-| 2.5 — Probe set | ⏳ | | |
+| **2 — RxNorm** | ✅ Xong | `dd96a04` | 193 test, artifact 248 MB, truy vấn nhanh gấp ~400× |
+| **2.5 — Probe set** | ✅ Xong | | 122 cặp, 212 test, baseline đã chốt |
 | 3 — Enrichment | ⏳ | | |
 | 4 — Đóng gói | ⏳ | | |
 | 5 — Dense index | ⏳ | | |
@@ -793,3 +793,56 @@ test để bắt hồi quy về đúng lớp lỗi này.
 8. `SCHEMA_VERSION` 1.0.0 → **1.1.0** (thêm cột `vocab` vào `terms`). Chỉ phải
    chạy lại pha `load` — mất **10,9 s** thay vì build lại 27 phút. Đây đúng là
    mục tiêu G3 hoạt động như thiết kế.
+
+### Phase 2.5 — kết quả đo (BASELINE cho Phase 3)
+
+```
+── Probe set: 122 cặp ──────────────────────────────────────
+  lát cắt                 n      R@1      R@5     R@20      MRR
+  ─────────────────────────────────────────────────────────────
+  TỔNG THỂ              122    0.623    0.844    0.943    0.722
+  chẩn đoán → ICD        84    0.560    0.810    0.917    0.668
+  thuốc → RxNorm         38    0.763    0.921    1.000    0.841
+  ca thường              87    0.713    0.897    0.989    0.797
+  ca KHÓ                 35    0.400    0.714    0.829    0.535
+```
+
+Nhánh **thuốc đạt Recall@20 = 1,000** — mọi mention thuốc trong probe set đều
+có mã đúng trong top-20. Trần truy hồi ở nhánh này đã kịch; muốn tăng điểm chỉ
+còn cách cải thiện **xếp hạng**, không phải mở rộng ứng viên.
+
+**Cách gán mã vàng, và giới hạn phải nói rõ**
+
+Mã vàng gán từ kiến thức ICD-10/RxNorm rồi verify bằng `lookup(vocab, code)` —
+tra theo **mã** để đối chiếu tên chính thức, **không** dùng `search_lexical`.
+Gán bằng top-1 của chính bộ truy hồi đang đo thì phép đo thành vòng lặp tự khen.
+Dù vậy đây vẫn là nhãn do máy đề xuất và **cần một lượt duyệt của người có
+chuyên môn**; cho mục đích đo *delta* giữa hai lần build thì đã đủ.
+
+Trong lúc đo phát hiện **2 nhãn vàng của chính tôi bị sai**, retrieval đúng:
+`"docusate sodium"` → `71722` (PIN) chứ không phải `82003` (IN), và
+`"rối loạn chuyển hóa lipoprotein"` khớp `E78.9` ("không xác định"). Đã sửa
+nhãn — không đụng vào metric.
+
+**7 ca trượt khỏi top-20, tất cả cùng MỘT nguyên nhân**
+
+| mention | mong | nhận được |
+|---|---|---|
+| `phù` | R60 | G93.6, J81, Q63.0 |
+| `tiểu đường` | E14/E11/E10 | T18, B46.2, O03.0 |
+| `ung thư` | C80 | C46, U85, C46.0 |
+| `THA` | I10 | Y06, F94.2 |
+| `ĐTĐ` | E14/E11 | *(rỗng)* |
+| `COPD` | J44 | *(rỗng)* |
+| `GERD` | K21 | *(rỗng)* |
+
+Cả 7 đều **không có token nào chung** với tên ICD chuẩn: `"tiểu đường"` vs
+`"Đái tháo đường"`, `"ung thư"` vs `"U ác tính"`, và các viết tắt thì hoàn toàn
+không xuất hiện trong tên. BM25 không thể cứu được lớp này — đây chính xác là
+thứ **E5 (từ đồng nghĩa dân dã + viết tắt, đóng băng thành file)** nhắm tới, và
+là lý do E5 nên được ưu tiên hơn tôi xếp ban đầu.
+
+Ngược lại, `"thiếu men G6PD"` — ca mà PRD §7 xếp vào Điểm yếu 2 — lại **trúng
+hạng #1**, vì nó vẫn chia sẻ token `thiếu`/`men`/`g6pd` với tên chuẩn dài. Bài
+học: ranh giới "khó" không nằm ở độ dài chênh lệch mà ở **có hay không token
+chung**.

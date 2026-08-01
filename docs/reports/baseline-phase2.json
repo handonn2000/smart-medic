@@ -1,0 +1,50 @@
+{
+  "n_cases": 122,
+  "tiers": null,
+  "slices": {
+    "TỔNG THỂ": {
+      "n": 122,
+      "recall@1": 0.623,
+      "recall@5": 0.8443,
+      "recall@20": 0.9426,
+      "mrr": 0.7216
+    },
+    "chẩn đoán → ICD": {
+      "n": 84,
+      "recall@1": 0.5595,
+      "recall@5": 0.8095,
+      "recall@20": 0.9167,
+      "mrr": 0.6677
+    },
+    "thuốc → RxNorm": {
+      "n": 38,
+      "recall@1": 0.7632,
+      "recall@5": 0.9211,
+      "recall@20": 1.0,
+      "mrr": 0.8409
+    },
+    "ca thường": {
+      "n": 87,
+      "recall@1": 0.7126,
+      "recall@5": 0.8966,
+      "recall@20": 0.9885,
+      "mrr": 0.7965
+    },
+    "ca KHÓ": {
+      "n": 35,
+      "recall@1": 0.4,
+      "recall@5": 0.7143,
+      "recall@20": 0.8286,
+      "mrr": 0.5354
+    }
+  },
+  "misses": [
+    "phù",
+    "tiểu đường",
+    "THA",
+    "ĐTĐ",
+    "COPD",
+    "GERD",
+    "ung thư"
+  ]
+}

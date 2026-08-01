@@ -58,6 +58,28 @@ def run_validate(*, db: str | None = None) -> int:
     return code
 
 
+def run_eval(
+    *,
+    db: str | None = None,
+    probe: str | None = None,
+    tiers: str | None = None,
+    save: str | None = None,
+    compare: str | None = None,
+) -> int:
+    from smart_medic.kb import evaluate
+
+    t0 = _banner("eval")
+    code = evaluate.run(
+        db=Path(db) if db else None,
+        probe=Path(probe) if probe else None,
+        tiers=tuple(t.strip() for t in tiers.split(",")) if tiers else None,
+        save=Path(save) if save else None,
+        compare=Path(compare) if compare else None,
+    )
+    _done(t0)
+    return code
+
+
 def run_build(*, source: str = "all", force: bool = False) -> int:
     t0 = time.perf_counter()
     for step in (

@@ -1,0 +1,166 @@
+# Probe set — đo NĂNG LỰC TRUY HỒI của KB, không phải đo pipeline giải bài.
+#
+# Rẻ hơn gold annotation rất nhiều vì chỉ cần cặp `(mention → mã đúng)`:
+# không cần span, không cần assertion. Đủ để phát hiện một thay đổi ở
+# `normalize/` hay ở enrichment có làm retrieval tốt lên hay xấu đi.
+#
+# ── Cách gán mã vàng, và giới hạn của nó ────────────────────────────────
+# Mã vàng gán từ kiến thức ICD-10/RxNorm, rồi VERIFY bằng `lookup(vocab, code)`
+# — tức tra theo MÃ để đối chiếu tên chính thức, KHÔNG dùng `search_lexical`.
+# Nếu gán bằng cách lấy top-1 của chính bộ truy hồi đang đo thì phép đo thành
+# vòng lặp tự khen và vô giá trị.
+#
+# Dù vậy đây vẫn là nhãn do máy đề xuất: **cần một lượt duyệt của người có
+# chuyên môn** trước khi coi các con số là chuẩn tuyệt đối. Với mục đích hiện
+# tại — đo *delta* giữa hai lần build — nó đã đủ dùng.
+#
+# `gold` là DANH SÁCH: nhiều mention hợp lệ với vài mã (ICD có mã 3 ký tự và
+# mã con; "đái tháo đường" không nói rõ típ thì E14/E11/E10 đều chấp nhận được).
+# `hard: true` đánh dấu ca mà mention khác xa tên chuẩn — đây là nhóm mà
+# enrichment ở Phase 3 phải cải thiện được.
+#
+# Mention lấy từ `data/test/` (đã đếm tần suất) và từ ví dụ trong PRD.
+
+# ═══════════════════════ CHẨN ĐOÁN → ICD-10 ═══════════════════════
+
+# ── mention gần với tên chuẩn ──
+- {mention: "tăng huyết áp", kind: disease, gold: [I10]}
+- {mention: "đái tháo đường", kind: disease, gold: [E14, E11, E10]}
+- {mention: "đái tháo đường típ 2", kind: disease, gold: [E11]}
+- {mention: "viêm phổi", kind: disease, gold: [J18]}
+- {mention: "suy tim", kind: disease, gold: [I50]}
+- {mention: "béo phì", kind: disease, gold: [E66]}
+- {mention: "tiền sản giật", kind: disease, gold: [O14]}
+- {mention: "xơ gan", kind: disease, gold: [K74]}
+- {mention: "sỏi mật", kind: disease, gold: [K80]}
+- {mention: "táo bón", kind: disease, gold: [K59.0]}
+- {mention: "bệnh Parkinson", kind: disease, gold: [G20]}
+- {mention: "bệnh zona", kind: disease, gold: [B02]}
+- {mention: "thủy đậu", kind: disease, gold: [B01]}
+- {mention: "vảy nến", kind: disease, gold: [L40]}
+- {mention: "loãng xương", kind: disease, gold: [M81]}
+- {mention: "bệnh dại", kind: disease, gold: [A82]}
+- {mention: "viêm tụy cấp", kind: disease, gold: [K85]}
+- {mention: "viêm xoang cấp tính", kind: disease, gold: [J01]}
+- {mention: "viêm xoang mạn tính", kind: disease, gold: [J32]}
+- {mention: "viêm họng cấp", kind: disease, gold: [J02]}
+- {mention: "viêm phế quản cấp", kind: disease, gold: [J20]}
+- {mention: "viêm phế quản", kind: disease, gold: [J40, J20]}
+- {mention: "nhồi máu cơ tim cấp", kind: disease, gold: [I21]}
+- {mention: "suy thận cấp", kind: disease, gold: [N17]}
+- {mention: "bệnh thận mạn tính", kind: disease, gold: [N18]}
+- {mention: "suy thận", kind: disease, gold: [N19, N18, N17]}
+- {mention: "sỏi thận", kind: disease, gold: [N20.0]}
+- {mention: "bệnh trào ngược dạ dày - thực quản", kind: disease, gold: [K21]}
+- {mention: "viêm dạ dày", kind: disease, gold: [K29]}
+- {mention: "hen phế quản", kind: disease, gold: [J45]}
+- {mention: "viêm kết mạc", kind: disease, gold: [H10]}
+- {mention: "đau thắt lưng", kind: disease, gold: [M54.5]}
+- {mention: "nhồi máu não", kind: disease, gold: [I63]}
+- {mention: "giai đoạn trầm cảm", kind: disease, gold: [F32]}
+- {mention: "rối loạn lo âu", kind: disease, gold: [F41]}
+- {mention: "bệnh mày đay", kind: disease, gold: [L50]}
+- {mention: "viêm khớp", kind: disease, gold: [M13]}
+- {mention: "thiếu máu", kind: disease, gold: [D64]}
+- {mention: "vàng da sơ sinh", kind: disease, gold: [P59]}
+- {mention: "viêm da", kind: disease, gold: [L30]}
+- {mention: "rối loạn chuyển hóa lipoprotein", kind: disease, gold: [E78, E78.9]}
+- {mention: "bệnh não úng thủy", kind: disease, gold: [G91]}
+- {mention: "nhiễm trùng đường tiết niệu", kind: disease, gold: [N39.0]}
+- {mention: "viêm gan virus B mạn tính", kind: disease, gold: [B18.1]}
+- {mention: "bệnh phổi tắc nghẽn mạn tính", kind: disease, gold: [J44]}
+- {mention: "cúm", kind: disease, gold: [J11]}
+- {mention: "co giật", kind: disease, gold: [R56]}
+- {mention: "đau đầu", kind: disease, gold: [R51]}
+- {mention: "khó thở", kind: disease, gold: [R06.0]}
+- {mention: "đau ngực", kind: disease, gold: [R07.4]}
+- {mention: "sốt", kind: disease, gold: [R50]}
+- {mention: "ho", kind: disease, gold: [R05]}
+- {mention: "buồn nôn và nôn", kind: disease, gold: [R11]}
+- {mention: "chóng mặt", kind: disease, gold: [R42]}
+- {mention: "phù", kind: disease, gold: [R60]}
+- {mention: "tiêu chảy", kind: disease, gold: [A09, K59.1]}
+
+# ── ca KHÓ: mention rút gọn, dân dã, viết tắt, không dấu ──
+- {mention: "thiếu men G6PD", kind: disease, gold: [D55.0], hard: true,
+   note: "PRD §7 Điểm yếu 2 — gần như không trùng token với tên chuẩn dài"}
+- {mention: "thieu men g6pd", kind: disease, gold: [D55.0], hard: true, note: "gõ không dấu"}
+- {mention: "tiểu đường", kind: disease, gold: [E14, E11, E10], hard: true, note: "cách gọi dân dã"}
+- {mention: "tai biến mạch máu não", kind: disease, gold: [I64, I63], hard: true}
+- {mention: "đột quỵ", kind: disease, gold: [I64], hard: true}
+- {mention: "bàn chân bẹt", kind: disease, gold: [M21.4], hard: true}
+- {mention: "gút", kind: disease, gold: [M10], hard: true, note: "biến thể chính tả của gout"}
+- {mention: "gout", kind: disease, gold: [M10], hard: true}
+- {mention: "não úng thuỷ", kind: disease, gold: [G91], hard: true, note: "uỷ vs ủy"}
+- {mention: "amyloidosis", kind: disease, gold: [E85], hard: true, note: "tên Anh trong văn bản Việt"}
+- {mention: "thoái hóa tinh bột", kind: disease, gold: [E85], hard: true}
+- {mention: "viêm sung huyết hang vị dạ dày", kind: disease, gold: [K29], hard: true}
+- {mention: "THA", kind: disease, gold: [I10], hard: true, note: "viết tắt trong bệnh án"}
+- {mention: "ĐTĐ", kind: disease, gold: [E14, E11], hard: true, note: "viết tắt"}
+- {mention: "COPD", kind: disease, gold: [J44], hard: true, note: "viết tắt tiếng Anh"}
+- {mention: "GERD", kind: disease, gold: [K21], hard: true, note: "viết tắt tiếng Anh"}
+- {mention: "hen suyễn", kind: disease, gold: [J45], hard: true}
+- {mention: "trĩ", kind: disease, gold: [K64, I84], hard: true, note: "WHO 2019 đổi I84 → K64"}
+- {mention: "ung thư", kind: disease, gold: [C80], hard: true, note: "quá chung, không rõ vị trí"}
+- {mention: "mề đay", kind: disease, gold: [L50], hard: true, note: "mề vs mày"}
+- {mention: "mất ngủ", kind: disease, gold: [G47.0], hard: true}
+- {mention: "tang huyet ap", kind: disease, gold: [I10], hard: true, note: "gõ không dấu"}
+- {mention: "dai thao duong", kind: disease, gold: [E14, E11, E10], hard: true, note: "gõ không dấu"}
+- {mention: "viem phoi", kind: disease, gold: [J18], hard: true, note: "gõ không dấu"}
+- {mention: "vang da so sinh", kind: disease, gold: [P59], hard: true, note: "gõ không dấu"}
+- {mention: "suy tim sung huyết", kind: disease, gold: [I50], hard: true}
+- {mention: "vàng da", kind: disease, gold: [R17, P59], hard: true}
+- {mention: "thiếu máu tan máu", kind: disease, gold: [D59, D58, D55], hard: true}
+
+# ═══════════════════════ THUỐC → RxNorm ═══════════════════════
+# Mã RxNorm KHÔNG có phân cấp theo tiền tố nên `gold` phải khớp chính xác.
+
+# ── hoạt chất (TTY=IN) ──
+- {mention: "aspirin", kind: drug, gold: ["1191"]}
+- {mention: "amlodipine", kind: drug, gold: ["17767"]}
+- {mention: "omeprazole", kind: drug, gold: ["7646"]}
+- {mention: "metoprolol", kind: drug, gold: ["6918"]}
+- {mention: "acetaminophen", kind: drug, gold: ["161"]}
+- {mention: "furosemide", kind: drug, gold: ["4603"]}
+- {mention: "ceftriaxone", kind: drug, gold: ["2193"]}
+- {mention: "amoxicillin", kind: drug, gold: ["723"]}
+- {mention: "morphine", kind: drug, gold: ["7052"]}
+- {mention: "guaifenesin", kind: drug, gold: ["5032"]}
+- {mention: "nystatin", kind: drug, gold: ["7597"]}
+- {mention: "pravastatin", kind: drug, gold: ["42463"]}
+- {mention: "clonazepam", kind: drug, gold: ["2598"]}
+- {mention: "chlorpheniramine", kind: drug, gold: ["2400"]}
+- {mention: "capsaicin", kind: drug, gold: ["1992"]}
+- {mention: "metformin", kind: drug, gold: ["6809"]}
+- {mention: "atorvastatin", kind: drug, gold: ["83367"]}
+- {mention: "warfarin", kind: drug, gold: ["11289"]}
+- {mention: "prednisolone", kind: drug, gold: ["8638"]}
+- {mention: "diazepam", kind: drug, gold: ["3322"]}
+- {mention: "ibuprofen", kind: drug, gold: ["5640"]}
+- {mention: "heparin", kind: drug, gold: ["5224"]}
+- {mention: "ceftazidime", kind: drug, gold: ["2191"]}
+- {mention: "azithromycin", kind: drug, gold: ["18631"]}
+- {mention: "losartan", kind: drug, gold: ["52175"]}
+- {mention: "gabapentin", kind: drug, gold: ["25480"]}
+- {mention: "albuterol", kind: drug, gold: ["435"]}
+- {mention: "docusate sodium", kind: drug, gold: ["71722", "82003"],
+   note: "71722 là PIN (docusate sodium), 82003 là IN (docusate) — cả hai đều chấp nhận được"}
+
+# ── ca KHÓ: tên thường dùng ở VN khác tên chuẩn của RxNorm ──
+- {mention: "paracetamol", kind: drug, gold: ["161"], hard: true,
+   note: "VN gọi paracetamol, RxNorm chuẩn là acetaminophen — chỉ khớp được nhờ atom ATC/DRUGBANK/SNOMED (E3)"}
+- {mention: "salbutamol", kind: drug, gold: ["435"], hard: true,
+   note: "VN dùng tên Anh, RxNorm chuẩn là albuterol"}
+- {mention: "senna", kind: drug, gold: ["36387"], hard: true}
+
+# ── mention có hàm lượng + đường dùng (tầng SCD) — lấy từ ví dụ PRD ──
+- {mention: "aspirin 81 mg po daily", kind: drug, gold: ["243670"], hard: true,
+   note: "ví dụ trong PRD"}
+- {mention: "amlodipine 10 mg po daily", kind: drug, gold: ["308135"], hard: true,
+   note: "ví dụ trong PRD"}
+- {mention: "metoprolol succinate xl 50 mg po daily", kind: drug, gold: ["866436"], hard: true,
+   note: "ví dụ trong PRD"}
+- {mention: "clonazepam 1 mg po qhs", kind: drug, gold: ["197528"], hard: true}
+- {mention: "aspirin 81 MG Oral Tablet", kind: drug, gold: ["243670"]}
+- {mention: "amlodipine 10 MG Oral Tablet", kind: drug, gold: ["308135"]}
+- {mention: "docusate sodium 100 MG Oral Capsule", kind: drug, gold: ["1115005"]}

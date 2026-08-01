@@ -6,7 +6,9 @@ import pytest
 
 from smart_medic.cli import build_parser
 
-EXPECTED = {"extract", "normalize", "load", "validate", "build"}
+# 5 lệnh của 4 pha + `eval` (thêm ở Phase 2.5 — bộ đo Recall@k trên probe set)
+PIPELINE_CMDS = {"extract", "normalize", "load", "validate", "build"}
+EXPECTED = PIPELINE_CMDS | {"eval"}
 
 
 def _kb_subcommands() -> set[str]:
@@ -17,8 +19,12 @@ def _kb_subcommands() -> set[str]:
     return set(kb_sub.choices)
 
 
-def test_kb_co_du_5_lenh_con():
+def test_kb_co_du_lenh_con():
     assert _kb_subcommands() == EXPECTED
+
+
+def test_du_5_lenh_cua_4_pha():
+    assert _kb_subcommands() >= PIPELINE_CMDS
 
 
 @pytest.mark.parametrize("cmd", sorted(EXPECTED))

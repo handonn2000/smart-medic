@@ -337,7 +337,7 @@ Chiến lược: **lát cắt dọc trước, mở rộng ngang sau.** Làm ICD 
 
 ---
 
-### Phase 1 — ICD-10 xuyên suốt (lát cắt dọc)
+### Phase 1 — ICD-10 xuyên suốt (lát cắt dọc) ✅
 
 **Làm gì:** `extract/icd_pdf.py` + `extract/icd_csv.py`; toàn bộ `normalize/`; `load/` đầy đủ gồm FTS5; `validate/`; `query/` với `lookup` và `search_lexical`.
 
@@ -345,13 +345,13 @@ Các quyết định đã chốt ở giai đoạn khảo sát: gộp hai file th
 
 **Tiêu chí thành công**
 
-- [ ] `concepts` có **16.949** dòng cấp bệnh (15.844 từ PDF + 1.105 chỉ có ở CSV), cộng các concept nhóm
-- [ ] 100% `code` khớp `^[A-Z]\d{2}(\.\d{1,2})?$` sau khi strip `†*`
-- [ ] 100% concept có ≥ 1 term; 0 cạnh mồ côi trong `relations`
-- [ ] **Build 2 lần → `artifact_sha256` giống hệt** (cổng bảo vệ §5.2)
-- [ ] 20/20 smoke query pass, trong đó `"trào ngược dạ dày"` → `K21` nằm trong top-10
-- [ ] Coverage của `normalize/` ≥ 90%, có test cho bẫy `đ/Đ` và bẫy dấu thập phân
-- [ ] `smk kb build --source icd` xong dưới **10 phút** từ trạng thái chưa cache
+- [x] `concepts` có **16.944** dòng cấp bệnh (15.843 từ PDF + 1.101 chỉ có ở CSV), cộng các concept nhóm — *số điều chỉnh, xem §10*
+- [x] 100% `code` khớp `^[A-Z]\d{2}(\.\d{1,2})?$` sau khi strip `†*`
+- [x] 100% concept có ≥ 1 term; 0 cạnh mồ côi trong `relations`
+- [x] **Build 2 lần → `artifact_sha256` giống hệt** (cổng bảo vệ §5.2)
+- [x] 20/20 smoke query pass, trong đó `"trào ngược dạ dày"` → `K21` ở **hạng #1**
+- [x] Coverage của `normalize/` **99%**, có test cho bẫy `đ/Đ` và bẫy dấu thập phân
+- [x] `smk kb build --source icd` xong sau **334 s** (ngưỡng 10 phút)
 
 ---
 
@@ -630,8 +630,8 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 
 | Phase | Trạng thái | Commit | Ghi chú |
 |---|---|---|---|
-| **0 — Khung & hợp đồng** | ✅ Xong | — | 59 test pass, lint + format sạch |
-| 1 — ICD-10 | ⏳ | | |
+| **0 — Khung & hợp đồng** | ✅ Xong | `da496a8` | 59 test pass, lint + format sạch |
+| **1 — ICD-10** | ✅ Xong | | 165 test pass, artifact 29 MB, build tất định |
 | 2 — RxNorm | ⏳ | | |
 | 2.5 — Probe set | ⏳ | | |
 | 3 — Enrichment | ⏳ | | |
@@ -660,3 +660,59 @@ pytest -m "not slow"   → 59 passed                                            
 4. **Ràng buộc dữ liệu đẩy xuống DDL** thay vì chỉ kiểm ở tầng Python:
    `CHECK (tier <> 'derived' OR evidence IS NOT NULL)` biến quy tắc §P3.3 số 4
    thành thứ database tự cưỡng chế.
+
+### Phase 1 — kết quả đo
+
+```
+extract   1.271 trang PDF + 36.689 dòng CSV        278 s
+normalize                                            2 s
+load                                                 1 s
+validate  13 rule + 20 smoke query                  50 s
+                                                 ────────
+smk kb build --source icd                          334 s   (ngưỡng 10 phút)
+
+concepts   17.240   (16.944 cấp bệnh + 296 nhóm/khối/chương)
+terms      48.393   (song ngữ Việt–Anh)
+relations  16.187   (isa + manifests_as)
+attributes 104.525
+artifact   29 MB
+```
+
+Toàn bộ 20 smoke query trúng, 18/20 ở **hạng #1**. Đáng chú ý: `"Thiếu men G6PD"`
+→ `D55.x` hạng #1, và gõ **không dấu** `"thieu men g6pd"` cũng hạng #1 — cột
+`ascii_term` hoạt động đúng ý đồ. Đây chính là ca mà PRD §7 xếp vào "Điểm yếu 2".
+
+**Ba phát hiện dữ liệu buộc phải điều chỉnh**
+
+1. **Số mã bệnh: 16.949 → 16.944.** Con số trong kế hoạch đếm trên dữ liệu THÔ.
+   Khi thêm bộ lọc định dạng mã, lộ ra 6 mã rác phải loại:
+   - `icd-10-vn.pdf` — một **hàng "đánh số cột"** ở trang 1 (mỗi ô chứa số thứ tự
+     của chính cột đó: `18`, `19`, `20`…) lọt qua bộ lọc tiêu đề vì ô STT của nó
+     cũng là chữ số; và một mã gõ sai `U13/9`.
+   - `ICD10.csv` — **4 dòng test còn sót trong file công bố của BYT**:
+     `I65565`→"gdfgdfg", `T112233`→"aaaa", `I787`→"đsadsấ", `D15.098`→"test".
+
+   Số mới được kiểm chéo độc lập: 15.843 (PDF) + 1.101 (chỉ có ở CSV) = 16.944.
+   Việc lọc **có báo cáo** ra `staging/*.rejected-codes.tsv`, không im lặng.
+
+2. **Mã nhóm cũng mang ký hiệu `†/*`.** `strip_marker` ban đầu chỉ áp cho mã bệnh
+   nên 83 mã nhóm biểu hiện của WHO (`D63*`, `G01*`…) tồn tại song song với bản
+   không dấu, tách đôi phân cấp.
+
+3. **PDF ngắt dòng giữa từ sau dấu gạch nối.** `"glucose-6-\nphosphate"` sau khi
+   gộp khoảng trắng thành `"glucose-6- phosphate"`. Thêm `fix_hyphen_wrap()`, chỉ
+   nối lại khi dấu gạch **không** có khoảng trắng phía trước — nhờ vậy gạch nối
+   đúng nghĩa trong tiếng Việt (`"dạ dày - thực quản"`) không bị đụng.
+
+**Điều chỉnh thiết kế**
+
+4. **Thêm `source` vào `concepts.parquet`** (§4.1). Merge concept trùng mã cần
+   tie-break tất định, mà `sort_by` của pyarrow không bảo đảm ổn định. Thứ tự ưu
+   tiên khai báo tường minh ở `load/writer.py::SOURCE_PRIORITY`.
+
+5. **Không ghi timestamp vào `.sqlite`.** Cột `sources.ingested_at` để NULL có
+   chủ đích; mọi mốc thời gian nằm ở `manifest.json`. Đây là điều kiện để
+   `artifact_sha256` tái lập được — đã kiểm bằng 3 lần build liên tiếp.
+
+6. **`_HYPHEN_WRAP` và `is_disease_code` là hàm thuần trong `normalize/`**, nên cả
+   ba phát hiện trên đều có unit test riêng, chạy mili-giây, không cần nguồn thô.

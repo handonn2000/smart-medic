@@ -24,8 +24,10 @@ PUBLIC_API = {
     "similarity": ("store", "a", "b", "method"),
 }
 
-# Cập nhật sau mỗi phase. Phase 0: chưa có gì được implement.
-STUBBED = set(PUBLIC_API)
+# Cập nhật sau mỗi phase — test đỏ nếu quên.
+#   Phase 0: tất cả       Phase 1: bỏ lookup / search_lexical / neighbors
+STUBBED = {"search_dense", "ancestors", "is_ancestor", "lca", "similarity"}
+IMPLEMENTED = set(PUBLIC_API) - STUBBED
 
 
 @pytest.mark.parametrize("name", sorted(PUBLIC_API))

@@ -53,7 +53,24 @@ class Extractor(Protocol):
         """Nguồn thô có tồn tại không — cho phép build từng phần khi thiếu file."""
         ...
 
+    def fingerprint(self) -> str:
+        """Checksum của nguồn, để pha `extract` bỏ qua khi file không đổi."""
+        ...
+
     def extract(self) -> StagingBatch: ...
+
+
+class SingleFileExtractor:
+    """Phần dùng chung cho extractor đọc đúng một file."""
+
+    name: str
+    path: Path
+
+    def available(self) -> bool:
+        return self.path.is_file()
+
+    def fingerprint(self) -> str:
+        return sha256_file(self.path)
 
 
 def sha256_file(path: Path, *, chunk: int = 1 << 20) -> str:

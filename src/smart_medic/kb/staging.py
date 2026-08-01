@@ -23,10 +23,14 @@ VOCABS: Final = ("icd10", "rxnorm", "snomed")
 TIERS: Final = ("authoritative", "derived", "generated")
 LANGS: Final = ("vi", "en")
 
+# `source` có mặt ở đây để pha `load` merge được TẤT ĐỊNH khi cùng một mã đến
+# từ nhiều file (mã ICD có ở cả PDF lẫn ICD10.csv). Không có nó thì thứ tự
+# thắng/thua phụ thuộc thứ tự dòng — mà sort của pyarrow không bảo đảm ổn định.
 CONCEPTS_SCHEMA: Final = pa.schema(
     [
         pa.field("vocab", pa.string(), nullable=False),
         pa.field("code", pa.string(), nullable=False),
+        pa.field("source", pa.string(), nullable=False),
         pa.field("entity_kind", pa.string(), nullable=False),
         pa.field("pref_vi", pa.string()),
         pa.field("pref_en", pa.string()),
@@ -89,3 +93,23 @@ STAGING_SCHEMAS: Final[dict[str, pa.Schema]] = {
     "attributes": ATTRIBUTES_SCHEMA,
     "sources": SOURCES_SCHEMA,
 }
+
+# ── Sau pha `normalize` ───────────────────────────────────────────────────
+# Chỉ `terms` đổi hình: thêm hai cột dẫn xuất. Các bảng khác chép nguyên.
+# Tách hai thư mục `raw/` và `norm/` để chỉnh luật chuẩn hoá chỉ phải chạy lại
+# pha rẻ, không đụng tới pha đắt (PDF mất 274 s).
+NORM_TERMS_SCHEMA: Final = pa.schema(
+    [
+        *TERMS_SCHEMA,
+        pa.field("norm_term", pa.string(), nullable=False),
+        pa.field("ascii_term", pa.string(), nullable=False),
+    ]
+)
+
+NORM_SCHEMAS: Final[dict[str, pa.Schema]] = {
+    **STAGING_SCHEMAS,
+    "terms": NORM_TERMS_SCHEMA,
+}
+
+RAW_SUBDIR: Final = "raw"
+NORM_SUBDIR: Final = "norm"

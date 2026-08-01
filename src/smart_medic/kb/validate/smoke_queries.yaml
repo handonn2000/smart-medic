@@ -1,0 +1,69 @@
+# Truy vấn khói — chạy mỗi lần build.
+#
+# Đây là loại test giá trị nhất của cả pipeline: rẻ, và bắt được ngay khi một
+# thay đổi ở `normalize/` vô tình phá retrieval. Mention lấy từ `data/test/`,
+# từ ví dụ trong PRD, và từ các bệnh phổ biến ở hồ sơ lâm sàng Việt Nam.
+#
+# `expect_prefix` chứ không phải mã chính xác: ICD có nhiều mã con cho cùng một
+# bệnh (K21 / K21.0 / K21.9), khớp ở mức nhóm đã là đúng cho mục đích canh gác.
+
+- query: "trào ngược dạ dày"          # ví dụ trong PRD
+  vocab: icd10
+  expect_prefix: "K21"
+- query: "bệnh trào ngược dạ dày - thực quản"
+  vocab: icd10
+  expect_prefix: "K21"
+- query: "thiếu men G6PD"             # 1.txt — ca "mention rút gọn" của PRD §7
+  vocab: icd10
+  expect_prefix: "D55"
+- query: "tiền sản giật"              # 100.txt
+  vocab: icd10
+  expect_prefix: "O14"
+- query: "suy thận cấp"               # 1.txt
+  vocab: icd10
+  expect_prefix: "N17"
+- query: "bại não"                    # 1.txt
+  vocab: icd10
+  expect_prefix: "G80"
+- query: "thiếu máu tan máu"          # 1.txt
+  vocab: icd10
+  expect_prefix: "D5"
+- query: "hen suyễn"                  # ví dụ isHistorical trong PRD
+  vocab: icd10
+  expect_prefix: "J4"
+- query: "viêm phổi"
+  vocab: icd10
+  expect_prefix: "J1"
+- query: "tăng huyết áp"
+  vocab: icd10
+  expect_prefix: "I1"
+- query: "đái tháo đường"
+  vocab: icd10
+  expect_prefix: "E1"
+- query: "lao phổi"
+  vocab: icd10
+  expect_prefix: "A1"
+- query: "sốt xuất huyết"
+  vocab: icd10
+  expect_prefix: "A9"
+- query: "viêm ruột thừa"
+  vocab: icd10
+  expect_prefix: "K3"
+- query: "nhồi máu cơ tim"
+  vocab: icd10
+  expect_prefix: "I2"
+- query: "suy tim"
+  vocab: icd10
+  expect_prefix: "I50"
+- query: "não úng thuỷ"               # 50.txt
+  vocab: icd10
+  expect_prefix: "G9"
+- query: "đau đầu"                    # 50.txt — kiểm luôn bẫy chữ đ
+  vocab: icd10
+  expect_prefix: "R51"
+- query: "vàng da sơ sinh"            # 1.txt
+  vocab: icd10
+  expect_prefix: "P59"
+- query: "thieu men g6pd"             # gõ KHÔNG DẤU — kiểm cột ascii_term
+  vocab: icd10
+  expect_prefix: "D55"

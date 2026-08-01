@@ -5,22 +5,70 @@ Mỗi hàm trả về exit code kiểu Unix: 0 là thành công.
 
 from __future__ import annotations
 
+import time
+from pathlib import Path
+
+
+def _banner(title: str) -> float:
+    print(f"\n╔═ {title} " + "═" * max(0, 58 - len(title)))
+    return time.perf_counter()
+
+
+def _done(t0: float) -> None:
+    print(f"╚═ xong sau {time.perf_counter() - t0:.1f}s")
+
 
 def run_extract(*, source: str = "all", force: bool = False) -> int:
-    raise NotImplementedError("Phase 1")
+    from smart_medic.kb import extract
+
+    t0 = _banner(f"extract · {source}")
+    counts = extract.run(source=source, force=force)
+    print(f"  staging/raw: {counts}")
+    _done(t0)
+    return 0
 
 
 def run_normalize() -> int:
-    raise NotImplementedError("Phase 1")
+    from smart_medic.kb import normalize
+
+    t0 = _banner("normalize")
+    counts = normalize.run()
+    print(f"  staging/norm: {counts}")
+    _done(t0)
+    return 0
 
 
 def run_load(*, out: str | None = None) -> int:
-    raise NotImplementedError("Phase 1")
+    from smart_medic.kb import load
+
+    t0 = _banner("load")
+    result = load.run(out=out)
+    print(f"  bảng: {result['stats']}")
+    print(f"  artifact_sha256: {result['manifest']['artifact_sha256'][:16]}…")
+    _done(t0)
+    return 0
 
 
 def run_validate(*, db: str | None = None) -> int:
-    raise NotImplementedError("Phase 1")
+    from smart_medic.kb.validate import report
+
+    t0 = _banner("validate")
+    code = report.run(Path(db) if db else None)
+    _done(t0)
+    return code
 
 
 def run_build(*, source: str = "all", force: bool = False) -> int:
-    raise NotImplementedError("Phase 1")
+    t0 = time.perf_counter()
+    for step in (
+        lambda: run_extract(source=source, force=force),
+        run_normalize,
+        run_load,
+        run_validate,
+    ):
+        code = step()
+        if code:
+            print(f"\n✗ Dừng: pha trả về mã lỗi {code}")
+            return code
+    print(f"\n✓ Build xong sau {time.perf_counter() - t0:.1f}s")
+    return 0

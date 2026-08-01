@@ -11,7 +11,15 @@ import pytest
 from smart_medic.kb import staging
 
 REQUIRED_FIELDS = {
-    "concepts": {"vocab", "code", "entity_kind", "pref_vi", "pref_en", "is_active"},
+    "concepts": {
+        "vocab",
+        "code",
+        "source",
+        "entity_kind",
+        "pref_vi",
+        "pref_en",
+        "is_active",
+    },
     "terms": {
         "vocab",
         "code",

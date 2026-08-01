@@ -69,6 +69,11 @@ CREATE INDEX idx_concepts_kind ON concepts (vocab, entity_kind);
 CREATE TABLE terms (
     term_id       INTEGER PRIMARY KEY,
     concept_id    INTEGER NOT NULL REFERENCES concepts (concept_id),
+    -- `vocab` lặp lại từ `concepts`. Denormalize CÓ CHỦ ĐÍCH: nhờ nó bộ lọc
+    -- bộ mã đẩy được vào trong biểu thức MATCH của FTS5. Không có cột này,
+    -- query planner chọn `concepts` làm vòng ngoài rồi SCAN terms_fts ở trong
+    -- cùng — đo được 7,4 s cho MỘT truy vấn (xem docs §10, Phase 2).
+    vocab         TEXT    NOT NULL,
     source        TEXT    NOT NULL REFERENCES sources (source),
     term          TEXT    NOT NULL,
     norm_term     TEXT    NOT NULL,
@@ -86,9 +91,11 @@ CREATE INDEX idx_terms_concept ON terms (concept_id);
 CREATE INDEX idx_terms_norm    ON terms (norm_term);
 CREATE INDEX idx_terms_tty     ON terms (term_type);
 CREATE INDEX idx_terms_tier    ON terms (tier);
+CREATE INDEX idx_terms_vocab   ON terms (vocab);
 
 -- BM25 miễn phí. External-content table: nội dung nằm ở `terms`, FTS chỉ giữ index.
 CREATE VIRTUAL TABLE terms_fts USING fts5 (
+    vocab,
     norm_term,
     ascii_term,
     content      = 'terms',

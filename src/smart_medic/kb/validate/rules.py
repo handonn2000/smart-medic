@@ -128,27 +128,51 @@ ICD_RULES = [
     ),
     Rule(
         "icd_co_phan_cap_isa",
-        "SELECT count(*) FROM relations WHERE rel = 'isa'",
+        "SELECT count(*) FROM relations r JOIN concepts c ON c.concept_id = r.src_concept "
+        "WHERE r.rel = 'isa' AND c.vocab = 'icd10'",
         _positive,
         "> 0",
     ),
 ]
 
 # ── RxNorm (Phase 2) ─────────────────────────────────────────────────────
+# `rela` được phép — phải khớp ALLOWED_RELA ở extract/rxnorm_rrf.py.
+# Chỉ giữ chiều thuận; chiều nghịch là bản sao gương nên bị loại.
+_ALLOWED_RELA_SQL = (
+    "'isa','has_ingredient','has_precise_ingredient','has_tradename',"
+    "'has_dose_form','has_doseformgroup','consists_of','has_form'"
+)
+
 RXNORM_RULES = [
     Rule(
-        "rxnorm_co_concept",
+        "rxnorm_so_concept",
         "SELECT count(*) FROM concepts WHERE vocab = 'rxnorm'",
-        _positive,
-        "> 0",
+        lambda v: v == 124708,
+        "= 124.708  (rxcui có ≥1 atom SAB=RXNORM, suppress='N')",
+        phase="2",
+    ),
+    Rule(
+        "rxnorm_thieu_ten_hien_thi",
+        "SELECT count(*) FROM concepts WHERE vocab = 'rxnorm' AND pref_en IS NULL",
+        _zero,
+        "= 0",
         phase="2",
     ),
     Rule(
         "rxnorm_quan_he_ngoai_danh_sach",
         "SELECT count(*) FROM relations r JOIN concepts c ON c.concept_id = r.src_concept "
-        "WHERE c.vocab = 'rxnorm' AND r.rel LIKE '%inactive_ingredient%'",
+        f"WHERE c.vocab = 'rxnorm' AND r.rel NOT IN ({_ALLOWED_RELA_SQL})",
         _zero,
-        "= 0",
+        "= 0  (gồm cả inactive_ingredient và mọi chiều nghịch)",
+        phase="2",
+    ),
+    Rule(
+        "rxnorm_quan_he_hai_chieu_trung_lap",
+        "SELECT count(*) FROM relations a JOIN relations b "
+        "ON a.src_concept = b.dst_concept AND a.dst_concept = b.src_concept "
+        "JOIN concepts c ON c.concept_id = a.src_concept WHERE c.vocab = 'rxnorm'",
+        _zero,
+        "= 0  (chỉ lưu một chiều)",
         phase="2",
     ),
 ]

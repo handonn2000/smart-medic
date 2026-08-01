@@ -10,7 +10,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Final
 
-SCHEMA_VERSION: Final = "1.0.0"
+SCHEMA_VERSION: Final = "1.1.0"
 
 DDL_PATH: Final = Path(__file__).with_name("ddl.sql")
 

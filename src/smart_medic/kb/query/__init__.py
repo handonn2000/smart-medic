@@ -38,6 +38,10 @@ __all__ = [
 
 _CONCEPT_COLS = "concept_id, vocab, code, entity_kind, pref_vi, pref_en, is_active"
 
+# Lấy dư từ FTS trước khi lọc/gộp: một concept có thể có nhiều term cùng khớp,
+# và các bộ lọc lang/entity_kind/tier chạy SAU tầng FTS nên cần khoảng đệm.
+FETCH_MULTIPLIER = 40
+
 
 def _to_concept(row: sqlite3.Row) -> Concept:
     return Concept(
@@ -77,15 +81,16 @@ def search_lexical(
 
     Gộp theo concept: mỗi concept chỉ xuất hiện một lần, giữ term khớp nhất.
     """
-    expr = build_match_expr(text)
+    expr = build_match_expr(text, vocab=vocab)
     if not expr:
         return []
 
-    where = ["terms_fts MATCH ?"]
-    params: list[object] = [expr]
-    if vocab:
-        where.append("c.vocab = ?")
-        params.append(vocab)
+    # ★ Hai tầng, cố ý. Tầng trong CHỈ đụng FTS (không JOIN) nên planner buộc
+    #   phải lấy FTS làm vòng ngoài; tầng ngoài join trên tập đã nhỏ.
+    #   Viết một tầng thì planner chọn `concepts` làm vòng ngoài rồi SCAN
+    #   terms_fts ở trong cùng — 7,4 s/truy vấn (đo được, xem docs §10).
+    where = []
+    params: list[object] = [expr, top_k * FETCH_MULTIPLIER]
     if lang:
         where.append("t.lang = ?")
         params.append(lang)
@@ -96,19 +101,21 @@ def search_lexical(
         where.append(f"t.tier IN ({','.join('?' * len(tiers))})")
         params.extend(tiers)
 
-    # Lấy dư rồi mới gộp theo concept, tránh trường hợp một concept có nhiều
-    # term khớp chiếm hết top-k.
-    params.append(top_k * 8)
     sql = f"""
+        WITH hits AS (
+            SELECT rowid AS term_id, bm25(terms_fts) AS bm25_score
+            FROM terms_fts
+            WHERE terms_fts MATCH ?
+            ORDER BY bm25_score
+            LIMIT ?
+        )
         SELECT {", ".join("c." + col for col in _CONCEPT_COLS.split(", "))},
-               t.term AS matched_term, t.tier AS matched_tier,
-               bm25(terms_fts) AS bm25_score
-        FROM terms_fts
-        JOIN terms t    ON t.term_id = terms_fts.rowid
+               t.term AS matched_term, t.tier AS matched_tier, hits.bm25_score
+        FROM hits
+        JOIN terms t    ON t.term_id = hits.term_id
         JOIN concepts c ON c.concept_id = t.concept_id
-        WHERE {" AND ".join(where)}
-        ORDER BY bm25_score
-        LIMIT ?
+        {("WHERE " + " AND ".join(where)) if where else ""}
+        ORDER BY hits.bm25_score
     """
 
     out: list[Candidate] = []

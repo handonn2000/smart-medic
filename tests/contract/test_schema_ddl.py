@@ -51,18 +51,24 @@ def test_closure_cam_tu_to_tien(db):
 def test_tier_derived_bat_buoc_co_evidence(db):
     db.execute("INSERT INTO sources (source) VALUES ('s1')")
     db.execute("INSERT INTO concepts VALUES (1,'icd10','A00','disease',NULL,NULL,1)")
-    ok = "INSERT INTO terms (concept_id,source,term,norm_term,ascii_term,lang,term_type,tier,evidence) VALUES (?,?,?,?,?,?,?,?,?)"
+    ok = (
+        "INSERT INTO terms (concept_id,vocab,source,term,norm_term,ascii_term,"
+        "lang,term_type,tier,evidence) VALUES (?,?,?,?,?,?,?,?,?,?)"
+    )
     with pytest.raises(sqlite3.IntegrityError):
-        db.execute(ok, (1, "s1", "x", "x", "x", "vi", "preferred", "derived", None))
-    db.execute(ok, (1, "s1", "x", "x", "x", "vi", "preferred", "derived", "{}"))
+        db.execute(ok, (1, "icd10", "s1", "x", "x", "x", "vi", "preferred", "derived", None))
+    db.execute(ok, (1, "icd10", "s1", "x", "x", "x", "vi", "preferred", "derived", "{}"))
 
 
 def test_lang_bi_rang_buoc(db):
     db.execute("INSERT INTO sources (source) VALUES ('s1')")
     db.execute("INSERT INTO concepts VALUES (1,'icd10','A00','disease',NULL,NULL,1)")
-    stmt = "INSERT INTO terms (concept_id,source,term,norm_term,ascii_term,lang,term_type) VALUES (?,?,?,?,?,?,?)"
+    stmt = (
+        "INSERT INTO terms (concept_id,vocab,source,term,norm_term,ascii_term,"
+        "lang,term_type) VALUES (?,?,?,?,?,?,?,?)"
+    )
     with pytest.raises(sqlite3.IntegrityError):
-        db.execute(stmt, (1, "s1", "x", "x", "x", "fr", "preferred"))
+        db.execute(stmt, (1, "icd10", "s1", "x", "x", "x", "fr", "preferred"))
 
 
 def test_vocab_code_la_duy_nhat(db):

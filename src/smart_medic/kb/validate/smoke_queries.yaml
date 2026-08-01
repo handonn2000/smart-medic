@@ -67,3 +67,42 @@
 - query: "thieu men g6pd"             # gõ KHÔNG DẤU — kiểm cột ascii_term
   vocab: icd10
   expect_prefix: "D55"
+
+# ── THUỐC → RxNorm ──────────────────────────────────────────────────────
+# Tên thuốc lấy từ chính `data/test/` (đếm được: omeprazole ×10, insulin ×5,
+# metoprolol ×4, aspirin ×4, acetaminophen ×3, furosemide ×2, ceftriaxone ×2)
+# và từ ví dụ input–output trong PRD.
+#
+# `expect_prefix` ở đây là mã RXCUI đầy đủ — RxNorm không có phân cấp mã theo
+# tiền tố như ICD, nên phải khớp chính xác.
+
+- query: "aspirin 81 mg po daily"      # ví dụ trong PRD → đáp án 243670
+  vocab: rxnorm
+  expect_code:   "243670"
+- query: "aspirin"
+  vocab: rxnorm
+  expect_code:   "1191"                # IN — hoạt chất thuần
+- query: "omeprazole"
+  vocab: rxnorm
+  expect_code:   "7646"
+- query: "metoprolol"
+  vocab: rxnorm
+  expect_code:   "6918"
+- query: "acetaminophen"
+  vocab: rxnorm
+  expect_code:   "161"
+- query: "furosemide"
+  vocab: rxnorm
+  expect_code:   "4603"
+- query: "ceftriaxone"
+  vocab: rxnorm
+  expect_code:   "2193"
+- query: "amoxicillin"
+  vocab: rxnorm
+  expect_code:   "723"
+- query: "morphine"
+  vocab: rxnorm
+  expect_code:   "7052"
+- query: "amlodipine 10 mg po daily"   # ví dụ trong PRD → đáp án 308135
+  vocab: rxnorm
+  expect_code:   "308135"

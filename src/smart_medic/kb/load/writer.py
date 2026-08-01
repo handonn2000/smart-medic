@@ -161,6 +161,7 @@ def _load_terms(conn: sqlite3.Connection, ids: dict) -> int:
         payload.append(
             {
                 "concept_id": cid,
+                "vocab": r["vocab"],
                 "source": r["source"],
                 "term": r["term"],
                 "norm_term": r["norm_term"],
@@ -174,9 +175,9 @@ def _load_terms(conn: sqlite3.Connection, ids: dict) -> int:
         )
     payload.sort(key=lambda r: (r["concept_id"], r["source"], r["lang"], r["term_type"], r["term"]))
     conn.executemany(
-        "INSERT INTO terms (concept_id, source, term, norm_term, ascii_term, lang, "
+        "INSERT INTO terms (concept_id, vocab, source, term, norm_term, ascii_term, lang, "
         "term_type, is_preferred, tier, evidence) "
-        "VALUES (:concept_id, :source, :term, :norm_term, :ascii_term, :lang, "
+        "VALUES (:concept_id, :vocab, :source, :term, :norm_term, :ascii_term, :lang, "
         ":term_type, :is_preferred, :tier, :evidence)",
         payload,
     )

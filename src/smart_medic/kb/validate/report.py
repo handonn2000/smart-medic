@@ -46,13 +46,19 @@ def _run_smoke(db: Path) -> tuple[int, int, list[str]]:
                 top_k=case.get("top_k", 10),
             )
             codes = [h.code for h in hits]
-            want = case["expect_prefix"]
-            ok = any(c.startswith(want) for c in codes)
-            mark = "✓" if ok else "✗"
-            rank = next((i + 1 for i, c in enumerate(codes) if c.startswith(want)), None)
-            pos = f"#{rank}" if rank else "—"
+            # ICD có phân cấp theo tiền tố (K21 ⊃ K21.0) nên khớp tiền tố là đủ.
+            # RxNorm thì KHÔNG — mã "161" mà khớp tiền tố sẽ ăn nhầm "1610",
+            # nên các ca RxNorm phải dùng `expect_code` (khớp chính xác).
+            if "expect_code" in case:
+                want = case["expect_code"]
+                match = codes.index(want) + 1 if want in codes else None
+            else:
+                want = case["expect_prefix"]
+                match = next((i + 1 for i, c in enumerate(codes) if c.startswith(want)), None)
+            mark = "✓" if match else "✗"
+            pos = f"#{match}" if match else "—"
             print(f"  {mark} {case['query'][:36]:<38} → {want:<8} {pos:>4}")
-            if not ok:
+            if not match:
                 failures.append(f"{case['query']!r} → mong {want}, được {codes[:5]}")
     return len(cases) - len(failures), len(cases), failures
 

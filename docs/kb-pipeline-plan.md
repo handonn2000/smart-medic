@@ -355,18 +355,18 @@ Các quyết định đã chốt ở giai đoạn khảo sát: gộp hai file th
 
 ---
 
-### Phase 2 — RxNorm
+### Phase 2 — RxNorm ✅
 
 **Làm gì:** `extract/rxnorm_rrf.py` với các bộ lọc đã đo: `suppress='N'` (1.202.603 → 807.980), quan hệ mức concept (7.423.180 → 1.676.592), `RXNSAT` chỉ giữ vài `ATN`. Chuẩn hoá hàm lượng/dạng bào chế. Ưu tiên TTY `SCD > SBD > SCDC > IN > BN > SY`.
 
 **Tiêu chí thành công**
 
-- [ ] 0 term có `suppress != 'N'` lọt vào store
-- [ ] `lookup('rxnorm','243670')` trả `aspirin 81 MG Oral Tablet`, `term_type='SCD'` *(mã trong ví dụ của PRD)*
-- [ ] `neighbors` từ `IN:1191` (Aspirin) ra được tập SCD chứa aspirin, số lượng > 0
-- [ ] `relations` chỉ chứa các `rel` trong danh sách cho phép; 0 dòng `inactive_ingredient`
-- [ ] Smoke query trên 10 tên thuốc lấy từ `data/test/` → mã đúng trong top-10
-- [ ] Vẫn giữ được tất cả tiêu chí Phase 1 (không hồi quy)
+- [x] 0 term có `suppress != 'N'` lọt vào store
+- [x] `lookup('rxnorm','243670')` trả `aspirin 81 MG Oral Tablet`, `term_type='SCD'` *(mã trong ví dụ của PRD)*
+- [x] `neighbors` từ `IN:1191` (Aspirin) ra được tập SCD chứa aspirin — **hai bước** qua SCDC, xem §10
+- [x] `relations` chỉ chứa các `rel` trong danh sách cho phép; 0 dòng `inactive_ingredient`
+- [x] Smoke query trên 10 tên thuốc lấy từ `data/test/` → mã đúng trong top-10
+- [x] Vẫn giữ được tất cả tiêu chí Phase 1 (không hồi quy)
 
 ---
 
@@ -631,8 +631,8 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 | Phase | Trạng thái | Commit | Ghi chú |
 |---|---|---|---|
 | **0 — Khung & hợp đồng** | ✅ Xong | `da496a8` | 59 test pass, lint + format sạch |
-| **1 — ICD-10** | ✅ Xong | | 165 test pass, artifact 29 MB, build tất định |
-| 2 — RxNorm | ⏳ | | |
+| **1 — ICD-10** | ✅ Xong | `3e18b7a` | 165 test pass, artifact 29 MB, build tất định |
+| **2 — RxNorm** | ✅ Xong | | 193 test, artifact 248 MB, truy vấn nhanh gấp ~400× |
 | 2.5 — Probe set | ⏳ | | |
 | 3 — Enrichment | ⏳ | | |
 | 4 — Đóng gói | ⏳ | | |
@@ -716,3 +716,80 @@ Toàn bộ 20 smoke query trúng, 18/20 ở **hạng #1**. Đáng chú ý: `"Thi
 
 6. **`_HYPHEN_WRAP` và `is_disease_code` là hàm thuần trong `normalize/`**, nên cả
    ba phát hiện trên đều có unit test riêng, chạy mili-giây, không cần nguồn thô.
+
+### Phase 2 — kết quả đo
+
+```
+concepts   141.948   (16.944 ICD bệnh + 296 ICD nhóm + 124.708 RxNorm)
+terms      487.776
+relations  372.024
+artifact   248 MB
+17/17 rule · 30/30 smoke query
+```
+
+**Sự cố hiệu năng và cách sửa — phần đáng giá nhất của phase này**
+
+Lần build đầu đạt hết cổng nhưng `validate` mất **1.312 s** (22 phút) cho 30 truy
+vấn — tức ~44 s/truy vấn. Không sửa thì bộ đo của Phase 2.5 vô dụng.
+
+Chẩn đoán bằng cách bóc từng lớp: bản thân FTS5 **nhanh** (`MATCH` + `ORDER BY
+bm25` + `LIMIT 80` mất 0,01 s). Vấn đề nằm ở query plan:
+
+```
+SEARCH c USING COVERING INDEX (vocab=?)      ← concepts làm VÒNG NGOÀI
+SEARCH t USING INDEX idx_terms_concept
+SCAN terms_fts VIRTUAL TABLE                 ← MATCH chạy lại cho mỗi ứng viên
+```
+
+Vì `c.vocab = ?` nằm ở mệnh đề `WHERE`, planner tưởng lọc theo `concepts` là rẻ
+nhất rồi đặt FTS vào trong cùng. Đo được **7,42 s cho một truy vấn**.
+
+Sửa bằng hai thay đổi đi cùng nhau:
+
+1. **Thêm cột `vocab` vào `terms` và vào `terms_fts`** — denormalize có chủ đích.
+   Nhờ đó bộ lọc bộ mã đẩy được vào chính biểu thức MATCH:
+   `vocab:"icd10" AND {norm_term ascii_term}:("thiếu" OR "men" OR …)`
+2. **Tách truy vấn thành hai tầng bằng CTE.** Tầng trong chỉ đụng FTS, không
+   JOIN, nên planner buộc phải lấy FTS làm vòng ngoài; tầng ngoài join trên tập
+   đã nhỏ.
+
+| | trước | sau |
+|---|---|---|
+| một truy vấn | 7,4 s | **1,7–112 ms** |
+| `smk kb validate` | 1.312 s | **1,1 s** |
+
+Đây là loại hỏng mà cổng chất lượng **không** bắt được — mọi rule vẫn xanh, chỉ
+có thời gian là bất thường. Nên đã thêm `test_toc_do_truy_van` vào integration
+test để bắt hồi quy về đúng lớp lỗi này.
+
+**Ba quyết định về phạm vi**
+
+3. **Concept = rxcui có ≥1 atom `SAB=RXNORM`** (124.708). Atom từ SNOMEDCT_US,
+   MTHSPL, GS, NDDF gắn vào làm synonym chứ không tự tạo concept — đây chính là
+   nguồn làm giàu **E3** mà §P3.1 ghi "chi phí bằng không".
+
+4. **Không nạp `RXNSAT.RRF`** (531 MB, 7,7 triệu dòng). Phân bố thuộc tính gần
+   như toàn bộ là metadata đóng gói: `SPL_SET_ID` 1,9 triệu, `NDC` 1,2 triệu,
+   `LABELER`, `MARKETING_*`. Không thứ nào phục vụ 4 hàm API (§4.2). Hai thuộc
+   tính có thể hữu ích — `ATC_LEVEL`, `FDA_UNII_CODE` — chỉ vài trăm dòng.
+
+5. **Chiều quan hệ trong RXNREL ngược với trực giác.** Dòng
+   `rxcui1=315431 | rela=consists_of | rxcui2=243670` đọc là *"243670
+   consists_of 315431"* — quan hệ đi từ `rxcui2` tới `rxcui1`. Đã verify trên dữ
+   liệu thật trước khi viết code và khoá bằng test, vì đọc ngược sẽ lật toàn bộ
+   đồ thị thuốc **mà không báo lỗi**.
+
+**Một điều chỉnh về tiêu chí**
+
+6. Tiêu chí gốc viết *"`neighbors` từ `IN:1191` ra được tập SCD"*. Thực tế RxNorm
+   **không có cạnh trực tiếp IN → SCD**: đường đi là `IN → SCDC → SCD`
+   (`1191 ←has_ingredient― 315431 ←consists_of― 243670`). Test đi đúng hai bước
+   và vẫn khẳng định `243670` nằm trong kết quả.
+
+7. Bộ smoke query có lỗ hổng: `expect_prefix` dùng `startswith` nên mã RxNorm
+   `161` sẽ khớp nhầm `1610`. Thêm `expect_code` khớp chính xác cho nhánh thuốc;
+   ICD giữ khớp tiền tố vì nó **có** phân cấp thật (`K21` ⊃ `K21.0`).
+
+8. `SCHEMA_VERSION` 1.0.0 → **1.1.0** (thêm cột `vocab` vào `terms`). Chỉ phải
+   chạy lại pha `load` — mất **10,9 s** thay vì build lại 27 phút. Đây đúng là
+   mục tiêu G3 hoạt động như thiết kế.

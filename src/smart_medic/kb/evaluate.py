@@ -91,10 +91,13 @@ def run_cases(
     cases: list[Case],
     *,
     tiers: tuple[str, ...] | None = None,
+    max_fan_in: int | None = None,
     top_k: int = max(CUTOFFS),
 ) -> list[Case]:
     for c in cases:
-        hits = search_lexical(store, c.mention, vocab=c.vocab, tiers=tiers, top_k=top_k)
+        hits = search_lexical(
+            store, c.mention, vocab=c.vocab, tiers=tiers, max_fan_in=max_fan_in, top_k=top_k
+        )
         codes = [h.code for h in hits]
         c.top = tuple(codes[:5])
         c.rank = next((i + 1 for i, code in enumerate(codes) if code in c.gold), None)
@@ -148,6 +151,7 @@ def run(
     db: Path | None = None,
     probe: Path | None = None,
     tiers: tuple[str, ...] | None = None,
+    max_fan_in: int | None = None,
     save: Path | None = None,
     compare: Path | None = None,
 ) -> int:
@@ -157,7 +161,7 @@ def run(
         return 1
 
     with KBStore(db) as store:
-        run_cases(store, cases, tiers=tiers)
+        run_cases(store, cases, tiers=tiers, max_fan_in=max_fan_in)
 
     sl = slices_of(cases)
     base = None
@@ -167,6 +171,8 @@ def run(
     print(f"\n── Probe set: {len(cases)} cặp ", "─" * 40)
     if tiers:
         print(f"  (chỉ dùng term tier ∈ {list(tiers)})")
+    if max_fan_in is not None:
+        print(f"  (chỉ dùng term SNOMED có fan_in ≤ {max_fan_in})")
     print(_fmt_table(sl, base))
     print(_fmt_misses(cases))
 
@@ -174,6 +180,7 @@ def run(
         payload = {
             "n_cases": len(cases),
             "tiers": list(tiers) if tiers else None,
+            "max_fan_in": max_fan_in,
             "slices": {s.name: s.as_dict() for s in sl},
             "misses": [c.mention for c in cases if c.rank is None],
         }

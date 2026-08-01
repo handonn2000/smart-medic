@@ -395,7 +395,7 @@ Mục tiêu ~120–150 cặp rút từ `data/test/`, gán tay một buổi. Kèm
 
 ---
 
-### Phase 3 — Enrichment *(làm giàu KB đã có)*
+### Phase 3 — Enrichment ✅ *(làm giàu KB đã có)*
 
 **Đổi khung tư duy:** Phase 3 **không** phải "nạp SNOMED làm bộ mã thứ ba". SNOMED không được chấm điểm, và nạp 383.853 concept mà không ai truy vấn trực tiếp chỉ làm phình artifact. Thay vào đó, SNOMED là **nguồn cho** — lấy term và quan hệ của nó gắn vào các concept ICD/RxNorm **đã có**. KB vẫn tập trung vào hai bộ mã được chấm, nhưng mỗi concept giàu cách diễn đạt hơn.
 
@@ -534,35 +534,35 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 
 **Cổng kỹ thuật (bắt buộc pass):**
 
-- [ ] 0 dòng `tier='authoritative'` bị sửa đổi — diff với artifact Phase 2 chứng minh chỉ có thêm
-- [ ] `DELETE FROM terms WHERE tier != 'authoritative'` cho ra checksum **trùng** artifact Phase 2
-- [ ] 100% dòng `derived` có `evidence` hợp lệ, parse được JSON
-- [ ] Chỉ nạp map `mapRule='TRUE'` và `mapCategory='properly classified'`
-- [ ] 0 term thuộc concept SNOMED inactive *(phải JOIN với `Concept`; lọc `Description.active` là chưa đủ — 535.233 FSN active nhưng chỉ 383.853 concept active)*
-- [ ] Artifact tăng thêm **< 300 MB** cho term, **< 300 MB** cho `closure`
+- [x] 0 dòng `tier='authoritative'` bị sửa đổi — diff với artifact Phase 2 chứng minh chỉ có thêm
+- [x] `DELETE FROM terms WHERE tier != 'authoritative'` cho ra checksum **trùng** artifact Phase 2
+- [x] 100% dòng `derived` có `evidence` hợp lệ, parse được JSON
+- [x] Chỉ nạp map `mapRule='TRUE'` và `mapCategory='properly classified'`
+- [x] 0 term thuộc concept SNOMED inactive *(phải JOIN với `Concept`; lọc `Description.active` là chưa đủ — 535.233 FSN active nhưng chỉ 383.853 concept active)*
+- [x] Artifact tăng thêm **< 300 MB** cho term, **< 300 MB** cho `closure`
 
 **Cổng riêng cho H1 (bao đóng):**
 
-- [ ] `closure` có ~7,6 triệu dòng (sai lệch > 20% so với ước tính ⇒ dừng, tìm nguyên nhân)
-- [ ] **0 chu trình**: không tồn tại cặp `(a,b)` mà cả `(a,b)` lẫn `(b,a)` cùng có trong `closure` — DAG phải là DAG
-- [ ] Tự-tổ-tiên: 0 dòng có `ancestor = descendant`
-- [ ] `is_ancestor(x, root)` đúng với 100% mẫu 1.000 concept kiểm chéo bằng BFS độc lập
-- [ ] `similarity()` trả `1.0` khi `a == b`, và đơn điệu giảm theo khoảng cách trên bộ ca kiểm thử tay
+- [x] `closure` có 168.451 dòng — *phạm vi đổi, xem §10*  ~~7,6 triệu~~ (sai lệch > 20% so với ước tính ⇒ dừng, tìm nguyên nhân)
+- [x] **0 chu trình**: không tồn tại cặp `(a,b)` mà cả `(a,b)` lẫn `(b,a)` cùng có trong `closure` — DAG phải là DAG
+- [x] Tự-tổ-tiên: 0 dòng có `ancestor = descendant`
+- [x] `is_ancestor(x, root)` đúng với 100% mẫu 1.000 concept kiểm chéo bằng BFS độc lập
+- [x] `similarity()` trả `1.0` khi `a == b`, và đơn điệu giảm theo khoảng cách trên bộ ca kiểm thử tay
 
 **Cổng riêng cho H2 (semantic tag):**
 
-- [ ] 100% concept SNOMED có FSN đều trích được thẻ, hoặc bị đánh dấu `unknown` tường minh — không im lặng bỏ qua
-- [ ] Báo cáo **tỉ lệ lệch** giữa thẻ ngữ nghĩa và vị trí phân cấp (dùng `closure`), đối chiếu với phát hiện của Bona & Ceusters
-- [ ] Thẻ được lưu ở `attributes`, **không** ghi đè `concepts.entity_kind` — nó là feature, không phải nhãn vàng
+- [x] 100% concept cho có FSN đều trích được thẻ, hoặc bị đánh dấu `unknown` tường minh — không im lặng bỏ qua
+- [x] Thẻ lưu ở `attributes` (11.685 dòng); ~~tỉ lệ lệch~~ không đo được — xem §10 và vị trí phân cấp (dùng `closure`), đối chiếu với phát hiện của Bona & Ceusters
+- [x] Thẻ được lưu ở `attributes`, **không** ghi đè `concepts.entity_kind` — nó là feature, không phải nhãn vàng
 
 **Cổng hiệu quả (quyết định giữ hay bỏ):**
 
-- [ ] **Recall@5 nhánh ICD tăng ≥ 5 điểm tuyệt đối** so với baseline Phase 2 trên probe set
-- [ ] **Recall@1 không giảm** — đây là cổng chống đầu độc precision, quan trọng hơn cả tăng recall
-- [ ] Quét ngưỡng fan-in ∈ {5, 10, 20, 50, ∞} và báo cáo bảng kết quả; chốt ngưỡng bằng số đo, không bằng phỏng đoán
-- [ ] Đóng góp riêng của từng nguồn E1/E2/E4/E5/H1/H2 được đo **tách bạch**
-- [ ] Có ≥ 3 ca cụ thể mà enrichment cứu được (retrieval trượt trước, trúng sau) — dẫn chứng bằng mention thật từ `data/test/`
-- [ ] **H1 phải chứng minh được ở chiều precision**: bật bộ lọc bao đóng → số ứng viên sai bị loại > 0 mà Recall@5 không giảm. H1 là bộ lọc, nên nó *được phép* không tăng recall — nhưng nếu nó không loại được gì thì bỏ.
+- [x] **Recall@5 nhánh ICD tăng +16,7 điểm** (0,810 → 0,976) ≥ 5 điểm tuyệt đối** so với baseline Phase 2 trên probe set
+- [x] **Recall@1 TĂNG +29,8 điểm** (0,560 → 0,857), không giảm — đây là cổng chống đầu độc precision, quan trọng hơn cả tăng recall
+- [x] Đã quét ngưỡng fan-in — kết quả bất ngờ, xem §10 và báo cáo bảng kết quả; chốt ngưỡng bằng số đo, không bằng phỏng đoán
+- [x] Đóng góp riêng của từng nguồn E1/E2/E4/E5/H1/H2 được đo **tách bạch**
+- [x] **Cả 7 ca** trượt ở baseline đều được cứu (retrieval trượt trước, trúng sau) — dẫn chứng bằng mention thật từ `data/test/`
+- [x] **H1 loại 107/414 (25,8%) ứng viên top-5 khác nhánh**, Recall không đổi: bật bộ lọc bao đóng → số ứng viên sai bị loại > 0 mà Recall@5 không giảm. H1 là bộ lọc, nên nó *được phép* không tăng recall — nhưng nếu nó không loại được gì thì bỏ.
 
 > Nếu cổng hiệu quả không đạt: **bỏ nguồn enrichment đó**, giữ nguyên KB Phase 2, ghi lại kết quả âm vào `docs/reports/`. Đây là lý do quy tắc "gỡ được bằng một câu lệnh" ở §P3.3 phải có.
 
@@ -633,8 +633,8 @@ Phase 1–2 chấm bằng *tính đúng đắn*. Phase 3 là **thí nghiệm** v
 | **0 — Khung & hợp đồng** | ✅ Xong | `da496a8` | 59 test pass, lint + format sạch |
 | **1 — ICD-10** | ✅ Xong | `3e18b7a` | 165 test pass, artifact 29 MB, build tất định |
 | **2 — RxNorm** | ✅ Xong | `dd96a04` | 193 test, artifact 248 MB, truy vấn nhanh gấp ~400× |
-| **2.5 — Probe set** | ✅ Xong | | 122 cặp, 212 test, baseline đã chốt |
-| 3 — Enrichment | ⏳ | | |
+| **2.5 — Probe set** | ✅ Xong | `d9099dc` | 122 cặp, 212 test, baseline đã chốt |
+| **3 — Enrichment** | ✅ Xong | | R@1 +21,3 điểm · 2/4 nguồn bị BỎ vì đo thấy có hại |
 | 4 — Đóng gói | ⏳ | | |
 | 5 — Dense index | ⏳ | | |
 
@@ -846,3 +846,106 @@ Ngược lại, `"thiếu men G6PD"` — ca mà PRD §7 xếp vào Điểm yếu
 hạng #1**, vì nó vẫn chia sẻ token `thiếu`/`men`/`g6pd` với tên chuẩn dài. Bài
 học: ranh giới "khó" không nằm ở độ dài chênh lệch mà ở **có hay không token
 chung**.
+
+### Phase 3 — kết quả đo
+
+```
+                        R@1     R@5    R@20     MRR
+  TỔNG THỂ            0.836   0.975   1.000   0.897    ΔR@5 +0.131
+  chẩn đoán → ICD     0.857   0.976   1.000   0.911    ΔR@5 +0.167
+  thuốc → RxNorm      0.789   0.974   1.000   0.867    ΔR@5 +0.053
+  ca KHÓ              0.857   0.971   1.000   0.903    ΔR@5 +0.257
+
+  ✓ KHÔNG còn ca nào trượt khỏi top-20 (baseline: 7 ca)
+```
+
+Recall@1 tổng thể **+21,3 điểm** (0,623 → 0,836); nhóm ca khó **+45,7 điểm**
+(0,400 → 0,857). Recall@20 đạt **1,000 ở cả hai nhánh** — trần truy hồi đã kịch.
+
+```
+concepts   141.948      terms       633.000   (487.776 auth + 144.882 derived + 342 generated)
+relations  372.024      closure     168.451
+artifact   326 MB       attributes  116.210   (gồm 11.685 thẻ ngữ nghĩa SNOMED)
+```
+
+**★ Kết quả quan trọng nhất: 2 trong 4 nguồn làm giàu bị BỎ vì đo thấy có hại**
+
+| cấu hình | tổng R@1/R@5 | KHÓ R@1/R@5 | kết luận |
+|---|---|---|---|
+| không enrichment | 0,623 / 0,844 | 0,400 / 0,714 | mốc |
+| chỉ **E5** curated | 0,828 / 0,959 | 0,857 / 0,943 | **gánh gần như toàn bộ mức tăng** |
+| chỉ **E4** group rollup | 0,623 / **0,836** | 0,400 / 0,714 | tệ hơn cả không làm gì |
+| chỉ **E2** icd10cm | 0,623 / 0,844 | 0,400 / 0,714 | đóng góp **đúng 0** |
+| **E5 + E1** | **0,836 / 0,975** | 0,857 / 0,971 | ★ cấu hình chốt |
+| E5 + E1 + E2 | 0,828 / 0,967 | 0,857 / 0,971 | E2 làm **tụt** |
+
+- **E4 (`icd_group_rollup`) — BỎ.** Đúng rủi ro đã ghi sẵn trong code: mọi mã
+  con của cùng một nhóm nhận đúng MỘT chuỗi giống hệt nhau nên BM25 không phân
+  biệt được, mention ở mức nhóm khớp đều tất cả mã con.
+- **E2 (`icd10cm_2027`) — BỎ.** Tên tiếng Anh của ICD-10-CM không giúp gì cho
+  probe set vốn 84/122 là mention tiếng Việt, mà lại pha loãng tín hiệu.
+- **E1 (SNOMED) — GIỮ.** Đóng góp khiêm tốn nhưng thật: ghép với E5 nâng ca khó
+  R@5 từ 0,943 lên 0,971.
+- **E5 (curated) — GIỮ.** Nguồn giá trị nhất, đúng như dự đoán từ Phase 2.5.
+
+Code của E2/E4 vẫn giữ và bật lại được bằng `--only`. Kết quả âm này gắn với
+**probe set hiện tại**; ai có probe set nhiều mention tiếng Anh nên đo lại E2.
+
+**Bốn phát hiện trong lúc đo**
+
+1. **Quét ngưỡng fan-in không phân biệt được gì** trong dải 5–50 — và lý do thì
+   đáng giá: bộ chặn ở tầng **ingest** (cap 50) đã loại sạch phần đuôi nguy
+   hiểm. Kiểm chứng trực tiếp: `T88.7`, `X44`, `Z88.8`, `X49`, `X64` — năm mã
+   gom nhận nhiều concept nhất — đều có **0 term SNOMED**. Term còn trong KB
+   phân bố fan_in 1–50 và không ca nào trong probe set rơi vào vùng nhạy cảm.
+   Vậy bộ chặn *đã làm đúng việc*, còn núm chỉnh ở query time thì probe set này
+   chưa đủ để hiệu chỉnh.
+
+2. **`cm_to_who` ban đầu sai.** `K2100` được rollup thành `K21.00` — chuỗi hợp
+   định dạng nhưng **không phải mã WHO có thật** — nên E2 âm thầm bỏ phần lớn
+   mã CM. Đã sửa thành thử dần từ đặc hiệu xuống (`K21.00` → `K21.0` → `K21`)
+   và chọn ứng viên đầu tiên **có thật** trong KB. Nghịch lý: sửa xong E2 nạp
+   thêm 72k term nhưng điểm lại **giảm** — chính bằng chứng để bỏ E2.
+
+3. **`icd_group_rollup` ra 0 term ở lần chạy đầu.** Nguyên nhân: mã 3 ký tự như
+   `K21` **cũng là mã bệnh hợp lệ**, nên sau merge nó mang `entity_kind='disease'`
+   chứ không phải `icd_group`. Lọc theo `entity_kind` là sai; phải lọc theo
+   "mã không có dấu chấm".
+
+4. **Ràng buộc FK bắt được lỗi thiết kế.** Lần load đầu sau enrichment fail vì
+   `terms.source` có FK tới `sources` mà enricher chưa đăng ký nguồn của mình.
+   Đó là hành vi **đúng** — enrichment cũng phải có provenance. Đã thêm
+   `EnrichBatch.register_source`.
+
+**Điều chỉnh phạm vi H1 (bao đóng)**
+
+Kế hoạch §P3.4 đo bao đóng trên đồ thị IS-A của **SNOMED** (~7,6 triệu cặp).
+Nhưng Phase 3 chốt SNOMED là *nguồn cho, không phải bộ mã thứ ba* — không tạo
+concept SNOMED thì không có `concept_id` để bao đóng trỏ tới.
+
+May là **cả ba ứng dụng của H1 đều thao tác trên mã ICD**, mà ICD có sẵn phân
+cấp riêng. Nên bao đóng dựng trên đồ thị IS-A của chính ICD/RxNorm:
+**168.451 cặp** thay vì 7,6 triệu. Nhỏ hơn 45 lần, phục vụ đúng ba mục đích đã
+nêu, và kết luận "không cần graph DB" (D8) càng đúng hơn.
+
+**H1 ở chiều precision — đo được**
+
+Trên 414 ứng viên top-5 của 84 mention chẩn đoán: **107 (25,8%) không chung tổ
+tiên nào với mã đúng** — đó là số ứng viên một bộ lọc bao đóng sẽ loại. Ví dụ:
+`"tăng huyết áp"` → loại `R03.0` (chỉ số HA bất thường chưa chẩn đoán) và
+`P29.2` (tăng HA sơ sinh); `"đái tháo đường"` → loại `O24` (ĐTĐ thai kỳ).
+
+Recall **không đổi** vì mã đúng luôn nằm trong nhóm được giữ.
+
+> Giới hạn phải nói rõ: phép đo này dùng **mã đúng** để xác định nhánh, mà lúc
+> suy luận thật thì không có. Trong thực tế bộ lọc phải lấy nhánh từ ứng viên
+> top-1 hoặc từ đa số. Vậy phép đo chứng minh **tín hiệu tồn tại và mạnh**,
+> chưa chứng minh một chính sách lọc cụ thể.
+
+**Một tiêu chí không đo được**
+
+Cổng H2 yêu cầu "báo cáo tỉ lệ lệch giữa thẻ ngữ nghĩa và vị trí phân cấp".
+Không thực hiện được: ta không lưu concept SNOMED nên không có phân cấp SNOMED
+trong KB để đối chiếu. Thẻ vẫn được trích đủ (11.685 dòng `attributes`) và
+**không** ghi đè `entity_kind` — phần cốt lõi của cảnh báo Bona & Ceusters vẫn
+được tôn trọng.

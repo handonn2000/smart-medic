@@ -20,7 +20,8 @@ from pathlib import Path
 
 import pyarrow.parquet as pq
 
-from smart_medic.kb import config, staging
+from smart_medic.kb import config, enrich, staging
+from smart_medic.kb.enrich import closure
 from smart_medic.kb.load.ids import assign_ids, first_non_null, pick_entity_kind
 from smart_medic.kb.schema.version import SCHEMA_VERSION, read_ddl
 
@@ -47,7 +48,14 @@ def _read(name: str):
     path = config.STAGING_DIR / staging.NORM_SUBDIR / f"{name}.parquet"
     if not path.is_file():
         raise FileNotFoundError(f"Thiếu {path}. Chạy `smk kb normalize` trước.")
-    return pq.read_table(path).to_pylist()
+    rows = pq.read_table(path).to_pylist()
+    # Dòng enrichment (Phase 3) nằm ở thư mục riêng và chỉ CỘNG THÊM. Tách hai
+    # thư mục để `smk kb enrich --skip …` đổi kết quả mà không phải chạy lại
+    # pha đắt, và để diff "chỉ có thêm" chứng minh được.
+    extra = config.STAGING_DIR / enrich.ENRICH_DIR / f"{name}.parquet"
+    if extra.is_file():
+        rows += pq.read_table(extra).to_pylist()
+    return rows
 
 
 def _merge_concepts(rows: list[dict]) -> list[dict]:
@@ -104,6 +112,9 @@ def build(out_path: Path | None = None) -> dict:
 
         # FTS5 external-content: dựng index từ bảng `terms` sau khi nạp xong.
         conn.execute("INSERT INTO terms_fts(terms_fts) VALUES ('rebuild')")
+        # `closure` cũng là bảng DẪN XUẤT của store — cùng loại với index FTS5,
+        # nên dựng ở cùng chỗ thay vì làm một pha riêng (H1, §P3.4).
+        stats["closure"] = closure.build(conn)
         conn.commit()
         conn.execute("VACUUM")
         conn.commit()

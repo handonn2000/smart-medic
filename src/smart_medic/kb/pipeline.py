@@ -38,6 +38,16 @@ def run_normalize() -> int:
     return 0
 
 
+def run_enrich(*, only: str | None = None, skip: str | None = None) -> int:
+    from smart_medic.kb import enrich
+
+    t0 = _banner("enrich")
+    counts = enrich.run(only=only, skip=skip)
+    print(f"  staging/enrich: {counts}")
+    _done(t0)
+    return 0
+
+
 def run_load(*, out: str | None = None) -> int:
     from smart_medic.kb import load
 
@@ -63,6 +73,7 @@ def run_eval(
     db: str | None = None,
     probe: str | None = None,
     tiers: str | None = None,
+    max_fan_in: int | None = None,
     save: str | None = None,
     compare: str | None = None,
 ) -> int:
@@ -73,6 +84,7 @@ def run_eval(
         db=Path(db) if db else None,
         probe=Path(probe) if probe else None,
         tiers=tuple(t.strip() for t in tiers.split(",")) if tiers else None,
+        max_fan_in=max_fan_in,
         save=Path(save) if save else None,
         compare=Path(compare) if compare else None,
     )
@@ -85,6 +97,7 @@ def run_build(*, source: str = "all", force: bool = False) -> int:
     for step in (
         lambda: run_extract(source=source, force=force),
         run_normalize,
+        run_enrich,
         run_load,
         run_validate,
     ):

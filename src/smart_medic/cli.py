@@ -26,6 +26,10 @@ def _add_kb_parser(sub: argparse._SubParsersAction) -> None:
 
     kb_sub.add_parser("normalize", help="chuẩn hoá chuỗi trong staging")
 
+    p_enrich = kb_sub.add_parser("enrich", help="sinh dòng CỘNG THÊM (Phase 3)")
+    p_enrich.add_argument("--only", help="chỉ chạy các nguồn này, ngăn bằng dấu phẩy")
+    p_enrich.add_argument("--skip", help="bỏ các nguồn này, ngăn bằng dấu phẩy")
+
     p_load = kb_sub.add_parser("load", help="staging → kb.sqlite")
     p_load.add_argument("--out", help="đường dẫn artifact (mặc định data/artifacts/kb.sqlite)")
 
@@ -40,6 +44,7 @@ def _add_kb_parser(sub: argparse._SubParsersAction) -> None:
     p_eval.add_argument("--db", help="artifact cần đo")
     p_eval.add_argument("--probe", help="probe set (mặc định data/probe/retrieval_probe.yaml)")
     p_eval.add_argument("--tiers", help="chỉ dùng term thuộc các tier này, ngăn bằng dấu phẩy")
+    p_eval.add_argument("--max-fan-in", type=int, help="ngưỡng fan-in cho term mượn từ SNOMED")
     p_eval.add_argument("--save", help="ghi kết quả ra JSON để làm mốc so sánh")
     p_eval.add_argument("--compare", help="JSON mốc để in delta")
 
@@ -63,6 +68,8 @@ def _dispatch_kb(args: argparse.Namespace) -> int:
             return pipeline.run_extract(source=args.source, force=args.force)
         case "normalize":
             return pipeline.run_normalize()
+        case "enrich":
+            return pipeline.run_enrich(only=args.only, skip=args.skip)
         case "load":
             return pipeline.run_load(out=args.out)
         case "validate":

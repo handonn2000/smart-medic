@@ -1,0 +1,164 @@
+# E5 — Từ đồng nghĩa dân dã, viết tắt và biến thể chính tả tiếng Việt.
+#
+# ★ File này được SINH MỘT LẦN rồi ĐÓNG BĂNG và commit vào git.
+#   Pha `enrich` chỉ ĐỌC file tĩnh này, **không gọi LLM lúc build**. Gọi API lúc
+#   build sẽ phá mục tiêu G2 (tái lập được) và vi phạm cảnh báo của PRD §8:
+#   BTC cài lại không được là loại.
+#
+# Mọi term sinh từ đây mang `tier='generated'` nên:
+#   · lọc riêng được ở query time để đo đóng góp
+#   · gỡ sạch bằng `DELETE FROM terms WHERE tier != 'authoritative'`
+#
+# ── Vì sao cần ──
+# Baseline Phase 2 có 7 ca trượt khỏi top-20, tất cả cùng một nguyên nhân:
+# mention KHÔNG có token nào chung với tên ICD chuẩn.
+#     "tiểu đường"  vs  "Đái tháo đường"
+#     "ung thư"     vs  "U ác tính"
+#     THA / ĐTĐ / COPD / GERD  — không xuất hiện trong tên
+# BM25 không thể cứu lớp này dù chỉnh trọng số thế nào.
+#
+# ── Giới hạn ──
+# Đây là tri thức do máy đề xuất. Cần bác sĩ/chuyên viên mã hoá duyệt trước khi
+# tin tuyệt đối. Mọi mã đều đã verify tồn tại trong KB bằng `lookup`.
+
+# ═══════════════ Tim mạch ═══════════════
+- {vocab: icd10, code: I10, synonyms: ["THA", "cao huyết áp", "huyết áp cao", "tăng huyết áp vô căn", "tang huyet ap", "cao huyet ap"]}
+- {vocab: icd10, code: I50, synonyms: ["suy tim sung huyết", "suy tim ứ huyết", "suy tim mạn"]}
+- {vocab: icd10, code: I21, synonyms: ["NMCT", "nhồi máu cơ tim", "đau tim", "nhoi mau co tim"]}
+- {vocab: icd10, code: I64, synonyms: ["TBMMN", "tai biến mạch máu não", "tai biến", "đột quỵ não", "stroke"]}
+- {vocab: icd10, code: I63, synonyms: ["nhồi máu não", "đột quỵ thiếu máu cục bộ"]}
+- {vocab: icd10, code: I48, synonyms: ["rung nhĩ", "AF", "loạn nhịp hoàn toàn"]}
+- {vocab: icd10, code: I25, synonyms: ["thiếu máu cơ tim", "bệnh mạch vành", "suy vành"]}
+- {vocab: icd10, code: I83, synonyms: ["giãn tĩnh mạch chân", "suy giãn tĩnh mạch"]}
+
+# ═══════════════ Nội tiết – chuyển hoá ═══════════════
+- {vocab: icd10, code: E14, synonyms: ["ĐTĐ", "tiểu đường", "bệnh tiểu đường", "đái tháo đường", "dai thao duong", "tieu duong"]}
+- {vocab: icd10, code: E11, synonyms: ["tiểu đường type 2", "ĐTĐ típ 2", "đái tháo đường type 2", "tiểu đường tuýp 2"]}
+- {vocab: icd10, code: E10, synonyms: ["tiểu đường type 1", "ĐTĐ típ 1", "đái tháo đường phụ thuộc insulin"]}
+- {vocab: icd10, code: E78, synonyms: ["RLLM", "rối loạn lipid máu", "mỡ máu cao", "tăng mỡ máu", "rối loạn mỡ máu"]}
+- {vocab: icd10, code: E66, synonyms: ["thừa cân béo phì", "béo phì", "beo phi"]}
+- {vocab: icd10, code: E03, synonyms: ["suy giáp", "nhược giáp"]}
+- {vocab: icd10, code: E05, synonyms: ["cường giáp", "basedow", "bướu cổ độc"]}
+- {vocab: icd10, code: E85, synonyms: ["amyloidosis", "thoái hóa dạng tinh bột", "bệnh amyloid"]}
+- {vocab: icd10, code: E79, synonyms: ["tăng acid uric máu", "acid uric cao"]}
+
+# ═══════════════ Hô hấp ═══════════════
+- {vocab: icd10, code: J44, synonyms: ["COPD", "bệnh phổi tắc nghẽn mạn tính", "phổi tắc nghẽn", "tắc nghẽn phổi mạn"]}
+- {vocab: icd10, code: J45, synonyms: ["hen", "hen suyễn", "suyễn", "hen phế quản", "asthma"]}
+- {vocab: icd10, code: J18, synonyms: ["viêm phổi", "viem phoi", "sưng phổi"]}
+- {vocab: icd10, code: J20, synonyms: ["VPQ cấp", "viêm phế quản cấp"]}
+- {vocab: icd10, code: J40, synonyms: ["VPQ", "viêm phế quản"]}
+- {vocab: icd10, code: J32, synonyms: ["viêm xoang mạn", "viêm xoang mãn tính"]}
+- {vocab: icd10, code: J03, synonyms: ["viêm amidan", "viêm amiđan", "sưng amidan"]}
+- {vocab: icd10, code: J11, synonyms: ["cúm", "cảm cúm", "bệnh cúm"]}
+- {vocab: icd10, code: J00, synonyms: ["cảm lạnh", "cảm thường", "viêm mũi họng cấp"]}
+
+# ═══════════════ Tiêu hoá ═══════════════
+- {vocab: icd10, code: K21, synonyms: ["GERD", "trào ngược dạ dày", "trào ngược dạ dày thực quản", "trào ngược axit", "ợ chua trào ngược"]}
+- {vocab: icd10, code: K29, synonyms: ["viêm dạ dày", "đau bao tử", "viêm bao tử", "viêm sung huyết hang vị", "viêm hang vị"]}
+- {vocab: icd10, code: K25, synonyms: ["loét dạ dày", "loét bao tử", "viêm loét dạ dày"]}
+- {vocab: icd10, code: K26, synonyms: ["loét tá tràng", "viêm loét tá tràng"]}
+- {vocab: icd10, code: K74, synonyms: ["xơ gan", "chai gan"]}
+- {vocab: icd10, code: K76.0, synonyms: ["gan nhiễm mỡ", "nhiễm mỡ gan", "máu nhiễm mỡ ở gan"]}
+- {vocab: icd10, code: K80, synonyms: ["sỏi mật", "sỏi túi mật", "soi mat"]}
+- {vocab: icd10, code: K64, synonyms: ["trĩ", "bệnh trĩ", "lòi dom"]}
+- {vocab: icd10, code: K59.0, synonyms: ["táo bón", "bón"]}
+- {vocab: icd10, code: K92.1, synonyms: ["đi tiêu ra máu", "đi ngoài ra máu", "phân đen", "xuất huyết tiêu hóa dưới"]}
+- {vocab: icd10, code: K92.0, synonyms: ["nôn ra máu", "ói ra máu", "xuất huyết tiêu hóa trên"]}
+- {vocab: icd10, code: K35, synonyms: ["viêm ruột thừa", "đau ruột thừa"]}
+
+# ═══════════════ Thận – tiết niệu ═══════════════
+- {vocab: icd10, code: N39.0, synonyms: ["nhiễm khuẩn đường tiết niệu", "nhiễm trùng tiểu", "viêm đường tiết niệu", "UTI"]}
+- {vocab: icd10, code: N18, synonyms: ["suy thận mạn", "suy thận mãn tính", "bệnh thận mạn"]}
+- {vocab: icd10, code: N17, synonyms: ["suy thận cấp", "tổn thương thận cấp"]}
+- {vocab: icd10, code: N20.0, synonyms: ["sỏi thận", "soi than"]}
+- {vocab: icd10, code: N40, synonyms: ["phì đại tuyến tiền liệt", "u xơ tiền liệt tuyến", "BPH"]}
+
+# ═══════════════ Thần kinh – tâm thần ═══════════════
+- {vocab: icd10, code: G91, synonyms: ["não úng thủy", "não úng thuỷ", "tràn dịch não"]}
+- {vocab: icd10, code: G20, synonyms: ["parkinson", "bệnh parkinson", "run tay chân do parkinson"]}
+- {vocab: icd10, code: G40, synonyms: ["động kinh", "kinh phong", "co giật động kinh"]}
+- {vocab: icd10, code: G43, synonyms: ["đau nửa đầu", "migraine", "đau đầu migren"]}
+- {vocab: icd10, code: G47.0, synonyms: ["mất ngủ", "khó ngủ", "rối loạn giấc ngủ"]}
+- {vocab: icd10, code: G30, synonyms: ["alzheimer", "sa sút trí tuệ alzheimer", "lú lẫn tuổi già"]}
+- {vocab: icd10, code: G80, synonyms: ["bại não", "liệt não"]}
+- {vocab: icd10, code: F32, synonyms: ["trầm cảm", "tram cam", "buồn chán bệnh lý"]}
+- {vocab: icd10, code: F41, synonyms: ["lo âu", "rối loạn lo âu", "hay lo lắng bệnh lý"]}
+- {vocab: icd10, code: F20, synonyms: ["tâm thần phân liệt", "điên"]}
+
+# ═══════════════ Cơ xương khớp ═══════════════
+- {vocab: icd10, code: M10, synonyms: ["gout", "gút", "thống phong", "bệnh gút"]}
+- {vocab: icd10, code: M81, synonyms: ["loãng xương", "xốp xương", "loang xuong"]}
+- {vocab: icd10, code: M54.5, synonyms: ["đau lưng", "đau thắt lưng", "đau cột sống thắt lưng"]}
+- {vocab: icd10, code: M51, synonyms: ["thoát vị đĩa đệm", "thoat vi dia dem", "lồi đĩa đệm"]}
+- {vocab: icd10, code: M17, synonyms: ["thoái hóa khớp gối", "hư khớp gối"]}
+- {vocab: icd10, code: M21.4, synonyms: ["bàn chân bẹt", "chân bẹt", "ban chan bet"]}
+- {vocab: icd10, code: M06, synonyms: ["viêm khớp dạng thấp", "thấp khớp", "RA"]}
+
+# ═══════════════ Da liễu ═══════════════
+- {vocab: icd10, code: L50, synonyms: ["mề đay", "mày đay", "nổi mề đay", "phát ban dị ứng", "me day"]}
+- {vocab: icd10, code: L40, synonyms: ["vảy nến", "vẩy nến"]}
+- {vocab: icd10, code: L20, synonyms: ["chàm", "eczema", "viêm da cơ địa", "viêm da dị ứng"]}
+- {vocab: icd10, code: L30, synonyms: ["viêm da", "viem da"]}
+- {vocab: icd10, code: L70, synonyms: ["mụn trứng cá", "trứng cá", "mụn"]}
+
+# ═══════════════ Nhiễm trùng ═══════════════
+- {vocab: icd10, code: A82, synonyms: ["bệnh dại", "dại", "benh dai"]}
+- {vocab: icd10, code: A90, synonyms: ["sốt xuất huyết", "sốt xuất huyết dengue", "SXH", "sot xuat huyet"]}
+- {vocab: icd10, code: A15, synonyms: ["lao phổi", "ho lao", "bệnh lao phổi"]}
+- {vocab: icd10, code: B01, synonyms: ["thủy đậu", "trái rạ", "phỏng rạ"]}
+- {vocab: icd10, code: B02, synonyms: ["zona", "giời leo", "zona thần kinh"]}
+- {vocab: icd10, code: B05, synonyms: ["sởi", "bệnh sởi"]}
+- {vocab: icd10, code: B26, synonyms: ["quai bị", "viêm tuyến mang tai do virus"]}
+- {vocab: icd10, code: B18.1, synonyms: ["viêm gan B", "viêm gan siêu vi B", "HBV mạn"]}
+- {vocab: icd10, code: B18.2, synonyms: ["viêm gan C", "viêm gan siêu vi C", "HCV mạn"]}
+- {vocab: icd10, code: B24, synonyms: ["HIV", "AIDS", "nhiễm HIV"]}
+- {vocab: icd10, code: A09, synonyms: ["tiêu chảy", "đi ngoài", "tiêu chảy nhiễm khuẩn", "tieu chay"]}
+
+# ═══════════════ Huyết học – ung bướu ═══════════════
+- {vocab: icd10, code: D55.0, synonyms: ["thiếu men G6PD", "thiếu G6PD", "thieu men g6pd", "men G6PD thấp"]}
+- {vocab: icd10, code: D64, synonyms: ["thiếu máu", "thieu mau", "máu loãng"]}
+- {vocab: icd10, code: D50, synonyms: ["thiếu máu thiếu sắt", "thiếu sắt"]}
+- {vocab: icd10, code: D56, synonyms: ["thalassemia", "tan máu bẩm sinh", "thiếu máu địa trung hải"]}
+- {vocab: icd10, code: C80, synonyms: ["ung thư", "ung thu", "K", "bệnh ung thư", "ung bướu ác tính"]}
+- {vocab: icd10, code: C34, synonyms: ["ung thư phổi", "K phổi"]}
+- {vocab: icd10, code: C50, synonyms: ["ung thư vú", "K vú"]}
+- {vocab: icd10, code: C16, synonyms: ["ung thư dạ dày", "K dạ dày"]}
+- {vocab: icd10, code: C22, synonyms: ["ung thư gan", "K gan"]}
+
+# ═══════════════ Sản phụ khoa – sơ sinh ═══════════════
+- {vocab: icd10, code: O14, synonyms: ["tiền sản giật", "nhiễm độc thai nghén", "tien san giat"]}
+- {vocab: icd10, code: O15, synonyms: ["sản giật", "co giật thai kỳ"]}
+- {vocab: icd10, code: O24, synonyms: ["tiểu đường thai kỳ", "đái tháo đường thai nghén"]}
+- {vocab: icd10, code: P59, synonyms: ["vàng da sơ sinh", "vàng da trẻ sơ sinh", "vang da so sinh"]}
+- {vocab: icd10, code: P07, synonyms: ["sinh non", "trẻ đẻ non", "nhẹ cân sơ sinh"]}
+
+# ═══════════════ Triệu chứng thường gặp ═══════════════
+- {vocab: icd10, code: R60, synonyms: ["phù", "sưng phù", "phù nề", "giữ nước"]}
+- {vocab: icd10, code: R51, synonyms: ["đau đầu", "nhức đầu", "dau dau"]}
+- {vocab: icd10, code: R05, synonyms: ["ho", "ho khan", "ho có đờm"]}
+- {vocab: icd10, code: R50, synonyms: ["sốt", "phát sốt", "nóng sốt"]}
+- {vocab: icd10, code: R06.0, synonyms: ["khó thở", "hụt hơi", "thở gấp", "kho tho"]}
+- {vocab: icd10, code: R07.4, synonyms: ["đau ngực", "tức ngực", "dau nguc"]}
+- {vocab: icd10, code: R11, synonyms: ["buồn nôn", "nôn ói", "nôn mửa", "ói"]}
+- {vocab: icd10, code: R42, synonyms: ["chóng mặt", "hoa mắt", "xây xẩm", "choang vang"]}
+- {vocab: icd10, code: R17, synonyms: ["vàng da", "vàng mắt", "vàng da vàng mắt"]}
+- {vocab: icd10, code: R53, synonyms: ["mệt mỏi", "suy nhược", "uể oải"]}
+- {vocab: icd10, code: R10.1, synonyms: ["đau thượng vị", "đau bụng trên"]}
+- {vocab: icd10, code: R14, synonyms: ["ợ hơi", "đầy hơi", "chướng bụng"]}
+
+# ═══════════════ THUỐC — tên thường dùng ở VN ═══════════════
+# RxNorm chuẩn hoá theo tên Mỹ; Việt Nam dùng tên quốc tế/châu Âu.
+- {vocab: rxnorm, code: "161", synonyms: ["paracetamol", "para", "hạ sốt paracetamol"]}
+- {vocab: rxnorm, code: "435", synonyms: ["salbutamol", "ventolin"]}
+- {vocab: rxnorm, code: "1191", synonyms: ["aspirin", "acid acetylsalicylic", "ASA"]}
+- {vocab: rxnorm, code: "6809", synonyms: ["metformin", "glucophage"]}
+- {vocab: rxnorm, code: "7646", synonyms: ["omeprazole", "omeprazol"]}
+- {vocab: rxnorm, code: "17767", synonyms: ["amlodipine", "amlodipin"]}
+- {vocab: rxnorm, code: "5640", synonyms: ["ibuprofen", "ibuprofene"]}
+- {vocab: rxnorm, code: "723", synonyms: ["amoxicillin", "amoxicilin", "amoxi"]}
+- {vocab: rxnorm, code: "2193", synonyms: ["ceftriaxone", "ceftriaxon"]}
+- {vocab: rxnorm, code: "8638", synonyms: ["prednisolone", "prednisolon"]}
+- {vocab: rxnorm, code: "3322", synonyms: ["diazepam", "seduxen"]}
+- {vocab: rxnorm, code: "11289", synonyms: ["warfarin", "coumadin"]}
+- {vocab: rxnorm, code: "83367", synonyms: ["atorvastatin", "atorvastatin calcium", "lipitor"]}

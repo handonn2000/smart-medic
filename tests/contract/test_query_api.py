@@ -15,7 +15,16 @@ from smart_medic.kb import query
 
 PUBLIC_API = {
     "lookup": ("store", "vocab", "code"),
-    "search_lexical": ("store", "text", "vocab", "lang", "entity_kind", "tiers", "top_k"),
+    "search_lexical": (
+        "store",
+        "text",
+        "vocab",
+        "lang",
+        "entity_kind",
+        "tiers",
+        "max_fan_in",
+        "top_k",
+    ),
     "search_dense": ("store", "text", "vocab", "top_k"),
     "neighbors": ("store", "concept_id", "rel", "direction"),
     "ancestors": ("store", "concept_id", "max_dist"),
@@ -25,8 +34,10 @@ PUBLIC_API = {
 }
 
 # Cập nhật sau mỗi phase — test đỏ nếu quên.
-#   Phase 0: tất cả       Phase 1: bỏ lookup / search_lexical / neighbors
-STUBBED = {"search_dense", "ancestors", "is_ancestor", "lca", "similarity"}
+#   Phase 0: tất cả
+#   Phase 1: bỏ lookup / search_lexical / neighbors
+#   Phase 3: bỏ ancestors / is_ancestor / lca / similarity  (bảng `closure`)
+STUBBED = {"search_dense"}
 IMPLEMENTED = set(PUBLIC_API) - STUBBED
 
 

@@ -75,11 +75,16 @@ def search_lexical(
     lang: str | None = None,
     entity_kind: str | None = None,
     tiers: tuple[str, ...] | None = None,
+    max_fan_in: int | None = None,
     top_k: int = 20,
 ) -> list[Candidate]:
     """Truy hồi từ vựng bằng BM25 (FTS5). Sắp xếp giảm dần theo `score`.
 
     Gộp theo concept: mỗi concept chỉ xuất hiện một lần, giữ term khớp nhất.
+
+    `max_fan_in` lọc term mượn từ SNOMED theo số concept cùng trỏ về một mã ICD
+    (§P3.2). Nạp rộng ở build-time, siết ở ĐÂY — nhờ vậy chỉnh ngưỡng không phải
+    build lại, và ngưỡng thành tham số đo được trên probe set.
     """
     expr = build_match_expr(text, vocab=vocab)
     if not expr:
@@ -100,6 +105,12 @@ def search_lexical(
     if tiers:
         where.append(f"t.tier IN ({','.join('?' * len(tiers))})")
         params.extend(tiers)
+    if max_fan_in is not None:
+        where.append(
+            "(json_extract(t.evidence, '$.fan_in') IS NULL "
+            " OR json_extract(t.evidence, '$.fan_in') <= ?)"
+        )
+        params.append(max_fan_in)
 
     sql = f"""
         WITH hits AS (
@@ -186,20 +197,78 @@ def neighbors(
 
 
 def ancestors(store: KBStore, concept_id: int, *, max_dist: int | None = None) -> list[Concept]:
-    """Mọi tổ tiên theo IS-A, đọc từ bảng `closure`."""
-    raise NotImplementedError("Phase 3")
+    """Mọi tổ tiên theo IS-A, đọc từ bảng `closure`. Gần trước, xa sau."""
+    sql = (
+        f"SELECT {', '.join('c.' + col for col in _CONCEPT_COLS.split(', '))}, cl.min_dist "
+        "FROM closure cl JOIN concepts c ON c.concept_id = cl.ancestor "
+        "WHERE cl.descendant = ?"
+    )
+    params: list[object] = [concept_id]
+    if max_dist is not None:
+        sql += " AND cl.min_dist <= ?"
+        params.append(max_dist)
+    sql += " ORDER BY cl.min_dist, c.concept_id"
+    return [_to_concept(r) for r in store.conn.execute(sql, params)]
 
 
 def is_ancestor(store: KBStore, ancestor_id: int, descendant_id: int) -> bool:
-    """`ancestor_id` có phải tổ tiên của `descendant_id` không."""
-    raise NotImplementedError("Phase 3")
+    """`ancestor_id` có phải tổ tiên của `descendant_id` không. Tra bảng, O(log n)."""
+    row = store.conn.execute(
+        "SELECT 1 FROM closure WHERE ancestor = ? AND descendant = ? LIMIT 1",
+        (ancestor_id, descendant_id),
+    ).fetchone()
+    return row is not None
+
+
+def _depth(store: KBStore, concept_id: int) -> int:
+    """Độ sâu = khoảng cách xa nhất tới một gốc. 0 nếu là gốc."""
+    row = store.conn.execute(
+        "SELECT max(min_dist) FROM closure WHERE descendant = ?", (concept_id,)
+    ).fetchone()
+    return row[0] or 0
 
 
 def lca(store: KBStore, a: int, b: int) -> Concept | None:
-    """Tổ tiên chung thấp nhất. SNOMED là DAG nên có thể có nhiều — trả cái sâu nhất."""
-    raise NotImplementedError("Phase 3")
+    """Tổ tiên chung thấp nhất.
+
+    Đồ thị IS-A là DAG (một mã có thể có nhiều cha) nên có thể có nhiều tổ tiên
+    chung — trả cái SÂU NHẤT, tức cụ thể nhất.
+    """
+    if a == b:
+        return lookup_by_id(store, a)
+    row = store.conn.execute(
+        "SELECT x.ancestor, max(x.min_dist + y.min_dist) AS cost "
+        "FROM closure x JOIN closure y ON x.ancestor = y.ancestor "
+        "WHERE x.descendant = ? AND y.descendant = ? "
+        "GROUP BY x.ancestor ORDER BY min(x.min_dist + y.min_dist), x.ancestor LIMIT 1",
+        (a, b),
+    ).fetchone()
+    return lookup_by_id(store, row["ancestor"]) if row else None
+
+
+def lookup_by_id(store: KBStore, concept_id: int) -> Concept | None:
+    row = store.conn.execute(
+        f"SELECT {_CONCEPT_COLS} FROM concepts WHERE concept_id = ?", (concept_id,)
+    ).fetchone()
+    return _to_concept(row) if row else None
 
 
 def similarity(store: KBStore, a: int, b: int, *, method: str = "wu_palmer") -> float:
-    """Độ tương đồng ngữ nghĩa ∈ [0, 1]. `method` ∈ {'wu_palmer', 'lin', 'resnik'}."""
-    raise NotImplementedError("Phase 3")
+    """Độ tương đồng ngữ nghĩa ∈ [0, 1].
+
+    Wu-Palmer: `2·depth(LCA) / (depth(a) + depth(b))` — chỉ cần độ sâu và LCA,
+    cả hai đọc thẳng từ `closure`, **không cần corpus**. Điểm này quan trọng vì
+    ta không có corpus tiếng Việt gắn nhãn để ước lượng Information Content
+    theo cách cổ điển.
+    """
+    if method != "wu_palmer":
+        raise ValueError(f"phương pháp chưa hỗ trợ: {method!r}")
+    if a == b:
+        return 1.0
+    common = lca(store, a, b)
+    if common is None:
+        return 0.0
+    da, db = _depth(store, a), _depth(store, b)
+    if da + db == 0:
+        return 0.0
+    return min(1.0, 2 * _depth(store, common.concept_id) / (da + db))

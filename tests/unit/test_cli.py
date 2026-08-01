@@ -8,7 +8,8 @@ from smart_medic.cli import build_parser
 
 # 5 lệnh của 4 pha + `eval` (thêm ở Phase 2.5 — bộ đo Recall@k trên probe set)
 PIPELINE_CMDS = {"extract", "normalize", "load", "validate", "build"}
-EXPECTED = PIPELINE_CMDS | {"eval"}
+# `enrich` thêm ở Phase 3, `eval` ở Phase 2.5
+EXPECTED = PIPELINE_CMDS | {"enrich", "eval"}
 
 
 def _kb_subcommands() -> set[str]:

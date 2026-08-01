@@ -1628,47 +1628,6 @@ SBD          Bayer Aspirin 81 MG Oral Tab   ← + tên thương mại</div>
     </div>
   </section>
 
-  <!-- 6. Lỗi bắt được -->
-  <section class="block">
-    <div class="sec-head"><span class="sec-num">6</span><h2>Những lỗi cổng kiểm tra bắt được</h2></div>
-    <div class="card">
-      <p>Ghi lại vì tất cả đều thuộc loại <b>không có triệu chứng</b> — mọi rule vẫn xanh, mọi truy vấn vẫn chạy trên máy dev.</p>
-
-      <div class="acc-item" style="margin-bottom:10px">
-        <div style="padding:15px 18px">
-          <div class="wk-head"><h4>Đường dẫn suy ra sai khi cài không ở chế độ <code>-e</code></h4><span class="sev hi">NGHIÊM TRỌNG</span></div>
-          <p style="font-size:13.4px;color:var(--ink-soft);margin:0 0 8px"><code>Path(__file__).parents[3]</code> đúng với <code>pip install -e</code> nhưng cho ra <code>/usr/local/lib/python3.13</code> khi cài bình thường. Trong container, build chạy trên thư mục <b>rỗng</b> rồi ghi artifact vào chỗ bị vứt đi.</p>
-          <div class="quote">validate vẫn báo  <span class="hi">Rule 8/8</span>  ← database rỗng thì không có gì mồ côi để bắt
-                             12 rule ICD/RxNorm không kích hoạt vì không có vocab nào</div>
-          <p style="font-size:13.4px;color:var(--ink-soft);margin:8px 0 0">Suýt lọt lần hai vì phép so checksum đang so file native <b>với chính nó</b> — chỉ <code>mtime</code> mới lộ sự thật. Đây đúng là thứ BTC sẽ gặp khi cài lại source code.</p>
-        </div>
-      </div>
-
-      <div class="acc-item" style="margin-bottom:10px">
-        <div style="padding:15px 18px">
-          <div class="wk-head"><h4>Truy vấn chậm 7,4 giây vì query planner chọn sai vòng ngoài</h4><span class="sev hi">CAO</span></div>
-          <p style="font-size:13.4px;color:var(--ink-soft);margin:0 0 8px">Vì bộ lọc <code>vocab</code> nằm ở <code>WHERE</code>, planner chọn <code>concepts</code> làm vòng ngoài rồi <code>SCAN terms_fts</code> ở trong cùng — chạy lại MATCH cho <i>mỗi</i> ứng viên. Bản thân FTS5 chỉ mất 0,01 s.</p>
-          <div class="cmp"><span class="lab">trước</span><span class="track"><span class="fill bad" style="width:100%"></span></span><span class="val bad">7,4 s</span></div>
-          <div class="cmp"><span class="lab">sau</span><span class="track"><span class="fill" style="width:1.5%"></span></span><span class="val">112 ms</span></div>
-          <p style="font-size:13.4px;color:var(--ink-soft);margin:8px 0 0">Sửa bằng cách đẩy bộ lọc vào chính biểu thức MATCH và tách CTE hai tầng. <code>smk kb validate</code> từ <b>22 phút</b> xuống <b>1,3 giây</b>.</p>
-        </div>
-      </div>
-
-      <div class="acc-item">
-        <div style="padding:15px 18px">
-          <div class="wk-head"><h4>Rác trong chính file công bố của BYT</h4><span class="sev md">TRUNG BÌNH</span></div>
-          <div class="quote">ICD10.csv  <span class="rd">I65565</span> → "gdfgdfg"      <span class="rd">T112233</span> → "aaaa"
-           <span class="rd">I787</span>   → "đsadsấ"       <span class="rd">D15.098</span> → "test"
-PDF        một hàng "đánh số cột" ở trang 1 lọt qua bộ lọc tiêu đề
-           vì ô STT của nó cũng là chữ số</div>
-          <p style="font-size:13.4px;color:var(--ink-soft);margin:8px 0 0">Bộ lọc định dạng mã bắt được cả 6. Việc loại <b>có báo cáo</b> ra file <code>.rejected-codes.tsv</code>, không im lặng — nếu nguồn thô đổi và số này nhảy vọt thì phải thấy được.</p>
-        </div>
-      </div>
-
-      <div class="callout" style="margin-top:16px"><b>Một điều chỉnh thiết kế đáng kể:</b> checksum <b>byte</b> không thể ổn định qua các phiên bản SQLite — build native (3.51.0) và container (3.46.1) trên <i>cùng staging</i> cho hai file khác byte nhưng nội dung sáu bảng <b>giống hệt</b>. Nên cam kết tái lập tách làm hai tầng: <code>artifact_sha256</code> ổn định <i>trong</i> một môi trường, <code>content_sha256</code> ổn định <i>qua</i> các môi trường — và vế thứ hai mới trả lời câu hỏi thực sự quan trọng: <b>hai bên có dựng ra cùng một KB không</b>.</div>
-    </div>
-  </section>
-
 </section>
 
 <footer>

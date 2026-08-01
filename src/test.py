@@ -137,7 +137,8 @@ def main() -> int:
     print(json.dumps(extractor.extract(load_input(args)), ensure_ascii=False, indent=2))
     return 0
 
-# Usage: python src/test.py -d data/test -o data/output --model models/pho_bert_crf_medical.pth
+# Usage: 
+# Test with testset: python src/test.py -d data/test -o data/output --model models/pho_bert_crf_medical.pth
 # Test with holdout: python src/test.py -d data/holdout/text -o data/holdout/pred --model models/pho_bert_crf_medical.pth
 if __name__ == "__main__":
     sys.exit(main())

@@ -19,8 +19,12 @@ class MedicalNERDataset(Dataset):
                         examples.append((words, labels))
                         words, labels = [], []
                 else:
-                    # Words may contain spaces (e.g. "Bệnh nhân B-BENH_NHAN")
-                    word, label = line.rsplit(None, 1)
+                    # Words may contain spaces (e.g. "Bệnh nhân B-BENH_NHAN").
+                    # Skip blank-token rows like " O" that strip() to a lone label.
+                    parts = line.rsplit(None, 1)
+                    if len(parts) != 2:
+                        continue
+                    word, label = parts
                     words.append(word)
                     labels.append(label)
         return examples

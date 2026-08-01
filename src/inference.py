@@ -1,5 +1,6 @@
 import json
 import unicodedata as ud
+from pathlib import Path
 
 import torch
 from underthesea import word_tokenize
@@ -10,13 +11,17 @@ try:
     from src.labels import LABELS, ID2LABEL, ENTITY_TYPE_MAP
     from src.assertions import assertions_at
     from src.tokenization import chunk_words, group_entities, segment_document
+    from src.entity_linker import SapBertEncoder, IcdLinker
+    from src.normalizer import MedicalNormalizer, read_icd10
 except ImportError:
     from model import PhoBERT_CRF
     from labels import LABELS, ID2LABEL, ENTITY_TYPE_MAP
     from assertions import assertions_at
     from tokenization import chunk_words, group_entities, segment_document
+    from entity_linker import SapBertEncoder, IcdLinker
+    from normalizer import MedicalNormalizer, read_icd10
 
-from normalizer import MedicalNormalizer
+_ICD10_PATH = Path(__file__).resolve().parent.parent / "data" / "knowledge_base" / "ICD10_VN.csv"
 
 
 def get_device():
@@ -43,6 +48,10 @@ class MedicalExtractor:
         self.model.eval()
         self.id2label = ID2LABEL
         self.normalizer = MedicalNormalizer()
+        # IcdLinker needs (1) ICD alias rows and (2) a SapBERT encoder that embeds them.
+        alias_rows = [{"code": code, "name": name} for code, name in read_icd10(_ICD10_PATH)]
+        encoder = SapBertEncoder(device=self.device)
+        self.icd_linker = IcdLinker(alias_rows, encoder)
 
     def extract(self, text: str):
         words = segment_document(text, self._segment_line)
@@ -121,9 +130,15 @@ class MedicalExtractor:
             # Only diagnoses and drugs have standard codes. Gold leaves the three other
             # types empty, so emitting a code there turns a free J = 1 into J = 0.
             if ent["type"] == "THUỐC":
-                ent["candidates"] = self.normalizer.normalize_drug(ent["text"])
+                scored = self.normalizer.normalize_drug(ent["text"], return_scores=True)
+                ent["candidates"] = [code for code, _ in scored]
+                for code, score in scored:
+                    print(f"[THUỐC] {ent['text']!r} -> {code}  fuzzy={score}")
             elif ent["type"] == "CHẨN_ĐOÁN":
-                ent["candidates"] = self.normalizer.normalize_disease(ent["text"])
+                scored = self.icd_linker.link_candidates(ent["text"], k=2)
+                ent["candidates"] = [code for code, _ in scored]
+                for code, score in scored:
+                    print(f"[CHẨN_ĐOÁN] {ent['text']!r} -> {code}  sim={score:.4f}")
             else:
                 ent["candidates"] = []
 

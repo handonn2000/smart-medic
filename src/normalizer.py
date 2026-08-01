@@ -264,8 +264,12 @@ class MedicalNormalizer:
             print(f"[WARN] Failed to load ICD-10 ({_ICD10_PATH.name}): {exc}"
                   f" — mọi CHẨN_ĐOÁN sẽ không có mã nào")
 
-    def normalize_drug(self, drug_text: str, top_k=DEFAULT_TOP_K):
-        """Trả về list candidates RxNorm (ingredient CUIs)."""
+    def normalize_drug(self, drug_text: str, top_k=DEFAULT_TOP_K, return_scores=False):
+        """Trả về list candidates RxNorm (ingredient CUIs).
+
+        If return_scores=True, return list of (code, score) instead. Exact dict hits
+        score 100.0; RxNav fallback scores None.
+        """
         if not drug_text or drug_text.strip() == "":
             return []
 
@@ -273,11 +277,12 @@ class MedicalNormalizer:
         if not text_lower:
             return []
 
-        raw_codes: list[str] = []
+        # (raw rxcui, fuzzy score or None)
+        raw: list[tuple[str, float | None]] = []
 
         # Exact match on the cleaned string
         if text_lower in self.rxnorm_dict:
-            raw_codes = [self.rxnorm_dict[text_lower]]
+            raw = [(self.rxnorm_dict[text_lower], 100.0)]
         elif not self.rxnorm_df.empty:
             choices = self.rxnorm_df["name"].tolist()
             matches = process.extract(
@@ -285,7 +290,7 @@ class MedicalNormalizer:
             )
             for match, score, idx in matches:
                 if score > DRUG_CUTOFF:
-                    raw_codes.append(str(self.rxnorm_df.iloc[idx]["rxcui"]))
+                    raw.append((str(self.rxnorm_df.iloc[idx]["rxcui"]), float(score)))
         else:
             # Fallback: RxNav approximate search when the local table did not load
             try:
@@ -296,19 +301,22 @@ class MedicalNormalizer:
                 )
                 if resp.status_code == 200:
                     ids = resp.json().get("idGroup", {}).get("rxnormId") or []
-                    raw_codes = [str(i) for i in ids[:top_k]]
+                    raw = [(str(i), None) for i in ids[:top_k]]
             except requests.RequestException:
                 pass
 
         # Deduplicate after BN/SCD → IN so two product forms of the same drug collapse.
-        out: list[str] = []
+        out: list[tuple[str, float | None]] = []
         seen: set[str] = set()
-        for code in raw_codes[:top_k]:
+        for code, score in raw[:top_k]:
             ingredient = self.to_ingredient(code)
             if ingredient not in seen:
                 seen.add(ingredient)
-                out.append(ingredient)
-        return out[:top_k]
+                out.append((ingredient, score))
+        out = out[:top_k]
+        if return_scores:
+            return out
+        return [code for code, _ in out]
 
     def normalize_disease(self, disease_text: str, top_k=DEFAULT_TOP_K):
         """Trả về ICD-10 code"""

@@ -3,7 +3,7 @@
     "text": "bệnh phổi tắc nghẽn mãn tính (COPD)",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "J44.9"
+      "J44.7", "J44.8", "J44.9"
     ],
     "assertions": [],
     "position": [
@@ -87,7 +87,7 @@
     "text": "viêm phế quản hen cấp tính",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "J45.9"
+      "J20", "J21", "J45.9"
     ],
     "assertions": [],
     "position": [
@@ -386,20 +386,10 @@
     ]
   },
   {
-    "text": "kháng sinh tiêm tĩnh mạch",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      819,
-      844
-    ]
-  },
-  {
     "text": "Solu-Medrol tĩnh mạch",
     "type": "THUỐC",
     "candidates": [
-      "6902"
+      "203856"
     ],
     "assertions": [],
     "position": [
@@ -483,22 +473,12 @@
     "text": "Keflex 500 mg",
     "type": "THUỐC",
     "candidates": [
-      "2231"
+      "203167"
     ],
     "assertions": [],
     "position": [
       1343,
       1356
-    ]
-  },
-  {
-    "text": "vắc-xin phế cầu khuẩn",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1433,
-      1454
     ]
   }
 ]

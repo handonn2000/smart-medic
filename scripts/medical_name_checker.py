@@ -6,16 +6,22 @@ Nhập một chuỗi -> kiểm tra:
   * có phải TÊN THUỐC theo RxNorm không  (trả RxCUI)
   * có phải TÊN BỆNH theo ICD-10 không   (trả mã ICD)
 
-Cách chạy:
-  python medical_name_checker.py                      # chế độ REPL (gõ liên tục)
-  python medical_name_checker.py -q "amlodipine 10 mg po daily"
-  python medical_name_checker.py --rxnorm RXNORM.csv --icd ICD10_VN.csv
+Hoặc với --code: nhập mã (RxCUI / ICD) -> trả tên thực thể.
 
-Khớp theo 2 mức:
+Cách chạy:
+  python medical_name_checker.py                      # REPL, kiểm cả thuốc + bệnh
+  python medical_name_checker.py -q "amlodipine"
+  python medical_name_checker.py --rxnorm -q "amlodipine"   # chỉ thuốc
+  python medical_name_checker.py --icd -q "viêm phổi"       # chỉ bệnh
+  python medical_name_checker.py --code --rxnorm -q 17767   # RxCUI -> tên thuốc
+  python medical_name_checker.py --code --icd -q J18.9      # ICD -> tên bệnh
+  python medical_name_checker.py --rxnorm-path RXNORM.csv --icd-path ICD10_VN.csv
+
+Khớp theo 2 mức (chế độ tên):
   1) exact (chuẩn hoá): match tuyệt đối sau khi hạ chữ thường + gộp khoảng trắng
      (với thuốc còn thử thêm bản đã bỏ route/tần suất: 'po','bid','q6h:prn'...).
-  2) fuzzy: nếu không exact -> trả top ứng viên gần nhất kèm điểm, để bạn thấy nó
-     "suýt" là gì. `match=True` khi exact, hoặc fuzzy >= ngưỡng (mặc định 90).
+  2) fuzzy: nếu không exact -> trả top ứng viên gần nhất kèm điểm.
+     `match=True` khi exact, hoặc fuzzy >= ngưỡng (mặc định 90).
 
 Phụ thuộc: pip install pandas rapidfuzz
 """
@@ -25,8 +31,13 @@ import re
 import sys
 import unicodedata
 from collections import defaultdict
+from pathlib import Path
 
 from rapidfuzz import process, fuzz
+
+_ROOT = Path(__file__).resolve().parent.parent
+_DEFAULT_RXNORM = _ROOT / "data" / "knowledge_base" / "RXNORM.csv"
+_DEFAULT_ICD = _ROOT / "data" / "knowledge_base" / "ICD10_VN.csv"
 
 # --------------------------------------------------------------------------
 # Chuẩn hoá
@@ -61,26 +72,38 @@ def strip_dose_admin(text: str) -> str:
     return " ".join(out).strip()
 
 
+def norm_code(code: str) -> str:
+    """Chuẩn hoá mã để tra ngược: bỏ khoảng trắng, chấm, chữ hoa."""
+    return re.sub(r"[\s.]", "", (code or "").strip()).upper()
+
+
 # --------------------------------------------------------------------------
 # Nạp dữ liệu
 # --------------------------------------------------------------------------
 class Vocab:
-    """Giữ: exact dict (folded -> mã), danh sách tên, và token-index để block fuzzy."""
+    """Giữ: exact dict (folded -> mã), danh sách tên, token-index, và code -> names."""
     def __init__(self):
         self.exact = defaultdict(list)     # folded_name -> [code, ...]
         self.names = []                    # (folded_name, display_name, code)
         self.token_index = defaultdict(list)
+        self.by_code = defaultdict(list)   # norm_code -> [display_name, ...]
         self._seen = set()                 # (folded_name, code) đã thêm
+        self._seen_code_name = set()       # (norm_code, display_name)
 
     def add(self, name: str, code: str):
         if not name or not code:
             return
         fn = fold(name)
+        code = str(code).strip()
         if not fn or (fn, code) in self._seen:
             return
         self._seen.add((fn, code))
         self.exact[fn].append(code)
         self.names.append((fn, name, code))
+        ck = norm_code(code)
+        if ck and (ck, name) not in self._seen_code_name:
+            self._seen_code_name.add((ck, name))
+            self.by_code[ck].append(name)
 
     def build_index(self):
         for i, (fn, _, _) in enumerate(self.names):
@@ -110,6 +133,18 @@ class Vocab:
                  for (_, sc, k) in res]
         best = cands[0]["score"] if cands else 0
         return {"match": best >= cutoff, "method": "fuzzy", "candidates": cands}
+
+    def lookup_code(self, code: str):
+        """Tra ngược: mã -> danh sách tên. Exact theo mã đã chuẩn hoá."""
+        key = norm_code(code)
+        names = self.by_code.get(key, [])
+        if names:
+            return {"match": True, "method": "exact", "code": code.strip(),
+                    "names": names,
+                    "candidates": [{"code": code.strip(), "name": n, "score": 100.0}
+                                   for n in names]}
+        return {"match": False, "method": "exact", "code": code.strip(),
+                "names": [], "candidates": []}
 
 
 def load_rxnorm(path: str) -> Vocab:
@@ -142,44 +177,106 @@ def load_icd(path: str) -> Vocab:
 # --------------------------------------------------------------------------
 # In kết quả
 # --------------------------------------------------------------------------
-def report(query: str, rx: Vocab, icd: Vocab, cutoff: int):
-    d = rx.lookup(query, extra_forms=[strip_dose_admin(query)], cutoff=cutoff)
-    s = icd.lookup(query, cutoff=cutoff)
+def report(query: str, rx, icd, cutoff: int, by_code: bool = False):
     print(f'\n>>> "{query}"')
-    _line("THUỐC (RxNorm)", d, "RxCUI")
-    _line("BỆNH  (ICD-10)", s, "ICD")
+    if by_code:
+        if rx is not None:
+            _line_code("THUỐC (RxNorm)", rx.lookup_code(query), "RxCUI")
+        if icd is not None:
+            _line_code("BỆNH  (ICD-10)", icd.lookup_code(query), "ICD")
+        return
+    if rx is not None:
+        d = rx.lookup(query, extra_forms=[strip_dose_admin(query)], cutoff=cutoff)
+        _line("THUỐC (RxNorm)", d, "RxCUI")
+    if icd is not None:
+        s = icd.lookup(query, cutoff=cutoff)
+        _line("BỆNH  (ICD-10)", s, "ICD", show_score=True)
 
 
-def _line(label, res, code_label):
+def _line(label, res, code_label, show_score=False):
     if res["match"]:
         top = res["candidates"][0]
-        tag = "✓ khớp" if res["method"] == "exact" else f"~ gần khớp ({top['score']})"
-        print(f"  {label}: {tag}  [{code_label} {top['code']}] {top['name']}")
+        if show_score:
+            tag = "✓ khớp" if res["method"] == "exact" else "~ gần khớp"
+            print(f"  {label}: {tag}  [{code_label} {top['code']}] {top['name']} ({top['score']})")
+        else:
+            tag = "✓ khớp" if res["method"] == "exact" else f"~ gần khớp ({top['score']})"
+            print(f"  {label}: {tag}  [{code_label} {top['code']}] {top['name']}")
     else:
         print(f"  {label}: ✗ không phải")
         for c in res["candidates"][:3]:
             print(f"        · gần: [{code_label} {c['code']}] {c['name']} ({c['score']})")
 
 
+def _line_code(label, res, code_label):
+    if res["match"]:
+        names = res["names"]
+        print(f"  {label}: ✓ tìm thấy  [{code_label} {res['code']}]")
+        for n in names[:10]:
+            print(f"        · {n}")
+        if len(names) > 10:
+            print(f"        … và {len(names) - 10} tên khác")
+    else:
+        print(f"  {label}: ✗ không có mã [{code_label} {res['code']}]")
+
+
 # --------------------------------------------------------------------------
+def _ensure_utf8_stdio():
+    """Tránh UnicodeEncodeError trên Windows console (cp1252)."""
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
+
+
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--rxnorm", default="data/knowledge_base/RXNORM.csv")
-    ap.add_argument("--icd", default="data/knowledge_base/ICD10_VN.csv")
+    _ensure_utf8_stdio()
+    ap = argparse.ArgumentParser(
+        description="Kiểm tra tên thuốc (RxNorm) / tên bệnh (ICD-10), "
+                    "hoặc tra ngược mã -> tên với --code.")
+    ap.add_argument("--rxnorm", action="store_true",
+                    help="chỉ kiểm tra thuốc (RxNorm). Bỏ cả --rxnorm và --icd = kiểm cả hai")
+    ap.add_argument("--icd", action="store_true",
+                    help="chỉ kiểm tra bệnh (ICD-10). Bỏ cả --rxnorm và --icd = kiểm cả hai")
+    ap.add_argument("--code", action="store_true",
+                    help="query là mã (RxCUI / ICD), trả về tên thực thể thay vì tra tên -> mã")
+    ap.add_argument("--rxnorm-path", default=str(_DEFAULT_RXNORM),
+                    help="đường dẫn RXNORM.csv")
+    ap.add_argument("--icd-path", default=str(_DEFAULT_ICD),
+                    help="đường dẫn ICD10_VN.csv")
     ap.add_argument("-q", "--query", default=None)
     ap.add_argument("--cutoff", type=int, default=90,
-                    help="ngưỡng điểm fuzzy để coi là 'khớp' (0-100)")
+                    help="ngưỡng điểm fuzzy để coi là 'khớp' (0-100); bỏ qua khi --code")
     args = ap.parse_args()
 
-    print("Đang nạp RxNorm...", file=sys.stderr)
-    rx = load_rxnorm(args.rxnorm)
-    print(f"  {len(rx.names):,} tên thuốc.", file=sys.stderr)
-    print("Đang nạp ICD-10...", file=sys.stderr)
-    icd = load_icd(args.icd)
-    print(f"  {len(icd.names):,} tên bệnh.", file=sys.stderr)
+    # --rxnorm / --icd chọn phạm vi; bỏ cả hai (hoặc bật cả hai) = kiểm cả hai
+    if args.rxnorm or args.icd:
+        check_rx = bool(args.rxnorm)
+        check_icd = bool(args.icd)
+    else:
+        check_rx = check_icd = True
+
+    rx = icd = None
+    if check_rx:
+        print("Đang nạp RxNorm...", file=sys.stderr)
+        rx = load_rxnorm(args.rxnorm_path)
+        print(f"  {len(rx.names):,} tên thuốc / {len(rx.by_code):,} RxCUI.", file=sys.stderr)
+    if check_icd:
+        print("Đang nạp ICD-10...", file=sys.stderr)
+        icd = load_icd(args.icd_path)
+        print(f"  {len(icd.names):,} tên bệnh / {len(icd.by_code):,} mã ICD.", file=sys.stderr)
+
+    mode = "mã -> tên" if args.code else "tên -> mã"
+    scopes = []
+    if check_rx:
+        scopes.append("RxNorm")
+    if check_icd:
+        scopes.append("ICD-10")
+    print(f"Chế độ: {mode} | phạm vi: {', '.join(scopes)}", file=sys.stderr)
 
     if args.query is not None:
-        report(args.query, rx, icd, args.cutoff)
+        report(args.query, rx, icd, args.cutoff, by_code=args.code)
         return
     print('Gõ chuỗi để kiểm tra (Ctrl-D hoặc "quit" để thoát):', file=sys.stderr)
     while True:
@@ -190,7 +287,7 @@ def main():
         if q.lower() in {"quit", "exit"}:
             break
         if q:
-            report(q, rx, icd, args.cutoff)
+            report(q, rx, icd, args.cutoff, by_code=args.code)
 
 
 if __name__ == "__main__":

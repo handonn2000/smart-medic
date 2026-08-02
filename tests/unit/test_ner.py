@@ -215,3 +215,61 @@ class TestChanBoPhanCoThe:
         _add(e, "bụng", TYPE_DIAGNOSIS)
         ents = detect("bệnh nhân đau bụng nhiều", Gazetteer(entries=e))
         assert ents == []
+
+
+class TestChanManhCatVun:
+    """★ Heuristic tách synonym theo dấu phẩy (D4) sinh ra mảnh vô nghĩa.
+
+    Đo trên `data/test/`: chúng khớp văn xuôi thường xuyên và bịa ra chẩn đoán.
+    """
+
+    def test_nhan_dien_manh_vun(self):
+        from smart_medic.stages.ner import is_fragment
+
+        cases = [
+            ("thiếu", "Dị tật thiếu, teo và/hoặc hẹp ống tai ngoài"),
+            ("sắc", "Tấn công bằng vật sắc nhọn"),
+            ("tại bệnh viện", "Trẻ sinh ra sống, một con, tại bệnh viện"),
+            ("hiện tại", "Rách sụn chêm, vết rách hiện tại"),
+        ]
+        for term, pref in cases:
+            assert is_fragment(term, pref, "authoritative"), term
+
+    def test_ten_day_du_khong_bi_nham(self):
+        from smart_medic.stages.ner import is_fragment
+
+        assert not is_fragment("Viêm phổi", "Viêm phổi", "authoritative")
+        assert not is_fragment(
+            "Bệnh lý tăng huyết áp", "Bệnh tăng huyết áp vô căn", "authoritative"
+        )
+
+    def test_khong_ap_cho_tu_dong_nghia_curate(self):
+        """★ E5 curate tay cũng là chuỗi con, nhưng do người chọn nên đáng tin."""
+        from smart_medic.stages.ner import is_fragment
+
+        assert not is_fragment(
+            "tăng huyết áp vô căn", "Bệnh tăng huyết áp vô căn (nguyên phát)", "generated"
+        )
+
+    def test_thieu_pref_vi_thi_giu(self):
+        from smart_medic.stages.ner import is_fragment
+
+        assert not is_fragment("abc", None, "authoritative")
+
+
+class TestChanNguyenNhanNgoaiSinh:
+    def test_chuong_V_Y_bi_loai(self):
+        """Chương XX là mã BỔ SUNG mô tả hoàn cảnh, không phải chẩn đoán.
+
+        Không mã V–Y nào xuất hiện trong bất kỳ bộ gold nào của dự án.
+        """
+        from smart_medic.stages.ner import _CHAPTER_EXTERNAL
+
+        for code in ("X99", "Y56.3", "V01", "W54"):
+            assert _CHAPTER_EXTERNAL.match(code), code
+
+    def test_ma_benh_that_khong_bi_loai(self):
+        from smart_medic.stages.ner import _CHAPTER_EXTERNAL
+
+        for code in ("I10", "E11.9", "J18.9", "Z38.0", "K21"):
+            assert not _CHAPTER_EXTERNAL.match(code), code

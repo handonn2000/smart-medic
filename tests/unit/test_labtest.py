@@ -104,3 +104,15 @@ class TestDetect:
         text = "  công thức máu: tăng bạch cầu"
         for e in detect(text, []):
             assert text[e.start : e.end] == e.text
+
+
+class TestKhongSinhEntityRong:
+    def test_loc_entity_toan_khoang_trang(self):
+        """★ Bug thật trên `100.txt`: span [507,508] là một dấu cách."""
+        for e in detect("Ghi chú:  \nHb 9.3 g/dL", []):
+            assert e.text.strip(), repr(e.text)
+
+    def test_tu_vung_dien_ngon_bi_chan(self):
+        """Blog/hỏi–đáp dùng tiêu đề mà bệnh án không có."""
+        for head in ("Câu trả lời của bác sĩ:", "Lý do nhập viện:", "Thời điểm khởi phát:"):
+            assert detect_labelled(f"{head} đau bụng 3 ngày", []) == [], head

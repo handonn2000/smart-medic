@@ -52,6 +52,12 @@ SHORT_ALLOW: frozenset[str] = frozenset({"ho", "sốt", "phù", "nôn", "ói"})
 # ICD chương R = "triệu chứng, dấu hiệu và phát hiện bất thường".
 _CHAPTER_R = re.compile(r"^R\d")
 
+# ★ Chương XX (V01–Y98) = NGUYÊN NHÂN NGOẠI SINH. Đây là mã BỔ SUNG, mô tả
+#   hoàn cảnh gây thương tích ("tấn công bằng vật sắc nhọn", "tác động bất lợi
+#   của thuốc chống đông"), không bao giờ là chẩn đoán rút ra từ văn xuôi.
+#   Không mã V–Y nào xuất hiện trong bất kỳ bộ gold nào của dự án.
+_CHAPTER_EXTERNAL = re.compile(r"^[VWXY]\d")
+
 # ★ Tiền tố loại chung. KB có `"Bệnh lý tăng huyết áp"` nhưng KHÔNG có
 #   `"tăng huyết áp"` — mà bệnh án luôn viết dạng sau. Bóc tiền tố cho ra biến
 #   thể mà văn bản thật dùng. Cùng bản chất với `canonical_term` ở
@@ -152,12 +158,16 @@ class Gazetteer:
 
         rows = store.conn.execute(
             """
-            SELECT c.code, t.term
+            SELECT c.code, c.pref_vi, t.term, t.tier
             FROM concepts c JOIN terms t USING(concept_id)
             WHERE c.vocab = 'icd10' AND t.lang = 'vi' AND t.tier != 'derived'
             """
         )
-        for code, term in rows:
+        for code, pref_vi, term, tier in rows:
+            if _CHAPTER_EXTERNAL.match(code or ""):
+                continue
+            if is_fragment(term, pref_vi, tier):
+                continue
             label = TYPE_SYMPTOM if _CHAPTER_R.match(code or "") else TYPE_DIAGNOSIS
             _add(entries, term, label)
 
@@ -177,6 +187,43 @@ class Gazetteer:
 
     def lookup(self, key: str) -> str | None:
         return self.entries.get(key)
+
+
+# Term ngắn hơn ngần này so với tên đầy đủ thì coi là mảnh vụn.
+FRAGMENT_RATIO = 0.6
+
+
+def is_fragment(term: str, pref_vi: str | None, tier: str) -> bool:
+    """Term có phải MẢNH CẮT VỤN của tên đầy đủ không.
+
+    Phase 1 tách synonym theo dấu phẩy (quyết định D4). Với tên nhiều mệnh đề,
+    heuristic đó sinh ra mảnh vô nghĩa — đo được trên `data/test/`:
+
+        `"Dị tật thiếu, teo và/hoặc hẹp ống tai ngoài"`  → mảnh `"thiếu"`
+        `"Tấn công bằng vật sắc nhọn"`                    → mảnh `"sắc"`
+        `"Trẻ sinh ra sống, một con, tại bệnh viện"`      → mảnh `"tại bệnh viện"`
+        `"Rách sụn chêm, vết rách hiện tại"`              → mảnh `"hiện tại"`
+
+    Chúng khớp văn xuôi thường xuyên và sinh chẩn đoán bịa. Dấu hiệu chung: mảnh
+    là **chuỗi con thực sự** của tên đầy đủ và ngắn hơn hẳn.
+
+    ★ Chỉ áp cho `tier='authoritative'`. Từ đồng nghĩa curate tay (E5) cũng là
+      chuỗi con — `"tăng huyết áp vô căn"` nằm trong `"Bệnh tăng huyết áp vô căn
+      (nguyên phát)"` — nhưng chúng do người chọn nên đáng tin.
+
+    >>> is_fragment("thiếu", "Dị tật thiếu, teo và/hoặc hẹp ống tai ngoài", "authoritative")
+    True
+    >>> is_fragment("tăng huyết áp vô căn", "Bệnh tăng huyết áp vô căn (nguyên phát)", "generated")
+    False
+    >>> is_fragment("Viêm phổi", "Viêm phổi", "authoritative")
+    False
+    """
+    if tier != "authoritative" or not pref_vi:
+        return False
+    t, p = term.strip().lower(), pref_vi.strip().lower()
+    if t == p or t not in p:
+        return False
+    return len(t) < FRAGMENT_RATIO * len(p)
 
 
 def surface_forms(term: str) -> list[str]:

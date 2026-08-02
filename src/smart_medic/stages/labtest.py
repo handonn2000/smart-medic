@@ -51,6 +51,9 @@ SECTION_WORDS: frozenset[str] = frozenset(
         "chẩn đoán sơ bộ", "chẩn đoán xác định", "dặn dò", "theo dõi", "tiên lượng",
         "hướng điều trị", "đánh giá", "nhận xét", "kế hoạch",
         "điều chỉnh", "triệu chứng", "diễn tiến", "tình trạng", "lời dặn",
+        # Từ vựng DIỄN NGÔN — gặp ở blog/hỏi–đáp, không có trong bệnh án mẫu.
+        "câu hỏi", "câu trả lời", "trả lời", "lý do", "thời điểm", "hỏi", "đáp",
+        "ghi chú", "lưu ý", "giải thích", "tư vấn", "khuyến nghị", "mô tả",
     }
 )  # fmt: skip
 
@@ -145,7 +148,12 @@ def detect_measured(text: str, taken: list[Entity]) -> list[Entity]:
 
 
 def detect(text: str, taken: list[Entity]) -> list[Entity]:
-    """Cả hai mẫu. Mẫu A chạy trước vì nó đặc hiệu hơn."""
+    """Cả hai mẫu. Mẫu A chạy trước vì nó đặc hiệu hơn.
+
+    Lọc entity rỗng/toàn khoảng trắng ở đây thay vì ở từng mẫu — một chỗ duy
+    nhất, không thể quên. Đo được trên `100.txt`: span `[507, 508]` là một dấu
+    cách, lọt ra ngoài thành entity hợp lệ.
+    """
     found = detect_labelled(text, taken)
     found += detect_measured(text, taken + found)
-    return found
+    return [e for e in found if e.text.strip()]

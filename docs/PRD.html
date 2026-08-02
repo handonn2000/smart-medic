@@ -384,6 +384,9 @@
   .verdict .big{font-family:var(--display);font-weight:800;font-size:18px;color:#7a4a16;line-height:1.3;margin:0 0 6px}
   .verdict p{color:#6e451c;margin:0;font-size:14.5px}
   .quote{font-family:var(--mono);font-size:12.3px;background:#0f302e;color:#d7e6e2;padding:11px 14px;border-radius:8px;margin:10px 0;white-space:pre-wrap;line-height:1.55;overflow-x:auto}
+  /* Biến thể cho khối CODE có căn lề: cuộn ngang thay vì xuống dòng, vì xuống
+     dòng làm hỏng căn lề. Quote văn xuôi vẫn giữ pre-wrap như cũ. */
+  .quote.code{white-space:pre}
   .quote .rd{color:#f0a868;font-weight:700}
   .quote .hi{color:#6fd39a;font-weight:700}
   .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;margin-right:5px;vertical-align:middle}
@@ -1625,6 +1628,85 @@ SBD          Bayer Aspirin 81 MG Oral Tab   ← + tên thương mại</div>
 
       <p style="margin-top:12px">Dense cứu được <b>0</b> ca mà lexical trượt, nhưng làm trượt <b>52</b> ca lexical trúng. Nguyên nhân rõ: <code>paraphrase-multilingual-MiniLM</code> <b>không có tri thức y khoa</b> — nó không biết <code>THA</code> = tăng huyết áp, <code>COPD</code> = bệnh phổi tắc nghẽn mạn tính.</p>
       <div class="callout warn">PRD §4 khuyến nghị đích danh <b>SapBERT / BioLORD</b> — embedding <i>y sinh chuyên biệt</i>. Chọn model đa dụng để xử lý tiếng Việt đã xoá sạch tín hiệu chuyên ngành. Đây là <b>lỗi lựa chọn</b>, không phải giới hạn của hướng dense. Hạ tầng được giữ lại và không bật mặc định; điều kiện thử lại đã ghi vào backlog.</div>
+    </div>
+  </section>
+
+  <!-- 6. Công cụ cho agent -->
+  <section class="block">
+    <div class="sec-head"><span class="sec-num">6</span><h2>Công cụ agent tận dụng được</h2></div>
+    <div class="card">
+      <p>Ghi lại đúng những công cụ đã dùng trong dự án này, kèm <b>ví dụ thật</b> chúng giải quyết việc gì — để lần sau không phải dò lại từ đầu.</p>
+
+      <h4 style="font-family:var(--display);font-size:14.5px;margin:18px 0 6px">6.1 · Khảo sát dữ liệu thô</h4>
+      <table class="def">
+        <thead><tr><th>Công cụ</th><th>Dùng để</th><th>Đã giải quyết việc gì ở đây</th></tr></thead>
+        <tbody>
+          <tr><td><code>PyMuPDF</code></td><td><code>get_text()</code>, <code>find_tables()</code>, đếm ảnh nhúng</td><td>Phát hiện PDF có <b>text layer 8,4 triệu ký tự và 0 ảnh</b> ⇒ <b>không cần OCR</b>, và trích được bảng 29 cột trên cả 1.271 trang</td></tr>
+          <tr><td><code>awk -F'|'</code></td><td>File RRF phân tách bằng ống</td><td>Đếm phân bố <code>TTY</code>/<code>SAB</code>/<code>suppress</code> trên 1,2 triệu dòng trong vài giây, <b>trước khi</b> viết một dòng code nào</td></tr>
+          <tr><td><code>sort | uniq -c | sort -rn</code></td><td>Phân bố giá trị một cột</td><td>Tìm ra <code>RXNSAT</code> gần như toàn <code>SPL_SET_ID</code> ⇒ quyết định <b>không nạp</b> 531 MB</td></tr>
+          <tr><td><code>sqlite3</code> (stdlib)</td><td>Store + FTS5 + BM25</td><td>Không cần cài gì thêm — điểm quyết định cho ràng buộc tái lập</td></tr>
+          <tr><td><code>pyarrow</code></td><td>Staging parquet</td><td>Giữ kiểu dữ liệu, nén tốt, đọc được bằng pandas/DuckDB mà không cần biết SQL</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><b>Nguyên tắc rút ra:</b> <b>đo trước, code sau</b>. Gần như mọi quyết định lớn ở đây — không OCR, bỏ RXNSAT, chặn fan-in, không dùng graph DB — đều đến từ một lệnh shell chạy trong vài giây, chứ không phải từ suy đoán.</div>
+
+      <h4 style="font-family:var(--display);font-size:14.5px;margin:20px 0 6px">6.2 · Tra cứu văn liệu</h4>
+      <table class="def">
+        <thead><tr><th>Công cụ</th><th>Phạm vi</th><th>Ví dụ thật</th></tr></thead>
+        <tbody>
+          <tr><td><b>MCP PubMed</b></td><td>Y sinh — <b>không</b> index khoa học máy tính</td><td>Tìm ra cảnh báo của Bona &amp; Ceusters rằng thẻ ngữ nghĩa SNOMED <b>không phải lúc nào cũng khớp</b> vị trí phân cấp ⇒ dùng làm feature, không phải nhãn vàng</td></tr>
+          <tr><td><b>WebSearch</b></td><td>arXiv / ACM / IEEE — phần CS mà PubMed thiếu</td><td>Tìm ClinLinker (entity linking tiếng Tây Ban Nha) — <b>đồng dạng</b> với bài toán tiếng Việt ↔ ICD</td></tr>
+          <tr><td><b>WebFetch</b></td><td>Đọc một trang cụ thể</td><td>Xác minh ProtonX <b>không có model OCR</b> — chỉ có model sửa lỗi <i>sau</i> OCR</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn"><b>Bẫy khi dùng PubMed:</b> truy vấn dài bị <b>AND hết mọi từ</b> nên trả về 0 kết quả. Câu <i>"SNOMED CT description logic reasoning transitive closure terminology server implementation"</i> ra rỗng; tách thành 3–4 từ khoá mới có kết quả.</div>
+
+      <h4 style="font-family:var(--display);font-size:14.5px;margin:20px 0 6px">6.3 · Kiểm chứng &amp; đo đạc</h4>
+      <table class="def">
+        <thead><tr><th>Công cụ</th><th>Dùng để</th><th>Đã bắt được gì</th></tr></thead>
+        <tbody>
+          <tr><td><code>EXPLAIN QUERY PLAN</code></td><td>Xem planner chọn vòng lặp nào</td><td>★ Lộ ra planner lấy <code>concepts</code> làm vòng ngoài rồi <code>SCAN terms_fts</code> bên trong — <b>7,4 s cho một truy vấn</b>. Không có công cụ này thì chỉ biết "chậm", không biết vì sao</td></tr>
+          <tr><td><code>set_progress_handler</code></td><td>Ngắt truy vấn quá hạn</td><td>Bóc tách được rằng FTS5 tự nó <b>nhanh</b> (0,01 s), chậm là do JOIN</td></tr>
+          <tr><td><code>pytest -m "not slow"</code></td><td>Tách test cần dữ liệu thô</td><td>CI chạy được mà không cần 9,3 GB nguồn</td></tr>
+          <tr><td><code>pytest-cov</code></td><td>Coverage có chủ đích</td><td>Chỉ nhắm <code>normalize/</code> — nơi bug retrieval hay nằm nhất. Đạt <b>99%</b></td></tr>
+          <tr><td><code>ruff</code></td><td>Lint + format</td><td>Một công cụ thay cả flake8 + black + isort</td></tr>
+          <tr><td><b>Browser pane</b> + <code>javascript_exec</code></td><td>Kiểm layout HTML</td><td>Dùng <code>getBoundingClientRect</code> / <code>getBBox</code> để bắt tràn ngang và text vượt <code>viewBox</code> — <b>đáng tin hơn nhìn ảnh chụp</b></td></tr>
+        </tbody>
+      </table>
+
+      <h4 style="font-family:var(--display);font-size:14.5px;margin:20px 0 6px">6.4 · Chạy dài &amp; đóng gói</h4>
+      <table class="def">
+        <thead><tr><th>Công cụ</th><th>Ghi chú</th></tr></thead>
+        <tbody>
+          <tr><td><b>Chạy nền</b> (<code>run_in_background</code>)</td><td>Build 27 phút và nhúng 142k vector đều vượt giới hạn một lệnh — chạy nền rồi nhận thông báo khi xong</td></tr>
+          <tr><td><b>Danh sách việc theo phase</b></td><td>6 phase, mỗi phase một commit; trạng thái luôn nhìn thấy được</td></tr>
+          <tr><td><code>docker buildx --progress plain</code></td><td>Xem <b>dung lượng build context</b> thật — xác nhận <code>.dockerignore</code> chặn được: <b>11 kB</b> gửi đi trong repo 14 GB</td></tr>
+          <tr><td><b>Docker multi-stage</b></td><td>Tách <code>builder</code> / <code>runtime</code>; chính việc chạy thử trong container đã lộ ra <b>3 bug</b> mà máy dev không bao giờ thấy</td></tr>
+        </tbody>
+      </table>
+
+      <h4 style="font-family:var(--display);font-size:14.5px;margin:20px 0 6px">6.5 · Bốn chỗ đã vấp khi dùng công cụ</h4>
+      <p>Đều thuộc loại <b>hỏng im lặng</b> — lệnh vẫn chạy, kết quả vẫn ra, chỉ là sai.</p>
+      <div class="quote code"><span class="rd">1.</span> zsh KHÔNG tách từ biến chưa quote
+   run() { smk kb enrich $2 ... }        <span class="rd">← "--only X" thành MỘT tham số</span>
+   → script ablation fail âm thầm, mọi cấu hình cho ra cùng một số
+   <span class="hi">Cách sửa: viết driver bằng Python, truyền list</span>
+
+<span class="rd">2.</span> Ống qua grep/tail NUỐT exit code
+   smk kb build | grep ... | tail        <span class="rd">← $? là của tail, luôn 0</span>
+   → build fail trong container mà vẫn tưởng thành công
+   <span class="hi">Cách sửa: chuyển hướng ra file rồi lấy $? ngay</span>
+
+<span class="rd">3.</span> awk cắt cột sai khi nhãn có dấu tiếng Việt
+   awk '/TỔNG THỂ/{print $3}'            <span class="rd">← lệch cột, đọc ra "122"</span>
+   <span class="hi">Cách sửa: xuất JSON rồi parse, đừng cắt cột văn bản</span>
+
+<span class="rd">4.</span> Đếm tay dấu | khi dựng fixture RRF
+   "1191|ENG||||||1|||||RXNORM|IN|..."   <span class="rd">← thừa một ống, lệch SAB/TTY</span>
+   → 6 test fail vì fixture sai, không phải vì code sai
+   <span class="hi">Cách sửa: dựng dòng bằng code — row=[""]*18; row[11]=sab</span></div>
+
+      <div class="callout ok"><b>Mẫu chung của cả bốn:</b> công cụ không báo lỗi, nó chỉ trả về thứ khác với thứ ta nghĩ. Cách phòng duy nhất là <b>kiểm chứng bằng một đường độc lập</b> — so <code>mtime</code> chứ không chỉ so checksum, parse JSON chứ không cắt cột, dựng fixture bằng code chứ không đếm tay.</div>
     </div>
   </section>
 

@@ -65,7 +65,30 @@ _MEASURE = re.compile(
 )
 
 # Nhãn đứng trước dấu hai chấm. Giới hạn độ dài để không nuốt cả câu.
-_LABELLED = re.compile(r"(?m)^[ \t]*(?P<name>[^:\n]{2,45}?)[ \t]*:[ \t]*(?P<value>[^\n]+)$")
+#
+# ★ Dòng có GẠCH ĐẦU DÒNG bị loại. Bệnh án Việt dùng gạch đầu dòng cho **trường
+#   của mẫu khai thác triệu chứng** — `- Vị trí:`, `- Mức độ nghiêm trọng:`,
+#   `- Tính chất:` — chứ không cho tên xét nghiệm. Tên xét nghiệm thật
+#   (`đường huyết:`, `X-quang ngực:`) luôn đứng đầu dòng trần.
+#   Đo trên `gold_real`: mẫu này sinh 38 entity thừa nếu không loại.
+_LABELLED = re.compile(
+    r"(?m)^[ \t]*(?![-•+*\u2022]\s)(?P<name>[^:\n]{2,45}?)[ \t]*:[ \t]*(?P<value>[^\n]+)$"
+)
+
+# ★ Đầu cụm chỉ TÊN XÉT NGHIỆM — cùng ý tưởng với `SYMPTOM_HEADS` ở `ner.py`.
+#
+# 44/118 ca bỏ sót trên `gold_real` là tên xét nghiệm KHÔNG có dấu hai chấm và
+# KHÔNG kèm giá trị đo: `"xét nghiệm máu"`, `"Điện tâm đồ"`, `"Men tim"`. Hai
+# mẫu cấu trúc không với tới được, nhưng chúng đều mở đầu bằng một tập từ đóng
+# của tiếng Việt lâm sàng.
+TEST_HEADS: tuple[str, ...] = (
+    "xét nghiệm", "nghiệm pháp", "chụp", "siêu âm", "nội soi", "sinh thiết",
+    "điện tâm đồ", "điện não đồ", "điện cơ", "đo", "test", "cấy", "soi",
+    "công thức máu", "tổng phân tích", "định lượng", "chỉ số",
+)  # fmt: skip
+
+# Cụm tên xét nghiệm chạy tới ranh giới câu, tối đa vài từ.
+_TEST_PHRASE = re.compile(r"(?i)\b(?:" + "|".join(TEST_HEADS) + r")\b[^,;.:\n()]{0,40}")
 
 # Hết câu: dấu chấm/chấm phẩy KHÔNG nằm giữa hai chữ số.
 _SENT_END = re.compile(r"(?<!\d)[.;]|[.;](?!\d)")
@@ -147,8 +170,24 @@ def detect_measured(text: str, taken: list[Entity]) -> list[Entity]:
     return out
 
 
+def detect_test_phrases(text: str, taken: list[Entity]) -> list[Entity]:
+    """Tên xét nghiệm nhận diện bằng ĐẦU CỤM, khi không có dấu hai chấm.
+
+    Chạy SAU hai mẫu cấu trúc: chúng đặc hiệu hơn nên được quyền lấy span trước.
+    """
+    out: list[Entity] = []
+    for m in _TEST_PHRASE.finditer(text):
+        s, e = m.start(), m.end()
+        while e > s and text[e - 1].isspace():
+            e -= 1
+        if e <= s or not _free(s, e, taken + out):
+            continue
+        out.append(Entity(text[s:e], TYPE_TEST, s, e))
+    return out
+
+
 def detect(text: str, taken: list[Entity]) -> list[Entity]:
-    """Cả hai mẫu. Mẫu A chạy trước vì nó đặc hiệu hơn.
+    """Ba lớp, đặc hiệu trước.
 
     Lọc entity rỗng/toàn khoảng trắng ở đây thay vì ở từng mẫu — một chỗ duy
     nhất, không thể quên. Đo được trên `100.txt`: span `[507, 508]` là một dấu
@@ -156,4 +195,5 @@ def detect(text: str, taken: list[Entity]) -> list[Entity]:
     """
     found = detect_labelled(text, taken)
     found += detect_measured(text, taken + found)
+    found += detect_test_phrases(text, taken + found)
     return [e for e in found if e.text.strip()]

@@ -116,3 +116,40 @@ class TestKhongSinhEntityRong:
         """Blog/hỏi–đáp dùng tiêu đề mà bệnh án không có."""
         for head in ("Câu trả lời của bác sĩ:", "Lý do nhập viện:", "Thời điểm khởi phát:"):
             assert detect_labelled(f"{head} đau bụng 3 ngày", []) == [], head
+
+
+class TestGachDauDong:
+    """★ Bệnh án Việt dùng gạch đầu dòng cho TRƯỜNG CỦA MẪU khai thác triệu
+    chứng, không cho tên xét nghiệm. Đo trên `gold_real`: 38 entity thừa."""
+
+    def test_truong_cua_mau_bi_loai(self):
+        for line in ("- Vị trí: Vùng hạ sườn phải", "- Mức độ nghiêm trọng: nặng hơn"):
+            assert detect_labelled(line, []) == [], line
+
+    def test_ten_xet_nghiem_that_van_duoc_giu(self):
+        """Tên xét nghiệm thật đứng đầu dòng TRẦN, không có gạch."""
+        ents = detect_labelled("đường huyết: 11.2 mmol/L", [])
+        assert types_of(ents, TYPE_TEST) == ["đường huyết"]
+
+
+class TestDauCumXetNghiem:
+    """44/118 ca bỏ sót là tên xét nghiệm không có dấu hai chấm, không kèm số."""
+
+    def test_bat_duoc_cum_khong_co_dau_hai_cham(self):
+        from smart_medic.stages.labtest import detect_test_phrases
+
+        for phrase in ("xét nghiệm máu", "Điện tâm đồ", "siêu âm ổ bụng"):
+            got = detect_test_phrases(phrase, [])
+            assert got and got[0].type == TYPE_TEST, phrase
+
+    def test_khong_cuop_span_da_co(self):
+        from smart_medic.stages.labtest import detect_test_phrases
+
+        taken = [Entity("xét nghiệm máu", TYPE_TEST, 0, 14)]
+        assert detect_test_phrases("xét nghiệm máu", taken) == []
+
+    def test_dung_o_ranh_gioi_cau(self):
+        from smart_medic.stages.labtest import detect_test_phrases
+
+        got = detect_test_phrases("siêu âm ổ bụng, sau đó bệnh nhân về nhà", [])
+        assert got[0].text == "siêu âm ổ bụng"

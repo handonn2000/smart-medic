@@ -50,7 +50,9 @@
   {
     "text": "penicillin",
     "type": "THUỐC",
-    "candidates": [],
+    "candidates": [
+      "7986"
+    ],
     "assertions": [],
     "position": [
       352,
@@ -109,10 +111,8 @@
   },
   {
     "text": "co giật do sốt",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R56.0"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       787,

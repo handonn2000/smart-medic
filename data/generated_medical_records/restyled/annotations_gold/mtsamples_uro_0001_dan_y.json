@@ -47,7 +47,7 @@
     "text": "Levaquin",
     "type": "THUỐC",
     "candidates": [
-      "82122"
+      "217992"
     ],
     "assertions": [
       "isHistorical"
@@ -341,7 +341,7 @@
     "text": "Cardura",
     "type": "THUỐC",
     "candidates": [
-      "49276"
+      "196468"
     ],
     "assertions": [
       "isHistorical"
@@ -355,8 +355,7 @@
     "text": "Zegerid",
     "type": "THUỐC",
     "candidates": [
-      "7646",
-      "36676"
+      "646341"
     ],
     "assertions": [
       "isHistorical"
@@ -370,7 +369,7 @@
     "text": "Flomax",
     "type": "THUỐC",
     "candidates": [
-      "77492"
+      "190283"
     ],
     "assertions": [
       "isHistorical"
@@ -384,7 +383,7 @@
     "text": "Levaquin",
     "type": "THUỐC",
     "candidates": [
-      "82122"
+      "217992"
     ],
     "assertions": [
       "isHistorical"
@@ -398,7 +397,7 @@
     "text": "Proscar",
     "type": "THUỐC",
     "candidates": [
-      "25025"
+      "196476"
     ],
     "assertions": [
       "isHistorical"
@@ -412,8 +411,7 @@
     "text": "Vicodin",
     "type": "THUỐC",
     "candidates": [
-      "5489",
-      "161"
+      "128793"
     ],
     "assertions": [
       "isHistorical"
@@ -441,7 +439,7 @@
     "text": "Phenergan",
     "type": "THUỐC",
     "candidates": [
-      "8745"
+      "152218"
     ],
     "assertions": [
       "isHistorical"
@@ -455,7 +453,7 @@
     "text": "Ativan",
     "type": "THUỐC",
     "candidates": [
-      "6470"
+      "202479"
     ],
     "assertions": [
       "isHistorical"
@@ -466,10 +464,22 @@
     ]
   },
   {
+    "text": "*****",
+    "type": "THUỐC",
+    "candidates": [
+      "196503"
+    ],
+    "assertions": [],
+    "position": [
+      937,
+      942
+    ]
+  },
+  {
     "text": "Prinivil",
     "type": "THUỐC",
     "candidates": [
-      "29046"
+      "203644"
     ],
     "assertions": [
       "isHistorical"
@@ -533,6 +543,16 @@
     "position": [
       1001,
       1012
+    ]
+  },
+  {
+    "text": "************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1014,
+      1026
     ]
   },
   {
@@ -635,10 +655,8 @@
   },
   {
     "text": "Tiểu máu",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R31"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       1541,

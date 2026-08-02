@@ -57,7 +57,7 @@
     "text": "Tapazole 10 mg b.i.d.",
     "type": "THUỐC",
     "candidates": [
-      "6835"
+      "224936"
     ],
     "assertions": [
       "isHistorical"
@@ -71,8 +71,7 @@
     "text": "Atenolol/chlorthalidone 50/25 mg b.i.d.",
     "type": "THUỐC",
     "candidates": [
-      "1202",
-      "2409"
+      "151195"
     ],
     "assertions": [
       "isHistorical"
@@ -86,7 +85,7 @@
     "text": "Micro-K 10 mEq q.d.",
     "type": "THUỐC",
     "candidates": [
-      "8591"
+      "218365"
     ],
     "assertions": [
       "isHistorical"
@@ -100,7 +99,7 @@
     "text": "Lanoxin 0.125 mg q.d.",
     "type": "THUỐC",
     "candidates": [
-      "3407"
+      "202988"
     ],
     "assertions": [
       "isHistorical"
@@ -128,7 +127,7 @@
     "text": "Crestor 10 mg q.h.s.",
     "type": "THUỐC",
     "candidates": [
-      "301542"
+      "320864"
     ],
     "assertions": [
       "isHistorical"
@@ -156,7 +155,7 @@
     "text": "Bayer Aspirin 81 mg q.d.",
     "type": "THUỐC",
     "candidates": [
-      "1191"
+      "215568"
     ],
     "assertions": [
       "isHistorical"
@@ -170,8 +169,7 @@
     "text": "Vicodin p.r.n.",
     "type": "THUỐC",
     "candidates": [
-      "5489",
-      "161"
+      "128793"
     ],
     "assertions": [
       "isHistorical"
@@ -185,7 +183,7 @@
     "text": "Nexium 40 mg",
     "type": "THUỐC",
     "candidates": [
-      "283742"
+      "284799"
     ],
     "assertions": [
       "isHistorical"
@@ -385,10 +383,8 @@
   },
   {
     "text": "Đau ngực",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R07.3"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       1039,
@@ -417,10 +413,8 @@
   },
   {
     "text": "Phù chi mức độ nhẹ",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R60.0"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       1089,
@@ -523,7 +517,7 @@
     "text": "Tapazole",
     "type": "THUỐC",
     "candidates": [
-      "6835"
+      "224936"
     ],
     "assertions": [],
     "position": [
@@ -547,7 +541,7 @@
     "text": "Crestor",
     "type": "THUỐC",
     "candidates": [
-      "301542"
+      "320864"
     ],
     "assertions": [],
     "position": [
@@ -591,10 +585,8 @@
   },
   {
     "text": "phù chi",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R60.0"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       1481,
@@ -605,7 +597,7 @@
     "text": "Nexium",
     "type": "THUỐC",
     "candidates": [
-      "283742"
+      "284799"
     ],
     "assertions": [],
     "position": [

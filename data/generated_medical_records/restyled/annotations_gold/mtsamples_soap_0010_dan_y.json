@@ -185,7 +185,7 @@
     "text": "Plavix 75 mg q.d.",
     "type": "THUỐC",
     "candidates": [
-      "32968"
+      "174742"
     ],
     "assertions": [
       "isHistorical"
@@ -467,10 +467,8 @@
   },
   {
     "text": "Khó thở",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R06.0"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       1230,
@@ -479,10 +477,8 @@
   },
   {
     "text": "Đau đầu gối",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "M25.5"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       1287,
@@ -563,10 +559,8 @@
   },
   {
     "text": "Đau bụng",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R10"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       1479,
@@ -601,7 +595,7 @@
     "text": "Plavix",
     "type": "THUỐC",
     "candidates": [
-      "32968"
+      "174742"
     ],
     "assertions": [
       "isNegated"
@@ -615,7 +609,7 @@
     "text": "Plavix",
     "type": "THUỐC",
     "candidates": [
-      "32968"
+      "174742"
     ],
     "assertions": [
       "isHistorical"

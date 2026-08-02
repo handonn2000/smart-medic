@@ -362,7 +362,9 @@
   {
     "text": "rối loạn chức năng tâm thu",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": [
+      "I50.9"
+    ],
     "assertions": [],
     "position": [
       812,
@@ -431,7 +433,7 @@
     "text": "Coumadin",
     "type": "THUỐC",
     "candidates": [
-      "11289"
+      "202421"
     ],
     "assertions": [],
     "position": [
@@ -489,7 +491,7 @@
     "text": "Rocephin",
     "type": "THUỐC",
     "candidates": [
-      "2193"
+      "9449"
     ],
     "assertions": [],
     "position": [
@@ -523,10 +525,8 @@
   },
   {
     "text": "Chức năng gan bất thường",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R94.5"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       1326,
@@ -627,6 +627,18 @@
     "position": [
       1615,
       1639
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [
+      "5224"
+    ],
+    "assertions": [],
+    "position": [
+      1648,
+      1655
     ]
   },
   {

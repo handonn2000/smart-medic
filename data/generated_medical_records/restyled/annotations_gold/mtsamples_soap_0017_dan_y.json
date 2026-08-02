@@ -133,10 +133,8 @@
   },
   {
     "text": "Tăng azot huyết do thận",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R79.8"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       711,
@@ -158,7 +156,9 @@
   {
     "text": "Ngực dạng tuyến sợi",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": [
+      "N60.2"
+    ],
     "assertions": [],
     "position": [
       757,

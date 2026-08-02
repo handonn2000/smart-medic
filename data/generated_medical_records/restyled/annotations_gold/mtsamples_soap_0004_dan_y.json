@@ -583,7 +583,7 @@
   },
   {
     "text": "sốt",
-    "type": "CHẨN_ĐOÁN",
+    "type": "TRIỆU_CHỨNG",
     "candidates": [],
     "assertions": [
       "isNegated"
@@ -650,6 +650,18 @@
     ]
   },
   {
+    "text": "******",
+    "type": "THUỐC",
+    "candidates": [
+      "202866"
+    ],
+    "assertions": [],
+    "position": [
+      1362,
+      1368
+    ]
+  },
+  {
     "text": "Nhiễm trùng đường tiết niệu",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -665,7 +677,7 @@
     "text": "Levaquin",
     "type": "THUỐC",
     "candidates": [
-      "82122"
+      "217992"
     ],
     "assertions": [],
     "position": [
@@ -733,7 +745,7 @@
     "text": "Levaquin",
     "type": "THUỐC",
     "candidates": [
-      "82122"
+      "217992"
     ],
     "assertions": [],
     "position": [

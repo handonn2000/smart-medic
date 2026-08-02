@@ -1,0 +1,106 @@
+{
+  "source": "atc_ddd_byt",
+  "module": "src/smart_medic/kb/enrich/atc_vi.py",
+  "tier": "derived",
+  "vocab": "rxnorm",
+  "lang": "vi",
+  "release": "ATC/DDD Index 2016 — bảng DDD Bộ Y tế",
+  "origin_file": "knowledge_base/atc/ddd.csv",
+  "verdict": "GIỮ — bật mặc định",
+  "verdict_summary": "Không làm tụt bất kỳ chỉ số nào trên cả 5 bộ probe (delta = 0,000 tuyệt đối ở mọi ô). Đóng góp KHÔNG nhìn thấy được trên probe lâm sàng hiện có, nhưng đo trực tiếp trên hiện tượng nó nhắm tới thì lấp một lỗ hổng lớn: 35% tên hoạt chất tiếng Việt trước đây truy hồi ra RỖNG.",
+
+  "ingest": {
+    "ddd_rows_with_atc": 2019,
+    "dropped_not_single_ingredient": 558,
+    "dropped_breakdown": { "chua_dau_cong": 398, "chua_dau_sao": 62, "chua_ngoac_don": 98 },
+    "atc_level5_codes": 681,
+    "atc_resolved_in_rxnorm": 661,
+    "atc_skipped_total": 57,
+    "atc_khong_co_atom_trong_rxnorm": 20,
+    "atc_co_rxcui_nhung_ngoai_KB": 37,
+    "names_linked": 609,
+    "names_linked_sau_chuan_hoa": 608,
+    "note_609_vs_608": "609 tên phân biệt theo chuỗi gốc; sau `normalize_pair` còn 608 vì hai biến thể gộp về cùng `norm_term`. Con số 608 trong đề bài là đếm theo dạng đã chuẩn hoá.",
+    "terms_added": 654,
+    "note_terms_vs_names": "654 dòng > 609 tên vì một mã ATC có thể mang nhiều biến thể chính tả, và một tên có thể gắn với 2 mã ATC khác nhau (vd Acetylcystein: R05CB01 và V03AB23).",
+    "rxnorm_vi_terms_truoc": 0,
+    "rxnorm_vi_terms_sau": 654
+  },
+
+  "kb_after": {
+    "sources": 6,
+    "terms": 633654,
+    "terms_truoc": 633000,
+    "artifact_sha256_prefix": "c310c323492f3ac6",
+    "validate": "20/20 rule · 30/30 smoke query"
+  },
+
+  "cong_do_retrieval": {
+    "note": "R@1, `smk kb eval --rerank`. Mọi ô TRƯỚC và SAU trùng khít tới 4 chữ số.",
+    "retrieval_probe_122": {
+      "tong_the": { "truoc": 0.951, "sau": 0.951, "delta": 0.0 },
+      "thuoc_rxnorm": { "n": 38, "truoc": 0.947, "sau": 0.947, "delta": 0.0 },
+      "chan_doan_icd": { "n": 84, "truoc": 0.952, "sau": 0.952, "delta": 0.0 }
+    },
+    "gold_btc_sample": {
+      "thuoc_rxnorm": { "n": 11, "truoc": 0.636, "sau": 0.636, "delta": 0.0 }
+    },
+    "gold": {
+      "tong_the": { "truoc": 0.798, "sau": 0.798, "delta": 0.0 },
+      "thuoc_rxnorm": { "n": 69, "truoc": 0.957, "sau": 0.957, "delta": 0.0 },
+      "chan_doan_icd": { "n": 50, "truoc": 0.58, "sau": 0.58, "delta": 0.0 }
+    },
+    "gold_real": {
+      "tong_the": { "truoc": 0.663, "sau": 0.663, "delta": 0.0 },
+      "thuoc_rxnorm": { "n": 24, "truoc": 0.542, "sau": 0.542, "delta": 0.0 },
+      "chan_doan_icd": { "n": 74, "truoc": 0.703, "sau": 0.703, "delta": 0.0 }
+    },
+    "gold_batch1": {
+      "tong_the": { "truoc": 0.465, "sau": 0.465, "delta": 0.0 },
+      "thuoc_rxnorm": { "n": 108, "truoc": 0.556, "sau": 0.556, "delta": 0.0 },
+      "chan_doan_icd": { "n": 137, "truoc": 0.394, "sau": 0.394, "delta": 0.0 }
+    }
+  },
+
+  "cong_do_solve": {
+    "note": "Pipeline giải bài đầu-cuối, chấm theo `stages/scoring.py`. Trước = docs/reports/solve-baseline.json (tái lập khớp từng chữ số).",
+    "gold": { "n_docs": 20, "final_truoc": 0.6673, "final_sau": 0.6673, "delta": 0.0 },
+    "gold_real": { "n_docs": 9, "final_truoc": 0.4327, "final_sau": 0.4327, "delta": 0.0 },
+    "gold_batch1": { "n_docs": 21, "final_truoc": 0.2583, "final_sau": 0.2583, "delta": 0.0 }
+  },
+
+  "tieu_chi_giu_lai": {
+    "r1_nhanh_thuoc_khong_giam_moi_bo": true,
+    "final_khong_giam_gold_real": true,
+    "final_khong_giam_gold_batch1": true,
+    "ket_luan": "ĐẠT — không có ô nào tụt."
+  },
+
+  "vi_sao_delta_bang_0": {
+    "1_probe_khong_cham_toi_hien_tuong": "Nguồn nhắm vào mention viết bằng chính tả VN. Tỉ lệ mention thuốc khớp đúng một tên VI đã nạp: gold_real 3/24, gold_batch1 6/108, gold_btc_sample 0/11. Bộ probe hiện có gần như không lấy mẫu hiện tượng này, nên chúng không có khả năng phát hiện đóng góp dù có hay không.",
+    "2_mot_nua_payload_la_ban_sao": "329/608 tên VI (sau chuẩn hoá) TRÙNG HỆT một term đã có trên đúng concept đó — ASCII-folding của pipeline đã xoá khác biệt. Chỉ 279 tên là chuỗi thực sự mới.",
+    "3_lo_trong_that_nam_cho_khac": "Các ca thuốc còn trượt R@1 KHÔNG phải do chính tả VN, mà do: mention bị che (dấu *), tên BIỆT DƯỢC (Rocephin, Lipitor, Lovenox, Levothroid, Humulin), và lệch mức chi tiết (gold mong RxCUI hoạt chất, truy hồi trả về RxCUI thuốc-lâm-sàng có hàm lượng)."
+  },
+
+  "do_truc_tiep_tren_hien_tuong_nham_toi": {
+    "note": "Tra thẳng 654 tên hoạt chất tiếng Việt, so KB CÓ và KHÔNG có nguồn. Đây là phép đo duy nhất thực sự chạm tới cái nguồn này làm.",
+    "khong_co_nguon": { "r1": 0.6101, "r5": 0.6391, "r20": 0.6498 },
+    "co_nguon": { "r1": 0.9572, "r5": 0.9985, "r20": 1.0 },
+    "delta_r1": 0.3471,
+    "delta_r20": 0.3502,
+    "y_nghia": "R@20 chỉ 0,6498 khi không có nguồn nghĩa là 35% tên hoạt chất tiếng Việt truy hồi ra RỖNG HOÀN TOÀN — không phải xếp sai hạng, mà là không có ứng viên nào. Vd: Ranitidin, Famotidin, Nizatidin, Lanzoprazol, Rabeprazol, Mebeverin đều trả về [].",
+    "canh_bao_tu_dien_giai": "Chiều CÓ-nguồn mang tính vòng tròn (tra đúng chuỗi vừa nạp) nên con số 0,9572 không đáng kể. Con số đáng kể là chiều KHÔNG-nguồn: nó đo một lỗ hổng CÓ THẬT và độc lập với nguồn này."
+  },
+
+  "phat_hien_ngoai_le": {
+    "mention_bi_che_trong_gold": {
+      "mo_ta": "Một số mục THUỐC trong gold có `text` chỉ gồm dấu sao (di chứng khử-định-danh của mtsamples) nhưng vẫn mang RxCUI thật trong `candidates`. Không có công việc KB nào phục hồi được chúng.",
+      "gold_real": "4/24 ca thuốc — trần R@1 của nhánh thuốc là 0,833 chứ không phải 1,0",
+      "gold_batch1": "8/108 ca thuốc"
+    },
+    "ten_vi_bi_bo_dung_cach": "Nhôm hydroxid, Magie hydroxid, Simethicon — gold_real trượt các ca này, nhưng trong bảng DDD chúng CHỈ xuất hiện bên trong dòng phối hợp (\"Magie hydroxid + Nhôm oxit + Simethicon\" → A02AF02, mã của thuốc phối hợp). Bộ lọc `+` loại đúng. Gán A02AF02 cho bất kỳ thành phần nào trong ba thứ đó đều sai.",
+    "moi_ma_atc_cap_5_ung_dung_1_rxcui": "661/661 mã tra được đều ánh xạ 1-1, không có mã nào đa trị — nên không phải chọn lựa gì khi gắn term."
+  },
+
+  "rui_ro_con_lai": "Nguồn thêm 654 dòng (0,1% bảng `terms`) và một lần quét RXNCONSO.RRF lúc build. Không đo được tác hại nào. Nếu về sau probe giàu mention tiếng Việt hơn mà thấy nhiễu, gỡ bằng `--skip atc_ddd_byt` hoặc bỏ khỏi `SOURCES`."
+}

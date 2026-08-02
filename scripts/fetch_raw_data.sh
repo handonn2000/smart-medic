@@ -51,6 +51,12 @@ need "snomed/CT_InternationalRF2/Snapshot/Terminology" \
      "https://www.snomed.org/ — cần license quốc gia hoặc affiliate"
 
 echo
+echo "── TUỲ CHỌN — enrichment ATC (tên thuốc tiếng Việt) ──"
+need "atc/ddd.csv" \
+     "Bảng DDD của BYT theo ATC/DDD Index — cấp 608 tên hoạt chất TIẾNG VIỆT" \
+     "Danh mục thuốc/DDD của Bộ Y tế VN; ATC trong RxNorm có SRL=0 (không hạn chế)"
+
+echo
 if (( missing )); then
   echo "→ Thiếu $missing nguồn. Nguồn TUỲ CHỌN thiếu vẫn build được"
   echo "  (\`smk kb enrich\` tự bỏ qua nguồn không có)."

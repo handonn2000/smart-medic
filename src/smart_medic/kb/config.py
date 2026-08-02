@@ -60,6 +60,8 @@ ICD_PDF: Final = RAW_DIR / "icd" / "icd-10-vn.pdf"
 ICD_CSV: Final = RAW_DIR / "icd" / "ICD10.csv"
 ICD10CM_CODES: Final = RAW_DIR / "icd" / "icd10cm-codes-2027.txt"
 RXNORM_RRF: Final = RAW_DIR / "rxnorm" / "rrf"
+# Bảng DDD của Bộ Y tế (ATC/DDD Index 2016) — nguồn tên hoạt chất TIẾNG VIỆT.
+ATC_DDD_CSV: Final = RAW_DIR / "atc" / "ddd.csv"
 SNOMED_SNAPSHOT: Final = RAW_DIR / "snomed" / "CT_InternationalRF2" / "Snapshot"
 
 # ── Ngưỡng ───────────────────────────────────────────────────────────────

@@ -22,7 +22,7 @@ __all__ = ["ENRICH_DIR", "SOURCES", "run"]
 ENRICH_DIR = "enrich"
 
 # Thứ tự cố định để parquet tất định.
-ALL_SOURCES = ("curated_vi", "icd_group_rollup", "icd10cm_2027", "snomed_int")
+ALL_SOURCES = ("curated_vi", "icd_group_rollup", "icd10cm_2027", "snomed_int", "atc_ddd_byt")
 
 # ★ HAI trong bốn nguồn BỊ TẮT MẶC ĐỊNH vì đo được là CÓ HẠI.
 #
@@ -46,7 +46,7 @@ ALL_SOURCES = ("curated_vi", "icd_group_rollup", "icd10cm_2027", "snomed_int")
 # Quy tắc §P3.7: không đạt cổng hiệu quả thì BỎ. Code vẫn giữ và bật lại được
 # bằng `--only`, để ai có probe set khác (ví dụ nhiều mention tiếng Anh) thì
 # đo lại — kết quả âm này gắn với probe set hiện tại, không phải chân lý.
-SOURCES = ("curated_vi", "snomed_int")
+SOURCES = ("curated_vi", "snomed_int", "atc_ddd_byt")
 
 SORT_KEYS = {
     "sources": ["source"],
@@ -115,6 +115,7 @@ def _group_names() -> dict[str, str]:
 
 
 def _build(names: tuple[str, ...]) -> list[Enricher]:
+    from smart_medic.kb.enrich.atc_vi import AtcVietnameseNames
     from smart_medic.kb.enrich.curated import CuratedSynonyms
     from smart_medic.kb.enrich.icd10cm_rollup import Icd10CmRollup
     from smart_medic.kb.enrich.icd_groups import IcdGroupRollup
@@ -125,6 +126,7 @@ def _build(names: tuple[str, ...]) -> list[Enricher]:
         "icd_group_rollup": lambda: IcdGroupRollup(_group_names()),
         "icd10cm_2027": Icd10CmRollup,
         "snomed_int": SnomedTermDonor,
+        "atc_ddd_byt": AtcVietnameseNames,
     }
     return [factory[n]() for n in names if n in factory]
 

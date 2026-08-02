@@ -1,0 +1,48 @@
+{
+  "phase": 6,
+  "verdict": "PASS — cổng CHẶN đạt toàn bộ",
+  "submission_config": "C1 (labtest_extended=true · tagger=false · arbiter_model_weight=0.0)",
+  "container_bug_4": {
+    "found": "image `runtime` không COPY data/curated/ ⇒ flags rơi về DEFAULTS",
+    "impact": "labtest_extended=False trong container ⇒ pipeline âm thầm tụt về cấu hình C0, mất đúng 0,053 điểm Phase 1 kiếm được. KHÔNG ném lỗi, KHÔNG cảnh báo.",
+    "why_dev_never_sees_it": "trên máy dev file luôn ở đó, đường dẫn luôn giải được",
+    "fix": [
+      "COPY data/curated/ vào stage runtime",
+      "assert lúc BUILD ở stage solve: nguồn cấu hình phải là file, không phải DEFAULTS",
+      "`smk solve` IN cấu hình đang chạy mọi lần, cảnh báo to khi rơi về mặc định"
+    ],
+    "note": "Dockerfile đã ghi 'chạy thử trong container lộ ra 3 bug máy dev không bao giờ thấy'. Đây là bug thứ TƯ, cùng loại: hỏng im lặng."
+  },
+  "gates": {
+    "BLOCKING_clean_container_no_network": {
+      "image": "smart-medic:solve",
+      "size": "475MB",
+      "network": "none",
+      "n_files_out": 100,
+      "n_spans": 3000,
+      "zip": "output.zip (100 file)",
+      "ok": true
+    },
+    "BLOCKING_with_and_without_train_group": {
+      "sha256_first20_of_100_json": "c44b57be3301e6042474",
+      "environments": {
+        "container (không torch, ngắt mạng)": "c44b57be3301e6042474",
+        "host python3 (không torch)": "c44b57be3301e6042474",
+        ".venv (CÓ nhóm train: torch 2.9.1 + transformers 4.57.1)": "c44b57be3301e6042474"
+      },
+      "identical": true,
+      "ok": true,
+      "note": "Cài thêm torch KHÔNG đổi đầu ra — cấu hình C1 không chạm tới model."
+    },
+    "BLOCKING_build_time_asserts": {
+      "artifact_schema": "artifact OK: Bệnh trào ngược dạ dày - thực quản kèm viêm thực quản",
+      "config_matches_C1": "cấu hình OK: labtest_extended=True, arbiter_model_weight=0.0",
+      "no_torch_and_degrades_safely": "không có torch, tagger suy biến an toàn",
+      "ok": true
+    }
+  },
+  "artifacts_not_shipped": {
+    "data/synth/": "9,4 MB corpus — tái tạo bằng `smk synth build -n 500`",
+    "data/artifacts/tagger/": "1,1 GB checkpoint — C1 không dùng; tái tạo bằng `smk train tagger`"
+  }
+}

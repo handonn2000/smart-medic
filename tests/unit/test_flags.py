@@ -57,3 +57,32 @@ class TestLoadFlags:
 
     def test_weight_doc_ra_so(self):
         assert isinstance(weight("arbiter_model_weight"), float)
+
+
+class TestActiveConfig:
+    """★ Bug container số 4: thiếu `data/curated/` → pipeline âm thầm tụt về C0."""
+
+    def test_bao_nguon_khi_co_file(self):
+        from smart_medic.stages.flags import active_config
+
+        c = active_config()
+        assert "DEFAULTS" not in c["_source"]
+        assert c["labtest_extended"] is True
+
+    def test_bao_RO_khi_thieu_file(self, tmp_path):
+        from smart_medic.stages.flags import active_config
+
+        c = active_config(tmp_path / "khong-co.yaml")
+        assert "DEFAULTS" in c["_source"], "phải nói RÕ là đang chạy mặc định"
+        assert c["labtest_extended"] is False
+
+    def test_liet_ke_cac_co_bi_ghi_de_bang_env(self, monkeypatch):
+        from smart_medic.stages.flags import active_config
+
+        monkeypatch.setenv("SMK_LABTEST_EXTENDED", "false")
+        assert "labtest_extended" in active_config()["_overrides"]
+
+    def test_khong_ghi_de_thi_danh_sach_rong(self):
+        from smart_medic.stages.flags import active_config
+
+        assert active_config()["_overrides"] == []

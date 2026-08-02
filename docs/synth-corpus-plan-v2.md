@@ -790,7 +790,26 @@ là thứ ngăn khảo sát lại lần hai.
 **Mục tiêu `final ≥ 0,50` không đạt cũng đi tiếp Phase 6.** Cấu hình được chọn —
 kể cả C0 — vẫn cần đóng gói tái lập, vì đó mới là thứ quyết định bị loại hay không.
 
-### Phase 6 — Đóng gói tái lập (1 ngày) · *rủi ro bị loại*
+### Phase 6 — Đóng gói tái lập (1 ngày) · ✅ **ĐÃ XONG**
+
+> **Cổng CHẶN pass:** container sạch, `--network none` → 100 file, 3.000 span,
+> `output.zip` đủ 100 file. Image **475 MB**, không có `torch`.
+>
+> **Ba môi trường cho `sha256` Y HỆT** (`c44b57be3301e604`): container không
+> torch · host không torch · `.venv` **có** nhóm `train` (torch 2.9.1). Cài thêm
+> torch không đổi đầu ra — cấu hình C1 không chạm tới model.
+>
+> ★ **BUG CONTAINER SỐ 4 — cùng loại hỏng-im-lặng.** Image `runtime` không
+> `COPY data/curated/`, nên trong container `flags.load_flags` rơi về `DEFAULTS`
+> (`labtest_extended=False`) và pipeline **âm thầm tụt về cấu hình C0**, mất đúng
+> 0,053 điểm Phase 1 kiếm được. Không lỗi, không cảnh báo, và máy dev không bao
+> giờ thấy vì file luôn ở đó. Dockerfile vốn đã ghi *"chạy thử trong container lộ
+> ra 3 bug máy dev không bao giờ thấy"* — nay là bốn.
+>
+> Sửa ở ba lớp: `COPY data/curated/`; **assert lúc build** rằng nguồn cấu hình là
+> file chứ không phải mặc định; và `smk solve` **in cấu hình đang chạy** ở mọi lần
+> chạy, cảnh báo to khi rơi về mặc định.
+
 
 PRD §5: **BTC cài lại không được → bị loại.** [`pyproject.toml`](../pyproject.toml)
 hiện **cố ý** tách `torch` (~1 GB) khỏi dependency lõi; image `runtime` chỉ mang

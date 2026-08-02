@@ -30,3 +30,18 @@ services:
     image: smart-medic-kb:runtime
     environment:
       PYTHONHASHSEED: "0"
+
+  # ★ BÀI NỘP. 100 file .txt → 100 file .json + output.zip.
+  #   Không có torch: Phase 5 chọn cấu hình C1 (luật thuần + nhánh xét nghiệm).
+  solve:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: solve
+    image: smart-medic:solve
+    environment:
+      PYTHONHASHSEED: "0"
+    volumes:
+      - ../data/test:/app/data/test:ro
+      - ../data/output:/app/data/output
+      - ../data/submission:/app/data/submission

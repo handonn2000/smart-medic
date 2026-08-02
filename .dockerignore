@@ -15,6 +15,12 @@ data/artifacts/*
 data/output/
 models/
 
+# Corpus sinh ra (9,4 MB) và checkpoint tagger (1,1 GB) — KHÔNG vào image solve.
+# Cấu hình C1 không dùng model. Ai muốn huấn luyện lại thì dùng nhóm `train`
+# trên máy, không phải trong image bài nộp.
+data/synth/
+data/artifacts/tagger/
+
 .git/
 .venv/
 .pytest_cache/

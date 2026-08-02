@@ -49,6 +49,11 @@ FROM base AS runtime
 COPY pyproject.toml README.md LICENSE ./
 COPY src/ ./src/
 COPY data/probe/ ./data/probe/
+# ★ BUG CONTAINER SỐ 4 (Phase 6). Thiếu dòng này thì `stages/flags.py` rơi về
+#   DEFAULTS trong container — `labtest_extended=False` — và pipeline giải bài
+#   âm thầm tụt về cấu hình C0, mất đúng 0,053 điểm mà Phase 1 kiếm được.
+#   Không lỗi, không cảnh báo. Máy dev không bao giờ thấy vì file luôn ở đó.
+COPY data/curated/ ./data/curated/
 # KHÔNG có [build]: image này chỉ đọc SQLite, không cần pymupdf/pyarrow.
 RUN pip install --no-cache-dir .
 
@@ -84,3 +89,37 @@ SentenceTransformer(MODEL_NAME, revision=MODEL_REVISION); \
 print('model đã bake vào image')"
 
 COPY data/artifacts/kb.faiss data/artifacts/kb.faiss.meta.json ./data/artifacts/
+
+# ═══════════════════════ solve ═══════════════════════════
+# Thứ THỰC SỰ ĐƯỢC CHẤM: 100 file .txt → 100 file .json.
+#
+# ★ Không có `torch`. Phase 5 chọn cấu hình C1 (luật + nhánh xét nghiệm mở rộng),
+#   nên đường chạy bài nộp KHÔNG chạm tới model. Đó vừa là 1,1 GB không phải
+#   tải, vừa là một lớp rủi ro PRD §5 không phải gánh: "BTC không cài đặt lại
+#   được source code → nhóm thi bị loại".
+FROM runtime AS solve
+
+# Chốt cấu hình NGAY LÚC BUILD. Cổng này tồn tại vì bug container số 4 là loại
+# hỏng-im-lặng: không có nó, một image thiếu `data/curated/` vẫn chạy trơn tru
+# và chỉ tệ hơn ở điểm số.
+RUN python -c "\
+from smart_medic.stages.flags import active_config; \
+c = active_config(); \
+assert 'DEFAULTS' not in c['_source'], 'image THIẾU data/curated/pipeline.v1.yaml'; \
+assert c['labtest_extended'] is True, 'cấu hình không khớp C1 đã chọn ở Phase 5'; \
+assert c['arbiter_model_weight'] == 0.0, 'C1 không dùng model'; \
+print('cấu hình OK:', {k: v for k, v in c.items() if not k.startswith('_')})"
+
+# Xác minh KHÔNG có torch trên đường chạy — `stages/tagger.py` phải suy biến an
+# toàn chứ không được ném.
+RUN python -c "\
+import importlib.util; \
+assert importlib.util.find_spec('torch') is None, 'torch KHÔNG được có trong image solve'; \
+from smart_medic.stages import tagger; \
+assert tagger.detect('viêm phổi', enabled=True) == [], 'tagger phải trả rỗng khi thiếu torch'; \
+print('không có torch, tagger suy biến an toàn')"
+
+VOLUME ["/app/data/test", "/app/data/output", "/app/data/submission"]
+
+ENTRYPOINT ["smk", "solve"]
+CMD ["--input", "data/test", "--out", "data/output", "--zip", "data/submission/output.zip"]

@@ -48,6 +48,28 @@ def load_flags(path: Path | None = None) -> dict[str, Any]:
     return {**DEFAULTS, **(yaml.safe_load(p.read_text(encoding="utf-8")) or {})}
 
 
+def active_config(path: Path | None = None) -> dict[str, Any]:
+    """Cấu hình đang chạy + **NGUỒN của nó**.
+
+    ★ BUG CONTAINER SỐ 4, PHÁT HIỆN Ở PHASE 6.
+    Image `runtime` không copy `data/curated/`, nên trong container `load_flags`
+    rơi về `DEFAULTS` — tức `labtest_extended=False` — và pipeline âm thầm tụt về
+    cấu hình C0, mất đúng 0,053 điểm mà Phase 1 kiếm được. **Không ném lỗi, không
+    cảnh báo.**
+
+    Rơi về mặc định vẫn là hành vi ĐÚNG (repo phải chạy được khi thiếu file cấu
+    hình). Cái sai là nó **im lặng**. Nên `smk solve` in cấu hình đang chạy ở mọi
+    lần chạy, và Dockerfile chốt lại bằng một assert lúc build.
+    """
+    p = path or CURATED_DIR / FLAGS_FILE
+    cfg = dict(load_flags(path))
+    cfg["_source"] = str(p) if p.is_file() else "DEFAULTS (THIẾU file cấu hình)"
+    cfg["_overrides"] = sorted(
+        k for k in DEFAULTS if os.environ.get(f"SMK_{k.upper()}") is not None
+    )
+    return cfg
+
+
 def _coerce_bool(value: Any, name: str) -> bool:
     if isinstance(value, bool):
         return value

@@ -11,10 +11,37 @@ Xây cho **Viettel AI Race 2026 — Vòng 1**. Đề bài đầy đủ: [`docs/P
 
 | Phần | Trạng thái |
 |---|---|
-| **Knowledge Base pipeline** | ✅ Xong (Phase 0–5) — xem [`docs/kb-pipeline-plan.md`](docs/kb-pipeline-plan.md) |
-| Pipeline giải bài (NER → assertion → linking) | ⏳ Chưa bắt đầu |
+| **Knowledge Base pipeline** | ✅ Xong — xem [`docs/kb-pipeline-plan.md`](docs/kb-pipeline-plan.md) |
+| **Pipeline giải bài** (NER → assertion → linking) | ✅ Xong — xem [`docs/synth-corpus-plan-v2.md`](docs/synth-corpus-plan-v2.md) |
 
-KB hiện có **141.948 concept** (16.944 mã bệnh ICD-10 + 124.708 khái niệm thuốc RxNorm), 633.000 term song ngữ, artifact 326 MB. Truy hồi đạt Recall@20 = 1,000 trên probe set 122 cặp.
+KB có **141.948 concept** (16.944 mã ICD-10 + 124.708 khái niệm RxNorm), 633.000 term song ngữ, artifact 326 MB. Truy hồi Recall@20 = 1,000 trên probe set 122 cặp.
+
+Pipeline giải bài đạt `final` **0,4857** trên `data/probe/gold_real` — 9 file lấy
+nguyên văn từ `data/test`, gán nhãn tay. Đây là **tín hiệu không thiên lệch duy
+nhất**; hai bộ gold còn lại báo cáo riêng và không dùng làm cổng.
+
+### Chạy bài nộp
+
+```bash
+smk solve --input data/test --out data/output --zip data/submission/output.zip
+```
+
+Hoặc trong container, **không cần mạng**:
+
+```bash
+docker compose -f docker/compose.yaml run --rm solve
+```
+
+★ **Đường chạy bài nộp KHÔNG dùng `torch`.** Dự án có huấn luyện một tagger
+XLM-R (`smk train tagger`) và một arbiter lai, nhưng phép đo cho thấy nó **không
+vượt nhiễu** trên phân bố đích — xem [`docs/reports/phase5-gate.json`](docs/reports/phase5-gate.json).
+Cấu hình nộp là **C1**: luật + nhánh xét nghiệm mở rộng. Nhờ vậy image bài nộp
+chỉ **475 MB** và không có lớp rủi ro cài đặt nào mà PRD §5 phạt bằng loại trực
+tiếp.
+
+★ **Cấu hình được in ở mọi lần chạy.** Thiếu `data/curated/pipeline.v1.yaml` thì
+pipeline vẫn chạy nhưng tụt về cấu hình mặc định (mất ~0,05 điểm) — nên nó **nói
+ra** thay vì im lặng. Xem `stages/flags.active_config`.
 
 ---
 
@@ -31,6 +58,20 @@ cần khi **dựng** KB nên nằm ở extra `build`; nhờ vậy image runtime 
 mang theo 213 MB thư viện nó không gọi tới.
 
 Yêu cầu Python ≥ 3.11. Không cần GPU, không cần Docker, không cần kết nối mạng lúc build.
+
+### Nhóm dependency
+
+| nhóm | nội dung | ai cần |
+|---|---|---|
+| *(lõi)* | `PyYAML` | **chạy bài nộp** — chỉ cần cái này |
+| `build` | `pymupdf`, `pyarrow` | dựng lại KB từ nguồn thô |
+| `train` | `torch`, `transformers` (~2 GB) | huấn luyện lại tagger. **KHÔNG cần để chấm bài** |
+| `dense` | `faiss-cpu`, `sentence-transformers` | truy hồi dense (đang tắt, đo thấy có hại) |
+
+★ **Chạy khi KHÔNG có `torch`.** Đây là đường chạy mặc định và là đường của bài
+nộp. `stages/tagger.py` nạp torch **bên trong hàm**; thiếu torch thì nó trả danh
+sách rỗng và pipeline chạy tiếp bằng nhánh luật — không ném lỗi. Kiểm tự động ở
+stage `solve` của Dockerfile.
 
 ## Dựng Knowledge Base
 

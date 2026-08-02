@@ -178,6 +178,18 @@ def _dispatch_solve(args: argparse.Namespace) -> int:
     from pathlib import Path
 
     from smart_medic.stages import solve
+    from smart_medic.stages.flags import active_config
+
+    # ★ In cấu hình ĐANG CHẠY ở mọi lần chạy. Thiếu `data/curated/` thì pipeline
+    #   âm thầm tụt về C0 — bug container số 4, xem `flags.active_config`.
+    cfg = active_config()
+    src = cfg.pop("_source")
+    ovr = cfg.pop("_overrides")
+    print(f"  cấu hình: {cfg}")
+    print(f"  nguồn:    {src}" + (f"  · ghi đè bằng env: {ovr}" if ovr else ""))
+    if "DEFAULTS" in src:
+        print("  ⚠ THIẾU data/curated/pipeline.v1.yaml — đang chạy cấu hình MẶC ĐỊNH,")
+        print("    KHÔNG phải cấu hình đã chọn ở Phase 5. Điểm sẽ thấp hơn ~0,05.")
 
     stats = solve.run(
         input_dir=Path(args.input),

@@ -56,6 +56,14 @@ def _add_kb_parser(sub: argparse._SubParsersAction) -> None:
     )
 
 
+def _add_solve_parser(sub: argparse._SubParsersAction) -> None:
+    p = sub.add_parser("solve", help="chạy pipeline giải bài: thư mục .txt → .json")
+    p.add_argument("--input", default="data/test", help="thư mục chứa .txt")
+    p.add_argument("--out", default="data/output", help="thư mục ghi .json")
+    p.add_argument("--db", help="artifact KB (mặc định data/artifacts/kb.sqlite)")
+    p.add_argument("--zip", dest="zip_path", help="đóng gói bài nộp ra file zip")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="smk",
@@ -63,6 +71,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     sub = parser.add_subparsers(dest="cmd", metavar="<nhóm>", required=True)
     _add_kb_parser(sub)
+    _add_solve_parser(sub)
     return parser
 
 
@@ -98,10 +107,36 @@ def _dispatch_kb(args: argparse.Namespace) -> int:
             raise AssertionError(args.kb_cmd)
 
 
+def _dispatch_solve(args: argparse.Namespace) -> int:
+    from pathlib import Path
+
+    from smart_medic.stages import solve
+
+    stats = solve.run(
+        input_dir=Path(args.input),
+        out_dir=Path(args.out),
+        db=Path(args.db) if args.db else None,
+    )
+    print(f"  {stats.n_docs} file → {args.out}")
+    print(f"  {stats.n_entities} khái niệm")
+    for k in sorted(stats.by_type, key=lambda x: -stats.by_type[x]):
+        print(f"    {k:22s} {stats.by_type[k]:5d}")
+    if stats.stale:
+        print(f"  ⚠ {len(stats.stale)} file lạ trong {args.out} (sót từ lần chạy trước):")
+        print(f"    {', '.join(stats.stale[:8])}")
+        print("    → không được đưa vào bài nộp; dùng --zip để đóng gói đúng danh sách")
+    if args.zip_path:
+        n = solve.write_zip(Path(args.out), Path(args.zip_path), input_dir=Path(args.input))
+        print(f"  → {args.zip_path} ({n} file)")
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.cmd == "kb":
         return _dispatch_kb(args)
+    if args.cmd == "solve":
+        return _dispatch_solve(args)
     raise AssertionError(args.cmd)  # pragma: no cover
 
 

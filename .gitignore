@@ -23,6 +23,9 @@ models/*.onnx
 data/output/*.json
 !data/output/.gitkeep
 
+# Bài nộp — dẫn xuất, luôn sinh lại được bằng `smk solve --zip`
+data/submission/
+
 # KB pipeline — dữ liệu dẫn xuất, luôn build lại được từ nguồn thô
 data/staging/*
 !data/staging/.gitkeep

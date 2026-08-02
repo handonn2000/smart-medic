@@ -1,0 +1,358 @@
+[
+  {
+    "text": "hội chứng Down",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Q90"
+    ],
+    "assertions": [],
+    "position": [
+      53,
+      67
+    ]
+  },
+  {
+    "text": "suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [],
+    "position": [
+      102,
+      110
+    ]
+  },
+  {
+    "text": "nấm móng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B35.1"
+    ],
+    "assertions": [],
+    "position": [
+      114,
+      122
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [
+      "217956"
+    ],
+    "assertions": [],
+    "position": [
+      165,
+      172
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      234,
+      237
+    ]
+  },
+  {
+    "text": "suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      260,
+      268
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      295,
+      298
+    ]
+  },
+  {
+    "text": "tăng cao",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      299,
+      307
+    ]
+  },
+  {
+    "text": "Levothroid 0.1 mg dùng hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "218001"
+    ],
+    "assertions": [],
+    "position": [
+      331,
+      363
+    ]
+  },
+  {
+    "text": "149 pound",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      546,
+      555
+    ]
+  },
+  {
+    "text": "2 pound",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      562,
+      569
+    ]
+  },
+  {
+    "text": "Huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      593,
+      601
+    ]
+  },
+  {
+    "text": "120/80",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      613,
+      619
+    ]
+  },
+  {
+    "text": "mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      621,
+      625
+    ]
+  },
+  {
+    "text": "80 nhịp/phút và đều",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      626,
+      645
+    ]
+  },
+  {
+    "text": "hạch",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      671,
+      675
+    ]
+  },
+  {
+    "text": "tuyến giáp to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      688,
+      701
+    ]
+  },
+  {
+    "text": "nốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      706,
+      709
+    ]
+  },
+  {
+    "text": "tiếng thổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      760,
+      770
+    ]
+  },
+  {
+    "text": "móng chân vẫn dày và vàng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      783,
+      808
+    ]
+  },
+  {
+    "text": "Hội chứng Down",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Q90"
+    ],
+    "assertions": [],
+    "position": [
+      878,
+      892
+    ]
+  },
+  {
+    "text": "Nấm móng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B35.1"
+    ],
+    "assertions": [],
+    "position": [
+      894,
+      902
+    ]
+  },
+  {
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [],
+    "position": [
+      907,
+      915
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      962,
+      965
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      969,
+      972
+    ]
+  },
+  {
+    "text": "******* 250 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "217956"
+    ],
+    "assertions": [],
+    "position": [
+      1033,
+      1047
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1088,
+      1091
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1092,
+      1103
+    ]
+  },
+  {
+    "text": "suy chức năng gan",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K72.9"
+    ],
+    "assertions": [],
+    "position": [
+      1175,
+      1192
+    ]
+  },
+  {
+    "text": "suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [],
+    "position": [
+      1202,
+      1210
+    ]
+  },
+  {
+    "text": "********** 0.1 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "218001"
+    ],
+    "assertions": [],
+    "position": [
+      1239,
+      1266
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1284,
+      1287
+    ]
+  }
+]

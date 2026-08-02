@@ -1,0 +1,84 @@
+{
+  "base_model": "xlm-roberta-base",
+  "base_revision": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",
+  "seed": 20260802,
+  "labels": [
+    "O",
+    "B-TRIỆU_CHỨNG",
+    "I-TRIỆU_CHỨNG",
+    "B-TÊN_XÉT_NGHIỆM",
+    "I-TÊN_XÉT_NGHIỆM",
+    "B-KẾT_QUẢ_XÉT_NGHIỆM",
+    "I-KẾT_QUẢ_XÉT_NGHIỆM",
+    "B-CHẨN_ĐOÁN",
+    "I-CHẨN_ĐOÁN",
+    "B-THUỐC",
+    "I-THUỐC"
+  ],
+  "corpus_sha256": "9051b1b47ca6ad63850c9070493c8028a25c364d0b495736535bc24df124548d",
+  "corpus_dir": "/Users/handonn/Workplace/viettelAI/smart-medic/data/synth/v1",
+  "config": {
+    "epochs": 3,
+    "batch_size": 8,
+    "lr": 3e-05
+  },
+  "history": [
+    {
+      "span_f1": 0.9691,
+      "span_precision": 0.9418,
+      "span_recall": 0.9981,
+      "type_accuracy": 0.9876,
+      "n_docs": 75,
+      "epoch": 1,
+      "train_loss": 0.4912
+    },
+    {
+      "span_f1": 0.9703,
+      "span_precision": 0.9432,
+      "span_recall": 0.999,
+      "type_accuracy": 0.995,
+      "n_docs": 75,
+      "epoch": 2,
+      "train_loss": 0.0212
+    },
+    {
+      "span_f1": 0.9709,
+      "span_precision": 0.9447,
+      "span_recall": 0.9986,
+      "type_accuracy": 0.9962,
+      "n_docs": 75,
+      "epoch": 3,
+      "train_loss": 0.0097
+    }
+  ],
+  "dev": {
+    "span_f1": 0.9709,
+    "span_precision": 0.9447,
+    "span_recall": 0.9986,
+    "type_accuracy": 0.9962,
+    "n_docs": 75,
+    "epoch": 3,
+    "train_loss": 0.0097
+  },
+  "threshold": 0.0,
+  "gates": {
+    "BLOCKING_offset_drift_data_test": {
+      "n_files": 100,
+      "n_files_non_nfc": 20,
+      "n_spans": 4869,
+      "drifted": 0,
+      "ok": true,
+      "note": "Kiểm text[start:end] == span.text trên TOÀN BỘ 100 file, gồm 20 file không NFC. Đây là cổng CHẶN — lệch offset là bug đi thẳng vào bài nộp."
+    },
+    "ROUTING_dev_f1_ge_0.80": {
+      "value": 0.9709,
+      "threshold": 0.8,
+      "ok": true,
+      "note": "Dev là tài liệu TỔNG HỢP, cùng bộ sinh với train. F1 0,97 chủ yếu xác nhận model đã học được BỘ SINH, KHÔNG phải học được miền. Tín hiệu thật nằm ở Phase 4/5 trên gold_real. Đừng đọc con số này như năng lực."
+    }
+  },
+  "known_limits": {
+    "bio_token_granularity": "Vòng tròn mã hoá→giải mã mất 1,85% span do tokenizer dán dấu câu vào token cuối. Trần của nhánh model bị chặn ở mức đó.",
+    "synthetic_dev_not_capability": "Quy tắc §5.1 — không báo cáo năng lực trên chính tập sinh ra. dev F1 chỉ dùng để định tuyến cờ."
+  }
+}

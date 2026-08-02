@@ -21,8 +21,12 @@ version: 1
 # Tắt cờ này thì `labtest.py` thu về đúng hành vi trước Phase 1.
 labtest_extended: true
 
-# Phase 3 — tagger XLM-R. Chưa có.
-tagger: false
+# Phase 3 — tagger XLM-R trên corpus tổng hợp.
+# Cổng CHẶN pass: 0 span lệch offset trên 100 file data/test (4.869 span, 20 file
+# không NFC). Cổng ĐỊNH TUYẾN pass: dev F1 0,9709 ≥ 0,80.
+# ⚠️ Bật cờ này KHÔNG đưa tagger vào kết quả — `arbiter_model_weight` mới quyết
+#    định điều đó. Phase 4 chưa xong nên trọng số còn 0,0.
+tagger: true
 
 # Phase 4 — trọng số của proposer model trong arbiter. 0.0 = pipeline luật thuần.
 arbiter_model_weight: 0.0

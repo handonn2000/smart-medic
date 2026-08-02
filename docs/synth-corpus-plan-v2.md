@@ -599,7 +599,7 @@ bằng span sinh ra.
 Corpus không đạt cổng định tuyến vẫn đem huấn luyện — chỉ là kỳ vọng thấp hơn,
 và Phase 5 biết điều đó khi đọc `phase2-corpus-stats.json`.
 
-### Phase 3 — Tagger (2 ngày) · ⏸ **HẠ TẦNG XONG, HUẤN LUYỆN CHƯA CHẠY**
+### Phase 3 — Tagger (2 ngày) · ✅ **ĐÃ XONG** · cờ `tagger: true`
 
 > **Đã xong và test đầy đủ (không cần torch):**
 > [`stages/bio.py`](../src/smart_medic/stages/bio.py) — mã hoá/giải mã BIO,
@@ -608,8 +608,16 @@ và Phase 5 biết điều đó khi đọc `phase2-corpus-stats.json`.
 > [`train/train_tagger.py`](../src/smart_medic/train/train_tagger.py); nhóm
 > dependency `train` trong `pyproject.toml`; `smk train tagger`.
 >
-> **Huấn luyện để chạy downstream** (theo yêu cầu). Lệnh:
-> `smk train tagger --epochs 3 --report docs/reports/phase3-tagger.json`
+> **Cổng CHẶN pass:** chạy tagger trên **toàn bộ 100 file `data/test`** (gồm 20
+> file không NFC) → 4.869 span, **0 span lệch offset**. Đây là cổng thật sự của
+> phase này.
+>
+> **Cổng ĐỊNH TUYẾN pass:** dev F1 **0,9709** (ngưỡng 0,80) ⇒ cờ `tagger: true`.
+>
+> ⚠️ **Đừng đọc 0,97 như năng lực.** Dev là tài liệu tổng hợp, cùng bộ sinh với
+> train — F1 cao ở đó chủ yếu xác nhận model đã học được **bộ sinh**, không phải
+> học được **miền**. Quy tắc §5.1 cấm báo cáo năng lực trên chính tập sinh ra.
+> Tín hiệu thật nằm ở Phase 4/5 trên `gold_real`, và nó có thể thấp hơn nhiều.
 >
 > ★ **Rủi ro lớn nhất của phase đã được đo và loại trừ.** Câu hỏi:
 > `offset_mapping` của XLM-R trỏ vào chuỗi GỐC hay chuỗi đã chuẩn hoá? Nếu là

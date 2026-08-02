@@ -68,6 +68,32 @@ STOP_PHRASES: frozenset[str] = frozenset(
         "cấp", "mạn", "mãn", "cấp tính", "mạn tính", "mãn tính",
         "không xác định", "không đặc hiệu", "biến chứng", "di chứng",
         "tiền sử", "gia đình", "toàn thân", "khu trú", "nguyên phát", "thứ phát",
+        # ★ Bộ phận cơ thể đứng một mình. Chúng lọt vào vì term nguồn của ICD bị
+        #   CỤT: `T35.3` có term tiếng Việt đúng là `"bụng"`, `J68` là `"khí"`.
+        #   Để nguyên thì chúng khớp bừa và còn cướp span của mention triệu chứng
+        #   dài hơn (`"đau bụng"` bị khớp thành `"bụng"`).
+        "bụng", "ngực", "lưng", "đầu", "cổ", "vai", "tay", "chân", "khớp",
+        "gan", "thận", "phổi", "tim", "não", "da", "mắt", "tai", "mũi", "họng",
+        "khí", "máu", "xương", "cơ", "dạ dày", "ruột", "bàng quang", "tử cung",
+        "tim mạch", "nội tiết", "tiết niệu", "hô hấp", "tiêu hoá", "tiêu hóa",
+        "thần kinh", "cơ xương khớp", "sinh dục", "tuyến giáp",
+    }
+)  # fmt: skip
+
+# ★ Đầu cụm chỉ TRIỆU CHỨNG — thắng luật chương ICD.
+#
+# Chương R của ICD phủ phần lớn triệu chứng, nhưng không phải tất cả: `"đau
+# khớp"` nằm ở `M25.5` (chương M), `"ngứa"` ở `L29` (chương L). Về mã thì đó là
+# chỗ đúng của chúng; về NHÃN của đề bài thì chúng là triệu chứng.
+#
+# Đây là từ vựng cảm giác/quan sát của tiếng Việt y khoa — một tập đóng, nhỏ, và
+# là *kiến thức chung về ngôn ngữ*, không phải danh sách chép từ bộ gold.
+SYMPTOM_HEADS: frozenset[str] = frozenset(
+    {
+        "đau", "nhức", "mỏi", "ngứa", "rát", "tê", "buốt", "sưng", "phù", "cứng",
+        "sốt", "ho", "khó", "mệt", "yếu", "liệt", "run", "co giật", "chóng mặt",
+        "buồn nôn", "nôn", "ói", "chảy", "mất", "sụt", "khát", "tiểu", "đại tiện",
+        "vàng da", "xanh xao", "hồi hộp", "ợ", "đầy", "chướng", "khàn", "ngất",
     }
 )  # fmt: skip
 
@@ -192,6 +218,19 @@ def surface_forms(term: str) -> list[str]:
     return out
 
 
+def head_is_symptom(key: str) -> bool:
+    """Cụm có bắt đầu bằng từ chỉ cảm giác/quan sát không.
+
+    >>> head_is_symptom("đau khớp")
+    True
+    >>> head_is_symptom("viêm phổi")
+    False
+    """
+    parts = key.split()
+    # Thử đầu cụm hai từ trước (`"co giật"`, `"buồn nôn"`), rồi mới một từ.
+    return any(len(parts) >= n and " ".join(parts[:n]) in SYMPTOM_HEADS for n in (2, 1))
+
+
 def _add(entries: dict[str, str], term: str, label: str) -> None:
     for key in surface_forms(term):
         if len(key.split()) > MAX_NGRAM:
@@ -200,11 +239,14 @@ def _add(entries: dict[str, str], term: str, label: str) -> None:
             continue
         if key in STOP_PHRASES:
             continue
+        # ★ Đầu cụm chỉ triệu chứng thắng luật chương ICD: `"đau khớp"` mã ở
+        #   chương M nhưng nhãn của đề là TRIỆU_CHỨNG.
+        final = TYPE_SYMPTOM if (label == TYPE_DIAGNOSIS and head_is_symptom(key)) else label
         # CHẨN_ĐOÁN thắng khi trùng khoá: cùng một chuỗi vừa là tên bệnh vừa là
         # tên hoạt chất thì trong bệnh án nó gần như luôn là chẩn đoán.
         if entries.get(key) == TYPE_DIAGNOSIS:
             continue
-        entries[key] = label
+        entries[key] = final
 
 
 def detect(text: str, gaz: Gazetteer) -> list[Entity]:

@@ -155,3 +155,63 @@ class TestGiaTriXetNghiem:
 class TestNormKey:
     def test_hop_nhat_khoang_trang_va_ha_chu(self):
         assert norm_key(["Viêm", "PHỔI"]) == "viêm phổi"
+
+
+class TestDauCumTrieuChung:
+    """★ Đầu cụm chỉ triệu chứng thắng luật chương ICD.
+
+    Chương R phủ phần lớn triệu chứng nhưng không phải tất cả: `"đau khớp"` mã
+    ở `M25.5` (chương M), `"ngứa"` ở `L29` (chương L). Về mã thì đúng chỗ; về
+    NHÃN của đề bài thì chúng là triệu chứng.
+    """
+
+    def test_nhan_dien_dau_cum(self):
+        from smart_medic.stages.ner import head_is_symptom
+
+        for phrase in ("đau khớp", "sưng đau khớp bàn tay", "ngứa", "khó thở", "co giật toàn thể"):
+            assert head_is_symptom(phrase), phrase
+
+    def test_ten_benh_khong_bi_nham(self):
+        from smart_medic.stages.ner import head_is_symptom
+
+        for phrase in ("viêm phổi", "đái tháo đường", "tăng huyết áp", "suy tim"):
+            assert not head_is_symptom(phrase), phrase
+
+    def test_ghi_de_nhan_chuong(self):
+        from smart_medic.stages.ner import _add
+
+        e: dict[str, str] = {}
+        _add(e, "đau khớp", TYPE_DIAGNOSIS)  # mã ở chương M
+        assert e["đau khớp"] == TYPE_SYMPTOM
+
+    def test_khong_dung_toi_ten_benh(self):
+        from smart_medic.stages.ner import _add
+
+        e: dict[str, str] = {}
+        _add(e, "viêm phổi", TYPE_DIAGNOSIS)
+        assert e["viêm phổi"] == TYPE_DIAGNOSIS
+
+
+class TestChanBoPhanCoThe:
+    """Term nguồn của ICD bị CỤT sinh ra mục một từ là bộ phận cơ thể.
+
+    `T35.3` có term tiếng Việt đúng là `"bụng"`, `J68` là `"khí"`. Để nguyên thì
+    chúng khớp bừa VÀ cướp span của mention dài hơn.
+    """
+
+    def test_bo_phan_co_the_bi_chan(self):
+        from smart_medic.stages.ner import _add
+
+        e: dict[str, str] = {}
+        for w in ("bụng", "khí", "thận", "khớp", "tim mạch", "nội tiết"):
+            _add(e, w, TYPE_DIAGNOSIS)
+        assert not e
+
+    def test_khong_cuop_span_cua_trieu_chung(self):
+        """`"đau bụng"` không được bị khớp thành `"bụng"`."""
+        from smart_medic.stages.ner import _add
+
+        e: dict[str, str] = {}
+        _add(e, "bụng", TYPE_DIAGNOSIS)
+        ents = detect("bệnh nhân đau bụng nhiều", Gazetteer(entries=e))
+        assert ents == []

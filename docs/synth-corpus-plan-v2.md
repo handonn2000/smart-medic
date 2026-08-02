@@ -291,10 +291,15 @@ src/smart_medic/
 │   ├── labtest.py                 # ★ MỞ RỘNG mạnh — Phase 1
 │   ├── assertion.py               # giữ nguyên; chỉ đo thêm
 │   ├── linking.py                 # giữ nguyên (rerank=True)
-│   ├── scoring.py                 # + báo cáo theo nhánh, + bootstrap
+│   ├── scoring.py                 # ✅ + TypeStats & Report.by_type() (Phase 0)
 │   ├── solve.py                   # nối arbiter vào
 │   ├── arbiter.py                 # ★ MỚI — weighted interval scheduling
 │   └── tagger.py                  # ★ MỚI — inference; KHÔNG import torch ở top-level
+│
+├── eval/                          # ✅ ĐÃ XONG — Phase 0. CÁI THƯỚC, không phải
+│   ├── __init__.py                #    thứ được đo; tách khỏi stages/ có chủ đích
+│   ├── bootstrap.py               #    paired bootstrap, SEED=20260802, B=10000
+│   └── harness.py                 #    chấm bộ gold + bảng theo nhánh + so hai báo cáo
 │
 ├── synth/                         # ★ MỚI — chỉ chạy lúc BUILD, không vào runtime
 │   ├── __init__.py
@@ -417,9 +422,19 @@ buộc kép (recall lên **và** precision không tụt) có thể chặn một 
 lợi ròng, đồng thời cho lọt một thay đổi hoà vốn. `Δfinal` kèm CI đã bao trọn cả
 hai chiều — dùng một tiêu chí *tổng hợp* vừa dễ đạt hơn vừa đúng hơn.
 
-### Phase 0 — Hạ tầng đánh giá (0,5 ngày) · *điều kiện tiên quyết cho mọi cổng*
+### Phase 0 — Hạ tầng đánh giá (0,5 ngày) · ✅ **ĐÃ XONG**
 
 Không có phase này thì mọi cổng ở v1 đều không đo được (G6).
+
+> **Kết quả:** `smk eval solve` · `smk eval compare` ·
+> [`docs/reports/synth-baseline.json`](reports/synth-baseline.json).
+> Cổng CHẶN pass: ba lần chạy cho `sha256` y hệt; `gold_real` tái tạo đúng
+> **0,4327**; bảng theo nhánh tái tạo đúng §0.2; **0 vi phạm bất biến** trên cả
+> ba bộ.
+>
+> ★ Phase này lập tức trả lời một câu hỏi của chính nó: mô phỏng một thay đổi
+> `Δ = +0,053` trên `gold_real` — **vượt cổng `≥ +0,03` của v1** — thì CI 95%
+> ra `[−0,024, +0,131]`, tức **vẫn nằm trong nhiễu**. Cổng cũ sẽ cho nó qua.
 
 **Việc:**
 1. `smk eval solve --gold <dir> --report <json>` — chấm một bộ gold, xuất:

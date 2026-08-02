@@ -26,6 +26,21 @@ Giả định ở đây, khai báo tường minh để đổi được khi BTC l
 Vì lớp giả định này, **con số tuyệt đối ở đây không phải điểm thi**. Nó dùng để
 so sánh giữa hai phiên bản của chính ta. Kèm thêm P/R/F1 chuẩn — đại lượng
 KHÔNG phụ thuộc giả định nào — để chẩn đoán khi hai chỉ số lệch nhau.
+
+★ BẢNG THEO NHÁNH — ngữ nghĩa chính xác
+────────────────────────────────────────
+`Report.by_type()` trả P/R/F1 **theo từng nhãn**. Đây là đại lượng đã lộ ra rằng
+ưu tiên của kế hoạch v1 bị đảo ngược (`docs/synth-corpus-plan-v2.md` §0.2), nên
+định nghĩa phải rõ để không ai đọc nhầm:
+
+    recall[t]     = (cặp ghép được có nhãn VÀNG = t) / (số entity vàng nhãn t)
+    precision[t]  = (cặp ghép được có nhãn DỰ ĐOÁN = t) / (số entity dự đoán nhãn t)
+
+Tức đây là **P/R của việc PHÁT HIỆN span**, tính theo nhãn — một cặp ghép được
+nhưng gán sai nhãn vẫn được tính là "phát hiện đúng" ở cả hai vế. Phần gán nhãn
+đo riêng bằng `type_accuracy[t]`. Tách hai thứ ra là có chủ đích: trần điểm của
+mỗi nhánh bị chặn bởi *phát hiện*, không phải bởi *phân loại* — trộn chúng vào
+một con số sẽ giấu mất điều đó.
 """
 
 from __future__ import annotations
@@ -176,6 +191,52 @@ def align(
 
 
 @dataclass(slots=True)
+class TypeStats:
+    """Đếm thô theo một nhãn. Mọi tỉ lệ suy ra từ đây, không lưu tỉ lệ."""
+
+    gold: int = 0
+    pred: int = 0
+    matched_gold: int = 0  # cặp ghép được, đếm theo nhãn của entity VÀNG
+    matched_pred: int = 0  # cặp ghép được, đếm theo nhãn của entity DỰ ĐOÁN
+    type_ok: int = 0  # cặp ghép được và hai nhãn trùng nhau
+
+    def add(self, other: TypeStats) -> None:
+        self.gold += other.gold
+        self.pred += other.pred
+        self.matched_gold += other.matched_gold
+        self.matched_pred += other.matched_pred
+        self.type_ok += other.type_ok
+
+    @property
+    def recall(self) -> float:
+        return self.matched_gold / self.gold if self.gold else 0.0
+
+    @property
+    def precision(self) -> float:
+        return self.matched_pred / self.pred if self.pred else 0.0
+
+    @property
+    def f1(self) -> float:
+        p, r = self.precision, self.recall
+        return 2 * p * r / (p + r) if p + r else 0.0
+
+    @property
+    def type_accuracy(self) -> float:
+        return self.type_ok / self.matched_gold if self.matched_gold else 0.0
+
+    def as_dict(self) -> dict:
+        return {
+            "gold": self.gold,
+            "pred": self.pred,
+            "matched": self.matched_gold,
+            "recall": round(self.recall, 4),
+            "precision": round(self.precision, 4),
+            "f1": round(self.f1, 4),
+            "type_accuracy": round(self.type_accuracy, 4),
+        }
+
+
+@dataclass(slots=True)
 class DocScore:
     text: float = 0.0
     assertions: float = 0.0
@@ -184,18 +245,55 @@ class DocScore:
     n_pred: int = 0
     n_matched: int = 0
     n_type_ok: int = 0
+    by_type: dict[str, TypeStats] = field(default_factory=dict)
+    name: str = ""
 
     @property
     def final(self) -> float:
         return W_TEXT * self.text + W_ASSERTIONS * self.assertions + W_CANDIDATES * self.candidates
 
+    def as_dict(self) -> dict:
+        """Điểm từng file — `bootstrap` cần đúng ba thành phần này để lấy mẫu lại."""
+        return {
+            "name": self.name,
+            "text": round(self.text, 6),
+            "assertions": round(self.assertions, 6),
+            "candidates": round(self.candidates, 6),
+            "final": round(self.final, 6),
+            "n_gold": self.n_gold,
+            "n_pred": self.n_pred,
+            "n_matched": self.n_matched,
+        }
 
-def score_document(gold: list[Entity], pred: list[Entity]) -> DocScore:
+
+def _tally_types(
+    gold: list[Entity], pred: list[Entity], matched: list[tuple[Entity, Entity]]
+) -> dict[str, TypeStats]:
+    """Đếm thô theo nhãn. Ngữ nghĩa ở docstring module, mục "BẢNG THEO NHÁNH"."""
+    by: dict[str, TypeStats] = {}
+
+    def slot(t: str) -> TypeStats:
+        return by.setdefault(t, TypeStats())
+
+    for e in gold:
+        slot(e.type).gold += 1
+    for e in pred:
+        slot(e.type).pred += 1
+    for g, p in matched:
+        slot(g.type).matched_gold += 1
+        slot(p.type).matched_pred += 1
+        if g.type == p.type:
+            slot(g.type).type_ok += 1
+    return by
+
+
+def score_document(gold: list[Entity], pred: list[Entity], *, name: str = "") -> DocScore:
     """Chấm một file. Xem phần giả định ở docstring module."""
     matched, missed, spurious = align(gold, pred)
+    by_type = _tally_types(gold, pred, matched)
     n = len(matched) + len(missed) + len(spurious)
     if n == 0:
-        return DocScore(text=1.0, assertions=1.0, candidates=1.0)
+        return DocScore(text=1.0, assertions=1.0, candidates=1.0, by_type=by_type, name=name)
 
     t = a = c = 0.0
     type_ok = 0
@@ -216,6 +314,8 @@ def score_document(gold: list[Entity], pred: list[Entity]) -> DocScore:
         n_pred=len(pred),
         n_matched=len(matched),
         n_type_ok=type_ok,
+        by_type=by_type,
+        name=name,
     )
 
 
@@ -264,6 +364,14 @@ class Report:
         """Trong số entity ghép được, bao nhiêu phần trăm đúng nhãn."""
         n = sum(d.n_matched for d in self.docs)
         return sum(d.n_type_ok for d in self.docs) / n if n else 0.0
+
+    def by_type(self) -> dict[str, TypeStats]:
+        """Gộp đếm thô theo nhãn trên mọi file. Xem docstring module."""
+        out: dict[str, TypeStats] = {}
+        for d in self.docs:
+            for t, s in d.by_type.items():
+                out.setdefault(t, TypeStats()).add(s)
+        return out
 
     def as_dict(self) -> dict:
         return {

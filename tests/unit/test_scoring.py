@@ -158,3 +158,60 @@ class TestReport:
 
     def test_khong_co_file_thi_khong_no(self):
         assert Report().final == 0.0
+
+
+class TestBangTheoNhanh:
+    """Đại lượng đã lộ ra ưu tiên bị đảo ngược (`synth-corpus-plan-v2.md` §0.2).
+
+    Ngữ nghĩa ở docstring module, mục "BẢNG THEO NHÁNH": recall đếm theo nhãn
+    VÀNG, precision đếm theo nhãn DỰ ĐOÁN, và cả hai đo *phát hiện span* chứ
+    không đo *phân loại* — phần phân loại tách riêng ở `type_accuracy`.
+    """
+
+    def test_recall_theo_nhan_vang(self):
+        g = [
+            ent("ho", "TRIỆU_CHỨNG", 0),
+            ent("sốt", "TRIỆU_CHỨNG", 10),
+            ent("viêm", "CHẨN_ĐOÁN", 20),
+        ]
+        r = Report(docs=[score_document(g, [g[0], g[2]])])
+        bt = r.by_type()
+        assert (bt["TRIỆU_CHỨNG"].gold, bt["TRIỆU_CHỨNG"].matched_gold) == (2, 1)
+        assert bt["TRIỆU_CHỨNG"].recall == 0.5
+        assert bt["CHẨN_ĐOÁN"].recall == 1.0
+
+    def test_precision_theo_nhan_du_doan(self):
+        g = [ent("ho", "TRIỆU_CHỨNG", 0)]
+        p = [ent("ho", "TRIỆU_CHỨNG", 0), ent("bịa", "CHẨN_ĐOÁN", 30)]
+        bt = Report(docs=[score_document(g, p)]).by_type()
+        assert bt["TRIỆU_CHỨNG"].precision == 1.0
+        assert (bt["CHẨN_ĐOÁN"].pred, bt["CHẨN_ĐOÁN"].precision) == (1, 0.0)
+
+    def test_ghep_duoc_nhung_sai_nhan_van_tinh_la_phat_hien_dung(self):
+        """★ Ranh giới dễ đọc nhầm nhất của bảng.
+
+        Span khớp nhưng gán sai nhãn: recall của nhãn VÀNG = 1 và precision của
+        nhãn DỰ ĐOÁN = 1 — vì span *đã được phát hiện*. Chỗ mất điểm nằm ở
+        `type_accuracy`, đúng nơi nó thuộc về.
+        """
+        g = [ent("ho", "TRIỆU_CHỨNG", 0)]
+        p = [ent("ho", "CHẨN_ĐOÁN", 0)]
+        bt = Report(docs=[score_document(g, p)]).by_type()
+        assert bt["TRIỆU_CHỨNG"].recall == 1.0
+        assert bt["CHẨN_ĐOÁN"].precision == 1.0
+        assert bt["TRIỆU_CHỨNG"].type_accuracy == 0.0
+
+    def test_gop_tren_nhieu_file(self):
+        g1 = [ent("ho", "TRIỆU_CHỨNG", 0)]
+        g2 = [ent("sốt", "TRIỆU_CHỨNG", 0), ent("đau", "TRIỆU_CHỨNG", 10)]
+        r = Report(docs=[score_document(g1, g1), score_document(g2, [g2[0]])])
+        s = r.by_type()["TRIỆU_CHỨNG"]
+        assert (s.gold, s.matched_gold, s.recall) == (3, 2, pytest.approx(2 / 3))
+
+    def test_file_rong_hai_ben_khong_sinh_nhan_nao(self):
+        assert Report(docs=[score_document([], [])]).by_type() == {}
+
+    def test_as_dict_co_du_khoa(self):
+        g = [ent("ho", "TRIỆU_CHỨNG", 0)]
+        d = Report(docs=[score_document(g, g)]).by_type()["TRIỆU_CHỨNG"].as_dict()
+        assert set(d) == {"gold", "pred", "matched", "recall", "precision", "f1", "type_accuracy"}

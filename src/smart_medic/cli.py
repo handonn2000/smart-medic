@@ -5,6 +5,10 @@ smk kb normalize  staging → staging đã chuẩn hoá
 smk kb load       staging → kb.sqlite
 smk kb validate   chạy cổng chất lượng, fail hard
 smk kb build      chạy cả 4 pha trên
+
+smk solve         thư mục .txt → thư mục .json (bài nộp)
+smk eval solve    chấm pipeline trên bộ gold, có bảng theo nhánh + CI bootstrap
+smk eval compare  Δ theo cặp giữa hai báo cáo, có CI
 """
 
 from __future__ import annotations
@@ -64,6 +68,40 @@ def _add_solve_parser(sub: argparse._SubParsersAction) -> None:
     p.add_argument("--zip", dest="zip_path", help="đóng gói bài nộp ra file zip")
 
 
+DEFAULT_GOLD_SETS = (
+    "data/probe/gold_real",  # ★ cổng duy nhất
+    "data/probe/gold",  # regression guard
+    "data/probe/gold_batch1",  # khái quát hoá ngoài miền
+)
+
+
+def _add_eval_parser(sub: argparse._SubParsersAction) -> None:
+    ev = sub.add_parser("eval", help="chấm pipeline giải bài trên bộ gold gán tay")
+    ev_sub = ev.add_subparsers(dest="eval_cmd", metavar="<lệnh>", required=True)
+
+    p_solve = ev_sub.add_parser("solve", help="chấm một hoặc nhiều bộ gold")
+    p_solve.add_argument(
+        "--gold",
+        action="append",
+        metavar="DIR",
+        help="thư mục bộ gold; lặp lại để chấm nhiều bộ. Mặc định: cả ba bộ",
+    )
+    p_solve.add_argument("--report", help="ghi báo cáo JSON")
+    p_solve.add_argument("--db", help="artifact KB (mặc định data/artifacts/kb.sqlite)")
+    p_solve.add_argument(
+        "--bootstrap",
+        type=int,
+        default=None,
+        metavar="B",
+        help="số lần lấy mẫu bootstrap (mặc định 10000; hạ xuống chỉ để chạy nhanh khi thử)",
+    )
+
+    p_cmp = ev_sub.add_parser("compare", help="Δ theo cặp giữa hai báo cáo, có CI")
+    p_cmp.add_argument("--base", required=True, help="báo cáo mốc")
+    p_cmp.add_argument("--new", required=True, help="báo cáo mới")
+    p_cmp.add_argument("--report", help="ghi kết quả so sánh ra JSON")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="smk",
@@ -72,6 +110,7 @@ def build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="cmd", metavar="<nhóm>", required=True)
     _add_kb_parser(sub)
     _add_solve_parser(sub)
+    _add_eval_parser(sub)
     return parser
 
 
@@ -131,12 +170,55 @@ def _dispatch_solve(args: argparse.Namespace) -> int:
     return 0
 
 
+def _dispatch_eval(args: argparse.Namespace) -> int:
+    import json
+    from pathlib import Path
+
+    from smart_medic.eval import bootstrap, harness
+
+    b = args.bootstrap if getattr(args, "bootstrap", None) else bootstrap.B_DEFAULT
+
+    if args.eval_cmd == "compare":
+        base = json.loads(Path(args.base).read_text(encoding="utf-8"))
+        new = json.loads(Path(args.new).read_text(encoding="utf-8"))
+        cmp = harness.compare_reports(base, new, b=b)
+        print(harness.format_comparison(cmp))
+        if args.report:
+            Path(args.report).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.report).write_text(
+                json.dumps(cmp, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            )
+            print(f"\n  → {args.report}")
+        return 0
+
+    db = Path(args.db) if args.db else None
+    dirs = [Path(g) for g in (args.gold or DEFAULT_GOLD_SETS)]
+    results = []
+    for d in dirs:
+        r = harness.score_gold_set(d, db=db, b=b)
+        results.append(r)
+        print(harness.format_set(r))
+        print()
+
+    if args.report:
+        payload = harness.build_report(results, db=db)
+        Path(args.report).parent.mkdir(parents=True, exist_ok=True)
+        Path(args.report).write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        print(f"  → {args.report}")
+    # Vi phạm bất biến là BUG, không phải điểm thấp — phải làm fail lệnh.
+    return 1 if any(r.invariant_errors for r in results) else 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.cmd == "kb":
         return _dispatch_kb(args)
     if args.cmd == "solve":
         return _dispatch_solve(args)
+    if args.cmd == "eval":
+        return _dispatch_eval(args)
     raise AssertionError(args.cmd)  # pragma: no cover
 
 

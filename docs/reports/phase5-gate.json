@@ -1,0 +1,206 @@
+{
+  "phase": 5,
+  "step": "1 — ĐĂNG KÝ TRƯỚC (ghi file này TRƯỚC khi chấm)",
+  "rule": "§5.11 — tối đa 4 cấu hình, chốt trước khi nhìn gold_real",
+  "configs": {
+    "C0": {
+      "labtest_extended": false,
+      "tagger": false,
+      "arbiter_model_weight": 0.0,
+      "threshold": 0.0,
+      "desc": "baseline pipeline luật trước Phase 1"
+    },
+    "C1": {
+      "labtest_extended": true,
+      "tagger": false,
+      "arbiter_model_weight": 0.0,
+      "threshold": 0.0,
+      "desc": "Phase 1 — nhánh xét nghiệm bằng luật"
+    },
+    "C2": {
+      "labtest_extended": true,
+      "tagger": true,
+      "arbiter_model_weight": 0.6,
+      "threshold": 5.0,
+      "desc": "Phase 1 + model trọng số VỪA, ngưỡng đã hiệu chỉnh"
+    },
+    "C3": {
+      "labtest_extended": true,
+      "tagger": true,
+      "arbiter_model_weight": 1.0,
+      "threshold": 5.0,
+      "desc": "Phase 1 + model trọng số ĐẦY, ngưỡng đã hiệu chỉnh"
+    }
+  },
+  "selection_rule": "cấu hình nộp = argmax(final trên gold_real) trong các cấu hình có cận dưới CI 95% của Δ(so với C0) > 0. Tập rỗng → nộp C0. Không thương lượng.",
+  "HONESTY_pre_registration_partly_spent": {
+    "problem": "Quy tắc §5.11 giả định cấu hình được chốt TRƯỚC khi thấy bất kỳ số nào trên gold_real. Điều đó KHÔNG còn đúng: trong Phase 1 và Phase 4 đã chấm gold_real ở 5 điểm cấu hình khác nhau.",
+    "already_seen_on_gold_real": [
+      {
+        "config": "C0 tương đương",
+        "final": 0.4327,
+        "when": "Phase 0 baseline"
+      },
+      {
+        "config": "C1",
+        "final": 0.4857,
+        "when": "Phase 1 routing gate"
+      },
+      {
+        "config": "w=0.6, thr=0",
+        "final": 0.4119,
+        "when": "Phase 4"
+      },
+      {
+        "config": "w=1.0, thr=0",
+        "final": 0.4003,
+        "when": "Phase 4"
+      },
+      {
+        "config": "w=1.0, thr=5.0",
+        "final": 0.4985,
+        "when": "Phase 4 calibration"
+      }
+    ],
+    "consequence": "Rủi ro overfit-bằng-cách-chọn CAO HƠN mức quy tắc 11 nhắm tới. Cụ thể: ngưỡng 5,0 được chọn trên gold_batch1 (hợp lệ), nhưng việc BIẾT rằng nó cho 0,4985 trên gold_real trước khi đăng ký đã ảnh hưởng tới việc C2/C3 được đăng ký với thr=5.0 chứ không phải thr=0.",
+    "mitigation": "(a) KHÔNG thêm cấu hình thứ 5 dù kết quả thế nào; (b) áp luật chọn cố định, không diễn giải lại; (c) tiêu chí là CẬN DƯỚI CI > 0, không phải điểm ước lượng — nó vốn được thiết kế để chịu đúng loại nhiễu này; (d) ghi lại nguyên văn ở đây để người đọc tự chiết khấu."
+  },
+  "step_2_results": {
+    "C0": {
+      "gold_real": {
+        "final": 0.433,
+        "P": 0.6968,
+        "R": 0.7177
+      },
+      "gold": {
+        "final": 0.6648,
+        "P": 0.8787,
+        "R": 0.8755
+      },
+      "gold_batch1": {
+        "final": 0.2592,
+        "P": 0.6536,
+        "R": 0.5431
+      }
+    },
+    "C1": {
+      "gold_real": {
+        "final": 0.4857,
+        "P": 0.6982,
+        "R": 0.8198
+      },
+      "gold": {
+        "final": 0.6814,
+        "P": 0.8412,
+        "R": 0.9121
+      },
+      "gold_batch1": {
+        "final": 0.3347,
+        "P": 0.744,
+        "R": 0.5828
+      }
+    },
+    "C2": {
+      "gold_real": {
+        "final": 0.4957,
+        "P": 0.6107,
+        "R": 0.961
+      },
+      "gold": {
+        "final": 0.6567,
+        "P": 0.757,
+        "R": 0.9927
+      },
+      "gold_batch1": {
+        "final": 0.4582,
+        "P": 0.6904,
+        "R": 0.9172
+      }
+    },
+    "C3": {
+      "gold_real": {
+        "final": 0.4985,
+        "P": 0.6117,
+        "R": 0.97
+      },
+      "gold": {
+        "final": 0.6508,
+        "P": 0.7549,
+        "R": 0.9927
+      },
+      "gold_batch1": {
+        "final": 0.4605,
+        "P": 0.6914,
+        "R": 0.9242
+      }
+    }
+  },
+  "step_3_selection": {
+    "criterion": "cận dưới CI 95% của Δ(vs C0) trên gold_real > 0",
+    "candidates": {
+      "C1": {
+        "delta": 0.0527,
+        "ci95": [
+          0.0097,
+          0.095
+        ],
+        "qualifies": true
+      },
+      "C2": {
+        "delta": 0.0627,
+        "ci95": [
+          -0.0163,
+          0.1284
+        ],
+        "qualifies": false
+      },
+      "C3": {
+        "delta": 0.0655,
+        "ci95": [
+          -0.0171,
+          0.132
+        ],
+        "qualifies": false
+      }
+    },
+    "qualifying_set": [
+      "C1"
+    ],
+    "SELECTED": "C1",
+    "note": "C3 có ĐIỂM cao nhất trên gold_real (0,4985 > 0,4857) nhưng CI chứa 0 ⇒ không qua luật. Đúng mục đích của tiêu chí: điểm ước lượng cao hơn trên 9 file KHÔNG phải bằng chứng."
+  },
+  "blocking_gates_selected_config": {
+    "traps_not_covered": {
+      "covered": 6,
+      "baseline_C0": 6,
+      "ok_as_regression": true,
+      "note": "Khiếm khuyết CÓ SẴN của gazetteer CHẨN_ĐOÁN, không phải hồi quy. C2/C3 làm tệ hơn (15/18)."
+    },
+    "solve_100_files": {
+      "n_files": 100,
+      "n_spans": 3000,
+      "invariant_violations": 0,
+      "offset_drift": 0,
+      "sha256": "29cedda9db5064c7",
+      "ok": true
+    },
+    "gold_regression_guard": {
+      "C0": 0.6648,
+      "C1": 0.6814,
+      "delta": 0.0166,
+      "limit": -0.03,
+      "ok": true
+    },
+    "offline_reproducible": {
+      "ok": true,
+      "note": "C1 KHÔNG dùng torch. Runtime chỉ cần PyYAML + stdlib + kb.sqlite."
+    }
+  },
+  "domain_gap_finding": "C2/C3 hơn C0 tới +0,199 và +0,201 trên gold_batch1 (CI loại trừ 0 rất mạnh) nhưng chỉ +0,063/+0,066 trên gold_real với CI chứa 0, VÀ làm tụt bộ `gold`. Model học corpus tổng hợp khớp rất tốt văn phong SOAP của MTSamples, kém hơn hẳn với hỏi–đáp/blog Việt vốn chiếm 49/100 file phân bố đích.",
+  "cost_not_taken": "Chọn C1 còn tránh được 1,1 GB torch trên đường chạy. PRD §5: BTC cài lại không được thì BỊ LOẠI. Đổi rủi ro đó lấy +0,013 không phân biệt được với nhiễu là trao đổi tồi.",
+  "target_check": {
+    "goal_final_ge_0.50": false,
+    "achieved": 0.4857,
+    "note": "Mục tiêu §1.1 là 0,50; đạt 0,4857. Sàn chấp nhận (Δ>0, CI>0) thì ĐẠT."
+  }
+}

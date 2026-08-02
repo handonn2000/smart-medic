@@ -720,7 +720,37 @@ cùng đầu ra, không phụ thuộc thứ tự proposer).
 `arbiter_model_weight: 0.0`, tức arbiter suy biến về đúng pipeline luật — **an
 toàn theo kiến tạo**, nên phase này không thể làm hỏng thứ đang có.
 
-### Phase 5 — Chọn cấu hình nộp & báo cáo (1 ngày)
+### Phase 5 — Chọn cấu hình nộp & báo cáo (1 ngày) · ✅ **ĐÃ XONG** → nộp **C1**
+
+> | | `gold_real` **(cổng)** | Δ vs C0 · CI 95% | `gold` | `gold_batch1` |
+> |---|---|---|---|---|
+> | C0 luật gốc | 0,4330 | — | 0,6648 | 0,2592 |
+> | **C1** ★ nộp | **0,4857** | **+0,053 · [+0,010, +0,095]** ✓ | 0,6814 | 0,3347 |
+> | C2 model w=0,6 | 0,4957 | +0,063 · [−0,016, +0,128] ✗ | 0,6567 | 0,4582 |
+> | C3 model w=1,0 | **0,4985** | +0,066 · [−0,017, +0,132] ✗ | 0,6508 | **0,4605** |
+>
+> **C3 có điểm cao nhất nhưng KHÔNG được chọn** — CI chứa 0. Đây đúng là việc mà
+> tiêu chí "cận dưới CI > 0" sinh ra để làm: điểm ước lượng cao hơn trên 9 file
+> **không phải bằng chứng**. Tập đủ điều kiện = {C1}, argmax = C1.
+>
+> **Khoảng cách miền, đo được rõ:** C2/C3 hơn C0 tới **+0,199 / +0,201** trên
+> `gold_batch1` (CI loại trừ 0 rất mạnh) nhưng chỉ +0,063/+0,066 trên `gold_real`
+> với CI chứa 0, **và làm tụt** `gold`. Model khớp rất tốt văn phong SOAP của
+> MTSamples, kém hơn hẳn với hỏi–đáp/blog Việt — vốn chiếm 49/100 file phân bố đích.
+>
+> **Cổng CHẶN của C1 pass:** 100 file · 3.000 span · 0 vi phạm bất biến · 0 lệch
+> offset; `gold` +0,017 (không tụt); cụm bẫy 6 — **bằng C0**, khiếm khuyết có sẵn
+> chứ không phải hồi quy (C2/C3 làm tệ hơn: 15 và 18).
+>
+> **Cái giá không phải trả:** C1 không dùng `torch`. PRD §5 nói BTC cài lại không
+> được thì **bị loại** — đổi rủi ro 1,1 GB đó lấy +0,013 không phân biệt được với
+> nhiễu là trao đổi tồi.
+>
+> ⚠️ **Kỷ luật đăng ký trước đã tiêu một phần** và được khai báo nguyên văn trong
+> [`phase5-gate.json`](reports/phase5-gate.json): `gold_real` đã bị chấm ở **5**
+> điểm cấu hình trong Phase 1 và Phase 4 trước khi đăng ký, nên việc C2/C3 được
+> đăng ký với `thr=5.0` chịu ảnh hưởng từ số đã thấy.
+
 
 Phase này **không dừng gì cả** — nó *định tuyến*: chọn một trong các cấu hình đã
 xây ra để nộp.

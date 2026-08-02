@@ -1,0 +1,319 @@
+# Danh mục xét nghiệm + từ vựng kết quả — nguồn TẤT ĐỊNH cho `stages/labtest.py`.
+#
+# ★ VÌ SAO CÓ FILE NÀY
+# Nhánh XÉT NGHIỆM là chỗ mất điểm lớn nhất đo được trên `gold_real`:
+#   TÊN_XÉT_NGHIỆM      R 0,586 · P 0,583
+#   KẾT_QUẢ_XÉT_NGHIỆM  R 0,424 · P 0,429   ← thấp nhất trong 5 nhãn
+# Trần nếu làm đúng hoàn toàn: +0,154 final — lớn hơn mọi nhánh khác.
+# Xem `docs/synth-corpus-plan-v2.md` §0.2 và §2.3.
+#
+# ★ BA NGUỒN HỢP LỆ (§4 Phase 1) — và MỘT NGUỒN BỊ CẤM
+#   (a) kiến thức panel chuẩn — công thức máu, sinh hoá, đông máu, viêm gan,
+#       tim mạch, nước tiểu, chẩn đoán hình ảnh;
+#   (b) mẫu `^NHÃN:` trích từ 91 file `data/test` KHÔNG thuộc `gold_real`;
+#   (c) 218 `TÊN_XÉT_NGHIỆM` của `data/probe/gold_batch1`.
+#
+#   ✗ CẤM: `data/probe/gold_real`. Nó là **cổng** — lấy tên từ đó rồi đem chấm
+#     trên chính nó thì phép đo thành tự khen (quy tắc §5.7).
+#
+# ★ KHÔNG NẠP VÀO KB
+# Xét nghiệm là địa hạt LOINC, mà LOINC không có trong KB. File này chỉ phục vụ
+# luật cấu trúc của `labtest.py`, không phục vụ 4 hàm API của KB.
+
+version: 1
+release: "2026-08-02"
+sources: [panel_chuan, data_test_91_file, gold_batch1]
+
+# ── Tên xét nghiệm ────────────────────────────────────────────────────────
+#
+# `names`  cụm đầy đủ, khớp không phân biệt hoa thường
+# `abbr`   viết tắt. ★ Khớp PHÂN BIỆT hoa thường và chỉ khi có dấu hiệu xét
+#          nghiệm đi kèm (dấu `:` hoặc một giá trị ngay sau) — xem
+#          `labtest.CatalogMatcher`. Không có ràng buộc đó thì `N`, `HA`, `SA`
+#          sẽ bắn vào mọi chỗ.
+panels:
+  - id: huyet_hoc
+    label: Công thức máu / huyết học
+    tests:
+      - names: ["Công thức máu", "Công thức máu toàn phần", "Tổng phân tích tế bào máu", "Huyết đồ"]
+        abbr: ["CBC", "TPTTBM"]
+      - names: ["Bạch cầu", "Số lượng bạch cầu"]
+        abbr: ["WBC", "BC"]
+      - names: ["Bạch cầu trung tính", "Tỷ lệ bạch cầu trung tính"]
+        abbr: ["NEUT", "N"]
+      - names: ["Bạch cầu lympho", "Tỷ lệ bạch cầu lympho"]
+        abbr: ["LYM", "LYMPH", "LYPH", "L"]
+      - names: ["Hồng cầu", "Số lượng hồng cầu"]
+        abbr: ["RBC", "HC"]
+      - names: ["Huyết sắc tố", "Hemoglobin", "hemoglobin"]
+        abbr: ["HGB", "Hb", "HB"]
+      - names: ["Hematocrit", "hematocrit", "Dung tích hồng cầu"]
+        abbr: ["HCT", "Hct"]
+      - names: ["Tiểu cầu", "Số lượng tiểu cầu"]
+        abbr: ["PLT", "TC"]
+      - names: ["Tốc độ máu lắng", "Máu lắng"]
+        abbr: ["ESR", "VS"]
+
+  - id: dong_mau
+    label: Đông máu
+    tests:
+      - names: ["Đông máu cơ bản", "Xét nghiệm đông máu"]
+        abbr: []
+      - names: ["Tỷ lệ prothrombin", "Prothrombin"]
+        abbr: ["PT", "TQ"]
+      - names: ["Thời gian thromboplastin từng phần"]
+        abbr: ["APTT", "aPTT", "PTT", "TCK"]
+      - names: ["Fibrinogen"]
+        abbr: []
+      - names: ["D-dimer", "D dimer"]
+        abbr: []
+      - names: []
+        abbr: ["INR"]
+
+  - id: sinh_hoa
+    label: Sinh hoá máu
+    tests:
+      - names: ["Sinh hoá máu", "Sinh hóa máu", "Bảng chuyển hóa toàn diện", "Bảng chuyển hoá toàn diện"]
+        abbr: ["SHM", "CMP", "BMP"]
+      - names: ["Đường huyết", "Đường máu", "Glucose máu", "Glucose", "Glucose huyết"]
+        abbr: ["GLU"]
+      - names: ["Ure", "Urê", "Nitơ urê máu"]
+        abbr: ["BUN"]
+      - names: ["Creatinin", "Creatinine", "creatinine"]
+        abbr: ["Cre", "CRE"]
+      - names: ["Acid uric", "Axit uric"]
+        abbr: []
+      - names: ["Điện giải đồ", "Điện giải"]
+        abbr: []
+      - names: ["Natri", "Sodium", "sodium"]
+        abbr: ["Na"]
+      - names: ["Kali", "Potassium", "potassium"]
+        abbr: ["K"]
+      - names: ["Clo", "Chloride", "chloride"]
+        abbr: ["Cl"]
+      - names: ["Canxi", "Calcium", "Calci"]
+        abbr: ["Ca"]
+      - names: ["Magie", "Magnesium"]
+        abbr: ["Mg"]
+      - names: ["Bicarbonat"]
+        abbr: ["CO2", "HCO3"]
+      - names: ["Albumin", "Protein toàn phần"]
+        abbr: []
+      - names: ["Hemoglobin A1c", "Đường huyết trung bình"]
+        abbr: ["HbA1c", "HBA1C"]
+      - names: ["Cholesterol", "cholesterol", "Cholesterol toàn phần"]
+        abbr: ["CHOL", "TC"]
+      - names: ["Triglycerid", "Triglyceride"]
+        abbr: ["TG"]
+      - names: ["LDL - cholesterol", "LDL cholesterol", "LDL-c"]
+        abbr: ["LDL"]
+      - names: ["HDL - cholesterol", "HDL cholesterol", "HDL-c"]
+        abbr: ["HDL"]
+      - names: ["Bộ mỡ máu", "Lipid máu", "Mỡ máu"]
+        abbr: []
+
+  - id: gan_mat
+    label: Chức năng gan mật
+    tests:
+      - names: ["Xét nghiệm chức năng gan", "Chức năng gan", "Men gan"]
+        abbr: ["LFT"]
+      - names: ["Bilirubin", "Bilirubin toàn phần", "Bilirubin trực tiếp", "Bilirubin gián tiếp"]
+        abbr: ["TBIL", "tbr"]
+      - names: []
+        abbr: ["AST", "GOT", "SGOT"]
+      - names: []
+        abbr: ["ALT", "GPT", "SGPT"]
+      - names: []
+        abbr: ["GGT", "ALP"]
+      - names: ["Amylase", "Lipase", "lipase"]
+        abbr: []
+
+  - id: tim_mach
+    label: Men tim / tim mạch
+    tests:
+      - names: ["Men tim", "Dấu ấn sinh học tim"]
+        abbr: []
+      - names: ["Troponin", "Troponin I", "Troponin T", "Troponin I/T", "Troponin Ths", "Troponin hs"]
+        abbr: ["TnI", "TnT"]
+      - names: []
+        abbr: ["CK", "CK-MB", "CKMB"]
+      - names: ["Peptide lợi niệu"]
+        abbr: ["BNP", "NT-proBNP"]
+      - names: ["Điện tâm đồ", "Điện tim"]
+        abbr: ["ECG", "EKG", "ĐTĐ"]
+      - names: ["Siêu âm tim", "Siêu âm Doppler tim"]
+        abbr: []
+      - names: ["Nghiệm pháp gắng sức", "Điện tâm đồ gắng sức"]
+        abbr: []
+      - names: ["Chụp mạch vành", "Thông tim"]
+        abbr: []
+      - names: ["Huyết áp", "huyết áp"]
+        abbr: ["HA", "BP"]
+      - names: ["Mạch", "Nhịp tim", "nhịp tim"]
+        abbr: []
+
+  - id: viem_gan
+    label: Huyết thanh học viêm gan
+    tests:
+      - names: []
+        abbr: ["HBsAg", "HBeAg", "HBV-DNA", "HCV-RNA"]
+      - names: ["Anti HBs", "Anti-HBs", "Anti HBe", "Anti-HBe", "Anti HBc", "Anti-HBc",
+                "Anti HBc IgG", "Anti HBc IgM", "Anti HCV", "Anti-HCV", "Anti HIV"]
+        abbr: []
+
+  - id: nuoc_tieu
+    label: Nước tiểu
+    tests:
+      - names: ["Tổng phân tích nước tiểu", "Xét nghiệm nước tiểu", "Nước tiểu", "Lượng nước tiểu"]
+        abbr: ["TPTNT"]
+      - names: ["Cấy nước tiểu"]
+        abbr: []
+      - names: ["Protein niệu", "Đường niệu", "Hồng cầu niệu", "Bạch cầu niệu"]
+        abbr: []
+
+  - id: vi_sinh
+    label: Vi sinh
+    tests:
+      - names: ["Cấy máu", "cấy máu", "Cấy đờm", "Cấy dịch", "Cấy phân", "Nhuộm soi"]
+        abbr: []
+      - names: ["Xét nghiệm phân", "Phân"]
+        abbr: []
+
+  - id: noi_tiet
+    label: Nội tiết
+    tests:
+      - names: ["Hormon tuyến giáp", "Chức năng tuyến giáp"]
+        abbr: ["TSH", "FT3", "FT4", "T3", "T4"]
+      - names: ["Kháng nguyên đặc hiệu tuyến tiền liệt"]
+        abbr: ["PSA"]
+      - names: ["Cortisol", "Insulin"]
+        abbr: []
+
+  - id: hinh_anh
+    label: Chẩn đoán hình ảnh
+    tests:
+      - names: ["X-quang ngực", "X quang ngực", "Chụp X-quang", "X-quang tim phổi", "Chụp X quang"]
+        abbr: ["XQ"]
+      - names: ["Chụp cắt lớp vi tính", "Chụp CT", "CT scan"]
+        abbr: ["CT", "CLVT"]
+      - names: ["Chụp cộng hưởng từ"]
+        abbr: ["MRI"]
+      - names: ["Siêu âm", "Siêu âm ổ bụng", "Siêu âm vùng gan mật", "Siêu âm Doppler"]
+        abbr: ["SA"]
+      - names: ["Nội soi", "Nội soi dạ dày", "Nội soi đại tràng", "Nội soi phế quản"]
+        abbr: []
+      - names: ["Sinh thiết", "Chọc dò tủy sống", "Chọc dò dịch não tủy"]
+        abbr: []
+      - names: ["Điện não đồ"]
+        abbr: ["EEG"]
+
+  - id: sinh_ton
+    label: Dấu hiệu sinh tồn
+    tests:
+      - names: ["Nhiệt độ", "nhiệt độ", "Thân nhiệt"]
+        abbr: ["T°"]
+      - names: ["Nhịp thở", "nhịp thở", "Tần số thở"]
+        abbr: ["RR"]
+      - names: ["Độ bão hòa oxy", "độ bão hòa oxy", "Bão hòa oxy máu"]
+        abbr: ["SpO2", "SPO2", "SaO2"]
+      - names: ["Cân nặng", "cân nặng", "Chiều cao", "Chỉ số khối cơ thể"]
+        abbr: ["BMI"]
+      - names: ["Khí máu động mạch"]
+        abbr: ["PO2", "PCO2", "PaO2", "PaCO2"]
+
+# ── Từ vựng KẾT QUẢ ───────────────────────────────────────────────────────
+#
+# ★ Đây là phần đóng khoảng trống lớn nhất. `_MEASURE` là regex *số + đơn vị*,
+#   nên **không thể** chạm tới 5 lớp dưới đây — đó là gốc của recall 0,424
+#   (`docs/synth-corpus-plan-v2.md` §0.3 mục D).
+result_vocab:
+  # Định tính
+  qualitative:
+    - "dương tính"
+    - "âm tính"
+    - "dương tính yếu"
+    - "nghi ngờ"
+    - "(+)"
+    - "(-)"
+    - "(±)"
+    - "+"
+    - "-"
+
+  # Mô tả BÌNH THƯỜNG — thường là cả mệnh đề
+  normal:
+    - "bình thường"
+    - "trong giới hạn bình thường"
+    - "trong ngưỡng bình thường"
+    - "chưa phát hiện bất thường"
+    - "không phát hiện bất thường"
+    - "không có bất thường"
+    - "nguyên vẹn"
+    - "không ghi nhận bất thường"
+    - "kết quả bình thường"
+
+  # Xu hướng — đầu cụm, phần đuôi để regex nuốt tới ranh giới câu
+  trend_heads:
+    - "tăng"
+    - "giảm"
+    - "cải thiện"
+    - "xấu đi"
+    - "ổn định"
+    - "cao"
+    - "thấp"
+    - "rối loạn"
+
+  # Trạng thái quy trình — không phải giá trị nhưng gold vẫn gán KẾT_QUẢ
+  pending:
+    - "đang chờ"
+    - "chưa có kết quả"
+    - "đang chờ kết quả"
+    - "chưa làm"
+
+# ── Nối TÊN với KẾT QUẢ bằng văn xuôi ─────────────────────────────────────
+#
+# Đo trên gold (gold_real | gold_batch1): dấu ngăn `": "` 10|57 · `" "` 8|85 ·
+# văn xuôi 6|~19 · xuống dòng+gạch đầu dòng 2|~2.
+# Nhánh văn xuôi ít lượt nhất nhưng là nhánh DUY NHẤT bắt được kết quả mô tả dài.
+prose_separators:
+  - " cho thấy "
+  - " cho kết quả "
+  - " kết quả là "
+  - " ghi nhận "
+  - " phát hiện "
+  - " đo được là "
+  - " là cao tới "
+  - " là tăng lên ở mức "
+  - " là giảm xuống "
+  - " là "
+
+# Ranh giới PHẢI cắt kết quả — mệnh đề diễn giải, không thuộc kết quả.
+# Đo được: gold cắt `"túi mật căng to với dịch quanh túi mật"` ngay trước
+# `" gợi ý viêm túi mật cấp"`.
+result_stop_phrases:
+  - " gợi ý "
+  - " nghĩ đến "
+  - " phù hợp với "
+  - " chẩn đoán "
+  - " do "
+
+# ── Đơn vị bổ sung cho `_MEASURE` ─────────────────────────────────────────
+# Thiếu `micromol/l` là lý do `"Creatinin: 89 micromol/l"` trượt ở `24.txt`.
+extra_units:
+  - "micromol/l"
+  - "µmol/L"
+  - "umol/L"
+  - "mmol/L"
+  - "nmol/L"
+  - "U/l"
+  - "IU/l"
+  - "T/L"
+  - "G/l"
+  - "K/uL"
+  - "x10^9/L"
+  - "10^9/L"
+  - "ml/24h"
+  - "l/phút"
+  - "cm"
+  - "mm"
+  - "mmHg"
+  - "kg/m2"

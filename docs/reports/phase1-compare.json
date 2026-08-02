@@ -1,0 +1,113 @@
+{
+  "bootstrap": {
+    "B": 10000,
+    "seed": 20260802
+  },
+  "sets": {
+    "gold": {
+      "n_docs_paired": 20,
+      "base_final": 0.6673,
+      "new_final": 0.6814,
+      "delta_final": {
+        "point": 0.014146,
+        "lo": -0.017032,
+        "hi": 0.051387,
+        "excludes_zero": false,
+        "B": 10000,
+        "seed": 20260802
+      },
+      "by_type_delta": {
+        "THUỐC": {
+          "recall": 0.0,
+          "precision": 0.0
+        },
+        "TRIỆU_CHỨNG": {
+          "recall": 0.0,
+          "precision": 0.0
+        },
+        "CHẨN_ĐOÁN": {
+          "recall": 0.0,
+          "precision": -0.0267
+        },
+        "KẾT_QUẢ_XÉT_NGHIỆM": {
+          "recall": 0.1042,
+          "precision": -0.0786
+        },
+        "TÊN_XÉT_NGHIỆM": {
+          "recall": 0.1137,
+          "precision": -0.143
+        }
+      }
+    },
+    "gold_batch1": {
+      "n_docs_paired": 21,
+      "base_final": 0.2583,
+      "new_final": 0.3347,
+      "delta_final": {
+        "point": 0.076394,
+        "lo": 0.045569,
+        "hi": 0.106277,
+        "excludes_zero": true,
+        "B": 10000,
+        "seed": 20260802
+      },
+      "by_type_delta": {
+        "TÊN_XÉT_NGHIỆM": {
+          "recall": 0.2018,
+          "precision": 0.2807
+        },
+        "KẾT_QUẢ_XÉT_NGHIỆM": {
+          "recall": -0.005,
+          "precision": 0.0495
+        },
+        "TRIỆU_CHỨNG": {
+          "recall": -0.0211,
+          "precision": 0.0
+        },
+        "CHẨN_ĐOÁN": {
+          "recall": 0.0073,
+          "precision": 0.0
+        },
+        "THUỐC": {
+          "recall": -0.045,
+          "precision": 0.0
+        }
+      }
+    },
+    "gold_real": {
+      "n_docs_paired": 9,
+      "base_final": 0.4327,
+      "new_final": 0.4857,
+      "delta_final": {
+        "point": 0.052972,
+        "lo": 0.009209,
+        "hi": 0.095895,
+        "excludes_zero": true,
+        "B": 10000,
+        "seed": 20260802
+      },
+      "by_type_delta": {
+        "TRIỆU_CHỨNG": {
+          "recall": 0.0107,
+          "precision": 0.0
+        },
+        "CHẨN_ĐOÁN": {
+          "recall": -0.0136,
+          "precision": 0.0
+        },
+        "THUỐC": {
+          "recall": 0.027,
+          "precision": 0.0
+        },
+        "TÊN_XÉT_NGHIỆM": {
+          "recall": 0.3793,
+          "precision": 0.0146
+        },
+        "KẾT_QUẢ_XÉT_NGHIỆM": {
+          "recall": 0.3334,
+          "precision": 0.1224
+        }
+      }
+    }
+  }
+}

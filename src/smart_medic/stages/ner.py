@@ -216,11 +216,22 @@ class Gazetteer:
 
         # Chỉ tầng hoạt chất: tên SCD dài kèm dạng bào chế gần như không bao giờ
         # xuất hiện nguyên văn trong bệnh án tiếng Việt.
+        #
+        # ★ `atc_vi_name` — 654 term tên hoạt chất TIẾNG VIỆT từ bảng DDD của Bộ
+        #   Y tế. Chúng đã nằm trong KB từ trước nhưng bộ lọc `IN/PIN` loại hết,
+        #   nên 346 chuỗi tiếng Việt (`acetylcystein`, `adapalen`, `amiodaron`…)
+        #   không phải khoá phát hiện nào cả.
+        #
+        #   ⚠️ ĐỪNG KỲ VỌNG ĐIỂM TỪ DÒNG NÀY. Đã đo: 346 tên đó xuất hiện **0
+        #   lần** ở `gold_real`, **0 lần** ở `gold_batch1`, và đúng **3 tên trên
+        #   4/100 file** `data/test`. Khớp với `docs/reports/atc-vi-enrich.json`
+        #   (delta = 0,000 tuyệt đối trên cả 5 bộ probe). Sửa vì nó đúng và rẻ,
+        #   không vì nó đáng giá — xem `docs/synth-corpus-plan-v2.md` §0.3 A/B.
         rows = store.conn.execute(
             """
             SELECT t.term
             FROM concepts c JOIN terms t USING(concept_id)
-            WHERE c.vocab = 'rxnorm' AND t.term_type IN ('IN', 'PIN')
+            WHERE c.vocab = 'rxnorm' AND t.term_type IN ('IN', 'PIN', 'atc_vi_name')
             """
         )
         for (term,) in rows:

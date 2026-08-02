@@ -1,0 +1,724 @@
+{
+  "generated_at": "2026-08-02T13:39:33+00:00",
+  "kb_artifact": {
+    "path": "/Users/handonn/Workplace/viettelAI/smart-medic/data/artifacts/kb.sqlite",
+    "bytes": 326008832
+  },
+  "bootstrap": {
+    "B": 10000,
+    "seed": 20260802
+  },
+  "note": "Báo cáo riêng từng bộ gold. gold_real là cổng duy nhất; gold là regression guard; gold_batch1 đo khái quát hoá ngoài miền. KHÔNG gộp ba bộ khi báo cáo (docs/synth-corpus-plan-v2.md §5.2).",
+  "sets": {
+    "gold_real": {
+      "path": "data/probe/gold_real",
+      "n_docs": 9,
+      "final": 0.4857,
+      "text": 0.5245,
+      "assertions": 0.4758,
+      "candidates": 0.464,
+      "span_precision": 0.6982,
+      "span_recall": 0.8198,
+      "span_f1": 0.7541,
+      "type_accuracy": 0.8901,
+      "ci_final": {
+        "point": 0.485708,
+        "lo": 0.428907,
+        "hi": 0.529852,
+        "excludes_zero": true,
+        "B": 10000,
+        "seed": 20260802
+      },
+      "by_type": {
+        "TRIỆU_CHỨNG": {
+          "gold": 94,
+          "pred": 79,
+          "matched": 64,
+          "recall": 0.6809,
+          "precision": 0.6456,
+          "f1": 0.6627,
+          "type_accuracy": 0.7812
+        },
+        "CHẨN_ĐOÁN": {
+          "gold": 74,
+          "pred": 97,
+          "matched": 62,
+          "recall": 0.8378,
+          "precision": 0.7423,
+          "f1": 0.7872,
+          "type_accuracy": 0.9839
+        },
+        "THUỐC": {
+          "gold": 74,
+          "pred": 69,
+          "matched": 66,
+          "recall": 0.8919,
+          "precision": 0.942,
+          "f1": 0.9163,
+          "type_accuracy": 0.8939
+        },
+        "TÊN_XÉT_NGHIỆM": {
+          "gold": 58,
+          "pred": 97,
+          "matched": 56,
+          "recall": 0.9655,
+          "precision": 0.5979,
+          "f1": 0.7385,
+          "type_accuracy": 0.875
+        },
+        "KẾT_QUẢ_XÉT_NGHIỆM": {
+          "gold": 33,
+          "pred": 49,
+          "matched": 25,
+          "recall": 0.7576,
+          "precision": 0.551,
+          "f1": 0.638,
+          "type_accuracy": 0.96
+        }
+      },
+      "invariant_errors": [],
+      "documents": [
+        {
+          "name": "1",
+          "text": 0.547454,
+          "assertions": 0.527778,
+          "candidates": 0.5,
+          "final": 0.522569,
+          "n_gold": 51,
+          "n_pred": 67,
+          "n_matched": 46
+        },
+        {
+          "name": "7",
+          "text": 0.412963,
+          "assertions": 0.210526,
+          "candidates": 0.280702,
+          "final": 0.299327,
+          "n_gold": 33,
+          "n_pred": 53,
+          "n_matched": 29
+        },
+        {
+          "name": "18",
+          "text": 0.527412,
+          "assertions": 0.5,
+          "candidates": 0.526316,
+          "final": 0.51875,
+          "n_gold": 58,
+          "n_pred": 64,
+          "n_matched": 46
+        },
+        {
+          "name": "24",
+          "text": 0.518987,
+          "assertions": 0.531646,
+          "candidates": 0.582278,
+          "final": 0.548101,
+          "n_gold": 58,
+          "n_pred": 72,
+          "n_matched": 51
+        },
+        {
+          "name": "30",
+          "text": 0.361905,
+          "assertions": 0.414286,
+          "candidates": 0.428571,
+          "final": 0.404286,
+          "n_gold": 26,
+          "n_pred": 27,
+          "n_matched": 18
+        },
+        {
+          "name": "45",
+          "text": 0.479675,
+          "assertions": 0.414634,
+          "candidates": 0.536585,
+          "final": 0.482927,
+          "n_gold": 30,
+          "n_pred": 35,
+          "n_matched": 24
+        },
+        {
+          "name": "53",
+          "text": 0.598639,
+          "assertions": 0.469388,
+          "candidates": 0.571429,
+          "final": 0.54898,
+          "n_gold": 41,
+          "n_pred": 41,
+          "n_matched": 33
+        },
+        {
+          "name": "65",
+          "text": 0.559524,
+          "assertions": 0.571429,
+          "candidates": 0.392857,
+          "final": 0.496429,
+          "n_gold": 23,
+          "n_pred": 21,
+          "n_matched": 16
+        },
+        {
+          "name": "100",
+          "text": 0.714286,
+          "assertions": 0.642857,
+          "candidates": 0.357143,
+          "final": 0.55,
+          "n_gold": 13,
+          "n_pred": 11,
+          "n_matched": 10
+        }
+      ]
+    },
+    "gold": {
+      "path": "data/probe/gold",
+      "n_docs": 20,
+      "final": 0.6814,
+      "text": 0.6695,
+      "assertions": 0.7084,
+      "candidates": 0.6701,
+      "span_precision": 0.8412,
+      "span_recall": 0.9121,
+      "span_f1": 0.8752,
+      "type_accuracy": 0.9478,
+      "ci_final": {
+        "point": 0.681428,
+        "lo": 0.620589,
+        "hi": 0.738741,
+        "excludes_zero": true,
+        "B": 10000,
+        "seed": 20260802
+      },
+      "by_type": {
+        "THUỐC": {
+          "gold": 69,
+          "pred": 74,
+          "matched": 69,
+          "recall": 1.0,
+          "precision": 0.9459,
+          "f1": 0.9722,
+          "type_accuracy": 1.0
+        },
+        "TRIỆU_CHỨNG": {
+          "gold": 62,
+          "pred": 55,
+          "matched": 47,
+          "recall": 0.7581,
+          "precision": 0.8182,
+          "f1": 0.787,
+          "type_accuracy": 0.9574
+        },
+        "CHẨN_ĐOÁN": {
+          "gold": 50,
+          "pred": 75,
+          "matched": 49,
+          "recall": 0.98,
+          "precision": 0.8,
+          "f1": 0.8809,
+          "type_accuracy": 1.0
+        },
+        "KẾT_QUẢ_XÉT_NGHIỆM": {
+          "gold": 48,
+          "pred": 35,
+          "matched": 41,
+          "recall": 0.8542,
+          "precision": 0.8857,
+          "f1": 0.8697,
+          "type_accuracy": 0.7561
+        },
+        "TÊN_XÉT_NGHIỆM": {
+          "gold": 44,
+          "pred": 57,
+          "matched": 43,
+          "recall": 0.9773,
+          "precision": 0.7544,
+          "f1": 0.8515,
+          "type_accuracy": 0.9767
+        }
+      },
+      "invariant_errors": [],
+      "documents": [
+        {
+          "name": "ba_14_soi_mat",
+          "text": 0.590909,
+          "assertions": 0.727273,
+          "candidates": 0.727273,
+          "final": 0.686364,
+          "n_gold": 10,
+          "n_pred": 10,
+          "n_matched": 9
+        },
+        {
+          "name": "ba_10_tram_cam",
+          "text": 0.616667,
+          "assertions": 0.7,
+          "candidates": 0.6,
+          "final": 0.635,
+          "n_gold": 9,
+          "n_pred": 8,
+          "n_matched": 7
+        },
+        {
+          "name": "ba_13_soi_than",
+          "text": 0.497521,
+          "assertions": 0.545455,
+          "candidates": 0.454545,
+          "final": 0.494711,
+          "n_gold": 7,
+          "n_pred": 11,
+          "n_matched": 7
+        },
+        {
+          "name": "ba_15_gout_cap",
+          "text": 0.845238,
+          "assertions": 0.857143,
+          "candidates": 0.928571,
+          "final": 0.882143,
+          "n_gold": 14,
+          "n_pred": 13,
+          "n_matched": 13
+        },
+        {
+          "name": "ba_09_dong_kinh",
+          "text": 0.725,
+          "assertions": 0.7,
+          "candidates": 0.7,
+          "final": 0.7075,
+          "n_gold": 9,
+          "n_pred": 9,
+          "n_matched": 8
+        },
+        {
+          "name": "ba_07_loet_da_day",
+          "text": 0.680556,
+          "assertions": 0.833333,
+          "candidates": 0.833333,
+          "final": 0.7875,
+          "n_gold": 10,
+          "n_pred": 12,
+          "n_matched": 10
+        },
+        {
+          "name": "ba_08_dot_quy_nao",
+          "text": 0.740351,
+          "assertions": 0.526316,
+          "candidates": 0.578947,
+          "final": 0.611579,
+          "n_gold": 17,
+          "n_pred": 17,
+          "n_matched": 15
+        },
+        {
+          "name": "ba_04_copd_dot_cap",
+          "text": 0.952381,
+          "assertions": 1.0,
+          "candidates": 0.928571,
+          "final": 0.957143,
+          "n_gold": 14,
+          "n_pred": 14,
+          "n_matched": 14
+        },
+        {
+          "name": "ba_05_hen_phe_quan",
+          "text": 0.636905,
+          "assertions": 0.666667,
+          "candidates": 0.619048,
+          "final": 0.63869,
+          "n_gold": 15,
+          "n_pred": 21,
+          "n_matched": 15
+        },
+        {
+          "name": "ba_11_suy_than_man",
+          "text": 0.766667,
+          "assertions": 0.733333,
+          "candidates": 0.733333,
+          "final": 0.743333,
+          "n_gold": 14,
+          "n_pred": 13,
+          "n_matched": 12
+        },
+        {
+          "name": "ba_19_viem_gan_b_man",
+          "text": 0.575758,
+          "assertions": 0.727273,
+          "candidates": 0.727273,
+          "final": 0.681818,
+          "n_gold": 10,
+          "n_pred": 9,
+          "n_matched": 8
+        },
+        {
+          "name": "ba_02_suy_tim_dot_cap",
+          "text": 0.640476,
+          "assertions": 0.68,
+          "candidates": 0.6,
+          "final": 0.636143,
+          "n_gold": 20,
+          "n_pred": 24,
+          "n_matched": 19
+        },
+        {
+          "name": "ba_06_viem_da_day_gerd",
+          "text": 0.690972,
+          "assertions": 0.8125,
+          "candidates": 0.6875,
+          "final": 0.726042,
+          "n_gold": 14,
+          "n_pred": 15,
+          "n_matched": 13
+        },
+        {
+          "name": "ba_16_thoai_hoa_khop_goi",
+          "text": 0.581481,
+          "assertions": 0.666667,
+          "candidates": 0.666667,
+          "final": 0.641111,
+          "n_gold": 7,
+          "n_pred": 9,
+          "n_matched": 7
+        },
+        {
+          "name": "ba_01_viem_phoi_cong_dong",
+          "text": 0.825,
+          "assertions": 0.866667,
+          "candidates": 0.766667,
+          "final": 0.814167,
+          "n_gold": 28,
+          "n_pred": 29,
+          "n_matched": 27
+        },
+        {
+          "name": "ba_17_viem_khop_dang_thap",
+          "text": 0.724242,
+          "assertions": 0.590909,
+          "candidates": 0.636364,
+          "final": 0.649091,
+          "n_gold": 10,
+          "n_pred": 10,
+          "n_matched": 9
+        },
+        {
+          "name": "ba_20_mach_vanh_ngoai_tru",
+          "text": 0.822222,
+          "assertions": 0.854167,
+          "candidates": 0.791667,
+          "final": 0.819583,
+          "n_gold": 21,
+          "n_pred": 24,
+          "n_matched": 21
+        },
+        {
+          "name": "ba_18_suy_giap_loang_xuong",
+          "text": 0.361607,
+          "assertions": 0.375,
+          "candidates": 0.3125,
+          "final": 0.345982,
+          "n_gold": 11,
+          "n_pred": 12,
+          "n_matched": 7
+        },
+        {
+          "name": "ba_12_nhiem_khuan_tiet_nieu",
+          "text": 0.479574,
+          "assertions": 0.578947,
+          "candidates": 0.473684,
+          "final": 0.50703,
+          "n_gold": 14,
+          "n_pred": 17,
+          "n_matched": 12
+        },
+        {
+          "name": "ba_03_dai_thao_duong_theo_doi",
+          "text": 0.636364,
+          "assertions": 0.727273,
+          "candidates": 0.636364,
+          "final": 0.663636,
+          "n_gold": 19,
+          "n_pred": 19,
+          "n_matched": 16
+        }
+      ]
+    },
+    "gold_batch1": {
+      "path": "data/probe/gold_batch1",
+      "n_docs": 21,
+      "final": 0.3347,
+      "text": 0.3846,
+      "assertions": 0.31,
+      "candidates": 0.3158,
+      "span_precision": 0.744,
+      "span_recall": 0.5828,
+      "span_f1": 0.6536,
+      "type_accuracy": 0.794,
+      "ci_final": {
+        "point": 0.33472,
+        "lo": 0.288012,
+        "hi": 0.377267,
+        "excludes_zero": true,
+        "B": 10000,
+        "seed": 20260802
+      },
+      "by_type": {
+        "TÊN_XÉT_NGHIỆM": {
+          "gold": 218,
+          "pred": 201,
+          "matched": 153,
+          "recall": 0.7018,
+          "precision": 0.7114,
+          "f1": 0.7066,
+          "type_accuracy": 0.7386
+        },
+        "KẾT_QUẢ_XÉT_NGHIỆM": {
+          "gold": 202,
+          "pred": 97,
+          "matched": 70,
+          "recall": 0.3465,
+          "precision": 0.7113,
+          "f1": 0.466,
+          "type_accuracy": 0.8857
+        },
+        "TRIỆU_CHỨNG": {
+          "gold": 190,
+          "pred": 94,
+          "matched": 102,
+          "recall": 0.5368,
+          "precision": 0.883,
+          "f1": 0.6677,
+          "type_accuracy": 0.7843
+        },
+        "CHẨN_ĐOÁN": {
+          "gold": 137,
+          "pred": 189,
+          "matched": 110,
+          "recall": 0.8029,
+          "precision": 0.6138,
+          "f1": 0.6957,
+          "type_accuracy": 0.8364
+        },
+        "THUỐC": {
+          "gold": 111,
+          "pred": 91,
+          "matched": 65,
+          "recall": 0.5856,
+          "precision": 0.978,
+          "f1": 0.7326,
+          "type_accuracy": 0.7692
+        }
+      },
+      "invariant_errors": [],
+      "documents": [
+        {
+          "name": "mtsamples_uro_0001_dan_y",
+          "text": 0.497436,
+          "assertions": 0.430769,
+          "candidates": 0.446154,
+          "final": 0.456923,
+          "n_gold": 58,
+          "n_pred": 42,
+          "n_matched": 35
+        },
+        {
+          "name": "mtsamples_uro_0005_dan_y",
+          "text": 0.306349,
+          "assertions": 0.12963,
+          "candidates": 0.333333,
+          "final": 0.264127,
+          "n_gold": 43,
+          "n_pred": 35,
+          "n_matched": 24
+        },
+        {
+          "name": "mtsamples_soap_0001_dan_y",
+          "text": 0.534573,
+          "assertions": 0.465753,
+          "candidates": 0.369863,
+          "final": 0.448043,
+          "n_gold": 60,
+          "n_pred": 61,
+          "n_matched": 48
+        },
+        {
+          "name": "mtsamples_soap_0002_dan_y",
+          "text": 0.264553,
+          "assertions": 0.202247,
+          "candidates": 0.202247,
+          "final": 0.220939,
+          "n_gold": 81,
+          "n_pred": 39,
+          "n_matched": 31
+        },
+        {
+          "name": "mtsamples_soap_0004_dan_y",
+          "text": 0.419767,
+          "assertions": 0.383721,
+          "candidates": 0.372093,
+          "final": 0.389884,
+          "n_gold": 72,
+          "n_pred": 57,
+          "n_matched": 43
+        },
+        {
+          "name": "mtsamples_soap_0005_dan_y",
+          "text": 0.357769,
+          "assertions": 0.210526,
+          "candidates": 0.276316,
+          "final": 0.281015,
+          "n_gold": 34,
+          "n_pred": 20,
+          "n_matched": 16
+        },
+        {
+          "name": "mtsamples_soap_0006_dan_y",
+          "text": 0.454248,
+          "assertions": 0.411765,
+          "candidates": 0.411765,
+          "final": 0.42451,
+          "n_gold": 47,
+          "n_pred": 29,
+          "n_matched": 25
+        },
+        {
+          "name": "mtsamples_soap_0007_dan_y",
+          "text": 0.521296,
+          "assertions": 0.444444,
+          "candidates": 0.444444,
+          "final": 0.4675,
+          "n_gold": 44,
+          "n_pred": 45,
+          "n_matched": 35
+        },
+        {
+          "name": "mtsamples_soap_0008_dan_y",
+          "text": 0.428902,
+          "assertions": 0.433333,
+          "candidates": 0.383333,
+          "final": 0.412004,
+          "n_gold": 47,
+          "n_pred": 42,
+          "n_matched": 29
+        },
+        {
+          "name": "mtsamples_soap_0010_dan_y",
+          "text": 0.381429,
+          "assertions": 0.428571,
+          "candidates": 0.357143,
+          "final": 0.385857,
+          "n_gold": 58,
+          "n_pred": 48,
+          "n_matched": 36
+        },
+        {
+          "name": "mtsamples_soap_0015_dan_y",
+          "text": 0.272619,
+          "assertions": 0.25,
+          "candidates": 0.392857,
+          "final": 0.313929,
+          "n_gold": 24,
+          "n_pred": 18,
+          "n_matched": 14
+        },
+        {
+          "name": "mtsamples_soap_0016_dan_y",
+          "text": 0.369892,
+          "assertions": 0.483871,
+          "candidates": 0.467742,
+          "final": 0.443226,
+          "n_gold": 53,
+          "n_pred": 45,
+          "n_matched": 36
+        },
+        {
+          "name": "mtsamples_soap_0017_dan_y",
+          "text": 0.462302,
+          "assertions": 0.541667,
+          "candidates": 0.25,
+          "final": 0.40119,
+          "n_gold": 18,
+          "n_pred": 20,
+          "n_matched": 14
+        },
+        {
+          "name": "mtsamples_soap_0009_hoi_dap",
+          "text": 0.410256,
+          "assertions": 0.269231,
+          "candidates": 0.230769,
+          "final": 0.296154,
+          "n_gold": 23,
+          "n_pred": 16,
+          "n_matched": 13
+        },
+        {
+          "name": "mtsamples_soap_0014_hoi_dap",
+          "text": 0.304348,
+          "assertions": 0.304348,
+          "candidates": 0.391304,
+          "final": 0.33913,
+          "n_gold": 17,
+          "n_pred": 15,
+          "n_matched": 9
+        },
+        {
+          "name": "mtsamples_uro_0002_van_xuoi",
+          "text": 0.282079,
+          "assertions": 0.193548,
+          "candidates": 0.274194,
+          "final": 0.252366,
+          "n_gold": 46,
+          "n_pred": 40,
+          "n_matched": 24
+        },
+        {
+          "name": "mtsamples_uro_0003_van_xuoi",
+          "text": 0.191964,
+          "assertions": 0.03125,
+          "candidates": 0.0625,
+          "final": 0.091964,
+          "n_gold": 24,
+          "n_pred": 16,
+          "n_matched": 8
+        },
+        {
+          "name": "mtsamples_soap_0003_van_xuoi",
+          "text": 0.465238,
+          "assertions": 0.371429,
+          "candidates": 0.285714,
+          "final": 0.365286,
+          "n_gold": 32,
+          "n_pred": 22,
+          "n_matched": 19
+        },
+        {
+          "name": "mtsamples_soap_0011_pho_bien",
+          "text": 0.52381,
+          "assertions": 0.047619,
+          "candidates": 0.047619,
+          "final": 0.190476,
+          "n_gold": 16,
+          "n_pred": 17,
+          "n_matched": 12
+        },
+        {
+          "name": "mtsamples_soap_0012_xuong_dong",
+          "text": 0.403333,
+          "assertions": 0.4,
+          "candidates": 0.44,
+          "final": 0.417,
+          "n_gold": 22,
+          "n_pred": 16,
+          "n_matched": 13
+        },
+        {
+          "name": "mtsamples_soap_0013_xuong_dong",
+          "text": 0.225321,
+          "assertions": 0.076923,
+          "candidates": 0.192308,
+          "final": 0.167596,
+          "n_gold": 39,
+          "n_pred": 29,
+          "n_matched": 16
+        }
+      ]
+    }
+  }
+}

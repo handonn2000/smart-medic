@@ -287,8 +287,10 @@ KHÔNG bắn* — chính là thứ distant supervision từ từ điển không 
 src/smart_medic/
 ├── stages/                        # pipeline giải bài (đang có)
 │   ├── textio.py                  # GIỮ NGUYÊN — không đụng
-│   ├── ner.py                     # sửa 1 dòng SQL (§0.3 B) + rút detect ra proposer
-│   ├── labtest.py                 # ★ MỞ RỘNG mạnh — Phase 1
+│   ├── ner.py                     # ✅ + atc_vi_name vào gazetteer; sau: rút ra proposer
+│   ├── labtest.py                 # ✅ + 4 mẫu C/D/E/F + Occupancy (Phase 1)
+│   ├── labcatalog.py              # ✅ MỚI — danh mục panel đóng băng (Phase 1)
+│   ├── flags.py                   # ✅ MỚI — cờ bật/tắt thành phần (§4.0)
 │   ├── assertion.py               # giữ nguyên; chỉ đo thêm
 │   ├── linking.py                 # giữ nguyên (rerank=True)
 │   ├── scoring.py                 # ✅ + TypeStats & Report.by_type() (Phase 0)
@@ -325,7 +327,8 @@ src/smart_medic/
 data/
 ├── curated/                       # đóng băng, commit vào git, có .sha256
 │   ├── vi_synonyms.yaml           # (đang có)
-│   ├── lab_panels.v1.yaml         # ★ nguồn nhánh +0,154
+│   ├── lab_panels.v1.yaml         # ✅ nguồn nhánh +0,154 (Phase 1)
+│   ├── pipeline.v1.yaml           # ✅ cờ bật/tắt thành phần (§4.0)
 │   ├── distractors.v1.yaml        # ★ span âm
 │   ├── frames.v1.yaml             # họ khung + khuôn từ data/test
 │   ├── surface_forms.v1.jsonl     # ★ đầu ra LLM ĐÃ ĐÓNG BĂNG (chỉ CĐ + TC)
@@ -454,10 +457,34 @@ nghĩa là có bug, không phải có quyết định):
 
 **Cổng định tuyến:** không có. Phase này không sinh ra thành phần nào để ship.
 
-### Phase 1 — Nhánh XÉT NGHIỆM bằng luật (1,5 ngày) · **ROI cao nhất**
+### Phase 1 — Nhánh XÉT NGHIỆM bằng luật (1,5 ngày) · ✅ **ĐÃ XONG** · cờ `labtest_extended: true`
 
 Không corpus, không model, không LLM. Đây là phase phải làm ngay cả khi toàn bộ
 phần còn lại của kế hoạch bị huỷ.
+
+> **Kết quả trên `gold_real`** (cổng): `final` **0,4327 → 0,4857**,
+> `Δ +0,0530` · **CI 95% [+0,0092, +0,0959]** — loại trừ 0 ⇒ cờ **BẬT**.
+>
+> | nhánh | recall | precision |
+> |---|---|---|
+> | TÊN_XN | 0,586 → **0,966** (+0,379) | 0,583 → 0,598 |
+> | KẾT_QUẢ_XN | 0,424 → **0,758** (+0,333) | 0,429 → 0,551 (+0,122) |
+>
+> `gold` (regression guard) 0,6673 → 0,6814 — không tụt.
+> `gold_batch1` 0,2583 → 0,3347, CI [+0,046, +0,106] — **khái quát hoá được ra
+> ngoài miền**, không phải khớp riêng phân bố đích.
+>
+> ⚠️ **Cổng CHẶN "bẫy `gold_real` không bị phủ" KHÔNG đạt — nhưng đã không đạt
+> từ trước Phase 1.** 6 cụm bị phủ (`tổn thương`, `ổn định` ×2,
+> `Glucose-6-Phosphate`, `mang virus viêm gan`), và tập vi phạm **giống hệt** khi
+> chạy trên `HEAD`. Đây là khiếm khuyết có sẵn của nhánh từ điển CHẨN_ĐOÁN, không
+> phải hồi quy do Phase 1. Ghi lại thành việc riêng, xem §7 hàng cuối.
+>
+> Ba mẫu D/E/F ban đầu có bug, **do unit test bắt chứ không do dò điểm**: viết
+> tắt nhận cả từ định tính lẻ (`"Bệnh nhân K không sốt"` → xét nghiệm kali);
+> `detect_bulleted` nuốt mọi dòng trùng tên xét nghiệm làm tiêu đề nên
+> `"Anti HBe (-)"` mất phần kết quả; `_cut_result` không được áp cho nhánh
+> `NHÃN: giá trị`.
 
 **Việc:**
 1. `data/curated/lab_panels.v1.yaml` theo §2.3 — nguồn (1)(2)(3), **cấm** lấy từ
@@ -770,6 +797,7 @@ Kế thừa v1 §6, bổ sung 4 quy tắc mới (★):
 | Văn bản sinh quá sạch → lệch phân bố | **Cao** | khuôn thật từ `data/test` (G7); cổng ±10 điểm phần trăm |
 | **Overfit vào 9 file `gold_real`** | **Cao** | quy tắc 7 (gold_real không bao giờ là nguồn); dev tổng hợp cho mọi lựa chọn siêu tham số; bootstrap CI |
 | Model phá phần luật đang mạnh (THUỐC P 0,942) | **Cao** | arbiter có trọng số theo nhãn; cổng precision Phase 4 |
+| ★ **6 cụm bẫy `gold_real` bị phủ từ TRƯỚC Phase 1** — `tổn thương`, `ổn định`, `Glucose-6-Phosphate`, `mang virus viêm gan` | Trung bình | Khiếm khuyết có sẵn của gazetteer CHẨN_ĐOÁN, không phải hồi quy. Xử ở Phase 2d (span âm) hoặc Phase 4 (trọng số arbiter) |
 | **Weights phá tái lập** (PRD §5 — cài lại không được thì **bị loại**) | **Cao** | Phase 6 toàn bộ; fallback không-torch |
 | Khuôn từ `data/test` bị coi là hard-code | Trung bình | holdout 20 file; không copy câu chứa khái niệm; ghi rõ trong README nộp bài |
 | Sinh biệt dược KB không tra được → dạy model gán mã pipeline không trả về được | Trung bình | cổng Phase 2: mọi concept trong corpus phải `linking.py` tra được |

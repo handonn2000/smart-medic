@@ -153,3 +153,165 @@ class TestDauCumXetNghiem:
 
         got = detect_test_phrases("siêu âm ổ bụng, sau đó bệnh nhân về nhà", [])
         assert got[0].text == "siêu âm ổ bụng"
+
+
+# ══ PHASE 1 ═══════════════════════════════════════════════════════════════
+
+
+class TestOccupancy:
+    """`bisect` thay quét tuyến tính. Phải cho KẾT QUẢ Y HỆT `_free`."""
+
+    def test_dong_y_voi_free_tren_moi_to_hop(self):
+        from smart_medic.stages.labtest import Occupancy, _free
+
+        taken = [Entity("a", TYPE_TEST, 10, 20), Entity("b", TYPE_TEST, 30, 40)]
+        occ = Occupancy(taken)
+        for s in range(0, 50):
+            for e in range(s + 1, min(s + 15, 51)):
+                assert occ.free(s, e) == _free(s, e, taken), (s, e)
+
+    def test_add_roi_thi_khong_con_tu_do(self):
+        from smart_medic.stages.labtest import Occupancy
+
+        occ = Occupancy([])
+        assert occ.free(5, 10)
+        occ.add(5, 10)
+        assert not occ.free(5, 10)
+        assert not occ.free(9, 12), "chạm đuôi vẫn là chồng lấn"
+        assert occ.free(10, 15), "kề nhau KHÔNG phải chồng lấn"
+
+    def test_rong(self):
+        from smart_medic.stages.labtest import Occupancy
+
+        assert Occupancy().free(0, 100)
+
+
+class TestKhoangTrongC:
+    """Nhiều cặp `NHÃN: giá trị` trên MỘT dòng — `_LABELLED` neo `^` nên mất hết
+    trừ cặp đầu. Đo trên `gold_real/24.txt`: 5 span bỏ sót chỉ vì chuyện này."""
+
+    def test_ba_cap_ngan_bang_cham_phay(self):
+        text = "GOT: 542 U/l; GPT: 628 U/l; GGT: 234 U/l"
+        ents = detect(text, [], extended=True)
+        assert types_of(ents, TYPE_TEST) == ["GOT", "GPT", "GGT"]
+        assert types_of(ents, TYPE_RESULT) == ["542 U/l", "628 U/l", "234 U/l"]
+
+    def test_mau_cu_chi_lay_duoc_cap_dau(self):
+        """Đối chứng: tắt cờ thì đúng hành vi trước Phase 1."""
+        text = "GOT: 542 U/l; GPT: 628 U/l; GGT: 234 U/l"
+        assert types_of(detect(text, [], extended=False), TYPE_TEST) == ["GOT"]
+
+    def test_dau_phay_thap_phan_khong_bi_xe(self):
+        """`,` chỉ tách khi ngay sau là nhãn mới — nếu không thì `43,5` vỡ đôi."""
+        ents = detect("Ure: 5,9 mmol/l", [], extended=True)
+        assert types_of(ents, TYPE_RESULT) == ["5,9 mmol/l"]
+
+    def test_dau_phay_truoc_nhan_moi_thi_tach(self):
+        ents = detect("Mạch: 89 lần/phút, HA: 180/100 mmHg", [], extended=True)
+        assert "HA" in types_of(ents, TYPE_TEST)
+
+
+class TestKhoangTrongD:
+    """Kết quả KHÔNG phải số — gốc của recall 0,424, thấp nhất trong 5 nhãn."""
+
+    def test_dinh_tinh(self):
+        ents = detect("HBsAg: dương tính", [], extended=True)
+        assert types_of(ents, TYPE_RESULT) == ["dương tính"]
+
+    def test_ky_hieu_cong_tru(self):
+        ents = detect("Anti HBe (-)", [], extended=True)
+        assert types_of(ents, TYPE_TEST) == ["Anti HBe"]
+        assert types_of(ents, TYPE_RESULT) == ["(-)"]
+
+    def test_mo_ta_binh_thuong(self):
+        ents = detect("Siêu âm tim: chưa phát hiện bất thường", [], extended=True)
+        assert types_of(ents, TYPE_RESULT) == ["chưa phát hiện bất thường"]
+
+    def test_trang_thai_cho_ket_qua(self):
+        ents = detect("INR: đang chờ", [], extended=True)
+        assert types_of(ents, TYPE_RESULT) == ["đang chờ"]
+
+    def test_mau_cu_khong_cham_toi_duoc(self):
+        """Đối chứng: `_MEASURE` là regex số+đơn vị, không có cửa nào bắt được."""
+        from smart_medic.stages.labtest import detect_measured
+
+        assert detect_measured("cấy máu dương tính", []) == []
+
+
+class TestKhoangTrongE:
+    """Tiêu đề + gạch đầu dòng. Hai khối GIỐNG HỆT nhau về cú pháp, nhãn ngược
+    nhau — chỉ danh mục phân biệt được."""
+
+    def test_bullet_la_ket_qua_khi_khong_phai_ten_xet_nghiem(self):
+        text = "Điện tâm đồ (ECG)\n • ST chênh lên / chênh xuống\n • Sóng T đảo"
+        ents = detect(text, [], extended=True)
+        assert "Điện tâm đồ" in types_of(ents, TYPE_TEST)
+        assert types_of(ents, TYPE_RESULT) == ["ST chênh lên / chênh xuống", "Sóng T đảo"]
+
+    def test_bullet_la_TEN_khi_no_la_mot_xet_nghiem(self):
+        text = "Men tim\n • Troponin I/T ↑ (chẩn đoán nhồi máu)\n • CK-MB ↑"
+        names = types_of(detect(text, [], extended=True), TYPE_TEST)
+        assert names == ["Men tim", "Troponin I/T", "CK-MB"]
+
+    def test_truong_cua_mau_trieu_chung_van_bi_loai(self):
+        """★ Không được kéo theo trường khai thác triệu chứng — đo được 38 thừa."""
+        text = "Đặc điểm triệu chứng\n - Vị trí: Vùng hạ sườn phải\n - Tính chất: liên tục"
+        assert detect(text, [], extended=True) == []
+
+    def test_bullet_co_nhan_va_gia_tri_do_van_duoc_giu(self):
+        """Văn phong SOAP để mọi thứ sau gạch đầu dòng — cổng `_bulleted_pair_ok`."""
+        ents = detect("   - BUN: 20 mg/dL", [], extended=True)
+        assert types_of(ents, TYPE_TEST) == ["BUN"]
+
+
+class TestKhoangTrongF:
+    """Dấu ngăn văn xuôi. Không cắt thì MỘT span sai thay vì HAI span đúng."""
+
+    def test_cat_o_cho_thay(self):
+        text = "siêu âm vùng gan mật cho thấy túi mật căng to"
+        ents = detect(text, [], extended=True)
+        assert "siêu âm vùng gan mật" in types_of(ents, TYPE_TEST)
+
+    def test_khong_nuot_ca_cau_qua_tu_chuc_nang(self):
+        """★ Ca thật ở `gold_real/7.txt` — cụm 40 ký tự nuốt trọn mệnh đề."""
+        text = "nội soi ở BV thì BS nói em có ổ loét trong bao tử"
+        names = types_of(detect(text, [], extended=True), TYPE_TEST)
+        assert names == ["nội soi"], names
+
+    def test_cat_ket_qua_truoc_menh_de_dien_giai(self):
+        """Gold dừng trước `" gợi ý …"` — đó là suy luận, không phải kết quả."""
+        text = "Siêu âm tim: túi mật căng to gợi ý viêm túi mật cấp"
+        res = types_of(detect(text, [], extended=True), TYPE_RESULT)
+        assert res and "gợi ý" not in res[0]
+
+
+class TestVietTatPhaiCoNguCanh:
+    """`N`, `HA`, `SA`, `TC` khớp trần thì bắn khắp nơi."""
+
+    def test_viet_tat_co_gia_tri_di_kem_thi_duoc(self):
+        assert types_of(detect("N 51,4%", [], extended=True), TYPE_TEST) == ["N"]
+
+    def test_viet_tat_tran_thi_bi_bo_qua(self):
+        """`"K"` trong câu văn thường không phải kali."""
+        assert detect("Bệnh nhân K không sốt", [], extended=True) == []
+
+    def test_phan_biet_hoa_thuong(self):
+        """`"ca"` trong `"ca bệnh"` không phải canxi."""
+        assert detect("ca bệnh nặng", [], extended=True) == []
+
+
+class TestCoLabtestExtended:
+    def test_tat_co_thi_ve_dung_hanh_vi_cu(self):
+        text = "GOT: 542 U/l; GPT: 628 U/l"
+        assert len(detect(text, [], extended=False)) < len(detect(text, [], extended=True))
+
+    def test_offset_van_dung_khi_bat_co(self):
+        text = "Cận lâm sàng\nGOT: 542 U/l; GPT: 628 U/l\nHBsAg (+)"
+        for e in detect(text, [], extended=True):
+            assert text[e.start : e.end] == e.text, e
+
+    def test_khong_chong_lan_khi_bat_co(self):
+        text = "Điện tâm đồ (ECG)\n • Sóng T đảo\nGOT: 542 U/l; GPT: 628 U/l\nHBsAg (+)"
+        spans = sorted((e.start, e.end) for e in detect(text, [], extended=True))
+        for a, b in zip(spans, spans[1:], strict=False):
+            assert a[1] <= b[0], (a, b)

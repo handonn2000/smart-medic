@@ -1,0 +1,28 @@
+# Cờ bật/tắt từng thành phần của pipeline giải bài.
+#
+# ★ VÌ SAO CÓ FILE NÀY
+# `docs/synth-corpus-plan-v2.md` §4.0 tách cổng thành hai loại:
+#
+#   cổng CHẶN      code có đúng không?     không đạt = có BUG → sửa
+#   cổng ĐỊNH TUYẾN thành phần có đáng ship? không đạt = có SỐ ĐO → tắt cờ, đi tiếp
+#
+# Nhờ cơ chế cờ, một thành phần không qua cổng định tuyến **vẫn được xây, vẫn có
+# test, vẫn được commit** — chỉ là mặc định `false`. Kế hoạch chạy hết 7 phase
+# trong mọi kịch bản, và không công sức nào bị vứt.
+#
+# Phase 5 bật/tắt các cờ này để chọn cấu hình nộp, trong số **tối đa 4 cấu hình
+# đã đăng ký trước** (quy tắc §5.11 — chống overfit bằng cách chọn trên 9 file).
+
+version: 1
+
+# Phase 1 — nhánh xét nghiệm bằng luật.
+# Mở rộng `labtest.py`: danh mục panel, 5 lớp giá trị không phải số, ghép cặp
+# TÊN→KQ theo 4 dấu ngăn đã đo, viết tắt có ràng buộc ngữ cảnh.
+# Tắt cờ này thì `labtest.py` thu về đúng hành vi trước Phase 1.
+labtest_extended: true
+
+# Phase 3 — tagger XLM-R. Chưa có.
+tagger: false
+
+# Phase 4 — trọng số của proposer model trong arbiter. 0.0 = pipeline luật thuần.
+arbiter_model_weight: 0.0

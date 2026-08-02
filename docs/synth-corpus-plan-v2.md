@@ -657,7 +657,36 @@ trọng số thấp, và Phase 5 có thể đặt `arbiter_model_weight: 0.0`.
 
 *Không* đo `gold_real` ở phase này — không được nhìn vào nó (quy tắc 7).
 
-### Phase 4 — Arbiter + lai (1,5 ngày)
+### Phase 4 — Arbiter + lai (1,5 ngày) · ✅ **ĐÃ XONG** · cờ `arbiter_model_weight: 0.0`
+
+> **Cổng CHẶN pass:** hai lần chạy trên 100 file `data/test` cho `sha256` y hệt
+> (5.636 span), **0 vi phạm bất biến**.
+>
+> **Cổng ĐỊNH TUYẾN KHÔNG đạt** — và đây là kết quả đáng giá nhất của phase:
+>
+> | | `gold_real` (cổng) | `gold_batch1` (không phải cổng) |
+> |---|---|---|
+> | luật thuần | **0,4857** | 0,3347 |
+> | + model (w=1,0) | 0,4003 | **0,4219** |
+> | Δ | **−0,085** · CI [−0,120, −0,051] | **+0,087** |
+>
+> **Hai bộ thật cho dấu NGƯỢC nhau.** `gold_batch1` có 858 span — gấp 2,6 lần và
+> trông "chắc" hơn — nhưng lấy nó làm căn cứ thì ta ship một cấu hình **mất
+> 0,085 trên chính phân bố đích**. Đây đúng là ca mà quy tắc §5.2 tồn tại để xử.
+>
+> **Chẩn đoán:** model NGẬP SPAN — recall 0,82 → 0,98 nhưng precision 0,70 →
+> 0,51. Nó đề xuất gấp đôi số span của luật, và một đề xuất **không có đối thủ**
+> thì luôn được arbiter chọn. Cụm bẫy `gold_real` bị phủ tăng **6 → 18**: span âm
+> 25,5% trong corpus **không đủ** để dạy model kiềm chế trên văn bản thật.
+>
+> ★ Cảnh báo viết ở Phase 3 — *"đừng đọc dev F1 0,97 như năng lực"* — đã được xác
+> nhận bằng số: 0,97 trên dev tổng hợp, 0,57–0,63 precision trên `gold_batch1`,
+> 0,51 trên `gold_real`.
+>
+> ★ Trọng số **đo được, và số đo lật ngược giả định của kế hoạch**: prompt đoán
+> *"TRIỆU_CHỨNG: model thắng luật"*, đo ra ngược lại (gazetteer 0,883 vs model
+> 0,673). Ngược lại ở CHẨN_ĐOÁN thì model thắng (0,816 vs 0,614).
+
 
 - `arbiter.py`: weighted interval scheduling (§2.7), tất định, có test cho ca
   chồng lấn ba tầng.

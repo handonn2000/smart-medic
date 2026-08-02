@@ -55,8 +55,25 @@ class OutputInvariantError(AssertionError):
 
 
 def solve_document(text: str, store: KBStore, gaz: Gazetteer) -> list[Entity]:
-    """Toàn bộ bốn module cho một văn bản, đúng thứ tự phụ thuộc."""
-    ents = annotate(text, gaz)  # NER + phân loại + luật xét nghiệm
+    """Toàn bộ pipeline cho một văn bản: proposer → arbiter → enricher.
+
+    ★ HAI ĐƯỜNG, CHỌN BẰNG CỜ `arbiter_model_weight`
+    ─────────────────────────────────────────────────
+    `= 0` → chuỗi detector nối tiếp như trước Phase 4. Giữ lại để Phase 5 chấm
+            được cấu hình C0/C1 mà không phải revert code.
+    `> 0` → bốn proposer đề xuất song song (được phép chồng lấn), rồi arbiter
+            chọn tập không chồng lấn có tổng trọng số lớn nhất.
+
+    Đường thứ hai suy biến về đường thứ nhất khi trọng số model bằng 0, nên
+    **phase này không thể làm hỏng thứ đang có** — an toàn theo kiến tạo.
+    """
+    from smart_medic.stages import arbiter, proposers
+    from smart_medic.stages.flags import weight as flag_weight
+
+    if flag_weight("arbiter_model_weight") <= 0:
+        ents = annotate(text, gaz)  # NER + phân loại + luật xét nghiệm
+    else:
+        ents = arbiter.select(proposers.propose(text, store, gaz))
     link_all(store, ents)  # gắn mã (Track 0, rerank BẬT)
     assign(text, ents)  # assertion ConText/NegEx
     return ents

@@ -1,0 +1,60 @@
+{
+  "phase": 4,
+  "verdict": "ÂM — arbiter_model_weight giữ 0.0, arbiter suy biến về pipeline luật",
+  "gates": {
+    "BLOCKING_determinism": {
+      "runs": 2,
+      "identical_sha256": true,
+      "n_spans": 5636,
+      "ok": true
+    },
+    "BLOCKING_invariants_data_test": {
+      "n_files": 100,
+      "violations": 0,
+      "ok": true
+    },
+    "ROUTING_delta_final_ge_0": {
+      "base_config": "Phase 1 (arbiter_model_weight=0)",
+      "base_final": 0.4857,
+      "new_final": 0.4003,
+      "delta": -0.0854,
+      "ci95": [
+        -0.1199,
+        -0.0509
+      ],
+      "ok": false,
+      "note": "Δ = -0.0854, CI loại trừ 0 theo chiều ÂM. Tụt thật, không phải nhiễu."
+    }
+  },
+  "measurements": {
+    "gold_real": {
+      "w0.0": {
+        "final": 0.4857,
+        "P": 0.6982,
+        "R": 0.8198
+      },
+      "w0.6": {
+        "final": 0.4119,
+        "P": 0.5135,
+        "R": 0.973
+      },
+      "w1.0": {
+        "final": 0.4003,
+        "P": 0.5142,
+        "R": 0.982
+      }
+    },
+    "gold_batch1": {
+      "w0.0": 0.3347,
+      "w1.0": 0.4219,
+      "delta": 0.0872
+    },
+    "trap_phrases_covered": {
+      "rules_only": 6,
+      "with_model": 18
+    }
+  },
+  "finding": "HAI BỘ THẬT CHO DẤU NGƯỢC NHAU. gold_batch1 (ngoài miền, KHÔNG phải cổng) +0.087; gold_real (cổng) -0.085. Nếu lấy gold_batch1 làm căn cứ — nó có 858 span, gấp 2,6 lần, trông 'chắc' hơn — ta sẽ ship một cấu hình mất 0,085 trên chính phân bố đích. Đây đúng là ca mà quy tắc §5.2 tồn tại để xử.",
+  "diagnosis": "Model NGẬP SPAN: recall 0.82→0.98 nhưng precision 0.70→0.51. Nó đề xuất gấp đôi số span của luật, và một đề xuất KHÔNG có đối thủ thì luôn được arbiter chọn. Trên gold_batch1 (gold gán rất rộng) việc bắn thừa lại trúng; trên gold_real thì không. Cụm bẫy bị phủ tăng 6 → 18 — span âm 25,5% trong corpus KHÔNG đủ để dạy model kiềm chế trên văn bản thật.",
+  "next_lever": "Ngưỡng tin cậy (`tagger._suppress`) là knob đã thiết kế sẵn nhưng chưa hiệu chỉnh. Phải hiệu chỉnh trên dev TỔNG HỢP, không trên gold_real. Kỳ vọng thấp: model tự tin SAI trên văn bản ngoài miền, không phải thiếu tự tin."
+}

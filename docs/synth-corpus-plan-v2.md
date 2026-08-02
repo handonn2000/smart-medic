@@ -686,6 +686,23 @@ trọng số thấp, và Phase 5 có thể đặt `arbiter_model_weight: 0.0`.
 > ★ Trọng số **đo được, và số đo lật ngược giả định của kế hoạch**: prompt đoán
 > *"TRIỆU_CHỨNG: model thắng luật"*, đo ra ngược lại (gazetteer 0,883 vs model
 > 0,673). Ngược lại ở CHẨN_ĐOÁN thì model thắng (0,816 vs 0,614).
+>
+> ★ **Hiệu chỉnh ngưỡng — một dự đoán nữa bị số đo bác bỏ.** Sau kết quả âm,
+> dự đoán là *"ngưỡng vô dụng: model tự tin SAI chứ không thiếu tự tin"*. Đo biên
+> độ `logP(nhãn) − logP(O)` trên `gold_batch1`: span **đúng** trung vị 7,59, span
+> **thừa** trung vị 4,82 — hai phân bố tách rõ. Quét ngưỡng trên `gold_batch1`
+> (thật, ngoài miền, **không phải cổng**) chọn **5,0**.
+>
+> | | luật thuần | model w=1 | + ngưỡng 5,0 |
+> |---|---|---|---|
+> | `gold_real` final | **0,4857** | 0,4003 | **0,4985** |
+> | Δ vs Phase 1 | — | −0,085 | **+0,013** · CI [−0,046, +0,075] |
+> | cụm bẫy bị phủ | **6** | 18 | 15 |
+>
+> **Đảo chiều nhưng không đủ.** Δ ≥ 0 nên **đạt** cổng định tuyến Phase 4, nhưng
+> CI **chứa 0** nên **không đạt** tiêu chí nộp bài của Phase 5. Và cụm bẫy bị phủ
+> vẫn 15 so với 6. Quyết định cuối để Phase 5 — nó có luật chọn cố định và tính
+> cả cái giá 1,1 GB `torch` mà PRD §5 bắt phải cài lại được.
 
 
 - `arbiter.py`: weighted interval scheduling (§2.7), tất định, có test cho ca

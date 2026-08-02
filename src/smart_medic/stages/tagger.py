@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import functools
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -122,9 +123,10 @@ def load(path: Path | None = None) -> Tagger:
 
     model = AutoModelForTokenClassification.from_pretrained(d)
     model.eval()
-    return Tagger(
-        AutoTokenizer.from_pretrained(d, use_fast=True), model, meta.get("threshold", 0.0)
-    )
+    # Biến môi trường thắng metadata — để `train/calibrate.py` quét ngưỡng mà
+    # không phải ghi lại checkpoint 1,1 GB sau mỗi bước quét.
+    thr = float(os.environ.get("SMK_TAGGER_THRESHOLD", meta.get("threshold", 0.0)))
+    return Tagger(AutoTokenizer.from_pretrained(d, use_fast=True), model, thr)
 
 
 def detect(text: str, *, enabled: bool | None = None) -> list[Entity]:

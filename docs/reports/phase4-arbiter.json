@@ -1,6 +1,6 @@
 {
   "phase": 4,
-  "verdict": "ÂM — arbiter_model_weight giữ 0.0, arbiter suy biến về pipeline luật",
+  "verdict": "ĐẢO CHIỀU nhưng KHÔNG ĐỦ. Ngưỡng 5,0 kéo Δ từ -0.0854 lên +0.0128 — đạt cổng ĐỊNH TUYẾN Phase 4 (Δ ≥ 0) nhưng KHÔNG đạt tiêu chí nộp bài của Phase 5 (cận dưới CI > 0; ở đây CI [-0.046, +0.075] chứa 0). Và cụm bẫy bị phủ vẫn 15 so với 6 của luật thuần.",
   "gates": {
     "BLOCKING_determinism": {
       "runs": 2,
@@ -23,7 +23,16 @@
         -0.0509
       ],
       "ok": false,
-      "note": "Δ = -0.0854, CI loại trừ 0 theo chiều ÂM. Tụt thật, không phải nhiễu."
+      "note": "Δ = -0.0854, CI loại trừ 0 theo chiều ÂM. Tụt thật, không phải nhiễu.",
+      "with_calibrated_threshold": {
+        "delta": 0.0128,
+        "ci95": [
+          -0.0456,
+          0.0754
+        ],
+        "ok": true,
+        "caveat": "Δ ≥ 0 nên ĐẠT cổng Phase 4, nhưng CI chứa 0 nên KHÔNG đạt tiêu chí Phase 5."
+      }
     }
   },
   "measurements": {
@@ -56,5 +65,71 @@
   },
   "finding": "HAI BỘ THẬT CHO DẤU NGƯỢC NHAU. gold_batch1 (ngoài miền, KHÔNG phải cổng) +0.087; gold_real (cổng) -0.085. Nếu lấy gold_batch1 làm căn cứ — nó có 858 span, gấp 2,6 lần, trông 'chắc' hơn — ta sẽ ship một cấu hình mất 0,085 trên chính phân bố đích. Đây đúng là ca mà quy tắc §5.2 tồn tại để xử.",
   "diagnosis": "Model NGẬP SPAN: recall 0.82→0.98 nhưng precision 0.70→0.51. Nó đề xuất gấp đôi số span của luật, và một đề xuất KHÔNG có đối thủ thì luôn được arbiter chọn. Trên gold_batch1 (gold gán rất rộng) việc bắn thừa lại trúng; trên gold_real thì không. Cụm bẫy bị phủ tăng 6 → 18 — span âm 25,5% trong corpus KHÔNG đủ để dạy model kiềm chế trên văn bản thật.",
-  "next_lever": "Ngưỡng tin cậy (`tagger._suppress`) là knob đã thiết kế sẵn nhưng chưa hiệu chỉnh. Phải hiệu chỉnh trên dev TỔNG HỢP, không trên gold_real. Kỳ vọng thấp: model tự tin SAI trên văn bản ngoài miền, không phải thiếu tự tin."
+  "next_lever": "Ngưỡng tin cậy (`tagger._suppress`) là knob đã thiết kế sẵn nhưng chưa hiệu chỉnh. Phải hiệu chỉnh trên dev TỔNG HỢP, không trên gold_real. Kỳ vọng thấp: model tự tin SAI trên văn bản ngoài miền, không phải thiếu tự tin.",
+  "calibration": {
+    "lever": "ngưỡng tin cậy tagger._suppress",
+    "prediction_before": "SAI: đoán 'model tự tin SAI, không phải thiếu tự tin' nên ngưỡng sẽ vô dụng.",
+    "margin_distribution_gold_batch1": {
+      "correct": {
+        "n": 535,
+        "p10": 4.11,
+        "median": 7.59,
+        "p90": 9.47
+      },
+      "spurious": {
+        "n": 249,
+        "p10": 0.65,
+        "median": 4.82,
+        "p90": 8.06
+      },
+      "note": "Hai phân bố tách nhau rõ ⇒ ngưỡng là knob THẬT. Dự đoán trên sai."
+    },
+    "calibrated_on": "gold_batch1 (thật, ngoài miền, KHÔNG phải cổng — §5.7 cấm dùng gold_real)",
+    "sweep_gold_batch1": [
+      {
+        "t": 0.0,
+        "final": 0.4219
+      },
+      {
+        "t": 2.0,
+        "final": 0.4395
+      },
+      {
+        "t": 3.0,
+        "final": 0.451
+      },
+      {
+        "t": 4.0,
+        "final": 0.4571
+      },
+      {
+        "t": 5.0,
+        "final": 0.4605
+      },
+      {
+        "t": 6.0,
+        "final": 0.4595
+      },
+      {
+        "t": 7.0,
+        "final": 0.4341
+      },
+      {
+        "t": 8.0,
+        "final": 0.3977
+      }
+    ],
+    "chosen_threshold": 5.0,
+    "gold_real_with_threshold": {
+      "final": 0.4985,
+      "precision": 0.6117,
+      "recall": 0.97,
+      "delta_vs_phase1": 0.0128,
+      "ci95": [
+        -0.0456,
+        0.0754
+      ],
+      "trap_phrases_covered": 15
+    }
+  }
 }

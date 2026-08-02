@@ -12,18 +12,6 @@
     ]
   },
   {
-    "text": "lo lắng mãn tính",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "F41.1"
-    ],
-    "assertions": [],
-    "position": [
-      93,
-      109
-    ]
-  },
-  {
     "text": "bệnh động mạch vành",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -39,7 +27,7 @@
     "text": "thoái hóa khớp",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
-      "M19.9"
+      "M17"
     ],
     "assertions": [],
     "position": [
@@ -189,7 +177,7 @@
     "text": "Aspirin 325 mg",
     "type": "THUỐC",
     "candidates": [
-      "1191"
+      "317300"
     ],
     "assertions": [
       "isHistorical"
@@ -203,8 +191,7 @@
     "text": "Lorcet 10/650",
     "type": "THUỐC",
     "candidates": [
-      "161",
-      "5489"
+      "491666"
     ],
     "assertions": [
       "isHistorical"
@@ -218,7 +205,7 @@
     "text": "Xanax 0.5 mg b.i.d",
     "type": "THUỐC",
     "candidates": [
-      "596"
+      "202363"
     ],
     "assertions": [
       "isHistorical"
@@ -232,7 +219,7 @@
     "text": "Plavix 75 mg q.d",
     "type": "THUỐC",
     "candidates": [
-      "32968"
+      "213169", "573094"
     ],
     "assertions": [
       "isHistorical"
@@ -407,28 +394,6 @@
     ]
   },
   {
-    "text": "bình thường",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      929,
-      940
-    ]
-  },
-  {
-    "text": "LVH",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "I51.7"
-    ],
-    "assertions": [],
-    "position": [
-      942,
-      945
-    ]
-  },
-  {
     "text": "sỏi mật",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -480,10 +445,8 @@
   },
   {
     "text": "Khó thở",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "R06.0"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       1122,
@@ -492,10 +455,8 @@
   },
   {
     "text": "Đau đầu gối",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "M25.5"
-    ],
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
     "assertions": [],
     "position": [
       1209,
@@ -506,8 +467,7 @@
     "text": "Lorcet",
     "type": "THUỐC",
     "candidates": [
-      "161",
-      "5489"
+      "491666"
     ],
     "assertions": [],
     "position": [
@@ -620,18 +580,6 @@
     ]
   },
   {
-    "text": "Cơn hoảng loạn",
-    "type": "CHẨN_ĐOÁN",
-    "candidates": [
-      "F41.0"
-    ],
-    "assertions": [],
-    "position": [
-      1376,
-      1390
-    ]
-  },
-  {
     "text": "lo âu",
     "type": "CHẨN_ĐOÁN",
     "candidates": [
@@ -647,7 +595,7 @@
     "text": "Xanax 0.5 mg b.i.d",
     "type": "THUỐC",
     "candidates": [
-      "596"
+      "202363"
     ],
     "assertions": [],
     "position": [
@@ -695,7 +643,7 @@
     "text": "Plavix",
     "type": "THUỐC",
     "candidates": [
-      "32968"
+      "174742"
     ],
     "assertions": [
       "isHistorical"
@@ -721,8 +669,7 @@
     "text": "Lorcet",
     "type": "THUỐC",
     "candidates": [
-      "161",
-      "5489"
+      "491666"
     ],
     "assertions": [],
     "position": [
@@ -734,7 +681,7 @@
     "text": "Xanax",
     "type": "THUỐC",
     "candidates": [
-      "596"
+      "202363"
     ],
     "assertions": [],
     "position": [
@@ -746,7 +693,7 @@
     "text": "Peridex",
     "type": "THUỐC",
     "candidates": [
-      "2358"
+      "224891"
     ],
     "assertions": [],
     "position": [

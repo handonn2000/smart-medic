@@ -20,13 +20,9 @@ the denser path once it is wired in. Dense top-k uses NumPy matmul (same as FAIS
 IndexFlatIP on ~12k ICD rows) — no faiss package required.
 """
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Literal, Union
 
-import numpy as np
 import requests
-import torch
-from transformers import AutoModel, AutoTokenizer
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 try:
     from normalizer import normalize_drug_string
@@ -38,6 +34,20 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent
 _LOCAL_SAPBERT = _REPO_ROOT / "models" / "sapbert"
 _HF_SAPBERT = "cambridgeltl/SapBERT-UMLS-2020AB-all-lang-from-XLMR"
 DEFAULT_SAPBERT = str(_LOCAL_SAPBERT if _LOCAL_SAPBERT.is_dir() else _HF_SAPBERT)
+
+MatchBackend = Literal["rapidfuzz", "sapbert"]
+MATCH_BACKENDS = ("rapidfuzz", "sapbert")
+
+
+def normalize_match_backend(backend: str) -> MatchBackend:
+    key = (backend or "sapbert").strip().lower()
+    if key in ("fuzzy", "rapid", "rapidfuzzy"):
+        key = "rapidfuzz"
+    if key not in MATCH_BACKENDS:
+        raise ValueError(
+            f"Unknown match backend {backend!r}; choose one of {MATCH_BACKENDS}"
+        )
+    return key  # type: ignore[return-value]
 
 
 # ==========================================================================
@@ -73,6 +83,9 @@ def rxnorm_link(text: str, base="https://rxnav.nlm.nih.gov/REST") -> Optional[st
 class SapBertEncoder:
     """Bi-encoder đa ngôn ngữ cho biomedical EL. XLM-R nên nuốt tiếng Việt tốt."""
     def __init__(self, model_name=DEFAULT_SAPBERT, device="cpu", max_len=25):
+        import torch
+        from transformers import AutoModel, AutoTokenizer
+
         self.torch = torch
         # local_files_only when loading from models/sapbert — no Hub round-trip.
         local_only = Path(model_name).is_dir()
@@ -83,6 +96,8 @@ class SapBertEncoder:
         self.device, self.max_len = device, max_len
 
     def encode(self, names: List[str], bs=128):
+        import numpy as np
+
         embs = []
         for i in range(0, len(names), bs):
             toks = self.tok(names[i:i + bs], padding="max_length",
@@ -105,6 +120,10 @@ class IcdLinker:
     MIN_SCORE = 0.2
 
     def __init__(self, alias_rows: List[Dict], encoder: SapBertEncoder):
+        import numpy as np
+        from sklearn.feature_extraction.text import TfidfVectorizer
+
+        self._np = np
         self.codes = [r["code"] for r in alias_rows]
         self.names = [r["name"] for r in alias_rows]
         self.encoder = encoder
@@ -119,6 +138,7 @@ class IcdLinker:
 
     def retrieve_scored(self, mention: str, k=10) -> List[tuple]:
         """Top-k ICD codes with similarity scores (dense cosine, else TF-IDF)."""
+        np = self._np
         q = self.encoder.encode([mention])  # (1, D)
         k = min(k, len(self.codes))
         sims = (self.vecs @ q.T).ravel()    # (N,) inner product == cosine
@@ -139,6 +159,7 @@ class IcdLinker:
 
     def dense_top_k(self, mention: str, k=2) -> List[tuple]:
         """Top-k unique ICD codes by SapBERT cosine, highest first."""
+        np = self._np
         q = self.encoder.encode([mention])
         sims = (self.vecs @ q.T).ravel()
         order = np.argsort(-sims)
@@ -199,11 +220,151 @@ class IcdLinker:
         cands = self.link_candidates(mention, k=2)
         return cands[0] if cands else None
 
+    def suggest_for_text(self, mention: str, k: int = 3) -> List[tuple]:
+        """Top-k (code, name, score_0_100) for annotation QA / interactive lookup."""
+        np = self._np
+        q = self.encoder.encode([mention])
+        sims = (self.vecs @ q.T).ravel()
+        order = np.argsort(-sims)
+        out: List[tuple] = []
+        seen: set = set()
+        for i in order:
+            code = self.codes[i]
+            if code in seen:
+                continue
+            seen.add(code)
+            out.append((code, self.names[i], float(sims[i]) * 100.0))
+            if len(out) >= k:
+                break
+        return out
+
+
+class RapidFuzzIcdLinker:
+    """ICD linker via RapidFuzz string similarity (same family as MedicalNormalizer).
+
+    Scores from `link_candidates` / `dense_top_k` are on a 0–1 scale (ratio/100) so
+    they share margin rules with SapBERT. `suggest_for_text` returns 0–100.
+    """
+
+    MARGIN = 0.15
+    MIN_SCORE = 0.55
+
+    def __init__(self, alias_rows: List[Dict], cutoff: float = 55.0):
+        from rapidfuzz import process, fuzz
+
+        self._process = process
+        self._fuzz = fuzz
+        self.codes = [str(r["code"]).strip() for r in alias_rows]
+        self.names = [str(r["name"]).strip() for r in alias_rows]
+        self.cutoff = float(cutoff)
+        self.exact: Dict[str, str] = {}
+        for code, name in zip(self.codes, self.names):
+            key = name.lower().strip()
+            if key and key not in self.exact:
+                self.exact[key] = code
+        self._choices = {i: name.lower() for i, name in enumerate(self.names)}
+
+    def _top_unique(self, mention: str, k: int) -> List[tuple]:
+        q = (mention or "").lower().strip()
+        if not q:
+            return []
+        if q in self.exact:
+            return [(self.exact[q], 1.0)]
+        if not self._choices:
+            return []
+        res = self._process.extract(
+            q, self._choices, scorer=self._fuzz.token_sort_ratio,
+            limit=max(k * 20, 40),
+        )
+        out: List[tuple] = []
+        seen: set = set()
+        for _, sc, idx in res:
+            code = self.codes[idx]
+            if code in seen:
+                continue
+            seen.add(code)
+            out.append((code, float(sc) / 100.0))
+            if len(out) >= k:
+                break
+        return out
+
+    def retrieve(self, mention: str, k=10) -> List[str]:
+        return [code for code, _ in self.retrieve_scored(mention, k=k)]
+
+    def retrieve_scored(self, mention: str, k=10) -> List[tuple]:
+        return self._top_unique(mention, k=k)
+
+    def dense_top_k(self, mention: str, k=2) -> List[tuple]:
+        return self._top_unique(mention, k=k)
+
+    def link_candidates(
+        self,
+        mention: str,
+        k=2,
+        margin: float = MARGIN,
+        min_score: float = MIN_SCORE,
+    ) -> List[tuple]:
+        return IcdLinker.select_by_margin(
+            self.dense_top_k(mention, k=k), margin=margin, min_score=min_score
+        )
+
+    def link(self, mention: str) -> Optional[str]:
+        scored = self.link_with_score(mention)
+        return scored[0] if scored else None
+
+    def link_with_score(self, mention: str) -> Optional[tuple]:
+        cands = self.link_candidates(mention, k=2)
+        return cands[0] if cands else None
+
+    def suggest_for_text(self, mention: str, k: int = 3) -> List[tuple]:
+        """Top-k (code, name, score_0_100)."""
+        q = (mention or "").lower().strip()
+        if not q:
+            return []
+        if q in self.exact:
+            code = self.exact[q]
+            # Prefer a display name that matches the query casing-insensitively.
+            name = next((n for n in self.names if n.lower().strip() == q), q)
+            return [(code, name, 100.0)]
+        if not self._choices:
+            return []
+        res = self._process.extract(
+            q, self._choices, scorer=self._fuzz.token_sort_ratio,
+            limit=max(k * 20, 40),
+        )
+        out: List[tuple] = []
+        seen: set = set()
+        for _, sc, idx in res:
+            code = self.codes[idx]
+            if code in seen:
+                continue
+            seen.add(code)
+            out.append((code, self.names[idx], float(sc)))
+            if len(out) >= k:
+                break
+        return out
+
+
+IcdLinkerLike = Union[IcdLinker, RapidFuzzIcdLinker]
+
+
+def build_icd_linker(
+    alias_rows: List[Dict],
+    backend: str = "sapbert",
+    device: str = "cpu",
+    rapidfuzz_cutoff: float = 55.0,
+) -> IcdLinkerLike:
+    """Factory: `backend` is 'sapbert' (default) or 'rapidfuzz'."""
+    backend = normalize_match_backend(backend)
+    if backend == "sapbert":
+        return IcdLinker(alias_rows, SapBertEncoder(device=device))
+    return RapidFuzzIcdLinker(alias_rows, cutoff=rapidfuzz_cutoff)
+
 
 # ==========================================================================
 # 3. Định tuyến theo type
 # ==========================================================================
-def assign_candidates(concept: Dict, icd_linker: Optional[IcdLinker] = None) -> List[str]:
+def assign_candidates(concept: Dict, icd_linker: Optional[IcdLinkerLike] = None) -> List[str]:
     t = concept["type"]
     if t == "THUỐC":
         code = rxnorm_link(concept["text"])

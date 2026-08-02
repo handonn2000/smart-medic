@@ -60,6 +60,12 @@ def parse_args():
         default="pho_bert_crf_medical.pth",
         help="Path to trained model weights (default: pho_bert_crf_medical.pth)",
     )
+    parser.add_argument(
+        "--linker",
+        choices=["rapidfuzz", "sapbert"],
+        default="sapbert",
+        help="ICD diagnosis matcher: sapbert (default) or rapidfuzz",
+    )
     return parser.parse_args()
 
 
@@ -130,15 +136,18 @@ def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     args = parse_args()
 
-    extractor = MedicalExtractor(model_path=args.model, device=get_device())
+    extractor = MedicalExtractor(
+        model_path=args.model, device=get_device(), match_backend=args.linker
+    )
     if args.input_dir:
         return run_folder(extractor, Path(args.input_dir), Path(args.output_dir))
 
     print(json.dumps(extractor.extract(load_input(args)), ensure_ascii=False, indent=2))
     return 0
 
-# Usage: 
+# Usage:
 # Test with testset: python src/test.py -d data/test -o data/output --model models/pho_bert_crf_medical.pth
 # Test with holdout: python src/test.py -d data/holdout/text -o data/holdout/pred --model models/pho_bert_crf_medical.pth
+# RapidFuzz ICD: python src/test.py -t "viêm phổi" --linker rapidfuzz --model models/pho_bert_crf_medical.pth
 if __name__ == "__main__":
     sys.exit(main())

@@ -15,15 +15,17 @@ Cách chạy:
   python medical_name_checker.py --icd -q "viêm phổi"       # chỉ bệnh
   python medical_name_checker.py --code --rxnorm -q 17767   # RxCUI -> tên thuốc
   python medical_name_checker.py --code --icd -q J18.9      # ICD -> tên bệnh
+  python medical_name_checker.py --linker sapbert --icd -q "viêm phổi"
   python medical_name_checker.py --rxnorm-path RXNORM.csv --icd-path ICD10_VN.csv
 
-Khớp theo 2 mức (chế độ tên):
+Khớp theo 2 mức (chế độ tên, RapidFuzz):
   1) exact (chuẩn hoá): match tuyệt đối sau khi hạ chữ thường + gộp khoảng trắng
      (với thuốc còn thử thêm bản đã bỏ route/tần suất: 'po','bid','q6h:prn'...).
   2) fuzzy: nếu không exact -> trả top ứng viên gần nhất kèm điểm.
-     `match=True` khi exact, hoặc fuzzy >= ngưỡng (mặc định 90).
+     `match=True` khi exact, hoặc fuzzy >= ngưỡng (mặc định 90 RapidFuzz / 50 SapBERT).
 
 Phụ thuộc: pip install pandas rapidfuzz
+         (+ transformers torch cho --linker sapbert)
 """
 import argparse
 import csv
@@ -38,6 +40,11 @@ from rapidfuzz import process, fuzz
 _ROOT = Path(__file__).resolve().parent.parent
 _DEFAULT_RXNORM = _ROOT / "data" / "knowledge_base" / "RXNORM.csv"
 _DEFAULT_ICD = _ROOT / "data" / "knowledge_base" / "ICD10_VN.csv"
+_SRC = _ROOT / "src"
+if str(_SRC) not in sys.path:
+    sys.path.insert(0, str(_SRC))
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
 # --------------------------------------------------------------------------
 # Chuẩn hoá
@@ -174,10 +181,33 @@ def load_icd(path: str) -> Vocab:
     return v
 
 
+def load_icd_linker(path: str, backend: str, device: str = "cpu"):
+    """SapBERT / RapidFuzz ICD linker sharing inference's factory."""
+    try:
+        from src.entity_linker import build_icd_linker
+        from src.normalizer import read_icd10
+    except ImportError:
+        from entity_linker import build_icd_linker
+        from normalizer import read_icd10
+    alias_rows = [{"code": c, "name": n} for c, n in read_icd10(Path(path))]
+    return build_icd_linker(alias_rows, backend=backend, device=device)
+
+
+def lookup_via_linker(linker, query: str, cutoff: float, limit: int = 5):
+    """Adapt linker.suggest_for_text -> Vocab.lookup-shaped dict (scores 0-100)."""
+    sugs = linker.suggest_for_text(query, k=limit)
+    if not sugs:
+        return {"match": False, "method": "dense", "candidates": []}
+    cands = [{"code": c, "name": n, "score": round(s, 1)} for c, n, s in sugs]
+    best = cands[0]["score"]
+    method = "exact" if best >= 99.9 else "dense"
+    return {"match": best >= cutoff, "method": method, "candidates": cands}
+
+
 # --------------------------------------------------------------------------
 # In kết quả
 # --------------------------------------------------------------------------
-def report(query: str, rx, icd, cutoff: int, by_code: bool = False):
+def report(query: str, rx, icd, cutoff: int, by_code: bool = False, icd_linker=None):
     print(f'\n>>> "{query}"')
     if by_code:
         if rx is not None:
@@ -188,7 +218,10 @@ def report(query: str, rx, icd, cutoff: int, by_code: bool = False):
     if rx is not None:
         d = rx.lookup(query, extra_forms=[strip_dose_admin(query)], cutoff=cutoff)
         _line("THUỐC (RxNorm)", d, "RxCUI")
-    if icd is not None:
+    if icd_linker is not None:
+        s = lookup_via_linker(icd_linker, query, cutoff=cutoff)
+        _line("BỆNH  (ICD-10)", s, "ICD", show_score=True)
+    elif icd is not None:
         s = icd.lookup(query, cutoff=cutoff)
         _line("BỆNH  (ICD-10)", s, "ICD", show_score=True)
 
@@ -241,14 +274,21 @@ def main():
                     help="chỉ kiểm tra bệnh (ICD-10). Bỏ cả --rxnorm và --icd = kiểm cả hai")
     ap.add_argument("--code", action="store_true",
                     help="query là mã (RxCUI / ICD), trả về tên thực thể thay vì tra tên -> mã")
+    ap.add_argument("--linker", choices=["rapidfuzz", "sapbert"], default="rapidfuzz",
+                    help="cách khớp TÊN BỆNH (ICD): rapidfuzz (mặc định) hoặc sapbert; "
+                         "không ảnh hưởng --code / RxNorm")
     ap.add_argument("--rxnorm-path", default=str(_DEFAULT_RXNORM),
                     help="đường dẫn RXNORM.csv")
     ap.add_argument("--icd-path", default=str(_DEFAULT_ICD),
                     help="đường dẫn ICD10_VN.csv")
     ap.add_argument("-q", "--query", default=None)
-    ap.add_argument("--cutoff", type=int, default=90,
-                    help="ngưỡng điểm fuzzy để coi là 'khớp' (0-100); bỏ qua khi --code")
+    ap.add_argument("--cutoff", type=int, default=None,
+                    help="ngưỡng điểm để coi là 'khớp' (0-100); "
+                         "mặc định 90 (rapidfuzz) hoặc 50 (sapbert); bỏ qua khi --code")
     args = ap.parse_args()
+
+    if args.cutoff is None:
+        args.cutoff = 50 if args.linker == "sapbert" else 90
 
     # --rxnorm / --icd chọn phạm vi; bỏ cả hai (hoặc bật cả hai) = kiểm cả hai
     if args.rxnorm or args.icd:
@@ -257,7 +297,7 @@ def main():
     else:
         check_rx = check_icd = True
 
-    rx = icd = None
+    rx = icd = icd_linker = None
     if check_rx:
         print("Đang nạp RxNorm...", file=sys.stderr)
         rx = load_rxnorm(args.rxnorm_path)
@@ -266,17 +306,24 @@ def main():
         print("Đang nạp ICD-10...", file=sys.stderr)
         icd = load_icd(args.icd_path)
         print(f"  {len(icd.names):,} tên bệnh / {len(icd.by_code):,} mã ICD.", file=sys.stderr)
+        # SapBERT (and shared RapidFuzz linker) only needed for name -> code.
+        if not args.code and args.linker == "sapbert":
+            print("Đang nạp SapBERT ICD linker...", file=sys.stderr)
+            icd_linker = load_icd_linker(args.icd_path, backend="sapbert")
+        elif not args.code and args.linker == "rapidfuzz":
+            # Keep Vocab path (token-blocked fuzzy) — same as before.
+            icd_linker = None
 
     mode = "mã -> tên" if args.code else "tên -> mã"
     scopes = []
     if check_rx:
         scopes.append("RxNorm")
     if check_icd:
-        scopes.append("ICD-10")
+        scopes.append(f"ICD-10/{args.linker}")
     print(f"Chế độ: {mode} | phạm vi: {', '.join(scopes)}", file=sys.stderr)
 
     if args.query is not None:
-        report(args.query, rx, icd, args.cutoff, by_code=args.code)
+        report(args.query, rx, icd, args.cutoff, by_code=args.code, icd_linker=icd_linker)
         return
     print('Gõ chuỗi để kiểm tra (Ctrl-D hoặc "quit" để thoát):', file=sys.stderr)
     while True:
@@ -287,7 +334,7 @@ def main():
         if q.lower() in {"quit", "exit"}:
             break
         if q:
-            report(q, rx, icd, args.cutoff, by_code=args.code)
+            report(q, rx, icd, args.cutoff, by_code=args.code, icd_linker=icd_linker)
 
 
 if __name__ == "__main__":

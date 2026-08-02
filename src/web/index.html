@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Annotation Checker</title>
+  <style>
+    :root {
+      --bg: #f2efe8;
+      --ink: #1c2421;
+      --muted: #5c6b64;
+      --panel: #fffdf8;
+      --line: #d5d0c4;
+      --accent: #0f6a5a;
+      --accent-ink: #ffffff;
+      --error: #9b2c2c;
+      --error-bg: #fde8e8;
+      --warn: #8a5a00;
+      --warn-bg: #fff4d6;
+      --info: #1f4e79;
+      --info-bg: #e7f1fb;
+      --ok: #1f6b3a;
+      --mono: "IBM Plex Mono", "Cascadia Mono", "Consolas", monospace;
+      --sans: "Source Sans 3", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, #d9ebe4 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 0%, #efe4d2 0%, transparent 50%),
+        var(--bg);
+      font-family: var(--sans);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.55rem;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+
+    .status {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+    .status.ready { color: var(--ok); }
+    .status.bad { color: var(--error); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 820px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 650;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .file-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .file-row input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      outline: none;
+    }
+    .file-row input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 106, 90, 0.15);
+    }
+    .file-row input[type="file"] {
+      display: none;
+    }
+    button.browse {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 650;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    button.browse:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 260px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      line-height: 1.45;
+      outline: none;
+    }
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 106, 90, 0.15);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin: 14px 0 18px;
+    }
+
+    button#check {
+      appearance: none;
+      border: 0;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font: inherit;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button#check:hover { filter: brightness(1.06); }
+    button#check:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      filter: none;
+    }
+
+    .cutoff, .linker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .cutoff input {
+      width: 64px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-family: var(--mono);
+    }
+    .linker select {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      outline: none;
+    }
+    .linker select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 106, 90, 0.15);
+    }
+
+    .hint { color: var(--muted); font-size: 0.88rem; }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .panel-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.55);
+    }
+    .panel-head h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+    }
+    .pill {
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .pill.error { color: var(--error); border-color: #ecc; background: var(--error-bg); }
+    .pill.warn { color: var(--warn); border-color: #e8d5a0; background: var(--warn-bg); }
+    .pill.info { color: var(--info); border-color: #c5d8eb; background: var(--info-bg); }
+
+    .results {
+      max-height: 520px;
+      overflow: auto;
+      padding: 8px;
+    }
+    .empty {
+      padding: 28px 16px;
+      text-align: center;
+      color: var(--muted);
+    }
+    .issue {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      border: 1px solid transparent;
+    }
+    .issue.ERROR { background: var(--error-bg); border-color: #f0c9c9; }
+    .issue.WARN { background: var(--warn-bg); border-color: #edd9a2; }
+    .issue.INFO { background: var(--info-bg); border-color: #c9dcf0; }
+
+    .lvl {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding-top: 2px;
+    }
+    .issue.ERROR .lvl { color: var(--error); }
+    .issue.WARN .lvl { color: var(--warn); }
+    .issue.INFO .lvl { color: var(--info); }
+
+    .meta {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .text {
+      font-weight: 650;
+      margin-bottom: 2px;
+    }
+    .msg {
+      font-size: 0.92rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .err-banner {
+      display: none;
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--error-bg);
+      color: var(--error);
+      border: 1px solid #f0c9c9;
+    }
+    .err-banner.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Annotation Checker</h1>
+      <div id="dictStatus" class="status">Đang kiểm tra từ điển…</div>
+    </header>
+
+    <div id="errBanner" class="err-banner"></div>
+
+    <div class="grid">
+      <div>
+        <label for="txtPath">Text bệnh án (.txt)</label>
+        <div class="file-row">
+          <input id="txtPath" type="text" placeholder="Đường dẫn file .txt…" spellcheck="false" />
+          <input id="txtFile" type="file" accept=".txt,text/plain" />
+          <button class="browse" type="button" data-for="txt">Browse</button>
+        </div>
+        <textarea id="textInput" spellcheck="false" placeholder="Dán nội dung file .txt…"></textarea>
+      </div>
+      <div>
+        <label for="jsonPath">Annotation JSON</label>
+        <div class="file-row">
+          <input id="jsonPath" type="text" placeholder="Đường dẫn file .json…" spellcheck="false" />
+          <input id="jsonFile" type="file" accept=".json,application/json" />
+          <button class="browse" type="button" data-for="json">Browse</button>
+        </div>
+        <textarea id="jsonInput" spellcheck="false" placeholder='Dán mảng concept, ví dụ: [{"text":"…","type":"CHẨN_ĐOÁN","candidates":["I25.1"],…}]'></textarea>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <button id="check" type="button" disabled>Check</button>
+      <label class="linker">
+        ICD linker
+        <select id="linker" title="Cách gợi ý mã ICD từ text (C2). RxNorm luôn RapidFuzz.">
+          <option value="rapidfuzz" selected>RapidFuzz</option>
+          <option value="sapbert">SapBERT</option>
+        </select>
+      </label>
+      <label class="cutoff">
+        suggest cutoff
+        <input id="cutoff" type="number" min="0" max="100" value="70" />
+      </label>
+      <span class="hint">Giống CLI: ERROR / WARN / INFO từ validate_annotation.py</span>
+    </div>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Kết quả</h2>
+        <div id="summary" class="summary"></div>
+      </div>
+      <div id="results" class="results">
+        <div class="empty">Chưa chạy kiểm tra.</div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const checkBtn = $("check");
+    const results = $("results");
+    const summary = $("summary");
+    const errBanner = $("errBanner");
+    const dictStatus = $("dictStatus");
+
+    function showError(msg) {
+      errBanner.textContent = msg || "";
+      errBanner.classList.toggle("show", Boolean(msg));
+    }
+
+    function locOf(it) {
+      if (it.line > 0) return `L${it.line}/#${it.idx}`;
+      if (it.idx >= 0) return `#${it.idx}`;
+      return "-";
+    }
+
+    function render(data) {
+      const s = data.summary;
+      summary.innerHTML = `
+        <span class="pill">concepts: ${s.concepts}</span>
+        <span class="pill">linker: ${s.linker || "rapidfuzz"}</span>
+        <span class="pill error">ERROR: ${s.ERROR}</span>
+        <span class="pill warn">WARN: ${s.WARN}</span>
+        <span class="pill info">INFO: ${s.INFO}</span>
+      `;
+
+      if (!data.issues.length) {
+        results.innerHTML = `<div class="empty">Không có issue — annotation trông ổn.</div>`;
+        return;
+      }
+
+      results.innerHTML = data.issues.map((it) => `
+        <article class="issue ${it.level}">
+          <div class="lvl">${it.level}</div>
+          <div>
+            <div class="meta">${it.code} · ${locOf(it)}</div>
+            <div class="text">${escapeHtml(it.text || "(empty)")}</div>
+            <div class="msg">${escapeHtml(it.msg)}</div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    async function refreshStatus() {
+      try {
+        const res = await fetch("/api/status");
+        const st = await res.json();
+        if (st.ready) {
+          dictStatus.className = "status ready";
+          dictStatus.textContent = `Từ điển sẵn sàng · ICD ${st.icd_codes.toLocaleString()} · RxCUI ${st.rx_codes.toLocaleString()}`;
+          checkBtn.disabled = false;
+        } else {
+          dictStatus.className = "status bad";
+          dictStatus.textContent = st.error || "Từ điển chưa sẵn sàng";
+          checkBtn.disabled = true;
+        }
+      } catch (e) {
+        dictStatus.className = "status bad";
+        dictStatus.textContent = "Không kết nối được server";
+        checkBtn.disabled = true;
+      }
+    }
+
+    function wireFilePicker(kind) {
+      const pathInput = $(kind === "txt" ? "txtPath" : "jsonPath");
+      const fileInput = $(kind === "txt" ? "txtFile" : "jsonFile");
+      const content = $(kind === "txt" ? "textInput" : "jsonInput");
+      const browseBtn = document.querySelector(`button.browse[data-for="${kind}"]`);
+
+      browseBtn.addEventListener("click", () => fileInput.click());
+
+      fileInput.addEventListener("change", async () => {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+        pathInput.value = file.name;
+        try {
+          content.value = await file.text();
+          showError("");
+        } catch (e) {
+          showError(`Không đọc được file ${file.name}: ${e}`);
+        }
+        fileInput.value = "";
+      });
+
+      pathInput.addEventListener("keydown", async (ev) => {
+        if (ev.key !== "Enter") return;
+        ev.preventDefault();
+        const path = pathInput.value.trim();
+        if (!path) return;
+        try {
+          const res = await fetch("/api/read", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ path }),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            showError(data.error || `HTTP ${res.status}`);
+            return;
+          }
+          pathInput.value = data.path || path;
+          content.value = data.content;
+          showError("");
+        } catch (e) {
+          showError(String(e));
+        }
+      });
+    }
+
+    wireFilePicker("txt");
+    wireFilePicker("json");
+
+    checkBtn.addEventListener("click", async () => {
+      showError("");
+      checkBtn.disabled = true;
+      checkBtn.textContent = "Checking…";
+      try {
+        const res = await fetch("/api/check", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: $("textInput").value,
+            json: $("jsonInput").value,
+            suggest_cutoff: Number($("cutoff").value) || 70,
+            linker: $("linker").value || "rapidfuzz",
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          showError(data.error || `HTTP ${res.status}`);
+          results.innerHTML = `<div class="empty">Có lỗi — xem banner phía trên.</div>`;
+          summary.innerHTML = "";
+          return;
+        }
+        render(data);
+      } catch (e) {
+        showError(String(e));
+      } finally {
+        checkBtn.disabled = false;
+        checkBtn.textContent = "Check";
+      }
+    });
+
+    $("linker").addEventListener("change", () => {
+      // SapBERT cosine*100 is typically lower than RapidFuzz string scores.
+      if ($("linker").value === "sapbert" && Number($("cutoff").value) === 70) {
+        $("cutoff").value = 50;
+      } else if ($("linker").value === "rapidfuzz" && Number($("cutoff").value) === 50) {
+        $("cutoff").value = 70;
+      }
+    });
+
+    refreshStatus();
+  </script>
+</body>
+</html>

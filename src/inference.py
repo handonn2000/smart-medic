@@ -11,14 +11,14 @@ try:
     from src.labels import LABELS, ID2LABEL, ENTITY_TYPE_MAP
     from src.assertions import assertions_at
     from src.tokenization import chunk_words, group_entities, segment_document
-    from src.entity_linker import SapBertEncoder, IcdLinker
+    from src.entity_linker import build_icd_linker, normalize_match_backend
     from src.normalizer import MedicalNormalizer, read_icd10
 except ImportError:
     from model import PhoBERT_CRF
     from labels import LABELS, ID2LABEL, ENTITY_TYPE_MAP
     from assertions import assertions_at
     from tokenization import chunk_words, group_entities, segment_document
-    from entity_linker import SapBertEncoder, IcdLinker
+    from entity_linker import build_icd_linker, normalize_match_backend
     from normalizer import MedicalNormalizer, read_icd10
 
 _ICD10_PATH = Path(__file__).resolve().parent.parent / "data" / "knowledge_base" / "ICD10_VN.csv"
@@ -38,8 +38,14 @@ class MedicalExtractor:
     MODEL_NAME = "vinai/phobert-base-v2"
     MAX_LEN = 256  # PhoBERT position embeddings only support up to 256
 
-    def __init__(self, model_path="pho_bert_crf_medical.pth", device=None):
+    def __init__(
+        self,
+        model_path="pho_bert_crf_medical.pth",
+        device=None,
+        match_backend: str = "sapbert",
+    ):
         self.device = device or get_device()
+        self.match_backend = normalize_match_backend(match_backend)
         self.tokenizer = AutoTokenizer.from_pretrained(self.MODEL_NAME)
         self.model = PhoBERT_CRF(num_labels=len(LABELS), model_name=self.MODEL_NAME)
         state = torch.load(model_path, map_location=self.device)
@@ -48,10 +54,12 @@ class MedicalExtractor:
         self.model.eval()
         self.id2label = ID2LABEL
         self.normalizer = MedicalNormalizer()
-        # IcdLinker needs (1) ICD alias rows and (2) a SapBERT encoder that embeds them.
+        # ICD linker: SapBERT (dense) or RapidFuzz (string similarity).
         alias_rows = [{"code": code, "name": name} for code, name in read_icd10(_ICD10_PATH)]
-        encoder = SapBertEncoder(device=self.device)
-        self.icd_linker = IcdLinker(alias_rows, encoder)
+        self.icd_linker = build_icd_linker(
+            alias_rows, backend=self.match_backend, device=self.device
+        )
+        print(f"[OK] ICD linker backend: {self.match_backend}")
 
     def extract(self, text: str):
         words = segment_document(text, self._segment_line)
@@ -137,8 +145,9 @@ class MedicalExtractor:
             elif ent["type"] == "CHẨN_ĐOÁN":
                 scored = self.icd_linker.link_candidates(ent["text"], k=2)
                 ent["candidates"] = [code for code, _ in scored]
+                tag = "sim" if self.match_backend == "sapbert" else "fuzzy"
                 for code, score in scored:
-                    print(f"[CHẨN_ĐOÁN] {ent['text']!r} -> {code}  sim={score:.4f}")
+                    print(f"[CHẨN_ĐOÁN] {ent['text']!r} -> {code}  {tag}={score:.4f}")
             else:
                 ent["candidates"] = []
 

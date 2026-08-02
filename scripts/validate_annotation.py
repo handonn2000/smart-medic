@@ -25,6 +25,7 @@ Các lớp lỗi nhắm tới (pipeline "dịch bằng LLM + annotate bằng LLM
   H. Thiếu assertion dù có cue            I. Span chồng lấn
 
 Phụ thuộc: pip install pandas rapidfuzz
+         (+ transformers torch cho --linker sapbert)
 """
 import argparse
 import csv
@@ -34,8 +35,16 @@ import re
 import sys
 import unicodedata
 from collections import Counter, defaultdict
+from pathlib import Path
 
 from rapidfuzz import fuzz, process
+
+_ROOT = Path(__file__).resolve().parent.parent
+_SRC = _ROOT / "src"
+for _p in (_ROOT, _SRC):
+    _s = str(_p)
+    if _s not in sys.path:
+        sys.path.insert(0, _s)
 
 # ---------------------------------------------------------------- quy ước
 TYPES_WITH_CANDIDATES = {"CHẨN_ĐOÁN", "THUỐC"}
@@ -206,9 +215,44 @@ def fmt_suggestions(sugs):
     return " | ".join(f"{c}{'/' + t if t else ''} {n[:45]!r} ({s})" for c, n, t, s in sugs)
 
 
+def _suggest_icd(text, icd_idx, linker_backend, icd_linker, limit=3):
+    """C2 suggestions for diagnoses: RapidFuzz NameIndex or SapBERT linker."""
+    if linker_backend == "sapbert" and icd_linker is not None:
+        return [(c, n, "", round(s, 1))
+                for c, n, s in icd_linker.suggest_for_text(text, k=limit)]
+    return icd_idx.suggest(text, limit=limit)
+
+
+def _pick_device():
+    import torch
+    if torch.cuda.is_available():
+        return "cuda"
+    mps = getattr(torch.backends, "mps", None)
+    if mps is not None and mps.is_available():
+        return "mps"
+    return "cpu"
+
+
+def build_icd_sapbert_linker(icd_path, device=None):
+    """Lazy-friendly SapBERT ICD linker for validation / web UI."""
+    try:
+        from src.entity_linker import build_icd_linker
+        from src.normalizer import read_icd10
+    except ImportError:
+        from entity_linker import build_icd_linker
+        from normalizer import read_icd10
+    alias_rows = [{"code": c, "name": n} for c, n in read_icd10(Path(icd_path))]
+    return build_icd_linker(
+        alias_rows, backend="sapbert", device=device or _pick_device()
+    )
+
+
 def check_doc(doc, txt, concepts, lines, icd, icd_idx, rx_names, rx_tty, rx_idx,
-              fuzz_cutoff=55, suggest_cutoff=70):
+              fuzz_cutoff=55, suggest_cutoff=70, linker="rapidfuzz", icd_linker=None):
     out = []
+    linker_backend = (linker or "rapidfuzz").strip().lower()
+    if linker_backend in ("fuzzy", "rapid", "rapidfuzzy"):
+        linker_backend = "rapidfuzz"
 
     def ln(i):
         return lines[i] if i is not None and 0 <= i < len(lines) else -1
@@ -266,9 +310,10 @@ def check_doc(doc, txt, concepts, lines, icd, icd_idx, rx_names, rx_tty, rx_idx,
                     f"{label} {code} = {ex!r}{extra} (giống {best:.0f}%) - kiểm tra lại")
 
         # --- C2. tra NGƯỢC từ text -> đề xuất mã, đối chiếu chéo ---
-        idx_obj = icd_idx if is_icd else rx_idx
-        extra_forms = (strip_dose_admin(text),) if is_rx else ()
-        sugs = idx_obj.suggest(text, extra_forms=extra_forms, limit=3)
+        if is_icd:
+            sugs = _suggest_icd(text, icd_idx, linker_backend, icd_linker, limit=3)
+        else:
+            sugs = rx_idx.suggest(text, extra_forms=(strip_dose_admin(text),), limit=3)
         sugs = [s for s in sugs if s[3] >= suggest_cutoff]
         if sugs:
             sug_codes = {s[0] for s in sugs}
@@ -359,6 +404,9 @@ def main():
     ap.add_argument("--report", default=None)
     ap.add_argument("--suggest-cutoff", type=int, default=70,
                     help="ngưỡng điểm để hiện gợi ý mã tra từ text (0-100)")
+    ap.add_argument("--linker", choices=["rapidfuzz", "sapbert"], default="rapidfuzz",
+                    help="cách gợi ý mã ICD từ text (C2): rapidfuzz (mặc định) hoặc sapbert; "
+                         "RxNorm luôn dùng RapidFuzz")
     args = ap.parse_args()
 
     pairs = []
@@ -376,6 +424,11 @@ def main():
     print("Nạp từ điển...", file=sys.stderr)
     icd, icd_idx = load_icd(args.icd)
     rx_names, rx_tty, rx_idx = load_rxnorm(args.rxnorm)
+    icd_linker = None
+    if args.linker == "sapbert":
+        print("Nạp SapBERT ICD linker...", file=sys.stderr)
+        icd_linker = build_icd_sapbert_linker(args.icd)
+    print(f"ICD C2 linker: {args.linker}", file=sys.stderr)
 
     issues, all_concepts = [], {}
     for tpath, jpath in pairs:
@@ -385,7 +438,8 @@ def main():
         all_concepts[doc] = concepts
         issues += check_doc(doc, txt, concepts, json_line_map(jpath),
                             icd, icd_idx, rx_names, rx_tty, rx_idx,
-                            suggest_cutoff=args.suggest_cutoff)
+                            suggest_cutoff=args.suggest_cutoff,
+                            linker=args.linker, icd_linker=icd_linker)
     issues += cross_doc_checks(all_concepts)
 
     order = {"ERROR": 0, "WARN": 1, "INFO": 2}

@@ -599,7 +599,32 @@ bằng span sinh ra.
 Corpus không đạt cổng định tuyến vẫn đem huấn luyện — chỉ là kỳ vọng thấp hơn,
 và Phase 5 biết điều đó khi đọc `phase2-corpus-stats.json`.
 
-### Phase 3 — Tagger (2 ngày)
+### Phase 3 — Tagger (2 ngày) · ⏸ **HẠ TẦNG XONG, HUẤN LUYỆN CHƯA CHẠY**
+
+> **Đã xong và test đầy đủ (không cần torch):**
+> [`stages/bio.py`](../src/smart_medic/stages/bio.py) — mã hoá/giải mã BIO,
+> Viterbi có ràng buộc; [`stages/tagger.py`](../src/smart_medic/stages/tagger.py)
+> — suy luận, torch nạp lười; [`train/dataset.py`](../src/smart_medic/train/dataset.py),
+> [`train/train_tagger.py`](../src/smart_medic/train/train_tagger.py); nhóm
+> dependency `train` trong `pyproject.toml`; `smk train tagger`.
+>
+> **Huấn luyện để chạy downstream** (theo yêu cầu). Lệnh:
+> `smk train tagger --epochs 3 --report docs/reports/phase3-tagger.json`
+>
+> ★ **Rủi ro lớn nhất của phase đã được đo và loại trừ.** Câu hỏi:
+> `offset_mapping` của XLM-R trỏ vào chuỗi GỐC hay chuỗi đã chuẩn hoá? Nếu là
+> chuỗi chuẩn hoá thì mọi span lệch trên 20/100 file `data/test` không NFC — im
+> lặng. Đo trực tiếp ba dạng đầu vào (NFC 18 ký tự · NFD 25 · TRỘN 21): **cả ba
+> đều trỏ đúng vào chuỗi gốc**. Nhưng TOKEN thì đã bị chuẩn hoá — đầu vào NFD cho
+> ra `▁tiên` chứ không phải `▁tiền`. ⇒ Quy tắc bắt buộc: **không bao giờ ghép lại
+> văn bản từ token**, luôn cắt từ `text` bằng offset.
+>
+> ★ **Giới hạn của BIO mức token, đã đo.** Tokenizer dán dấu chấm câu vào token
+> cuối: gold `"64.5"` [1205,1209] nhưng token cuối là `".5."` [1207,1210]. Vòng
+> tròn mã hoá→giải mã trên 60 tài liệu: **mất 3,88%** span. Tỉa dấu câu ở đuôi
+> đưa xuống **1,85%**. Đây là giới hạn của biểu diễn, không phải bug — ghi lại để
+> Phase 5 diễn giải đúng trần của nhánh model.
+
 
 - Kiến trúc: token classification BIO, 5 nhãn → 11 tag. Base **XLM-R**
   (`xlm-roberta-base`, **ghim revision**) — syllable-level nên **không cần tách

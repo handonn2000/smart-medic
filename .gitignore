@@ -66,3 +66,8 @@ data/knowledge_base/atc
 # phải dữ liệu, và Phase 3 cần `splits.json` để chọn epoch.
 data/synth/*/text/
 data/synth/*/annotations/
+
+# Checkpoint tagger (Phase 3) — ~1,1 GB. Đóng gói riêng khi nộp bài, không vào
+# git. Tái lập: seed + revision base model + corpus_sha256 đều ghim trong
+# `smk_meta.json`.
+data/artifacts/tagger/

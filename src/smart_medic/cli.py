@@ -117,6 +117,17 @@ def _add_synth_parser(sub: argparse._SubParsersAction) -> None:
     p_freeze.add_argument("--out", help="thư mục curated")
 
 
+def _add_train_parser(sub: argparse._SubParsersAction) -> None:
+    tr = sub.add_parser("train", help="huấn luyện tagger (cần nhóm dependency 'train')")
+    tr_sub = tr.add_subparsers(dest="train_cmd", metavar="<lệnh>", required=True)
+    p_tag = tr_sub.add_parser("tagger", help="XLM-R token classification trên corpus tổng hợp")
+    p_tag.add_argument("--epochs", type=int, default=3)
+    p_tag.add_argument("--batch-size", type=int, default=8)
+    p_tag.add_argument("--lr", type=float, default=3e-5)
+    p_tag.add_argument("--out", help="thư mục checkpoint")
+    p_tag.add_argument("--report", help="ghi metadata ra JSON")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="smk",
@@ -127,6 +138,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_solve_parser(sub)
     _add_eval_parser(sub)
     _add_synth_parser(sub)
+    _add_train_parser(sub)
     return parser
 
 
@@ -270,6 +282,30 @@ def _dispatch_synth(args: argparse.Namespace) -> int:
     return 0
 
 
+def _dispatch_train(args: argparse.Namespace) -> int:
+    import json
+    from pathlib import Path
+
+    try:
+        from smart_medic.train.train_tagger import TrainConfig, run
+    except ImportError:
+        print("  ✗ thiếu nhóm dependency 'train'. Cài: pip install -e '.[train]'")
+        return 1
+
+    meta = run(
+        TrainConfig(epochs=args.epochs, batch_size=args.batch_size, lr=args.lr),
+        out_dir=Path(args.out) if args.out else None,
+    )
+    print(f"  dev F1 {meta['dev'].get('span_f1')} · corpus sha256 {meta['corpus_sha256'][:16]}…")
+    if args.report:
+        Path(args.report).parent.mkdir(parents=True, exist_ok=True)
+        Path(args.report).write_text(
+            json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        print(f"  → {args.report}")
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.cmd == "kb":
@@ -280,6 +316,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _dispatch_eval(args)
     if args.cmd == "synth":
         return _dispatch_synth(args)
+    if args.cmd == "train":
+        return _dispatch_train(args)
     raise AssertionError(args.cmd)  # pragma: no cover
 
 

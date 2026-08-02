@@ -32,6 +32,14 @@ dense = [
     "faiss-cpu==1.14.3",
     "sentence-transformers==5.1.2",
 ]
+# Huấn luyện tagger (Phase 3). ★ CHỈ image `builder`.
+# `torch` ~1 GB — đưa vào dependency lõi là buộc mọi lần `smk solve` phải có nó,
+# trong khi `stages/tagger.py` nạp torch LƯỜI và suy biến an toàn khi thiếu.
+# Đó là điều kiện của PRD §5: BTC cài lại không được thì bị loại.
+train = [
+    "torch==2.9.1",
+    "transformers==4.57.1",
+]
 dev = [
     "smart-medic[build]",
     "pytest==8.4.2",

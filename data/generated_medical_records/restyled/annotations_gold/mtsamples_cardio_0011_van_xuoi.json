@@ -149,7 +149,7 @@
     "text": "Hytrin",
     "type": "THUỐC",
     "candidates": [
-      "37798"
+      "151882"
     ],
     "assertions": [
       "isHistorical"
@@ -163,7 +163,7 @@
     "text": "Motrin",
     "type": "THUỐC",
     "candidates": [
-      "5640"
+      "202488"
     ],
     "assertions": [
       "isHistorical"
@@ -177,7 +177,7 @@
     "text": "Lotensin",
     "type": "THUỐC",
     "candidates": [
-      "18867"
+      "218088"
     ],
     "assertions": [
       "isHistorical"
@@ -191,7 +191,7 @@
     "text": "Zantac",
     "type": "THUỐC",
     "candidates": [
-      "9143"
+      "152523"
     ],
     "assertions": [
       "isHistorical"
@@ -208,7 +208,7 @@
       "I10"
     ],
     "assertions": [
-      "isFamily"
+      "isFamily", "isHistorical"
     ],
     "position": [
       1121,
@@ -316,16 +316,6 @@
     ]
   },
   {
-    "text": "mạch",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1806,
-      1810
-    ]
-  },
-  {
     "text": "90",
     "type": "KẾT_QUẢ_XÉT_NGHIỆM",
     "candidates": [],
@@ -413,16 +403,6 @@
     "position": [
       1897,
       1901
-    ]
-  },
-  {
-    "text": "cân nặng",
-    "type": "TÊN_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      1906,
-      1914
     ]
   },
   {

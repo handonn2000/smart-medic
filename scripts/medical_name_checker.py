@@ -123,10 +123,12 @@ class Vocab:
         for f in forms:
             key = fold(f)
             if key and key in self.exact:
+                code = self.exact[key][0]
+                display = next((n for fn, n, c in self.names if fn == key and c == code), key)
                 return {"match": True, "method": "exact", "score": 100.0,
-                        "code": self.exact[key][0],
-                        "matched": key,
-                        "candidates": [{"code": self.exact[key][0], "name": key, "score": 100.0}]}
+                        "code": code,
+                        "matched": display,
+                        "candidates": [{"code": code, "name": display, "score": 100.0}]}
         # 2) fuzzy có blocking theo token
         q = fold(next((f for f in forms if fold(f)), query))
         cand_ids = set()
@@ -202,6 +204,71 @@ def lookup_via_linker(linker, query: str, cutoff: float, limit: int = 5):
     best = cands[0]["score"]
     method = "exact" if best >= 99.9 else "dense"
     return {"match": best >= cutoff, "method": method, "candidates": cands}
+
+
+def check_query(
+    query: str,
+    *,
+    kind: str = "drug",
+    by_code: bool = False,
+    rx: Vocab | None = None,
+    icd: Vocab | None = None,
+    icd_linker=None,
+    cutoff: int = 90,
+) -> dict:
+    """Structured lookup for CLI/web. kind: 'drug' | 'diagnosis'."""
+    kind = (kind or "drug").strip().lower()
+    if kind in ("thuoc", "rxnorm", "rx", "thuốc"):
+        kind = "drug"
+    if kind in ("icd", "disease", "benh", "bệnh", "chan_doan", "chẩn_đoán"):
+        kind = "diagnosis"
+    if kind not in ("drug", "diagnosis"):
+        raise ValueError("kind phải là 'drug' hoặc 'diagnosis'")
+
+    q = (query or "").strip()
+    if not q:
+        raise ValueError("query trống")
+
+    if kind == "drug":
+        if rx is None:
+            raise ValueError("RxNorm vocab chưa sẵn sàng")
+        label, code_label = "THUỐC (RxNorm)", "RxCUI"
+        if by_code:
+            res = rx.lookup_code(q)
+        else:
+            res = rx.lookup(q, extra_forms=[strip_dose_admin(q)], cutoff=cutoff)
+    else:
+        if icd is None and icd_linker is None:
+            raise ValueError("ICD vocab/linker chưa sẵn sàng")
+        label, code_label = "BỆNH (ICD-10)", "ICD"
+        if by_code:
+            if icd is None:
+                raise ValueError("ICD vocab chưa sẵn sàng (cần cho tra mã)")
+            res = icd.lookup_code(q)
+        elif icd_linker is not None:
+            res = lookup_via_linker(icd_linker, q, cutoff=cutoff)
+        else:
+            res = icd.lookup(q, cutoff=cutoff)
+
+    out = {
+        "query": q,
+        "kind": kind,
+        "by_code": bool(by_code),
+        "label": label,
+        "code_label": code_label,
+        "match": bool(res.get("match")),
+        "method": res.get("method"),
+        "candidates": res.get("candidates") or [],
+    }
+    if by_code:
+        out["code"] = res.get("code", q)
+        out["names"] = list(res.get("names") or [])
+    elif out["candidates"]:
+        top = out["candidates"][0]
+        out["code"] = top.get("code")
+        out["name"] = top.get("name")
+        out["score"] = top.get("score")
+    return out
 
 
 # --------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-One-page web UI for scripts/validate_annotation.py.
+One-page web UI for scripts/validate_annotation.py and medical_name_checker.py.
 
 Loads ICD10_VN.csv + RXNORM.csv the same way the CLI does, then validates
-pasted note text + annotation JSON.
+pasted note text + annotation JSON, and looks up drug/diagnosis names or codes.
 
   python src/web/app.py
   # open http://127.0.0.1:8765
@@ -32,6 +32,11 @@ from validate_annotation import (  # noqa: E402
     load_icd,
     load_rxnorm,
 )
+from medical_name_checker import (  # noqa: E402
+    check_query,
+    load_icd as load_icd_vocab,
+    load_rxnorm as load_rxnorm_vocab,
+)
 
 STATE: dict = {
     "ready": False,
@@ -43,6 +48,10 @@ STATE: dict = {
     "rx_idx": None,
     "icd_linker": None,       # lazy SapBERT
     "icd_linker_error": None,
+    # medical_name_checker Vocabs (name <-> code)
+    "rx_vocab": None,
+    "icd_vocab": None,
+    "name_ready": False,
 }
 
 
@@ -95,6 +104,18 @@ def load_dictionaries() -> None:
         rx_tty=rx_tty,
         rx_idx=rx_idx,
     )
+
+
+def _ensure_name_vocabs() -> None:
+    """Load medical_name_checker Vocabs on first lookup (RxNorm is large)."""
+    if STATE["name_ready"]:
+        return
+    print("Loading name-checker vocabs (first use) ...", flush=True)
+    icd_vocab = load_icd_vocab(str(ICD_PATH))
+    print(f"  {len(icd_vocab.names):,} ICD names / {len(icd_vocab.by_code):,} codes.", flush=True)
+    rx_vocab = load_rxnorm_vocab(str(RXNORM_PATH))
+    print(f"  {len(rx_vocab.names):,} drug names / {len(rx_vocab.by_code):,} RxCUI.", flush=True)
+    STATE.update(icd_vocab=icd_vocab, rx_vocab=rx_vocab, name_ready=True)
 
 
 def _ensure_sapbert_linker():
@@ -179,6 +200,40 @@ def run_check(
     return {"issues": rows, "summary": summary}
 
 
+def run_lookup(
+    query: str,
+    kind: str = "drug",
+    by_code: bool = False,
+    linker: str = "rapidfuzz",
+    cutoff: int | None = None,
+) -> dict:
+    if not STATE["ready"]:
+        raise RuntimeError(STATE["error"] or "Từ điển chưa sẵn sàng.")
+    _ensure_name_vocabs()
+
+    kind = (kind or "drug").strip().lower()
+    linker = (linker or "rapidfuzz").strip().lower()
+    if linker not in ("rapidfuzz", "sapbert"):
+        raise ValueError("linker phải là 'rapidfuzz' hoặc 'sapbert'.")
+
+    if cutoff is None:
+        cutoff = 50 if (kind == "diagnosis" and linker == "sapbert" and not by_code) else 90
+
+    icd_linker = None
+    if kind == "diagnosis" and not by_code and linker == "sapbert":
+        icd_linker = _ensure_sapbert_linker()
+
+    return check_query(
+        query,
+        kind=kind,
+        by_code=by_code,
+        rx=STATE["rx_vocab"],
+        icd=STATE["icd_vocab"],
+        icd_linker=icd_linker,
+        cutoff=int(cutoff),
+    )
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(WEB_DIR), **kwargs)
@@ -202,6 +257,7 @@ class Handler(SimpleHTTPRequestHandler):
                 200,
                 {
                     "ready": STATE["ready"],
+                    "name_ready": STATE["name_ready"],
                     "error": STATE["error"],
                     "icd_codes": len(STATE["icd"] or {}),
                     "rx_codes": len(STATE["rx_names"] or {}),
@@ -292,6 +348,50 @@ class Handler(SimpleHTTPRequestHandler):
 
         self._send_json(200, result)
 
+    def _handle_lookup(self):
+        payload, err = self._read_body_json()
+        if err:
+            self._send_json(400, {"error": err})
+            return
+
+        query = payload.get("query")
+        if not isinstance(query, str) or not query.strip():
+            self._send_json(400, {"error": "Cần trường 'query' (string)."})
+            return
+
+        kind = payload.get("kind", "drug")
+        if not isinstance(kind, str):
+            kind = "drug"
+        by_code = bool(payload.get("by_code", False))
+        linker = payload.get("linker", "rapidfuzz")
+        if not isinstance(linker, str):
+            linker = "rapidfuzz"
+
+        cutoff = payload.get("cutoff")
+        if cutoff is not None:
+            try:
+                cutoff = int(cutoff)
+            except (TypeError, ValueError):
+                cutoff = None
+
+        try:
+            result = run_lookup(
+                query.strip(),
+                kind=kind,
+                by_code=by_code,
+                linker=linker,
+                cutoff=cutoff,
+            )
+        except ValueError as e:
+            self._send_json(400, {"error": str(e)})
+            return
+        except Exception as e:
+            traceback.print_exc()
+            self._send_json(500, {"error": str(e)})
+            return
+
+        self._send_json(200, result)
+
     def do_POST(self):
         path = urlparse(self.path).path
         if path == "/api/read":
@@ -299,6 +399,9 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if path == "/api/check":
             self._handle_check()
+            return
+        if path == "/api/lookup":
+            self._handle_lookup()
             return
         self._send_json(404, {"error": "not found"})
 

@@ -300,6 +300,139 @@
       border: 1px solid #f0c9c9;
     }
     .err-banner.show { display: block; }
+
+    .section-title {
+      margin: 28px 0 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .section-title:first-of-type { margin-top: 0; }
+
+    .name-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 22px;
+    }
+    .name-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+    .name-row .field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .name-row .field > span,
+    .name-row .field > label.check-by-code {
+      font-size: 0.82rem;
+      font-weight: 650;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0;
+    }
+    .name-row select,
+    .name-row input[type="text"] {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      outline: none;
+    }
+    .name-row select:focus,
+    .name-row input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 106, 90, 0.15);
+    }
+    .name-row input[type="text"] {
+      min-width: 220px;
+      flex: 1;
+    }
+    .name-row label.check-by-code {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 500;
+      font-size: 0.92rem;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .name-row label.check-by-code input {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--accent);
+    }
+    button#nameCheck {
+      appearance: none;
+      border: 0;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font: inherit;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button#nameCheck:hover { filter: brightness(1.06); }
+    button#nameCheck:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      filter: none;
+    }
+    .name-result {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+    .name-result .empty { padding: 8px 0; text-align: left; }
+    .name-result .hit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+    .name-result .tag {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 2px 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .name-result .tag.ok { color: var(--ok); border-color: #b9dcc5; background: #e8f6ec; }
+    .name-result .tag.no { color: var(--error); border-color: #ecc; background: var(--error-bg); }
+    .name-result .code {
+      font-family: var(--mono);
+      font-weight: 650;
+    }
+    .name-result ul {
+      margin: 6px 0 0;
+      padding-left: 1.2rem;
+    }
+    .name-result li {
+      margin: 2px 0;
+      word-break: break-word;
+    }
+    .name-result .near {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
   </style>
 </head>
 <body>
@@ -311,6 +444,39 @@
 
     <div id="errBanner" class="err-banner"></div>
 
+    <h2 class="section-title">Name checker</h2>
+    <section class="name-panel">
+      <div class="name-row">
+        <div class="field">
+          <span>Loại</span>
+          <select id="nameKind" title="Thuốc (RxNorm) hoặc bệnh (ICD-10)">
+            <option value="drug" selected>Drug (RxNorm)</option>
+            <option value="diagnosis">Diagnosis (ICD-10)</option>
+          </select>
+        </div>
+        <label class="check-by-code" title="Bỏ chọn = tra tên → mã; chọn = tra mã → tên">
+          <input id="nameByCode" type="checkbox" />
+          Check by code
+        </label>
+        <div class="field" id="nameLinkerWrap" hidden>
+          <span>Linker</span>
+          <select id="nameLinker" title="Chỉ dùng khi tra tên bệnh">
+            <option value="rapidfuzz" selected>RapidFuzz</option>
+            <option value="sapbert">SapBERT</option>
+          </select>
+        </div>
+        <div class="field" style="flex: 1; min-width: 240px;">
+          <span>Query</span>
+          <input id="nameQuery" type="text" placeholder="amlodipine / viêm phổi / 17767 / J18.9" spellcheck="false" />
+        </div>
+        <button id="nameCheck" type="button" disabled>Check</button>
+      </div>
+      <div id="nameResult" class="name-result">
+        <div class="empty">Tra tên thuốc/bệnh hoặc mã (RxCUI / ICD) — giống medical_name_checker.py</div>
+      </div>
+    </section>
+
+    <h2 class="section-title">Annotation check</h2>
     <div class="grid">
       <div>
         <label for="txtPath">Text bệnh án (.txt)</label>
@@ -362,14 +528,115 @@
   <script>
     const $ = (id) => document.getElementById(id);
     const checkBtn = $("check");
+    const nameCheckBtn = $("nameCheck");
     const results = $("results");
     const summary = $("summary");
     const errBanner = $("errBanner");
     const dictStatus = $("dictStatus");
+    const nameResult = $("nameResult");
 
     function showError(msg) {
       errBanner.textContent = msg || "";
       errBanner.classList.toggle("show", Boolean(msg));
+    }
+
+    function syncNameControls() {
+      const diagnosis = $("nameKind").value === "diagnosis";
+      const byCode = $("nameByCode").checked;
+      $("nameLinkerWrap").hidden = !(diagnosis && !byCode);
+      $("nameQuery").placeholder = byCode
+        ? (diagnosis ? "ICD code, e.g. J18.9" : "RxCUI, e.g. 17767")
+        : (diagnosis ? "tên bệnh, e.g. viêm phổi" : "tên thuốc, e.g. amlodipine");
+    }
+
+    function renderNameResult(data) {
+      const codeLabel = data.code_label || (data.kind === "drug" ? "RxCUI" : "ICD");
+      if (data.by_code) {
+        if (!data.match) {
+          nameResult.innerHTML = `
+            <div class="hit">
+              <span class="tag no">✗ không có mã</span>
+              <span class="code">[${escapeHtml(codeLabel)} ${escapeHtml(data.code || data.query)}]</span>
+            </div>`;
+          return;
+        }
+        const names = (data.names || []).slice(0, 10)
+          .map((n) => `<li>${escapeHtml(n)}</li>`).join("");
+        const more = (data.names || []).length > 10
+          ? `<li class="near">… và ${data.names.length - 10} tên khác</li>` : "";
+        nameResult.innerHTML = `
+          <div class="hit">
+            <span class="tag ok">✓ tìm thấy</span>
+            <span class="code">[${escapeHtml(codeLabel)} ${escapeHtml(data.code)}]</span>
+            <span>${escapeHtml(data.label || "")}</span>
+          </div>
+          <ul>${names}${more}</ul>`;
+        return;
+      }
+
+      if (data.match && data.candidates && data.candidates.length) {
+        const top = data.candidates[0];
+        const tag = data.method === "exact" ? "✓ khớp" : "~ gần khớp";
+        const score = top.score != null ? ` (${top.score})` : "";
+        nameResult.innerHTML = `
+          <div class="hit">
+            <span class="tag ok">${tag}</span>
+            <span class="code">[${escapeHtml(codeLabel)} ${escapeHtml(top.code)}]</span>
+            <span>${escapeHtml(top.name || "")}${escapeHtml(score)}</span>
+          </div>`;
+        return;
+      }
+
+      const near = (data.candidates || []).slice(0, 3).map((c) =>
+        `<li class="near">[${escapeHtml(codeLabel)} ${escapeHtml(c.code)}] ${escapeHtml(c.name)} (${c.score})</li>`
+      ).join("");
+      nameResult.innerHTML = `
+        <div class="hit">
+          <span class="tag no">✗ không phải</span>
+          <span>${escapeHtml(data.label || "")}</span>
+        </div>
+        ${near ? `<ul>${near}</ul>` : `<div class="empty">Không có ứng viên gần.</div>`}`;
+    }
+
+    async function runNameCheck() {
+      const query = $("nameQuery").value.trim();
+      if (!query) {
+        showError("Nhập query để tra tên/mã.");
+        return;
+      }
+      showError("");
+      nameCheckBtn.disabled = true;
+      nameCheckBtn.textContent = "Checking…";
+      nameResult.innerHTML = `<div class="empty">Đang tra…</div>`;
+      try {
+        const res = await fetch("/api/lookup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query,
+            kind: $("nameKind").value || "drug",
+            by_code: $("nameByCode").checked,
+            linker: $("nameLinker").value || "rapidfuzz",
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          let msg = data.error || `HTTP ${res.status}`;
+          if (res.status === 404) {
+            msg = "API /api/lookup không có — hãy restart server: python src/web/app.py";
+          }
+          showError(msg);
+          nameResult.innerHTML = `<div class="empty">Có lỗi — xem banner phía trên.</div>`;
+          return;
+        }
+        renderNameResult(data);
+      } catch (e) {
+        showError(String(e));
+        nameResult.innerHTML = `<div class="empty">Có lỗi — xem banner phía trên.</div>`;
+      } finally {
+        nameCheckBtn.disabled = false;
+        nameCheckBtn.textContent = "Check";
+      }
     }
 
     function locOf(it) {
@@ -421,15 +688,18 @@
           dictStatus.className = "status ready";
           dictStatus.textContent = `Từ điển sẵn sàng · ICD ${st.icd_codes.toLocaleString()} · RxCUI ${st.rx_codes.toLocaleString()}`;
           checkBtn.disabled = false;
+          nameCheckBtn.disabled = false;
         } else {
           dictStatus.className = "status bad";
           dictStatus.textContent = st.error || "Từ điển chưa sẵn sàng";
           checkBtn.disabled = true;
+          nameCheckBtn.disabled = true;
         }
       } catch (e) {
         dictStatus.className = "status bad";
         dictStatus.textContent = "Không kết nối được server";
         checkBtn.disabled = true;
+        nameCheckBtn.disabled = true;
       }
     }
 
@@ -521,6 +791,17 @@
         $("cutoff").value = 70;
       }
     });
+
+    $("nameKind").addEventListener("change", syncNameControls);
+    $("nameByCode").addEventListener("change", syncNameControls);
+    nameCheckBtn.addEventListener("click", runNameCheck);
+    $("nameQuery").addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter") {
+        ev.preventDefault();
+        runNameCheck();
+      }
+    });
+    syncNameControls();
 
     refreshStatus();
   </script>

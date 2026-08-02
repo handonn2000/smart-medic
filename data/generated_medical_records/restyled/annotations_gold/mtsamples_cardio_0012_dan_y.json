@@ -134,26 +134,6 @@
     ]
   },
   {
-    "text": "corticosteroid hít vào",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      444,
-      466
-    ]
-  },
-  {
-    "text": "corticosteroid uống",
-    "type": "THUỐC",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      470,
-      489
-    ]
-  },
-  {
     "text": "x-quang",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
@@ -204,16 +184,6 @@
     ]
   },
   {
-    "text": "bình thường",
-    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
-    "candidates": [],
-    "assertions": [],
-    "position": [
-      560,
-      571
-    ]
-  },
-  {
     "text": "bạch cầu non",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
@@ -261,7 +231,7 @@
     "text": "Zithromax",
     "type": "THUỐC",
     "candidates": [
-      "18631"
+      "196474"
     ],
     "assertions": [],
     "position": [
@@ -293,11 +263,9 @@
   },
   {
     "text": "suy hô hấp cấp",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
+    "type": "CHẨN_ĐOÁN",
+    "candidates": ["J96.9"],
+    "assertions": ["isNegated"],
     "position": [
       809,
       823
@@ -327,11 +295,9 @@
   },
   {
     "text": "suy hô hấp",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
-    "assertions": [
-      "isNegated"
-    ],
+    "type": "CHẨN_ĐOÁN",
+    "candidates": ["J96.9"],
+    "assertions": ["isNegated"],
     "position": [
       961,
       971
@@ -353,7 +319,7 @@
     "text": "Xopenex MDI 2 lần xịt mỗi 4 giờ",
     "type": "THUỐC",
     "candidates": [
-      "237159"
+      "261702"
     ],
     "assertions": [],
     "position": [
@@ -365,7 +331,7 @@
     "text": "QVAR 40, 2 lần xịt 2 lần/ngày",
     "type": "THUỐC",
     "candidates": [
-      "1347"
+      "226084"
     ],
     "assertions": [],
     "position": [
@@ -377,7 +343,7 @@
     "text": "Amoxicillin 550 mg p.o. 2 lần/ngày",
     "type": "THUỐC",
     "candidates": [
-      "723"
+      "791946"
     ],
     "assertions": [],
     "position": [
@@ -389,7 +355,7 @@
     "text": "Zithromax 150 mg p.o. ngày 1",
     "type": "THUỐC",
     "candidates": [
-      "18631"
+      "196474"
     ],
     "assertions": [],
     "position": [

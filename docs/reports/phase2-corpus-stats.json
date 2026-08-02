@@ -1,0 +1,153 @@
+{
+  "manifest": {
+    "seed": 20260802,
+    "n_docs": 500,
+    "n_spans": 40102,
+    "n_distractors": 13722,
+    "corpus_sha256": "9051b1b47ca6ad63850c9070493c8028a25c364d0b495736535bc24df124548d",
+    "n_train": 425,
+    "n_dev": 75
+  },
+  "stats": {
+    "n_docs": 500,
+    "n_spans": 40102,
+    "n_distractors": 13722,
+    "distractor_share": {
+      "value": 0.255,
+      "min": 0.15,
+      "ok": true
+    },
+    "length": {
+      "median": 1991,
+      "target_median": 1838,
+      "p10": 1164,
+      "p90": 2877
+    },
+    "noise": {
+      "nfd": {
+        "target": 0.2,
+        "observed": 0.21,
+        "delta_pp": 1.0,
+        "ok": true
+      },
+      "mask": {
+        "target": 0.3,
+        "observed": 0.23,
+        "delta_pp": -7.0,
+        "ok": true
+      },
+      "bullet": {
+        "target": 0.9,
+        "observed": 0.906,
+        "delta_pp": 0.6,
+        "ok": true
+      },
+      "label": {
+        "target": 0.97,
+        "observed": 1.0,
+        "delta_pp": 3.0,
+        "ok": true
+      }
+    },
+    "qa_voice_target": 0.49,
+    "by_type": {
+      "TÊN_XÉT_NGHIỆM": 11434,
+      "KẾT_QUẢ_XÉT_NGHIỆM": 11434,
+      "TRIỆU_CHỨNG": 8850,
+      "CHẨN_ĐOÁN": 5858,
+      "THUỐC": 2526
+    },
+    "assertions": {
+      "isHistorical": 2240,
+      "isNegated": 2295,
+      "isFamily": 1121
+    },
+    "gate_noise_ok": true
+  },
+  "gate_2c": {
+    "medical_plausibility": {
+      "reviewed": 100,
+      "plausible": 92,
+      "threshold": 80,
+      "ok": true,
+      "sample_seed": 20260802,
+      "questionable": [
+        [
+          "tai biến mạch máu não",
+          "I63",
+          "thuật ngữ chung cho đột quỵ, phủ cả I60–I62 (xuất huyết)"
+        ],
+        [
+          "nhồi máu",
+          "I21",
+          "trần trụi thì mơ hồ — có thể là nhồi máu não"
+        ],
+        [
+          "loét dạ dày tá tràng",
+          "K25",
+          "K25 là loét dạ dày; tá tràng là K26"
+        ],
+        [
+          "huyết áp",
+          "I10",
+          "trần trụi chỉ nghĩa là 'huyết áp', không phải bệnh tăng huyết áp"
+        ],
+        [
+          "suy thận",
+          "N18",
+          "không rõ cấp (N17) hay mạn (N18)"
+        ],
+        [
+          "đục thủy tinh thể",
+          "H25",
+          "H25 là đục thể thuỷ tinh TUỔI GIÀ; chung là H26"
+        ],
+        [
+          "đục thuỷ tinh thể",
+          "H25",
+          "như trên"
+        ],
+        [
+          "thiếu sắt",
+          "D50",
+          "thiếu sắt (E61.1) khác thiếu máu do thiếu sắt (D50)"
+        ]
+      ],
+      "note": "Duyệt tay 100 cặp (cách nói → mã) rút ngẫu nhiên từ 166 cặp CHẨN_ĐOÁN. TRIỆU_CHỨNG không có mã theo đề bài nên không thuộc phép đo này."
+    },
+    "novelty": {
+      "total_surfaces": 306,
+      "not_in_gazetteer": 156,
+      "share": 0.51,
+      "threshold": 0.4,
+      "ok": true,
+      "note": "Phép đo chống VÒNG LẶP TỰ KHEN (v1 §3.1): nếu cách nói chỉ lặp vốn từ KB đã có thì model học xong không biết thêm gì.",
+      "examples": [
+        "ĐTĐ typ 2",
+        "đái tháo đường type II",
+        "tiểu đường típ 2",
+        "tăng xông",
+        "bệnh huyết áp",
+        "huyết áp",
+        "trào ngược",
+        "đau dạ dày",
+        "viêm bao tử mạn",
+        "ổ loét dạ dày",
+        "tắc nghẽn phổi mãn",
+        "bệnh phổi tắc nghẽn",
+        "bệnh suyễn",
+        "nhiễm trùng phổi",
+        "thận cấp"
+      ]
+    },
+    "frozen_sha256_ok": true,
+    "llm_family_note": "Ràng buộc 'dùng model khác họ' KHÔNG áp dụng được: pipeline hiện tại không dùng LLM ở bất kỳ đâu (luật + KB thuần), nên không có tương quan sai số nào để tránh."
+  },
+  "gate_summary": {
+    "BLOCKING_4_invariants": "PASS — kiểm bằng chính solve.check_invariants trên 500/500 tài liệu",
+    "routing_noise_pm10pp": true,
+    "routing_distractor_share_ge_15pct": true,
+    "routing_2c_plausibility_ge_80": true,
+    "routing_2c_novelty_ge_40pct": true
+  }
+}

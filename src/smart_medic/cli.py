@@ -102,6 +102,21 @@ def _add_eval_parser(sub: argparse._SubParsersAction) -> None:
     p_cmp.add_argument("--report", help="ghi kết quả so sánh ra JSON")
 
 
+def _add_synth_parser(sub: argparse._SubParsersAction) -> None:
+    sy = sub.add_parser("synth", help="sinh corpus huấn luyện (chỉ chạy lúc BUILD)")
+    sy_sub = sy.add_subparsers(dest="synth_cmd", metavar="<lệnh>", required=True)
+
+    p_build = sy_sub.add_parser("build", help="sinh corpus + kiểm 4 bất biến + thống kê")
+    p_build.add_argument("-n", "--docs", type=int, default=500, help="số tài liệu")
+    p_build.add_argument("--out", default="data/synth/v1", help="thư mục đích")
+    p_build.add_argument("--seed", type=int, default=20260802, help="seed, GHIM để tái lập")
+    p_build.add_argument("--db", help="artifact KB")
+    p_build.add_argument("--report", help="ghi thống kê ra JSON")
+
+    p_freeze = sy_sub.add_parser("freeze", help="đóng băng nguồn ATC ra data/curated/")
+    p_freeze.add_argument("--out", help="thư mục curated")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="smk",
@@ -111,6 +126,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_kb_parser(sub)
     _add_solve_parser(sub)
     _add_eval_parser(sub)
+    _add_synth_parser(sub)
     return parser
 
 
@@ -211,6 +227,49 @@ def _dispatch_eval(args: argparse.Namespace) -> int:
     return 1 if any(r.invariant_errors for r in results) else 0
 
 
+def _dispatch_synth(args: argparse.Namespace) -> int:
+    import json
+    from pathlib import Path
+
+    from smart_medic.synth import export, render, stats
+    from smart_medic.synth.surface import drug as drug_src
+
+    if args.synth_cmd == "freeze":
+        out = Path(args.out) if args.out else None
+        counts = drug_src.freeze_curated(drug_src.load_ddd(), out)
+        print(f"  đóng băng nguồn ATC: {counts}")
+        return 0
+
+    out_dir = Path(args.out)
+    docs = render.generate(args.docs, seed=args.seed, db=Path(args.db) if args.db else None)
+    manifest = export.write(docs, out_dir, seed=args.seed)
+    manifest.update(export.write_splits(docs, out_dir, seed=args.seed))
+    st = stats.measure(docs)
+
+    print(f"  {st['n_docs']} tài liệu → {out_dir}")
+    print(
+        f"  {st['n_spans']} span · {st['n_distractors']} cụm gây nhiễu "
+        f"({st['distractor_share']['value']:.1%})"
+    )
+    print(f"  độ dài trung vị {st['length']['median']} (đích {st['length']['target_median']})")
+    print(f"  {'nhiễu':10}{'đích':>8}{'đo được':>10}{'Δ điểm %':>10}")
+    for k, v in st["noise"].items():
+        flag_ = "✓" if v["ok"] else "✗"
+        print(f"  {k:10}{v['target']:>8.2f}{v['observed']:>10.2f}{v['delta_pp']:>+9.1f} {flag_}")
+    print(f"  nhãn: {st['by_type']}")
+    print(f"  assertion: {st['assertions']}")
+    print(f"  sha256 corpus {manifest['corpus_sha256'][:16]}…")
+
+    if args.report:
+        Path(args.report).parent.mkdir(parents=True, exist_ok=True)
+        Path(args.report).write_text(
+            json.dumps({"manifest": manifest, "stats": st}, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(f"  → {args.report}")
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.cmd == "kb":
@@ -219,6 +278,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _dispatch_solve(args)
     if args.cmd == "eval":
         return _dispatch_eval(args)
+    if args.cmd == "synth":
+        return _dispatch_synth(args)
     raise AssertionError(args.cmd)  # pragma: no cover
 
 

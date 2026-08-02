@@ -56,3 +56,13 @@ data/knowledge_base/icd
 data/knowledge_base/rxnorm
 data/knowledge_base/snomed
 data/knowledge_base/atc
+
+# Corpus sinh ra — PHÁI SINH, tái tạo bằng một lệnh:
+#     smk synth build -n 500
+# Cùng quy ước với `data/artifacts/*` (KB 311 MB): nguồn thì commit, thứ dựng ra
+# từ nguồn thì không. Tái lập bảo đảm bằng seed ghim + `corpus_sha256` trong
+# manifest + `.sha256` của các file `data/curated/`.
+# Giữ lại `manifest.json` và `splits.json` — chúng là HỒ SƠ nguồn gốc, không
+# phải dữ liệu, và Phase 3 cần `splits.json` để chọn epoch.
+data/synth/*/text/
+data/synth/*/annotations/

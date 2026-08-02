@@ -303,19 +303,17 @@ src/smart_medic/
 │   ├── bootstrap.py               #    paired bootstrap, SEED=20260802, B=10000
 │   └── harness.py                 #    chấm bộ gold + bảng theo nhánh + so hai báo cáo
 │
-├── synth/                         # ★ MỚI — chỉ chạy lúc BUILD, không vào runtime
-│   ├── __init__.py
-│   ├── schema.py                  # Concept · Span · Frame · Doc (dataclass, slots)
-│   ├── sample.py                  # lấy mẫu concept từ kb.sqlite, phân tầng
-│   ├── surface/
-│   │   ├── lab.py                 # ★ danh mục panel — TẤT ĐỊNH
-│   │   ├── drug.py                # ATC + mask + biệt dược không mã
-│   │   └── frozen.py              # đọc surface_forms.v1.jsonl (đã đóng băng)
-│   ├── frames.py                  # họ khung + khuôn khai thác từ data/test
-│   ├── distractor.py              # ★ span âm
-│   ├── noise.py                   # NFD 20% · mask 30% · gạch đầu dòng · rác OCR
-│   ├── render.py                  # đồ thị → văn bản, GHI OFFSET LÚC CHÈN
-│   └── export.py                  # xuất đúng định dạng gold_real
+├── synth/                         # ✅ ĐÃ XONG — chỉ chạy lúc BUILD, không vào runtime
+│   ├── schema.py                  # ✅ DocBuilder — GHI OFFSET LÚC CHÈN
+│   ├── surface/lab.py             # ✅ danh mục panel — TẤT ĐỊNH, nguồn chính
+│   ├── surface/drug.py            # ✅ ATC + mask + biệt dược không mã
+│   ├── surface/frozen.py          # ✅ đọc surface_forms.v1.jsonl (đã đóng băng)
+│   ├── frames.py                  # ✅ 8 họ khung + khuôn từ 71/91 file data/test
+│   ├── distractor.py              # ✅ span âm, 6 lớp
+│   ├── noise.py                   # ✅ NFD/mask/bullet/label theo §3.2
+│   ├── render.py                  # ✅ đồ thị → văn bản
+│   ├── stats.py                   # ✅ cổng định tuyến Phase 2
+│   └── export.py                  # ✅ dùng lại solve.check_invariants
 │
 ├── train/                         # ★ MỚI — optional dep "train", không vào runtime
 │   ├── dataset.py                 # .json corpus → BIO, offset-safe
@@ -520,7 +518,34 @@ trường hợp; báo cáo riêng `gold_batch1` (218 `TÊN_XN` + 202 `KQ_XN`) đ
 > Ràng buộc `precision` riêng đã **bỏ** — `Δfinal` kèm CI đã tính cả hai chiều
 > (§4.1).
 
-### Phase 2 — Bộ sinh corpus (3 ngày)
+### Phase 2 — Bộ sinh corpus (3 ngày) · ✅ **ĐÃ XONG**
+
+> **Cổng CHẶN pass:** 4 bất biến trên **500/500** tài liệu, kiểm bằng chính
+> `solve.check_invariants` — cùng hàm gác cổng bài nộp, nên corpus không thể lệch
+> định dạng với thứ được chấm.
+>
+> **Cổng ĐỊNH TUYẾN pass toàn bộ:**
+>
+> | phép đo | ngưỡng | đo được |
+> |---|---|---|
+> | nhiễu NFD / mask / bullet / label | ±10 pp | +1,0 · −7,0 · +0,6 · +3,0 pp |
+> | tỉ lệ span âm | ≥ 15% | **25,5%** (13.722 cụm) |
+> | 2c hợp lý y khoa | ≥ 80/100 | **92/100** |
+> | 2c độ mới (không khớp gazetteer) | ≥ 40% | **51,0%** |
+>
+> 500 tài liệu · 40.102 span · trung vị 1.991 ký tự (đích 1.838) ·
+> `isFamily` **1.121 span** — dữ liệu thật chỉ có 1/333 và 1/858.
+>
+> Hai lỗi phân bố bị chính thống kê bắt, không phải bằng mắt: che thuốc rút theo
+> *mention* cho ra 83% tài liệu có `***` (lệch **+52,6 pp** — số thật là 30/100
+> **file**); và độ dài ước lượng bằng "60 ký tự × số mảnh" cho ra tài liệu 224 ký
+> tự, ngắn hơn 8 lần trung vị thật.
+>
+> ⚠️ Ràng buộc *"dùng model khác họ"* của 2c **không áp dụng được**: pipeline
+> hiện tại không dùng LLM ở đâu cả (luật + KB thuần), nên không có tương quan sai
+> số nào để tránh. Tám cặp `(cách nói → mã)` đáng ngờ ghi đích danh trong
+> [`phase2-corpus-stats.json`](reports/phase2-corpus-stats.json).
+
 
 **2a — Khung + bất biến (test trước, code sau).** `schema.py`, `render.py`,
 `export.py`. Bốn bất biến kiểm bằng test:

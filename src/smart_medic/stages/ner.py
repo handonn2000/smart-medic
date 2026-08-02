@@ -29,6 +29,7 @@ sách từ chính bộ gold đang dùng để chấm — làm vậy là tự khe
 from __future__ import annotations
 
 import re
+import unicodedata
 from dataclasses import dataclass
 
 from smart_medic.kb.query import KBStore
@@ -36,7 +37,13 @@ from smart_medic.kb.query.rerank import canonical_term
 from smart_medic.stages.scoring import Entity
 
 # Cắt token giống tokenizer `unicode61` của FTS5 để từ điển và văn bản khớp nhau.
-_TOKEN = re.compile(r"[^\W_]+", re.UNICODE)
+# ★ Dấu tổ hợp Unicode phải nằm TRONG token.
+#
+# `[^\W_]+` không khớp ký tự tổ hợp (category Mn), nên trên văn bản NFD nó làm
+# VỠ VỤN từ tiếng Việt: `"tiền"` → `["tie", "n"]`. Đo được: 20/100 file trong
+# `data/test/` không ở dạng NFC, và `100.txt` còn trộn NFC với NFD ngay trong
+# một cụm từ. Không có lớp này thì mọi mention trong các file đó vô hình.
+_TOKEN = re.compile(r"(?:[^\W_]|[̀-ͯ])+", re.UNICODE)
 
 # Số cụm tối đa của một mention. Đo trên gold: dài nhất là 7 từ.
 MAX_NGRAM = 8
@@ -125,14 +132,50 @@ _LAB_VALUE = re.compile(
 )
 
 
+# ★ Tên thuốc bị CHE. PRD §7.1 gọi đây là "Điểm yếu 1 — nghiêm trọng": chuỗi để
+#   map sang RxNorm bị thay bằng dấu sao, nên fuzzy/embedding đều vô hiệu.
+#
+#   Nhưng đề bài vẫn CHẤM span đó: gold của `1.txt` và `65.txt` gán chúng là
+#   THUỐC với `candidates` rỗng. Mà Jaccard cho rỗng-gặp-rỗng bằng 1,0 — nên chỉ
+#   cần nhận ra "đây là một thuốc bị che" là ăn trọn cả ba thành phần.
+#
+#   Đo trên `gold_real`: 19/38 ca bỏ sót là token bị che, tức 22% toàn bộ span.
+#   Đuôi chữ cái được nuốt theo: `65.txt` có `"********************e"`.
+_MASKED = re.compile(r"\*{3,}[^\W\d_]*", re.UNICODE)
+
+
+def detect_masked_drugs(text: str, taken: list[Entity]) -> list[Entity]:
+    """Token bị che là entity THUỐC riêng, `candidates` để rỗng.
+
+    Không đoán bừa mã: PRD §7.1 nói rõ *"không suy được thì để candidate rỗng
+    thay vì đoán bừa"* — Jaccard phạt đoán sai nặng hơn là bỏ trống.
+    """
+    out: list[Entity] = []
+    for m in _MASKED.finditer(text):
+        s, e = m.start(), m.end()
+        if any(s < t.end and e > t.start for t in taken):
+            continue
+        out.append(Entity(text[s:e], TYPE_DRUG, s, e))
+    return out
+
+
 def tokens_with_offset(text: str) -> list[tuple[str, int, int]]:
     """Cắt token kèm vị trí gốc. **Không** chuẩn hoá chuỗi nguồn — offset là thiêng."""
     return [(m.group(0), m.start(), m.end()) for m in _TOKEN.finditer(text)]
 
 
 def norm_key(parts: list[str]) -> str:
-    """Khoá tra từ điển: hạ chữ thường, nối bằng một khoảng trắng."""
-    return " ".join(p.lower() for p in parts)
+    """Khoá tra từ điển: NFC hoá, hạ chữ thường, nối bằng một khoảng trắng.
+
+    ★ NFC hoá Ở ĐÂY và chỉ ở đây. Khoá là **bản sao dùng để so khớp**; chuỗi
+      dùng tính offset không bao giờ bị đụng tới (xem `textio.py`).
+
+      Bẫy này có thật: `100.txt` trộn NFC và NFD ngay trong một cụm từ — cùng
+      chữ `"tiền sản giật"` mà một chỗ dài 13 ký tự, chỗ khác 16. Không NFC hoá
+      khoá thì bản NFD tra từ điển trả `None` và mention biến mất, dù bản NFC
+      ngay dòng dưới lại tìm ra bình thường.
+    """
+    return unicodedata.normalize("NFC", " ".join(p.lower() for p in parts))
 
 
 @dataclass(slots=True)
@@ -351,6 +394,7 @@ def annotate(text: str, gaz: Gazetteer) -> list[Entity]:
     from smart_medic.stages import labtest
 
     ents = detect(text, gaz)
+    ents += detect_masked_drugs(text, ents)
     ents += labtest.detect(text, ents)
     ents.sort(key=lambda e: (e.start, e.end))
     return ents

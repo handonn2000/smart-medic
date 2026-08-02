@@ -30,13 +30,37 @@
     ]
   },
   {
+    "text": "tiền sản giật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O14"
+    ],
+    "assertions": [],
+    "position": [
+      134,
+      147
+    ]
+  },
+  {
+    "text": "************",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      168,
+      180
+    ]
+  },
+  {
     "text": "phân tích nước tiểu",
     "type": "TÊN_XÉT_NGHIỆM",
     "candidates": [],
     "assertions": [],
     "position": [
-      91,
-      110
+      195,
+      214
     ]
   },
   {
@@ -45,8 +69,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      112,
-      136
+      216,
+      240
     ]
   },
   {
@@ -55,8 +79,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      146,
-      156
+      250,
+      260
     ]
   },
   {
@@ -65,8 +89,8 @@
     "candidates": [],
     "assertions": [],
     "position": [
-      158,
-      190
+      262,
+      294
     ]
   },
   {
@@ -77,8 +101,8 @@
     ],
     "assertions": [],
     "position": [
-      212,
-      236
+      316,
+      340
     ]
   },
   {
@@ -89,8 +113,8 @@
     ],
     "assertions": [],
     "position": [
-      248,
-      261
+      352,
+      365
     ]
   },
   {
@@ -101,8 +125,32 @@
     ],
     "assertions": [],
     "position": [
-      305,
-      316
+      409,
+      420
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      465,
+      472
+    ]
+  },
+  {
+    "text": "aspirin 81 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      485,
+      498
     ]
   }
 ]

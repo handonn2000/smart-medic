@@ -39,7 +39,13 @@ import re
 from smart_medic.kb.normalize.sig import strip_sig
 from smart_medic.kb.query.models import Candidate
 
-_TOKEN = re.compile(r"[^\W_]+", re.UNICODE)
+# ★ Dấu tổ hợp Unicode phải nằm TRONG token.
+#
+# `[^\W_]+` không khớp ký tự tổ hợp (category Mn), nên trên văn bản NFD nó làm
+# VỠ VỤN từ tiếng Việt: `"tiền"` → `["tie", "n"]`. Đo được: 20/100 file trong
+# `data/test/` không ở dạng NFC, và `100.txt` còn trộn NFC với NFD ngay trong
+# một cụm từ. Không có lớp này thì mọi mention trong các file đó vô hình.
+_TOKEN = re.compile(r"(?:[^\W_]|[̀-ͯ])+", re.UNICODE)
 
 # ── Prior phụ thuộc vào việc mention CÓ HÀM LƯỢNG hay không ──────────────
 #

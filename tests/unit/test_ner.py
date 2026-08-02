@@ -273,3 +273,80 @@ class TestChanNguyenNhanNgoaiSinh:
 
         for code in ("I10", "E11.9", "J18.9", "Z38.0", "K21"):
             assert not _CHAPTER_EXTERNAL.match(code), code
+
+
+class TestUnicodeToHop:
+    """★ Lớp bug NGHIÊM TRỌNG: `[^\\W_]+` làm VỠ VỤN văn bản NFD.
+
+    Ký tự tổ hợp thuộc category Mn nên không khớp `\\w`. Trên NFD, `"tiền"` bị
+    cắt thành `["tie", "n"]` — mọi mention trong file NFD trở nên vô hình.
+
+    Đo được: 20/100 file `data/test/` không ở dạng NFC, và `100.txt` còn TRỘN
+    NFC với NFD ngay bên trong một cụm từ.
+    """
+
+    def test_token_khong_vo_tren_nfd(self):
+        import unicodedata
+
+        from smart_medic.stages.ner import _TOKEN
+
+        nfd = unicodedata.normalize("NFD", "tiền sản giật")
+        assert _TOKEN.findall(nfd) == [nfd.split()[0], nfd.split()[1], nfd.split()[2]]
+
+    def test_khoa_tu_dien_duoc_nfc_hoa(self):
+        """Khoá là BẢN SAO để so khớp; chuỗi tính offset không bị đụng."""
+        import unicodedata
+
+        nfd = unicodedata.normalize("NFD", "tiền sản giật")
+        from smart_medic.stages.ner import _TOKEN
+
+        assert norm_key(_TOKEN.findall(nfd)) == "tiền sản giật"
+
+    def test_tim_duoc_mention_nfd(self):
+        import unicodedata
+
+        g = gaz(**{"tiền sản giật": TYPE_DIAGNOSIS})
+        text = "nguy cơ " + unicodedata.normalize("NFD", "tiền sản giật") + " cao"
+        ents = detect(text, g)
+        assert len(ents) == 1
+        assert text[ents[0].start : ents[0].end] == ents[0].text, "offset phải trỏ vào chuỗi GỐC"
+
+    def test_offset_van_tinh_tren_chuoi_goc(self):
+        """NFD dài hơn NFC — offset phải theo chuỗi thật, không theo bản chuẩn hoá."""
+        import unicodedata
+
+        nfd = unicodedata.normalize("NFD", "tiền sản giật")
+        assert len(nfd) > len("tiền sản giật")
+        for word, start, end in tokens_with_offset(nfd):
+            assert nfd[start:end] == word
+
+
+class TestThuocBiChe:
+    """PRD §7.1 — token bị che là entity THUỐC riêng, `candidates` rỗng."""
+
+    def test_nhan_dien_token_che(self):
+        from smart_medic.stages.ner import detect_masked_drugs
+
+        ents = detect_masked_drugs("Thuốc giảm đau chứa ******* hoặc **********", [])
+        assert [e.type for e in ents] == [TYPE_DRUG, TYPE_DRUG]
+        assert all(e.candidates == () for e in ents)
+
+    def test_nuot_duoi_chu_cai(self):
+        from smart_medic.stages.ner import detect_masked_drugs
+
+        ents = detect_masked_drugs("sử dụng 2,5g ********************e có bao phim", [])
+        assert ents[0].text.endswith("e")
+
+    def test_khong_de_len_entity_da_co(self):
+        from smart_medic.stages.ner import detect_masked_drugs
+        from smart_medic.stages.scoring import Entity
+
+        taken = [Entity("*******", TYPE_DRUG, 0, 7)]
+        assert detect_masked_drugs("*******", taken) == []
+
+    def test_khong_doan_bua_ma(self):
+        """PRD §7.1: không suy được thì để rỗng — Jaccard phạt đoán sai."""
+        from smart_medic.stages.ner import detect_masked_drugs
+
+        for e in detect_masked_drugs("kem ****************** hai lần", []):
+            assert e.candidates == ()

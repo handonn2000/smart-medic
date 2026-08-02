@@ -48,7 +48,7 @@ SIG_TOKENS: frozenset[str] = ROUTE | FREQUENCY
 
 # Cắt theo cùng quy tắc với tokenizer `unicode61` của FTS5, nhưng GIỮ dấu hai
 # chấm và gạch nối làm ranh giới — `q6h:prn` phải tách thành `q6h` + `prn`.
-_SPLIT = re.compile(r"([^\W_]+)", re.UNICODE)
+_SPLIT = re.compile(r"((?:[^\W_]|[̀-ͯ])+)", re.UNICODE)
 
 
 def is_sig_token(token: str) -> bool:

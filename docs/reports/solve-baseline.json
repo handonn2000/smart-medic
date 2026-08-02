@@ -1,11 +1,24 @@
 {
-  "n_docs": 20,
-  "final": 0.666,
-  "text": 0.6578,
-  "assertions": 0.69,
-  "candidates": 0.6541,
-  "span_precision": 0.8988,
-  "span_recall": 0.8619,
-  "span_f1": 0.88,
-  "type_accuracy": 0.9394
+  "gold": {
+    "n_docs": 20,
+    "final": 0.6612,
+    "text": 0.6553,
+    "assertions": 0.6872,
+    "candidates": 0.6463,
+    "span_precision": 0.8839,
+    "span_recall": 0.8645,
+    "span_f1": 0.8741,
+    "type_accuracy": 0.9407
+  },
+  "gold_real": {
+    "n_docs": 3,
+    "final": 0.5298,
+    "text": 0.6231,
+    "assertions": 0.5887,
+    "candidates": 0.4157,
+    "span_precision": 0.8171,
+    "span_recall": 0.7701,
+    "span_f1": 0.7929,
+    "type_accuracy": 0.9552
+  }
 }

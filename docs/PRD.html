@@ -1274,12 +1274,12 @@
 
   <div class="hero">
     <span class="eyebrow">Cơ sở tri thức · đã triển khai</span>
-    <h1 class="title">Ba bộ chuẩn y khoa<br><span class="en">và pipeline quy chúng về một mối</span></h1>
-    <p class="subtitle">Đề bài chấm điểm trên <b>ICD-10</b> (bệnh) và <b>RxNorm</b> (thuốc), còn <b>SNOMED CT</b> đóng vai trò cầu nối. Tab này giải thích ba bộ mã, mối quan hệ thật giữa chúng, và pipeline đã dựng để biến 9,3 GB dữ liệu thô rời rạc thành một kho truy vấn duy nhất.</p>
+    <h1 class="title">Bốn bộ chuẩn y khoa<br><span class="en">và pipeline quy chúng về một mối</span></h1>
+    <p class="subtitle">Đề bài chấm điểm trên <b>ICD-10</b> (bệnh) và <b>RxNorm</b> (thuốc); <b>SNOMED CT</b> đóng vai trò cầu nối, còn <b>ATC</b> bổ sung trục phân loại và — quan trọng hơn — <b>tên thuốc tiếng Việt</b>. Tab này giải thích bốn bộ mã, mối quan hệ thật giữa chúng, và pipeline đã dựng để biến 9,3 GB dữ liệu thô rời rạc thành một kho truy vấn duy nhất.</p>
     <div class="hero-meta">
       <span class="chip"><span class="dot"></span>141.948 <b>concept</b></span>
       <span class="chip"><span class="dot"></span>633.000 <b>term</b></span>
-      <span class="chip"><span class="dot"></span>Recall@20 <b>1,000</b></span>
+      <span class="chip"><span class="dot"></span>3 bộ gold · <b>1.464</b> span</span>
       <span class="chip"><span class="dot"></span>Artifact <b>311 MB</b></span>
     </div>
   </div>
@@ -1380,19 +1380,47 @@ SBD          Bayer Aspirin 81 MG Oral Tab   ← + tên thương mại</div>
       </div>
       <div class="callout"><b>42,8% concept có nhiều hơn một cha</b> ⇒ đây là <b>DAG chứ không phải cây</b>. Điều này loại bỏ các kỹ thuật nhãn khoảng rẻ tiền (nested set, interval labeling) vốn chỉ đúng trên cây — chỗ nhiều người vấp.</div>
     </div>
+
+    <h3><span class="lead">1.4</span>ATC — trục phân loại, và <i>tên thuốc tiếng Việt</i></h3>
+    <div class="card">
+      <p>ATC không phải bộ mã thứ tư được chấm. Nó là <b>trục phân loại</b> do WHO ban hành: chữ cái đầu là nhóm giải phẫu, các cấp sau là nhóm dược lý. Nhưng giá trị thật của nó ở dự án này nằm chỗ khác — nó là <b>chiếc cầu duy nhất bắc sang tên thuốc tiếng Việt</b>.</p>
+
+      <div class="stats">
+        <div class="stat"><b>6.199</b><span>rxcui có mã ATC</span></div>
+        <div class="stat"><b>SRL=0</b><span>không hạn chế license</span></div>
+        <div class="stat"><b>608</b><span>tên Việt nối được vào KB</span></div>
+        <div class="stat"><b>72%</b><span>tên Việt KB chưa có</span></div>
+      </div>
+
+      <p>Nguồn: <code>data/knowledge_base/atc/ddd.csv</code> — bảng DDD của Bộ Y tế theo ATC/DDD Index 2016. Ánh xạ <b>tất định</b>, không đoán, không LLM:</p>
+
+      <div class="quote">tên tiếng Việt  ──►  mã ATC cấp 5  ──►  RxCUI
+   Acetazolamid      S01EC01           167   acetazolamide
+   Acetylcystein     V03AB23           197   acetylcysteine
+   Adapalen          D10AD03         60223   adapalene</div>
+
+      <p style="margin-top:10px">★ Chính tả dược phẩm tiếng Việt lệch tiếng Anh <b>có hệ thống</b> — bỏ <code>-e</code> cuối, <code>-ine</code>→<code>-in</code>. Đó là lý do <b>766/1.065 tên (72%)</b> không khớp từ điển KB dù thuốc thì KB có đủ. Đây đúng là lớp biến thể mà trước nay phải nhờ LLM đoán.</p>
+
+      <div class="callout ok"><b>Ba thứ dùng được, ba mức khác nhau.</b> <b>608 tên hoạt chất</b> có RxCUI đúng → nạp vào KB ở <code>tier='derived'</code>. <b>71 dạng bào chế</b> (<code>Viên</code>, <code>Thuốc tiêm</code>, <code>Viên sủi</code>, <code>Thuốc nhỏ mắt</code>) và <b>29 nhóm thuốc</b> tiếng Việt → <b>không</b> vào KB vì không phục vụ 4 hàm API (§2 quy tắc ingest), mà đóng băng ra <code>data/curated/</code> cho pipeline giải bài dùng.</div>
+
+      <div class="callout warn"><b>Cẩn thận khi nạp:</b> 240/909 dòng là <b>thuốc phối hợp</b> (<code>Acid Benzoic + Natri Benzoat + Natri Fluorid</code>). Gán một mã cho chúng là sai — phải lọc theo <code>+</code>, và lọc cả <code>*</code>/<code>(</code> vốn là ký hiệu danh mục BHYT chứ không phải tên thuốc.</div>
+    </div>
   </section>
 
   <!-- 2. Mối quan hệ -->
   <section class="block">
-    <div class="sec-head"><span class="sec-num">2</span><h2>Mối quan hệ giữa ba bộ mã</h2></div>
+    <div class="sec-head"><span class="sec-num">2</span><h2>Mối quan hệ giữa các bộ mã</h2></div>
     <div class="card">
-      <p>Ba bộ mã <b>không độc lập</b>. Có cầu nối chính thức, và cả hai cầu nối đều nằm sẵn trong dữ liệu của repo:</p>
+      <p>Các bộ mã <b>không độc lập</b>. Có cầu nối chính thức, và <b>mọi cầu nối đều nằm sẵn trong dữ liệu của repo</b> — không phải tải thêm gì:</p>
 
       <div class="figwrap">
-        <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sơ đồ quan hệ giữa SNOMED CT, ICD-10 và RxNorm">
+        <svg viewBox="0 0 720 384" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sơ đồ quan hệ giữa SNOMED CT, ICD-10, RxNorm và ATC">
           <defs>
             <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
               <path d="M0 0 L10 5 L0 10 z" fill="#0a6b66"/>
+            </marker>
+            <marker id="ah2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0 0 L10 5 L0 10 z" fill="#a8823c"/>
             </marker>
           </defs>
 
@@ -1423,11 +1451,27 @@ SBD          Bayer Aspirin 81 MG Oral Tab   ← + tên thương mại</div>
           <text x="554" y="202" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#42605c">thuốc · 124.708 concept</text>
           <text x="554" y="217" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#2f6b38" font-weight="700">ĐƯỢC CHẤM ĐIỂM</text>
 
+          <!-- ATC -->
+          <rect x="448" y="254" width="212" height="66" rx="12" fill="#fdf0d5" stroke="#e8c98a" stroke-width="1.5"/>
+          <text x="554" y="280" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#8a6a2f">ATC</text>
+          <text x="554" y="297" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#42605c">phân loại + tên thuốc tiếng Việt</text>
+          <text x="554" y="312" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#7c948f">KHÔNG được chấm — nguồn cho</text>
+
+          <!-- ATC → RxNorm: khoá RxCUI, TẤT ĐỊNH -->
+          <path d="M554 254 L554 232" stroke="#a8823c" stroke-width="2" fill="none" marker-end="url(#ah2a)"/>
+          <text x="568" y="243" font-family="monospace" font-size="10" fill="#8a6a2f">khoá RxCUI · 6.199</text>
+          <text x="568" y="255" font-family="monospace" font-size="10" fill="#7c948f">608 tên Việt</text>
+
+          <!-- ATC → ICD: chỉ gần đúng -->
+          <path d="M448 284 L296 232" stroke="#a8823c" stroke-width="1.5" fill="none" stroke-dasharray="5 4" marker-end="url(#ah2a)"/>
+          <text x="250" y="292" text-anchor="middle" font-family="monospace" font-size="10" fill="#8a6a2f">chữ đầu ATC → chương ICD</text>
+          <text x="250" y="305" text-anchor="middle" font-family="monospace" font-size="10" fill="#7c948f">gần đúng — KHÔNG phải chỉ định</text>
+
           <!-- UMLS -->
-          <rect x="60" y="250" width="600" height="38" rx="10" fill="#eef1ef" stroke="#d5ddd9" stroke-dasharray="5 4"/>
-          <text x="360" y="274" text-anchor="middle" font-family="monospace" font-size="11" fill="#7c948f">UMLS — siêu từ điển gom mọi bộ chuẩn qua CUI chung (cần license UTS, chưa dùng)</text>
+          <rect x="60" y="334" width="600" height="38" rx="10" fill="#eef1ef" stroke="#d5ddd9" stroke-dasharray="5 4"/>
+          <text x="360" y="358" text-anchor="middle" font-family="monospace" font-size="11" fill="#7c948f">UMLS — siêu từ điển gom mọi bộ chuẩn qua CUI chung (cần license UTS, chưa dùng)</text>
         </svg>
-        <div class="figcap">SNOMED là <b>trục trung gian</b>: nó nối được sang cả ICD lẫn RxNorm, nhưng bản thân không được chấm điểm.</div>
+        <div class="figcap"><b>Hai trục trung gian, hai chất lượng khác nhau.</b> SNOMED nối sang cả ICD lẫn RxNorm bằng ánh xạ chính thức. ATC nối sang RxNorm <b>tất định</b> (chung khoá RxCUI) nhưng sang ICD thì chỉ <b>gần đúng</b> ở mức chương — đủ để sinh dữ liệu mạch lạc, <b>không</b> đủ để làm quan hệ chỉ định. Cả hai đều không được chấm điểm.</div>
       </div>
 
       <table class="def">
@@ -1435,6 +1479,9 @@ SBD          Bayer Aspirin 81 MG Oral Tab   ← + tên thương mại</div>
         <tbody>
           <tr><td><b>SNOMED → ICD-10</b></td><td>Refset <code>ExtendedMap</code> (<code>447562003</code>)</td><td>154.960 map active → <b>129.741 dùng được</b> sau khi lọc <code>mapRule=TRUE</code> và "properly classified"</td></tr>
           <tr><td><b>SNOMED ↔ RxNorm</b></td><td>Ngay trong <code>RXNCONSO.RRF</code></td><td><b>116.477 dòng</b> <code>SAB=SNOMEDCT_US</code> — RxNorm tự đóng gói sẵn nhánh thuốc của SNOMED</td></tr>
+          <tr><td><b>ATC → RxNorm</b></td><td><code>RXNCONSO.RRF</code>, <code>SAB=ATC</code></td><td><b>6.199 rxcui</b> có mã ATC — khoá bằng RxCUI nên nối thẳng, không cần ánh xạ trung gian</td></tr>
+          <tr><td><b>tên Việt → ATC → RxCUI</b></td><td><code>ddd.csv</code> của BYT (§1.4)</td><td><b>608 tên hoạt chất tiếng Việt</b> nối được — ánh xạ <b>tất định</b>, không fuzzy, không LLM</td></tr>
+          <tr><td>ATC → chương ICD</td><td>chữ cái đầu = nhóm giải phẫu</td><td>Ánh xạ <i>gần đúng</i> — đủ cho mạch lạc khi sinh dữ liệu, không đủ làm chỉ định</td></tr>
           <tr><td>ICD ↔ RxNorm ↔ SNOMED</td><td>UMLS qua CUI</td><td>Cần license UTS — <b>chưa dùng</b></td></tr>
         </tbody>
       </table>
@@ -1566,13 +1613,30 @@ SBD          Bayer Aspirin 81 MG Oral Tab   ← + tên thương mại</div>
   <section class="block">
     <div class="sec-head"><span class="sec-num">4</span><h2>Kết quả đo</h2></div>
     <div class="card">
-      <p>Mọi thay đổi được đo trên <b>probe set 122 cặp</b> <code>(mention → mã đúng)</code> — rẻ hơn gold annotation nhiều vì không cần span, không cần assertion. Mention lấy từ tần suất thật trong <code>data/test/</code> và từ ví dụ của PRD.</p>
+      <p>Ban đầu mọi thay đổi được đo trên <b>probe set 122 cặp</b> <code>(mention → mã đúng)</code> — nhãn <b>tự gán</b>, rẻ hơn gold annotation nhiều vì không cần span, không cần assertion.</p>
 
       <div class="prio">
         <div class="pcard"><div class="pv">0,836</div><div class="pk">Recall@1</div><div class="pl">từ 0,623 · <b>+21,3 điểm</b></div></div>
         <div class="pcard"><div class="pv">0,975</div><div class="pk">Recall@5</div><div class="pl">từ 0,844 · <b>+13,1 điểm</b></div></div>
-        <div class="pcard hot"><div class="pv">1,000</div><div class="pk">Recall@20</div><div class="pl">cả hai nhánh · <b>kịch trần</b></div></div>
+        <div class="pcard"><div class="pv">1,000</div><div class="pk">Recall@20</div><div class="pl">trên probe · <b>kịch trần</b></div></div>
       </div>
+
+      <div class="callout warn"><b>★ Và probe set đã nói dối.</b> Khi có gold thật của BTC (<code>sample_output.json</code>, 11 mention thuốc), cùng một hệ cho <code>R@20 = <b>0,909</b></code> · <code>R@5 = <b>0,545</b></code> · <code>R@1 = <b>0,182</b></code>. Nguyên nhân: probe dùng phần lớn tên hoạt chất trần (<code>omeprazole</code>), còn mention thật là chuỗi kê đơn đầy đủ (<code>guaifenesin ml po q6h:prn</code>). Con số <code>1,000</code> ở trên <b>không phải năng lực thật</b> — nó là tính chất của bộ đo.</div>
+
+      <h4 style="font-family:var(--display);font-size:14.5px;margin:22px 0 8px">Ba bộ gold gán tay — và vì sao KHÔNG được gộp</h4>
+
+      <table class="def">
+        <thead><tr><th>Bộ</th><th>Nguồn</th><th>Span</th><th>Vai trò</th></tr></thead>
+        <tbody>
+          <tr><td><code>gold/</code></td><td>20 bệnh án <b>dự án tự viết</b></td><td>273</td><td>chỉ làm regression guard</td></tr>
+          <tr><td><code>gold_real/</code></td><td>9 file <b>nguyên văn từ <code>data/test/</code></b></td><td>333</td><td><span class="tag pass">★ tín hiệu không thiên lệch duy nhất</span></td></tr>
+          <tr><td><code>gold_batch1/</code></td><td>21 file <b>MTSamples</b> dịch sang tiếng Việt</td><td>858</td><td>kiểm khái quát hoá — ngoài miền</td></tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:12px">Cả ba đều <b>0 lệch offset</b> và mã đều tra được trong KB. Nhưng chỉ <code>gold_real</code> cùng phân bố với tập test — hai bộ kia dùng để canh hồi quy và đo độ bền, <b>không</b> để công bố số đo.</p>
+
+      <div class="callout"><b>Khoảng cách 0,23 là con số đắt nhất dự án học được.</b> Pipeline giải bài đạt <code>final <b>0,667</b></code> trên bệnh án tự viết nhưng chỉ <code>final <b>0,433</b></code> trên văn bản thật, và <code>0,258</code> trên bộ ngoài miền. Đó chính là giá của việc hiệu chỉnh trên dữ liệu sạch tự tạo rồi đem chấm trên dữ liệu thật.</div>
 
       <h4 style="font-family:var(--display);font-size:14.5px;margin:20px 0 8px">Trước và sau enrichment</h4>
       <div class="cmp"><span class="lab">Tổng thể R@1</span><span class="track"><span class="fill base" style="width:62.3%"></span></span><span class="val">0,623</span></div>
@@ -1628,6 +1692,34 @@ SBD          Bayer Aspirin 81 MG Oral Tab   ← + tên thương mại</div>
 
       <p style="margin-top:12px">Dense cứu được <b>0</b> ca mà lexical trượt, nhưng làm trượt <b>52</b> ca lexical trúng. Nguyên nhân rõ: <code>paraphrase-multilingual-MiniLM</code> <b>không có tri thức y khoa</b> — nó không biết <code>THA</code> = tăng huyết áp, <code>COPD</code> = bệnh phổi tắc nghẽn mạn tính.</p>
       <div class="callout warn">PRD §4 khuyến nghị đích danh <b>SapBERT / BioLORD</b> — embedding <i>y sinh chuyên biệt</i>. Chọn model đa dụng để xử lý tiếng Việt đã xoá sạch tín hiệu chuyên ngành. Đây là <b>lỗi lựa chọn</b>, không phải giới hạn của hướng dense. Hạ tầng được giữ lại và không bật mặc định; điều kiện thử lại đã ghi vào backlog.</div>
+
+      <div class="verdict" style="margin-top:18px">
+        <div class="em">🔎</div>
+        <div>
+          <p class="big">SNOMED KHÔNG cho được quan hệ thuốc → chỉ định</p>
+          <p>Đã khảo sát để lấy tín hiệu mạch lạc cho việc sinh dữ liệu. Kết quả âm, và ghi lại để không ai khảo sát lại.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:10px">Đếm trên <code>sct2_Relationship_Snapshot</code>: <b>102 loại quan hệ active, không loại nào là chỉ định/điều trị</b>. Gần nhất chỉ có <code>Has intent</code>, <code>Plays role</code>, <code>Has focus</code>. Thứ SNOMED có là <code>Finding site</code> (109.781), <code>Associated morphology</code> (82.194), <code>Due to</code> (20.143), <code>Causative agent</code> (18.801) — đều là <i>bệnh → giải phẫu/nguyên nhân</i>, không phải <i>thuốc → bệnh</i>.</p>
+
+      <div class="callout ok"><b>Thay thế rẻ hơn, đã có sẵn:</b> chữ cái đầu mã ATC là nhóm giải phẫu, ánh xạ khá sạch sang chương ICD (<code>C</code>→<code>I</code> tim mạch, <code>J</code>→<code>A/B</code> nhiễm khuẩn, <code>N</code>→<code>F/G</code> thần kinh, <code>R</code>→<code>J</code> hô hấp). Đủ mạch lạc cho mục đích sinh dữ liệu, và <b>không tốn gì</b> — thay vì nạp 383.853 concept SNOMED rồi còn phải dịch sang tiếng Việt.</div>
+
+      <div class="verdict" style="margin-top:18px">
+        <div class="em">💊</div>
+        <div>
+          <p class="big">KB thiếu biệt dược — nguyên nhân đã truy được, quyết định thì CHƯA</p>
+          <p><code>gold_batch1</code> có <b>13 mã thuốc</b> KB không tra được. Gold đúng, KB thiếu.</p>
+        </div>
+      </div>
+
+      <div class="quote">9449 Rocephin
+   SAB=RXNORM   TTY=BN   SUPPRESS=<span class="rd">O</span>   ← atom RxNorm sở hữu bị đánh obsolete
+   SAB=MMSL     TTY=BN   SUPPRESS=N   ← còn sống, nhưng không phải RXNORM</div>
+
+      <p style="margin-top:10px">Cả 13 là RXCUI thật (Rocephin, Levothroid, Lorcet, Tapazole, Vicodin, Micro-K…), <b>không có bản ghi remap</b> trong <code>RXNCUI.RRF</code>. Luật Phase 2 đòi <i>"≥1 atom <code>SAB=RXNORM</code> <b>và</b> <code>suppress=N</code>"</i> nên cả concept bị loại.</p>
+
+      <div class="callout warn"><b>Chưa nới luật.</b> Nới thành "≥1 atom <code>suppress=N</code> từ bất kỳ nguồn nào" sẽ thêm <b>+146.691 concept</b> (124.708 → 271.399) — hơn gấp đôi. Dự án này đã bỏ 2/4 nguồn làm giàu vì nạp thêm dữ liệu làm điểm tụt, nên quyết định này <b>chờ tín hiệu leaderboard</b>, không tự quyết bằng số đo nội bộ.</div>
     </div>
   </section>
 

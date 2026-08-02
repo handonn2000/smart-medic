@@ -253,8 +253,15 @@ def detect_lab_values(text: str, taken: list[Entity]) -> list[Entity]:
 
 
 def annotate(text: str, gaz: Gazetteer) -> list[Entity]:
-    """Toàn bộ bước phát hiện + phân loại cho một văn bản."""
+    """Toàn bộ bước phát hiện + phân loại cho một văn bản.
+
+    Thứ tự có chủ đích: từ điển KB chạy TRƯỚC, luật xét nghiệm chạy SAU trên
+    phần văn bản còn trống. Ngược lại thì mẫu `TÊN: KẾT_QUẢ` sẽ nuốt mất tên
+    bệnh nằm sau dấu hai chấm (`"Chẩn đoán: viêm phổi"`).
+    """
+    from smart_medic.stages import labtest
+
     ents = detect(text, gaz)
-    ents += detect_lab_values(text, ents)
+    ents += labtest.detect(text, ents)
     ents.sort(key=lambda e: (e.start, e.end))
     return ents

@@ -146,7 +146,7 @@
   {
     "text": "Đau lưng dưới",
     "type": "CHẨN_ĐOÁN",
-    "candidates": [],
+    "candidates": ["M54"],
     "assertions": [
       "isHistorical"
     ],
@@ -159,7 +159,7 @@
     "text": "Hytrin",
     "type": "THUỐC",
     "candidates": [
-      "37798"
+      "151882"
     ],
     "assertions": [
       "isHistorical"
@@ -173,7 +173,7 @@
     "text": "Motrin",
     "type": "THUỐC",
     "candidates": [
-      "5640"
+      "202488"
     ],
     "assertions": [
       "isHistorical"
@@ -187,7 +187,7 @@
     "text": "Lotensin",
     "type": "THUỐC",
     "candidates": [
-      "18867"
+      "218088"
     ],
     "assertions": [
       "isHistorical"
@@ -201,7 +201,7 @@
     "text": "Zantac",
     "type": "THUỐC",
     "candidates": [
-      "9143"
+      "152523"
     ],
     "assertions": [
       "isHistorical"
@@ -218,7 +218,8 @@
       "I10"
     ],
     "assertions": [
-      "isFamily"
+      "isFamily", 
+      "isHistorical"
     ],
     "position": [
       746,
@@ -323,8 +324,8 @@
   },
   {
     "text": "béo phì",
-    "type": "TRIỆU_CHỨNG",
-    "candidates": [],
+    "type": "CHẨN_ĐOÁN",
+    "candidates": ["E66.9"],
     "assertions": [],
     "position": [
       1213,

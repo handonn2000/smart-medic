@@ -1,0 +1,878 @@
+[
+  {
+    "text": "parkinson",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G20"
+    ],
+    "assertions": [],
+    "position": [
+      2,
+      11
+    ]
+  },
+  {
+    "text": "tiểu đường típ 2",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11"
+    ],
+    "assertions": [],
+    "position": [
+      47,
+      69
+    ]
+  },
+  {
+    "text": "Mekopram",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      83,
+      91
+    ]
+  },
+  {
+    "text": "TC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      148,
+      150
+    ]
+  },
+  {
+    "text": "460,57 U/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      151,
+      161
+    ]
+  },
+  {
+    "text": "Độ bão hòa oxy",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      196,
+      214
+    ]
+  },
+  {
+    "text": "456.89 cm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      215,
+      224
+    ]
+  },
+  {
+    "text": "ho khan",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      226,
+      233
+    ]
+  },
+  {
+    "text": "chuột rút",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      235,
+      247
+    ]
+  },
+  {
+    "text": "Protein toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      249,
+      269
+    ]
+  },
+  {
+    "text": "đang chờ kết quả",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      270,
+      291
+    ]
+  },
+  {
+    "text": "Chiều cao",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      378,
+      389
+    ]
+  },
+  {
+    "text": "113,7 micromol/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      390,
+      406
+    ]
+  },
+  {
+    "text": "thận cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N17"
+    ],
+    "assertions": [],
+    "position": [
+      408,
+      420
+    ]
+  },
+  {
+    "text": "chai gan",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K74"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      457,
+      465
+    ]
+  },
+  {
+    "text": "đau bụng âm ỉ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      467,
+      483
+    ]
+  },
+  {
+    "text": "gout",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M10"
+    ],
+    "assertions": [],
+    "position": [
+      513,
+      517
+    ]
+  },
+  {
+    "text": "tim đập thình thịch",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      534,
+      557
+    ]
+  },
+  {
+    "text": "Ca",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      559,
+      561
+    ]
+  },
+  {
+    "text": "260,73 mm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      563,
+      572
+    ]
+  },
+  {
+    "text": "Mỡ máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      617,
+      626
+    ]
+  },
+  {
+    "text": "317,01 micromol/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      628,
+      645
+    ]
+  },
+  {
+    "text": "giật kinh phong",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      647,
+      664
+    ]
+  },
+  {
+    "text": "sạn thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20"
+    ],
+    "assertions": [],
+    "position": [
+      691,
+      702
+    ]
+  },
+  {
+    "text": "Axit uric",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      738,
+      747
+    ]
+  },
+  {
+    "text": "8,83 IU/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      749,
+      758
+    ]
+  },
+  {
+    "text": "Anti-HBe",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      776,
+      784
+    ]
+  },
+  {
+    "text": "191,1 IU/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      785,
+      795
+    ]
+  },
+  {
+    "text": "cường tuyến giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [],
+    "position": [
+      809,
+      831
+    ]
+  },
+  {
+    "text": "trào ngược dạ dày thực quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K21"
+    ],
+    "assertions": [],
+    "position": [
+      834,
+      870
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      872,
+      875
+    ]
+  },
+  {
+    "text": "3 nmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      876,
+      884
+    ]
+  },
+  {
+    "text": "Kali",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      995,
+      999
+    ]
+  },
+  {
+    "text": "trong giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1001,
+      1034
+    ]
+  },
+  {
+    "text": "Cholesterol toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1056,
+      1080
+    ]
+  },
+  {
+    "text": "31,5 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1082,
+      1093
+    ]
+  },
+  {
+    "text": "Rocuronium bromid",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1095,
+      1112
+    ]
+  },
+  {
+    "text": "run rẩy tay chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1132,
+      1151
+    ]
+  },
+  {
+    "text": "đục thủy tinh thể",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H25"
+    ],
+    "assertions": [],
+    "position": [
+      1153,
+      1174
+    ]
+  },
+  {
+    "text": "ra mồ hôi trộm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1188,
+      1207
+    ]
+  },
+  {
+    "text": "ợ hơi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1222,
+      1230
+    ]
+  },
+  {
+    "text": "tuyến giáp kém",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1279,
+      1297
+    ]
+  },
+  {
+    "text": "TG",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1301,
+      1303
+    ]
+  },
+  {
+    "text": "468.9 umol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1305,
+      1317
+    ]
+  },
+  {
+    "text": "Xét nghiệm chức năng gan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1359,
+      1389
+    ]
+  },
+  {
+    "text": "nghi ngờ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1391,
+      1401
+    ]
+  },
+  {
+    "text": "thoái hoá gối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M17"
+    ],
+    "assertions": [],
+    "position": [
+      1403,
+      1420
+    ]
+  },
+  {
+    "text": "viêm gan B mạn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B18"
+    ],
+    "assertions": [],
+    "position": [
+      1422,
+      1438
+    ]
+  },
+  {
+    "text": "Clonazepam 40mg",
+    "type": "THUỐC",
+    "candidates": [
+      "2598"
+    ],
+    "assertions": [],
+    "position": [
+      1440,
+      1455
+    ]
+  },
+  {
+    "text": "potassium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1457,
+      1466
+    ]
+  },
+  {
+    "text": "đang chờ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1468,
+      1478
+    ]
+  },
+  {
+    "text": "run rẩy tay chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1480,
+      1499
+    ]
+  },
+  {
+    "text": "Albumin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1537,
+      1544
+    ]
+  },
+  {
+    "text": "không ghi nhận bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1546,
+      1579
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1581,
+      1585
+    ]
+  },
+  {
+    "text": "bệnh huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1587,
+      1605
+    ]
+  },
+  {
+    "text": "tắc nghẽn phổi mãn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J44"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1618,
+      1642
+    ]
+  },
+  {
+    "text": "Agidine",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1659,
+      1666
+    ]
+  },
+  {
+    "text": "Đường huyết trung bình",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1668,
+      1696
+    ]
+  },
+  {
+    "text": "95 IU/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1698,
+      1705
+    ]
+  },
+  {
+    "text": "Hasandine",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1719,
+      1728
+    ]
+  },
+  {
+    "text": "trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1828,
+      1842
+    ]
+  },
+  {
+    "text": "ho khan",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1858,
+      1865
+    ]
+  },
+  {
+    "text": "nhức đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1868,
+      1880
+    ]
+  },
+  {
+    "text": "CT scan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1923,
+      1930
+    ]
+  },
+  {
+    "text": "301 x10^9/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1932,
+      1943
+    ]
+  },
+  {
+    "text": "nhiễm mỡ gan",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K76"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1956,
+      1972
+    ]
+  },
+  {
+    "text": "K vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1974,
+      1979
+    ]
+  },
+  {
+    "text": "Chụp mạch vành",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2030,
+      2047
+    ]
+  },
+  {
+    "text": "cải thiện rõ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2049,
+      2065
+    ]
+  },
+  {
+    "text": "thận cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N17"
+    ],
+    "assertions": [],
+    "position": [
+      2067,
+      2079
+    ]
+  },
+  {
+    "text": "mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2098,
+      2103
+    ]
+  },
+  {
+    "text": "gout",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M10"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2105,
+      2109
+    ]
+  },
+  {
+    "text": "viêm đường tiết niệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N39"
+    ],
+    "assertions": [],
+    "position": [
+      2145,
+      2173
+    ]
+  },
+  {
+    "text": "Clo",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2176,
+      2179
+    ]
+  },
+  {
+    "text": "-",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2180,
+      2181
+    ]
+  },
+  {
+    "text": "LYMPH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2300,
+      2305
+    ]
+  },
+  {
+    "text": "262.0 cm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2306,
+      2314
+    ]
+  },
+  {
+    "text": "đi tiểu ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      2348,
+      2365
+    ]
+  },
+  {
+    "text": "thay đổi chức năng ruột",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      2367,
+      2397
+    ]
+  },
+  {
+    "text": "tiền sản giật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O14"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      2399,
+      2417
+    ]
+  }
+]

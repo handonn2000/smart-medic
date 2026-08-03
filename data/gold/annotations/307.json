@@ -1,0 +1,416 @@
+[
+  {
+    "text": "CMP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      14,
+      17
+    ]
+  },
+  {
+    "text": "285,8 l/phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      19,
+      32
+    ]
+  },
+  {
+    "text": "Mỡ máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      97,
+      106
+    ]
+  },
+  {
+    "text": "434.41 µmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      108,
+      121
+    ]
+  },
+  {
+    "text": "máu đông",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      123,
+      133
+    ]
+  },
+  {
+    "text": "Protein toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      159,
+      179
+    ]
+  },
+  {
+    "text": "315,1 ml/24h",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      180,
+      192
+    ]
+  },
+  {
+    "text": "đau khớp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      276,
+      286
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      300,
+      320
+    ]
+  },
+  {
+    "text": "loạn nhịp rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      322,
+      343
+    ]
+  },
+  {
+    "text": "đau nhói ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      371,
+      387
+    ]
+  },
+  {
+    "text": "Hồng cầu niệu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      451,
+      470
+    ]
+  },
+  {
+    "text": "19.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      471,
+      475
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      561,
+      570
+    ]
+  },
+  {
+    "text": "ĐTĐ typ 1",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E10"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      572,
+      581
+    ]
+  },
+  {
+    "text": "tuyến giáp kém",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      583,
+      601
+    ]
+  },
+  {
+    "text": "BMI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      605,
+      608
+    ]
+  },
+  {
+    "text": "159.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      610,
+      615
+    ]
+  },
+  {
+    "text": "*********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      617,
+      626
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      628,
+      638
+    ]
+  },
+  {
+    "text": "chảy máu mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      640,
+      655
+    ]
+  },
+  {
+    "text": "đau bụng âm ỉ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      677,
+      693
+    ]
+  },
+  {
+    "text": "Nhịp thở",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      695,
+      706
+    ]
+  },
+  {
+    "text": "giảm nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      707,
+      717
+    ]
+  },
+  {
+    "text": "thay đổi chức năng ruột",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      747,
+      777
+    ]
+  },
+  {
+    "text": "phù chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      779,
+      789
+    ]
+  },
+  {
+    "text": "MRI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      822,
+      825
+    ]
+  },
+  {
+    "text": "dương tính yếu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      827,
+      846
+    ]
+  },
+  {
+    "text": "Albumin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      848,
+      855
+    ]
+  },
+  {
+    "text": "495 micromol/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      857,
+      871
+    ]
+  },
+  {
+    "text": "thống phong",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M10"
+    ],
+    "assertions": [],
+    "position": [
+      898,
+      911
+    ]
+  },
+  {
+    "text": "Chụp cắt lớp vi tính",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      913,
+      939
+    ]
+  },
+  {
+    "text": "93.02 IU/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      941,
+      951
+    ]
+  },
+  {
+    "text": "tiền sản giật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O14"
+    ],
+    "assertions": [],
+    "position": [
+      953,
+      971
+    ]
+  },
+  {
+    "text": "****************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      973,
+      989
+    ]
+  },
+  {
+    "text": "CK-MB",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1018,
+      1023
+    ]
+  },
+  {
+    "text": "221.2 10^9/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1024,
+      1036
+    ]
+  },
+  {
+    "text": "*************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1079,
+      1092
+    ]
+  },
+  {
+    "text": "chảy máu mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1123,
+      1138
+    ]
+  }
+]

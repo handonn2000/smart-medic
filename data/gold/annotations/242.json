@@ -1,0 +1,270 @@
+[
+  {
+    "text": "Ameprid",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      8,
+      15
+    ]
+  },
+  {
+    "text": "đau bụng âm ỉ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      17,
+      30
+    ]
+  },
+  {
+    "text": "Creatinin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      97,
+      106
+    ]
+  },
+  {
+    "text": "126,6 kg/m2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      108,
+      119
+    ]
+  },
+  {
+    "text": "GPT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      148,
+      151
+    ]
+  },
+  {
+    "text": "chưa làm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      152,
+      160
+    ]
+  },
+  {
+    "text": "vàng da vàng mắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      195,
+      211
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      287,
+      289
+    ]
+  },
+  {
+    "text": "gầy sút",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      296,
+      303
+    ]
+  },
+  {
+    "text": "sốt nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      305,
+      312
+    ]
+  },
+  {
+    "text": "đột quỵ não",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I63"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      342,
+      353
+    ]
+  },
+  {
+    "text": "vọp bẻ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      355,
+      361
+    ]
+  },
+  {
+    "text": "nhức bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      363,
+      372
+    ]
+  },
+  {
+    "text": "chảy máu mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      475,
+      487
+    ]
+  },
+  {
+    "text": "Diethylphtalat 40mg",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      491,
+      510
+    ]
+  },
+  {
+    "text": "lipase",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      550,
+      556
+    ]
+  },
+  {
+    "text": "(±)",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      558,
+      561
+    ]
+  },
+  {
+    "text": "Siêu âm tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      573,
+      584
+    ]
+  },
+  {
+    "text": "dương tính yếu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      585,
+      599
+    ]
+  },
+  {
+    "text": "Calci gluconat",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      615,
+      629
+    ]
+  },
+  {
+    "text": "NMCT",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I21"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      631,
+      635
+    ]
+  },
+  {
+    "text": "đi cầu lỏng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      637,
+      648
+    ]
+  },
+  {
+    "text": "ung thư bao tử",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C16"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      650,
+      664
+    ]
+  },
+  {
+    "text": "tiểu đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      676,
+      684
+    ]
+  }
+]

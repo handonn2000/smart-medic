@@ -1,0 +1,502 @@
+[
+  {
+    "text": "Fibrinogen",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      60,
+      70
+    ]
+  },
+  {
+    "text": "82.7 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      72,
+      83
+    ]
+  },
+  {
+    "text": "máu đông",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      166,
+      174
+    ]
+  },
+  {
+    "text": "K vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      176,
+      180
+    ]
+  },
+  {
+    "text": "táo bón",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K59"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      197,
+      204
+    ]
+  },
+  {
+    "text": "LDL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      228,
+      231
+    ]
+  },
+  {
+    "text": "357 µmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      232,
+      242
+    ]
+  },
+  {
+    "text": "Bạch cầu niệu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      246,
+      259
+    ]
+  },
+  {
+    "text": "484.01 nmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      261,
+      274
+    ]
+  },
+  {
+    "text": "nổi sẩn ngứa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      286,
+      298
+    ]
+  },
+  {
+    "text": "Amedine",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      337,
+      344
+    ]
+  },
+  {
+    "text": "Troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      346,
+      354
+    ]
+  },
+  {
+    "text": "thấp rõ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      356,
+      363
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      365,
+      377
+    ]
+  },
+  {
+    "text": "362.5 kg/m2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      378,
+      389
+    ]
+  },
+  {
+    "text": "buồn ói",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      403,
+      410
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      420,
+      423
+    ]
+  },
+  {
+    "text": "235.2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      424,
+      429
+    ]
+  },
+  {
+    "text": "K dạ dày",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C16"
+    ],
+    "assertions": [],
+    "position": [
+      529,
+      537
+    ]
+  },
+  {
+    "text": "TnT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      540,
+      543
+    ]
+  },
+  {
+    "text": "chưa phát hiện bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      544,
+      569
+    ]
+  },
+  {
+    "text": "đau thắt lưng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M54"
+    ],
+    "assertions": [],
+    "position": [
+      571,
+      584
+    ]
+  },
+  {
+    "text": "cường giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      634,
+      644
+    ]
+  },
+  {
+    "text": "nặng ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      713,
+      722
+    ]
+  },
+  {
+    "text": "hen suyễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      733,
+      742
+    ]
+  },
+  {
+    "text": "da vàng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      744,
+      751
+    ]
+  },
+  {
+    "text": "ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      766,
+      770
+    ]
+  },
+  {
+    "text": "đi ngoài nhiều lần",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      783,
+      801
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      817,
+      820
+    ]
+  },
+  {
+    "text": "giảm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      822,
+      826
+    ]
+  },
+  {
+    "text": "đi cầu khó",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      878,
+      888
+    ]
+  },
+  {
+    "text": "Fibrinogen",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      936,
+      946
+    ]
+  },
+  {
+    "text": "rối loạn nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      948,
+      960
+    ]
+  },
+  {
+    "text": "tiêu chảy nhiễm khuẩn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A09"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1022,
+      1043
+    ]
+  },
+  {
+    "text": "Siêu âm Doppler tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1054,
+      1073
+    ]
+  },
+  {
+    "text": "350 micromol/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1074,
+      1088
+    ]
+  },
+  {
+    "text": "vảy nến",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L40"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1208,
+      1215
+    ]
+  },
+  {
+    "text": "loạn nhịp rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1231,
+      1249
+    ]
+  },
+  {
+    "text": "loét bao tử",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K25"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1251,
+      1262
+    ]
+  },
+  {
+    "text": "tăng mỡ máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1264,
+      1275
+    ]
+  },
+  {
+    "text": "Hồng cầu niệu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1279,
+      1292
+    ]
+  },
+  {
+    "text": "198.4 l/phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1293,
+      1305
+    ]
+  },
+  {
+    "text": "Fluvastatin",
+    "type": "THUỐC",
+    "candidates": [
+      "41127"
+    ],
+    "assertions": [],
+    "position": [
+      1410,
+      1421
+    ]
+  },
+  {
+    "text": "độ bão hòa oxy",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1423,
+      1437
+    ]
+  },
+  {
+    "text": "chưa phát hiện bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1439,
+      1464
+    ]
+  }
+]

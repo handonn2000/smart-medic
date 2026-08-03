@@ -1,0 +1,234 @@
+[
+  {
+    "text": "Mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2,
+      6
+    ]
+  },
+  {
+    "text": "chưa phát hiện bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      8,
+      33
+    ]
+  },
+  {
+    "text": "PLT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      47,
+      50
+    ]
+  },
+  {
+    "text": "304,81 x10^9/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      52,
+      66
+    ]
+  },
+  {
+    "text": "potassium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      68,
+      77
+    ]
+  },
+  {
+    "text": "giảm dần",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      78,
+      86
+    ]
+  },
+  {
+    "text": "D dimer",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      88,
+      95
+    ]
+  },
+  {
+    "text": "-",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      97,
+      98
+    ]
+  },
+  {
+    "text": "ra mồ hôi trộm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      121,
+      135
+    ]
+  },
+  {
+    "text": "máu đông",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      137,
+      145
+    ]
+  },
+  {
+    "text": "hạch to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      163,
+      170
+    ]
+  },
+  {
+    "text": "run tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      190,
+      197
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      199,
+      206
+    ]
+  },
+  {
+    "text": "loét dạ dày tá tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K25"
+    ],
+    "assertions": [],
+    "position": [
+      290,
+      310
+    ]
+  },
+  {
+    "text": "Hồng cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      325,
+      333
+    ]
+  },
+  {
+    "text": "xấu đi",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      334,
+      340
+    ]
+  },
+  {
+    "text": "Amevit",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      428,
+      434
+    ]
+  },
+  {
+    "text": "gan do rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K70"
+    ],
+    "assertions": [],
+    "position": [
+      461,
+      472
+    ]
+  },
+  {
+    "text": "NMCT",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I21"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      487,
+      491
+    ]
+  },
+  {
+    "text": "đau đầu vận mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G43"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      493,
+      509
+    ]
+  },
+  {
+    "text": "Amedine",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      511,
+      518
+    ]
+  }
+]

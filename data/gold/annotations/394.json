@@ -1,0 +1,840 @@
+[
+  {
+    "text": "sỏi túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K80"
+    ],
+    "assertions": [],
+    "position": [
+      9,
+      20
+    ]
+  },
+  {
+    "text": "HA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      65,
+      67
+    ]
+  },
+  {
+    "text": "305.50 ml/24h",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      69,
+      82
+    ]
+  },
+  {
+    "text": "BP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      84,
+      86
+    ]
+  },
+  {
+    "text": "kết quả bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      87,
+      106
+    ]
+  },
+  {
+    "text": "Protein toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      108,
+      125
+    ]
+  },
+  {
+    "text": "145 ml/24h",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      126,
+      136
+    ]
+  },
+  {
+    "text": "Pioglitazon",
+    "type": "THUỐC",
+    "candidates": [
+      "33738"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      211,
+      222
+    ]
+  },
+  {
+    "text": "Stivit",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      224,
+      230
+    ]
+  },
+  {
+    "text": "Fibrinogen",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      283,
+      293
+    ]
+  },
+  {
+    "text": "261.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      294,
+      299
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      301,
+      307
+    ]
+  },
+  {
+    "text": "Mekogel",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      330,
+      337
+    ]
+  },
+  {
+    "text": "Pyridoxine 100mg",
+    "type": "THUỐC",
+    "candidates": [
+      "684879"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      339,
+      355
+    ]
+  },
+  {
+    "text": "tiểu ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      357,
+      368
+    ]
+  },
+  {
+    "text": "choáng váng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      370,
+      381
+    ]
+  },
+  {
+    "text": "nhồi máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I21"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      406,
+      414
+    ]
+  },
+  {
+    "text": "chảy máu mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      425,
+      437
+    ]
+  },
+  {
+    "text": "đau đầu vận mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G43"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      439,
+      455
+    ]
+  },
+  {
+    "text": "Ibandronic acid 20mg",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      457,
+      477
+    ]
+  },
+  {
+    "text": "tim đập thình thịch",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      490,
+      509
+    ]
+  },
+  {
+    "text": "basedow",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [],
+    "position": [
+      575,
+      582
+    ]
+  },
+  {
+    "text": "Dung tích hồng cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      584,
+      602
+    ]
+  },
+  {
+    "text": "cao so với lần trước",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      603,
+      623
+    ]
+  },
+  {
+    "text": "Số lượng hồng cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      625,
+      642
+    ]
+  },
+  {
+    "text": "242.2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      644,
+      649
+    ]
+  },
+  {
+    "text": "Troponin I",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      651,
+      661
+    ]
+  },
+  {
+    "text": "trong giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      662,
+      688
+    ]
+  },
+  {
+    "text": "xơ gan do rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K70"
+    ],
+    "assertions": [],
+    "position": [
+      700,
+      714
+    ]
+  },
+  {
+    "text": "MRI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      716,
+      719
+    ]
+  },
+  {
+    "text": "321,3 cm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      721,
+      729
+    ]
+  },
+  {
+    "text": "đau ngang thắt lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      780,
+      799
+    ]
+  },
+  {
+    "text": "ngứa khắp người",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      825,
+      840
+    ]
+  },
+  {
+    "text": "chán ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      852,
+      859
+    ]
+  },
+  {
+    "text": "Amecort",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      883,
+      890
+    ]
+  },
+  {
+    "text": "BMI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      902,
+      905
+    ]
+  },
+  {
+    "text": "185,0 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      907,
+      919
+    ]
+  },
+  {
+    "text": "đau đầu vận mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G43"
+    ],
+    "assertions": [],
+    "position": [
+      921,
+      937
+    ]
+  },
+  {
+    "text": "TPTTBM",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      957,
+      963
+    ]
+  },
+  {
+    "text": "giảm nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      965,
+      973
+    ]
+  },
+  {
+    "text": "Hormon tuyến giáp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      975,
+      992
+    ]
+  },
+  {
+    "text": "233.4 x10^9/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      994,
+      1007
+    ]
+  },
+  {
+    "text": "Insulin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1009,
+      1016
+    ]
+  },
+  {
+    "text": "191.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1018,
+      1023
+    ]
+  },
+  {
+    "text": "Triglyceride",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1115,
+      1127
+    ]
+  },
+  {
+    "text": "384.08 G/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1129,
+      1139
+    ]
+  },
+  {
+    "text": "Amylase",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1187,
+      1194
+    ]
+  },
+  {
+    "text": "nghi ngờ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1195,
+      1203
+    ]
+  },
+  {
+    "text": "Prednisolon 5mg",
+    "type": "THUỐC",
+    "candidates": [
+      "8638"
+    ],
+    "assertions": [],
+    "position": [
+      1240,
+      1255
+    ]
+  },
+  {
+    "text": "GGT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1257,
+      1260
+    ]
+  },
+  {
+    "text": "360 IU/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1262,
+      1270
+    ]
+  },
+  {
+    "text": "cứng gáy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1325,
+      1333
+    ]
+  },
+  {
+    "text": "rối loạn lo âu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F41"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1349,
+      1363
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1365,
+      1371
+    ]
+  },
+  {
+    "text": "thay đổi chức năng ruột",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1373,
+      1396
+    ]
+  },
+  {
+    "text": "rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1419,
+      1427
+    ]
+  },
+  {
+    "text": "nhồi máu cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I21"
+    ],
+    "assertions": [],
+    "position": [
+      1439,
+      1454
+    ]
+  },
+  {
+    "text": "Cefradin 20mg",
+    "type": "THUỐC",
+    "candidates": [
+      "2239"
+    ],
+    "assertions": [],
+    "position": [
+      1588,
+      1601
+    ]
+  },
+  {
+    "text": "BC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1603,
+      1605
+    ]
+  },
+  {
+    "text": "dương tính yếu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1607,
+      1621
+    ]
+  },
+  {
+    "text": "Amylase",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1623,
+      1630
+    ]
+  },
+  {
+    "text": "260 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1632,
+      1642
+    ]
+  },
+  {
+    "text": "đi ngoài nhiều lần",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1644,
+      1662
+    ]
+  },
+  {
+    "text": "L-asparaginase 20mg",
+    "type": "THUỐC",
+    "candidates": [
+      "1156"
+    ],
+    "assertions": [],
+    "position": [
+      1747,
+      1766
+    ]
+  },
+  {
+    "text": "viêm phế quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J20"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1787,
+      1800
+    ]
+  },
+  {
+    "text": "thở khò khè",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1811,
+      1822
+    ]
+  },
+  {
+    "text": "Fibrinogen",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1850,
+      1860
+    ]
+  },
+  {
+    "text": "đang chờ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1862,
+      1870
+    ]
+  },
+  {
+    "text": "ALP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1872,
+      1875
+    ]
+  },
+  {
+    "text": "25.1",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1877,
+      1881
+    ]
+  },
+  {
+    "text": "rối loạn tiêu hóa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1883,
+      1900
+    ]
+  },
+  {
+    "text": "nhiệt độ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1997,
+      2005
+    ]
+  },
+  {
+    "text": "281.3 IU/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2007,
+      2017
+    ]
+  },
+  {
+    "text": "Ameflu",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2019,
+      2025
+    ]
+  },
+  {
+    "text": "PT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2027,
+      2029
+    ]
+  },
+  {
+    "text": "238 kg/m2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2031,
+      2040
+    ]
+  },
+  {
+    "text": "Diiodohydroxy quinolin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2052,
+      2074
+    ]
+  }
+]

@@ -1,0 +1,986 @@
+[
+  {
+    "text": "cườm nước",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H40"
+    ],
+    "assertions": [],
+    "position": [
+      22,
+      31
+    ]
+  },
+  {
+    "text": "gan do rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K70"
+    ],
+    "assertions": [],
+    "position": [
+      33,
+      44
+    ]
+  },
+  {
+    "text": "trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32"
+    ],
+    "assertions": [],
+    "position": [
+      55,
+      63
+    ]
+  },
+  {
+    "text": "giảm cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      65,
+      73
+    ]
+  },
+  {
+    "text": "loạn nhịp rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48"
+    ],
+    "assertions": [],
+    "position": [
+      88,
+      106
+    ]
+  },
+  {
+    "text": "Penicilin V Kali",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      108,
+      124
+    ]
+  },
+  {
+    "text": "nhức khớp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      134,
+      143
+    ]
+  },
+  {
+    "text": "uể oải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      145,
+      151
+    ]
+  },
+  {
+    "text": "K dạ dày",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C16"
+    ],
+    "assertions": [],
+    "position": [
+      153,
+      161
+    ]
+  },
+  {
+    "text": "BNP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      163,
+      166
+    ]
+  },
+  {
+    "text": "(-)",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      168,
+      171
+    ]
+  },
+  {
+    "text": "Fibrinogen",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      174,
+      184
+    ]
+  },
+  {
+    "text": "87.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      186,
+      190
+    ]
+  },
+  {
+    "text": "Lipase",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      253,
+      259
+    ]
+  },
+  {
+    "text": "(+)",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      261,
+      264
+    ]
+  },
+  {
+    "text": "Chụp X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      266,
+      278
+    ]
+  },
+  {
+    "text": "(-)",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      280,
+      283
+    ]
+  },
+  {
+    "text": "Cre",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      285,
+      288
+    ]
+  },
+  {
+    "text": "299,9 10^9/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      290,
+      302
+    ]
+  },
+  {
+    "text": "Natri thiosulfat 50mg",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      332,
+      353
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      355,
+      362
+    ]
+  },
+  {
+    "text": "đi tiểu ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      364,
+      378
+    ]
+  },
+  {
+    "text": "tiểu ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      382,
+      393
+    ]
+  },
+  {
+    "text": "MRI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      395,
+      398
+    ]
+  },
+  {
+    "text": "cao dần",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      400,
+      407
+    ]
+  },
+  {
+    "text": "da vàng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      410,
+      417
+    ]
+  },
+  {
+    "text": "NT-proBNP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      419,
+      428
+    ]
+  },
+  {
+    "text": "+",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      429,
+      430
+    ]
+  },
+  {
+    "text": "Agicin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      432,
+      438
+    ]
+  },
+  {
+    "text": "Isoprenalin 50mg",
+    "type": "THUỐC",
+    "candidates": [
+      "6054"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      475,
+      491
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      619,
+      622
+    ]
+  },
+  {
+    "text": "166 T/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      624,
+      631
+    ]
+  },
+  {
+    "text": "Mg",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      656,
+      658
+    ]
+  },
+  {
+    "text": "237.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      660,
+      665
+    ]
+  },
+  {
+    "text": "ngứa khắp người",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      680,
+      695
+    ]
+  },
+  {
+    "text": "xây xẩm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      697,
+      704
+    ]
+  },
+  {
+    "text": "đau tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I21"
+    ],
+    "assertions": [],
+    "position": [
+      706,
+      713
+    ]
+  },
+  {
+    "text": "Chiều cao",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      715,
+      724
+    ]
+  },
+  {
+    "text": "cải thiện nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      725,
+      738
+    ]
+  },
+  {
+    "text": "ăn không ngon",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      797,
+      810
+    ]
+  },
+  {
+    "text": "HCT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      812,
+      815
+    ]
+  },
+  {
+    "text": "kết quả bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      817,
+      836
+    ]
+  },
+  {
+    "text": "Đường máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      838,
+      847
+    ]
+  },
+  {
+    "text": "không phát hiện bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      848,
+      874
+    ]
+  },
+  {
+    "text": "TC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      876,
+      878
+    ]
+  },
+  {
+    "text": "54 IU/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      880,
+      887
+    ]
+  },
+  {
+    "text": "T3",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      889,
+      891
+    ]
+  },
+  {
+    "text": "173.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      893,
+      898
+    ]
+  },
+  {
+    "text": "Huyết đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      969,
+      977
+    ]
+  },
+  {
+    "text": "140.43 K/uL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      979,
+      990
+    ]
+  },
+  {
+    "text": "Chụp cộng hưởng từ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      992,
+      1010
+    ]
+  },
+  {
+    "text": "đang chờ kết quả",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1011,
+      1027
+    ]
+  },
+  {
+    "text": "rối loạn tiêu hoá",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1029,
+      1046
+    ]
+  },
+  {
+    "text": "Phân",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1049,
+      1053
+    ]
+  },
+  {
+    "text": "rối loạn nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1055,
+      1067
+    ]
+  },
+  {
+    "text": "đi cầu lỏng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1070,
+      1081
+    ]
+  },
+  {
+    "text": "Tvcort",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1163,
+      1169
+    ]
+  },
+  {
+    "text": "viêm cuống phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J20"
+    ],
+    "assertions": [],
+    "position": [
+      1181,
+      1196
+    ]
+  },
+  {
+    "text": "Trinitrin 20mg",
+    "type": "THUỐC",
+    "candidates": [
+      "4917"
+    ],
+    "assertions": [],
+    "position": [
+      1198,
+      1212
+    ]
+  },
+  {
+    "text": "Chức năng gan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1214,
+      1227
+    ]
+  },
+  {
+    "text": "52.08 IU/l",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1229,
+      1239
+    ]
+  },
+  {
+    "text": "buồn chán trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32"
+    ],
+    "assertions": [],
+    "position": [
+      1253,
+      1271
+    ]
+  },
+  {
+    "text": "Axit uric",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1285,
+      1294
+    ]
+  },
+  {
+    "text": "220 umol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1295,
+      1305
+    ]
+  },
+  {
+    "text": "thoái hoá gối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M17"
+    ],
+    "assertions": [],
+    "position": [
+      1320,
+      1333
+    ]
+  },
+  {
+    "text": "Đông máu cơ bản",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1337,
+      1352
+    ]
+  },
+  {
+    "text": "chưa phát hiện bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1354,
+      1379
+    ]
+  },
+  {
+    "text": "hay khát",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1381,
+      1389
+    ]
+  },
+  {
+    "text": "máu đông",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1391,
+      1399
+    ]
+  },
+  {
+    "text": "Tỷ lệ bạch cầu trung tính",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1401,
+      1426
+    ]
+  },
+  {
+    "text": "chưa phát hiện bất thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1428,
+      1453
+    ]
+  },
+  {
+    "text": "Olanzapin",
+    "type": "THUỐC",
+    "candidates": [
+      "61381"
+    ],
+    "assertions": [],
+    "position": [
+      1455,
+      1464
+    ]
+  },
+  {
+    "text": "Potassium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1487,
+      1496
+    ]
+  },
+  {
+    "text": "tăng rõ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1498,
+      1505
+    ]
+  },
+  {
+    "text": "Isotretinoin 5mg",
+    "type": "THUỐC",
+    "candidates": [
+      "6064"
+    ],
+    "assertions": [],
+    "position": [
+      1608,
+      1624
+    ]
+  },
+  {
+    "text": "chảy máu mũi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1637,
+      1649
+    ]
+  },
+  {
+    "text": "gút",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M10"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1651,
+      1654
+    ]
+  },
+  {
+    "text": "rét run",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1656,
+      1663
+    ]
+  },
+  {
+    "text": "nhũn não",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I63"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1665,
+      1673
+    ]
+  },
+  {
+    "text": "Triglycerid",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1699,
+      1710
+    ]
+  },
+  {
+    "text": "299.0",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1712,
+      1717
+    ]
+  },
+  {
+    "text": "cường tuyến giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [],
+    "position": [
+      1719,
+      1735
+    ]
+  },
+  {
+    "text": "Methyldopa",
+    "type": "THUỐC",
+    "candidates": [
+      "6876"
+    ],
+    "assertions": [],
+    "position": [
+      1751,
+      1761
+    ]
+  },
+  {
+    "text": "Nghiệm pháp gắng sức",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1763,
+      1783
+    ]
+  },
+  {
+    "text": "dương tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1785,
+      1795
+    ]
+  },
+  {
+    "text": "Đông máu cơ bản",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1822,
+      1837
+    ]
+  },
+  {
+    "text": "đang chờ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1839,
+      1847
+    ]
+  },
+  {
+    "text": "bệnh gút",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M10"
+    ],
+    "assertions": [],
+    "position": [
+      1870,
+      1878
+    ]
+  },
+  {
+    "text": "Số lượng tiểu cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1903,
+      1920
+    ]
+  },
+  {
+    "text": "487.17 mmHg",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1921,
+      1932
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2055,
+      2058
+    ]
+  },
+  {
+    "text": "315 l/phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2059,
+      2069
+    ]
+  },
+  {
+    "text": "chàm thể tạng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L20"
+    ],
+    "assertions": [],
+    "position": [
+      2071,
+      2084
+    ]
+  }
+]

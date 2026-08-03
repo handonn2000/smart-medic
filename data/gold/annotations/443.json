@@ -1,0 +1,290 @@
+[
+  {
+    "text": "Vinblastin 100mg",
+    "type": "THUỐC",
+    "candidates": [
+      "11198"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      28,
+      44
+    ]
+  },
+  {
+    "text": "viêm họng cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J02"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      46,
+      59
+    ]
+  },
+  {
+    "text": "viêm bao tử",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K29"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      61,
+      72
+    ]
+  },
+  {
+    "text": "Insulin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      87,
+      94
+    ]
+  },
+  {
+    "text": "144 cm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      95,
+      101
+    ]
+  },
+  {
+    "text": "cứng cổ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      113,
+      120
+    ]
+  },
+  {
+    "text": "CHOL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      140,
+      144
+    ]
+  },
+  {
+    "text": "cải thiện rõ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      146,
+      158
+    ]
+  },
+  {
+    "text": "Cortisol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      160,
+      168
+    ]
+  },
+  {
+    "text": "344.51 mmHg",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      170,
+      181
+    ]
+  },
+  {
+    "text": "CO2",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      183,
+      186
+    ]
+  },
+  {
+    "text": "chưa có kết quả",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      187,
+      202
+    ]
+  },
+  {
+    "text": "đau ngang thắt lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      208,
+      227
+    ]
+  },
+  {
+    "text": "đau khớp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      229,
+      237
+    ]
+  },
+  {
+    "text": "cứng gáy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      239,
+      247
+    ]
+  },
+  {
+    "text": "chuột rút",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      288,
+      297
+    ]
+  },
+  {
+    "text": "đau cột sống lưng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M54"
+    ],
+    "assertions": [],
+    "position": [
+      301,
+      318
+    ]
+  },
+  {
+    "text": "Sticort",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      333,
+      340
+    ]
+  },
+  {
+    "text": "tiểu ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      342,
+      353
+    ]
+  },
+  {
+    "text": "viêm đường tiết niệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N39"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      355,
+      375
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      391,
+      407
+    ]
+  },
+  {
+    "text": "da vàng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      418,
+      425
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      427,
+      437
+    ]
+  },
+  {
+    "text": "hen phế quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      439,
+      451
+    ]
+  },
+  {
+    "text": "huyết áp cao",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      474,
+      486
+    ]
+  }
+]

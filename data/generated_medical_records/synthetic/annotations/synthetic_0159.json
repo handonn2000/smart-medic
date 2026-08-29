@@ -1,0 +1,320 @@
+[
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      81,
+      91
+    ]
+  },
+  {
+    "text": "đau ngực khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      96,
+      123
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      230,
+      240
+    ]
+  },
+  {
+    "text": "đau ngực khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      298,
+      325
+    ]
+  },
+  {
+    "text": "khàn tiếng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      405,
+      418
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      423,
+      425
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      439,
+      448
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      556,
+      565
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      593,
+      602
+    ]
+  },
+  {
+    "text": "Bệnh Thalassaemia",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D56"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      759,
+      778
+    ]
+  },
+  {
+    "text": "U lành buồng trứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D27"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      846,
+      869
+    ]
+  },
+  {
+    "text": "Rối loạn nhịp tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I49.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      990,
+      1011
+    ]
+  },
+  {
+    "text": "furosemide",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [],
+    "position": [
+      1214,
+      1224
+    ]
+  },
+  {
+    "text": "Chlorpheniramine/Phenylephrine",
+    "type": "THUỐC",
+    "candidates": [
+      "214393"
+    ],
+    "assertions": [],
+    "position": [
+      1279,
+      1309
+    ]
+  },
+  {
+    "text": "Brimonidine",
+    "type": "THUỐC",
+    "candidates": [
+      "134615"
+    ],
+    "assertions": [],
+    "position": [
+      1369,
+      1380
+    ]
+  },
+  {
+    "text": "nghe kém tai trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1508,
+      1527
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1740,
+      1750
+    ]
+  },
+  {
+    "text": "giảm thị lực mắt phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1772,
+      1800
+    ]
+  },
+  {
+    "text": "PLT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1893,
+      1896
+    ]
+  },
+  {
+    "text": "định lượng mỡ máu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1943,
+      1967
+    ]
+  },
+  {
+    "text": "4.4 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1984,
+      1994
+    ]
+  },
+  {
+    "text": "<70 mg/dL",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2080,
+      2089
+    ]
+  },
+  {
+    "text": "90-92%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2172,
+      2178
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2194,
+      2197
+    ]
+  },
+  {
+    "text": "chụp cắt lớp vi tính lồng ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2239,
+      2279
+    ]
+  },
+  {
+    "text": "Bệnh tim do phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I27.9"
+    ],
+    "assertions": [],
+    "position": [
+      2435,
+      2455
+    ]
+  },
+  {
+    "text": "Nang lách",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D73.4"
+    ],
+    "assertions": [],
+    "position": [
+      2528,
+      2538
+    ]
+  },
+  {
+    "text": "Các bệnh khác của lách",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D73.8"
+    ],
+    "assertions": [],
+    "position": [
+      2580,
+      2608
+    ]
+  },
+  {
+    "text": "Bệnh Thalassaemia",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D56"
+    ],
+    "assertions": [],
+    "position": [
+      2665,
+      2684
+    ]
+  }
+]

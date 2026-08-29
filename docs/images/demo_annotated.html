@@ -1,0 +1,90 @@
+<!--
+  Source for docs/images/demo_annotated.png (README / PR §4 Demo).
+  Content is the official worked example from docs/PRD.html §3 — the same spans,
+  types, candidates and assertions carried in its <mark data-*> attributes.
+
+  Regenerate:
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless --disable-gpu --hide-scrollbars \
+      --force-device-scale-factor=2 --window-size=1240,474 \
+      --default-background-color=FFFFFFFF \
+      --screenshot=docs/images/demo_annotated.png \
+      "file://$PWD/docs/images/demo_annotated.html"
+-->
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<style>
+:root{
+  --ink:#0f302e; --paper:#eef1ef; --line:#d5ddd9;
+  --tc:#c98a12; --tc-bg:#fbe9c4; --tc-line:#e9c477;
+  --xn:#1f7f9c; --xn-bg:#d3ecf3; --xn-line:#8ecfe0;
+  --kq:#6c53b0; --kq-bg:#e6ddf6; --kq-line:#c3b1ea;
+  --cd:#b8443f; --cd-bg:#f7dcd9; --cd-line:#eaa9a4;
+  --th:#3f8a4a; --th-bg:#d7edd6; --th-line:#a4d4a0;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink)}
+.wrap{width:1180px;padding:28px 32px 34px}
+h2{font-size:23px;margin:0 0 4px;letter-spacing:-.2px}
+.sub{font-size:13.5px;color:#5d726f;margin:0 0 20px}
+.card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.head{background:var(--paper);padding:14px 20px;border-bottom:1px solid var(--line);
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.head b{font-size:14px;margin-right:6px}
+.key{font-family:var(--mono);font-size:12px;font-weight:700;padding:7px 14px;
+     border-radius:9px;border:1px solid}
+.k-tc{color:var(--tc);background:var(--tc-bg);border-color:var(--tc-line)}
+.k-xn{color:var(--xn);background:var(--xn-bg);border-color:var(--xn-line)}
+.k-kq{color:var(--kq);background:var(--kq-bg);border-color:var(--kq-line)}
+.k-cd{color:var(--cd);background:var(--cd-bg);border-color:var(--cd-line)}
+.k-th{color:var(--th);background:var(--th-bg);border-color:var(--th-line)}
+.body{padding:26px 24px;font-size:19px;line-height:2.35}
+mark.ent{padding:4px 7px;border-radius:7px;border:1px solid;font-weight:700;
+         white-space:nowrap;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+mark.ent sup{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.3px;
+             opacity:.75;margin-left:2px;vertical-align:super}
+.tc{color:var(--tc);background:var(--tc-bg);border-color:var(--tc-line)}
+.xn{color:var(--xn);background:var(--xn-bg);border-color:var(--xn-line)}
+.kq{color:var(--kq);background:var(--kq-bg);border-color:var(--kq-line)}
+.cd{color:var(--cd);background:var(--cd-bg);border-color:var(--cd-line)}
+.th{color:var(--th);background:var(--th-bg);border-color:var(--th-line)}
+.foot{border-top:1px solid var(--line);background:#fafbfa;padding:14px 22px;
+      font-size:13px;color:#4a615e;display:flex;gap:26px;flex-wrap:wrap}
+.foot code{font-family:var(--mono);font-size:12px;background:#eef1ef;
+           padding:2px 6px;border-radius:5px;color:var(--ink)}
+</style></head><body><div class="wrap">
+<h2>Ví dụ minh họa — mỗi khái niệm được tô theo <em>type</em></h2>
+<p class="sub">Ví dụ chính thức trong <code style="font-family:var(--mono);font-size:12.5px">docs/PRD.html</code> §3, chạy qua pipeline PhoBERT + CRF.</p>
+<div class="card">
+  <div class="head"><b>Văn bản đầu vào đã chú thích</b>
+    <span class="key k-tc">Triệu chứng</span><span class="key k-xn">Tên XN</span>
+    <span class="key k-kq">Kết quả</span><span class="key k-cd">Chẩn đoán</span>
+    <span class="key k-th">Thuốc</span>
+  </div>
+  <div class="body">
+    Bệnh nhân nam 70 tuổi bị bệnh 1 tuần nay,
+    <mark class="ent tc">ho đờm xanh<sup>TC</sup></mark>,
+    <mark class="ent tc">tức ngực<sup>TC</sup></mark>,
+    <mark class="ent tc">đau thượng vị<sup>TC</sup></mark>,
+    <mark class="ent tc">ợ hơi<sup>TC</sup></mark>,
+    được chẩn đoán mắc
+    <mark class="ent cd">bệnh trào ngược dạ dày – thực quản<sup>CĐ</sup></mark>.
+    Bệnh nhân có tiền sử sử dụng
+    <mark class="ent th">Chlorpheniramine 0.4 MG/ML<sup>T</sup></mark>,
+    <mark class="ent th">Capsaicin 0.38 MG/ML<sup>T</sup></mark>,
+    đã tiến hành tổng phân tích tế bào máu bằng máy lazer (tbm):
+    <mark class="ent xn">WBC<sup>XN</sup></mark>:
+    <mark class="ent kq">14,43<sup>KQ</sup></mark>;
+    <mark class="ent xn">NEUT% (Tỷ lệ % bạch cầu trung tính)<sup>XN</sup></mark>:
+    <mark class="ent kq">76,4<sup>KQ</sup></mark>;
+    <mark class="ent xn">LYPH% (Tỷ lệ bạch cầu lympho)<sup>XN</sup></mark>:
+    <mark class="ent kq">12,8<sup>KQ</sup></mark>;
+  </div>
+  <div class="foot">
+    <span><b>candidates</b> &nbsp;<code>bệnh trào ngược dạ dày – thực quản → K21.0 · K21.9</code></span>
+    <span><code>Chlorpheniramine 0.4 MG/ML → RxNorm 360047</code></span>
+    <span><code>Capsaicin 0.38 MG/ML → RxNorm 1660761</code></span>
+    <span><b>assertions</b> &nbsp;<code>cả hai THUỐC → isHistorical ("có tiền sử sử dụng")</code></span>
+  </div>
+</div>
+</div></body></html>

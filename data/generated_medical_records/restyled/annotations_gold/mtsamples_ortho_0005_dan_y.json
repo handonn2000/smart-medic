@@ -1,0 +1,233 @@
+[
+  {
+    "text": "Rối loạn lo âu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F41.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      28,
+      46
+    ]
+  },
+  {
+    "text": "Lipitor",
+    "type": "THUỐC",
+    "candidates": [
+      "153165"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      190,
+      197
+    ]
+  },
+  {
+    "text": "Lexapro",
+    "type": "THUỐC",
+    "candidates": [
+      "321988"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      204,
+      211
+    ]
+  },
+  {
+    "text": "thuốc chứa sulfa",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      243,
+      263
+    ]
+  },
+  {
+    "text": "ung thư trung biểu mô",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C45.9"
+    ],
+    "assertions": [
+      "isFamily",
+      "isHistorical"
+    ],
+    "position": [
+      436,
+      461
+    ]
+  },
+  {
+    "text": "đổ mồ hôi ban đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      543,
+      566
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      568,
+      573
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      575,
+      584
+    ]
+  },
+  {
+    "text": "thay đổi thị giác",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      586,
+      607
+    ]
+  },
+  {
+    "text": "mất ý thức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      609,
+      624
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      626,
+      635
+    ]
+  },
+  {
+    "text": "khó nuốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      637,
+      648
+    ]
+  },
+  {
+    "text": "Rối loạn đĩa đệm nội tủy nhiều mức độ ở thắt lưng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M51.3"
+    ],
+    "assertions": [],
+    "position": [
+      828,
+      897
+    ]
+  },
+  {
+    "text": "Hội chứng khớp đốt sống thắt lưng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M47.8"
+    ],
+    "assertions": [],
+    "position": [
+      904,
+      950
+    ]
+  },
+  {
+    "text": "đau lưng trục",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1053,
+      1068
+    ]
+  },
+  {
+    "text": "đau lưng trục",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1099,
+      1114
+    ]
+  },
+  {
+    "text": "Triệu chứng rễ thần kinh L4",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1191,
+      1226
+    ]
+  },
+  {
+    "text": "Diclofenac 75 mg uống hai lần mỗi ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "3355"
+    ],
+    "assertions": [],
+    "position": [
+      1298,
+      1343
+    ]
+  },
+  {
+    "text": "diclofenac",
+    "type": "THUỐC",
+    "candidates": [
+      "3355"
+    ],
+    "assertions": [],
+    "position": [
+      1461,
+      1471
+    ]
+  }
+]

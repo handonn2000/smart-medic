@@ -1,0 +1,366 @@
+[
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      51,
+      66
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      70,
+      76
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      139,
+      154
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      173,
+      179
+    ]
+  },
+  {
+    "text": "ngứa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      245,
+      249
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      261,
+      277
+    ]
+  },
+  {
+    "text": "đau vùng thượng vị sau ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      319,
+      344
+    ]
+  },
+  {
+    "text": "ngạt mũi hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      398,
+      414
+    ]
+  },
+  {
+    "text": "đau khi quan hệ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      419,
+      434
+    ]
+  },
+  {
+    "text": "Tăng lipid máu hỗn hợp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      532,
+      554
+    ]
+  },
+  {
+    "text": "Cường cận giáp độ 3",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E21.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      629,
+      648
+    ]
+  },
+  {
+    "text": "U ác của tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C38"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      707,
+      719
+    ]
+  },
+  {
+    "text": "Xuất huyết tiền phòng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H21.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      724,
+      745
+    ]
+  },
+  {
+    "text": "Viêm giáp tự miễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E06.3"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      840,
+      857
+    ]
+  },
+  {
+    "text": "Synalar",
+    "type": "THUỐC",
+    "candidates": [
+      "25126"
+    ],
+    "assertions": [],
+    "position": [
+      900,
+      907
+    ]
+  },
+  {
+    "text": "ngứa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      928,
+      932
+    ]
+  },
+  {
+    "text": "Medrol",
+    "type": "THUỐC",
+    "candidates": [
+      "6902"
+    ],
+    "assertions": [],
+    "position": [
+      936,
+      942
+    ]
+  },
+  {
+    "text": "lithium",
+    "type": "THUỐC",
+    "candidates": [
+      "6448"
+    ],
+    "assertions": [],
+    "position": [
+      1000,
+      1007
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1090,
+      1096
+    ]
+  },
+  {
+    "text": "phù hai chi dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1139,
+      1155
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1247,
+      1257
+    ]
+  },
+  {
+    "text": "đường huyết cao hơn giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1271,
+      1311
+    ]
+  },
+  {
+    "text": "HCT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1324,
+      1327
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1331,
+      1334
+    ]
+  },
+  {
+    "text": "định lượng men tim troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1375,
+      1402
+    ]
+  },
+  {
+    "text": "không có gì đáng chú ý",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1406,
+      1428
+    ]
+  },
+  {
+    "text": "nipt",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1438,
+      1442
+    ]
+  },
+  {
+    "text": "soi tươi dịch âm đạo",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1446,
+      1466
+    ]
+  },
+  {
+    "text": "không rõ tổn thương",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1470,
+      1489
+    ]
+  },
+  {
+    "text": "đo mật độ xương",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1499,
+      1514
+    ]
+  },
+  {
+    "text": "Tăng lipid máu hỗn hợp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.2"
+    ],
+    "assertions": [],
+    "position": [
+      1551,
+      1573
+    ]
+  },
+  {
+    "text": "Cường cận giáp độ 3",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E21.2"
+    ],
+    "assertions": [],
+    "position": [
+      1576,
+      1595
+    ]
+  },
+  {
+    "text": "Suy giáp sau nhiễm trùng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.3"
+    ],
+    "assertions": [],
+    "position": [
+      1598,
+      1622
+    ]
+  }
+]

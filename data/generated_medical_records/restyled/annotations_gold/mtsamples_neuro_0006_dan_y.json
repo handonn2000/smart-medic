@@ -1,0 +1,322 @@
+[
+  {
+    "text": "Động kinh giật cơ tuổi vị thành niên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G40.3"
+    ],
+    "assertions": [],
+    "position": [
+      19,
+      55
+    ]
+  },
+  {
+    "text": "Cơn co giật toàn thể cứng co giật gần đây",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R56"
+    ],
+    "assertions": [],
+    "position": [
+      61,
+      102
+    ]
+  },
+  {
+    "text": "Lamictal 250 mg b.i.d.",
+    "type": "THUỐC",
+    "candidates": [
+      "28439"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      129,
+      151
+    ]
+  },
+  {
+    "text": "Depo-Provera",
+    "type": "THUỐC",
+    "candidates": [
+      "6691"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      157,
+      169
+    ]
+  },
+  {
+    "text": "Lamictal",
+    "type": "THUỐC",
+    "candidates": [
+      "28439"
+    ],
+    "assertions": [],
+    "position": [
+      225,
+      233
+    ]
+  },
+  {
+    "text": "giật cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      248,
+      255
+    ]
+  },
+  {
+    "text": "co giật toàn thể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      270,
+      286
+    ]
+  },
+  {
+    "text": "Lo lắng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      292,
+      299
+    ]
+  },
+  {
+    "text": "co giật toàn thể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      316,
+      332
+    ]
+  },
+  {
+    "text": "Giật cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      338,
+      345
+    ]
+  },
+  {
+    "text": "Điện não đồ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      381,
+      392
+    ]
+  },
+  {
+    "text": "Phức hợp sóng đa gai và sóng chậm hai bên, nổi bật bên trái",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      394,
+      453
+    ]
+  },
+  {
+    "text": "giật nhãn cầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      667,
+      680
+    ]
+  },
+  {
+    "text": "giật cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      789,
+      796
+    ]
+  },
+  {
+    "text": "giật cơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      829,
+      836
+    ]
+  },
+  {
+    "text": "Phản xạ gân xương sâu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      872,
+      893
+    ]
+  },
+  {
+    "text": "2 và đối xứng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      894,
+      907
+    ]
+  },
+  {
+    "text": "Romberg",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      934,
+      941
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      942,
+      949
+    ]
+  },
+  {
+    "text": "giật cơ buổi sáng sớm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      997,
+      1018
+    ]
+  },
+  {
+    "text": "Lamictal liều cao",
+    "type": "THUỐC",
+    "candidates": [
+      "28439"
+    ],
+    "assertions": [],
+    "position": [
+      1030,
+      1047
+    ]
+  },
+  {
+    "text": "co giật toàn thể cứng co giật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R56"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1065,
+      1094
+    ]
+  },
+  {
+    "text": "lo lắng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1102,
+      1109
+    ]
+  },
+  {
+    "text": "Keppra",
+    "type": "THUỐC",
+    "candidates": [
+      "114477"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1214,
+      1220
+    ]
+  },
+  {
+    "text": "cơn co giật đột phá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1228,
+      1247
+    ]
+  },
+  {
+    "text": "Cơn co giật đột phá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1262,
+      1281
+    ]
+  },
+  {
+    "text": "mất ngủ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1296,
+      1303
+    ]
+  },
+  {
+    "text": "Keppra 500 mg b.i.d.",
+    "type": "THUỐC",
+    "candidates": [
+      "114477"
+    ],
+    "assertions": [],
+    "position": [
+      1333,
+      1353
+    ]
+  }
+]

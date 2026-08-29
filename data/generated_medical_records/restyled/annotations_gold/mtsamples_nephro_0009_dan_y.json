@@ -1,0 +1,335 @@
+[
+  {
+    "text": "Giãn đài bể thận phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N13.3"
+    ],
+    "assertions": [],
+    "position": [
+      25,
+      46
+    ]
+  },
+  {
+    "text": "ung thư tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C55"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      101,
+      116
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      118,
+      128
+    ]
+  },
+  {
+    "text": "mesothelioma",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C45.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      130,
+      142
+    ]
+  },
+  {
+    "text": "ung thư vú phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      225,
+      240
+    ]
+  },
+  {
+    "text": "PET scan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      322,
+      330
+    ]
+  },
+  {
+    "text": "giãn đài bể thận phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N13.3"
+    ],
+    "assertions": [],
+    "position": [
+      332,
+      353
+    ]
+  },
+  {
+    "text": "tắc nghẽn UPJ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N13.0"
+    ],
+    "assertions": [],
+    "position": [
+      357,
+      370
+    ]
+  },
+  {
+    "text": "viên sỏi nhỏ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.0"
+    ],
+    "assertions": [],
+    "position": [
+      375,
+      387
+    ]
+  },
+  {
+    "text": "Xét nghiệm nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      409,
+      429
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      431,
+      438
+    ]
+  },
+  {
+    "text": "Ung thư tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C55"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      470,
+      485
+    ]
+  },
+  {
+    "text": "mesothelioma",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C45.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      491,
+      503
+    ]
+  },
+  {
+    "text": "ung thư vú",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C50.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      509,
+      519
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E14.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      525,
+      539
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      545,
+      558
+    ]
+  },
+  {
+    "text": "Diovan HCT 80/12.5 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "69749",
+      "5487"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      648,
+      679
+    ]
+  },
+  {
+    "text": "metformin 500 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "6809"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      685,
+      711
+    ]
+  },
+  {
+    "text": "chướng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      958,
+      964
+    ]
+  },
+  {
+    "text": "khối u",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      985,
+      991
+    ]
+  },
+  {
+    "text": "đau ở điểm sườn sống",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      999,
+      1019
+    ]
+  },
+  {
+    "text": "Giãn đài bể thận phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N13.3"
+    ],
+    "assertions": [],
+    "position": [
+      1060,
+      1081
+    ]
+  },
+  {
+    "text": "CT scan bụng và chậu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1126,
+      1146
+    ]
+  },
+  {
+    "text": "IVP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1175,
+      1178
+    ]
+  },
+  {
+    "text": "scan thận",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1182,
+      1191
+    ]
+  },
+  {
+    "text": "chụp X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1341,
+      1353
+    ]
+  },
+  {
+    "text": "viên sỏi thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.0"
+    ],
+    "assertions": [],
+    "position": [
+      1391,
+      1404
+    ]
+  }
+]

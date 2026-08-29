@@ -1,0 +1,147 @@
+[
+  {
+    "text": "dính tủy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      42,
+      50
+    ]
+  },
+  {
+    "text": "lipomyomeningocele",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      152,
+      170
+    ]
+  },
+  {
+    "text": "đau chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      276,
+      284
+    ]
+  },
+  {
+    "text": "Advil",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      329,
+      334
+    ]
+  },
+  {
+    "text": "Motrin",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      336,
+      342
+    ]
+  },
+  {
+    "text": "Tylenol PM",
+    "type": "THUỐC",
+    "candidates": [
+      "161",
+      "3498"
+    ],
+    "assertions": [],
+    "position": [
+      344,
+      354
+    ]
+  },
+  {
+    "text": "rối loạn ruột hoặc bàng quang",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      383,
+      412
+    ]
+  },
+  {
+    "text": "mất cảm giác tăng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      428,
+      445
+    ]
+  },
+  {
+    "text": "Singulair",
+    "type": "THUỐC",
+    "candidates": [
+      "88249"
+    ],
+    "assertions": [],
+    "position": [
+      513,
+      522
+    ]
+  },
+  {
+    "text": "hen suyễn thỉnh thoảng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [],
+    "position": [
+      527,
+      549
+    ]
+  },
+  {
+    "text": "dính tủy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      887,
+      895
+    ]
+  },
+  {
+    "text": "MRI scan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      965,
+      973
+    ]
+  },
+  {
+    "text": "MRI cột sống thắt lưng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1018,
+      1040
+    ]
+  }
+]

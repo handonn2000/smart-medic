@@ -1,0 +1,262 @@
+[
+  {
+    "text": "nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      94,
+      111
+    ]
+  },
+  {
+    "text": "sỏi thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.0"
+    ],
+    "assertions": [],
+    "position": [
+      115,
+      123
+    ]
+  },
+  {
+    "text": "niệu quản trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.2"
+    ],
+    "assertions": [],
+    "position": [
+      176,
+      190
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "217992"
+    ],
+    "assertions": [],
+    "position": [
+      969,
+      977
+    ]
+  },
+  {
+    "text": "stent niệu quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.2"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1180,
+      1195
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "217992"
+    ],
+    "assertions": [],
+    "position": [
+      1329,
+      1337
+    ]
+  },
+  {
+    "text": "Prinivil",
+    "type": "THUỐC",
+    "candidates": [
+      "203644"
+    ],
+    "assertions": [],
+    "position": [
+      1339,
+      1347
+    ]
+  },
+  {
+    "text": "Bumex",
+    "type": "THUỐC",
+    "candidates": [
+      "203538"
+    ],
+    "assertions": [],
+    "position": [
+      1364,
+      1369
+    ]
+  },
+  {
+    "text": "Levsinex",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1387,
+      1395
+    ]
+  },
+  {
+    "text": "cimetidine",
+    "type": "THUỐC",
+    "candidates": [
+      "2541"
+    ],
+    "assertions": [],
+    "position": [
+      1415,
+      1425
+    ]
+  },
+  {
+    "text": "potassium chloride",
+    "type": "THUỐC",
+    "candidates": [
+      "8591"
+    ],
+    "assertions": [],
+    "position": [
+      1443,
+      1461
+    ]
+  },
+  {
+    "text": "atenolol",
+    "type": "THUỐC",
+    "candidates": [
+      "1202"
+    ],
+    "assertions": [],
+    "position": [
+      1481,
+      1489
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1582,
+      1585
+    ]
+  },
+  {
+    "text": "ớn lạnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1587,
+      1594
+    ]
+  },
+  {
+    "text": "đổ mồ hôi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1601,
+      1610
+    ]
+  },
+  {
+    "text": "120/70",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1729,
+      1735
+    ]
+  },
+  {
+    "text": "phù nề",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1814,
+      1820
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1837,
+      1850
+    ]
+  },
+  {
+    "text": "Sỏi thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N20.0"
+    ],
+    "assertions": [],
+    "position": [
+      1870,
+      1878
+    ]
+  },
+  {
+    "text": "niệu quản trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D30.2"
+    ],
+    "assertions": [],
+    "position": [
+      1912,
+      1926
+    ]
+  },
+  {
+    "text": "Tiểu không kiểm soát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1944,
+      1964
+    ]
+  },
+  {
+    "text": "Nhiễm trùng huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A41.9"
+    ],
+    "assertions": [],
+    "position": [
+      1969,
+      1986
+    ]
+  }
+]

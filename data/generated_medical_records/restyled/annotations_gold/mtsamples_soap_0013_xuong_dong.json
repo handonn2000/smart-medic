@@ -1,0 +1,444 @@
+[
+  {
+    "text": "ung thư tuyến \ntiền liệt adenocarcinoma tái \nphát Gleason 8",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C61"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      53,
+      121
+    ]
+  },
+  {
+    "text": "đau quặn bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      213,
+      229
+    ]
+  },
+  {
+    "text": "đau\nhọng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      231,
+      240
+    ]
+  },
+  {
+    "text": "Ham muốn tình dục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      268,
+      289
+    ]
+  },
+  {
+    "text": "cương\ncứng rối loạn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      323,
+      349
+    ]
+  },
+  {
+    "text": "trĩ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      372,
+      376
+    ]
+  },
+  {
+    "text": "đại tiện ra máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      385,
+      404
+    ]
+  },
+  {
+    "text": "PSA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      407,
+      410
+    ]
+  },
+  {
+    "text": "tăng chậm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      411,
+      423
+    ]
+  },
+  {
+    "text": "1.2",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      438,
+      441
+    ]
+  },
+  {
+    "text": "Đau quặn bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      462,
+      478
+    ]
+  },
+  {
+    "text": "Karnofsky",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      532,
+      541
+    ]
+  },
+  {
+    "text": "100",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      542,
+      545
+    ]
+  },
+  {
+    "text": "Giảm thèm ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      582,
+      597
+    ]
+  },
+  {
+    "text": "mất 5 pound",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      615,
+      628
+    ]
+  },
+  {
+    "text": "Căng thẳng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      671,
+      684
+    ]
+  },
+  {
+    "text": "******",
+    "type": "THUỐC",
+    "candidates": [
+      "161",
+      "3289",
+      "3642"
+    ],
+    "assertions": [],
+    "position": [
+      761,
+      767
+    ]
+  },
+  {
+    "text": "Timolol nhỏ mắt",
+    "type": "THUỐC",
+    "candidates": [
+      "10600"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      774,
+      792
+    ]
+  },
+  {
+    "text": "Aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      799,
+      806
+    ]
+  },
+  {
+    "text": "Advil",
+    "type": "THUỐC",
+    "candidates": [
+      "153010"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      813,
+      818
+    ]
+  },
+  {
+    "text": "Zinc",
+    "type": "THUỐC",
+    "candidates": [
+      "11416"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      825,
+      829
+    ]
+  },
+  {
+    "text": "197 pounds",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      922,
+      932
+    ]
+  },
+  {
+    "text": "Viêm hầu nhẹ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J02.9"
+    ],
+    "assertions": [],
+    "position": [
+      1038,
+      1054
+    ]
+  },
+  {
+    "text": "hạch phì đại",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1076,
+      1091
+    ]
+  },
+  {
+    "text": "điểm đau cục bộ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1117,
+      1137
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1234,
+      1237
+    ]
+  },
+  {
+    "text": "khối u",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1242,
+      1250
+    ]
+  },
+  {
+    "text": "gan lách to",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1256,
+      1268
+    ]
+  },
+  {
+    "text": "trĩ ngoại",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1286,
+      1297
+    ]
+  },
+  {
+    "text": "nốt đáng nghi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1340,
+      1356
+    ]
+  },
+  {
+    "text": "máu trên găng tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1362,
+      1382
+    ]
+  },
+  {
+    "text": "dùi trống",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1395,
+      1407
+    ]
+  },
+  {
+    "text": "xanh tím",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1409,
+      1418
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1420,
+      1424
+    ]
+  },
+  {
+    "text": "thiếu hụt tiêu điểm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1445,
+      1470
+    ]
+  },
+  {
+    "text": "PSA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1479,
+      1482
+    ]
+  },
+  {
+    "text": "tăng chậm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1483,
+      1495
+    ]
+  },
+  {
+    "text": "ung thư",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C61"
+    ],
+    "assertions": [],
+    "position": [
+      1580,
+      1588
+    ]
+  },
+  {
+    "text": "PSA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1741,
+      1744
+    ]
+  }
+]

@@ -1,0 +1,330 @@
+[
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      60,
+      63
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      140,
+      148
+    ]
+  },
+  {
+    "text": "nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      201,
+      204
+    ]
+  },
+  {
+    "text": "táo bón",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      208,
+      215
+    ]
+  },
+  {
+    "text": "hoa mắt khi thay đổi tư thế",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      271,
+      298
+    ]
+  },
+  {
+    "text": "khó ngủ về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      370,
+      384
+    ]
+  },
+  {
+    "text": "đau họng khi nuốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      417,
+      434
+    ]
+  },
+  {
+    "text": "sưng đau khớp bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      438,
+      459
+    ]
+  },
+  {
+    "text": "Bệnh Crohn không đặc hiệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K50.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      559,
+      584
+    ]
+  },
+  {
+    "text": "Tắc ruột sau mổ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K91.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      653,
+      668
+    ]
+  },
+  {
+    "text": "Thóat vị bẹn hai bên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K40.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      672,
+      692
+    ]
+  },
+  {
+    "text": "Sâu ngà",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K02.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      741,
+      748
+    ]
+  },
+  {
+    "text": "Bayer Aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      945,
+      958
+    ]
+  },
+  {
+    "text": "Atrovent",
+    "type": "THUỐC",
+    "candidates": [
+      "7213"
+    ],
+    "assertions": [],
+    "position": [
+      960,
+      968
+    ]
+  },
+  {
+    "text": "Compazine",
+    "type": "THUỐC",
+    "candidates": [
+      "8704"
+    ],
+    "assertions": [],
+    "position": [
+      996,
+      1005
+    ]
+  },
+  {
+    "text": "Tums",
+    "type": "THUỐC",
+    "candidates": [
+      "1897"
+    ],
+    "assertions": [],
+    "position": [
+      1032,
+      1036
+    ]
+  },
+  {
+    "text": "tăng bạch cầu chiếm ưu thế bạch cầu trung tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1312,
+      1358
+    ]
+  },
+  {
+    "text": "tăng nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1371,
+      1379
+    ]
+  },
+  {
+    "text": "siêu âm ổ bụng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1394,
+      1408
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1492,
+      1499
+    ]
+  },
+  {
+    "text": "soi tươi dịch âm đạo",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1530,
+      1550
+    ]
+  },
+  {
+    "text": "dương tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1563,
+      1573
+    ]
+  },
+  {
+    "text": "Bệnh Crohn không đặc hiệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K50.9"
+    ],
+    "assertions": [],
+    "position": [
+      1667,
+      1692
+    ]
+  },
+  {
+    "text": "Thóat vị bẹn hai bên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K40.0"
+    ],
+    "assertions": [],
+    "position": [
+      1695,
+      1715
+    ]
+  },
+  {
+    "text": "Gan xơ cứng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K74.1"
+    ],
+    "assertions": [],
+    "position": [
+      1718,
+      1729
+    ]
+  },
+  {
+    "text": "Tắc ruột sau mổ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K91.3"
+    ],
+    "assertions": [],
+    "position": [
+      1732,
+      1747
+    ]
+  },
+  {
+    "text": "Polip trực tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K62.1"
+    ],
+    "assertions": [],
+    "position": [
+      1750,
+      1766
+    ]
+  },
+  {
+    "text": "Cúm kèm viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J11.0"
+    ],
+    "assertions": [],
+    "position": [
+      1769,
+      1786
+    ]
+  },
+  {
+    "text": "chụp x-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1835,
+      1852
+    ]
+  }
+]

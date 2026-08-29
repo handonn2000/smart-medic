@@ -1,0 +1,268 @@
+[
+  {
+    "text": "Đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      14,
+      39
+    ]
+  },
+  {
+    "text": "Viêm phổi do liên cầu khuẩn kèm nhiễm khuẩn huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J15.3"
+    ],
+    "assertions": [],
+    "position": [
+      44,
+      93
+    ]
+  },
+  {
+    "text": "suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      169,
+      179
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      242,
+      251
+    ]
+  },
+  {
+    "text": "nhiễm khuẩn huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A49.9"
+    ],
+    "assertions": [],
+    "position": [
+      278,
+      295
+    ]
+  },
+  {
+    "text": "suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      305,
+      315
+    ]
+  },
+  {
+    "text": "đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      451,
+      476
+    ]
+  },
+  {
+    "text": "prothrombin",
+    "type": "THUỐC",
+    "candidates": [
+      "1441688"
+    ],
+    "assertions": [],
+    "position": [
+      525,
+      536
+    ]
+  },
+  {
+    "text": "fibrinogen",
+    "type": "THUỐC",
+    "candidates": [
+      "4385"
+    ],
+    "assertions": [],
+    "position": [
+      546,
+      556
+    ]
+  },
+  {
+    "text": "Chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      751,
+      759
+    ]
+  },
+  {
+    "text": "sử dụng ma túy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.2"
+    ],
+    "assertions": [],
+    "position": [
+      1061,
+      1075
+    ]
+  },
+  {
+    "text": "Kết mạc xuất huyết",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1545,
+      1563
+    ]
+  },
+  {
+    "text": "chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1828,
+      1836
+    ]
+  },
+  {
+    "text": "XÉT NGHIỆM",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2063,
+      2073
+    ]
+  },
+  {
+    "text": "50,000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2119,
+      2125
+    ]
+  },
+  {
+    "text": "2.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2131,
+      2134
+    ]
+  },
+  {
+    "text": "fibrinogen",
+    "type": "THUỐC",
+    "candidates": [
+      "4385"
+    ],
+    "assertions": [],
+    "position": [
+      2162,
+      2172
+    ]
+  },
+  {
+    "text": "200",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2173,
+      2176
+    ]
+  },
+  {
+    "text": "13",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2189,
+      2191
+    ]
+  },
+  {
+    "text": "đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2217,
+      2242
+    ]
+  },
+  {
+    "text": "nhiễm khuẩn huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A49.9"
+    ],
+    "assertions": [],
+    "position": [
+      2246,
+      2263
+    ]
+  },
+  {
+    "text": "fibrinogen",
+    "type": "THUỐC",
+    "candidates": [
+      "4385"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2678,
+      2688
+    ]
+  },
+  {
+    "text": "heparin",
+    "type": "THUỐC",
+    "candidates": [
+      "5224"
+    ],
+    "assertions": [],
+    "position": [
+      2771,
+      2778
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2912,
+      2922
+    ]
+  }
+]

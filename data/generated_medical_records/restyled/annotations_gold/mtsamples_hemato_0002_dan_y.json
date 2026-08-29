@@ -1,0 +1,503 @@
+[
+  {
+    "text": "Đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D65"
+    ],
+    "assertions": [],
+    "position": [
+      19,
+      44
+    ]
+  },
+  {
+    "text": "Viêm phổi do liên cầu khuẩn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J13"
+    ],
+    "assertions": [],
+    "position": [
+      50,
+      77
+    ]
+  },
+  {
+    "text": "nhiễm khuẩn huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A40.3"
+    ],
+    "assertions": [],
+    "position": [
+      82,
+      99
+    ]
+  },
+  {
+    "text": "suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      192,
+      202
+    ]
+  },
+  {
+    "text": "viêm phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      261,
+      270
+    ]
+  },
+  {
+    "text": "nhiễm khuẩn huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A40.3"
+    ],
+    "assertions": [],
+    "position": [
+      272,
+      289
+    ]
+  },
+  {
+    "text": "Suy hô hấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J96.9"
+    ],
+    "assertions": [],
+    "position": [
+      296,
+      306
+    ]
+  },
+  {
+    "text": "đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D65"
+    ],
+    "assertions": [],
+    "position": [
+      403,
+      428
+    ]
+  },
+  {
+    "text": "Thời gian thromboplastin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      435,
+      459
+    ]
+  },
+  {
+    "text": "prothrombin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      463,
+      474
+    ]
+  },
+  {
+    "text": "kéo dài",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      475,
+      482
+    ]
+  },
+  {
+    "text": "fibrinogen",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      484,
+      494
+    ]
+  },
+  {
+    "text": "thấp",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      495,
+      499
+    ]
+  },
+  {
+    "text": "D-dimer",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      501,
+      508
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      509,
+      513
+    ]
+  },
+  {
+    "text": "Chảy máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      558,
+      566
+    ]
+  },
+  {
+    "text": "rối loạn đông máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D68.9"
+    ],
+    "assertions": [
+      "isNegated",
+      "isHistorical"
+    ],
+    "position": [
+      651,
+      668
+    ]
+  },
+  {
+    "text": "Nhịp tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1065,
+      1073
+    ]
+  },
+  {
+    "text": "67",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1074,
+      1076
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1078,
+      1086
+    ]
+  },
+  {
+    "text": "100/60",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1087,
+      1093
+    ]
+  },
+  {
+    "text": "tần số hô hấp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1095,
+      1108
+    ]
+  },
+  {
+    "text": "14-16",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1109,
+      1114
+    ]
+  },
+  {
+    "text": "Kết mạc xuất huyết",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1135,
+      1153
+    ]
+  },
+  {
+    "text": "xuất huyết dưới da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1161,
+      1179
+    ]
+  },
+  {
+    "text": "giãn tĩnh mạch cảnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1230,
+      1249
+    ]
+  },
+  {
+    "text": "Âm thở thô hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1262,
+      1280
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1329,
+      1332
+    ]
+  },
+  {
+    "text": "chảy máu nhẹ xung quanh đường truyền trung tâm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1347,
+      1393
+    ]
+  },
+  {
+    "text": "ngón tay dùi trống",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1418,
+      1436
+    ]
+  },
+  {
+    "text": "xanh tím",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1438,
+      1446
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1448,
+      1451
+    ]
+  },
+  {
+    "text": "Số lượng tiểu cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1511,
+      1528
+    ]
+  },
+  {
+    "text": "50,000",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1530,
+      1536
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1542,
+      1545
+    ]
+  },
+  {
+    "text": "2.4",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1547,
+      1550
+    ]
+  },
+  {
+    "text": "PTT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1556,
+      1559
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1560,
+      1571
+    ]
+  },
+  {
+    "text": "Fibrinogen",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1577,
+      1587
+    ]
+  },
+  {
+    "text": "200",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1589,
+      1592
+    ]
+  },
+  {
+    "text": "D-dimer",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1598,
+      1605
+    ]
+  },
+  {
+    "text": "13",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1607,
+      1609
+    ]
+  },
+  {
+    "text": "Đông máu nội mạch lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D65"
+    ],
+    "assertions": [],
+    "position": [
+      1647,
+      1672
+    ]
+  },
+  {
+    "text": "nhiễm khuẩn huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A40.3"
+    ],
+    "assertions": [],
+    "position": [
+      1676,
+      1693
+    ]
+  },
+  {
+    "text": "bệnh phế cầu khuẩn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A49.1"
+    ],
+    "assertions": [],
+    "position": [
+      1697,
+      1715
+    ]
+  },
+  {
+    "text": "heparin liều thấp",
+    "type": "THUỐC",
+    "candidates": [
+      "5224"
+    ],
+    "assertions": [],
+    "position": [
+      1791,
+      1808
+    ]
+  }
+]

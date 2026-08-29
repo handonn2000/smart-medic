@@ -1,0 +1,608 @@
+[
+  {
+    "text": "rung nhĩ kịch phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.0"
+    ],
+    "assertions": [],
+    "position": [
+      53,
+      71
+    ]
+  },
+  {
+    "text": "đau ngực khi hoạt động",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      101,
+      123
+    ]
+  },
+  {
+    "text": "Lo lắng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      173,
+      180
+    ]
+  },
+  {
+    "text": "không thể giảm cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      184,
+      202
+    ]
+  },
+  {
+    "text": "cường giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [],
+    "position": [
+      209,
+      219
+    ]
+  },
+  {
+    "text": "Tapazole 10 mg b.i.d.",
+    "type": "THUỐC",
+    "candidates": [
+      "224936"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      247,
+      268
+    ]
+  },
+  {
+    "text": "Atenolol/chlorthalidone 50/25 mg b.i.d.",
+    "type": "THUỐC",
+    "candidates": [
+      "151195"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      274,
+      313
+    ]
+  },
+  {
+    "text": "Micro-K 10 mEq q.d.",
+    "type": "THUỐC",
+    "candidates": [
+      "218365"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      319,
+      338
+    ]
+  },
+  {
+    "text": "Lanoxin 0.125 mg q.d.",
+    "type": "THUỐC",
+    "candidates": [
+      "202988"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      344,
+      365
+    ]
+  },
+  {
+    "text": "Spironolactone 25 mg q.d.",
+    "type": "THUỐC",
+    "candidates": [
+      "9997"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      371,
+      396
+    ]
+  },
+  {
+    "text": "Crestor 10 mg q.h.s.",
+    "type": "THUỐC",
+    "candidates": [
+      "320864"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      402,
+      422
+    ]
+  },
+  {
+    "text": "Famotidine 20 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "4278"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      428,
+      444
+    ]
+  },
+  {
+    "text": "Bayer Aspirin 81 mg q.d.",
+    "type": "THUỐC",
+    "candidates": [
+      "215568"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      446,
+      470
+    ]
+  },
+  {
+    "text": "Vicodin p.r.n.",
+    "type": "THUỐC",
+    "candidates": [
+      "128793"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      476,
+      490
+    ]
+  },
+  {
+    "text": "Nexium 40 mg",
+    "type": "THUỐC",
+    "candidates": [
+      "284799"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      496,
+      508
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      569,
+      584
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      600,
+      609
+    ]
+  },
+  {
+    "text": "tiền ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      614,
+      623
+    ]
+  },
+  {
+    "text": "Phù chi mức độ nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      630,
+      648
+    ]
+  },
+  {
+    "text": "Huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      696,
+      704
+    ]
+  },
+  {
+    "text": "112/74",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      706,
+      712
+    ]
+  },
+  {
+    "text": "Nhịp tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      718,
+      726
+    ]
+  },
+  {
+    "text": "70",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      728,
+      730
+    ]
+  },
+  {
+    "text": "Cân nặng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      736,
+      744
+    ]
+  },
+  {
+    "text": "223 pounds",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      746,
+      756
+    ]
+  },
+  {
+    "text": "tăng 3 pounds",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      758,
+      771
+    ]
+  },
+  {
+    "text": "âm thổi 1/6 ở bờ sườn trên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      798,
+      824
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      842,
+      845
+    ]
+  },
+  {
+    "text": "Thừa cân mức độ vừa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      874,
+      893
+    ]
+  },
+  {
+    "text": "Phù nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      904,
+      911
+    ]
+  },
+  {
+    "text": "EKG",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      941,
+      944
+    ]
+  },
+  {
+    "text": "Nhịp xoang chậm với 58 nhịp mỗi phút",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      946,
+      982
+    ]
+  },
+  {
+    "text": "bất thường ST mức độ nhẹ dưới bên",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      984,
+      1017
+    ]
+  },
+  {
+    "text": "Đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1039,
+      1047
+    ]
+  },
+  {
+    "text": "EKG",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1061,
+      1064
+    ]
+  },
+  {
+    "text": "bất thường nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1068,
+      1082
+    ]
+  },
+  {
+    "text": "Phù chi mức độ nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1089,
+      1107
+    ]
+  },
+  {
+    "text": "chlorthalidone",
+    "type": "THUỐC",
+    "candidates": [
+      "2409"
+    ],
+    "assertions": [],
+    "position": [
+      1135,
+      1149
+    ]
+  },
+  {
+    "text": "Rung nhĩ kịch phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.0"
+    ],
+    "assertions": [],
+    "position": [
+      1156,
+      1174
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1186,
+      1199
+    ]
+  },
+  {
+    "text": "cường giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [],
+    "position": [
+      1201,
+      1211
+    ]
+  },
+  {
+    "text": "hạ kali máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E87.6"
+    ],
+    "assertions": [],
+    "position": [
+      1213,
+      1224
+    ]
+  },
+  {
+    "text": "Cường giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E05"
+    ],
+    "assertions": [],
+    "position": [
+      1231,
+      1241
+    ]
+  },
+  {
+    "text": "TSH",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1243,
+      1246
+    ]
+  },
+  {
+    "text": "ức chế nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1250,
+      1260
+    ]
+  },
+  {
+    "text": "Tapazole",
+    "type": "THUỐC",
+    "candidates": [
+      "224936"
+    ],
+    "assertions": [],
+    "position": [
+      1268,
+      1276
+    ]
+  },
+  {
+    "text": "Rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.5"
+    ],
+    "assertions": [],
+    "position": [
+      1297,
+      1315
+    ]
+  },
+  {
+    "text": "Crestor",
+    "type": "THUỐC",
+    "candidates": [
+      "320864"
+    ],
+    "assertions": [],
+    "position": [
+      1328,
+      1335
+    ]
+  },
+  {
+    "text": "Phì đại thất trái",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I51.7"
+    ],
+    "assertions": [],
+    "position": [
+      1342,
+      1359
+    ]
+  },
+  {
+    "text": "Rong kinh rong huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N92.1"
+    ],
+    "assertions": [],
+    "position": [
+      1366,
+      1386
+    ]
+  },
+  {
+    "text": "siêu âm tim gắng sức",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1425,
+      1445
+    ]
+  },
+  {
+    "text": "phù chi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1481,
+      1488
+    ]
+  },
+  {
+    "text": "Nexium",
+    "type": "THUỐC",
+    "candidates": [
+      "284799"
+    ],
+    "assertions": [],
+    "position": [
+      1510,
+      1516
+    ]
+  }
+]

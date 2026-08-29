@@ -1,0 +1,674 @@
+[
+  {
+    "text": "khó đi tiểu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      94,
+      105
+    ]
+  },
+  {
+    "text": "táo bón",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      109,
+      116
+    ]
+  },
+  {
+    "text": "Cấy nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      123,
+      136
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      138,
+      145
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "82122"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      161,
+      169
+    ]
+  },
+  {
+    "text": "tiểu máu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      212,
+      220
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      252,
+      255
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      257,
+      265
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      267,
+      274
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      279,
+      288
+    ]
+  },
+  {
+    "text": "Số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      340,
+      357
+    ]
+  },
+  {
+    "text": "7.6",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      359,
+      362
+    ]
+  },
+  {
+    "text": "H and H",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      369,
+      376
+    ]
+  },
+  {
+    "text": "10.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      378,
+      382
+    ]
+  },
+  {
+    "text": "38.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      386,
+      390
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      397,
+      400
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      404,
+      414
+    ]
+  },
+  {
+    "text": "27",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      416,
+      418
+    ]
+  },
+  {
+    "text": "1.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      422,
+      425
+    ]
+  },
+  {
+    "text": "Cấy nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      432,
+      445
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      449,
+      461
+    ]
+  },
+  {
+    "text": "Phân tích nước tiểu (UA)",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      477,
+      501
+    ]
+  },
+  {
+    "text": "nhiều tế bào hồng cầu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      503,
+      524
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      615,
+      628
+    ]
+  },
+  {
+    "text": "Cholesterol cao",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      635,
+      650
+    ]
+  },
+  {
+    "text": "Ung thư bàng quang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C67"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      657,
+      675
+    ]
+  },
+  {
+    "text": "Đục thủy tinh thể",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H26.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      720,
+      737
+    ]
+  },
+  {
+    "text": "Phì đại tuyến tiền liệt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N40"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      744,
+      767
+    ]
+  },
+  {
+    "text": "SULFA",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      786,
+      791
+    ]
+  },
+  {
+    "text": "Atenolol",
+    "type": "THUỐC",
+    "candidates": [
+      "1202"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      819,
+      827
+    ]
+  },
+  {
+    "text": "Cardura",
+    "type": "THUỐC",
+    "candidates": [
+      "49276"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      829,
+      836
+    ]
+  },
+  {
+    "text": "Zegerid",
+    "type": "THUỐC",
+    "candidates": [
+      "7646",
+      "36676"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      838,
+      845
+    ]
+  },
+  {
+    "text": "Flomax",
+    "type": "THUỐC",
+    "candidates": [
+      "77492"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      847,
+      853
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "82122"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      860,
+      868
+    ]
+  },
+  {
+    "text": "Proscar",
+    "type": "THUỐC",
+    "candidates": [
+      "25025"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      870,
+      877
+    ]
+  },
+  {
+    "text": "Vicodin",
+    "type": "THUỐC",
+    "candidates": [
+      "5489",
+      "161"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      879,
+      886
+    ]
+  },
+  {
+    "text": "Morphine",
+    "type": "THUỐC",
+    "candidates": [
+      "7052"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      888,
+      896
+    ]
+  },
+  {
+    "text": "Phenergan",
+    "type": "THUỐC",
+    "candidates": [
+      "8745"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      903,
+      912
+    ]
+  },
+  {
+    "text": "Ativan",
+    "type": "THUỐC",
+    "candidates": [
+      "6470"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      914,
+      920
+    ]
+  },
+  {
+    "text": "Zocor",
+    "type": "THUỐC",
+    "candidates": [
+      "36567"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      922,
+      927
+    ]
+  },
+  {
+    "text": "Prinivil",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      929,
+      937
+    ]
+  },
+  {
+    "text": "Hydrochlorothiazide",
+    "type": "THUỐC",
+    "candidates": [
+      "5487"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      944,
+      963
+    ]
+  },
+  {
+    "text": "Folic acid",
+    "type": "THUỐC",
+    "candidates": [
+      "4511"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      965,
+      975
+    ]
+  },
+  {
+    "text": "Digoxin",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      977,
+      984
+    ]
+  },
+  {
+    "text": "Vitamin B12",
+    "type": "THUỐC",
+    "candidates": [
+      "11248"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      991,
+      1002
+    ]
+  },
+  {
+    "text": "Multivitamin",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1004,
+      1016
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1258,
+      1261
+    ]
+  },
+  {
+    "text": "HA",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1287,
+      1289
+    ]
+  },
+  {
+    "text": "162/60",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1290,
+      1296
+    ]
+  },
+  {
+    "text": "độ bão hòa oxy",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1298,
+      1312
+    ]
+  },
+  {
+    "text": "98%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1313,
+      1316
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1501,
+      1504
+    ]
+  },
+  {
+    "text": "phù",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1529,
+      1532
+    ]
+  },
+  {
+    "text": "Tiểu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R31"
+    ],
+    "assertions": [],
+    "position": [
+      1634,
+      1642
+    ]
+  },
+  {
+    "text": "Cấy nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1681,
+      1694
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1698,
+      1710
+    ]
+  }
+]

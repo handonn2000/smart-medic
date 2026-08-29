@@ -1,0 +1,421 @@
+[
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      63,
+      76
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      99,
+      107
+    ]
+  },
+  {
+    "text": "khó thở khi nằm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      118,
+      133
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      135,
+      142
+    ]
+  },
+  {
+    "text": "Atenolol",
+    "type": "THUỐC",
+    "candidates": [
+      "1202"
+    ],
+    "assertions": [],
+    "position": [
+      265,
+      273
+    ]
+  },
+  {
+    "text": "********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      290,
+      298
+    ]
+  },
+  {
+    "text": "calcium",
+    "type": "THUỐC",
+    "candidates": [
+      "1895"
+    ],
+    "assertions": [],
+    "position": [
+      318,
+      325
+    ]
+  },
+  {
+    "text": "vitamin D",
+    "type": "THUỐC",
+    "candidates": [
+      "11253"
+    ],
+    "assertions": [],
+    "position": [
+      330,
+      339
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      392,
+      399
+    ]
+  },
+  {
+    "text": "Elocon",
+    "type": "THUỐC",
+    "candidates": [
+      "108118"
+    ],
+    "assertions": [],
+    "position": [
+      458,
+      464
+    ]
+  },
+  {
+    "text": "Synalar",
+    "type": "THUỐC",
+    "candidates": [
+      "25126"
+    ],
+    "assertions": [],
+    "position": [
+      479,
+      486
+    ]
+  },
+  {
+    "text": "Benadryl",
+    "type": "THUỐC",
+    "candidates": [
+      "3498"
+    ],
+    "assertions": [],
+    "position": [
+      546,
+      554
+    ]
+  },
+  {
+    "text": "morphine",
+    "type": "THUỐC",
+    "candidates": [
+      "7052"
+    ],
+    "assertions": [],
+    "position": [
+      572,
+      580
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [],
+    "position": [
+      582,
+      587
+    ]
+  },
+  {
+    "text": "suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      650,
+      668
+    ]
+  },
+  {
+    "text": "nhồi máu cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I21"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      684,
+      699
+    ]
+  },
+  {
+    "text": "bệnh tim thiếu máu cục bộ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I51.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      731,
+      756
+    ]
+  },
+  {
+    "text": "lymphoma",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      777,
+      785
+    ]
+  },
+  {
+    "text": "hen suyễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      872,
+      881
+    ]
+  },
+  {
+    "text": "sử dụng rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      909,
+      921
+    ]
+  },
+  {
+    "text": "đau lưng dưới",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1002,
+      1015
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1197,
+      1207
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1314,
+      1324
+    ]
+  },
+  {
+    "text": "bệnh đa dây thần kinh ngoại biên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G62.9"
+    ],
+    "assertions": [],
+    "position": [
+      1355,
+      1387
+    ]
+  },
+  {
+    "text": "myelogram",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1419,
+      1428
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1468,
+      1478
+    ]
+  },
+  {
+    "text": "tiểu đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1727,
+      1735
+    ]
+  },
+  {
+    "text": "huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1809,
+      1817
+    ]
+  },
+  {
+    "text": "144/72",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1818,
+      1824
+    ]
+  },
+  {
+    "text": "80",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1837,
+      1839
+    ]
+  },
+  {
+    "text": "97.5 độ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1852,
+      1859
+    ]
+  },
+  {
+    "text": "căng thẳng cấp tính",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1919,
+      1938
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      2228,
+      2241
+    ]
+  },
+  {
+    "text": "Ngất",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2299,
+      2303
+    ]
+  },
+  {
+    "text": "rối loạn nhịp tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I49.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2424,
+      2441
+    ]
+  },
+  {
+    "text": "Hẹp ống sống",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M48.0"
+    ],
+    "assertions": [],
+    "position": [
+      2448,
+      2460
+    ]
+  }
+]

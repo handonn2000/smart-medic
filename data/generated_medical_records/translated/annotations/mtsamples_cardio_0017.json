@@ -1,0 +1,383 @@
+[
+  {
+    "text": "bệnh mô kẽ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      73,
+      83
+    ]
+  },
+  {
+    "text": "viêm phổi do lupus",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      97,
+      115
+    ]
+  },
+  {
+    "text": "đau lưng và khớp tăng lên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      341,
+      366
+    ]
+  },
+  {
+    "text": "khó chịu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      409,
+      417
+    ]
+  },
+  {
+    "text": "mệt mỏi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      548,
+      555
+    ]
+  },
+  {
+    "text": "Synthroid",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      659,
+      668
+    ]
+  },
+  {
+    "text": "Prilosec",
+    "type": "THUỐC",
+    "candidates": [
+      "7646"
+    ],
+    "assertions": [],
+    "position": [
+      689,
+      697
+    ]
+  },
+  {
+    "text": "prednisone",
+    "type": "THUỐC",
+    "candidates": [
+      "8640"
+    ],
+    "assertions": [],
+    "position": [
+      715,
+      725
+    ]
+  },
+  {
+    "text": "Plaquenil",
+    "type": "THUỐC",
+    "candidates": [
+      "202462"
+    ],
+    "assertions": [],
+    "position": [
+      792,
+      801
+    ]
+  },
+  {
+    "text": "Imuran",
+    "type": "THUỐC",
+    "candidates": [
+      "202559"
+    ],
+    "assertions": [],
+    "position": [
+      823,
+      829
+    ]
+  },
+  {
+    "text": "Advair",
+    "type": "THUỐC",
+    "candidates": [
+      "36117",
+      "41126"
+    ],
+    "assertions": [],
+    "position": [
+      848,
+      854
+    ]
+  },
+  {
+    "text": "Premarin",
+    "type": "THUỐC",
+    "candidates": [
+      "4099"
+    ],
+    "assertions": [],
+    "position": [
+      881,
+      889
+    ]
+  },
+  {
+    "text": "Lipitor",
+    "type": "THUỐC",
+    "candidates": [
+      "83367"
+    ],
+    "assertions": [],
+    "position": [
+      908,
+      915
+    ]
+  },
+  {
+    "text": "Actonel",
+    "type": "THUỐC",
+    "candidates": [
+      "73056"
+    ],
+    "assertions": [],
+    "position": [
+      946,
+      953
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [],
+    "position": [
+      974,
+      981
+    ]
+  },
+  {
+    "text": "vitamin D",
+    "type": "THUỐC",
+    "candidates": [
+      "11253"
+    ],
+    "assertions": [],
+    "position": [
+      1022,
+      1031
+    ]
+  },
+  {
+    "text": "vitamin E",
+    "type": "THUỐC",
+    "candidates": [
+      "11256"
+    ],
+    "assertions": [],
+    "position": [
+      1033,
+      1042
+    ]
+  },
+  {
+    "text": "vitamin C",
+    "type": "THUỐC",
+    "candidates": [
+      "1151"
+    ],
+    "assertions": [],
+    "position": [
+      1044,
+      1053
+    ]
+  },
+  {
+    "text": "Penicillin",
+    "type": "THUỐC",
+    "candidates": [
+      "7986"
+    ],
+    "assertions": [],
+    "position": [
+      1086,
+      1096
+    ]
+  },
+  {
+    "text": "âm phế bào giảm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1516,
+      1531
+    ]
+  },
+  {
+    "text": "96%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1719,
+      1722
+    ]
+  },
+  {
+    "text": "94%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1751,
+      1754
+    ]
+  },
+  {
+    "text": "96%",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1759,
+      1762
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1764,
+      1776
+    ]
+  },
+  {
+    "text": "dấu hiệu mô kẽ tăng nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1794,
+      1817
+    ]
+  },
+  {
+    "text": "viêm phổi do lupus",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      1838,
+      1856
+    ]
+  },
+  {
+    "text": "Lupus với viêm phổi nhẹ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J18"
+    ],
+    "assertions": [],
+    "position": [
+      2012,
+      2035
+    ]
+  },
+  {
+    "text": "Đau lưng và khớp tăng lên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2074,
+      2099
+    ]
+  },
+  {
+    "text": "lupus của bệnh nhân",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2122,
+      2141
+    ]
+  },
+  {
+    "text": "prednisone",
+    "type": "THUỐC",
+    "candidates": [
+      "8640"
+    ],
+    "assertions": [],
+    "position": [
+      2194,
+      2204
+    ]
+  },
+  {
+    "text": "chức năng phổi",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2409,
+      2423
+    ]
+  },
+  {
+    "text": "CAT scan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2452,
+      2460
+    ]
+  },
+  {
+    "text": "Imuran",
+    "type": "THUỐC",
+    "candidates": [
+      "202559"
+    ],
+    "assertions": [],
+    "position": [
+      2515,
+      2521
+    ]
+  },
+  {
+    "text": "lupus",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2563,
+      2568
+    ]
+  }
+]

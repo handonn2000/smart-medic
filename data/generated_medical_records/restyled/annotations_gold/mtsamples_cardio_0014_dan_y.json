@@ -1,0 +1,278 @@
+[
+  {
+    "text": "khối u phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D38.1"
+    ],
+    "assertions": [],
+    "position": [
+      30,
+      41
+    ]
+  },
+  {
+    "text": "tràn dịch màng phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J90"
+    ],
+    "assertions": [],
+    "position": [
+      45,
+      64
+    ]
+  },
+  {
+    "text": "rung nhĩ mạn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      117,
+      134
+    ]
+  },
+  {
+    "text": "Nhịp tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      194,
+      202
+    ]
+  },
+  {
+    "text": "120-140",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      203,
+      210
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      230,
+      237
+    ]
+  },
+  {
+    "text": "Rung nhĩ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      337,
+      345
+    ]
+  },
+  {
+    "text": "Cardizem: 60 mg p.o. t.i.d.",
+    "type": "THUỐC",
+    "candidates": [
+      "203494"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      382,
+      409
+    ]
+  },
+  {
+    "text": "Digoxin: 0.25 mg hàng ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      415,
+      441
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "202421"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      447,
+      455
+    ]
+  },
+  {
+    "text": "Clindamycin",
+    "type": "THUỐC",
+    "candidates": [
+      "2582"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      478,
+      489
+    ]
+  },
+  {
+    "text": "Mạch",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      540,
+      544
+    ]
+  },
+  {
+    "text": "122",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      546,
+      549
+    ]
+  },
+  {
+    "text": "Huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      557,
+      565
+    ]
+  },
+  {
+    "text": "102/68",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      567,
+      573
+    ]
+  },
+  {
+    "text": "thông khí kém",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      585,
+      598
+    ]
+  },
+  {
+    "text": "Điểm PMI đẩy lệch",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      609,
+      626
+    ]
+  },
+  {
+    "text": "S1 và S2 không đều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      628,
+      646
+    ]
+  },
+  {
+    "text": "khối u phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D38.1"
+    ],
+    "assertions": [],
+    "position": [
+      713,
+      724
+    ]
+  },
+  {
+    "text": "Tràn dịch màng phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J90"
+    ],
+    "assertions": [],
+    "position": [
+      730,
+      749
+    ]
+  },
+  {
+    "text": "Rung nhĩ mạn tính không kiểm soát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.2"
+    ],
+    "assertions": [],
+    "position": [
+      756,
+      789
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      876,
+      879
+    ]
+  },
+  {
+    "text": "2.09",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      883,
+      887
+    ]
+  },
+  {
+    "text": "rung nhĩ mạn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.2"
+    ],
+    "assertions": [],
+    "position": [
+      914,
+      931
+    ]
+  }
+]

@@ -683,12 +683,12 @@
 
       <div class="formula" style="margin-top:16px;font-size:14px">
         <span>candidates_score</span><span class="eq">=</span>
-        <span class="sum">Σ<small>i∈test</small></span>
         <span class="frac">
-          <span class="top"><span class="sum" style="font-size:20px">Σ<small>k∈c<sub>i</sub></small></span> J<sub>X</sub>(i) · |gt(k) ∩ pred(k)|</span>
-          <span class="bot"><span class="sum" style="font-size:20px">Σ<small>k∈c<sub>i</sub></small></span> ( len(gt(k)) + 1 )</span>
+          <span class="top"><span class="sum" style="font-size:20px">Σ<small>i∈test</small></span> J<sub>candidates</sub>(i) · ( <span class="sum" style="font-size:20px">Σ<small>k∈i</small></span> ( len(gt(k)) + 1 ) )</span>
+          <span class="bot"><span class="sum" style="font-size:20px">Σ<small>i∈test</small></span> <span class="sum" style="font-size:20px">Σ<small>k∈i</small></span> ( len(gt(k)) + 1 )</span>
         </span>
       </div>
+      <p style="font-size:14px">Khác hai thành phần trên, <code>candidates_score</code> <b>không</b> là trung bình đều theo sample mà là <b>trung bình có trọng số</b>: trọng số của sample <code>i</code> là <code>Σ<sub>k∈i</sub>(len(gt(k))+1)</code>, chia cho tổng trọng số của cả tập test. Sample nhiều candidate (và nhiều mã đáp án) nặng hơn sample ít.</p>
 
       <table class="def" style="margin-top:6px">
         <tbody>
@@ -696,9 +696,12 @@
           <tr><td><code>gt(k)</code>, <code>pred(k)</code></td><td>Tập ground-truth và tập prediction của candidate <code>k</code> trong sample <code>i</code>.</td></tr>
           <tr><td><code>J<sub>X</sub>(i)</code></td><td>Độ tương đồng Jaccard của trường output <code>X</code> ở sample <code>i</code>.</td></tr>
           <tr><td><code>J<sub>X</sub>(i) = 1</code></td><td>Quy ước khi <code>len(gt<sub>X</sub>(i)) = 0</code> và <code>len(pred<sub>X</sub>(i)) = 0</code> (cả hai đều rỗng).</td></tr>
+          <tr><td><code>J<sub>X</sub>(i) = 0</code></td><td>Quy ước khi <code>len(gt<sub>X</sub>(i)) = 0</code> nhưng <code>len(pred<sub>X</sub>(i)) ≠ 0</code> (đáp án rỗng mà vẫn đoán).</td></tr>
+          <tr><td>còn lại</td><td><code>J<sub>X</sub>(i) = |gt<sub>X</sub>(i) ∩ pred<sub>X</sub>(i)| / |gt<sub>X</sub>(i) ∪ pred<sub>X</sub>(i)|</code></td></tr>
         </tbody>
       </table>
-      <div class="callout"><b>Lưu ý transcription:</b> công thức <code>candidates_score</code> được trích lại từ ảnh đề bài; phần tổng hợp/chuẩn hóa chi tiết nên đối chiếu lại với công bố chính thức của BTC trước khi tối ưu theo metric.</div>
+      <div class="callout warn"><b>Sai type bị phạt hai lần:</b> đoán đúng phần <code>text</code> của khái niệm nhưng <b>sai loại</b> (VD đoán <span class="etag cd">CHẨN_ĐOÁN</span> trong khi đáp án là <span class="etag tc">TRIỆU_CHỨNG</span>) tạo ra <b>một khái niệm mới</b> so với ground truth, nên khái niệm đó <b>bị tính 2 lần</b> — một lần cho span đoán thừa, một lần cho span đáp án bị bỏ sót — và <b>mỗi lần đều 0 điểm ở cả 3 metric</b>. Sai type do đó đắt gấp đôi so với không đoán span đó.</div>
+      <div class="callout note"><b>Điểm còn để mở:</b> đề phát biểu mọi thành phần theo sample <code>i</code>, nhưng chính quy ước "tính 2 lần" cho thấy phải có bước <b>ghép khái niệm dự đoán với khái niệm đáp án</b> trước khi chấm; luật ghép (theo type + chồng lấn offset? theo text?) đề không nói rõ. Script chấm nội bộ <code>scripts/evaluate.py</code> ghép theo <b>cùng type + có chồng lấn ký tự</b>, tham lam theo độ chồng lấn giảm dần — đây là <b>giả định của ta</b>, không phải công bố của BTC.</div>
     </div>
   </section>
 </section>
@@ -865,7 +868,7 @@
         <li><b>Bất đối xứng ngôn ngữ giữa hai kho mã</b> — điểm mấu chốt ít người để ý (xem callout).</li>
         <li><b>Bắt buộc reproducible</b> — khuyến khích mạnh giải pháp có model offline/nhẹ, hơn là phụ thuộc hoàn toàn API LLM đóng.</li>
       </ul>
-      <div class="callout note"><b>Bất đối xứng ngôn ngữ:</b> tên bệnh trong <code>ICD10.csv</code> là <b>tiếng Việt</b> → ánh xạ Việt–Việt; còn cột <code>str</code> trong RxNorm là <b>tiếng Anh</b> và tên thuốc trong hồ sơ thường đã ở dạng hoạt chất tiếng Anh (<code>amlodipine 10 mg</code>) → ánh xạ Anh–Anh. ⇒ Nên dùng <b>model khác nhau cho hai nhánh</b>.</div>
+      <div class="callout note"><b>Bất đối xứng ngôn ngữ:</b> tên bệnh trong <code>ICD10_VN.csv</code> là <b>tiếng Việt</b> → ánh xạ Việt–Việt; còn cột <code>str</code> trong RxNorm là <b>tiếng Anh</b> và tên thuốc trong hồ sơ thường đã ở dạng hoạt chất tiếng Anh (<code>amlodipine 10 mg</code>) → ánh xạ Anh–Anh. ⇒ Nên dùng <b>model khác nhau cho hai nhánh</b>.</div>
     </div>
   </section>
 
@@ -883,10 +886,11 @@
       <tbody>
         <tr><td><b>text_score</b> · 0.3</td><td>1 − WER trên <code>text</code></td><td>Span phải <b>khớp chuỗi từ</b>. Với thuốc giữ nguyên cả liều/đường dùng — cắt cụt = WER tăng.</td></tr>
         <tr><td><b>assertions_score</b> · 0.3</td><td>Jaccard tập assertion</td><td>Quy ước <b>J=1 khi cả hai rỗng</b> ⇒ mặc định rỗng là baseline an toàn; over-predict kéo J về 0.</td></tr>
-        <tr><td><b>candidates_score</b> · 0.4</td><td>Jaccard tập mã</td><td>Jaccard <b>phạt cả thiếu lẫn thừa</b> ⇒ ưu tiên <b>precision cao, trả 1–2 mã</b>.</td></tr>
+        <tr><td><b>candidates_score</b> · 0.4</td><td>Jaccard tập mã, <b>trung bình có trọng số</b> theo <code>Σ(len(gt)+1)</code></td><td>Jaccard <b>phạt cả thiếu lẫn thừa</b> ⇒ ưu tiên <b>precision cao, trả 1–2 mã</b>. File nhiều mã đáp án nặng điểm hơn ⇒ đừng bỏ rơi bệnh án dày thuốc/chẩn đoán.</td></tr>
+        <tr><td><b>Sai type</b></td><td>tính 2 lần, mỗi lần 0 điểm cả 3 metric</td><td>Đoán span đúng nhưng <b>gán sai loại</b> đắt <b>gấp đôi</b> việc bỏ span đó ⇒ khi không chắc loại, thà bỏ hơn đoán bừa.</td></tr>
       </tbody>
     </table>
-    <div class="callout warn"><b>Cảnh báo transcription:</b> công thức <code>candidates_score</code> trong PRD là bản trích từ ảnh đề. <b>Phải đối chiếu công bố chính thức của BTC trước khi tối ưu sát metric.</b> Nguyên tắc bất biến: đúng type → mã chính xác, ít mã, precision cao.</div>
+    <div class="callout warn"><b>Hệ quả trực tiếp:</b> đúng type trước đã — rồi mới tới mã chính xác, ít mã, precision cao. Luật ghép khái niệm dự đoán ↔ đáp án đề không công bố; <code>scripts/evaluate.py</code> giả định <b>cùng type + chồng lấn offset</b>, nên điểm nội bộ là chỉ báo tương đối, không phải điểm BTC.</div>
 
     <h3><span class="lead">2.1</span>Demo: mã thừa cũng mất điểm (đáp án <code>{K21.0, K21.9}</code>)</h3>
     <div class="mdemo" id="demoCand">
@@ -934,7 +938,7 @@
           <li>Chưa khai thác bất đối xứng ngôn ngữ Việt (ICD) vs Anh (RxNorm).</li>
           <li>Chưa có bước <b>disambiguation</b> chọn 1–2 mã cuối (quyết định precision Jaccard).</li>
           <li>Assertion mới ở mức từ khóa; phủ định phạm vi rộng/kép cần mô hình ngữ cảnh.</li>
-          <li>Chưa coi trọng đúng mức <b>tập dev + script chấm nội bộ</b>.</li>
+          <li>Đường ống dev đã có (<code>scripts/annotate.py</code> + <code>scripts/evaluate.py</code>), nhưng <b>chưa gán file nào</b> nên vẫn chưa đo được gì.</li>
         </ul>
       </div>
     </div>
@@ -1059,7 +1063,7 @@
         </ul>
       </div>
     </div>
-    <div class="callout note"><b>Trục kiểm soát chất lượng:</b> gán tay 10–20 file làm <b>dev set</b> + viết <b>script chấm nội bộ</b> (WER + Jaccard). Mọi thay đổi phải đo trên dev trước khi nộp — hạ tầng quan trọng ngang với model.</div>
+    <div class="callout note"><b>Trục kiểm soát chất lượng:</b> hạ tầng đã dựng — <code>scripts/annotate.py</code> để gán tay 10–20 file <code>data/test</code> thành tập dev (bọc dấu 〔 〕 nên offset do code tính, không gõ tay), <code>scripts/evaluate.py</code> để chấm (WER + Jaccard). Việc còn lại là <b>công gán</b>. Mọi thay đổi phải đo trên dev trước khi nộp — hạ tầng quan trọng ngang với model.</div>
   </section>
 
   <!-- 6. Xu hướng nghiên cứu -->
@@ -1128,7 +1132,7 @@
 
     <div class="card">
       <div class="wk-head"><span class="tag fail">Điểm yếu 2</span><h4>Chuẩn hóa ICD cần <b>ngữ nghĩa</b>, không phải khớp chữ</h4><span class="sev hi">nghiêm trọng</span></div>
-      <p>Tên bệnh trong văn bản là cách nói <b>rút gọn/dân dã</b>, khác xa tên chuẩn dài trong <code>ICD10.csv</code>:</p>
+      <p>Tên bệnh trong văn bản là cách nói <b>rút gọn/dân dã</b>, khác xa tên chuẩn dài trong <code>ICD10_VN.csv</code>:</p>
       <table class="def">
         <thead><tr><th>Mention trong file</th><th>Tên ICD-10 chuẩn (tiếng Việt)</th><th>Fuzzy?</th></tr></thead>
         <tbody>
@@ -1164,7 +1168,7 @@
 
     <div class="card">
       <div class="wk-head"><span class="tag pass">Điểm mạnh giữ nguyên</span><h4>Khung tổng thể &amp; nhánh Việt–Việt cho ICD</h4><span class="sev md" style="background:#dcefe0;color:#1f6b3a">tích cực</span></div>
-      <p>Vì <code>ICD10.csv</code> là <b>tiếng Việt</b>, nhánh CHẨN_ĐOÁN→ICD là ánh xạ <b>Việt–Việt</b> — model đa ngữ làm được mà không cần dịch. Chiến lược "distill LLM → encoder nhỏ" và "mặc định assertion rỗng" vẫn là nền đúng cho chính các file này.</p>
+      <p>Vì <code>ICD10_VN.csv</code> là <b>tiếng Việt</b>, nhánh CHẨN_ĐOÁN→ICD là ánh xạ <b>Việt–Việt</b> — model đa ngữ làm được mà không cần dịch. Chiến lược "distill LLM → encoder nhỏ" và "mặc định assertion rỗng" vẫn là nền đúng cho chính các file này.</p>
     </div>
 
     <h3><span class="lead">7.3</span>Điều chỉnh đề xuất cho input tiếng Việt thực tế</h3>
@@ -1188,7 +1192,7 @@
     <div class="sec-head"><span class="sec-num">8</span><h2>Rủi ro &amp; checklist</h2></div>
     <p>Bấm để đánh dấu đã kiểm tra:</p>
     <div class="traps" id="trapList">
-      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>Đối chiếu metric chính thức</b> trước khi tối ưu sát — công thức candidates là bản trích.</span></button>
+      <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>Không gán sai type</b> — sai type bị tính 2 lần, mỗi lần 0 điểm cả 3 metric (đắt gấp đôi bỏ span).</span></button>
       <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx"><b>position lệch</b> do dấu/Unicode/khoảng trắng → tính offset bằng code từ chuỗi <code>text</code>.</span></button>
       <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Không <b>cắt cụt text thuốc</b> (giữ liều/đường dùng) — WER phạt theo từ.</span></button>
       <button class="trap"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span><span class="tx">Không <b>over-predict assertion</b> &amp; không <b>rải mã candidates</b> — cả hai kéo Jaccard về 0.</span></button>

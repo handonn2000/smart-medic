@@ -1,0 +1,380 @@
+[
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      41,
+      65
+    ]
+  },
+  {
+    "text": "chuột rút bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      78,
+      96
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      169,
+      193
+    ]
+  },
+  {
+    "text": "chuột rút bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      227,
+      245
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      310,
+      317
+    ]
+  },
+  {
+    "text": "hoa mắt khi thay đổi tư thế",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      319,
+      346
+    ]
+  },
+  {
+    "text": "chảy nước mũi trong",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      359,
+      378
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      406,
+      414
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      425,
+      431
+    ]
+  },
+  {
+    "text": "nổi ban đỏ toàn thân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      475,
+      495
+    ]
+  },
+  {
+    "text": "Rối loạn nhận thức nhẹ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F06.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      648,
+      670
+    ]
+  },
+  {
+    "text": "Rối loạn loại phân liệt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F21"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      674,
+      697
+    ]
+  },
+  {
+    "text": "Cuồng nhĩ không điển hình",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.4"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      742,
+      767
+    ]
+  },
+  {
+    "text": "Hội chứng sau viêm não",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F07.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      771,
+      793
+    ]
+  },
+  {
+    "text": "Đái dầm không thực tổn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F98.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      808,
+      830
+    ]
+  },
+  {
+    "text": "Ngủ nhiều không thực tổn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F51.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      834,
+      858
+    ]
+  },
+  {
+    "text": "Rối loạn của phúc mạc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K66.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      898,
+      919
+    ]
+  },
+  {
+    "text": "U lành của xương chậu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D16.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      942,
+      963
+    ]
+  },
+  {
+    "text": "loratadine",
+    "type": "THUỐC",
+    "candidates": [
+      "28889"
+    ],
+    "assertions": [],
+    "position": [
+      1160,
+      1170
+    ]
+  },
+  {
+    "text": "docusate",
+    "type": "THUỐC",
+    "candidates": [
+      "82003"
+    ],
+    "assertions": [],
+    "position": [
+      1174,
+      1182
+    ]
+  },
+  {
+    "text": "labetalol",
+    "type": "THUỐC",
+    "candidates": [
+      "6185"
+    ],
+    "assertions": [],
+    "position": [
+      1253,
+      1262
+    ]
+  },
+  {
+    "text": "siêu âm doppler mạch chi dưới",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1630,
+      1659
+    ]
+  },
+  {
+    "text": "đường huyết",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1722,
+      1733
+    ]
+  },
+  {
+    "text": "nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1779,
+      1788
+    ]
+  },
+  {
+    "text": "không phát hiện vi khuẩn gây bệnh",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1798,
+      1831
+    ]
+  },
+  {
+    "text": "troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1844,
+      1852
+    ]
+  },
+  {
+    "text": "tốc độ máu lắng tăng cao",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1889,
+      1913
+    ]
+  },
+  {
+    "text": "14.99 G/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1946,
+      1955
+    ]
+  },
+  {
+    "text": "56 U/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1969,
+      1975
+    ]
+  },
+  {
+    "text": "38.3°C",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2007,
+      2013
+    ]
+  },
+  {
+    "text": "Cuồng nhĩ không điển hình",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.4"
+    ],
+    "assertions": [],
+    "position": [
+      2135,
+      2160
+    ]
+  },
+  {
+    "text": "Rối loạn nhận thức nhẹ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F06.7"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2162,
+      2184
+    ]
+  },
+  {
+    "text": "Rối loạn loại phân liệt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F21"
+    ],
+    "assertions": [],
+    "position": [
+      2200,
+      2223
+    ]
+  }
+]

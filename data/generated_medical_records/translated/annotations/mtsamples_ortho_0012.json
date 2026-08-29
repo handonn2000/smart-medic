@@ -1,0 +1,422 @@
+[
+  {
+    "text": "Đau và cứng khớp gối trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      16,
+      41
+    ]
+  },
+  {
+    "text": "bệnh thoái hóa khớp gối hai bên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M17"
+    ],
+    "assertions": [],
+    "position": [
+      78,
+      109
+    ]
+  },
+  {
+    "text": "đau và hạn chế đáng kể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      148,
+      170
+    ]
+  },
+  {
+    "text": "bệnh thoái hóa khớp gối hai bên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M17"
+    ],
+    "assertions": [],
+    "position": [
+      323,
+      354
+    ]
+  },
+  {
+    "text": "nội soi",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      398,
+      405
+    ]
+  },
+  {
+    "text": "thuốc giảm đau",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Y45"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      549,
+      563
+    ]
+  },
+  {
+    "text": "hẹp ống sống",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M48.0"
+    ],
+    "assertions": [],
+    "position": [
+      792,
+      804
+    ]
+  },
+  {
+    "text": "thuốc giảm đau",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Y45"
+    ],
+    "assertions": [],
+    "position": [
+      896,
+      910
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      971,
+      984
+    ]
+  },
+  {
+    "text": "Thoát vị bẹn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K40"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1010,
+      1022
+    ]
+  },
+  {
+    "text": "ung thư đại tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1069,
+      1086
+    ]
+  },
+  {
+    "text": "Nội soi",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1091,
+      1098
+    ]
+  },
+  {
+    "text": "Thoát vị bẹn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K40"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1120,
+      1132
+    ]
+  },
+  {
+    "text": "hẹp ống sống",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M48.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1171,
+      1183
+    ]
+  },
+  {
+    "text": "ung thư đại tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1214,
+      1231
+    ]
+  },
+  {
+    "text": "Ambien",
+    "type": "THUỐC",
+    "candidates": [
+      "39993"
+    ],
+    "assertions": [],
+    "position": [
+      1262,
+      1268
+    ]
+  },
+  {
+    "text": "Methadone",
+    "type": "THUỐC",
+    "candidates": [
+      "6813"
+    ],
+    "assertions": [],
+    "position": [
+      1290,
+      1299
+    ]
+  },
+  {
+    "text": "Lisinopril",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [],
+    "position": [
+      1327,
+      1337
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1387,
+      1394
+    ]
+  },
+  {
+    "text": "Levaquin",
+    "type": "THUỐC",
+    "candidates": [
+      "82122"
+    ],
+    "assertions": [],
+    "position": [
+      1426,
+      1434
+    ]
+  },
+  {
+    "text": "Cipro",
+    "type": "THUỐC",
+    "candidates": [
+      "2551"
+    ],
+    "assertions": [],
+    "position": [
+      1438,
+      1443
+    ]
+  },
+  {
+    "text": "ibuprofen",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [],
+    "position": [
+      1458,
+      1467
+    ]
+  },
+  {
+    "text": "Fortaz",
+    "type": "THUỐC",
+    "candidates": [
+      "2191"
+    ],
+    "assertions": [],
+    "position": [
+      1496,
+      1502
+    ]
+  },
+  {
+    "text": "dị cảm lan xuống đùi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1552,
+      1572
+    ]
+  },
+  {
+    "text": "hẹp ống sống",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M48.0"
+    ],
+    "assertions": [],
+    "position": [
+      1576,
+      1588
+    ]
+  },
+  {
+    "text": "sử dụng thuốc lá",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.0"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1707,
+      1723
+    ]
+  },
+  {
+    "text": "Ung thư",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1827,
+      1834
+    ]
+  },
+  {
+    "text": "Bệnh động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1839,
+      1858
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2536,
+      2546
+    ]
+  },
+  {
+    "text": "X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2548,
+      2555
+    ]
+  },
+  {
+    "text": "thoái hóa khớp gối hai bên trầm trọng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M17"
+    ],
+    "assertions": [],
+    "position": [
+      2565,
+      2602
+    ]
+  },
+  {
+    "text": "Thoái hóa khớp gối hai bên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M17"
+    ],
+    "assertions": [],
+    "position": [
+      2733,
+      2759
+    ]
+  },
+  {
+    "text": "Đau lưng đáng kể",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M54"
+    ],
+    "assertions": [],
+    "position": [
+      2764,
+      2780
+    ]
+  },
+  {
+    "text": "hẹp ống sống thắt lưng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M48.0"
+    ],
+    "assertions": [],
+    "position": [
+      2797,
+      2819
+    ]
+  },
+  {
+    "text": "methadone",
+    "type": "THUỐC",
+    "candidates": [
+      "6813"
+    ],
+    "assertions": [],
+    "position": [
+      2848,
+      2857
+    ]
+  }
+]

@@ -1,0 +1,183 @@
+[
+  {
+    "text": "Thoái hóa khớp gối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M17"
+    ],
+    "assertions": [],
+    "position": [
+      14,
+      32
+    ]
+  },
+  {
+    "text": "thoái hóa khớp gối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M17"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      87,
+      105
+    ]
+  },
+  {
+    "text": "Mirapex",
+    "type": "THUỐC",
+    "candidates": [
+      "746741"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      271,
+      278
+    ]
+  },
+  {
+    "text": "ibuprofen",
+    "type": "THUỐC",
+    "candidates": [
+      "5640"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      280,
+      289
+    ]
+  },
+  {
+    "text": "Ambien",
+    "type": "THUỐC",
+    "candidates": [
+      "39993"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      293,
+      299
+    ]
+  },
+  {
+    "text": "Nhịp tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      492,
+      500
+    ]
+  },
+  {
+    "text": "đều",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      501,
+      504
+    ]
+  },
+  {
+    "text": "tổn thương",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      544,
+      554
+    ]
+  },
+  {
+    "text": "huyết khối tĩnh mạch sâu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I80.2"
+    ],
+    "assertions": [],
+    "position": [
+      698,
+      722
+    ]
+  },
+  {
+    "text": "đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      895,
+      898
+    ]
+  },
+  {
+    "text": "Percocet",
+    "type": "THUỐC",
+    "candidates": [
+      "161",
+      "7804"
+    ],
+    "assertions": [],
+    "position": [
+      1001,
+      1009
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [],
+    "position": [
+      1013,
+      1021
+    ]
+  },
+  {
+    "text": "PT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1046,
+      1048
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1052,
+      1055
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [],
+    "position": [
+      1071,
+      1079
+    ]
+  }
+]

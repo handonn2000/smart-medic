@@ -1,0 +1,283 @@
+[
+  {
+    "text": "chuột rút ở chân và tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      102,
+      125
+    ]
+  },
+  {
+    "text": "Chuột rút ở chân nổi bật hơn ở tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      191,
+      225
+    ]
+  },
+  {
+    "text": "Co thắt cơ ở ngón chân trên cả hai chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      284,
+      323
+    ]
+  },
+  {
+    "text": "Đau bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      330,
+      342
+    ]
+  },
+  {
+    "text": "chuột rút",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      354,
+      363
+    ]
+  },
+  {
+    "text": "tỉnh giấc từ giấc ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      373,
+      394
+    ]
+  },
+  {
+    "text": "chuột rút ở tay nhưng ít nghiêm trọng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      414,
+      451
+    ]
+  },
+  {
+    "text": "đau dạ dày nghiêm trọng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      492,
+      515
+    ]
+  },
+  {
+    "text": "Bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      621,
+      628
+    ]
+  },
+  {
+    "text": "HIV",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z21"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      690,
+      693
+    ]
+  },
+  {
+    "text": "AIDS",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B24"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      712,
+      716
+    ]
+  },
+  {
+    "text": "CD4 count",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      724,
+      733
+    ]
+  },
+  {
+    "text": "326",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      734,
+      737
+    ]
+  },
+  {
+    "text": "đái tháo đường kiểm soát tốt",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      809,
+      837
+    ]
+  },
+  {
+    "text": "viêm gan C",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "B18.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      848,
+      858
+    ]
+  },
+  {
+    "text": "HIV",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z21"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      862,
+      865
+    ]
+  },
+  {
+    "text": "Bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      907,
+      914
+    ]
+  },
+  {
+    "text": "dị ứng thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z88.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      942,
+      954
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      1181,
+      1195
+    ]
+  },
+  {
+    "text": "Huyết áp blood pressure",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1308,
+      1331
+    ]
+  },
+  {
+    "text": "130/70",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1333,
+      1339
+    ]
+  },
+  {
+    "text": "chuột rút",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1441,
+      1450
+    ]
+  },
+  {
+    "text": "đau bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1454,
+      1466
+    ]
+  },
+  {
+    "text": "Bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      1496,
+      1503
+    ]
+  }
+]

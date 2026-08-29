@@ -1,0 +1,341 @@
+[
+  {
+    "text": "gần ngất",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      63,
+      71
+    ]
+  },
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      86,
+      94
+    ]
+  },
+  {
+    "text": "mất ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      188,
+      195
+    ]
+  },
+  {
+    "text": "khó ngủ về đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      234,
+      248
+    ]
+  },
+  {
+    "text": "sụt cân không rõ nguyên nhân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      277,
+      305
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      387,
+      389
+    ]
+  },
+  {
+    "text": "chảy nước mũi trong",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      393,
+      412
+    ]
+  },
+  {
+    "text": "chán ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      484,
+      491
+    ]
+  },
+  {
+    "text": "Viêm cổ tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N72"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      591,
+      608
+    ]
+  },
+  {
+    "text": "Phình động mạch phổi",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I28.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      678,
+      698
+    ]
+  },
+  {
+    "text": "Gãy thân xương quay",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S52.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      722,
+      741
+    ]
+  },
+  {
+    "text": "Viêm tuyến tiền liệt cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N41.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      783,
+      807
+    ]
+  },
+  {
+    "text": "Bệnh thận do thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N14.1"
+    ],
+    "assertions": [
+      "isFamily",
+      "isNegated"
+    ],
+    "position": [
+      994,
+      1012
+    ]
+  },
+  {
+    "text": "Lipitor",
+    "type": "THUỐC",
+    "candidates": [
+      "83367"
+    ],
+    "assertions": [],
+    "position": [
+      1072,
+      1079
+    ]
+  },
+  {
+    "text": "Provigil",
+    "type": "THUỐC",
+    "candidates": [
+      "30125"
+    ],
+    "assertions": [],
+    "position": [
+      1109,
+      1117
+    ]
+  },
+  {
+    "text": "nitrofurantoin",
+    "type": "THUỐC",
+    "candidates": [
+      "7454"
+    ],
+    "assertions": [],
+    "position": [
+      1166,
+      1180
+    ]
+  },
+  {
+    "text": "Estrace",
+    "type": "THUỐC",
+    "candidates": [
+      "4083"
+    ],
+    "assertions": [],
+    "position": [
+      1227,
+      1234
+    ]
+  },
+  {
+    "text": "sodium laureth-2 phosphate",
+    "type": "THUỐC",
+    "candidates": [
+      "1441535"
+    ],
+    "assertions": [],
+    "position": [
+      1259,
+      1285
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1460,
+      1467
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1561,
+      1571
+    ]
+  },
+  {
+    "text": "140 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1615,
+      1625
+    ]
+  },
+  {
+    "text": "HbA1c",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1663,
+      1668
+    ]
+  },
+  {
+    "text": "xét nghiệm chức năng tuyến giáp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1672,
+      1703
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1708,
+      1719
+    ]
+  },
+  {
+    "text": "tổn thương dạng kính mờ hai đáy phổi",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1813,
+      1849
+    ]
+  },
+  {
+    "text": "chức năng tâm thu thất trái bảo tồn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1883,
+      1918
+    ]
+  },
+  {
+    "text": "Bệnh thận do thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N14.1"
+    ],
+    "assertions": [],
+    "position": [
+      1936,
+      1954
+    ]
+  },
+  {
+    "text": "nitrofurantoin",
+    "type": "THUỐC",
+    "candidates": [
+      "7454"
+    ],
+    "assertions": [],
+    "position": [
+      1991,
+      2005
+    ]
+  },
+  {
+    "text": "Viêm mô kẽ ống thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N12"
+    ],
+    "assertions": [],
+    "position": [
+      2011,
+      2030
+    ]
+  },
+  {
+    "text": "Viêm cổ tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N72"
+    ],
+    "assertions": [],
+    "position": [
+      2161,
+      2178
+    ]
+  }
+]

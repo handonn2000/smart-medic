@@ -1,0 +1,224 @@
+[
+  {
+    "text": "bệnh Alzheimer",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G30"
+    ],
+    "assertions": [],
+    "position": [
+      110,
+      126
+    ]
+  },
+  {
+    "text": "bệnh Alzheimer giai đoạn nặng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G30"
+    ],
+    "assertions": [],
+    "position": [
+      194,
+      228
+    ]
+  },
+  {
+    "text": "hemotympanum",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1276,
+      1288
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1983,
+      1996
+    ]
+  },
+  {
+    "text": "CT scan của đầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1998,
+      2016
+    ]
+  },
+  {
+    "text": "tổn thương, cột sống",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "T09.3"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2028,
+      2056
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "202421"
+    ],
+    "assertions": [],
+    "position": [
+      2101,
+      2109
+    ]
+  },
+  {
+    "text": "INR",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2111,
+      2114
+    ]
+  },
+  {
+    "text": "1.92",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2128,
+      2132
+    ]
+  },
+  {
+    "text": "CBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2134,
+      2137
+    ]
+  },
+  {
+    "text": "3.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2170,
+      2173
+    ]
+  },
+  {
+    "text": "CMP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2202,
+      2205
+    ]
+  },
+  {
+    "text": "potassium",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2217,
+      2226
+    ]
+  },
+  {
+    "text": "5.9",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2242,
+      2245
+    ]
+  },
+  {
+    "text": "troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2247,
+      2255
+    ]
+  },
+  {
+    "text": "2.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2281,
+      2284
+    ]
+  },
+  {
+    "text": "valproic acid",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2298,
+      2311
+    ]
+  },
+  {
+    "text": "24.3",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2316,
+      2320
+    ]
+  },
+  {
+    "text": "chấn thương đầu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2419,
+      2440
+    ]
+  },
+  {
+    "text": "chấn thương não nhẹ với các triệu chứng và hội chứng hậu chấn thương",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2596,
+      2688
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2771,
+      2784
+    ]
+  }
+]

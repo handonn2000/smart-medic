@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Annotation Checker</title>
+  <style>
+    :root {
+      --bg: #f2efe8;
+      --ink: #1c2421;
+      --muted: #5c6b64;
+      --panel: #fffdf8;
+      --line: #d5d0c4;
+      --accent: #0f6a5a;
+      --accent-ink: #ffffff;
+      --error: #9b2c2c;
+      --error-bg: #fde8e8;
+      --warn: #8a5a00;
+      --warn-bg: #fff4d6;
+      --info: #1f4e79;
+      --info-bg: #e7f1fb;
+      --ok: #1f6b3a;
+      --mono: "IBM Plex Mono", "Cascadia Mono", "Consolas", monospace;
+      --sans: "Source Sans 3", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 80% 50% at 10% -10%, #d9ebe4 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 0%, #efe4d2 0%, transparent 50%),
+        var(--bg);
+      font-family: var(--sans);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.55rem;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+
+    .status {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+    .status.ready { color: var(--ok); }
+    .status.bad { color: var(--error); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 820px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 650;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .file-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .file-row input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      outline: none;
+    }
+    .file-row input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 106, 90, 0.15);
+    }
+    .file-row input[type="file"] {
+      display: none;
+    }
+    button.browse {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 650;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    button.browse:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 260px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      line-height: 1.45;
+      outline: none;
+    }
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 106, 90, 0.15);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin: 14px 0 18px;
+    }
+
+    button#check {
+      appearance: none;
+      border: 0;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font: inherit;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button#check:hover { filter: brightness(1.06); }
+    button#check:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      filter: none;
+    }
+
+    .cutoff, .linker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .cutoff input {
+      width: 64px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-family: var(--mono);
+    }
+    .linker select {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      outline: none;
+    }
+    .linker select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 106, 90, 0.15);
+    }
+
+    .hint { color: var(--muted); font-size: 0.88rem; }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .panel-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.55);
+    }
+    .panel-head h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+    }
+    .pill {
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .pill.error { color: var(--error); border-color: #ecc; background: var(--error-bg); }
+    .pill.warn { color: var(--warn); border-color: #e8d5a0; background: var(--warn-bg); }
+    .pill.info { color: var(--info); border-color: #c5d8eb; background: var(--info-bg); }
+
+    .results {
+      max-height: 520px;
+      overflow: auto;
+      padding: 8px;
+    }
+    .empty {
+      padding: 28px 16px;
+      text-align: center;
+      color: var(--muted);
+    }
+    .issue {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      border: 1px solid transparent;
+    }
+    .issue.ERROR { background: var(--error-bg); border-color: #f0c9c9; }
+    .issue.WARN { background: var(--warn-bg); border-color: #edd9a2; }
+    .issue.INFO { background: var(--info-bg); border-color: #c9dcf0; }
+
+    .lvl {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding-top: 2px;
+    }
+    .issue.ERROR .lvl { color: var(--error); }
+    .issue.WARN .lvl { color: var(--warn); }
+    .issue.INFO .lvl { color: var(--info); }
+
+    .meta {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .text {
+      font-weight: 650;
+      margin-bottom: 2px;
+    }
+    .msg {
+      font-size: 0.92rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .err-banner {
+      display: none;
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--error-bg);
+      color: var(--error);
+      border: 1px solid #f0c9c9;
+    }
+    .err-banner.show { display: block; }
+
+    .section-title {
+      margin: 28px 0 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .section-title:first-of-type { margin-top: 0; }
+
+    .name-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 22px;
+    }
+    .name-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+    .name-row .field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .name-row .field > span,
+    .name-row .field > label.check-by-code {
+      font-size: 0.82rem;
+      font-weight: 650;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0;
+    }
+    .name-row select,
+    .name-row input[type="text"] {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-family: var(--mono);
+      font-size: 0.86rem;
+      outline: none;
+    }
+    .name-row select:focus,
+    .name-row input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 106, 90, 0.15);
+    }
+    .name-row input[type="text"] {
+      min-width: 220px;
+      flex: 1;
+    }
+    .name-row label.check-by-code {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 500;
+      font-size: 0.92rem;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .name-row label.check-by-code input {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--accent);
+    }
+    button#nameCheck {
+      appearance: none;
+      border: 0;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font: inherit;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button#nameCheck:hover { filter: brightness(1.06); }
+    button#nameCheck:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      filter: none;
+    }
+    .name-result {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+    .name-result .empty { padding: 8px 0; text-align: left; }
+    .name-result .hit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+    .name-result .tag {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 2px 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .name-result .tag.ok { color: var(--ok); border-color: #b9dcc5; background: #e8f6ec; }
+    .name-result .tag.no { color: var(--error); border-color: #ecc; background: var(--error-bg); }
+    .name-result .code {
+      font-family: var(--mono);
+      font-weight: 650;
+    }
+    .name-result ul {
+      margin: 6px 0 0;
+      padding-left: 1.2rem;
+    }
+    .name-result li {
+      margin: 2px 0;
+      word-break: break-word;
+    }
+    .name-result .near {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Annotation Checker</h1>
+      <div id="dictStatus" class="status">Đang kiểm tra từ điển…</div>
+    </header>
+
+    <div id="errBanner" class="err-banner"></div>
+
+    <h2 class="section-title">Name checker</h2>
+    <section class="name-panel">
+      <div class="name-row">
+        <div class="field">
+          <span>Loại</span>
+          <select id="nameKind" title="Thuốc (RxNorm) hoặc bệnh (ICD-10)">
+            <option value="drug" selected>Drug (RxNorm)</option>
+            <option value="diagnosis">Diagnosis (ICD-10)</option>
+          </select>
+        </div>
+        <label class="check-by-code" title="Bỏ chọn = tra tên → mã; chọn = tra mã → tên">
+          <input id="nameByCode" type="checkbox" />
+          Check by code
+        </label>
+        <div class="field" id="nameLinkerWrap" hidden>
+          <span>Linker</span>
+          <select id="nameLinker" title="Chỉ dùng khi tra tên bệnh">
+            <option value="rapidfuzz" selected>RapidFuzz</option>
+            <option value="sapbert">SapBERT</option>
+          </select>
+        </div>
+        <div class="field" style="flex: 1; min-width: 240px;">
+          <span>Query</span>
+          <input id="nameQuery" type="text" placeholder="amlodipine / viêm phổi / 17767 / J18.9" spellcheck="false" />
+        </div>
+        <button id="nameCheck" type="button" disabled>Check</button>
+      </div>
+      <div id="nameResult" class="name-result">
+        <div class="empty">Tra tên thuốc/bệnh hoặc mã (RxCUI / ICD) — giống medical_name_checker.py</div>
+      </div>
+    </section>
+
+    <h2 class="section-title">Annotation check</h2>
+    <div class="grid">
+      <div>
+        <label for="txtPath">Text bệnh án (.txt)</label>
+        <div class="file-row">
+          <input id="txtPath" type="text" placeholder="Đường dẫn file .txt…" spellcheck="false" />
+          <input id="txtFile" type="file" accept=".txt,text/plain" />
+          <button class="browse" type="button" data-for="txt">Browse</button>
+        </div>
+        <textarea id="textInput" spellcheck="false" placeholder="Dán nội dung file .txt…"></textarea>
+      </div>
+      <div>
+        <label for="jsonPath">Annotation JSON</label>
+        <div class="file-row">
+          <input id="jsonPath" type="text" placeholder="Đường dẫn file .json…" spellcheck="false" />
+          <input id="jsonFile" type="file" accept=".json,application/json" />
+          <button class="browse" type="button" data-for="json">Browse</button>
+        </div>
+        <textarea id="jsonInput" spellcheck="false" placeholder='Dán mảng concept, ví dụ: [{"text":"…","type":"CHẨN_ĐOÁN","candidates":["I25.1"],…}]'></textarea>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <button id="check" type="button" disabled>Check</button>
+      <label class="linker">
+        ICD linker
+        <select id="linker" title="Cách gợi ý mã ICD từ text (C2). RxNorm luôn RapidFuzz.">
+          <option value="rapidfuzz" selected>RapidFuzz</option>
+          <option value="sapbert">SapBERT</option>
+        </select>
+      </label>
+      <label class="cutoff">
+        suggest cutoff
+        <input id="cutoff" type="number" min="0" max="100" value="70" />
+      </label>
+      <span class="hint">Giống CLI: ERROR / WARN / INFO từ validate_annotation.py</span>
+    </div>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Kết quả</h2>
+        <div id="summary" class="summary"></div>
+      </div>
+      <div id="results" class="results">
+        <div class="empty">Chưa chạy kiểm tra.</div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const checkBtn = $("check");
+    const nameCheckBtn = $("nameCheck");
+    const results = $("results");
+    const summary = $("summary");
+    const errBanner = $("errBanner");
+    const dictStatus = $("dictStatus");
+    const nameResult = $("nameResult");
+
+    function showError(msg) {
+      errBanner.textContent = msg || "";
+      errBanner.classList.toggle("show", Boolean(msg));
+    }
+
+    function syncNameControls() {
+      const diagnosis = $("nameKind").value === "diagnosis";
+      const byCode = $("nameByCode").checked;
+      $("nameLinkerWrap").hidden = !(diagnosis && !byCode);
+      $("nameQuery").placeholder = byCode
+        ? (diagnosis ? "ICD code, e.g. J18.9" : "RxCUI, e.g. 17767")
+        : (diagnosis ? "tên bệnh, e.g. viêm phổi" : "tên thuốc, e.g. amlodipine");
+    }
+
+    function renderNameResult(data) {
+      const codeLabel = data.code_label || (data.kind === "drug" ? "RxCUI" : "ICD");
+      if (data.by_code) {
+        if (!data.match) {
+          nameResult.innerHTML = `
+            <div class="hit">
+              <span class="tag no">✗ không có mã</span>
+              <span class="code">[${escapeHtml(codeLabel)} ${escapeHtml(data.code || data.query)}]</span>
+            </div>`;
+          return;
+        }
+        const names = (data.names || []).slice(0, 10)
+          .map((n) => `<li>${escapeHtml(n)}</li>`).join("");
+        const more = (data.names || []).length > 10
+          ? `<li class="near">… và ${data.names.length - 10} tên khác</li>` : "";
+        nameResult.innerHTML = `
+          <div class="hit">
+            <span class="tag ok">✓ tìm thấy</span>
+            <span class="code">[${escapeHtml(codeLabel)} ${escapeHtml(data.code)}]</span>
+            <span>${escapeHtml(data.label || "")}</span>
+          </div>
+          <ul>${names}${more}</ul>`;
+        return;
+      }
+
+      if (data.match && data.candidates && data.candidates.length) {
+        const top = data.candidates[0];
+        const tag = data.method === "exact" ? "✓ khớp" : "~ gần khớp";
+        const score = top.score != null ? ` (${top.score})` : "";
+        nameResult.innerHTML = `
+          <div class="hit">
+            <span class="tag ok">${tag}</span>
+            <span class="code">[${escapeHtml(codeLabel)} ${escapeHtml(top.code)}]</span>
+            <span>${escapeHtml(top.name || "")}${escapeHtml(score)}</span>
+          </div>`;
+        return;
+      }
+
+      const near = (data.candidates || []).slice(0, 3).map((c) =>
+        `<li class="near">[${escapeHtml(codeLabel)} ${escapeHtml(c.code)}] ${escapeHtml(c.name)} (${c.score})</li>`
+      ).join("");
+      nameResult.innerHTML = `
+        <div class="hit">
+          <span class="tag no">✗ không phải</span>
+          <span>${escapeHtml(data.label || "")}</span>
+        </div>
+        ${near ? `<ul>${near}</ul>` : `<div class="empty">Không có ứng viên gần.</div>`}`;
+    }
+
+    async function runNameCheck() {
+      const query = $("nameQuery").value.trim();
+      if (!query) {
+        showError("Nhập query để tra tên/mã.");
+        return;
+      }
+      showError("");
+      nameCheckBtn.disabled = true;
+      nameCheckBtn.textContent = "Checking…";
+      nameResult.innerHTML = `<div class="empty">Đang tra…</div>`;
+      try {
+        const res = await fetch("/api/lookup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query,
+            kind: $("nameKind").value || "drug",
+            by_code: $("nameByCode").checked,
+            linker: $("nameLinker").value || "rapidfuzz",
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          let msg = data.error || `HTTP ${res.status}`;
+          if (res.status === 404) {
+            msg = "API /api/lookup không có — hãy restart server: python src/web/app.py";
+          }
+          showError(msg);
+          nameResult.innerHTML = `<div class="empty">Có lỗi — xem banner phía trên.</div>`;
+          return;
+        }
+        renderNameResult(data);
+      } catch (e) {
+        showError(String(e));
+        nameResult.innerHTML = `<div class="empty">Có lỗi — xem banner phía trên.</div>`;
+      } finally {
+        nameCheckBtn.disabled = false;
+        nameCheckBtn.textContent = "Check";
+      }
+    }
+
+    function locOf(it) {
+      if (it.line > 0) return `L${it.line}/#${it.idx}`;
+      if (it.idx >= 0) return `#${it.idx}`;
+      return "-";
+    }
+
+    function render(data) {
+      const s = data.summary;
+      summary.innerHTML = `
+        <span class="pill">concepts: ${s.concepts}</span>
+        <span class="pill">linker: ${s.linker || "rapidfuzz"}</span>
+        <span class="pill error">ERROR: ${s.ERROR}</span>
+        <span class="pill warn">WARN: ${s.WARN}</span>
+        <span class="pill info">INFO: ${s.INFO}</span>
+      `;
+
+      if (!data.issues.length) {
+        results.innerHTML = `<div class="empty">Không có issue — annotation trông ổn.</div>`;
+        return;
+      }
+
+      results.innerHTML = data.issues.map((it) => `
+        <article class="issue ${it.level}">
+          <div class="lvl">${it.level}</div>
+          <div>
+            <div class="meta">${it.code} · ${locOf(it)}</div>
+            <div class="text">${escapeHtml(it.text || "(empty)")}</div>
+            <div class="msg">${escapeHtml(it.msg)}</div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    async function refreshStatus() {
+      try {
+        const res = await fetch("/api/status");
+        const st = await res.json();
+        if (st.ready) {
+          dictStatus.className = "status ready";
+          dictStatus.textContent = `Từ điển sẵn sàng · ICD ${st.icd_codes.toLocaleString()} · RxCUI ${st.rx_codes.toLocaleString()}`;
+          checkBtn.disabled = false;
+          nameCheckBtn.disabled = false;
+        } else {
+          dictStatus.className = "status bad";
+          dictStatus.textContent = st.error || "Từ điển chưa sẵn sàng";
+          checkBtn.disabled = true;
+          nameCheckBtn.disabled = true;
+        }
+      } catch (e) {
+        dictStatus.className = "status bad";
+        dictStatus.textContent = "Không kết nối được server";
+        checkBtn.disabled = true;
+        nameCheckBtn.disabled = true;
+      }
+    }
+
+    function wireFilePicker(kind) {
+      const pathInput = $(kind === "txt" ? "txtPath" : "jsonPath");
+      const fileInput = $(kind === "txt" ? "txtFile" : "jsonFile");
+      const content = $(kind === "txt" ? "textInput" : "jsonInput");
+      const browseBtn = document.querySelector(`button.browse[data-for="${kind}"]`);
+
+      browseBtn.addEventListener("click", () => fileInput.click());
+
+      fileInput.addEventListener("change", async () => {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+        pathInput.value = file.name;
+        try {
+          content.value = await file.text();
+          showError("");
+        } catch (e) {
+          showError(`Không đọc được file ${file.name}: ${e}`);
+        }
+        fileInput.value = "";
+      });
+
+      pathInput.addEventListener("keydown", async (ev) => {
+        if (ev.key !== "Enter") return;
+        ev.preventDefault();
+        const path = pathInput.value.trim();
+        if (!path) return;
+        try {
+          const res = await fetch("/api/read", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ path }),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            showError(data.error || `HTTP ${res.status}`);
+            return;
+          }
+          pathInput.value = data.path || path;
+          content.value = data.content;
+          showError("");
+        } catch (e) {
+          showError(String(e));
+        }
+      });
+    }
+
+    wireFilePicker("txt");
+    wireFilePicker("json");
+
+    checkBtn.addEventListener("click", async () => {
+      showError("");
+      checkBtn.disabled = true;
+      checkBtn.textContent = "Checking…";
+      try {
+        const res = await fetch("/api/check", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: $("textInput").value,
+            json: $("jsonInput").value,
+            suggest_cutoff: Number($("cutoff").value) || 70,
+            linker: $("linker").value || "rapidfuzz",
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          showError(data.error || `HTTP ${res.status}`);
+          results.innerHTML = `<div class="empty">Có lỗi — xem banner phía trên.</div>`;
+          summary.innerHTML = "";
+          return;
+        }
+        render(data);
+      } catch (e) {
+        showError(String(e));
+      } finally {
+        checkBtn.disabled = false;
+        checkBtn.textContent = "Check";
+      }
+    });
+
+    $("linker").addEventListener("change", () => {
+      // SapBERT cosine*100 is typically lower than RapidFuzz string scores.
+      if ($("linker").value === "sapbert" && Number($("cutoff").value) === 70) {
+        $("cutoff").value = 50;
+      } else if ($("linker").value === "rapidfuzz" && Number($("cutoff").value) === 50) {
+        $("cutoff").value = 70;
+      }
+    });
+
+    $("nameKind").addEventListener("change", syncNameControls);
+    $("nameByCode").addEventListener("change", syncNameControls);
+    nameCheckBtn.addEventListener("click", runNameCheck);
+    $("nameQuery").addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter") {
+        ev.preventDefault();
+        runNameCheck();
+      }
+    });
+    syncNameControls();
+
+    refreshStatus();
+  </script>
+</body>
+</html>

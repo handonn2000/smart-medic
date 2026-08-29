@@ -1,0 +1,486 @@
+[
+  {
+    "text": "khí tự do dưới cơ hoành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K66.8"
+    ],
+    "assertions": [],
+    "position": [
+      36,
+      59
+    ]
+  },
+  {
+    "text": "Ativan",
+    "type": "THUỐC",
+    "candidates": [
+      "6470"
+    ],
+    "assertions": [],
+    "position": [
+      121,
+      127
+    ]
+  },
+  {
+    "text": "Lơ mơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      134,
+      139
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      174,
+      186
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      188,
+      195
+    ]
+  },
+  {
+    "text": "khí tự do dưới cơ hoành phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K66.8"
+    ],
+    "assertions": [],
+    "position": [
+      206,
+      234
+    ]
+  },
+  {
+    "text": "Lạm dụng rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F10.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      259,
+      272
+    ]
+  },
+  {
+    "text": "lơ mơ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      322,
+      327
+    ]
+  },
+  {
+    "text": "Gãy hông phải",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "S72.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      378,
+      391
+    ]
+  },
+  {
+    "text": "lạm dụng rượu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F10.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      585,
+      598
+    ]
+  },
+  {
+    "text": "Nhiệt độ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      698,
+      706
+    ]
+  },
+  {
+    "text": "98.3°F",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      707,
+      713
+    ]
+  },
+  {
+    "text": "Nhịp tim",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      722,
+      730
+    ]
+  },
+  {
+    "text": "82",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      731,
+      733
+    ]
+  },
+  {
+    "text": "Nhịp thở",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      742,
+      750
+    ]
+  },
+  {
+    "text": "24",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      751,
+      753
+    ]
+  },
+  {
+    "text": "Huyết áp",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      762,
+      770
+    ]
+  },
+  {
+    "text": "141/70",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      771,
+      777
+    ]
+  },
+  {
+    "text": "lơ mơ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      807,
+      812
+    ]
+  },
+  {
+    "text": "chấn thương",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      874,
+      885
+    ]
+  },
+  {
+    "text": "Thông khí hai bên giảm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      943,
+      965
+    ]
+  },
+  {
+    "text": "điểm đau",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1035,
+      1043
+    ]
+  },
+  {
+    "text": "Số lượng bạch cầu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1076,
+      1093
+    ]
+  },
+  {
+    "text": "bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1094,
+      1105
+    ]
+  },
+  {
+    "text": "AST",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1113,
+      1116
+    ]
+  },
+  {
+    "text": "138",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1118,
+      1121
+    ]
+  },
+  {
+    "text": "ALT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1140,
+      1143
+    ]
+  },
+  {
+    "text": "38",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1145,
+      1147
+    ]
+  },
+  {
+    "text": "Alkaline phosphatase",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1169,
+      1189
+    ]
+  },
+  {
+    "text": "96",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1191,
+      1193
+    ]
+  },
+  {
+    "text": "Bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1201,
+      1210
+    ]
+  },
+  {
+    "text": "0.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1212,
+      1215
+    ]
+  },
+  {
+    "text": "Natri",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1223,
+      1228
+    ]
+  },
+  {
+    "text": "107",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1230,
+      1233
+    ]
+  },
+  {
+    "text": "Cloride",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1241,
+      1248
+    ]
+  },
+  {
+    "text": "68",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1250,
+      1252
+    ]
+  },
+  {
+    "text": "Kali",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1260,
+      1264
+    ]
+  },
+  {
+    "text": "2.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1266,
+      1269
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1277,
+      1289
+    ]
+  },
+  {
+    "text": "khí tự do",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K66.8"
+    ],
+    "assertions": [],
+    "position": [
+      1300,
+      1309
+    ]
+  },
+  {
+    "text": "CT scan",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1317,
+      1324
+    ]
+  },
+  {
+    "text": "bệnh lý ổ bụng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1346,
+      1360
+    ]
+  },
+  {
+    "text": "Khí dưới cơ hoành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K66.8"
+    ],
+    "assertions": [],
+    "position": [
+      1368,
+      1385
+    ]
+  },
+  {
+    "text": "bệnh lý trong ổ bụng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1486,
+      1506
+    ]
+  },
+  {
+    "text": "hạ natri máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E87.1"
+    ],
+    "assertions": [],
+    "position": [
+      1566,
+      1578
+    ]
+  }
+]

@@ -8,6 +8,9 @@ dist/
 .venv/
 venv/
 env/
+data/MACCROBAT2020/
+data/holdout/
+medicalChecker/
 
 # Jupyter
 .ipynb_checkpoints/
@@ -17,6 +20,7 @@ models/*.bin
 models/*.pt
 models/*.safetensors
 models/*.onnx
+models/sapbert/
 !models/.gitkeep
 
 # Generated predictions
@@ -32,6 +36,6 @@ data/output/*.json
 .idea/
 .vscode/
 
-
-data/knowledge_base/icd
-data/knowledge_base/rxnorm
+# datasource — vocabularies are large and licence-bound, fetched not tracked.
+# Supersedes the narrower data/knowledge_base/{icd,rxnorm} rules from master.
+/data/knowledge_base

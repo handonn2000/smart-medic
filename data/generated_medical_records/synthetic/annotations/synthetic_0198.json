@@ -1,0 +1,319 @@
+[
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      81,
+      86
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      107,
+      119
+    ]
+  },
+  {
+    "text": "tê bì hai bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      124,
+      144
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      273,
+      278
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      289,
+      301
+    ]
+  },
+  {
+    "text": "tê bì hai bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      314,
+      334
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      339,
+      347
+    ]
+  },
+  {
+    "text": "chóng mặt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      362,
+      374
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      501,
+      510
+    ]
+  },
+  {
+    "text": "đầy hơi chướng bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      563,
+      589
+    ]
+  },
+  {
+    "text": "chảy máu chân răng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      594,
+      616
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      687,
+      696
+    ]
+  },
+  {
+    "text": "ra máu âm đạo bất thường",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      713,
+      745
+    ]
+  },
+  {
+    "text": "Cuồng nhĩ không điển hình",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I48.4"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      866,
+      898
+    ]
+  },
+  {
+    "text": "Viêm giáp không đặc hiệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E06.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      927,
+      958
+    ]
+  },
+  {
+    "text": "Bệnh mạch máu phổi khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I28"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      963,
+      993
+    ]
+  },
+  {
+    "text": "****************************",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1208,
+      1236
+    ]
+  },
+  {
+    "text": "ciprofloxacin",
+    "type": "THUỐC",
+    "candidates": [
+      "2551"
+    ],
+    "assertions": [],
+    "position": [
+      1241,
+      1254
+    ]
+  },
+  {
+    "text": "trimethoprim",
+    "type": "THUỐC",
+    "candidates": [
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      1348,
+      1360
+    ]
+  },
+  {
+    "text": "chọc dò dịch não tuỷ",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1862,
+      1887
+    ]
+  },
+  {
+    "text": "hở van hai lá mức độ nhẹ",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1952,
+      1984
+    ]
+  },
+  {
+    "text": "kích thước tuyến giáp bình thường không có nhân",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2011,
+      2072
+    ]
+  },
+  {
+    "text": "đo chức năng thông khí phổi",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2085,
+      2119
+    ]
+  },
+  {
+    "text": "hình ảnh xơ hoá mô kẽ hai bên",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2189,
+      2225
+    ]
+  },
+  {
+    "text": "Nhiễm leptospira",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A27.9"
+    ],
+    "assertions": [],
+    "position": [
+      2245,
+      2263
+    ]
+  },
+  {
+    "text": "Dịch hạch thể khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A20.8"
+    ],
+    "assertions": [],
+    "position": [
+      2267,
+      2290
+    ]
+  },
+  {
+    "text": "Bệnh do chlamydia ở họng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A56.4"
+    ],
+    "assertions": [],
+    "position": [
+      2294,
+      2323
+    ]
+  },
+  {
+    "text": "Nhiễm trùng đường ruột",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A08.5"
+    ],
+    "assertions": [],
+    "position": [
+      2327,
+      2357
+    ]
+  },
+  {
+    "text": "Loét hạch do tularaemia",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A21.0"
+    ],
+    "assertions": [],
+    "position": [
+      2361,
+      2386
+    ]
+  }
+]

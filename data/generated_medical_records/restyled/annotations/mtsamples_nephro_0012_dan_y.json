@@ -1,0 +1,257 @@
+[
+  {
+    "text": "Advair",
+    "type": "THUỐC",
+    "candidates": [
+      "36117",
+      "41126"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      87,
+      93
+    ]
+  },
+  {
+    "text": "albuterol",
+    "type": "THUỐC",
+    "candidates": [
+      "435"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      97,
+      106
+    ]
+  },
+  {
+    "text": "sử dụng ma túy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z72.2"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      368,
+      382
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      565,
+      578
+    ]
+  },
+  {
+    "text": "suy tim xung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      605,
+      623
+    ]
+  },
+  {
+    "text": "hen suyễn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      647,
+      656
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      675,
+      688
+    ]
+  },
+  {
+    "text": "*********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      821,
+      830
+    ]
+  },
+  {
+    "text": "Cardizem",
+    "type": "THUỐC",
+    "candidates": [
+      "203494"
+    ],
+    "assertions": [],
+    "position": [
+      852,
+      860
+    ]
+  },
+  {
+    "text": "Coreg",
+    "type": "THUỐC",
+    "candidates": [
+      "20352"
+    ],
+    "assertions": [],
+    "position": [
+      882,
+      887
+    ]
+  },
+  {
+    "text": "Hydralazine",
+    "type": "THUỐC",
+    "candidates": [
+      "5470"
+    ],
+    "assertions": [],
+    "position": [
+      908,
+      919
+    ]
+  },
+  {
+    "text": "Lanoxin",
+    "type": "THUỐC",
+    "candidates": [
+      "3407"
+    ],
+    "assertions": [],
+    "position": [
+      948,
+      955
+    ]
+  },
+  {
+    "text": "Crestor",
+    "type": "THUỐC",
+    "candidates": [
+      "301542"
+    ],
+    "assertions": [],
+    "position": [
+      979,
+      986
+    ]
+  },
+  {
+    "text": "Lisinopril",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [],
+    "position": [
+      1007,
+      1017
+    ]
+  },
+  {
+    "text": "Phoslo",
+    "type": "THUỐC",
+    "candidates": [
+      "214342"
+    ],
+    "assertions": [],
+    "position": [
+      1038,
+      1044
+    ]
+  },
+  {
+    "text": "Advair",
+    "type": "THUỐC",
+    "candidates": [
+      "36117",
+      "41126"
+    ],
+    "assertions": [],
+    "position": [
+      1068,
+      1074
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1166,
+      1174
+    ]
+  },
+  {
+    "text": "Bệnh thận giai đoạn cuối",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N18.0"
+    ],
+    "assertions": [],
+    "position": [
+      1646,
+      1670
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      1674,
+      1687
+    ]
+  },
+  {
+    "text": "hen suyễn mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J45"
+    ],
+    "assertions": [],
+    "position": [
+      1767,
+      1785
+    ]
+  }
+]

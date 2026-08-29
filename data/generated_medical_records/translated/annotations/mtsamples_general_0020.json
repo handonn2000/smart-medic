@@ -1,0 +1,540 @@
+[
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      93,
+      110
+    ]
+  },
+  {
+    "text": "đột quỵ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I69.4"
+    ],
+    "assertions": [],
+    "position": [
+      138,
+      148
+    ]
+  },
+  {
+    "text": "liệt nửa người",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G81"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      164,
+      185
+    ]
+  },
+  {
+    "text": "ung thư tử cung",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      200,
+      218
+    ]
+  },
+  {
+    "text": "lisinopril",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [],
+    "position": [
+      441,
+      451
+    ]
+  },
+  {
+    "text": "doxorubicin",
+    "type": "THUỐC",
+    "candidates": [
+      "3639"
+    ],
+    "assertions": [],
+    "position": [
+      509,
+      520
+    ]
+  },
+  {
+    "text": "Procrit",
+    "type": "THUỐC",
+    "candidates": [
+      "227303"
+    ],
+    "assertions": [],
+    "position": [
+      525,
+      532
+    ]
+  },
+  {
+    "text": "lisinopril",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [],
+    "position": [
+      591,
+      601
+    ]
+  },
+  {
+    "text": "**********",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      664,
+      674
+    ]
+  },
+  {
+    "text": "HCTZ",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      679,
+      683
+    ]
+  },
+  {
+    "text": "thiếu máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D46.4"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      970,
+      982
+    ]
+  },
+  {
+    "text": "Procrit",
+    "type": "THUỐC",
+    "candidates": [
+      "227303"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      1014,
+      1021
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1219,
+      1229
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1238,
+      1258
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1280,
+      1290
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1292,
+      1294
+    ]
+  },
+  {
+    "text": "khò khè",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1303,
+      1312
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1335,
+      1346
+    ]
+  },
+  {
+    "text": "nôn mửa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1348,
+      1358
+    ]
+  },
+  {
+    "text": "tiêu chảy",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1367,
+      1378
+    ]
+  },
+  {
+    "text": "tiểu đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1404,
+      1415
+    ]
+  },
+  {
+    "text": "đái máu rõ ràng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1433,
+      1452
+    ]
+  },
+  {
+    "text": "đột quỵ cũ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1567,
+      1581
+    ]
+  },
+  {
+    "text": "182/78",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1631,
+      1637
+    ]
+  },
+  {
+    "text": "phù nhẹ hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1776,
+      1794
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1808,
+      1821
+    ]
+  },
+  {
+    "text": "Tổng phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1825,
+      1858
+    ]
+  },
+  {
+    "text": "protein niệu 1+",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1902,
+      1919
+    ]
+  },
+  {
+    "text": "phân tích nước tiểu",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1953,
+      1979
+    ]
+  },
+  {
+    "text": "Creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2000,
+      2010
+    ]
+  },
+  {
+    "text": "0.8",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2015,
+      2018
+    ]
+  },
+  {
+    "text": "Siêu âm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2020,
+      2029
+    ]
+  },
+  {
+    "text": "hẹp động mạch thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2062,
+      2086
+    ]
+  },
+  {
+    "text": "nang 2 cm",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2097,
+      2106
+    ]
+  },
+  {
+    "text": "MRA động mạch thận",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2125,
+      2148
+    ]
+  },
+  {
+    "text": "Tăng huyết áp cấp tốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2279,
+      2308
+    ]
+  },
+  {
+    "text": "hẹp động mạch thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2368,
+      2392
+    ]
+  },
+  {
+    "text": "*******",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2494,
+      2501
+    ]
+  },
+  {
+    "text": "hydrochlorothiazide",
+    "type": "THUỐC",
+    "candidates": [
+      "5487"
+    ],
+    "assertions": [],
+    "position": [
+      2658,
+      2677
+    ]
+  },
+  {
+    "text": "hẹp động mạch thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      2830,
+      2854
+    ]
+  },
+  {
+    "text": "lisinopril",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [],
+    "position": [
+      2893,
+      2903
+    ]
+  },
+  {
+    "text": "60",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2933,
+      2935
+    ]
+  },
+  {
+    "text": "HCTZ",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3057,
+      3061
+    ]
+  },
+  {
+    "text": "Tekturna",
+    "type": "THUỐC",
+    "candidates": [
+      "700402"
+    ],
+    "assertions": [],
+    "position": [
+      3145,
+      3153
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3360,
+      3373
+    ]
+  },
+  {
+    "text": "SMA7",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      3374,
+      3378
+    ]
+  },
+  {
+    "text": "tăng kali máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E87.5"
+    ],
+    "assertions": [],
+    "position": [
+      3407,
+      3422
+    ]
+  },
+  {
+    "text": "Tekturna",
+    "type": "THUỐC",
+    "candidates": [
+      "700402"
+    ],
+    "assertions": [],
+    "position": [
+      3426,
+      3434
+    ]
+  }
+]

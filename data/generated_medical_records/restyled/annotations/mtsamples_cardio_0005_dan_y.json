@@ -1,0 +1,444 @@
+[
+  {
+    "text": "bệnh phổi tắc nghẽn mãn tính (COPD)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": ["J44"],
+    "assertions": [],
+    "position": [
+      38,
+      73
+    ]
+  },
+  {
+    "text": "co thắt phế quản",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      90,
+      106
+    ]
+  },
+  {
+    "text": "ho tăng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      132,
+      139
+    ]
+  },
+  {
+    "text": "dịch tiết hô hấp",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      141,
+      157
+    ]
+  },
+  {
+    "text": "khò khè",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      159,
+      166
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      168,
+      175
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      191,
+      198
+    ]
+  },
+  {
+    "text": "thở khò khè",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R06.2"
+    ],
+    "assertions": [],
+    "position": [
+      206,
+      217
+    ]
+  },
+  {
+    "text": "viêm phế quản hen cấp tính chồng lên COPD mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": ["J45"],
+    "assertions": [],
+    "position": [
+      253,
+      303
+    ]
+  },
+  {
+    "text": "hút tẩu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      328,
+      335
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      370,
+      373
+    ]
+  },
+  {
+    "text": "chảy mồ hôi nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      375,
+      392
+    ]
+  },
+  {
+    "text": "buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      394,
+      402
+    ]
+  },
+  {
+    "text": "đau ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      404,
+      412
+    ]
+  },
+  {
+    "text": "bệnh:\n   - Van động mạch chủ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I35.9"
+    ],
+    "assertions": [],
+    "position": [
+      425,
+      453
+    ]
+  },
+  {
+    "text": "Coumadin",
+    "type": "THUỐC",
+    "candidates": [
+      "11289"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      476,
+      484
+    ]
+  },
+  {
+    "text": "Bệnh phổi tắc nghẽn mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": ["J44"],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      490,
+      518
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      520,
+      533
+    ]
+  },
+  {
+    "text": "cholesterol tăng cao",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": ["E78.0"],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      535,
+      555
+    ]
+  },
+  {
+    "text": "click cơ học",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      594,
+      606
+    ]
+  },
+  {
+    "text": "xét nghiệm",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      667,
+      677
+    ]
+  },
+  {
+    "text": "Natri",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      684,
+      689
+    ]
+  },
+  {
+    "text": "139",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      690,
+      693
+    ]
+  },
+  {
+    "text": "kali",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      699,
+      703
+    ]
+  },
+  {
+    "text": "4.5",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      704,
+      707
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      713,
+      716
+    ]
+  },
+  {
+    "text": "42",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      717,
+      719
+    ]
+  },
+  {
+    "text": "creatinine",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      725,
+      735
+    ]
+  },
+  {
+    "text": "1.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      736,
+      739
+    ]
+  },
+  {
+    "text": "Hemoglobin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      745,
+      755
+    ]
+  },
+  {
+    "text": "10.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      756,
+      760
+    ]
+  },
+  {
+    "text": "hematocrit",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      766,
+      776
+    ]
+  },
+  {
+    "text": "31.7",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      777,
+      781
+    ]
+  },
+  {
+    "text": "Solu-Medrol tĩnh mạch",
+    "type": "THUỐC",
+    "candidates": [
+      "203856"
+    ],
+    "assertions": [],
+    "position": [
+      869,
+      890
+    ]
+  },
+  {
+    "text": "X-quang ngực",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      917,
+      929
+    ]
+  },
+  {
+    "text": "suy tim sung huyết nào",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      941,
+      963
+    ]
+  },
+  {
+    "text": "Cortisone",
+    "type": "THUỐC",
+    "candidates": [
+      "2878"
+    ],
+    "assertions": [],
+    "position": [
+      969,
+      978
+    ]
+  },
+  {
+    "text": "Bệnh phổi tắc nghẽn mãn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": ["J44"],
+    "assertions": [],
+    "position": [
+      1074,
+      1102
+    ]
+  },
+  {
+    "text": "viêm phế quản hen cấp tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": ["J45"],
+    "assertions": [],
+    "position": [
+      1108,
+      1134
+    ]
+  },
+  {
+    "text": "Prednisone",
+    "type": "THUỐC",
+    "candidates": [
+      "8640"
+    ],
+    "assertions": [],
+    "position": [
+      1252,
+      1262
+    ]
+  },
+  {
+    "text": "Keflex",
+    "type": "THUỐC",
+    "candidates": [
+      "2231"
+    ],
+    "assertions": [],
+    "position": [
+      1343,
+      1349
+    ]
+  }
+]

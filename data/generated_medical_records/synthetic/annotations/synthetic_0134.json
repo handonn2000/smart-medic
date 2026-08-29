@@ -1,0 +1,293 @@
+[
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      53,
+      61
+    ]
+  },
+  {
+    "text": "chán ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      65,
+      72
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      156,
+      164
+    ]
+  },
+  {
+    "text": "chán ăn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      240,
+      247
+    ]
+  },
+  {
+    "text": "mất ngủ kéo dài",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      251,
+      266
+    ]
+  },
+  {
+    "text": "đau đầu vùng thái dương",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      278,
+      301
+    ]
+  },
+  {
+    "text": "ngứa nhiều vùng lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      377,
+      397
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      408,
+      423
+    ]
+  },
+  {
+    "text": "Giang mai bẩm sinh muộn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A50.6"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      548,
+      571
+    ]
+  },
+  {
+    "text": "Lao xương (A18.0†)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M90.0*"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      584,
+      602
+    ]
+  },
+  {
+    "text": "Béo phì do thuốc",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E66.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      635,
+      651
+    ]
+  },
+  {
+    "text": "Bệnh virus Marburg",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A98.3"
+    ],
+    "assertions": [
+      "isFamily",
+      "isNegated"
+    ],
+    "position": [
+      766,
+      784
+    ]
+  },
+  {
+    "text": "U lành của gan",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D13.4"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      790,
+      804
+    ]
+  },
+  {
+    "text": "Pacerone",
+    "type": "THUỐC",
+    "candidates": [
+      "703"
+    ],
+    "assertions": [],
+    "position": [
+      869,
+      877
+    ]
+  },
+  {
+    "text": "ranitidine",
+    "type": "THUỐC",
+    "candidates": [
+      "9143"
+    ],
+    "assertions": [],
+    "position": [
+      879,
+      889
+    ]
+  },
+  {
+    "text": "hydrocortisone",
+    "type": "THUỐC",
+    "candidates": [
+      "5492"
+    ],
+    "assertions": [],
+    "position": [
+      893,
+      907
+    ]
+  },
+  {
+    "text": "Naprosyn",
+    "type": "THUỐC",
+    "candidates": [
+      "7258"
+    ],
+    "assertions": [],
+    "position": [
+      980,
+      988
+    ]
+  },
+  {
+    "text": "140 mmol/L",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1251,
+      1261
+    ]
+  },
+  {
+    "text": "men tim trong giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1327,
+      1361
+    ]
+  },
+  {
+    "text": "cấy máu tìm vi khuẩn",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1374,
+      1394
+    ]
+  },
+  {
+    "text": "nội soi dạ dày tá tràng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1439,
+      1462
+    ]
+  },
+  {
+    "text": "X-quang",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1466,
+      1473
+    ]
+  },
+  {
+    "text": "trong giới hạn",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1562,
+      1576
+    ]
+  },
+  {
+    "text": "HCT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1624,
+      1627
+    ]
+  },
+  {
+    "text": "troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1631,
+      1639
+    ]
+  },
+  {
+    "text": "Bệnh virus Oropouche",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A93.0"
+    ],
+    "assertions": [],
+    "position": [
+      1767,
+      1787
+    ]
+  }
+]

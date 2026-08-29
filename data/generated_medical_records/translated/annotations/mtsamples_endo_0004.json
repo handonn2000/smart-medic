@@ -1,0 +1,220 @@
+[
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      47,
+      55
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      94,
+      108
+    ]
+  },
+  {
+    "text": "Micronase",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      138,
+      147
+    ]
+  },
+  {
+    "text": "cholesterol",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      332,
+      343
+    ]
+  },
+  {
+    "text": "xơ vữa động mạch vành (ASHD)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I70"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      364,
+      392
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      394,
+      407
+    ]
+  },
+  {
+    "text": "bệnh mạch máu ngoại biên (PVD)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I73"
+    ],
+    "assertions": [],
+    "position": [
+      411,
+      441
+    ]
+  },
+  {
+    "text": "loét dạ dày tá tràng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K25"
+    ],
+    "assertions": [],
+    "position": [
+      610,
+      630
+    ]
+  },
+  {
+    "text": "rối loạn đường tiết niệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      666,
+      690
+    ]
+  },
+  {
+    "text": "rối loạn bàng quang",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N32.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      707,
+      726
+    ]
+  },
+  {
+    "text": "rối loạn thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      730,
+      743
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      778,
+      792
+    ]
+  },
+  {
+    "text": "Micronase",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      939,
+      948
+    ]
+  },
+  {
+    "text": "Bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      980,
+      987
+    ]
+  },
+  {
+    "text": "Đái tháo đường type II không kiểm soát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1948,
+      1986
+    ]
+  },
+  {
+    "text": "Viêm bàng quang cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "N30.0"
+    ],
+    "assertions": [],
+    "position": [
+      1988,
+      2007
+    ]
+  },
+  {
+    "text": "công thức máu toàn phần",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2058,
+      2081
+    ]
+  },
+  {
+    "text": "Micronase",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2093,
+      2102
+    ]
+  },
+  {
+    "text": "Bactrim",
+    "type": "THUỐC",
+    "candidates": [
+      "10180",
+      "10829"
+    ],
+    "assertions": [],
+    "position": [
+      2134,
+      2141
+    ]
+  }
+]

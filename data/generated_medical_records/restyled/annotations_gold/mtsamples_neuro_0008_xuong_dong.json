@@ -1,0 +1,258 @@
+[
+  {
+    "text": "u màng não ác tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C70.0"
+    ],
+    "assertions": [],
+    "position": [
+      43,
+      61
+    ]
+  },
+  {
+    "text": "động kinh",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G40"
+    ],
+    "assertions": [],
+    "position": [
+      160,
+      169
+    ]
+  },
+  {
+    "text": "liệt nửa người",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "G81"
+    ],
+    "assertions": [],
+    "position": [
+      171,
+      185
+    ]
+  },
+  {
+    "text": "nhiễm C-diff",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A04.7"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      200,
+      212
+    ]
+  },
+  {
+    "text": "tự đi được",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      242,
+      252
+    ]
+  },
+  {
+    "text": "tự chăm sóc",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      256,
+      267
+    ]
+  },
+  {
+    "text": "Keppra 1500 hai lần/ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "114477"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      321,
+      345
+    ]
+  },
+  {
+    "text": "Decadron 6mg bốn lần/ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "3264"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      347,
+      372
+    ]
+  },
+  {
+    "text": "oxycodone",
+    "type": "THUỐC",
+    "candidates": [
+      "7804"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      374,
+      383
+    ]
+  },
+  {
+    "text": "aspirin 1v/ngày",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      385,
+      400
+    ]
+  },
+  {
+    "text": "Prilosec",
+    "type": "THUỐC",
+    "candidates": [
+      "7646"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      402,
+      410
+    ]
+  },
+  {
+    "text": "Flagyl",
+    "type": "THUỐC",
+    "candidates": [
+      "6922"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      431,
+      437
+    ]
+  },
+  {
+    "text": "oxy",
+    "type": "THUỐC",
+    "candidates": [
+      "7806"
+    ],
+    "assertions": [],
+    "position": [
+      464,
+      467
+    ]
+  },
+  {
+    "text": "thở nhanh tự phát",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      472,
+      489
+    ]
+  },
+  {
+    "text": "nhấc\ntay phải, chân phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      497,
+      521
+    ]
+  },
+  {
+    "text": "mất ngôn ngữ diễn đạt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      526,
+      547
+    ]
+  },
+  {
+    "text": "lú lẫn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      551,
+      557
+    ]
+  },
+  {
+    "text": "MRI",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      600,
+      603
+    ]
+  },
+  {
+    "text": "phù não \nđáng kể",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      653,
+      669
+    ]
+  },
+  {
+    "text": "u \nmàng não ác tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C70.0"
+    ],
+    "assertions": [],
+    "position": [
+      678,
+      697
+    ]
+  },
+  {
+    "text": "khuyết tật nặng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z73.6"
+    ],
+    "assertions": [],
+    "position": [
+      747,
+      762
+    ]
+  }
+]

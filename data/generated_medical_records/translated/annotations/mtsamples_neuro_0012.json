@@ -1,0 +1,431 @@
+[
+  {
+    "text": "lo lắng tăng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      145,
+      160
+    ]
+  },
+  {
+    "text": "bị trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      262,
+      277
+    ]
+  },
+  {
+    "text": "đau ngực hoặc áp lực ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      412,
+      446
+    ]
+  },
+  {
+    "text": "mất ý thức hoặc không kiểm soát được đại tiểu tiện",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      556,
+      625
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      661,
+      670
+    ]
+  },
+  {
+    "text": "Darvocet",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      760,
+      768
+    ]
+  },
+  {
+    "text": "trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F32"
+    ],
+    "assertions": [],
+    "position": [
+      1159,
+      1170
+    ]
+  },
+  {
+    "text": "trầm cảm và lo lắng tăng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1899,
+      1930
+    ]
+  },
+  {
+    "text": "Paxil",
+    "type": "THUỐC",
+    "candidates": [
+      "32937"
+    ],
+    "assertions": [],
+    "position": [
+      1955,
+      1960
+    ]
+  },
+  {
+    "text": "Xanax",
+    "type": "THUỐC",
+    "candidates": [
+      "596"
+    ],
+    "assertions": [],
+    "position": [
+      1965,
+      1970
+    ]
+  },
+  {
+    "text": "Lo lắng và trầm cảm",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2257,
+      2282
+    ]
+  },
+  {
+    "text": "Tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      2287,
+      2304
+    ]
+  },
+  {
+    "text": "Tăng cholesterol máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E78.0"
+    ],
+    "assertions": [],
+    "position": [
+      2309,
+      2331
+    ]
+  },
+  {
+    "text": "Bệnh động mạch vành",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I79"
+    ],
+    "assertions": [],
+    "position": [
+      2336,
+      2361
+    ]
+  },
+  {
+    "text": "Thoái hóa khớp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M16"
+    ],
+    "assertions": [],
+    "position": [
+      2366,
+      2384
+    ]
+  },
+  {
+    "text": "Bệnh phổi tắc nghẽn mạn tính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2389,
+      2426
+    ]
+  },
+  {
+    "text": "Suy giáp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E03.9"
+    ],
+    "assertions": [],
+    "position": [
+      2431,
+      2440
+    ]
+  },
+  {
+    "text": "Tylenol",
+    "type": "THUỐC",
+    "candidates": [
+      "161"
+    ],
+    "assertions": [],
+    "position": [
+      2507,
+      2514
+    ]
+  },
+  {
+    "text": "Xanax",
+    "type": "THUỐC",
+    "candidates": [
+      "596"
+    ],
+    "assertions": [],
+    "position": [
+      2535,
+      2540
+    ]
+  },
+  {
+    "text": "Lasix",
+    "type": "THUỐC",
+    "candidates": [
+      "4603"
+    ],
+    "assertions": [],
+    "position": [
+      2558,
+      2563
+    ]
+  },
+  {
+    "text": "Isordil",
+    "type": "THUỐC",
+    "candidates": [
+      "6058"
+    ],
+    "assertions": [],
+    "position": [
+      2583,
+      2590
+    ]
+  },
+  {
+    "text": "KCl",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2604,
+      2607
+    ]
+  },
+  {
+    "text": "lactulose",
+    "type": "THUỐC",
+    "candidates": [
+      "6218"
+    ],
+    "assertions": [],
+    "position": [
+      2622,
+      2631
+    ]
+  },
+  {
+    "text": "Cozaar",
+    "type": "THUỐC",
+    "candidates": [
+      "52175"
+    ],
+    "assertions": [],
+    "position": [
+      2650,
+      2656
+    ]
+  },
+  {
+    "text": "Synthroid",
+    "type": "THUỐC",
+    "candidates": [
+      "10582"
+    ],
+    "assertions": [],
+    "position": [
+      2676,
+      2685
+    ]
+  },
+  {
+    "text": "Singulair",
+    "type": "THUỐC",
+    "candidates": [
+      "88249"
+    ],
+    "assertions": [],
+    "position": [
+      2706,
+      2715
+    ]
+  },
+  {
+    "text": "Lumigan",
+    "type": "THUỐC",
+    "candidates": [
+      "283810"
+    ],
+    "assertions": [],
+    "position": [
+      2735,
+      2742
+    ]
+  },
+  {
+    "text": "NitroQuick",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      2796,
+      2806
+    ]
+  },
+  {
+    "text": "Pravachol",
+    "type": "THUỐC",
+    "candidates": [
+      "42463"
+    ],
+    "assertions": [],
+    "position": [
+      2814,
+      2823
+    ]
+  },
+  {
+    "text": "Feldene",
+    "type": "THUỐC",
+    "candidates": [
+      "8356"
+    ],
+    "assertions": [],
+    "position": [
+      2843,
+      2850
+    ]
+  },
+  {
+    "text": "Paxil",
+    "type": "THUỐC",
+    "candidates": [
+      "32937"
+    ],
+    "assertions": [],
+    "position": [
+      2870,
+      2875
+    ]
+  },
+  {
+    "text": "Minipress",
+    "type": "THUỐC",
+    "candidates": [
+      "8629"
+    ],
+    "assertions": [],
+    "position": [
+      2895,
+      2904
+    ]
+  },
+  {
+    "text": "Provera",
+    "type": "THUỐC",
+    "candidates": [
+      "6691"
+    ],
+    "assertions": [],
+    "position": [
+      2923,
+      2930
+    ]
+  },
+  {
+    "text": "Advair",
+    "type": "THUỐC",
+    "candidates": [
+      "36117",
+      "41126"
+    ],
+    "assertions": [],
+    "position": [
+      2938,
+      2944
+    ]
+  },
+  {
+    "text": "Senokot",
+    "type": "THUỐC",
+    "candidates": [
+      "36387"
+    ],
+    "assertions": [],
+    "position": [
+      2987,
+      2994
+    ]
+  },
+  {
+    "text": "Timoptic",
+    "type": "THUỐC",
+    "candidates": [
+      "10600"
+    ],
+    "assertions": [],
+    "position": [
+      3030,
+      3038
+    ]
+  },
+  {
+    "text": "verapamil",
+    "type": "THUỐC",
+    "candidates": [
+      "11170"
+    ],
+    "assertions": [],
+    "position": [
+      3080,
+      3089
+    ]
+  }
+]

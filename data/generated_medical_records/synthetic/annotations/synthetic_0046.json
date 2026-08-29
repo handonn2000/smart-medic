@@ -1,0 +1,332 @@
+[
+  {
+    "text": "mệt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      63,
+      66
+    ]
+  },
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      84,
+      92
+    ]
+  },
+  {
+    "text": "khó tiêu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      96,
+      104
+    ]
+  },
+  {
+    "text": "mệt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      174,
+      177
+    ]
+  },
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      212,
+      220
+    ]
+  },
+  {
+    "text": "khó tiêu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      307,
+      315
+    ]
+  },
+  {
+    "text": "tiêu chảy nhiều lần trong ngày",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      317,
+      347
+    ]
+  },
+  {
+    "text": "lo lắng quá mức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      351,
+      366
+    ]
+  },
+  {
+    "text": "tê bì hai bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      451,
+      468
+    ]
+  },
+  {
+    "text": "tiêu chảy nhiều lần trong ngày",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      483,
+      513
+    ]
+  },
+  {
+    "text": "Bệnh sarcoid",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D86"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      618,
+      630
+    ]
+  },
+  {
+    "text": "Bệnh nha chu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K05.6"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      634,
+      646
+    ]
+  },
+  {
+    "text": "Rò hậu môn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K60.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      703,
+      713
+    ]
+  },
+  {
+    "text": "U lành da chi trên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D23.6"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      717,
+      735
+    ]
+  },
+  {
+    "text": "Delta-beta thalassaemia",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D56.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      779,
+      802
+    ]
+  },
+  {
+    "text": "Cymbalta",
+    "type": "THUỐC",
+    "candidates": [
+      "72625"
+    ],
+    "assertions": [],
+    "position": [
+      973,
+      981
+    ]
+  },
+  {
+    "text": "Altace",
+    "type": "THUỐC",
+    "candidates": [
+      "35296"
+    ],
+    "assertions": [],
+    "position": [
+      1012,
+      1018
+    ]
+  },
+  {
+    "text": "Proventil",
+    "type": "THUỐC",
+    "candidates": [
+      "435"
+    ],
+    "assertions": [],
+    "position": [
+      1050,
+      1059
+    ]
+  },
+  {
+    "text": "HGB",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1355,
+      1358
+    ]
+  },
+  {
+    "text": "âm tính",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1404,
+      1411
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1443,
+      1446
+    ]
+  },
+  {
+    "text": "ổn định",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1447,
+      1454
+    ]
+  },
+  {
+    "text": "PLT",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1467,
+      1470
+    ]
+  },
+  {
+    "text": "Tăng tiểu cầu tiền phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D75.2"
+    ],
+    "assertions": [],
+    "position": [
+      1480,
+      1503
+    ]
+  },
+  {
+    "text": "Tăng tiểu cầu tiền phát",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D75.2"
+    ],
+    "assertions": [],
+    "position": [
+      1555,
+      1578
+    ]
+  },
+  {
+    "text": "Bệnh sarcoid",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D86"
+    ],
+    "assertions": [],
+    "position": [
+      1581,
+      1593
+    ]
+  },
+  {
+    "text": "Bệnh nha chu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K05.6"
+    ],
+    "assertions": [],
+    "position": [
+      1596,
+      1608
+    ]
+  },
+  {
+    "text": "Rò hậu môn",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K60.3"
+    ],
+    "assertions": [],
+    "position": [
+      1611,
+      1621
+    ]
+  },
+  {
+    "text": "Delta-beta thalassaemia",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D56.2"
+    ],
+    "assertions": [],
+    "position": [
+      1624,
+      1647
+    ]
+  }
+]

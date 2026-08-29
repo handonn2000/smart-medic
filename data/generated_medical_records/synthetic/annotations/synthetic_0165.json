@@ -1,0 +1,267 @@
+[
+  {
+    "text": "mệt mỏi nhiều",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      148,
+      161
+    ]
+  },
+  {
+    "text": "đau ngực khi gắng sức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      180,
+      201
+    ]
+  },
+  {
+    "text": "vàng da vàng mắt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      238,
+      254
+    ]
+  },
+  {
+    "text": "ợ chua",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      301,
+      307
+    ]
+  },
+  {
+    "text": "khó tiêu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      311,
+      319
+    ]
+  },
+  {
+    "text": "đánh trống ngực",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      346,
+      361
+    ]
+  },
+  {
+    "text": "chuột rút bắp chân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      365,
+      383
+    ]
+  },
+  {
+    "text": "Suy tim sung huyết",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I50.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      506,
+      524
+    ]
+  },
+  {
+    "text": "Giang mai tim mạch",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I98.0*"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      620,
+      638
+    ]
+  },
+  {
+    "text": "Viêm cơ tim cấp khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I40.8"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      703,
+      723
+    ]
+  },
+  {
+    "text": "Phình động mạch chủ ngực-bụng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I71.5"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      728,
+      757
+    ]
+  },
+  {
+    "text": "Phình động mạch chủ bụng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I71.3"
+    ],
+    "assertions": [
+      "isFamily",
+      "isNegated"
+    ],
+    "position": [
+      835,
+      859
+    ]
+  },
+  {
+    "text": "Bệnh do chlamydia khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "A74.8"
+    ],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      864,
+      886
+    ]
+  },
+  {
+    "text": "sụt cân không rõ nguyên nhân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1124,
+      1152
+    ]
+  },
+  {
+    "text": "không rõ tổn thương",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1344,
+      1363
+    ]
+  },
+  {
+    "text": "không có gì đáng chú ý",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1394,
+      1416
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1526,
+      1530
+    ]
+  },
+  {
+    "text": "hình ảnh dày thành dạ dày vùng hang vị",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1603,
+      1641
+    ]
+  },
+  {
+    "text": "giảm nhẹ số lượng tiểu cầu",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1675,
+      1701
+    ]
+  },
+  {
+    "text": "Hội chứng ACTH lạc chỗ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E24.3"
+    ],
+    "assertions": [],
+    "position": [
+      1720,
+      1742
+    ]
+  },
+  {
+    "text": "Viêm cơ tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I51.4"
+    ],
+    "assertions": [],
+    "position": [
+      1749,
+      1760
+    ]
+  },
+  {
+    "text": "Bệnh vôi hóa sụn khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M11.2"
+    ],
+    "assertions": [],
+    "position": [
+      1767,
+      1788
+    ]
+  },
+  {
+    "text": "Các bệnh teo da khác",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "L90.8"
+    ],
+    "assertions": [],
+    "position": [
+      1795,
+      1815
+    ]
+  }
+]

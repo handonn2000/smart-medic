@@ -1,0 +1,337 @@
+[
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      166,
+      190
+    ]
+  },
+  {
+    "text": "đau cách hồi khi đi bộ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      194,
+      216
+    ]
+  },
+  {
+    "text": "mất ngủ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      250,
+      257
+    ]
+  },
+  {
+    "text": "táo bón",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      273,
+      280
+    ]
+  },
+  {
+    "text": "ngạt mũi hai bên",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      335,
+      351
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      443,
+      450
+    ]
+  },
+  {
+    "text": "lo lắng quá mức",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      461,
+      476
+    ]
+  },
+  {
+    "text": "U ác của tuyến yên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C75.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      611,
+      629
+    ]
+  },
+  {
+    "text": "Phù thanh quản",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J38.4"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      676,
+      690
+    ]
+  },
+  {
+    "text": "U ác của môi trên",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C00.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      780,
+      797
+    ]
+  },
+  {
+    "text": "U ác của âm vật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C51.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      801,
+      816
+    ]
+  },
+  {
+    "text": "Bệnh bạch cầu tủy",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C92"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      863,
+      880
+    ]
+  },
+  {
+    "text": "U ác của ngực",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C76.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      885,
+      898
+    ]
+  },
+  {
+    "text": "Daypro",
+    "type": "THUỐC",
+    "candidates": [
+      "32613"
+    ],
+    "assertions": [],
+    "position": [
+      1058,
+      1064
+    ]
+  },
+  {
+    "text": "carnitine",
+    "type": "THUỐC",
+    "candidates": [
+      "2106"
+    ],
+    "assertions": [],
+    "position": [
+      1066,
+      1075
+    ]
+  },
+  {
+    "text": "Singulair",
+    "type": "THUỐC",
+    "candidates": [
+      "88249"
+    ],
+    "assertions": [],
+    "position": [
+      1080,
+      1089
+    ]
+  },
+  {
+    "text": "Kedbumin",
+    "type": "THUỐC",
+    "candidates": [
+      "828529"
+    ],
+    "assertions": [],
+    "position": [
+      1152,
+      1160
+    ]
+  },
+  {
+    "text": "metformin",
+    "type": "THUỐC",
+    "candidates": [
+      "6809"
+    ],
+    "assertions": [],
+    "position": [
+      1164,
+      1173
+    ]
+  },
+  {
+    "text": "tê bì hai bàn tay",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1270,
+      1287
+    ]
+  },
+  {
+    "text": "nói khó",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1291,
+      1298
+    ]
+  },
+  {
+    "text": "sốt cao",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1314,
+      1321
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1467,
+      1470
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1471,
+      1475
+    ]
+  },
+  {
+    "text": "LDL",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1487,
+      1490
+    ]
+  },
+  {
+    "text": "ổn định",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1491,
+      1498
+    ]
+  },
+  {
+    "text": "cấy máu tìm vi khuẩn",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1511,
+      1531
+    ]
+  },
+  {
+    "text": "troponin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1562,
+      1570
+    ]
+  },
+  {
+    "text": "men tim trong giới hạn bình thường",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1583,
+      1617
+    ]
+  },
+  {
+    "text": "tổn thương dạng kính mờ hai đáy phổi",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1648,
+      1684
+    ]
+  },
+  {
+    "text": "rối loạn thông khí tắc nghẽn mức độ vừa",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1723,
+      1762
+    ]
+  }
+]

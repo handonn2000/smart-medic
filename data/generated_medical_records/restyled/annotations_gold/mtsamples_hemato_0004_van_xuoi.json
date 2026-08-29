@@ -1,0 +1,263 @@
+[
+  {
+    "text": "u lympho tế bào B rìa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C85.1"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      42,
+      63
+    ]
+  },
+  {
+    "text": "u lympho tế bào B lớn lan tỏa",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "C83.3"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      168,
+      197
+    ]
+  },
+  {
+    "text": "CHOP",
+    "type": "THUỐC",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      228,
+      232
+    ]
+  },
+  {
+    "text": "sưng tinh hoàn trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      394,
+      413
+    ]
+  },
+  {
+    "text": "sốt",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      444,
+      447
+    ]
+  },
+  {
+    "text": "ớn lạnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      453,
+      460
+    ]
+  },
+  {
+    "text": "mệt mỏi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      515,
+      522
+    ]
+  },
+  {
+    "text": "đau ở tinh hoàn trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      612,
+      632
+    ]
+  },
+  {
+    "text": "chấn thương",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isNegated",
+      "isHistorical"
+    ],
+    "position": [
+      675,
+      686
+    ]
+  },
+  {
+    "text": "đau đầu nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      943,
+      954
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [
+      "isNegated",
+      "isHistorical"
+    ],
+    "position": [
+      979,
+      992
+    ]
+  },
+  {
+    "text": "bệnh tim",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I51.9"
+    ],
+    "assertions": [
+      "isNegated",
+      "isHistorical"
+    ],
+    "position": [
+      994,
+      1002
+    ]
+  },
+  {
+    "text": "ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1028,
+      1030
+    ]
+  },
+  {
+    "text": "khó thở",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1035,
+      1042
+    ]
+  },
+  {
+    "text": "sưng đau tinh hoàn trái",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1122,
+      1145
+    ]
+  },
+  {
+    "text": "đái tháo đường type II",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "E11.9"
+    ],
+    "assertions": [],
+    "position": [
+      1182,
+      1204
+    ]
+  },
+  {
+    "text": "thiếu máu kết mạc",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1259,
+      1276
+    ]
+  },
+  {
+    "text": "vàng da",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1282,
+      1289
+    ]
+  },
+  {
+    "text": "hạch cổ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1310,
+      1317
+    ]
+  },
+  {
+    "text": "tiếng thổi động mạch cảnh",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1323,
+      1348
+    ]
+  },
+  {
+    "text": "tiếng ngựa phi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1419,
+      1433
+    ]
+  },
+  {
+    "text": "tiếng thổi",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1439,
+      1449
+    ]
+  }
+]

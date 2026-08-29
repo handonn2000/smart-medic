@@ -1,0 +1,140 @@
+[
+  {
+    "text": "Rối loạn lo âu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F41.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      28,
+      46
+    ]
+  },
+  {
+    "text": "Lipitor",
+    "type": "THUỐC",
+    "candidates": [
+      "153165"
+    ],
+    "assertions": [],
+    "position": [
+      190,
+      197
+    ]
+  },
+  {
+    "text": "Lexapro",
+    "type": "THUỐC",
+    "candidates": [
+      "321988"
+    ],
+    "assertions": [],
+    "position": [
+      204,
+      211
+    ]
+  },
+  {
+    "text": "ung thư trung biểu mô",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [
+      "isFamily"
+    ],
+    "position": [
+      436,
+      461
+    ]
+  },
+  {
+    "text": "đổ mồ hôi ban đêm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      543,
+      566
+    ]
+  },
+  {
+    "text": "sụt cân",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      575,
+      584
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      626,
+      635
+    ]
+  },
+  {
+    "text": "đau lưng trục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1053,
+      1068
+    ]
+  },
+  {
+    "text": "đau lưng trục",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1099,
+      1114
+    ]
+  },
+  {
+    "text": "Triệu chứng rễ thần kinh L4",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1191,
+      1226
+    ]
+  },
+  {
+    "text": "Diclofenac",
+    "type": "THUỐC",
+    "candidates": [
+      "3355"
+    ],
+    "assertions": [],
+    "position": [
+      1298,
+      1308
+    ]
+  },
+  {
+    "text": "diclofenac",
+    "type": "THUỐC",
+    "candidates": [
+      "3355"
+    ],
+    "assertions": [],
+    "position": [
+      1461,
+      1471
+    ]
+  }
+]

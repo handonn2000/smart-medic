@@ -1,0 +1,285 @@
+[
+  {
+    "text": "Buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      28,
+      39
+    ]
+  },
+  {
+    "text": "đau bụng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      44,
+      53
+    ]
+  },
+  {
+    "text": "Không dung nạp thức ăn nhiều dầu mỡ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      143,
+      189
+    ]
+  },
+  {
+    "text": "Nước tiểu sẫm màu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      196,
+      221
+    ]
+  },
+  {
+    "text": "ớn lạnh chủ quan",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      223,
+      243
+    ]
+  },
+  {
+    "text": "sốt nhẹ chủ quan",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      245,
+      265
+    ]
+  },
+  {
+    "text": "Buồn nôn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      272,
+      283
+    ]
+  },
+  {
+    "text": "đau nhói sắc bén",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      285,
+      305
+    ]
+  },
+  {
+    "text": "Siêu âm bụng",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      431,
+      446
+    ]
+  },
+  {
+    "text": "sỏi túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K80.2"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      458,
+      473
+    ]
+  },
+  {
+    "text": "tắc nghẽn CBD",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K83.1"
+    ],
+    "assertions": [
+      "isHistorical",
+      "isNegated"
+    ],
+    "position": [
+      486,
+      502
+    ]
+  },
+  {
+    "text": "tăng",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      535,
+      540
+    ]
+  },
+  {
+    "text": "tổng bilirubin",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      541,
+      557
+    ]
+  },
+  {
+    "text": "WBC",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      559,
+      562
+    ]
+  },
+  {
+    "text": "đau vùng chậu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      687,
+      703
+    ]
+  },
+  {
+    "text": "dính",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K66.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      704,
+      709
+    ]
+  },
+  {
+    "text": "Xét nghiệm Pap",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1203,
+      1220
+    ]
+  },
+  {
+    "text": "15/1/1998",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1222,
+      1231
+    ]
+  },
+  {
+    "text": "co giật",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1401,
+      1410
+    ]
+  },
+  {
+    "text": "mất điều hòa",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1412,
+      1429
+    ]
+  },
+  {
+    "text": "thừa cân vừa phải",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1551,
+      1574
+    ]
+  },
+  {
+    "text": "hạch nổi rõ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1667,
+      1682
+    ]
+  },
+  {
+    "text": "Âm ruột cao độ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1830,
+      1849
+    ]
+  },
+  {
+    "text": "Bệnh túi mật",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "K82.9"
+    ],
+    "assertions": [],
+    "position": [
+      1931,
+      1948
+    ]
+  },
+  {
+    "text": "Đau bụng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "R10.4"
+    ],
+    "assertions": [],
+    "position": [
+      1956,
+      1965
+    ]
+  }
+]

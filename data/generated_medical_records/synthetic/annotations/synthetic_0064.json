@@ -1,0 +1,294 @@
+[
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      55,
+      79
+    ]
+  },
+  {
+    "text": "đau lưng",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      83,
+      91
+    ]
+  },
+  {
+    "text": "khó thở khi gắng sức nhẹ",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      144,
+      168
+    ]
+  },
+  {
+    "text": "khó thở khi nằm",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      296,
+      311
+    ]
+  },
+  {
+    "text": "táo bón",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      420,
+      427
+    ]
+  },
+  {
+    "text": "tiêu chảy nhiều lần trong ngày",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      447,
+      477
+    ]
+  },
+  {
+    "text": "bồn chồn",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      497,
+      505
+    ]
+  },
+  {
+    "text": "són tiểu khi ho",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      583,
+      598
+    ]
+  },
+  {
+    "text": "Bệnh khớp nhiễm bột (E85.-†)",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "M14.4*"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      638,
+      666
+    ]
+  },
+  {
+    "text": "U lành tuyến thượng thận",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D35.0"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      741,
+      765
+    ]
+  },
+  {
+    "text": "Rối loạn lo âu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F41.9"
+    ],
+    "assertions": [
+      "isHistorical"
+    ],
+    "position": [
+      844,
+      858
+    ]
+  },
+  {
+    "text": "Depo-testosterone",
+    "type": "THUỐC",
+    "candidates": [
+      "10379"
+    ],
+    "assertions": [],
+    "position": [
+      1154,
+      1171
+    ]
+  },
+  {
+    "text": "Rối loạn lo âu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "F41.9"
+    ],
+    "assertions": [],
+    "position": [
+      1184,
+      1198
+    ]
+  },
+  {
+    "text": "Feldene",
+    "type": "THUỐC",
+    "candidates": [
+      "8356"
+    ],
+    "assertions": [],
+    "position": [
+      1209,
+      1216
+    ]
+  },
+  {
+    "text": "Pulmicort",
+    "type": "THUỐC",
+    "candidates": [
+      "19831"
+    ],
+    "assertions": [],
+    "position": [
+      1271,
+      1280
+    ]
+  },
+  {
+    "text": "etoposide",
+    "type": "THUỐC",
+    "candidates": [
+      "4179"
+    ],
+    "assertions": [],
+    "position": [
+      1330,
+      1339
+    ]
+  },
+  {
+    "text": "CRP",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1597,
+      1600
+    ]
+  },
+  {
+    "text": "BUN",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1661,
+      1664
+    ]
+  },
+  {
+    "text": "monitor holter",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1666,
+      1680
+    ]
+  },
+  {
+    "text": "double test",
+    "type": "TÊN_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1685,
+      1696
+    ]
+  },
+  {
+    "text": "gan nhiễm mỡ độ một",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1820,
+      1839
+    ]
+  },
+  {
+    "text": "toan chuyển hoá còn bù",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      1879,
+      1901
+    ]
+  },
+  {
+    "text": "Bệnh sarcoid không đặc hiệu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D86.9"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      1958,
+      1985
+    ]
+  },
+  {
+    "text": "U lành của sàn miệng",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "D10.2"
+    ],
+    "assertions": [],
+    "position": [
+      1991,
+      2011
+    ]
+  },
+  {
+    "text": "Viêm amyđan cấp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J03"
+    ],
+    "assertions": [],
+    "position": [
+      2046,
+      2061
+    ]
+  },
+  {
+    "text": "thoái hóa xoang dạng políp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "J33.1"
+    ],
+    "assertions": [],
+    "position": [
+      2091,
+      2117
+    ]
+  }
+]

@@ -1,0 +1,262 @@
+[
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      12,
+      26
+    ]
+  },
+  {
+    "text": "Đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      116,
+      130
+    ]
+  },
+  {
+    "text": "tăng huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I10"
+    ],
+    "assertions": [],
+    "position": [
+      167,
+      180
+    ]
+  },
+  {
+    "text": "rối loạn lipid máu",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      184,
+      202
+    ]
+  },
+  {
+    "text": "đột quỵ",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "I69.4"
+    ],
+    "assertions": [],
+    "position": [
+      301,
+      308
+    ]
+  },
+  {
+    "text": "bệnh võng mạc do đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "H35.9"
+    ],
+    "assertions": [],
+    "position": [
+      312,
+      343
+    ]
+  },
+  {
+    "text": "Glyburide",
+    "type": "THUỐC",
+    "candidates": [
+      "4815"
+    ],
+    "assertions": [],
+    "position": [
+      455,
+      464
+    ]
+  },
+  {
+    "text": "Avandia",
+    "type": "THUỐC",
+    "candidates": [
+      "84108"
+    ],
+    "assertions": [],
+    "position": [
+      466,
+      473
+    ]
+  },
+  {
+    "text": "metformin",
+    "type": "THUỐC",
+    "candidates": [
+      "6809"
+    ],
+    "assertions": [],
+    "position": [
+      475,
+      484
+    ]
+  },
+  {
+    "text": "lisinopril",
+    "type": "THUỐC",
+    "candidates": [
+      "29046"
+    ],
+    "assertions": [],
+    "position": [
+      486,
+      496
+    ]
+  },
+  {
+    "text": "Lipitor",
+    "type": "THUỐC",
+    "candidates": [
+      "153165"
+    ],
+    "assertions": [],
+    "position": [
+      501,
+      508
+    ]
+  },
+  {
+    "text": "aspirin",
+    "type": "THUỐC",
+    "candidates": [
+      "1191"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      531,
+      538
+    ]
+  },
+  {
+    "text": "metoprolol",
+    "type": "THUỐC",
+    "candidates": [
+      "6918"
+    ],
+    "assertions": [
+      "isNegated"
+    ],
+    "position": [
+      540,
+      550
+    ]
+  },
+  {
+    "text": "Zonegran",
+    "type": "THUỐC",
+    "candidates": [
+      "39998"
+    ],
+    "assertions": [],
+    "position": [
+      554,
+      562
+    ]
+  },
+  {
+    "text": "đo. Huyết áp",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "Z01.3"
+    ],
+    "assertions": [],
+    "position": [
+      696,
+      708
+    ]
+  },
+  {
+    "text": "140/70",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      719,
+      725
+    ]
+  },
+  {
+    "text": "76",
+    "type": "KẾT_QUẢ_XÉT_NGHIỆM",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      739,
+      741
+    ]
+  },
+  {
+    "text": "đau đầu",
+    "type": "TRIỆU_CHỨNG",
+    "candidates": [],
+    "assertions": [],
+    "position": [
+      927,
+      934
+    ]
+  },
+  {
+    "text": "Zonegran",
+    "type": "THUỐC",
+    "candidates": [
+      "39998"
+    ],
+    "assertions": [],
+    "position": [
+      1025,
+      1033
+    ]
+  },
+  {
+    "text": "Neurontin",
+    "type": "THUỐC",
+    "candidates": [
+      "25480"
+    ],
+    "assertions": [],
+    "position": [
+      1099,
+      1108
+    ]
+  },
+  {
+    "text": "Lyrica",
+    "type": "THUỐC",
+    "candidates": [
+      "187832"
+    ],
+    "assertions": [],
+    "position": [
+      1114,
+      1120
+    ]
+  },
+  {
+    "text": "đái tháo đường",
+    "type": "CHẨN_ĐOÁN",
+    "candidates": [
+      "O24.0"
+    ],
+    "assertions": [],
+    "position": [
+      1341,
+      1355
+    ]
+  }
+]

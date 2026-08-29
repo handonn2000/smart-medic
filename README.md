@@ -1,270 +1,103 @@
-# Smart Medic
+<h1 align="center">Smart Medic</h1>
 
-**Ontological Reasoning in Medical Knowledge Retrieval** — an AI system that reads free-form Vietnamese clinical text (doctor's notes, discharge papers, lab reports, EHR excerpts) and:
+<p align="center">
+  <b>Đọc bệnh án tiếng Việt viết tự do → trả về khái niệm y tế có mã chuẩn và ngữ cảnh.</b><br>
+  <sub>Viettel AI Race 2026 — Vòng 1 · PhoBERT-base-v2 + CRF</sub>
+</p>
 
-1. **Detects & normalizes medical concepts** — mapping natural-language mentions to standard codes (ICD-10 for diseases, RxNorm for medications).
-2. **Performs ontological reasoning** — inferring the contextual relationship between concepts within a passage (negation, family history, past history).
+---
 
-Built for **Viettel AI Race 2026 — Vòng 1**. See [`docs/PRD.html`](docs/PRD.html) for the full problem statement.
+## 1. Bài toán
 
-## Problem summary
+Bệnh án ở Việt Nam gần như toàn bộ là **chữ viết tự do**. Máy tính không thống kê, không
+tra cứu bảo hiểm, không nghiên cứu dịch tễ được trên mớ chữ đó. Việc của hệ thống này là
+biến nó thành dữ liệu có cấu trúc.
 
-**Input:** a free-form medical text passage containing multiple concepts of different types.
+![Bài toán: biến chữ tự do thành dữ liệu tra cứu được](docs/images/bai_toan.png)
 
-**Output:** a JSON list of detected concepts, each a dictionary with:
+Với mỗi đoạn văn bản, cần trả về danh sách khái niệm, mỗi khái niệm gồm 5 trường:
 
-| Field | Meaning |
+| Trường | Ý nghĩa | Áp dụng cho |
+|---|---|---|
+| `text` | đúng cụm từ trong văn bản | tất cả |
+| `position` | `[start, end]` — vị trí ký tự trong văn bản gốc | tất cả |
+| `type` | 1 trong 5 loại khái niệm | tất cả |
+| `assertions` | `isNegated` · `isFamily` · `isHistorical` | `CHẨN_ĐOÁN`, `THUỐC`, `TRIỆU_CHỨNG` |
+| `candidates` | mã chuẩn — ICD-10 / RxNorm | `CHẨN_ĐOÁN`, `THUỐC` |
+
+**5 loại khái niệm:** `TRIỆU_CHỨNG` · `TÊN_XÉT_NGHIỆM` · `KẾT_QUẢ_XÉT_NGHIỆM` · `CHẨN_ĐOÁN` · `THUỐC`
+
+Đề bài đầy đủ: [`docs/PRD.html`](docs/PRD.html).
+
+---
+
+## 2. Cách chấm điểm — và vì sao nó quyết định mọi thiết kế
+
+```
+final_score      = 0,3·text_score + 0,3·assertions_score + 0,4·candidates_score
+
+text_score       = Σ (1 − WER) / N          trên trường `text`
+assertions_score = Σ J(assertions) / N       Jaccard
+candidates_score = Σ [ J(candidates) · W ] / Σ W ,  W = Σ (len(gt) + 1)
+
+J = 1 nếu gt và pred ĐỀU rỗng;  J = 0 nếu gt rỗng mà pred không rỗng.
+```
+
+Ba tính chất của công thức này chi phối gần như mọi lựa chọn trong repo:
+
+| Tính chất | Hệ quả trong code |
 |---|---|
-| `text` | The exact phrase identified as a medical concept |
-| `position` | `[start, end]` character offsets in the input |
-| `type` | One of the 5 concept types below |
-| `assertions` | Contextual flags (only for `CHẨN_ĐOÁN`, `THUỐC`, `TRIỆU_CHỨNG`), up to 3: `isNegated`, `isFamily`, `isHistorical` |
-| `candidates` | Predicted standard codes (only for `CHẨN_ĐOÁN` → ICD-10, `THUỐC` → RxNorm) |
+| **`position` là thứ để ghép** pred với đáp án | Lệch vài ký tự không mất một phần điểm — mất khái niệm **hai lần** (một lần vì đoán trượt, một lần vì đáp án không ai nhận). Nên offset được tính **một lần duy nhất**, và mọi `text` là lát cắt trực tiếp từ văn bản gốc. |
+| **Đoán sai loại đắt gấp đôi im lặng** | Loại nằm ngoài 5 tên được chấm ăn 0 điểm cả 3 metric *và* che mất một khái niệm đáp án. Nên hai loại phụ mô hình học được đều bị **bỏ khỏi đầu ra**. |
+| **Rỗng cũng là một câu trả lời** | `J = 1` khi cả hai bên cùng rỗng. Nên `candidates` để rỗng cho 3 loại không có mã là **ăn điểm thật**, còn đoán bừa một assertion khi đáp án rỗng làm khái niệm đó rơi từ 1,0 xuống 0. |
 
-**Concept types:** `TRIỆU_CHỨNG` (symptom) · `TÊN_XÉT_NGHIỆM` (lab test name) · `KẾT_QUẢ_XÉT_NGHIỆM` (lab result) · `CHẨN_ĐOÁN` (diagnosis) · `THUỐC` (medication)
+> **Lưu ý:** `scripts/evaluate.py` phải tự giả định cách ghép pred ↔ đáp án (đề không nói rõ).
+> Xem docstring của script. Hãy đọc điểm ở đây như **chỉ báo tương đối** để so hai phiên bản
+> model với nhau, không phải điểm của BTC.
 
-## Project structure
+---
 
-```
-smart-medic/
-├── docs/
-│   ├── PRD.html             # Full problem statement / requirements doc
-│   ├── reports/             # Write-ups, experiment reports
-│   └── references/          # Background papers (neurosymbolic AI, ontology engineering)
-├── src/
-│   ├── model.py             # PhoBERT + CRF model definition
-│   ├── dataset.py           # BIO dataset loader with subword label alignment
-│   ├── train.py             # Training entry point → models/pho_bert_crf_medical.pth
-│   ├── inference.py         # MedicalExtractor (extraction + normalization)
-│   ├── test.py              # CLI to run the model on text/file (-t / -f)
-│   ├── labels.py            # BIO labels + mapping to the five scored output types
-│   ├── tokenization.py      # Offset-preserving segmentation (`python src/tokenization.py` self-tests it)
-│   ├── assertions.py        # isNegated / isFamily / isHistorical detection
-│   └── normalizer.py        # RxNorm / ICD-10 candidate mapping
-├── models/                  # Trained model weights / checkpoints
-├── scripts/
-│   ├── gen_sample_data.py           # Training-data generator (see below)
-│   ├── prepare_training_data.py     # Annotation JSON → BIO file for train.py
-│   ├── annotate.py                  # Hand-annotation workflow for the dev set
-│   ├── evaluate.py                  # Internal scorer: WER + Jaccard (competition metric)
-│   ├── measure_normalizer.py        # Diagnoses the code-assignment half of the score
-│   └── migrate_to_new_structure.py  # One-off: old data layout → new
-└── data/
-    ├── knowledge_base/      # Reference vocabularies (ICD-10, RxNorm)
-    ├── dev/                 # Hand-annotated dev set
-    │   ├── marked/          # Working copies with 〔TYPE|text〕 markers
-    │   └── gold/            # Compiled gold annotations (N.json)
-    ├── external/
-    │   └── en_notes/        # mtsamples_filtered.jsonl — 457 English notes, source for `translate`
-    ├── input/               # Input text records (test.zip → input/*.txt)
-    ├── output/              # Predicted output (output.zip → *.json), one per input record
-    └── generated_medical_records/   # Generated training data
-        ├── synthetic/       # Written by an LLM around code-sampled entities
-        │   ├── intermediate/    # entity_bundles.jsonl, composed_texts.jsonl, prompts.jsonl
-        │   ├── text/            # synthetic_NNNN.txt — clean text
-        │   └── annotations/     # synthetic_NNNN.json — NER labels
-        ├── translated/      # Translated from real English mtsamples notes
-        │   ├── intermediate/    # translation_process.jsonl, translation_prompts.jsonl
-        │   ├── text/            # mtsamples_<specialty>_NNNN.txt
-        │   └── annotations/     # mtsamples_<specialty>_NNNN.json
-        └── restyled/        # Translated notes rewritten into test-set genres
-            ├── intermediate/     # restyle_process.jsonl, restyle_prompts.jsonl
-            ├── text/             # mtsamples_<specialty>_NNNN_<genre>.txt
-            ├── annotations/      # mtsamples_<specialty>_NNNN_<genre>.json
-            └── annotations_gold/ # Reviewed labels — the set worth training on
-```
+## 3. Giải pháp
 
-## Getting started
+![Giải pháp: chuỗi 5 bước giữ đúng vị trí ký tự](docs/images/giai_phap.png)
 
-Requires **Python 3.8+**. Create and activate a virtual environment, then install the dependencies from `requirements.txt`.
+Phần khó nhất **không phải mô hình** mà là `src/tokenization.py`. underthesea không giữ
+khoảng trắng và không trả vị trí — nó trả `["đau nhức"]` cho đoạn văn bản có thể vốn là
+`"đau\nnhức"`. Đi tìm chuỗi token trong văn bản gốc thì gặp từ lặp lại là khớp nhầm chỗ.
 
-**Windows (PowerShell):**
+Cách làm ở đây: bẻ văn bản thành **“nguyên tử”** (cụm chữ/số liền nhau, hoặc một dấu đơn)
+đã biết sẵn vị trí, rồi khớp token của segmenter vào dòng nguyên tử đó. Khoảng trắng không
+tham gia so khớp, và một token bị segmenter sửa chỉ làm lệch **một từ** thay vì kéo lệch
+toàn bộ phần còn lại. Nhờ vậy `text == raw[start:end]` đúng **theo cấu trúc, không nhờ may mắn**.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-```
-
-**Linux / macOS:**
+Tự kiểm tra được, không cần torch hay underthesea:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+python src/tokenization.py
 ```
 
-> Using `python -m pip` (instead of a bare `pip`) guarantees the packages install into the interpreter you're actually running.
+---
 
-Notes on specific dependencies:
+## 4. Dữ liệu
 
-- **`pytorch-crf`** — installed via `pip install pytorch-crf` but **imported as `torchcrf`** in code. Do **not** install the similarly named `TorchCRF`/`torchcrf` package; it has a different, incompatible API (missing `batch_first`) and will clash on case-insensitive filesystems like Windows.
-- **`torch`** — `requirements.txt` installs the default build, which is CPU-only on Linux/Windows. If you have an NVIDIA GPU, install the CUDA build instead (see the per-OS notes below).
+![Dữ liệu: ba nguồn tự dựng](docs/images/du_lieu.png)
 
-### Per-environment setup (team)
+---
 
-The steps above are enough to run everything on CPU. For GPU acceleration, adjust the PyTorch install per machine. Always check the [official PyTorch selector](https://pytorch.org/get-started/locally/) for the command matching your exact CUDA version.
+## 5. Demo
 
-**macOS (Apple Silicon or Intel):**
+Ví dụ chính thức của đề (`docs/PRD.html` §3), chạy qua pipeline. Cả 5 loại xuất hiện trong
+một bệnh án, và hai thuốc nằm sau cụm *“có tiền sử sử dụng”* — đó là lý do chúng mang
+`isHistorical`:
 
-- The default `pip install torch` is correct — there is no CUDA on macOS.
-- On Apple Silicon, the scripts automatically use the GPU via the **MPS** backend when available (device priority is CUDA → MPS → CPU). No configuration needed; Intel Macs fall back to CPU.
+![Ví dụ minh họa — mỗi khái niệm tô theo type](docs/images/demo_annotated.png)
 
-**Linux / Ubuntu:**
+Để ý phần xét nghiệm: `WBC` / `14,43`, `NEUT% (…)` / `76,4` — **tên xét nghiệm và kết quả
+nằm sát nhau nhưng là hai loại khác nhau**. Đây đúng là ca làm khó bộ dựng BIO nhất, vì
+segmenter hay dính tên xét nghiệm liền với kết quả thành một từ, mà BIO chỉ cho mỗi từ một
+nhãn. Trên gold restyled, chuyện này làm mất **76 / 7.435** khái niệm và nới rộng thêm 217 cái.
 
-- No GPU → the default install is fine.
-- NVIDIA GPU → install the CUDA build (example for CUDA 12.1), then continue with `requirements.txt`:
-
-```bash
-python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-python -m pip install -r requirements.txt
-```
-
-**Windows + NVIDIA GPU:**
-
-- Install the CUDA build first, then the rest of the requirements:
-
-```powershell
-python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-python -m pip install -r requirements.txt
-```
-
-- Verify the GPU is visible to PyTorch (should print `True`):
-
-```powershell
-python -c "import torch; print(torch.cuda.is_available())"
-```
-
-`train.py` and `inference.py` automatically use the GPU when `torch.cuda.is_available()` is `True`, so no code change is needed once the CUDA build is installed.
-
-## Training
-
-**Data format:** CoNLL / BIO style — one token per line as `token<space>label`, with a **blank line between samples**. The label is taken from the end of the line, so a token may itself contain spaces (`tê bì B-TRIEU_CHUNG`), which is what word segmentation produces for Vietnamese compounds. Labels use the BIO scheme (`B-XXX`, `I-XXX`, `O`) over the types listed in `src/labels.py`. Example:
-
-```text
-đau B-TRIEU_CHUNG
-khớp I-TRIEU_CHUNG
-gối I-TRIEU_CHUNG
-. O
-Celecoxib B-THUOC
-400mg I-THUOC
-```
-
-### Building the BIO file from annotations
-
-`scripts/prepare_training_data.py` turns generated records (`text/*.txt` plus
-competition-format `annotations_gold/*.json`) into that format. It segments with the same
-`segment_document` that `src/inference.py` uses, so training and prediction cut words
-identically, and it normalises tokens to NFC because PhoBERT's vocabulary is NFC while a
-quarter of the corpus is NFD on purpose.
-
-```bash
-# restyled + batch2 gold → data/train_generated.txt
-python scripts/prepare_training_data.py
-
-# Or pick sources explicitly
-python scripts/prepare_training_data.py \
-    --source data/generated_medical_records/restyled \
-    --source data/generated_medical_records/batch2
-
-# Hold out 24 records so there is something honest to score against later
-python scripts/prepare_training_data.py --holdout 24
-
-# Also fold in the small hand-written set (its unscored labels become O, reported)
-python scripts/prepare_training_data.py --append data/train.txt
-```
-
-BIO over words can only give each word one label, so where the segmenter glues two
-adjacent concepts into a single word — most often a test name running into its result,
-`...nước tiểu dương tính` — the word goes to whichever concept overlaps it more and the
-other is dropped. On the restyled gold that costs 76 of 7,435 concepts, and 217 more grow
-by a few characters. `--audit-out` writes what a model that fit the data perfectly would
-predict, so that ceiling can be measured rather than assumed:
-
-```bash
-python scripts/prepare_training_data.py --audit-out data/audit_ceiling
-python scripts/evaluate.py --pred data/audit_ceiling \
-    --gold data/generated_medical_records/restyled/annotations_gold \
-    --text-dir data/generated_medical_records/restyled/text
-```
-
-That currently reports 99% concept recall with no wrong-type predictions and
-`text_score` 0.972 — the upper bound this training set allows. Ignore its
-`candidates_score`: the audit emits no codes because the normalizer is not involved.
-
-### Running the training
-
-```bash
-python src/train.py --data data/train_generated.txt --from-scratch -e 6
-```
-
-`--from-scratch` is required the first time after `KẾT_QUẢ_XÉT_NGHIỆM` was added to
-`src/labels.py`: the classifier and CRF are sized by the label count, so older checkpoints
-no longer load. Training without `--data` still uses `data/train.txt`.
-
-### Measuring what the training produced
-
-Train on everything and there is no number to compare against — `--holdout N` exists so
-that changes can be judged instead of guessed at. It reserves N annotated records, keeps
-them out of the BIO file, and writes them as a ready-to-score split in `data/holdout/`
-(`text/` and `gold/`), so the whole loop is four commands:
-
-```bash
-python scripts/prepare_training_data.py --holdout 24
-python src/train.py --data data/train_generated.txt --from-scratch -e 6
-python src/test.py -d data/holdout/text -o data/holdout/pred
-python scripts/evaluate.py --pred data/holdout/pred --gold data/holdout/gold \
-    --text-dir data/holdout/text
-```
-
-The split is stratified by presentation style rather than drawn uniformly, because
-`hoi_dap` is only 12 of the 175 generated records while it is 42% of `data/test` — a
-uniform draw of 24 would usually contain none of it and still report a healthy-looking
-average. Two records of a style is thin, so read the per-style rows as indicative and the
-overall score as the real number. Re-running with a different `--holdout` or `--seed`
-clears records left behind by the previous split; without that, the scorer would quietly
-grade files that had just been trained on.
-
-Sanity checks worth knowing: scoring `data/holdout/gold` against itself returns exactly
-1.0000 on all three components, and no word unique to a held-out record appears anywhere in
-the BIO file.
-
-On completion it prints the checkpoint location and writes weights to:
-
-```
-models/pho_bert_crf_medical.pth
-```
-
-Key hyperparameters (edit at the top of `src/train.py`): `MODEL_NAME`, `MAX_LEN`, `BATCH_SIZE`, `EPOCHS`, `LR`. The first run downloads the pretrained PhoBERT weights from the Hugging Face Hub (internet required).
-
-## Testing / Inference
-
-`src/test.py` runs the trained model on a single input and prints the predicted concepts as JSON, or on a whole folder of records and writes one JSON file per record.
-
-```bash
-# Inline text
-python src/test.py -t "Bệnh nhân nam 55 tuổi, bị đau khớp gối phải" --model models/pho_bert_crf_medical.pth
-
-# From a file
-python src/test.py -f data/training/input1.txt --model models/pho_bert_crf_medical.pth
-
-# Every record in a folder: data/test/7.txt → data/output/7.json
-python src/test.py -d data/test -o data/output --model models/pho_bert_crf_medical.pth
-```
-
-Arguments:
-
-- `-t <input_text>` — pass the input text directly (mutually exclusive with `-f` and `-d`).
-- `-f <input_file>` — read the input text from a file.
-- `-d <input_dir>` — predict every `.txt` in the folder, writing `<stem>.json` per record instead of printing.
-- `-o <output_dir>` — where `-d` writes (default: `data/output`, the layout `output.zip` expects).
-- `--model <path>` — path to the trained weights (default: `pho_bert_crf_medical.pth` in the current directory, so pass `models/pho_bert_crf_medical.pth` after training).
-
-Folder mode loads the model once, keeps going when a single record fails (exiting non-zero afterwards), and warns about two things that quietly ruin a submission: a concept whose `text` is not the slice sitting at its own `position`, and leftover `.json` files in the output folder that no longer correspond to any input record.
-
-Example output:
+Đầu ra thật của `src/test.py`:
 
 ```json
 [
@@ -278,214 +111,294 @@ Example output:
 ]
 ```
 
-`position` is a half-open character range into the input exactly as given, so
-`text == raw_input[position[0]:position[1]]` always holds — `src/tokenization.py` derives
-spans from the raw string rather than from the segmenter's output, which is what makes
-repeated mentions ("táo bón" twice in one note) land on their own offsets. Inputs longer
-than PhoBERT's 256-token limit are labelled in consecutive batches split at sentence
-boundaries instead of being truncated, so concepts late in a long note are still found.
+---
 
-## Building a dev set
+## 6. Cài đặt
 
-Nothing can be measured without gold annotations, and the competition supplies none.
-`scripts/annotate.py` supports hand-annotating a sample of `data/test` into gold files.
-You mark concepts inline with `〔 〕` markers instead of typing `position` offsets by
-hand, and the tool computes offsets while stripping the markers — the same trick
-`gen_sample_data.py` uses to keep generated offsets exact.
+Cần **Python 3.8+**.
 
 ```bash
-python scripts/annotate.py skeleton --n 15   # copy 15 test files into data/dev/marked/
-python scripts/annotate.py status            # how far along the annotation is
-python scripts/annotate.py compile           # markers → data/dev/gold/*.json
+python -m venv .venv
+source .venv/bin/activate          # Windows: .\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
-Annotate by wrapping each concept, leaving the surrounding text untouched:
+<details>
+<summary><b>Lưu ý theo từng môi trường (GPU, và một cái bẫy tên package)</b></summary>
 
-```text
-〔LOẠI|text〕                        a span with no code and no assertion
-〔LOẠI|text|code〕                   with a standard code (CHẨN_ĐOÁN and THUỐC only)
-〔LOẠI|text|code1,code2|isNegated〕  several codes, plus an assertion
+<br>
+
+- **`pytorch-crf`** — cài bằng `pip install pytorch-crf` nhưng **import là `torchcrf`**.
+  Đừng cài gói tên na ná là `TorchCRF`; nó có API khác (thiếu `batch_first`) và đụng nhau
+  trên hệ thống file không phân biệt hoa thường như Windows.
+- **macOS** — bản `pip install torch` mặc định là đúng. Trên Apple Silicon script tự dùng
+  GPU qua **MPS** (thứ tự ưu tiên: CUDA → MPS → CPU), không cần cấu hình gì.
+- **Linux / Windows có GPU NVIDIA** — cài bản CUDA trước, rồi mới cài phần còn lại:
+
+  ```bash
+  python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+  python -m pip install -r requirements.txt
+  ```
+
+  Kiểm tra: `python -c "import torch; print(torch.cuda.is_available())"`
+
+</details>
+
+### Từ điển chuẩn hoá phải tự đặt vào
+
+Các bảng từ vựng **không được theo dõi trong git** (dung lượng lớn, ràng buộc bản quyền) —
+`/data/knowledge_base` nằm trong `.gitignore`. Muốn chạy được phần gắn mã, phải tự đặt vào:
+
+```
+data/knowledge_base/
+├── ICD10_VN.csv     # ICD-10 Bộ Y tế 2020 — 12.218 mã lá ở cột MÃ BỆNH, tên Việt ở TÊN BỆNH
+└── RXNORM.csv       # RXNCONSO (chỉ tên thuốc)
 ```
 
-Type shorthands are `DX`, `SYM`, `DRUG`, `TEST`, `RES`, matching the marker aliases in
-`gen_sample_data.py`; full type names work too. Fields after the text are order-free —
-anything that names an assertion is read as one, everything else as a code.
+Thiếu `ICD10_VN.csv` thì **`src/inference.py` chết ngay lúc khởi tạo** (nó đọc file này
+không có rào). Thiếu `RXNORM.csv` thì `normalizer.py` chỉ cảnh báo rồi trả về không mã nào
+— tức mất trắng 0,4 điểm. Xem [mục 9](#9-trạng-thái--việc-cần-làm).
 
-`compile` only writes a gold file when the marker-stripped text is character-identical
-to the original `data/test/N.txt`, so an accidental edit to the prose can never silently
-shift offsets. It also rejects unknown type names, misspelled assertions, codes on types
-that gold leaves empty, and codes absent from `ICD10_VN.csv` / `RXNORM.csv`. The likeliest
-confusing failure has its own message: 20 of the 100 test files are in Unicode NFD form,
-and an editor that saves them back as NFC changes the string length and shifts every
-offset in the file.
+---
 
-`skeleton` samples with quotas so the dev set contains the two traps measured on the
-test set (30% of files have a drug name masked with `***`, 20% are NFD), and it never
-overwrites an existing file in `data/dev/marked/`. It deliberately does **not** pre-fill
-spans from the model: a dev set exists to catch the model's mistakes, and pre-filling
-turns annotation into confirmation of whatever the model already predicted.
-
-## Scoring predictions
-
-`scripts/evaluate.py` scores a directory of predictions against a directory of gold
-annotations using the competition metric (see [`docs/PRD.html`](docs/PRD.html) §6):
-
-```text
-final_score = 0.3·text_score + 0.3·assertions_score + 0.4·candidates_score
-```
-
-`text_score` is `1 − WER` on the `text` field, `assertions_score` and `candidates_score`
-are Jaccard similarities on the two set-valued fields. The first two are plain per-file
-means; `candidates_score` is a **weighted** mean whose per-file weight is
-`Σ_k (len(gold_candidates(k)) + 1)`, so files with more concepts and more gold codes
-count for more.
+## 7. Chạy thử
 
 ```bash
-# Score data/output/*.json against the hand-annotated dev set
-python scripts/evaluate.py --pred data/output --gold data/dev/gold --text-dir data/test
+# Một câu, in JSON ra màn hình
+python src/test.py -t "Bệnh nhân nam 55 tuổi, bị đau khớp gối phải" \
+                   --model models/pho_bert_crf_medical.pth
 
-# Show the 10 worst files
-python scripts/evaluate.py --pred data/output --gold data/dev/gold --per-file 10
+# Một file
+python src/test.py -f data/test/7.txt --model models/pho_bert_crf_medical.pth
 
-# Verify the scorer itself against six hand-computed cases
-python scripts/evaluate.py --self-test
+# Cả thư mục: data/test/7.txt → data/output/7.json
+python src/test.py -d data/test -o data/output --model models/pho_bert_crf_medical.pth
 ```
 
-Files are paired by name (`gold/7.json` ↔ `pred/7.json`); a missing prediction file is
-scored as an empty prediction. If `--gold` points at a `.../annotations` directory the
-sibling `.../text` directory is used for the offset check automatically.
+| Tham số | Ý nghĩa |
+|---|---|
+| `-t` | văn bản truyền thẳng |
+| `-f` | đọc từ một file |
+| `-d` | dự đoán mọi `.txt` trong thư mục, ghi `<tên>.json` |
+| `-o` | nơi `-d` ghi ra (mặc định `data/output`, đúng bố cục `output.zip` cần) |
+| `--model` | đường dẫn trọng số đã huấn luyện |
+| `--linker` | `sapbert` (mặc định) hoặc `rapidfuzz` cho khâu gắn mã ICD |
 
-Beyond the score, the report breaks results down per concept type and counts **wrong-type
-predictions** — spans that overlap a gold span but carry a different `type`. Those are the
-most expensive errors: the concept is counted twice (once as a spurious prediction, once as
-a missed gold concept) and scores zero on all three metrics both times, so a wrong type
-costs about twice as much as not predicting the span at all.
+Chế độ thư mục nạp mô hình một lần, một file lỗi không làm hỏng 99 file còn lại, và cảnh
+báo hai thứ âm thầm phá bài nộp: khái niệm có `text` **không khớp** lát cắt tại `position`
+của chính nó, và file `.json` cũ còn sót trong thư mục output.
 
-The metric is stated per sample and never defines how predicted concepts are paired with
-gold ones, so the scorer assumes **same type + overlapping character span**, matched
-greedily by decreasing overlap. Two smaller assumptions (per-concept averaging, and `k`
-ranging over all concepts rather than only codeable ones) are documented in the script's
-docstring; `--candidates-scope codeable` shows how sensitive the score is to the latter.
-Treat the numbers as a **relative** indicator for comparing model versions on a fixed gold
-set, not as the organizers' score.
+Văn bản dài hơn 256 token của PhoBERT được **chia lô ở ranh giới câu** chứ không cắt cụt,
+nên khái niệm nằm cuối bệnh án vẫn được tìm thấy.
 
-### Measuring the code assignment
+---
 
-`candidates` carries 0.4 of the final score and is currently the weakest part of the
-pipeline, so it has its own diagnostic. `scripts/measure_normalizer.py` runs
-`MedicalNormalizer` over every gold span that has a code and separates the failure modes,
-because they need different fixes:
+## 8. Huấn luyện lại từ đầu
+
+Bốn lệnh, có chừa sẵn phần để đo:
+
+```bash
+# 1. nhãn JSON → file BIO, chừa 24 file để đo (chia theo văn phong, không bốc đều)
+python scripts/prepare_training_data.py --holdout 24
+
+# 2. huấn luyện
+python src/train.py --data data/train_generated.txt --from-scratch -e 6
+
+# 3. dự đoán phần đã chừa
+python src/test.py -d data/holdout/text -o data/holdout/pred \
+                   --model models/pho_bert_crf_medical.pth
+
+# 4. chấm
+python scripts/evaluate.py --pred data/holdout/pred --gold data/holdout/gold \
+                           --text-dir data/holdout/text
+```
+
+Vì sao chia theo văn phong chứ không bốc ngẫu nhiên đều: tỉ lệ văn phong trong bộ sinh không
+giống bộ test — có kiểu chỉ vài file trong bộ sinh nhưng lại thường gặp trong bộ test. Bốc đều
+24 file thì kiểu hiếm gần như chắc chắn vắng mặt, mà điểm trung bình vẫn đẹp đẽ — chỗ yếu nằm
+ngoài tầm nhìn.
+
+**Đo trần của dữ liệu trước khi trách mô hình.** `--audit-out` ghi ra đúng thứ mà một mô
+hình học thuộc lòng file BIO sẽ dự đoán. Khoảng cách giữa trần đó và điểm thật cho biết nên
+sửa mô hình hay sửa dữ liệu:
+
+```bash
+python scripts/prepare_training_data.py --audit-out data/audit_ceiling
+python scripts/evaluate.py --pred data/audit_ceiling \
+    --gold data/generated_medical_records/restyled/annotations_gold \
+    --text-dir data/generated_medical_records/restyled/text
+```
+
+<details>
+<summary><b>Định dạng file BIO, và các tham số huấn luyện</b></summary>
+
+<br>
+
+Kiểu CoNLL — mỗi dòng một từ kèm nhãn, khối cách nhau bằng dòng trống. Nhãn lấy từ **cuối
+dòng**, nên bản thân từ được phép chứa khoảng trắng — đó chính là thứ tách từ tiếng Việt sinh ra:
+
+```text
+đau B-TRIEU_CHUNG
+khớp I-TRIEU_CHUNG
+gối I-TRIEU_CHUNG
+. O
+Celecoxib B-THUOC
+400mg I-THUOC
+```
+
+`scripts/prepare_training_data.py` gọi **đúng hàm `segment_document()` mà `src/inference.py`
+gọi**. Đây không phải chi tiết vụn: tách từ hai đường khác nhau là dạy một thứ rồi hỏi một thứ khác.
+
+Tham số chính nằm ở đầu `src/train.py`: `MODEL_NAME`, `MAX_LEN`, `BATCH_SIZE`, `EPOCHS`, `LR`.
+Lần chạy đầu tải trọng số PhoBERT từ Hugging Face Hub (cần mạng).
+
+</details>
+
+---
+
+## 9. Trạng thái & việc cần làm
+
+> **Chưa có điểm nào được đo và ghi lại.** Toàn bộ bộ khung holdout + trần dữ liệu ở mục 8
+> đã dựng xong nhưng chưa chạy và chưa lưu kết quả, nên hiện chưa có bằng chứng so sánh với
+> nhánh giải pháp bằng luật (`feature/solution_v7.2`). Đây là việc đáng làm trước tiên.
+
+| # | Vấn đề | Ảnh hưởng |
+|---|---|---|
+| 1 | **PhoBERT không hề nhìn thấy kết quả tách từ.** PhoBERT-v2 được pretrain trên văn bản đã tách từ, nối bằng `_` — `'bệnh_nhân'` là **một** token trong từ điển, `'bệnh nhân'` là hai. Cả `dataset.py:46` và `inference.py:76` đang mã hoá với dấu cách nguyên vẹn. | Không sai (train và inference nhất quán), nhưng vứt đi tín hiệu từ ghép mà `tokenization.py` vất vả tính ra. **Sửa một dòng ở mỗi file**, và làm hỏng checkpoint cũ. Đây là đòn bẩy lớn nhất. |
+| 2 | **Loss của CRF đang cộng dồn, không lấy trung bình.** `torchcrf` mặc định `reduction='sum'`. | Learning rate thực tế gấp ~16 lần con số `2e-5` ghi trong file; loss in ra không so sánh được giữa các batch size. Nên đổi sang `reduction='token_mean'`. Chưa có gradient clipping, chưa cố định seed. |
+| 3 | **Không còn từ điển nào trong repo.** Xem ⚠️ [mục 6](#từ-điển-chuẩn-hoá-phải-tự-đặt-vào). | `inference.py` chết ngay khi khởi tạo trên bản clone sạch. |
+| 4 | **Gọi RxNav qua mạng lúc suy luận.** `normalizer.to_ingredient()` gọi mạng cho mỗi mã biệt dược chưa gặp, timeout 5 giây, mà cache `rxnorm_to_in.json` lại nằm trong thư mục bị gitignore. | Chấm offline sẽ âm thầm để nguyên mã biệt dược, mà đáp án là mã hoạt chất → 0 điểm. Nên tính sẵn cache rồi commit vào. |
+| 5 | Độ dài ngữ cảnh lúc train ≠ lúc chạy — khối huấn luyện chặn ở 80 từ, còn inference cắt lô ở 254 subword. | |
+| 6 | `train.py` luôn lưu vào `MODEL_PATH` cứng bất kể `--checkpoint`; không có vòng validation, không chấm theo epoch, không chọn checkpoint tốt nhất. | |
+| 7 | `requirements.txt` ghi “versions verified working” nhưng các pin (torch 2.13, transformers 5.14, pandas 3.0) đều là bản mới nhất và **không khớp** môi trường đang chạy được (torch 2.9.1, transformers 4.57.1, pandas 2.3.3). | transformers 4→5 và pandas 2→3 đều là major. |
+
+<details>
+<summary><b>Khâu gắn mã (<code>candidates</code>) — đã đo được gì</b></summary>
+
+<br>
+
+`candidates` chiếm 0,4 điểm và đang là phần yếu nhất, nên có công cụ chẩn đoán riêng:
 
 ```bash
 python scripts/measure_normalizer.py
-python scripts/measure_normalizer.py --gold data/dev/gold
 ```
 
-For each coded type it reports whether the gold code is in the loaded table at all, what rank
-the fuzzy search gives it, whether the cutoff then throws it away, a sweep of mean Jaccard
-over `top_k` × cutoff, the ceiling reachable by re-ranking alone, and examples of spans whose
-gold code never surfaces. It drives the real methods and asserts that its own replication of
-them agrees, so it cannot quietly measure something other than what ships.
+Đo trên 1.456 mã chẩn đoán + 980 mã thuốc của gold sinh ra — đây là nguồn gốc các hằng số
+ở đầu `src/normalizer.py`:
 
-What it found on the generated gold (1,456 diagnosis codes, 980 drug codes) — this is where
-the constants at the top of `src/normalizer.py` come from:
+- **Một mã thắng ba mã.** Đáp án chỉ có đúng một mã ở 1.456/1.536 chẩn đoán và 814/952
+  thuốc; Jaccard chia cho hợp, nên ba mã mà đúng một vẫn chỉ được 1/3. → `DEFAULT_TOP_K = 1`.
+- **Ngưỡng cũ vứt nhầm đáp án đúng.** Ngưỡng `> 65` / `> 70` loại mất 41,6% mã ICD đúng và
+  23,2% mã RxNorm đúng mà tra cứu đã tìm ra. Hạ xuống 60 và 55 đưa chẩn đoán 0,146 → 0,196
+  và thuốc 0,287 → 0,312.
+- **Thuốc hỏng ở tầng phân cấp, không phải ở chữ.** Điểm khớp tên của một mã thuốc đúng
+  thường là 100 — khớp chính xác. Đáp án dùng mã **hoạt chất** (Lasix → `4603` furosemide)
+  còn tra cứu trả về mã **biệt dược** (`202991`). Đây là đòn bẩy lớn nhất còn lại.
+- **Chẩn đoán hỏng ở khâu truy hồi.** `token_sort_ratio` so cả chuỗi, nên một cụm ngắn nằm
+  lọt trong tên chính thức dài sẽ thua chỉ vì độ dài: “Rung nhĩ” đấu với `I48` “Rung nhĩ và
+  cuồng nhĩ” lại thua `K03.1` “Mòn răng”. Mã đúng chỉ lọt top-10 ở 30,1% số span.
 
-- **One code beats three.** Gold carries exactly one code for 1,456/1,536 diagnoses and
-  814/952 drugs, and Jaccard divides by the union, so three codes containing the right one
-  still scores 1/3. Hence `DEFAULT_TOP_K = 1`.
-- **The old cutoffs discarded correct answers.** 41.6% of the correct ICD codes and 23.2% of
-  the correct RxNorm codes that the search did surface scored under the old `> 65` / `> 70`
-  gates. Now 60 and 55. With `top_k`, that moves diagnoses 0.146 → 0.196 and drugs
-  0.287 → 0.312.
-- **Drugs fail on hierarchy, not on text.** The median score of a correct drug code is 100,
-  an exact name match. Gold maps a brand to its ingredient (Lasix → `4603` furosemide) while
-  the lookup returns the brand it matched (`202991`). Resolving brand and product rows to
-  their ingredient is the biggest remaining lever — but the PRD sample uses dose-specific SCD
-  codes instead, so settle which granularity the real gold wants before building it.
-- **Diagnoses fail on retrieval.** `token_sort_ratio` compares whole strings, so a short span
-  sitting inside a long official name loses on length alone: "Rung nhĩ" against `I48` "Rung
-  nhĩ và cuồng nhĩ" loses to `K03.1` "Mòn răng". The gold code reaches the top 10 for only
-  30.1% of spans and perfect re-ranking of those ten would still cap at 0.337, so the scorer
-  itself has to change — containment-aware matching, abbreviation expansion (`HA` → huyết
-  áp), and collapsing the newlines that appear in spans crossing a line break.
+</details>
 
-The gold used here is the generated corpus, whose codes an LLM chose rather than a coder, so
-trust the comparisons between configurations more than the absolute values.
+---
 
-## Generating training data
+## 10. Cấu trúc thư mục
 
-`scripts/gen_sample_data.py` builds labelled Vietnamese clinical notes from two
-independent sources. Both guarantee **exact character offsets by construction**: an
-LLM wraps every entity in `〔 〕` markers, and offsets are computed at the moment the
-markers are stripped — so a label can never drift out of alignment with its text.
+```
+smart-medic/
+├── src/
+│   ├── model.py            # PhoBERT + CRF
+│   ├── dataset.py          # đọc file BIO, gióng nhãn theo subword
+│   ├── train.py            # huấn luyện → models/pho_bert_crf_medical.pth
+│   ├── inference.py        # MedicalExtractor: trích xuất + chuẩn hoá
+│   ├── test.py             # CLI chạy thử (-t / -f / -d)
+│   ├── tokenization.py     # tách từ giữ offset (tự test được)
+│   ├── labels.py           # nhãn BIO ↔ 5 loại được chấm
+│   ├── assertions.py       # isNegated / isFamily / isHistorical
+│   ├── normalizer.py       # gắn mã RxNorm / ICD-10
+│   └── web/                # UI soát nhãn (python src/web/app.py → :8765)
+├── scripts/
+│   ├── gen_sample_data.py        # sinh dữ liệu huấn luyện
+│   ├── prepare_training_data.py  # nhãn JSON → file BIO
+│   ├── annotate.py               # gán nhãn tay bằng dấu 〔 〕
+│   ├── evaluate.py               # chấm điểm nội bộ theo metric BTC
+│   └── measure_normalizer.py     # chẩn đoán khâu gắn mã
+├── data/
+│   ├── knowledge_base/     # ICD-10 / RxNorm — TỰ ĐẶT VÀO, không có trong git
+│   ├── test/               # 100 bệnh án của đề
+│   ├── output/             # dự đoán, mỗi file một bệnh án
+│   └── generated_medical_records/   # corpus tự sinh (synthetic / translated / restyled)
+├── docs/
+│   ├── PRD.html            # đề bài đầy đủ
+│   └── images/             # ảnh minh hoạ cho README (kèm .html sinh ra chúng)
+└── models/                 # trọng số đã huấn luyện
+```
 
-**A. Synthetic** — code samples an entity bundle (matching distributions measured on
-gold), then an LLM writes a note around it:
+<details>
+<summary><b>Sinh thêm dữ liệu huấn luyện</b></summary>
+
+<br>
 
 ```bash
+# A. Synthetic — code bốc thực thể, LLM viết bệnh án quanh nó
 python scripts/gen_sample_data.py compose --n 200 --use-api
 python scripts/gen_sample_data.py emit
-```
 
-**B. Translated** — real English notes from mtsamples, translated to Vietnamese with
-entities marked inline, then linked to ICD-10 / RxNorm codes via a gazetteer built
-from the competition tables:
-
-```bash
+# B. Translated — dịch bệnh án tiếng Anh có thật
 python scripts/gen_sample_data.py translate --n 100 --use-api --model gpt-4o
-```
 
-**C. Restyled** — rewrites the translated notes into the genre mix actually found in
-the competition test set, keeping the `〔 〕` markers so offsets stay exact. Measured on
-`data/test`: 45% bulleted outline, 17% clinical prose, 15% patient-education article,
-14% patient↔doctor Q&A, 9% hard-wrapped handwritten note. Translation alone produces
-100% clinical prose, i.e. it matches only ~17% of the test distribution:
-
-```bash
+# C. Restyled — viết lại theo đúng tỉ lệ văn phong của bộ test
 python scripts/gen_sample_data.py restyle --use-api --model gpt-4o
-```
 
-**Drug codes — ingredient, not brand.** `RXNORM.csv` (which is just RXNCONSO, names
-only) resolves a brand name to its *brand* CUI: `Lipitor → 153165`. But competition gold
-uses *ingredient* CUIs exclusively — measured on 20 dev-gold files, 16/16 coded drug
-spans are `tty=IN`, e.g. `levothyroxine → 10582`. The two are linked only by the
-`tradename_of` relation in `RXNREL.RRF`, which ships with the **full** RxNorm release,
-not the CSV. When `data/knowledge_base/RxNorm_full_*/rrf/RXNREL.RRF` is present the
-script builds that map on first run (cached to `brand_to_ingredient.json`, ~96k brands)
-and emits ingredient codes; without it, brand codes are used unchanged. Combination
-brands map to all their ingredients (`Augmentin → 48203, 723`).
-
-**Check any or all of them** (reports offset errors, code coverage, and how the output
-compares against the competition test set):
-
-```bash
+# Kiểm tra: lỗi offset, độ phủ mã, so với bộ test
 python scripts/gen_sample_data.py verify
 ```
 
-Both `compose` and `translate` need `OPENAI_API_KEY` when run with `--use-api`. Without
-it they write prompts to `intermediate/` instead, so you can call any model yourself and
-load the results back with `--composed FILE` / `--translated FILE`. Set `OPENAI_BASE_URL`
-for an OpenAI-compatible endpoint (Azure, vLLM, OpenRouter).
+`compose` và `translate` cần `OPENAI_API_KEY` khi chạy với `--use-api`. Không có key thì
+chúng ghi prompt ra `intermediate/` để bạn tự gọi model nào cũng được, rồi nạp lại bằng
+`--composed FILE` / `--translated FILE`. Đặt `OPENAI_BASE_URL` nếu dùng endpoint tương thích
+OpenAI (Azure, vLLM, OpenRouter).
 
-Translating 100 notes costs roughly $5–10 on gpt-4o. Start with `--n 5` to sanity-check
-translation quality before committing to a full run.
+Dịch 100 bệnh án tốn khoảng 5–10 USD với gpt-4o. Chạy `--n 5` trước để xem chất lượng dịch
+đã ổn chưa.
 
-## Data
+</details>
 
-- `data/knowledge_base/ICD10_VN.csv` — ICD-10 disease codes used for diagnosis candidate
-  mapping: the Ministry of Health 2020 list, 12,218 leaf codes in `MÃ BỆNH` with Vietnamese
-  names in `TÊN BỆNH`. Its `DISEASE NAME` (English) column is locally misaligned — `I10`
-  carries `I09.8`'s English text — so nothing reads it. The older `ICD10.csv` is still in
-  the folder and all three readers still parse it, since they detect the header row and
-  match column names rather than counting title rows.
-- `data/input/*.txt` — 100 free-form clinical text records (competition test set).
-- `data/output/*.json` — one prediction file per input record, matching `input/N.txt` → `output/N.json`.
+<details>
+<summary><b>Tự gán nhãn một bộ dev</b></summary>
 
-## Submission requirements (Vòng 1)
+<br>
 
-- Predictions submitted as `output.zip` containing `output/1.json … output/100.json`.
-- Top ~15 teams must submit full source code (data processing, training, inference), the data used, model weights, and a setup README — reproducibility is required or the team is disqualified.
+```bash
+python scripts/annotate.py skeleton --n 15   # chép 15 file test vào data/dev/marked/
+python scripts/annotate.py status            # xem đã gán tới đâu
+python scripts/annotate.py compile           # dấu 〔 〕 → data/dev/gold/*.json
+```
 
-## License
+Gán nhãn bằng cách bọc từng khái niệm, giữ nguyên phần chữ xung quanh:
 
-Code in this repository is licensed under the [MIT License](LICENSE). Third-party reference data (e.g. ICD-10 codes) retains its original licensing terms and is included here for research/competition use only.
+```text
+〔LOẠI|text〕                        span không mã, không assertion
+〔LOẠI|text|code〕                   kèm mã chuẩn (chỉ CHẨN_ĐOÁN và THUỐC)
+〔LOẠI|text|code1,code2|isNegated〕  nhiều mã, kèm assertion
+```
+
+`compile` chỉ ghi file gold khi văn bản đã gỡ dấu **giống hệt từng ký tự** với bản gốc, nên
+một lần lỡ tay sửa chữ không bao giờ âm thầm làm lệch offset.
+
+</details>
+
+---
+
+## 11. Yêu cầu nộp bài (Vòng 1)
+
+- Nộp `output.zip` chứa `output/1.json … output/100.json`.
+- Khoảng 15 đội đứng đầu phải nộp **toàn bộ mã nguồn** (xử lý dữ liệu, huấn luyện, suy luận),
+  **dữ liệu đã dùng**, **trọng số mô hình** và README hướng dẫn cài đặt — không tái lập được
+  thì bị loại.
+
+## 12. Giấy phép
+
+Mã nguồn trong repo theo [giấy phép MIT](LICENSE). Dữ liệu tham chiếu của bên thứ ba
+(ICD-10, RxNorm…) giữ nguyên điều khoản gốc, đưa vào đây chỉ để nghiên cứu và dự thi.

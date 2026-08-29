@@ -1,0 +1,75 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<link rel="stylesheet" href="_base.css">
+<style>
+.wrap{width:1240px}
+.two{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:start}
+.src{display:flex;flex-direction:column;gap:11px}
+.s{border:1px solid var(--line);border-radius:11px;padding:13px 15px;background:#fff;
+   display:grid;grid-template-columns:58px 1fr;gap:14px;align-items:center}
+.s .n{font-family:var(--mono);font-size:22px;font-weight:800;text-align:right;line-height:1}
+.s .n small{display:block;font-size:9.5px;font-weight:700;color:#9db1ad;letter-spacing:.5px;margin-top:3px}
+.s .ttl{font-size:14px;font-weight:800;margin-bottom:3px}
+.s .d{font-size:12.2px;color:var(--dim);line-height:1.6}
+.s.a .n{color:var(--xn)} .s.b .n{color:var(--th)} .s.c .n{color:var(--cd)} .s.d0 .n{color:var(--kq)}
+.bars{border:1px solid var(--line);border-radius:11px;padding:15px 17px 17px}
+.bars h3{font-size:13px;margin:0 0 3px;letter-spacing:.2px}
+.bars .cap{font-size:11.8px;color:var(--dim);margin:0 0 13px;line-height:1.55}
+.row{display:grid;grid-template-columns:150px 1fr 40px;gap:9px;align-items:center;margin-bottom:8px}
+
+.row .lb{font-size:12px;color:#3d5553}
+.track{height:15px;background:#f0f3f2;border-radius:4px;overflow:hidden}
+.fill{height:100%;border-radius:4px}
+.row .pc{font-family:var(--mono);font-size:11.5px;color:var(--dim);text-align:right}
+.note{margin-top:13px;padding-top:12px;border-top:1px dashed var(--line);
+      font-size:12px;color:var(--dim);line-height:1.65}
+.note b{color:var(--ink)}
+.spans{margin-top:20px;border:1px solid var(--line);border-radius:11px;padding:15px 17px 16px}
+.sp{display:grid;grid-template-columns:190px 1fr 52px;gap:10px;align-items:center;margin-bottom:7px}
+.sp .t{font-family:var(--mono);font-size:11.8px;font-weight:700}
+.sp .num{font-family:var(--mono);font-size:11.8px;color:var(--dim);text-align:right}
+.foot{margin-top:16px;font-size:12.8px;color:var(--dim);line-height:1.7}
+.foot b{color:var(--ink)}
+</style></head><body><div class="wrap">
+<h1>Dữ liệu: cuộc thi không phát nhãn, nên phải tự dựng</h1>
+<p class="sub">Không có corpus NER lâm sàng tiếng Việt nào để fine-tune. Ba nguồn được dựng riêng, cả ba đều
+<b>đảm bảo offset chính xác theo cấu trúc</b>: LLM bọc thực thể bằng dấu <code style="white-space:nowrap">〔 〕</code>, offset được tính đúng lúc gỡ dấu ra.</p>
+
+<div class="two">
+  <div class="src">
+    <div class="s a"><div class="n">194<small>FILE</small></div><div><div class="ttl">Synthetic — sinh quanh thực thể</div>
+      <div class="d">Code bốc một bó thực thể từ ICD-10 / RxNorm (theo phân phối đo trên gold), rồi LLM viết bệnh án <i>quanh</i> bó đó. Nhãn có trước văn bản.</div></div></div>
+    <div class="s b"><div class="n">187<small>FILE</small></div><div><div class="ttl">Translated — dịch từ MTSamples</div>
+      <div class="d">457 bệnh án tiếng Anh có thật, dịch sang tiếng Việt kèm đánh dấu thực thể, rồi gắn mã ICD-10 / RxNorm qua gazetteer.</div></div></div>
+    <div class="s c"><div class="n">175<small>FILE</small></div><div><div class="ttl">Restyled — viết lại theo văn phong đề</div>
+      <div class="d">Dịch thẳng chỉ ra <b>một</b> kiểu: văn xuôi lâm sàng, tức khớp ~17% bộ test. Bước này viết lại theo đúng tỉ lệ văn phong đo được. <b>162 file đã soát tay</b> là phần đáng huấn luyện nhất.</div></div></div>
+    <div class="s d0"><div class="n">20<small>FILE</small></div><div><div class="ttl">Batch2 — bệnh án viết tay</div>
+      <div class="d">Bệnh án nội trú tiếng Việt viết tay, dùng để đối chứng với dữ liệu máy sinh.</div></div></div>
+  </div>
+
+  <div>
+    <div class="bars">
+      <h3>Văn phong trong <code>data/test</code> (100 file)</h3>
+      <p class="cap">Đo trực tiếp trên bộ test. Đây là lý do phải có bước “restyled”.</p>
+      <div class="row"><div class="lb">Gạch đầu dòng</div><div class="track"><div class="fill" style="width:100%;background:var(--xn-line)"></div></div><div class="pc">45%</div></div>
+      <div class="row"><div class="lb">Văn xuôi lâm sàng</div><div class="track"><div class="fill" style="width:37.8%;background:var(--th-line)"></div></div><div class="pc">17%</div></div>
+      <div class="row"><div class="lb">Bài phổ biến kiến thức</div><div class="track"><div class="fill" style="width:33.3%;background:var(--tc-line)"></div></div><div class="pc">15%</div></div>
+      <div class="row"><div class="lb">Hỏi–đáp BN ↔ BS</div><div class="track"><div class="fill" style="width:31.1%;background:var(--cd-line)"></div></div><div class="pc">14%</div></div>
+      <div class="row"><div class="lb">Chữ viết tay, xuống dòng</div><div class="track"><div class="fill" style="width:20%;background:var(--kq-line)"></div></div><div class="pc">9%</div></div>
+      <div class="note">Hai cái bẫy khác cũng đo được và được tái tạo trong dữ liệu sinh:
+        <b>30%</b> số file bị che tên thuốc bằng <code>***</code>, và <b>20%</b> ở dạng Unicode <b>NFD</b>.</div>
+    </div>
+  </div>
+</div>
+
+<div class="spans">
+  <h3 style="font-size:13px;margin:0 0 11px">Nhãn trong <code>restyled/annotations_gold</code> — 7.429 span / 162 file</h3>
+  <div class="sp"><div class="t" style="color:var(--tc)">TRIỆU_CHỨNG</div><div class="track"><div class="fill" style="width:100%;background:var(--tc-line)"></div></div><div class="num">1.868</div></div>
+  <div class="sp"><div class="t" style="color:var(--xn)">TÊN_XÉT_NGHIỆM</div><div class="track"><div class="fill" style="width:93.4%;background:var(--xn-line)"></div></div><div class="num">1.744</div></div>
+  <div class="sp"><div class="t" style="color:var(--cd)">CHẨN_ĐOÁN</div><div class="track"><div class="fill" style="width:81%;background:var(--cd-line)"></div></div><div class="num">1.513</div></div>
+  <div class="sp"><div class="t" style="color:var(--kq)">KẾT_QUẢ_XÉT_NGHIỆM</div><div class="track"><div class="fill" style="width:72.1%;background:var(--kq-line)"></div></div><div class="num">1.347</div></div>
+  <div class="sp"><div class="t" style="color:var(--th)">THUỐC</div><div class="track"><div class="fill" style="width:51.2%;background:var(--th-line)"></div></div><div class="num">957</div></div>
+</div>
+<div class="foot"><b>Trần của dữ liệu này đo được, không phải đoán:</b> <code>--audit-out</code> ghi ra đúng thứ mà một mô hình
+học thuộc lòng file BIO sẽ dự đoán. Chấm nó cho <b>99% recall khái niệm, 0 dự đoán sai loại, text_score 0,972</b> — đó là
+mức cao nhất bộ dữ liệu này cho phép.</div>
+</div></body></html>

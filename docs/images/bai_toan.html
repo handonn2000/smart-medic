@@ -1,0 +1,66 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<link rel="stylesheet" href="_base.css">
+<style>
+.wrap{width:1120px}
+.grid{display:grid;grid-template-columns:1fr 62px 1fr;gap:0;align-items:stretch}
+.note{font-size:15px;line-height:1.85;color:#243f3d}
+.note .m{background:#f3f5f4;border-bottom:2px dotted #b9c6c3;padding:1px 2px}
+.arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.arrow .a{font-size:30px;color:#8fa5a1;line-height:1}
+.arrow .t{font-size:10.5px;font-family:var(--mono);color:var(--dim);
+          writing-mode:vertical-rl;letter-spacing:.6px;font-weight:700}
+.json{font-family:var(--mono);font-size:12.6px;line-height:1.95;color:#243f3d;white-space:pre}
+.k{color:#6b7f7c}.s{color:#2b6c4f}.n{color:#8a5a1e}
+.legend{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px;
+        border-top:1px solid var(--line);padding-top:17px;align-items:center}
+.legend b{font-size:12.5px;color:var(--dim);margin-right:4px;letter-spacing:.3px}
+.foot{margin-top:15px;font-size:13.5px;color:var(--dim);line-height:1.65}
+.foot b{color:var(--ink)}
+</style></head><body><div class="wrap">
+<h1>Bài toán: biến chữ tự do thành dữ liệu tra cứu được</h1>
+<p class="sub">Cùng một bệnh án, máy tính chỉ thấy một chuỗi ký tự. Hệ thống phải chỉ ra <b>cụm nào là khái niệm y tế</b>,
+nó <b>thuộc loại gì</b>, <b>nằm ở đâu</b>, <b>mã chuẩn</b> là gì, và <b>ngữ cảnh</b> quanh nó.</p>
+<div class="grid">
+  <div class="card"><div class="hd">Đầu vào — văn bản tự do</div><div class="bd note">
+    Bệnh nhân nam 70 tuổi bị bệnh 1 tuần nay, <span class="m">ho đờm xanh</span>,
+    <span class="m">tức ngực</span>, <span class="m">đau thượng vị</span>, được chẩn đoán mắc
+    <span class="m">bệnh trào ngược dạ dày – thực quản</span>. Bệnh nhân có tiền sử sử dụng
+    <span class="m">Chlorpheniramine 0.4 MG/ML</span>. Đã làm <span class="m">WBC</span>:
+    <span class="m">14,43</span>.
+    <div style="margin-top:15px;font-size:13px;color:var(--dim);line-height:1.6">
+      Mỗi bác sĩ viết một kiểu — gạch đầu dòng, văn xuôi, hỏi–đáp, chữ viết tay xuống dòng giữa câu.
+      Đầy viết tắt. Có file tên thuốc bị che <code style="font-size:12px">***</code>.
+    </div>
+  </div></div>
+  <div class="arrow"><div class="t">PhoBERT + CRF</div><div class="a">▶</div></div>
+  <div class="card"><div class="hd">Đầu ra — JSON có cấu trúc</div><div class="bd">
+<div class="json">[
+  {
+    <span class="k">"text"</span>: <span class="s">"bệnh trào ngược dạ dày – thực quản"</span>,
+    <span class="k">"type"</span>: <span class="s">"CHẨN_ĐOÁN"</span>,
+    <span class="k">"position"</span>: [<span class="n">88</span>, <span class="n">122</span>],
+    <span class="k">"candidates"</span>: [<span class="s">"K21.0"</span>, <span class="s">"K21.9"</span>],
+    <span class="k">"assertions"</span>: []
+  },
+  {
+    <span class="k">"text"</span>: <span class="s">"Chlorpheniramine 0.4 MG/ML"</span>,
+    <span class="k">"type"</span>: <span class="s">"THUỐC"</span>,
+    <span class="k">"position"</span>: [<span class="n">154</span>, <span class="n">180</span>],
+    <span class="k">"candidates"</span>: [<span class="s">"360047"</span>],
+    <span class="k">"assertions"</span>: [<span class="s">"isHistorical"</span>]
+  }
+]</div>
+  </div></div>
+</div>
+<div class="legend"><b>5 LOẠI KHÁI NIỆM</b>
+  <span class="chip c-tc">TRIỆU_CHỨNG</span><span class="chip c-xn">TÊN_XÉT_NGHIỆM</span>
+  <span class="chip c-kq">KẾT_QUẢ_XÉT_NGHIỆM</span><span class="chip c-cd">CHẨN_ĐOÁN</span>
+  <span class="chip c-th">THUỐC</span>
+</div>
+<div class="foot">
+  <b>position</b> là vị trí ký tự trong văn bản gốc — lệch vài ký tự là mất khái niệm <b>hai lần</b>
+  (một lần vì đoán trượt, một lần vì đáp án không ai nhận). &nbsp;·&nbsp;
+  <b>candidates</b> chỉ có ở CHẨN_ĐOÁN (ICD-10) và THUỐC (RxNorm). &nbsp;·&nbsp;
+  <b>assertions</b> chỉ có ở CHẨN_ĐOÁN, THUỐC, TRIỆU_CHỨNG.
+</div>
+</div></body></html>

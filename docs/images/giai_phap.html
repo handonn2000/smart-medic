@@ -1,0 +1,69 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<link rel="stylesheet" href="_base.css">
+<style>
+.wrap{width:1240px}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;align-items:stretch;margin-bottom:8px}
+.step{position:relative;padding:0 9px}
+.step:not(:last-child)::after{content:"›";position:absolute;right:-9px;top:50%;
+  transform:translateY(-50%);font-size:26px;color:#9db1ad;z-index:2;line-height:1}
+.box{height:100%;border:1px solid var(--line);border-radius:12px;background:#fff;
+     padding:14px 13px 15px;display:flex;flex-direction:column}
+.num{font-family:var(--mono);font-size:10.5px;font-weight:800;color:#8fa5a1;letter-spacing:.8px}
+.ttl{font-size:14.5px;font-weight:800;margin:5px 0 7px;line-height:1.3}
+.dsc{font-size:12.3px;color:var(--dim);line-height:1.65;flex:1}
+.file{margin-top:10px;font-family:var(--mono);font-size:10.5px;color:#7d918e;
+      border-top:1px dashed var(--line);padding-top:8px;word-break:normal}
+.why{margin-top:22px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.why .hd{background:var(--paper);padding:10px 16px;font-size:12px;font-weight:800;
+         letter-spacing:.4px;text-transform:uppercase;color:var(--dim);
+         border-bottom:1px solid var(--line)}
+.why .bd{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+.cell{padding:14px 16px;border-right:1px solid var(--line)}
+.cell:last-child{border-right:0}
+.cell .f{font-family:var(--mono);font-size:12.5px;font-weight:700;margin-bottom:6px}
+.cell .w{font-family:var(--mono);font-size:11px;color:#fff;background:#7d918e;
+         border-radius:5px;padding:2px 7px;margin-left:6px;font-weight:700}
+.cell .t{font-size:12.4px;color:var(--dim);line-height:1.68}
+.cell b{color:var(--ink)}
+</style></head><body><div class="wrap">
+<h1>Giải pháp: một chuỗi 5 bước, mỗi bước giữ đúng vị trí ký tự</h1>
+<p class="sub">Điểm mấu chốt không nằm ở mô hình mà ở chỗ <b>offset không bao giờ được lệch</b>.
+Vì vậy vị trí được tính một lần ở bước 1, và mọi <code>text</code> về sau đều là lát cắt trực tiếp từ văn bản gốc.</p>
+
+<div class="flow">
+  <div class="step"><div class="box">
+    <div class="num">BƯỚC 1</div><div class="ttl">Tách từ, giữ offset</div>
+    <div class="dsc">underthesea tách từ theo từng dòng. Văn bản được bẻ thành “nguyên tử” đã biết vị trí, rồi token của segmenter được khớp vào dòng nguyên tử đó — khoảng trắng không tham gia so khớp.</div>
+    <div class="file">src/tokenization.py</div>
+  </div></div>
+  <div class="step"><div class="box">
+    <div class="num">BƯỚC 2</div><div class="ttl">Cắt lô vừa 256 token</div>
+    <div class="dsc">Bệnh án dài trung bình 2.038 ký tự, PhoBERT chỉ nhận 256 token. Cắt ở <b>ranh giới câu</b> gần nhất thay vì cắt cụt, nên khái niệm nằm cuối bệnh án vẫn được đọc.</div>
+    <div class="file">chunk_words()</div>
+  </div></div>
+  <div class="step"><div class="box">
+    <div class="num">BƯỚC 3</div><div class="ttl">PhoBERT + CRF</div>
+    <div class="dsc">PhoBERT-base-v2 → dropout → linear → <b>CRF</b> trên 15 nhãn BIO. CRF học ràng buộc chuyển nhãn, thứ mà softmax thường không có: <code>I-THUOC</code> không thể theo sau <code>B-BENH</code>.</div>
+    <div class="file">src/model.py · src/labels.py</div>
+  </div></div>
+  <div class="step"><div class="box">
+    <div class="num">BƯỚC 4</div><div class="ttl">Gộp nhãn, lọc loại</div>
+    <div class="dsc">Nhãn BIO theo từ được gộp thành span. Hai loại không được chấm (BỆNH_NHÂN, TÁC_NHÂN_NGOẠI_SINH) bị <b>bỏ đi</b> — đoán loại lạ còn tệ hơn im lặng.</div>
+    <div class="file">group_entities()</div>
+  </div></div>
+  <div class="step"><div class="box">
+    <div class="num">BƯỚC 5</div><div class="ttl">Ngữ cảnh + mã chuẩn</div>
+    <div class="dsc">Luật hẹp cho assertions (tiêu đề mục + dấu hiệu phủ định trong dòng). CHẨN_ĐOÁN → ICD-10 bằng SapBERT; THUỐC → RxNorm bằng khớp chuỗi.</div>
+    <div class="file">src/assertions.py<br>src/normalizer.py</div>
+  </div></div>
+</div>
+
+<div class="why"><div class="hd">Ba trường đầu ra — ba module khác nhau, ba trọng số khác nhau</div><div class="bd">
+  <div class="cell"><div class="f">text + position <span class="w">0.3</span></div>
+    <div class="t">Do <b>bước 1–4</b> quyết định. Chấm bằng <b>1 − WER</b>. Đây là phần đang tốt nhất: trần của dữ liệu huấn luyện đo được là <b>0,972</b>.</div></div>
+  <div class="cell"><div class="f">assertions <span class="w">0.3</span></div>
+    <div class="t">Do <b>bước 5</b> quyết định, bằng luật chứ không bằng mô hình. Cố ý làm hẹp: đoán bừa một assertion khi đáp án rỗng làm điểm khái niệm đó rơi từ <b>1,0 xuống 0</b>.</div></div>
+  <div class="cell"><div class="f">candidates <span class="w">0.4</span></div>
+    <div class="t">Do <b>bước 5</b> quyết định. Nặng điểm nhất và <b>đang yếu nhất</b>. Trả đúng <b>một</b> mã chứ không phải ba: Jaccard chia cho hợp, ba mã đúng một chỉ còn 1/3.</div></div>
+</div></div>
+</div></body></html>

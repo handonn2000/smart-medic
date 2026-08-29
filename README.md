@@ -31,33 +31,7 @@ Với mỗi đoạn văn bản, cần trả về danh sách khái niệm, mỗi 
 
 ---
 
-## 2. Cách chấm điểm — và vì sao nó quyết định mọi thiết kế
-
-```
-final_score      = 0,3·text_score + 0,3·assertions_score + 0,4·candidates_score
-
-text_score       = Σ (1 − WER) / N          trên trường `text`
-assertions_score = Σ J(assertions) / N       Jaccard
-candidates_score = Σ [ J(candidates) · W ] / Σ W ,  W = Σ (len(gt) + 1)
-
-J = 1 nếu gt và pred ĐỀU rỗng;  J = 0 nếu gt rỗng mà pred không rỗng.
-```
-
-Ba tính chất của công thức này chi phối gần như mọi lựa chọn trong repo:
-
-| Tính chất | Hệ quả trong code |
-|---|---|
-| **`position` là thứ để ghép** pred với đáp án | Lệch vài ký tự không mất một phần điểm — mất khái niệm **hai lần** (một lần vì đoán trượt, một lần vì đáp án không ai nhận). Nên offset được tính **một lần duy nhất**, và mọi `text` là lát cắt trực tiếp từ văn bản gốc. |
-| **Đoán sai loại đắt gấp đôi im lặng** | Loại nằm ngoài 5 tên được chấm ăn 0 điểm cả 3 metric *và* che mất một khái niệm đáp án. Nên hai loại phụ mô hình học được đều bị **bỏ khỏi đầu ra**. |
-| **Rỗng cũng là một câu trả lời** | `J = 1` khi cả hai bên cùng rỗng. Nên `candidates` để rỗng cho 3 loại không có mã là **ăn điểm thật**, còn đoán bừa một assertion khi đáp án rỗng làm khái niệm đó rơi từ 1,0 xuống 0. |
-
-> **Lưu ý:** `scripts/evaluate.py` phải tự giả định cách ghép pred ↔ đáp án (đề không nói rõ).
-> Xem docstring của script. Hãy đọc điểm ở đây như **chỉ báo tương đối** để so hai phiên bản
-> model với nhau, không phải điểm của BTC.
-
----
-
-## 3. Giải pháp
+## 2. Giải pháp
 
 ![Giải pháp: chuỗi 5 bước giữ đúng vị trí ký tự](docs/images/giai_phap.png)
 
@@ -78,13 +52,13 @@ python src/tokenization.py
 
 ---
 
-## 4. Dữ liệu
+## 3. Dữ liệu
 
 ![Dữ liệu: ba nguồn tự dựng](docs/images/du_lieu.png)
 
 ---
 
-## 5. Demo
+## 4. Demo
 
 Ví dụ chính thức của đề (`docs/PRD.html` §3), chạy qua pipeline. Cả 5 loại xuất hiện trong
 một bệnh án, và hai thuốc nằm sau cụm *“có tiền sử sử dụng”* — đó là lý do chúng mang
@@ -113,7 +87,7 @@ nhãn. Trên gold restyled, chuyện này làm mất **76 / 7.435** khái niệm
 
 ---
 
-## 6. Cài đặt
+## 5. Cài đặt
 
 Cần **Python 3.8+**.
 
@@ -158,11 +132,11 @@ data/knowledge_base/
 
 Thiếu `ICD10_VN.csv` thì **`src/inference.py` chết ngay lúc khởi tạo** (nó đọc file này
 không có rào). Thiếu `RXNORM.csv` thì `normalizer.py` chỉ cảnh báo rồi trả về không mã nào
-— tức mất trắng 0,4 điểm. Xem [mục 9](#9-trạng-thái--việc-cần-làm).
+— tức mất trắng 0,4 điểm. Xem [mục 8](#8-trạng-thái--việc-cần-làm).
 
 ---
 
-## 7. Chạy thử
+## 6. Chạy thử
 
 ```bash
 # Một câu, in JSON ra màn hình
@@ -194,7 +168,7 @@ nên khái niệm nằm cuối bệnh án vẫn được tìm thấy.
 
 ---
 
-## 8. Huấn luyện lại từ đầu
+## 7. Huấn luyện lại từ đầu
 
 Bốn lệnh, có chừa sẵn phần để đo:
 
@@ -213,6 +187,10 @@ python src/test.py -d data/holdout/text -o data/holdout/pred \
 python scripts/evaluate.py --pred data/holdout/pred --gold data/holdout/gold \
                            --text-dir data/holdout/text
 ```
+
+> `evaluate.py` phải tự giả định cách ghép pred ↔ đáp án vì đề không nói rõ (xem docstring
+> của script). Hãy đọc điểm ở đây như **chỉ báo tương đối** để so hai phiên bản model với
+> nhau, không phải điểm của BTC.
 
 Vì sao chia theo văn phong chứ không bốc ngẫu nhiên đều: tỉ lệ văn phong trong bộ sinh không
 giống bộ test — có kiểu chỉ vài file trong bộ sinh nhưng lại thường gặp trong bộ test. Bốc đều
@@ -257,9 +235,9 @@ Lần chạy đầu tải trọng số PhoBERT từ Hugging Face Hub (cần mạ
 
 ---
 
-## 9. Trạng thái & việc cần làm
+## 8. Trạng thái & việc cần làm
 
-> **Chưa có điểm nào được đo và ghi lại.** Toàn bộ bộ khung holdout + trần dữ liệu ở mục 8
+> **Chưa có điểm nào được đo và ghi lại.** Toàn bộ bộ khung holdout + trần dữ liệu ở mục 7
 > đã dựng xong nhưng chưa chạy và chưa lưu kết quả, nên hiện chưa có bằng chứng so sánh với
 > nhánh giải pháp bằng luật (`feature/solution_v7.2`). Đây là việc đáng làm trước tiên.
 
@@ -267,7 +245,7 @@ Lần chạy đầu tải trọng số PhoBERT từ Hugging Face Hub (cần mạ
 |---|---|---|
 | 1 | **PhoBERT không hề nhìn thấy kết quả tách từ.** PhoBERT-v2 được pretrain trên văn bản đã tách từ, nối bằng `_` — `'bệnh_nhân'` là **một** token trong từ điển, `'bệnh nhân'` là hai. Cả `dataset.py:46` và `inference.py:76` đang mã hoá với dấu cách nguyên vẹn. | Không sai (train và inference nhất quán), nhưng vứt đi tín hiệu từ ghép mà `tokenization.py` vất vả tính ra. **Sửa một dòng ở mỗi file**, và làm hỏng checkpoint cũ. Đây là đòn bẩy lớn nhất. |
 | 2 | **Loss của CRF đang cộng dồn, không lấy trung bình.** `torchcrf` mặc định `reduction='sum'`. | Learning rate thực tế gấp ~16 lần con số `2e-5` ghi trong file; loss in ra không so sánh được giữa các batch size. Nên đổi sang `reduction='token_mean'`. Chưa có gradient clipping, chưa cố định seed. |
-| 3 | **Không còn từ điển nào trong repo.** Xem ⚠️ [mục 6](#từ-điển-chuẩn-hoá-phải-tự-đặt-vào). | `inference.py` chết ngay khi khởi tạo trên bản clone sạch. |
+| 3 | **Không còn từ điển nào trong repo.** Xem ⚠️ [mục 5](#từ-điển-chuẩn-hoá-phải-tự-đặt-vào). | `inference.py` chết ngay khi khởi tạo trên bản clone sạch. |
 | 4 | **Gọi RxNav qua mạng lúc suy luận.** `normalizer.to_ingredient()` gọi mạng cho mỗi mã biệt dược chưa gặp, timeout 5 giây, mà cache `rxnorm_to_in.json` lại nằm trong thư mục bị gitignore. | Chấm offline sẽ âm thầm để nguyên mã biệt dược, mà đáp án là mã hoạt chất → 0 điểm. Nên tính sẵn cache rồi commit vào. |
 | 5 | Độ dài ngữ cảnh lúc train ≠ lúc chạy — khối huấn luyện chặn ở 80 từ, còn inference cắt lô ở 254 subword. | |
 | 6 | `train.py` luôn lưu vào `MODEL_PATH` cứng bất kể `--checkpoint`; không có vòng validation, không chấm theo epoch, không chọn checkpoint tốt nhất. | |
@@ -303,7 +281,7 @@ python scripts/measure_normalizer.py
 
 ---
 
-## 10. Cấu trúc thư mục
+## 9. Cấu trúc thư mục
 
 ```
 smart-medic/
@@ -391,14 +369,14 @@ một lần lỡ tay sửa chữ không bao giờ âm thầm làm lệch offset.
 
 ---
 
-## 11. Yêu cầu nộp bài (Vòng 1)
+## 10. Yêu cầu nộp bài (Vòng 1)
 
 - Nộp `output.zip` chứa `output/1.json … output/100.json`.
 - Khoảng 15 đội đứng đầu phải nộp **toàn bộ mã nguồn** (xử lý dữ liệu, huấn luyện, suy luận),
   **dữ liệu đã dùng**, **trọng số mô hình** và README hướng dẫn cài đặt — không tái lập được
   thì bị loại.
 
-## 12. Giấy phép
+## 11. Giấy phép
 
 Mã nguồn trong repo theo [giấy phép MIT](LICENSE). Dữ liệu tham chiếu của bên thứ ba
 (ICD-10, RxNorm…) giữ nguyên điều khoản gốc, đưa vào đây chỉ để nghiên cứu và dự thi.

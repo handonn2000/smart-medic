@@ -36,5 +36,6 @@ data/output/*.json
 .idea/
 .vscode/
 
-# datasource
+# datasource — vocabularies are large and licence-bound, fetched not tracked.
+# Supersedes the narrower data/knowledge_base/{icd,rxnorm} rules from master.
 /data/knowledge_base
